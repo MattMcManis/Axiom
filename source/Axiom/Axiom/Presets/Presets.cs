@@ -80,6 +80,7 @@ namespace Axiom
                     VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                     VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                     VM.VideoView.Video_Color_Range_SelectedItem = "auto";
+                    VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                     VM.VideoView.Video_FPS_Text = "";
                     VM.VideoView.Video_FPS_IsEditable = false;
                     VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -173,7 +174,7 @@ namespace Axiom
                     VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                     VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                     VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                    //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                    VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                     VM.VideoView.Video_FPS_Text = "";
                     VM.VideoView.Video_FPS_IsEditable = false;
                     VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -262,7 +263,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -337,7 +338,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -416,7 +417,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -502,7 +503,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "23.976";
@@ -602,7 +603,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -692,7 +693,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -771,7 +772,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -849,7 +850,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -927,7 +928,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1005,7 +1006,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1083,7 +1084,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1165,7 +1166,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_Optimize_SelectedItem = "Android";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
@@ -1240,7 +1241,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1319,7 +1320,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "23.976";
@@ -1394,7 +1395,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1469,7 +1470,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "23.976";
@@ -1544,7 +1545,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1623,7 +1624,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "60";
@@ -1698,7 +1699,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "23.976";
@@ -1773,7 +1774,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "ntsc";
@@ -1849,7 +1850,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -1925,7 +1926,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -2011,7 +2012,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -2086,7 +2087,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -2164,7 +2165,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
@@ -2242,7 +2243,7 @@ namespace Axiom
                 VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Space_SelectedItem = "auto";
                 VM.VideoView.Video_Color_Range_SelectedItem = "auto";
-                //VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+                VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
                 VM.VideoView.Video_FPS_Text = "";
                 VM.VideoView.Video_FPS_IsEditable = false;
                 VM.VideoView.Video_FPS_SelectedItem = "auto";
