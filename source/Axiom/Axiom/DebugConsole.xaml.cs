@@ -22,6 +22,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -60,8 +61,8 @@ namespace Axiom
 
             //this.Width = 400;
             //this.Height = 500;
-            this.MinWidth = 200;
-            this.MinHeight = 200;
+            this.MinWidth = 400;
+            this.MinHeight = 500;
 
             // -------------------------
             // Text Theme SelectiveColorPreview
@@ -209,6 +210,318 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        /// Methods Button
+        /// </summary>
+        private void btnDebugMethods_Click(object sender, RoutedEventArgs e)
+        {
+            try { MainWindow.BatchExtCheck(); } catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try { MainWindow.FFmpegPath(); } catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try { MainWindow.FFprobePath(); } catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try { MainWindow.FFplayPath(); } catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try { MainWindow.youtubedlPath(); } catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
+                                             VM.VideoView.Video_Codec_SelectedItem,
+                                             VM.VideoView.Video_HWAccel_Decode_SelectedItem
+                                             );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                MainWindow.InputPath("pass 1");
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                MainWindow.OutputPath();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                               VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                               );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
+                                                  VM.VideoView.Video_Codec_SelectedItem,
+                                                  VM.VideoView.Video_HWAccel_Transcode_SelectedItem
+                                                  );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Format.CutStart(VM.MainView.Input_Text,
+                                    VM.MainView.Batch_IsChecked,
+                                    VM.FormatView.Format_Cut_SelectedItem,
+                                    VM.FormatView.Format_CutStart_Hours_Text,
+                                    VM.FormatView.Format_CutStart_Minutes_Text,
+                                    VM.FormatView.Format_CutStart_Seconds_Text,
+                                    VM.FormatView.Format_CutStart_Milliseconds_Text,
+                                    VM.FormatView.Format_FrameStart_Text
+                                    );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Format.CutEnd(VM.MainView.Input_Text,
+                                  VM.MainView.Batch_IsChecked,
+                                  VM.FormatView.Format_MediaType_SelectedItem,
+                                  VM.FormatView.Format_Cut_SelectedItem,
+                                  VM.FormatView.Format_CutEnd_Hours_Text,
+                                  VM.FormatView.Format_CutEnd_Minutes_Text,
+                                  VM.FormatView.Format_CutEnd_Seconds_Text,
+                                  VM.FormatView.Format_CutEnd_Milliseconds_Text,
+                                  VM.FormatView.Format_FrameEnd_Text
+                                  );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
+                                         VM.VideoView.Video_Codec_SelectedItem,
+                                         VM.VideoView.Video_Codec
+                                         );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                                                 VM.VideoView.Video_Codec_SelectedItem,
+                                                 VM.FormatView.Format_MediaType_SelectedItem
+                                                 );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
+                                               VM.VideoView.Video_EncodeSpeed_SelectedItem,
+                                               VM.VideoView.Video_Codec_SelectedItem,
+                                               VM.VideoView.Video_Pass_SelectedItem
+                                               );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.VideoQuality(VM.MainView.Batch_IsChecked,
+                                           VM.VideoView.Video_VBR_IsChecked,
+                                           VM.FormatView.Format_Container_SelectedItem,
+                                           VM.FormatView.Format_MediaType_SelectedItem,
+                                           VM.VideoView.Video_Codec_SelectedItem,
+                                           VM.VideoView.Video_Quality_Items,
+                                           VM.VideoView.Video_Quality_SelectedItem,
+                                           VM.VideoView.Video_Pass_SelectedItem,
+                                           VM.VideoView.Video_CRF_Text,
+                                           VM.VideoView.Video_BitRate_Text,
+                                           VM.VideoView.Video_MinRate_Text,
+                                           VM.VideoView.Video_MaxRate_Text,
+                                           VM.VideoView.Video_BufSize_Text,
+                                           VM.MainView.Input_Text
+                                           );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
+                                     VM.VideoView.Video_PixelFormat_SelectedItem
+                                     );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.Color_Primaries(VM.VideoView.Video_Color_Primaries_SelectedItem);
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem);
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem);
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem);
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
+                                  VM.VideoView.Video_FPS_SelectedItem,
+                                  VM.VideoView.Video_FPS_Text
+                                  );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                VideoFilters.VideoFilter();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem);
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                                     VM.VideoView.Video_Codec_SelectedItem
+                                     );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Video.Optimize(VM.VideoView.Video_Codec_SelectedItem,
+                                       VM.VideoView.Video_Optimize_Items,
+                                       VM.VideoView.Video_Optimize_SelectedItem,
+                                       VM.VideoView.Video_Video_Optimize_Tune_SelectedItem,
+                                       VM.VideoView.Video_Video_Optimize_Profile_SelectedItem,
+                                       VM.VideoView.Video_Optimize_Level_SelectedItem
+                                       );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Streams.VideoStreamMaps();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                               VM.SubtitleView.Subtitle_Codec
+                                               );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Streams.SubtitleMaps();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Audio.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
+                                         VM.AudioView.Audio_Codec
+                                         );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Audio.AudioQuality(VM.MainView.Input_Text,
+                                           VM.MainView.Batch_IsChecked,
+                                           VM.FormatView.Format_MediaType_SelectedItem,
+                                           VM.AudioView.Audio_Stream_SelectedItem,
+                                           VM.AudioView.Audio_Codec_SelectedItem,
+                                           VM.AudioView.Audio_Quality_Items,
+                                           VM.AudioView.Audio_Quality_SelectedItem,
+                                           VM.AudioView.Audio_BitRate_Text,
+                                           VM.AudioView.Audio_VBR_IsChecked
+                                           );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Audio.CompressionLevel(VM.AudioView.Audio_Codec_SelectedItem,
+                                               VM.AudioView.Audio_CompressionLevel_SelectedItem
+                                               );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Audio.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
+                                         VM.AudioView.Audio_SampleRate_Items,
+                                         VM.AudioView.Audio_SampleRate_SelectedItem
+                                         );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Audio.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
+                                       VM.AudioView.Audio_BitDepth_Items,
+                                       VM.AudioView.Audio_BitDepth_SelectedItem
+                                       );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Audio.Channel(VM.AudioView.Audio_Codec_SelectedItem,
+                                      VM.AudioView.Audio_Channel_SelectedItem
+                                      );
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                AudioFilters.AudioFilter();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Streams.AudioStreamMaps();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Streams.FormatMaps();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                Format.ForceFormat(VM.FormatView.Format_Container_SelectedItem);
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try
+            {
+                MainWindow.ThreadDetect();
+            }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+
+            try { MainWindow.ClearGlobalVariables(); } catch (Exception exception) { MessageBox.Show(exception.ToString()); }
+        }
 
         /// <summary>
         /// Random Button
@@ -926,7 +1239,6 @@ namespace Axiom
             //////////////////////////////////////////////////
             debugconsole.rtbDebug.EndChange(); // end change
         }
-
 
     }
 }
