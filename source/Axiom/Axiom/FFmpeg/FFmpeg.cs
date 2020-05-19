@@ -113,6 +113,26 @@ namespace Axiom
             return window;
         }
 
+        /// <summary>
+        /// FFmpeg Invoke Operator for PowerShell
+        /// </summary>
+        public static String Exe_InvokeOperator_PowerShell()
+        {
+            // CMD
+            if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+            {
+                return string.Empty;
+            }
+
+            // PowerShell
+            else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+            {
+                return "& ";
+            }
+
+            // Default
+            return string.Empty;
+        }
 
         /// <summary>
         /// Logical Operator - And && - Shell Formatter
@@ -759,6 +779,7 @@ namespace Axiom
                     LogicalOperator_And_ShellFormatter(),
 
                     "\r\n\r\n" +
+                    Exe_InvokeOperator_PowerShell() +
                     MainWindow.FFmpegPath(),
 
                     "\r\n\r\n" +
@@ -1038,6 +1059,7 @@ namespace Axiom
                 // Make Arugments List
                 List<string> FFmpegArgsList = new List<string>()
                 {
+                    Exe_InvokeOperator_PowerShell() + 
                     MainWindow.FFmpegPath(),
 
                     "\r\n\r\n" +
@@ -1163,8 +1185,11 @@ namespace Axiom
                                                        VM.AudioView.Audio_Quality_SelectedItem
                                                        ),
 
-                        "\r\n\r\n" + "&&",
-                        "\r\n\r\n" + MainWindow.FFmpegPath(),
+                        "\r\n\r\n" + 
+                        "&&",
+                        "\r\n\r\n" + 
+                        Exe_InvokeOperator_PowerShell() + 
+                        MainWindow.FFmpegPath(),
 
                         "\r\n\r\n" +
                         "-y",
@@ -1185,7 +1210,7 @@ namespace Axiom
                     string vBitRateBatch = string.Empty;
                     if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
                     {
-                        vBitRateBatch = "\r\n" + "$vBitrate = " + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                        vBitRateBatch = "\r\n" + "$vBitrate = " + Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
                     }
 
                     // Audio Auto Quality Detect Bitrate
@@ -1194,7 +1219,7 @@ namespace Axiom
                     string aBitRateBatch_Limited = string.Empty;
                     if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
                     {
-                        aBitRateBatch = "\r\n" + "$aBitrate = " + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                        aBitRateBatch = "\r\n" + "$aBitrate = " + Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
 
                         // Bitrate Null Check
                         aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
@@ -1271,7 +1296,9 @@ namespace Axiom
                         aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
                         aBitRateBatch_Limited, // limit audio bitrate
 
-                        "\r\n\r\n" + MainWindow.FFmpegPath(),
+                        "\r\n\r\n" + 
+                        Exe_InvokeOperator_PowerShell() + 
+                        MainWindow.FFmpegPath(),
                         "\r\n\r\n" +
                         "-y",
                    
@@ -1391,7 +1418,9 @@ namespace Axiom
                                                                                                                    ) + "\"",
 
                     // FFmpeg Location
-                    "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(),
+                    "\r\n\r\n" + 
+                    Exe_InvokeOperator_PowerShell() + 
+                    MainWindow.YouTubeDL_FFmpegPath(),
 
                     // Merge Output Format
                     "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
@@ -1443,7 +1472,9 @@ namespace Axiom
                                                                                                                 ) + "\"",
 
                     // FFmpeg Location
-                    "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(),
+                    "\r\n\r\n" +
+                    Exe_InvokeOperator_PowerShell() + 
+                    MainWindow.YouTubeDL_FFmpegPath(),
 
                     // Merge Output Format
                     "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
@@ -1460,8 +1491,11 @@ namespace Axiom
             List<string> FFmpegArgs = new List<string>()
             {
                 //"\r\n\r\n" + "&&",
-                "\r\n\r\n" + LogicalOperator_And_ShellFormatter(),
-                "\r\n\r\n" + MainWindow.FFmpegPath(),
+                "\r\n\r\n" + 
+                LogicalOperator_And_ShellFormatter(),
+                "\r\n\r\n" + 
+                Exe_InvokeOperator_PowerShell() + 
+                MainWindow.FFmpegPath(),
 
                 "\r\n\r\n" +
                 "-y",
