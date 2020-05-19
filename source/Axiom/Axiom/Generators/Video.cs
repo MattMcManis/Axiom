@@ -1253,46 +1253,65 @@ namespace Axiom
                     int inputVideoBitRate_Double = 8000000; // Fallback
                     int.TryParse(inputVideoBitRate, out inputVideoBitRate_Double);
 
-                    // 1GB
-                    if (inputVideoBitRate_Double >= 1000000000)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 1,000M / 1,000,000k
-                    }
-                    // 100M
-                    else if (inputVideoBitRate_Double >= 100000000)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 100,000k
-                    }
-                    // 10M
-                    else if (inputVideoBitRate_Double >= 10000000)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 10,000k
-                    }
-                    // 1M
-                    else if (inputVideoBitRate_Double >= 100000)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 1,000k
-                    }
-                    // 0.1M
-                    else if (inputVideoBitRate_Double >= 10000)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 100k / 100,000b
-                    }
-                    // 0.01M
-                    else if (inputVideoBitRate_Double >= 1000)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 10k / 10,000b
-                    }
-                    // 0.001M
-                    else if (inputVideoBitRate_Double >= 100)
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 1k / 1,000b
-                    }
-                    // 0
-                    else
-                    {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0);
-                    }
+                    // Calculate
+                    // e.g. FFprobe 10000000 bytes -> 10000K (10M)
+                    //      -b:v 10000K
+                    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+
+                    //// 1GB
+                    //if (inputVideoBitRate_Double >= 1000000000)
+                    //{
+                    //    MessageBox.Show("2");
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 1,000M / 1,000,000K
+                    //}
+                    //// 100M
+                    //else if (inputVideoBitRate_Double >= 100000000)
+                    //{
+                    //    MessageBox.Show("3");
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 100,000K
+                    //}
+                    //// 10M
+                    //else if (inputVideoBitRate_Double >= 10000000)
+                    //{
+                    //    //MessageBox.Show("4" + inputVideoBitRate);
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 10,000K
+                    //}
+                    //// 1M / 1000000 bytes
+                    //else if (inputVideoBitRate_Double >= 1000000)
+                    //{
+                    //    MessageBox.Show("5" + inputVideoBitRate);
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 10,000K
+                    //}
+                    //// 0.1M 100k / 100000 bytes
+                    //else if (inputVideoBitRate_Double >= 100000)
+                    //{
+                    //    //MessageBox.Show("6 " + inputVideoBitRate);
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 100k
+                    //}
+                    //// 0.01M / 10k / 10000 bytes
+                    //else if (inputVideoBitRate_Double >= 10000)
+                    //{
+                    //    MessageBox.Show("7");
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                    //}
+                    //// 0.1M / 1k / 1000 bytes
+                    //else if (inputVideoBitRate_Double >= 1000)
+                    //{
+                    //    MessageBox.Show("8");
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                    //}
+                    //// 0.01M
+                    //else if (inputVideoBitRate_Double >= 100)
+                    //{
+                    //    MessageBox.Show("9");
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 1k / 1,000b
+                    //}
+                    //// 0
+                    //else
+                    //{
+                    //    MessageBox.Show("9");
+                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0);
+                    //}
                 }
 
 
