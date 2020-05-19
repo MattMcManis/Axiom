@@ -103,6 +103,7 @@ namespace Axiom
         /// BitRate Mode
         /// <summary>
         public static String BitRateMode(bool vbr_IsChecked,
+                                         //bool batch_IsChecked,
                                          List<AudioViewModel.AudioQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text)
@@ -294,7 +295,41 @@ namespace Axiom
             else if (batch_IsChecked == true)
             {
                 // Use the CMD Batch Audio Variable
-                aBitRate = "%A";
+                //aBitRate = "%A";
+
+                // CMD
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                {
+                    // BitMode is VBR
+                    if (aBitMode == "-q:a")
+                    {
+                        // Use the codec database value
+                        aBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
+                    }
+                    else
+                    {
+                        // Use CMD variable
+                        aBitRate = "%A";
+                    }
+                    
+                }
+
+                // PowerShell
+                else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                {
+                    // BitMode is VBR
+                    if (aBitMode == "-q:a")
+                    {
+                        // Use the codec database value
+                        aBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
+                    }
+                    else
+                    {
+                        // Use PowerShell variable
+                        aBitRate = "$aBitrate";
+                    }
+                    
+                }
 
                 //MessageBox.Show(aBitRate); //debug
             }
@@ -437,7 +472,8 @@ namespace Axiom
                     // --------------------------------------------------
                     if (!string.IsNullOrEmpty(aBitRate) && // BitRate Null
                         aBitMode != "-q:a" &&              // Ignore VBR
-                        aBitRate != "%A"                   // Ignore Batch Auto Quality CBR
+                        aBitRate != "%A" &&                // Ignore Batch Auto Quality CBR
+                        aBitRate != "$aBitrate"            // Ignore Batch Auto Quality CBR
                         )
                     {
                         //aBitRate = aBitRate + "k";
@@ -1086,6 +1122,9 @@ namespace Axiom
                                     return 1536000;
                                 }
                                 break;
+                            // Unknown
+                            default:
+                                return 320000;
                         }
                     }
 
@@ -1203,6 +1242,9 @@ namespace Axiom
 
                         // basic limiter
                         "\r\n\r\n" + "& (IF %A EQU N/A (SET aBitRate=320000))",
+
+                        // null check
+                        "\r\n\r\n" + "& (IF %A EQU \"\" (SET aBitRate=320000))",
 
                         // set %A to %aBitRate%
                         "\r\n\r\n" + "& for /F %A in ('echo %aBitRate%') do (echo)"
