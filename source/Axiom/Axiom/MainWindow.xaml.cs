@@ -1179,22 +1179,19 @@ namespace Axiom
         /// </remarks>
         public static String RemoveLineBreaks(string lines)
         {
-            lines = lines
-                .Replace(Environment.NewLine, "")
-                .Replace("\r\n\r\n", "")
-                .Replace("\r\n", "")
-                .Replace("\n\n", "")
-                .Replace("\n", "")
-                .Replace("\u2028", "")
-                .Replace("\u000A", "")
-                .Replace("\u000B", "")
-                .Replace("\u000C", "")
-                .Replace("\u000D", "")
-                .Replace("\u0085", "")
-                .Replace("\u2028", "")
-                .Replace("\u2029", "");
-
-            return lines;
+            return lines.Replace(Environment.NewLine, "")
+                        .Replace("\r\n\r\n", "")
+                        .Replace("\r\n", "")
+                        .Replace("\n\n", "")
+                        .Replace("\n", "")
+                        .Replace("\u2028", "")
+                        .Replace("\u000A", "")
+                        .Replace("\u000B", "")
+                        .Replace("\u000C", "")
+                        .Replace("\u000D", "")
+                        .Replace("\u0085", "")
+                        .Replace("\u2028", "")
+                        .Replace("\u2029", "");
         }
 
 
@@ -3158,8 +3155,11 @@ namespace Axiom
                 //MessageBox.Show(FFmpeg.ffmpegArgs); //debug
 
                 // Compare RichTextBox Script Against FFmpeg Generated Args
-                if (RemoveLineBreaks(VM.MainView.ScriptView_Text) != FFmpeg.ffmpegArgs)
+                if (RemoveLineBreaks(VM.MainView.ScriptView_Text) != RemoveLineBreaks(FFmpeg.ffmpegArgs))
                 {
+                    //MessageBox.Show(RemoveLineBreaks(VM.MainView.ScriptView_Text)); //debug
+                    //MessageBox.Show(RemoveLineBreaks(FFmpeg.ffmpegArgs)); //debug
+
                     // Yes/No Dialog Confirmation
                     MessageBoxResult result = MessageBox.Show("The Convert button will override and replace your custom script with the selected controls."
                                                               + "\r\n\r\nPress the Run button instead to execute your script."
@@ -8477,9 +8477,7 @@ namespace Axiom
                 // Has Been Edited
                 // -------------------------
                 else if (ScriptView.sort == false &&
-                         RemoveLineBreaks(VM.MainView.ScriptView_Text)
-
-                                        != FFmpeg.ffmpegArgs)
+                         RemoveLineBreaks(VM.MainView.ScriptView_Text) != FFmpeg.ffmpegArgs)
                 {
                     MessageBox.Show("Cannot sort edited text.",
                                     "Notice",
@@ -8677,7 +8675,7 @@ namespace Axiom
                 // -------------------------
                 // Generate Script
                 // -------------------------
-                FFmpeg.FFmpegScript();
+                FFmpeg.FFmpegGenerateScript();
 
                 // -------------------------
                 // Auto Sort Toggle
@@ -8773,15 +8771,13 @@ namespace Axiom
                 // Use Arguments from Script TextBox
                 // -------------------------
                 FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
-                                        //FFmpeg.ArgsShellFormatter(
-                                            VM.MainView.ScriptView_Text
-                                        //)
+                                        VM.MainView.ScriptView_Text
                                     );
 
                 // -------------------------
                 // Start FFmpeg
                 // -------------------------
-                FFmpeg.FFmpegStart();
+                FFmpeg.FFmpegStart(FFmpeg.ffmpegArgs);
 
                 // -------------------------
                 // Create output.log
