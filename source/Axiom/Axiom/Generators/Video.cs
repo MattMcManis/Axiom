@@ -683,7 +683,19 @@ namespace Axiom
             {
                 // Use the CMD Batch Video Variable
                 vBitMode = "-b:v";
-                vBitRate = "%V";
+                //vBitRate = "%V";
+
+                // CMD
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                {
+                    vBitRate = "%V";
+                }
+
+                // PowerShell
+                else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                {
+                    vBitRate = "$vBitrate";
+                }
             }
         }
 
@@ -1078,13 +1090,19 @@ namespace Axiom
                 // Batch Check
                 //if (batch_IsChecked == true)
                 //{
+                // -------------------------
+                // Video Auto BitRates
+                // -------------------------
+                if (quality_SelectedItem == "Auto")
+                {
+                    List<string> batchVideoAutoList = new List<string>();
+
                     // -------------------------
-                    // Video Auto BitRates
+                    // CMD
                     // -------------------------
-                    if (quality_SelectedItem == "Auto")
+                    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
                     {
-                        // Make List
-                        List<string> BatchVideoAutoList = new List<string>()
+                        batchVideoAutoList = new List<string>()
                         {
                             // size
                             "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
@@ -1107,13 +1125,24 @@ namespace Axiom
                             // set %V to %vBitRate%
                             "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                         };
+                    }
 
+                    // -------------------------
+                    // PowerShell
+                    // -------------------------
+                    else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                    {
+                        batchVideoAutoList = new List<string>()
+                        {
+                            string.Empty
+                        };
+                    }
 
-                        // -------------------------
-                        // Join List with Spaces, Remove Empty Strings
-                        // -------------------------
-                        batchVideoAuto = string.Join(" ", BatchVideoAutoList
-                                                          .Where(s => !string.IsNullOrEmpty(s)));
+                    // -------------------------
+                    // Join List with Spaces, Remove Empty Strings
+                    // -------------------------
+                    batchVideoAuto = string.Join(" ", batchVideoAutoList
+                                                        .Where(s => !string.IsNullOrEmpty(s)));
 
                     }
                 //}
