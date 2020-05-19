@@ -297,38 +297,38 @@ namespace Axiom
                 // Use the CMD Batch Audio Variable
                 //aBitRate = "%A";
 
-                // CMD
-                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                // Shell Check
+                switch (VM.ConfigureView.Shell_SelectedItem)
                 {
-                    // BitMode is VBR
-                    if (aBitMode == "-q:a")
-                    {
-                        // Use the codec database value
-                        aBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
-                    }
-                    else
-                    {
-                        // Use CMD variable
-                        aBitRate = "%A";
-                    }
-                    
-                }
+                    // CMD
+                    case "CMD":
+                        // BitMode is VBR
+                        if (aBitMode == "-q:a")
+                        {
+                            // Use the codec database value
+                            aBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
+                        }
+                        else
+                        {
+                            // Use CMD variable
+                            aBitRate = "%A";
+                        }
+                        break;
 
-                // PowerShell
-                else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                {
-                    // BitMode is VBR
-                    if (aBitMode == "-q:a")
-                    {
-                        // Use the codec database value
-                        aBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
-                    }
-                    else
-                    {
-                        // Use PowerShell variable
-                        aBitRate = "$aBitrate";
-                    }
-                    
+                    // PowerShell
+                    case "PowerShell":
+                        // BitMode is VBR
+                        if (aBitMode == "-q:a")
+                        {
+                            // Use the codec database value
+                            aBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
+                        }
+                        else
+                        {
+                            // Use PowerShell variable
+                            aBitRate = "$aBitrate";
+                        }
+                        break;
                 }
 
                 //MessageBox.Show(aBitRate); //debug
