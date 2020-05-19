@@ -266,8 +266,11 @@ namespace Axiom
             // --------------------------------------------------
             // Settings
             // --------------------------------------------------
+            // Shell
+            VM.ConfigureView.Shell_SelectedItem = conf.Read("Settings", "Shell_SelectedItem");
+
             // Config Path
-            conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
+            VM.ConfigureView.ConfigPath_SelectedItem = conf.Read("Settings", "ConfigPath_SelectedItem");
 
             // HWAccel
             string configPath = conf.Read("Settings", "ConfigPath_SelectedItem");
@@ -404,6 +407,9 @@ namespace Axiom
                     // --------------------------------------------------
                     // Settings
                     // --------------------------------------------------
+                    // Shell
+                    conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
+
                     // Config Path
                     conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
 
