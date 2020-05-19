@@ -26,15 +26,25 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        xmlns:my="clr-namespace:Axiom"
+        xmlns:local="clr-namespace:Axiom"
+        xmlns:settings="clr-namespace:Axiom.Properties"
         mc:Ignorable="d"
         
-        ResizeMode="CanMinimize" 
-        UseLayoutRounding="True"
+        Loaded="Window_Loaded" 
+        
         Title="Info" 
-        Height="335"
-        Width="445" 
+        
+        Width="500" 
+        Height="400"
+        UseLayoutRounding="True"
         Icon="Resources/Images/Icons/info.ico"
         >
+
+    <Window.DataContext>
+        <local:VM/>
+    </Window.DataContext>
+    
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -85,15 +95,13 @@
     <Grid>
         <TextBox Style="{DynamicResource TextBoxStyleInfo}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                 HorizontalAlignment="Left" 
-                 VerticalAlignment="Top" 
-                 Width="409"
-                 Height="272"
-                 Margin="10,10,0,0" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Margin="10" 
+                 Padding="10"
                  TextWrapping="Wrap" 
-                 TextAlignment="Justify" 
+                 TextAlignment="Left" 
                  IsReadOnly="True"
-                 Text="Axiom generates command scripts to be interpreted and processed by multimedia encoder FFmpeg and stream analyzer FFprobe. &#xA;&#xA;Axiom UI&#xA;Copyright © 2017-2020 Matt McManis&#xA;https://github.com/MattMcManis/Axiom&#xA;https://axiomui.github.io&#xA;mattmcmanis@outlook.com&#xA;&#xA;This program is free software: you can redistribute it and/or modify&#xA;it under the terms of the GNU General Public License as published by&#xA;the Free Software Foundation, either version 3 of the License, or&#xA;(at your option) any later version.&#xA;&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details.&#xA;&#xA;You should have received a copy of the GNU General Public License&#xA;along with this program.  If not, see http://www.gnu.org/licenses/."/>
+                 DataContext="{Binding MainView}"
+                 Text="{Binding Info_Text}" />
     </Grid>
 </Window>
