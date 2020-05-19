@@ -87,28 +87,20 @@ namespace Axiom
                 case "CMD":
                     // Keep
                     if (VM.MainView.CMDWindowKeep_IsChecked == true)
-                    {
                         window = "/k ";
-                    }
                     // Close
                     else
-                    {
                         window = "/c ";
-                    }
                     break;
 
                 // PowerShell
                 case "PowerShell":
                     // Keep
                     if (VM.MainView.CMDWindowKeep_IsChecked == true)
-                    {
                         window = "-NoExit ";
-                    }
                     // Close
                     else
-                    {
                         window = string.Empty;
-                    }
                     break;
             }
 
@@ -1088,15 +1080,6 @@ namespace Axiom
 
                 // Inline 
                 ffmpegArgs = MainWindow.RemoveLineBreaks(ffmpegArgsSort);
-                //ffmpegArgs = MainWindow.RemoveLineBreaks(
-                //                    string.Join(" ", FFmpegArgsList
-                //                                    .Where(s => !string.IsNullOrEmpty(s))
-                //                                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                //                                    .Where(s => !s.Equals(Environment.NewLine))
-                //                                    .Where(s => !s.Equals("\r\n\r\n"))
-                //                                    .Where(s => !s.Equals("\r\n"))
-                //                               )
-                //                        );
             }
 
 
@@ -1129,11 +1112,6 @@ namespace Axiom
         {
             if (VM.MainView.Batch_IsChecked == true)
             {
-                // Replace ( with ^( to avoid Windows 7 CMD Error //important!
-                // This is only used in select areas
-                //MainWindow.batchInputAuto = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
-                //MainWindow.batchInputAuto = MainWindow.batchInputAuto.Replace(@")", "^)");
-
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
@@ -1280,9 +1258,6 @@ namespace Axiom
                             //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
                             //    break;
                         }
-
-                        //aBitRateBatch_Limited = "\r\n" + "switch () {" +
-                        //                                    "{$_ -gt 999} { \"$aBitrate =\" }" + ";";
                     }
 
                     // -------------------------
@@ -1331,15 +1306,6 @@ namespace Axiom
 
                 // Inline 
                 ffmpegArgs = MainWindow.RemoveLineBreaks(ffmpegArgsSort);
-                //ffmpegArgs = MainWindow.RemoveLineBreaks(
-                //                    string.Join(" ", ffmpegBatchArgsList
-                //                                    .Where(s => !string.IsNullOrEmpty(s))
-                //                                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                //                                    .Where(s => !s.Equals(Environment.NewLine))
-                //                                    .Where(s => !s.Equals("\r\n\r\n"))
-                //                                    .Where(s => !s.Equals("\r\n"))
-                //                                    )
-                //                        );
             }
         }
 
@@ -1493,7 +1459,7 @@ namespace Axiom
 
             // FFmpeg Args
             //
-            List<string> FFmpegArgs = new List<string>()
+            List<string> ffmpegArgsList = new List<string>()
             {
                 //"\r\n\r\n" + "&&",
                 "\r\n\r\n" + 
@@ -1547,15 +1513,6 @@ namespace Axiom
 
                 // Inline 
                 ffmpegArgs = MainWindow.RemoveLineBreaks(ffmpegArgsSort);
-                //ffmpegArgs = MainWindow.RemoveLineBreaks(
-                //                    string.Join(" ", youtubedlArgs
-                //                                    .Where(s => !string.IsNullOrEmpty(s))
-                //                                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                //                                    .Where(s => !s.Equals(Environment.NewLine))
-                //                                    .Where(s => !s.Equals("\r\n\r\n"))
-                //                                    .Where(s => !s.Equals("\r\n"))
-                //                                 )
-                //                    );
             }
 
             // -------------------------
@@ -1564,7 +1521,7 @@ namespace Axiom
             else
             {
                 // Join YouTube Args & FFmpeg Args
-                youtubedlArgs.AddRange(FFmpegArgs);
+                youtubedlArgs.AddRange(ffmpegArgsList);
                 // Add "do" Closing Tag
                 youtubedlArgs.Add("\r\n)");
 
@@ -1580,15 +1537,6 @@ namespace Axiom
 
                 // Inline 
                 ffmpegArgs = MainWindow.RemoveLineBreaks(ffmpegArgsSort);
-                //ffmpegArgs = MainWindow.RemoveLineBreaks(
-                //                    string.Join(" ", youtubedlArgs
-                //                                    .Where(s => !string.IsNullOrEmpty(s))
-                //                                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                //                                    .Where(s => !s.Equals(Environment.NewLine))
-                //                                    .Where(s => !s.Equals("\r\n\r\n"))
-                //                                    .Where(s => !s.Equals("\r\n"))
-                //                            )
-                //                    );
             }
         }
 
