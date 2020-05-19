@@ -4,6 +4,12 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.3.1] - May 19, 2020
+### Changed
+- Optimized CMD/PowerShell Switch
+- Optimized FFmpeg Arguments Inline and Sort
+
+
 ## [1.8.3.0] - May 18, 2020
 ### Added
 - Run FFmpeg Through PowerShell
