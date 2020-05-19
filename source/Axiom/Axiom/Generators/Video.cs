@@ -2662,37 +2662,60 @@ namespace Axiom
         /// Images
         /// <summary>
         public static String Images(string mediaType_SelectedItem,
-                                    string codec_SelectedItem//,
-                                    //string quality_SelectedItem
+                                    string codec_SelectedItem
                                     )
         {
             // Check:
             // Video Codec Not Copy
             if (codec_SelectedItem != "Copy")
             {
-                // -------------------------
-                // Image
-                // -------------------------
-                if (mediaType_SelectedItem == "Image")
+                switch (mediaType_SelectedItem)
                 {
-                    image = "-vframes 1"; //important
+                    // -------------------------
+                    // Image
+                    // -------------------------
+                    case "Image":
+                        image = "-vframes 1"; //important
+                        break;
+
+                    // -------------------------
+                    // Sequence
+                    // -------------------------
+                    case "Sequence":
+                        image = string.Empty; //disable -vframes
+                        break;
+
+                    // -------------------------
+                    // All Other Media Types
+                    // -------------------------
+                    default:
+                        image = string.Empty;
+                        break;
                 }
 
-                // -------------------------
-                // Sequence
-                // -------------------------
-                else if (mediaType_SelectedItem == "Sequence")
-                {
-                    image = string.Empty; //disable -vframes
-                }
+                //// -------------------------
+                //// Image
+                //// -------------------------
+                //if (mediaType_SelectedItem == "Image")
+                //{
+                //    image = "-vframes 1"; //important
+                //}
 
-                // -------------------------
-                // All Other Media Types
-                // -------------------------
-                else
-                {
-                    image = string.Empty;
-                }
+                //// -------------------------
+                //// Sequence
+                //// -------------------------
+                //else if (mediaType_SelectedItem == "Sequence")
+                //{
+                //    image = string.Empty; //disable -vframes
+                //}
+
+                //// -------------------------
+                //// All Other Media Types
+                //// -------------------------
+                //else
+                //{
+                //    image = string.Empty;
+                //}
             }
 
             return image;
