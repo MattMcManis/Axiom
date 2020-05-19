@@ -5045,11 +5045,12 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="22"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
-                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
@@ -5422,6 +5423,8 @@
                                        Margin="1,0,0,0" 
                                        Style="{DynamicResource ButtonRevertArrow}" />
                             </Button>
+                            
+                            
 
                             <!-- Config Path TextBox -->
                             <Label Style="{DynamicResource LabelStyle}" 
@@ -5511,6 +5514,33 @@
                                       Grid.Row="5" 
                                       Grid.Column="1"/>
 
+                            <!-- Shell -->
+                            <Label Style="{DynamicResource LabelStyle}"
+                                   Content="Shell" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Height="26" 
+                                   ToolTipService.InitialShowDelay="500"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Launch FFmpeg through CMD or PowerShell"
+                                   Grid.Row="8" 
+                                   Grid.Column="1" 
+                                   Width="56"/>
+                            <ComboBox x:Name="cboShell"
+                                      ItemsSource="{Binding Shell_Items}"
+                                      SelectedIndex="{Binding Shell_SelectedIndex}"
+                                      SelectedItem="{Binding Shell_SelectedItem}"
+                                      IsEnabled="{Binding Shell_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{DynamicResource ComboBoxStyle}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      IsTextSearchEnabled="False" 
+                                      Grid.Column="2"
+                                      Grid.Row="8" 
+                                      Margin="10,2,0,0"/>
+                            
                             <!-- Threads -->
                             <Label x:Name="labelThreads"
                                    Style="{DynamicResource LabelStyle}"
@@ -5521,7 +5551,7 @@
                                    ToolTipService.InitialShowDelay="500"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Amount of CPU threads to use."
-                                   Grid.Row="8" 
+                                   Grid.Row="10" 
                                    Grid.Column="1" 
                                    Width="56"/>
                             <ComboBox x:Name="cboThreads"
@@ -5538,7 +5568,7 @@
                                       SelectionChanged="threadSelect_SelectionChanged" 
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="2"
-                                      Grid.Row="8" 
+                                      Grid.Row="10" 
                                       Margin="10,2,0,0"/>
 
                             <!-- Theme -->
@@ -5551,7 +5581,7 @@
                                    ToolTipService.InitialShowDelay="500"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Program Theme" 
-                                   Grid.Row="9" 
+                                   Grid.Row="11" 
                                    Grid.Column="1" 
                                    Width="52"/>
                             <ComboBox x:Name="cboTheme" 
@@ -5567,7 +5597,7 @@
                                       IsTextSearchEnabled="False"
                                       SelectionChanged="themeSelect_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="9"
+                                      Grid.Row="11"
                                       Margin="10,2,0,0"/>
 
                             <!-- Check for Updates -->
@@ -5579,7 +5609,7 @@
                                    ToolTipService.InitialShowDelay="500"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Automatically check for updates at startup." 
-                                   Grid.Row="11" 
+                                   Grid.Row="13" 
                                    Grid.Column="1" 
                                    Width="58"/>
                             <!-- Window Toggle  -->
@@ -5598,7 +5628,7 @@
                                           Checked="tglUpdateAutoCheck_Checked"
                                           Unchecked="tglUpdateAutoCheck_Unchecked"
                                           Grid.Column="2" 
-                                          Grid.Row="11" 
+                                          Grid.Row="13" 
                                           Margin="10,2,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="{Binding UpdateAutoCheck_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -5611,7 +5641,7 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    Grid.Column="2" 
-                                   Grid.Row="11" 
+                                   Grid.Row="13" 
                                    Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
@@ -5620,7 +5650,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
                                    Height="26" 
-                                   Grid.Row="13" 
+                                   Grid.Row="15" 
                                    Grid.Column="1" 
                                    Width="58" />
                             <Button x:Name="btnClearAllSavedSettings"
@@ -5636,7 +5666,7 @@
                                     Click="btnResetConfig_Click" 
                                     Style="{DynamicResource ButtonSmallStyle}" 
                                     Grid.Column="2" 
-                                    Grid.Row="13" 
+                                    Grid.Row="15" 
                                     Margin="10,2,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Reset" 
