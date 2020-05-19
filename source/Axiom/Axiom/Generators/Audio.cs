@@ -166,6 +166,10 @@ namespace Axiom
                         // CBR
                         if (vbr_IsChecked == false)
                         {
+                            // Parse FFprobe Audio Bit Rate
+                            int inputAudioBitRate_Int = 320000; // Fallback
+                            int.TryParse(FFprobe.inputAudioBitRate, out inputAudioBitRate_Int);
+
                             // aBitMode = "-b:a";
                             aBitRate = AudioBitRateCalculator(codec_SelectedItem, 
                                                               FFprobe.aEntryType,
@@ -173,11 +177,10 @@ namespace Axiom
                                                               //FFprobe.inputAudioBitRate
 
                                                               // Limit FFprobe Input Audio BitRate if higher than Codec's maximum bit rate
-                                                              AudioBitRateLimiter(//mediaType_SelectedItem,
-                                                                                  //stream_SelectedItem,
-                                                                                  codec_SelectedItem,
+                                                              AudioBitRateLimiter(codec_SelectedItem,
                                                                                   quality_SelectedItem,
-                                                                                  Convert.ToInt32(FFprobe.inputAudioBitRate)
+                                                                                  //Convert.ToInt32(FFprobe.inputAudioBitRate)
+                                                                                  inputAudioBitRate_Int
                                                                                   )
                                                                                   .ToString()
                                                               );
@@ -422,12 +425,13 @@ namespace Axiom
 
                 if (!string.IsNullOrEmpty(aBitMode)) // Null Check
                 {
-                    // -------------------------
-                    // Auto
-                    // -------------------------
-                    if (quality_SelectedItem == "Auto")
+                    switch (quality_SelectedItem)
                     {
-                        QualityAuto(input_Text,
+                        // -------------------------
+                        // Auto
+                        // -------------------------
+                        case "Auto":
+                            QualityAuto(input_Text,
                                     batch_IsChecked,
                                     mediaType_SelectedItem,
                                     stream_SelectedItem,
@@ -436,36 +440,79 @@ namespace Axiom
                                     quality_SelectedItem,
                                     vbr_IsChecked
                                     );
-                    }
+                            break;
 
-                    // -------------------------
-                    // Lossless
-                    // -------------------------
-                    else if (quality_SelectedItem == "Lossless")
-                    {
-                        QualityLossless(quality_Items);
-                    }
+                        // -------------------------
+                        // Lossless
+                        // -------------------------
+                        case "Lossless":
+                            QualityLossless(quality_Items);
+                            break;
 
-                    // -------------------------
-                    // Custom
-                    // -------------------------
-                    else if (quality_SelectedItem == "Custom")
-                    {
-                        QualityCustom(vbr_IsChecked,
+                        // -------------------------
+                        // Custom
+                        // -------------------------
+                        case "Custom":
+                            QualityCustom(vbr_IsChecked,
                                       codec_SelectedItem,
                                       quality_Items,
                                       quality_SelectedItem,
                                       bitrate_Text);
+                            break;
+
+                        // -------------------------
+                        // Preset: 640, 400, 320, 128, etc
+                        // -------------------------
+                        default:
+                            // Preset & Custom
+                            QualityPreset(bitrate_Text);
+                            break;
                     }
 
-                    // -------------------------
-                    // Preset: 640, 400, 320, 128, etc
-                    // -------------------------
-                    else
-                    {
-                        // Preset & Custom
-                        QualityPreset(bitrate_Text);
-                    }
+                    //// -------------------------
+                    //// Auto
+                    //// -------------------------
+                    //if (quality_SelectedItem == "Auto")
+                    //{
+                    //    QualityAuto(input_Text,
+                    //                batch_IsChecked,
+                    //                mediaType_SelectedItem,
+                    //                stream_SelectedItem,
+                    //                codec_SelectedItem,
+                    //                quality_Items,
+                    //                quality_SelectedItem,
+                    //                vbr_IsChecked
+                    //                );
+                    //}
+
+                    //// -------------------------
+                    //// Lossless
+                    //// -------------------------
+                    //else if (quality_SelectedItem == "Lossless")
+                    //{
+                    //    QualityLossless(quality_Items);
+                    //}
+
+                    //// -------------------------
+                    //// Custom
+                    //// -------------------------
+                    //else if (quality_SelectedItem == "Custom")
+                    //{
+                    //    QualityCustom(vbr_IsChecked,
+                    //                  codec_SelectedItem,
+                    //                  quality_Items,
+                    //                  quality_SelectedItem,
+                    //                  bitrate_Text);
+                    //}
+
+                    //// -------------------------
+                    //// Preset: 640, 400, 320, 128, etc
+                    //// -------------------------
+                    //else
+                    //{
+                    //    // Preset & Custom
+                    //    QualityPreset(bitrate_Text);
+                    //}
 
                     // --------------------------------------------------
                     // Add kbps
@@ -692,129 +739,219 @@ namespace Axiom
                     aBitRateVBR = aBitRateVBR / 1000;
                 }
 
-
-                // -------------------------
-                // Vorbis
-                // -------------------------
-                if (codec_SelectedItem == "Vorbis")
+                switch (codec_SelectedItem)
                 {
-                    // VBR User entered value algorithm (0 low / 10 high)
+                    // -------------------------
+                    // Vorbis
+                    // -------------------------
+                    case "Vorbis":
+                        // VBR User entered value algorithm (0 low / 10 high)
 
-                    double inputMin = 0; // kbps
-                    double inputMax = 320; // kbps
-                    double normMin = 0;    // low
-                    double normMax = 10;   // high
+                        double inputMin = 0; // kbps
+                        double inputMax = 320; // kbps
+                        double normMin = 0;    // low
+                        double normMax = 10;   // high
 
-                    aBitRateVBR = Math.Round(
-                                        MainWindow.NormalizeValue(
-                                                        aBitRateVBR, // input
-                                                        inputMin,    // input min
-                                                        inputMax,    // input max
-                                                        normMin,     // normalize min
-                                                        normMax,     // normalize max
-                                                        (normMin + normMax) / 2 // midpoint average
-                                                    )
+                        aBitRateVBR = Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            aBitRateVBR, // input
+                                                            inputMin,    // input min
+                                                            inputMax,    // input max
+                                                            normMin,     // normalize min
+                                                            normMax,     // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
 
-                                                , 5 // max decimal places
-                                        );
+                                                    , 5 // max decimal places
+                                            );
+                        break;
 
-                    //// Above 290k set to 10 Quality
-                    //if (aBitRateVBR > 290)
-                    //{
-                    //    aBitRateVBR = aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    //}
-                    //// 32 bracket
-                    //else if (aBitRateVBR >= 128)
-                    //{
-                    //    //aBitRateVBR = aBitRateVBR * 0.03125;
-                    //}
-                    //// 16 bracket
-                    //else if (aBitRateVBR < 128)
-                    //{
-                    //    //aBitRateVBR = (aBitRateVBR * 0.03125) - 0.5;
-                    //}
-                    //else if (aBitRateVBR <= 96)
-                    //{
-                    //    //aBitRateVBR = (aBitRateVBR * 0.013125) - 0.25;
-                    //}
-                    //// 8 bracket
-                    //else if (aBitRateVBR <= 64)
-                    //{
-                    //    aBitRateVBR = 0;
-                    //}
+                    // -------------------------
+                    // Opus
+                    // -------------------------
+                    case "Opus":
+                        // Above 510k set to 256k
+                        if (aBitRateVBR > 510)
+                        {
+                            aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                        }
+                        else
+                        {
+                            // Use the original -b:a bitrate detected (e.g. -b:a 256k)
+                        }
+                        break;
 
-                    //MessageBox.Show(aBitRateVBR.ToString()); //debug
+                    // -------------------------
+                    // AAC
+                    // -------------------------
+                    case "AAC":
+                        // Range 
+                        // Above 320k 
+                        if (aBitRateVBR > 400)
+                        {
+                            aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                        }
+                        else
+                        {
+                            // VBR User entered value algorithm (0.1 low / 2 high)
+                            aBitRateVBR = Math.Min(2, Math.Max(aBitRateVBR * 0.00625, 0.1));
+                        }
+                        break;
+
+                    // -------------------------
+                    // MP2
+                    // -------------------------
+                    case "MP2":
+                        // Above 384k set to V0
+                        if (aBitRateVBR > 384)
+                        {
+                            aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                        }
+                        else
+                        {
+                            // VBR User entered value algorithm (10 low / 0 high)
+                            aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
+                        }
+                        break;
+
+                    // -------------------------
+                    // LAME MP3
+                    // -------------------------
+                    case "LAME":
+                        // Above 320k set to V0
+                        if (aBitRateVBR > 320)
+                        {
+                            aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                        }
+                        else
+                        {
+                            // VBR User entered value algorithm (10 low / 0 high)
+                            aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
+                        }
+                        break;
                 }
 
-                // -------------------------
-                // Opus
-                // -------------------------
-                else if (codec_SelectedItem == "Opus")
-                {
-                    // Above 510k set to 256k
-                    if (aBitRateVBR > 510)
-                    {
-                        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    }
-                    else
-                    {
-                        // Use the original -b:a bitrate detected (e.g. -b:a 256k)
-                    }
+                //// -------------------------
+                //// Vorbis
+                //// -------------------------
+                //if (codec_SelectedItem == "Vorbis")
+                //{
+                //    // VBR User entered value algorithm (0 low / 10 high)
 
-                }
+                //    double inputMin = 0; // kbps
+                //    double inputMax = 320; // kbps
+                //    double normMin = 0;    // low
+                //    double normMax = 10;   // high
 
-                // -------------------------
-                // AAC
-                // -------------------------
-                else if (codec_SelectedItem == "AAC")
-                {
-                    // Range 
-                    // Above 320k 
-                    if (aBitRateVBR > 400)
-                    {
-                        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    }
-                    else
-                    {
-                        // VBR User entered value algorithm (0.1 low / 2 high)
-                        aBitRateVBR = Math.Min(2, Math.Max(aBitRateVBR * 0.00625, 0.1));
-                    }
-                }
-           
-                // -------------------------
-                // MP2
-                // -------------------------
-                else if (codec_SelectedItem == "MP2")
-                {
-                    // Above 384k set to V0
-                    if (aBitRateVBR > 384)
-                    {
-                        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    }
-                    else
-                    {
-                        // VBR User entered value algorithm (10 low / 0 high)
-                        aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
-                    }
-                }
+                //    aBitRateVBR = Math.Round(
+                //                        MainWindow.NormalizeValue(
+                //                                        aBitRateVBR, // input
+                //                                        inputMin,    // input min
+                //                                        inputMax,    // input max
+                //                                        normMin,     // normalize min
+                //                                        normMax,     // normalize max
+                //                                        (normMin + normMax) / 2 // midpoint average
+                //                                    )
 
-                // -------------------------
-                // LAME MP3
-                // -------------------------
-                else if (codec_SelectedItem == "LAME")
-                {
-                    // Above 320k set to V0
-                    if (aBitRateVBR > 320)
-                    {
-                        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    }
-                    else
-                    {
-                        // VBR User entered value algorithm (10 low / 0 high)
-                        aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
-                    }
-                }
+                //                                , 5 // max decimal places
+                //                        );
 
+                //    //// Above 290k set to 10 Quality
+                //    //if (aBitRateVBR > 290)
+                //    //{
+                //    //    aBitRateVBR = aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                //    //}
+                //    //// 32 bracket
+                //    //else if (aBitRateVBR >= 128)
+                //    //{
+                //    //    //aBitRateVBR = aBitRateVBR * 0.03125;
+                //    //}
+                //    //// 16 bracket
+                //    //else if (aBitRateVBR < 128)
+                //    //{
+                //    //    //aBitRateVBR = (aBitRateVBR * 0.03125) - 0.5;
+                //    //}
+                //    //else if (aBitRateVBR <= 96)
+                //    //{
+                //    //    //aBitRateVBR = (aBitRateVBR * 0.013125) - 0.25;
+                //    //}
+                //    //// 8 bracket
+                //    //else if (aBitRateVBR <= 64)
+                //    //{
+                //    //    aBitRateVBR = 0;
+                //    //}
+
+                //    //MessageBox.Show(aBitRateVBR.ToString()); //debug
+                //}
+
+                //// -------------------------
+                //// Opus
+                //// -------------------------
+                //else if (codec_SelectedItem == "Opus")
+                //{
+                //    // Above 510k set to 256k
+                //    if (aBitRateVBR > 510)
+                //    {
+                //        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                //    }
+                //    else
+                //    {
+                //        // Use the original -b:a bitrate detected (e.g. -b:a 256k)
+                //    }
+
+                //}
+
+                //// -------------------------
+                //// AAC
+                //// -------------------------
+                //else if (codec_SelectedItem == "AAC")
+                //{
+                //    // Range 
+                //    // Above 320k 
+                //    if (aBitRateVBR > 400)
+                //    {
+                //        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                //    }
+                //    else
+                //    {
+                //        // VBR User entered value algorithm (0.1 low / 2 high)
+                //        aBitRateVBR = Math.Min(2, Math.Max(aBitRateVBR * 0.00625, 0.1));
+                //    }
+                //}
+
+                //// -------------------------
+                //// MP2
+                //// -------------------------
+                //else if (codec_SelectedItem == "MP2")
+                //{
+                //    // Above 384k set to V0
+                //    if (aBitRateVBR > 384)
+                //    {
+                //        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                //    }
+                //    else
+                //    {
+                //        // VBR User entered value algorithm (10 low / 0 high)
+                //        aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
+                //    }
+                //}
+
+                //// -------------------------
+                //// LAME MP3
+                //// -------------------------
+                //else if (codec_SelectedItem == "LAME")
+                //{
+                //    // Above 320k set to V0
+                //    if (aBitRateVBR > 320)
+                //    {
+                //        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                //    }
+                //    else
+                //    {
+                //        // VBR User entered value algorithm (10 low / 0 high)
+                //        aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
+                //    }
+                //}
 
                 // -------------------------
                 // Convert to String for aQuality Combine
@@ -841,42 +978,98 @@ namespace Axiom
             // Audio Codec Not Copy
             if (codec_SelectedItem != "Copy")
             {
-                // -------------------------
-                // Auto
-                // -------------------------
-                if (channel_SelectedItem == "Source" ||
-                    string.IsNullOrEmpty(channel_SelectedItem))
+                switch (channel_SelectedItem)
                 {
-                    aChannel = string.Empty;
+                    // -------------------------
+                    // Empty
+                    // -------------------------
+                    case null:
+                        aChannel = string.Empty;
+                        break;
+
+                    case "":
+                        aChannel = string.Empty;
+                        break;
+
+                    // -------------------------
+                    // Auto
+                    // -------------------------
+                    case "Source":
+                        aChannel = string.Empty;
+                        break;
+
+                    // -------------------------
+                    // Mono
+                    // -------------------------
+                    case "Mono":
+                        aChannel = "-ac 1";
+                        break;
+
+                    // -------------------------
+                    // Stereo
+                    // -------------------------
+                    case "Stereo":
+                        aChannel = "-ac 2";
+                        break;
+
+                    // -------------------------
+                    // Joint Stereo
+                    // -------------------------
+                    case "Joint Stereo":
+                        aChannel = "-ac 2 -joint_stereo 1";
+                        break;
+
+                    // -------------------------
+                    // 5.1
+                    // -------------------------
+                    case "5.1":
+                        aChannel = "-ac 6";
+                        break;
+
+                    // -------------------------
+                    // Default
+                    // -------------------------
+                    default:
+                        aChannel = string.Empty;
+                        break;
                 }
-                // -------------------------
-                // Mono
-                // -------------------------
-                else if (channel_SelectedItem == "Mono")
-                {
-                    aChannel = "-ac 1";
-                }
-                // -------------------------
-                // Stereo
-                // -------------------------
-                else if (channel_SelectedItem == "Stereo")
-                {
-                    aChannel = "-ac 2";
-                }
-                // -------------------------
-                // Joint Stereo
-                // -------------------------
-                else if (channel_SelectedItem == "Joint Stereo")
-                {
-                    aChannel = "-ac 2 -joint_stereo 1";
-                }
-                // -------------------------
-                // 5.1
-                // -------------------------
-                else if (channel_SelectedItem == "5.1")
-                {
-                    aChannel = "-ac 6";
-                }
+
+                //// -------------------------
+                //// Auto
+                //// -------------------------
+                //if (channel_SelectedItem == "Source" ||
+                //    string.IsNullOrEmpty(channel_SelectedItem))
+                //{
+                //    aChannel = string.Empty;
+                //}
+                //// -------------------------
+                //// Mono
+                //// -------------------------
+                //else if (channel_SelectedItem == "Mono")
+                //{
+                //    aChannel = "-ac 1";
+                //}
+                //// -------------------------
+                //// Stereo
+                //// -------------------------
+                //else if (channel_SelectedItem == "Stereo")
+                //{
+                //    aChannel = "-ac 2";
+                //}
+                //// -------------------------
+                //// Joint Stereo
+                //// -------------------------
+                //else if (channel_SelectedItem == "Joint Stereo")
+                //{
+                //    aChannel = "-ac 2 -joint_stereo 1";
+                //}
+                //// -------------------------
+                //// 5.1
+                //// -------------------------
+                //else if (channel_SelectedItem == "5.1")
+                //{
+                //    aChannel = "-ac 6";
+                //}
 
                 // -------------------------
                 // Prevent Downmix Clipping
@@ -1054,86 +1247,76 @@ namespace Axiom
                 // Only if Audio Quality Auto
                 if (quality_SelectedItem == "Auto")
                 {
-                    try
+                    //try
+                    //{
+                    switch (codec_SelectedItem)
                     {
-                        switch (codec_SelectedItem)
-                        {
-                            // Vorbis
-                            case "Vorbis":
-                                if (aBitRateLimit > 500000)
-                                {
-                                    return 500000;
-                                }
-                                break;
-                            // Opus
-                            case "Opus":
-                                if (aBitRateLimit > 510000)
-                                {
-                                    return 510000;
-                                }
-                                break;
-                            // AAC
-                            case "AAC":
-                                if (aBitRateLimit > 400000)
-                                {
-                                    return 400000;
-                                }
-                                break;
+                        // Vorbis
+                        case "Vorbis":
+                            if (aBitRateLimit > 500000)
+                                return 500000;
+                            break;
 
-                            // AC3
-                            case "AC3":
-                                if (aBitRateLimit > 640000)
-                                {
-                                    return 640000;
-                                }
-                                break;
-                            // DTS
-                            case "DTS":
-                                if (aBitRateLimit > 1509075)
-                                {
-                                    return 1509075;
-                                }
-                                break;
-                            // MP2
-                            case "MP2":
-                                if (aBitRateLimit > 384000)
-                                {
-                                    return 384000;
-                                }
-                                break;
-                            // LAME
-                            case "LAME":
-                                if (aBitRateLimit > 320000)
-                                {
-                                    return 320000;
-                                }
-                                break;
-                            // FLAC
-                            case "FLAC":
-                                if (aBitRateLimit > 1411000)
-                                {
-                                    return 1411000;
-                                }
-                                break;
-                            // PCM
-                            case "PCM":
-                                if (aBitRateLimit > 1536000)
-                                {
-                                    return 1536000;
-                                }
-                                break;
-                            // Unknown
-                            default:
+                        // Opus
+                        case "Opus":
+                            if (aBitRateLimit > 510000)
+                                return 510000;
+                            break;
+
+                        // AAC
+                        case "AAC":
+                            if (aBitRateLimit > 400000)
+                                return 400000;
+                            break;
+
+                        // AC3
+                        case "AC3":
+                            if (aBitRateLimit > 640000)
+                                return 640000;
+                            break;
+
+                        // DTS
+                        case "DTS":
+                            if (aBitRateLimit > 1509075)
+                                return 1509075;
+                            break;
+
+                        // MP2
+                        case "MP2":
+                            if (aBitRateLimit > 384000)
+                                return 384000;
+                            break;
+
+                        // LAME
+                        case "LAME":
+                            if (aBitRateLimit > 320000)
                                 return 320000;
-                        }
+                            break;
+
+                        // FLAC
+                        case "FLAC":
+                            if (aBitRateLimit > 1411000)
+                                return 1411000;
+                            break;
+
+                        // PCM
+                        case "PCM":
+                            if (aBitRateLimit > 1536000)
+                                return 1536000;
+                            break;
+
+                        // Unknown
+                        default:
+                            return 320000;
                     }
+                    //}
 
                     // Error comparing bit rate
-                    catch
-                    {
-                        // Return a sensible default
-                        return 320000;
-                    }
+                    //catch
+                    //{
+                    //    // Return a sensible default
+                    //    return 320000;
+                    //}
                 }
             }
 
