@@ -453,7 +453,8 @@ namespace Axiom
 
             // Only if BitRate Textbox is not Empty (except for Auto Quality)
             if (quality_SelectedItem == "Auto" || 
-                !string.IsNullOrEmpty(bitrate_Text))
+                (!string.IsNullOrEmpty(bitrate_Text) && !string.IsNullOrWhiteSpace(bitrate_Text))
+                )
             {
                 // -------------------------
                 // CBR
@@ -525,19 +526,22 @@ namespace Axiom
             vBitRateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
 
             // MinRate
-            if (!string.IsNullOrEmpty(minrate_Text))
+            if (!string.IsNullOrEmpty(minrate_Text) &&
+                !string.IsNullOrWhiteSpace(minrate_Text))
             {
                 vMinRate = "-minrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.MinRate;
             }
 
             // MaxRate
-            if (!string.IsNullOrEmpty(maxrate_Text))
+            if (!string.IsNullOrEmpty(maxrate_Text) &&
+                !string.IsNullOrWhiteSpace(maxrate_Text))
             {
                 vMaxRate = "-maxrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.MaxRate;
             }
 
             // BufSize
-            if (!string.IsNullOrEmpty(bufsize_Text))
+            if (!string.IsNullOrEmpty(bufsize_Text) &&
+                !string.IsNullOrWhiteSpace(bufsize_Text))
             {
                 vBufSize = "-bufsize " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.BufSize;
             }
@@ -554,6 +558,7 @@ namespace Axiom
                 // Input Video Codec Detected
                 // -------------------------
                 if (string.IsNullOrEmpty(FFprobe.inputVideoBitRate) ||
+                    string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) ||
                     FFprobe.inputVideoBitRate == "N/A")
                 {
                     // -------------------------
@@ -568,13 +573,14 @@ namespace Axiom
                         {
                             vCRF = string.Empty;
 
-                            if (!string.IsNullOrEmpty(vBitRateNA))
+                            if (!string.IsNullOrEmpty(vBitRateNA) &&
+                                !string.IsNullOrWhiteSpace(vBitRateNA))
                             {
                                 vBitMode = BitRateMode(quality_Items,
-                                                        quality_SelectedItem,
-                                                        bitrate_Text,
-                                                        vbr_IsChecked
-                                                        );
+                                                       quality_SelectedItem,
+                                                       bitrate_Text,
+                                                       vbr_IsChecked
+                                                       );
 
                                 vBitRate = vBitRateNA; // N/A e.g. Define 3000K
                             }
@@ -588,7 +594,8 @@ namespace Axiom
 
                             //MessageBox.Show(auto_bitrate_na); //debug
 
-                            if (!string.IsNullOrEmpty(vBitRateNA))
+                            if (!string.IsNullOrEmpty(vBitRateNA) &&
+                                !string.IsNullOrWhiteSpace(vBitRateNA))
                             {
                                 vBitMode = BitRateMode(quality_Items,
                                                         quality_SelectedItem,
@@ -634,18 +641,21 @@ namespace Axiom
                 // Input Video Codec Detected
                 // -------------------------
                 else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitRate) &&
+                         !string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) &&
                          FFprobe.inputVideoBitRate != "N/A")
                 {
                     // -------------------------
                     // Codec Detected
                     // -------------------------
-                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
+                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec) &&
+                        !string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
                     {
                         //MessageBox.Show("5 " + vBitRate); //debug
 
                         vCRF = string.Empty;
 
-                        if (!string.IsNullOrEmpty(vBitRate))
+                        if (!string.IsNullOrEmpty(vBitRate) &&
+                            !string.IsNullOrWhiteSpace(vBitRate))
                         {
                             vBitMode = BitRateMode(quality_Items,
                                                    quality_SelectedItem,
@@ -740,7 +750,8 @@ namespace Axiom
                                          )
         {
             // CRF
-            if (!string.IsNullOrEmpty(crf_Text))
+            if (!string.IsNullOrEmpty(crf_Text) &&
+                !string.IsNullOrWhiteSpace(crf_Text))
             {
                 vCRF = "-crf " + crf_Text;
             }
@@ -757,19 +768,22 @@ namespace Axiom
 
 
             // MinRate
-            if (!string.IsNullOrEmpty(minrate_Text))
+            if (!string.IsNullOrEmpty(minrate_Text) &&
+                !string.IsNullOrWhiteSpace(minrate_Text))
             {
                 vMinRate = "-minrate " + minrate_Text;
             }
 
             // MaxRate
-            if (!string.IsNullOrEmpty(maxrate_Text))
+            if (!string.IsNullOrEmpty(maxrate_Text) &&
+                !string.IsNullOrWhiteSpace(maxrate_Text))
             {
                 vMaxRate = "-maxrate " + maxrate_Text;
             }
 
             // BufSize
-            if (!string.IsNullOrEmpty(bufsize_Text))
+            if (!string.IsNullOrEmpty(bufsize_Text) &&
+                !string.IsNullOrWhiteSpace(bufsize_Text))
             {
                 vBufSize = "-bufsize " + bufsize_Text;
             }
@@ -799,19 +813,22 @@ namespace Axiom
                                    );
 
             // MinRate
-            if (!string.IsNullOrEmpty(minrate_Text))
+            if (!string.IsNullOrEmpty(minrate_Text) &&
+                !string.IsNullOrWhiteSpace(minrate_Text))
             {
                 vMinRate = "-minrate " + minrate_Text;
             }
 
             // MaxRate
-            if (!string.IsNullOrEmpty(maxrate_Text))
+            if (!string.IsNullOrEmpty(maxrate_Text) &&
+                !string.IsNullOrWhiteSpace(maxrate_Text))
             {
                 vMaxRate = "-maxrate " + maxrate_Text;
             }
 
             // BufSize
-            if (!string.IsNullOrEmpty(bufsize_Text))
+            if (!string.IsNullOrEmpty(bufsize_Text) &&
+                !string.IsNullOrWhiteSpace(bufsize_Text))
             {
                 vBufSize = "-bufsize " + bufsize_Text;
             }
@@ -853,7 +870,8 @@ namespace Axiom
                     //crf = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CRF;
                     vBitRate = bitrate_Text;
 
-                    if (!string.IsNullOrEmpty(crf_Text))
+                    if (!string.IsNullOrEmpty(crf_Text) &&
+                        !string.IsNullOrWhiteSpace(crf_Text))
                     {
                         vCRF = "-crf " + crf_Text;
                     }
@@ -1005,8 +1023,6 @@ namespace Axiom
                         vMaxRate,
                         vBufSize,
                         vCRF,
-                        //x265params,
-                        //VideoParams.Video_Params(),
                         vOptions
                     };
                 }
@@ -1027,8 +1043,6 @@ namespace Axiom
                         vMinRate,
                         vMaxRate,
                         vBufSize,
-                        //x265params,
-                        //VideoParams.Video_Params(),
                         vOptions
                     };
 
@@ -1041,6 +1055,7 @@ namespace Axiom
                 // Join Video Quality Args List
                 vQuality = string.Join(" ", vQualityArgs
                                             .Where(s => !string.IsNullOrEmpty(s))
+                                            .Where(s => !string.IsNullOrWhiteSpace(s))
                                             .Where(s => !s.Equals("\n"))
                                       );
 
@@ -1142,7 +1157,8 @@ namespace Axiom
                     // Join List with Spaces, Remove Empty Strings
                     // -------------------------
                     batchVideoAuto = string.Join(" ", batchVideoAutoList
-                                                        .Where(s => !string.IsNullOrEmpty(s)));
+                                                        .Where(s => !string.IsNullOrEmpty(s))
+                                                        .Where(s => !string.IsNullOrWhiteSpace(s)));
 
                     }
                 //}
@@ -1163,10 +1179,13 @@ namespace Axiom
                                                     string vEntryType, 
                                                     string inputVideoBitRate)
         {
+            inputVideoBitRate = inputVideoBitRate.Trim();
+
             // -------------------------
             // Null Check
             // -------------------------
-            if (!string.IsNullOrEmpty(inputVideoBitRate))
+            if (!string.IsNullOrEmpty(inputVideoBitRate) &&
+                !string.IsNullOrWhiteSpace(inputVideoBitRate))
             {
                 // -------------------------
                 // Remove K & M from input if any
@@ -1227,33 +1246,52 @@ namespace Axiom
                 // -------------------------
                 else if (inputVideoBitRate != "N/A")
                 {
-                    // Convert InputVideoBitrate to Double
-                    double inputVideoBitRate_Double = Convert.ToDouble(inputVideoBitRate);
+                    // Convert Input Video Bit Rate to Double
+                    //double inputVideoBitRate_Double = Convert.ToDouble(inputVideoBitRate);
 
-                    // e.g. (1000M / 1,000,000K)
+                    // Convert Input Video Bit Rate to Double
+                    int inputVideoBitRate_Double = 8000000; // Fallback
+                    int.TryParse(inputVideoBitRate, out inputVideoBitRate_Double);
+
+                    // 1GB
                     if (inputVideoBitRate_Double >= 1000000000)
                     {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.00001);
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 1,000M / 1,000,000k
                     }
-                    // e.g. (100M / 100,000K) 
+                    // 100M
                     else if (inputVideoBitRate_Double >= 100000000)
                     {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.0001);
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 100,000k
                     }
-                    // e.g. (10M / 10,000K)
+                    // 10M
                     else if (inputVideoBitRate_Double >= 10000000)
                     {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 10,000k
                     }
-                    // e.g. (1M /1000K)
+                    // 1M
                     else if (inputVideoBitRate_Double >= 100000)
                     {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 1,000k
                     }
-                    // e.g. (100K)
+                    // 0.1M
                     else if (inputVideoBitRate_Double >= 10000)
                     {
-                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 100k / 100,000b
+                    }
+                    // 0.01M
+                    else if (inputVideoBitRate_Double >= 1000)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 10k / 10,000b
+                    }
+                    // 0.001M
+                    else if (inputVideoBitRate_Double >= 100)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.01); // 1k / 1,000b
+                    }
+                    // 0
+                    else
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0);
                     }
                 }
 
@@ -1264,6 +1302,7 @@ namespace Axiom
                 // -------------------------
                 if (inputVideoBitRate != "N/A" &&
                     !string.IsNullOrEmpty(inputVideoBitRate) &&
+                    !string.IsNullOrWhiteSpace(inputVideoBitRate) &&
                     container_SelectedItem == "webm" &&
                     codec_SelectedItem != "Copy"
                     )
@@ -1302,7 +1341,8 @@ namespace Axiom
             // -------------------------
             else
             {
-                if (string.IsNullOrEmpty(inputVideoBitRate))
+                if (string.IsNullOrEmpty(inputVideoBitRate) ||
+                    string.IsNullOrWhiteSpace(inputVideoBitRate))
                 {
                     // do nothing (dont remove, it will cause substring to overload)
 
@@ -1487,7 +1527,8 @@ namespace Axiom
 
                 // Trim Start Frame
                 //
-                if (!string.IsNullOrEmpty(frame)) // Default/Null Check
+                if (!string.IsNullOrEmpty(frame) &&
+                    !string.IsNullOrWhiteSpace(frame)) // Default/Null Check
                 {
                     // Divide Frame Start Number by Video's Framerate
                     frame = Convert.ToString(Convert.ToDouble(frame) / detectedFramerate); 
@@ -1902,7 +1943,8 @@ namespace Axiom
                 // -------------------------
                 // Tune
                 // -------------------------
-                if (!string.IsNullOrEmpty(tune_SelectedItem) && 
+                if (!string.IsNullOrEmpty(tune_SelectedItem) &&
+                    !string.IsNullOrWhiteSpace(tune_SelectedItem) &&
                     tune_SelectedItem != "none")
                 {
                     optTune = "-tune " + tune_SelectedItem;
@@ -1911,7 +1953,8 @@ namespace Axiom
                 // -------------------------
                 // Profile
                 // -------------------------
-                if (!string.IsNullOrEmpty(profile_SelectedItem) && 
+                if (!string.IsNullOrEmpty(profile_SelectedItem) &&
+                    !string.IsNullOrWhiteSpace(profile_SelectedItem) &&
                     profile_SelectedItem != "none")
                 {
                     optProfile = "-profile:v " + profile_SelectedItem;
@@ -1920,7 +1963,8 @@ namespace Axiom
                 // -------------------------
                 // Level
                 // -------------------------
-                if (!string.IsNullOrEmpty(level_SelectedItem) && 
+                if (!string.IsNullOrEmpty(level_SelectedItem) &&
+                    !string.IsNullOrWhiteSpace(level_SelectedItem) &&
                     level_SelectedItem != "none")
                 {
                     optLevel = "-level " + level_SelectedItem;
@@ -1941,7 +1985,10 @@ namespace Axiom
                     optFlags
                 };
 
-                optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
+                optimize = string.Join(" ", v2passList
+                                            .Where(s => !string.IsNullOrEmpty(s))
+                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                            );
             }
 
             // Return Value
@@ -1962,7 +2009,8 @@ namespace Axiom
             // Video Codec Not Copy
             // FPS Not Empty
             if (codec_SelectedItem != "Copy" &&
-                !string.IsNullOrEmpty(fps_Text)
+                !string.IsNullOrEmpty(fps_Text) &&
+                !string.IsNullOrWhiteSpace(fps_Text)
                 )
             {
                 //fps = string.Empty;
@@ -2058,12 +2106,10 @@ namespace Axiom
             // Video Codec Copy
             // Video BitRate None
             // Speed Auto/Null
-            if (//mediaType_SelectedItem != "Audio" &&
-                //codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                //quality_SelectedItem != "None" &&
+            if (codec_SelectedItem != "Copy" &&
                 speed_SelectedItem != "auto" &&
-                !string.IsNullOrEmpty(speed_Text)
+                !string.IsNullOrEmpty(speed_Text) &&
+                !string.IsNullOrWhiteSpace(speed_Text)
                 )
             {
                 // Slow Down 50% -vf "setpts=2.0*PTS"
@@ -2650,7 +2696,8 @@ namespace Axiom
             // Add Crop to Video Filters if Not Null
             // -------------------------
             // If Crop is set by User in the CropWindow
-            if (!string.IsNullOrEmpty(CropWindow.crop))
+            if (!string.IsNullOrEmpty(CropWindow.crop) &&
+                !string.IsNullOrWhiteSpace(CropWindow.crop))
             {
                 // Video Filters Add
                 VideoFilters.vFiltersList.Add(CropWindow.crop);
