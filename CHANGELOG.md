@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.3.0] - May 18, 2020
+### Added
+- Run FFmpeg Through PowerShell
+- Audio Batch Auto Quality BitMode VBR Check
+
+### Fixed
+- Import Read Config `Config Path`
+- `webm` Audio Codec `Vorbis` Batch Auto Quality
+
+
 ## [1.8.2.0] - May 18, 2020
 ### Added
 - Video Color Matrix
