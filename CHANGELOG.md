@@ -4,6 +4,20 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.4.0] - May 19, 2020
+### Added
+- Added Input Audio Bitrate FFprobe `TryParse`
+- Added Video `IsNullOrWhiteSpace` checks
+
+### Changed
+- Optimized `Switch/Case`
+- Simplified Audio Auto Quality Bitrate Calculator
+- Improved Video Bit Rate Calculator
+
+### Fixed
+- Fixed PowerShell youtube-dl
+
+
 ## [1.8.3.1] - May 19, 2020
 ### Changed
 - Optimized CMD/PowerShell Switch
