@@ -38,6 +38,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -76,21 +78,107 @@ namespace Axiom
         /// </remarks>
         public static String KeepWindow()
         {
-            string cmdWindow = string.Empty;
+            string window = string.Empty;
 
-            // Keep
-            if (VM.MainView.CMDWindowKeep_IsChecked == true)
+            // CMD
+            if (VM.ConfigureView.Shell_SelectedItem == "CMD")
             {
-                cmdWindow = "/k ";
-            }
-            // Close
-            else
-            {
-                cmdWindow = "/c ";
+                // Keep
+                if (VM.MainView.CMDWindowKeep_IsChecked == true)
+                {
+                    window = "/k ";
+                }
+                // Close
+                else
+                {
+                    window = "/c ";
+                }
             }
 
-            return cmdWindow;
+            // PowerShell
+            else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+            {
+                // Keep
+                if (VM.MainView.CMDWindowKeep_IsChecked == true)
+                {
+                    window = "-NoExit ";
+                }
+                // Close
+                else
+                {
+                    window = string.Empty;
+                }
+            }
+
+            return window;
         }
+
+
+        /// <summary>
+        /// Logical Operator - And && - Shell Formatter
+        /// </summary>
+        public static String LogicalOperator_And_ShellFormatter()
+        {
+            // CMD
+            if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+            {
+                return "&&";
+            }
+
+            // PowerShell
+            else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+            {
+                return ";";
+            }
+
+            // Default
+            return "&&";
+        }
+
+        /// <summary>
+        /// Input Shell Formatter
+        /// </summary>
+        //public static String Path_ShellFormatter(string path)
+        //{
+        //    // -------------------------
+        //    // Single File
+        //    // -------------------------
+        //    if (VM.MainView.Batch_IsChecked == false)
+        //    {
+        //        // CMD
+        //        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+        //        {
+        //            return MainWindow.WrapQuotes(path);
+        //        }
+
+        //        // PowerShell
+        //        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+        //        {
+        //            return MainWindow.WrapQuotes(path);
+        //        }
+        //    }
+
+        //    // -------------------------
+        //    // Batch
+        //    // -------------------------
+        //    else if (VM.MainView.Batch_IsChecked == true)
+        //    {
+        //        // CMD
+        //        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+        //        {
+        //            return MainWindow.WrapQuotes(path);
+        //        }
+
+        //        // PowerShell
+        //        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+        //        {
+        //            return "'\"' + " + path + " + '\"'";
+        //        }
+        //    }
+
+        //    // Default
+        //    return path;
+        //}
 
 
 
@@ -127,7 +215,8 @@ namespace Axiom
                 List<string> inputList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    "-i "+ "\"" + MainWindow.InputPath("pass 1") + "\"",
+                    "-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
+                    //"-i " + Path_ShellFormatter(MainWindow.InputPath("pass 1")),
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -378,6 +467,7 @@ namespace Axiom
 
                     "\r\n\r\n" +
                     "\"" + MainWindow.OutputPath() + "\""
+                    //Path_ShellFormatter(MainWindow.OutputPath())
                 };
                 
 
@@ -446,6 +536,7 @@ namespace Axiom
                     "\r\n\r\n" +
                     "-i "+ "\"" +
                     MainWindow.InputPath("pass 1") + "\"",
+                    //Path_ShellFormatter(MainWindow.InputPath("pass 1"))
                 };
 
                 // -------------------------
@@ -664,7 +755,8 @@ namespace Axiom
                 List<string> initializeList_Pass2 = new List<string>()
                 {
                     "\r\n\r\n" +
-                    "&&",
+                    //"&&",
+                    LogicalOperator_And_ShellFormatter(),
 
                     "\r\n\r\n" +
                     MainWindow.FFmpegPath(),
@@ -691,8 +783,9 @@ namespace Axiom
                 List<string> inputList_Pass2 = new List<string>()
                 {
                     "\r\n\r\n" +
-                    "-i " + "\"" +
-                    MainWindow.InputPath("pass 2") + "\"",
+                    "-i " +
+                    "\"" + MainWindow.InputPath("pass 2") + "\"",
+                    //Path_ShellFormatter(MainWindow.InputPath("pass 2")),
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -760,8 +853,6 @@ namespace Axiom
                         Video.colorRange,
                         "\r\n" +
                         Video.colorPrimaries,
-                        //"\r\n" +
-                        //Video.colorMatrix,
                         "\r\n" +
                         Video.fps,
                         "\r\n" +
@@ -896,6 +987,7 @@ namespace Axiom
 
                     "\r\n\r\n" +
                     "\"" + MainWindow.OutputPath() + "\""
+                    //Path_ShellFormatter(MainWindow.OutputPath())
                 };
 
 
@@ -957,21 +1049,26 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                ffmpegArgsSort = string.Join(" ", FFmpegArgsList
+                ffmpegArgsSort = //ArgsShellFormatter(
+                                    string.Join(" ", FFmpegArgsList
                                                   .Where(s => !string.IsNullOrEmpty(s))
                                                   .Where(s => !s.Equals(Environment.NewLine))
                                                   .Where(s => !s.Equals("\r\n\r\n"))
                                                   .Where(s => !s.Equals("\r\n"))
-                                            );
+                                            //)
+                                        );
 
                 // Inline 
-                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", FFmpegArgsList
+                ffmpegArgs = MainWindow.RemoveLineBreaks(
+                                //ArgsShellFormatter(
+                                    string.Join(" ", FFmpegArgsList
                                                                .Where(s => !string.IsNullOrEmpty(s))
                                                                .Where(s => !s.Equals(Environment.NewLine))
                                                                .Where(s => !s.Equals("\r\n\r\n"))
                                                                .Where(s => !s.Equals("\r\n"))
                                                                     )
-                                                        );
+                                            //)
+                                        );
             }
 
 
@@ -1028,66 +1125,188 @@ namespace Axiom
                 Log.LogActions.Add(Log.WriteAction);
 
 
+                List<string> ffmpegBatchArgsList = new List<string>();
+
                 // -------------------------
-                // Batch Arguments Full
+                // CMD
                 // -------------------------
-                // Make List
-                //
-                List<string> FFmpegBatchArgsList = new List<string>()
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
                 {
-                    "cd /d",
-                    "\"" + MainWindow.BatchInputDirectory() + "\"",
+                    // -------------------------
+                    // Batch Arguments Full
+                    // -------------------------
+                    ffmpegBatchArgsList = new List<string>()
+                    {
+                        "cd /d",
+                        "\"" + MainWindow.BatchInputDirectory() + "\"",
+                        //MainWindow.ShellStringFormatter(MainWindow.BatchInputDirectory()),
 
-                    "\r\n\r\n" + "&& for %f in",
-                    "(*" + MainWindow.inputExt + ")",
-                    "do (echo)",
+                        "\r\n\r\n" + "&& for %f in",
+                        "(*" + MainWindow.inputExt + ")",
+                        "do (echo)",
 
-                    // Video
-                    "\r\n\r\n" + 
-                    Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
-                                                VM.VideoView.Video_Codec_SelectedItem,
-                                                VM.VideoView.Video_Quality_SelectedItem 
-                                                ),
+                        // Video
+                        "\r\n\r\n" +
+                        Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
+                                                    VM.VideoView.Video_Codec_SelectedItem,
+                                                    VM.VideoView.Video_Quality_SelectedItem
+                                                    ),
 
-                    // Audio
-                    "\r\n\r\n" + 
-                    Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
-                                                VM.AudioView.Audio_Codec_SelectedItem,
-                                                VM.AudioView.Audio_Quality_SelectedItem
-                                                ),
-                    "\r\n\r\n" + 
-                    Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
-                                                   VM.AudioView.Audio_Quality_SelectedItem
-                                                   ),
+                        // Audio
+                        "\r\n\r\n" +
+                        Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
+                                                    VM.AudioView.Audio_Codec_SelectedItem,
+                                                    VM.AudioView.Audio_Quality_SelectedItem
+                                                    ),
+                        "\r\n\r\n" +
+                        Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
+                                                       VM.AudioView.Audio_Quality_SelectedItem
+                                                       ),
 
-                    "\r\n\r\n" + "&&",
-                    "\r\n\r\n" + MainWindow.FFmpegPath(),
+                        "\r\n\r\n" + "&&",
+                        "\r\n\r\n" + MainWindow.FFmpegPath(),
 
-                    "\r\n\r\n" +
-                    "-y",
+                        "\r\n\r\n" +
+                        "-y",
                    
-                    // %~f added in InputPath()
+                        // %~f added in InputPath()
 
-                    OnePass_CRF_Args(), // disabled if 2-Pass       
-                    TwoPass_Args() // disabled if 1-Pass/CRF
-                };
+                        OnePass_CRF_Args(), // disabled if 2-Pass       
+                        TwoPass_Args() // disabled if 1-Pass/CRF
+                    };
+                }
+
+                // -------------------------
+                // PowerShell
+                // -------------------------
+                if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                {
+                    // Video Auto Quality Detect Bitrate
+                    string vBitRateBatch = string.Empty;
+                    if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
+                    {
+                        vBitRateBatch = "\r\n" + "$vBitrate = " + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                    }
+
+                    // Audio Auto Quality Detect Bitrate
+                    string aBitRateBatch = string.Empty;
+                    string aBitRateBatch_NullCheck = string.Empty;
+                    string aBitRateBatch_Limited = string.Empty;
+                    if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+                    {
+                        aBitRateBatch = "\r\n" + "$aBitrate = " + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+
+                        // Bitrate Null Check
+                        aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
+
+                        // Bitrate Limiter
+                        switch (VM.AudioView.Audio_Codec_SelectedItem)
+                        {
+                            // Vorbis
+                            case "Vorbis":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 500000) { $aBitrate = 500000 };";
+                                break;
+
+                            // Opus
+                            case "Opus":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 510000) { $aBitrate = 510000 };";
+                                break;
+
+                            // AAC
+                            case "AAC":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 400000) { $aBitrate = 400000 };"; 
+                                break;
+
+                            // AC3
+                            case "AC3":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 640000) { $aBitrate = 640000 };"; 
+                                break;
+
+                            // DTS
+                            case "DTS":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
+                                break;
+
+                            // MP2
+                            case "MP2":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 384000) { $aBitrate = 384000 };";
+                                break;
+
+                            // LAME
+                            case "LAME":
+                                aBitRateBatch_Limited = "if ($aBitrate -gt 320000) { $aBitrate = 320000 };";
+                                break;
+
+                            //// FLAC
+                            // Do not use, empty is FFmpeg default
+                            //case "FLAC":
+                            //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
+                            //    break;
+
+                            //// PCM
+                            // Do not use, empty is FFmpeg default
+                            //case "PCM":
+                            //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
+                            //    break;
+                        }
+
+                        //aBitRateBatch_Limited = "\r\n" + "switch () {" +
+                        //                                    "{$_ -gt 999} { \"$aBitrate =\" }" + ";";
+                    }
+
+                    // -------------------------
+                    // Batch Arguments Full
+                    // -------------------------
+                    ffmpegBatchArgsList = new List<string>()
+                    {
+                        "$files = Get-ChildItem " + "\"" + MainWindow.BatchInputDirectory().TrimEnd('\\') + "\"" + " -Filter *" + MainWindow.inputExt, // trim the dir's end backslash
+                        "\r\n\r\n" + ";",
+
+                        "\r\n\r\n" + "foreach ($f in $files) {" +
+
+                        "\r\n\r\n" + "$fullName = $f.FullName" + ";", // capture full path to variable
+                        "\r\n" + "$name = $f.Name" + ";", // capture name to variable
+                        vBitRateBatch, // capture video bitrate to variable
+                        aBitRateBatch, // capture audio bitrate to variable
+                        aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
+                        aBitRateBatch_Limited, // limit audio bitrate
+
+                        "\r\n\r\n" + MainWindow.FFmpegPath(),
+                        "\r\n\r\n" +
+                        "-y",
+                   
+                        // $name added in InputPath()
+
+                        OnePass_CRF_Args(), // disabled if 2-Pass       
+                        TwoPass_Args(), // disabled if 1-Pass/CRF
+
+                        "\r\n\r\n" + "}"
+                    };
+                }
+
+                
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                ffmpegArgsSort = string.Join(" ", FFmpegBatchArgsList
+                ffmpegArgsSort = //ArgsShellFormatter(
+                                            string.Join(" ", ffmpegBatchArgsList
                                                   .Where(s => !string.IsNullOrEmpty(s))
                                                   .Where(s => !s.Equals(Environment.NewLine))
                                                   .Where(s => !s.Equals("\r\n\r\n"))
                                                   .Where(s => !s.Equals("\r\n"))
-                                            );
+                                            //)
+                                        );
 
                 // Inline 
-                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", FFmpegBatchArgsList
+                ffmpegArgs = MainWindow.RemoveLineBreaks(
+                                //ArgsShellFormatter(
+                                    string.Join(" ", ffmpegBatchArgsList
                                                                .Where(s => !string.IsNullOrEmpty(s))
                                                                .Where(s => !s.Equals(Environment.NewLine))
                                                                .Where(s => !s.Equals("\r\n\r\n"))
                                                                .Where(s => !s.Equals("\r\n"))
                                                         )
+                                            //)
                                         );
             }
         }
@@ -1129,55 +1348,119 @@ namespace Axiom
             string output = Path.Combine(outputDir, outputFileName + MainWindow.outputExt);
 
             // -------------------------
-            // YouTube Download Arguments Full
+            // Generate Download Script
             // -------------------------
-            // Download
-            //
-            List<string> youtubedlArgs = new List<string>()
+            List<string> youtubedlArgs = new List<string>();
+
+            // -------------------------
+            // CMD
+            // -------------------------
+            if (VM.ConfigureView.Shell_SelectedItem == "CMD")
             {
-                "cd /d",
-                "\"" + /*MainWindow.downloadDir*/ outputDir + "\"",
+                // -------------------------
+                // YouTube Download Arguments Full
+                // -------------------------
+                // youtube-dl Args List
+                youtubedlArgs = new List<string>()
+                {
+                    "cd /d",
+                    "\"" + /*MainWindow.downloadDir*/ outputDir + "\"",
 
-                "\r\n\r\n" + "&&",
+                    "\r\n\r\n" + "&&",
 
-                "\r\n\r\n" + "for /f \"delims=\" %f in ('",
+                    "\r\n\r\n" + "for /f \"delims=\" %f in ('",
 
-                // Get Title
-                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
-                "\r\n"  + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
-                "\r\n" + "')",
+                    // Get Title
+                    "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+                    "\r\n"  + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
+                    "\r\n" + "')",
 
-                // Download Video
-                "\r\n\r\n" + "do (",
-                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+                    // Download Video
+                    "\r\n\r\n" + "do (",
+                    "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
 
-                "\r\n\r\n" + " -f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text, 
-                                                                        VM.FormatView.Format_YouTube_SelectedItem, 
-                                                                        VM.FormatView.Format_YouTube_Quality_SelectedItem
-                                                                        ),
-                "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
-                "\r\n" +" -o " + "\"" + /*MainWindow.downloadDir*/outputDir + /*"%f"*/outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                                               VM.VideoView.Video_Codec_SelectedItem,
-                                                                                                               VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                                               VM.AudioView.Audio_Codec_SelectedItem
-                                                                                                               ) + "\"",
+                    "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
+                                                                            VM.FormatView.Format_YouTube_SelectedItem,
+                                                                            VM.FormatView.Format_YouTube_Quality_SelectedItem
+                                                                            ),
+                    "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
+                    "\r\n" + "-o " + "\"" + /*MainWindow.downloadDir*/outputDir + /*"%f"*/outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                                   VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                                   VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                                   VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                                   ) + "\"",
 
-                // FFmpeg Location
-                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(),
+                    // FFmpeg Location
+                    "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(),
 
-                // Merge Output Format
-                "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                         VM.VideoView.Video_Codec_SelectedItem,
-                                                                                         VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                         VM.AudioView.Audio_Codec_SelectedItem
-                                                                                         )
-            };
+                    // Merge Output Format
+                    "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                             VM.VideoView.Video_Codec_SelectedItem,
+                                                                                             VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                             VM.AudioView.Audio_Codec_SelectedItem
+                                                                                             )
+                };
+            }
+
+            // -------------------------
+            // PowerShell
+            // -------------------------
+            else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+            {
+                // Format youtube-dl Path
+                string youtubedl_formatted = string.Empty;
+                // Check if youtube-dl is not default, if so it is a user-defined path, wrap in quotes
+                // If default, it will not be wrapped in quotes
+                if (MainWindow.youtubedl != "youtube-dl")
+                {
+                    youtubedl_formatted = MainWindow.WrapQuotes(MainWindow.youtubedl);
+                }
+                else
+                {
+                    youtubedl_formatted = MainWindow.youtubedl;
+                }
+
+                // youtube-dl Args List
+                youtubedlArgs = new List<string>()
+                {
+                    // Get Title
+                    "\r\n\r\n" + "$name = " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
+
+                    "\r\n\r\n" + ";",
+
+                    // Download Video
+                    "\r\n\r\n" + youtubedl_formatted,
+
+                    "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
+                                                                            VM.FormatView.Format_YouTube_SelectedItem,
+                                                                            VM.FormatView.Format_YouTube_Quality_SelectedItem
+                                                                            ),
+                    "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
+                    "\r\n" +"-o " + "\"" + /*MainWindow.downloadDir*/outputDir + /*"%f"*/outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                                VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                                VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                                ) + "\"",
+
+                    // FFmpeg Location
+                    "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(),
+
+                    // Merge Output Format
+                    "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                             VM.VideoView.Video_Codec_SelectedItem,
+                                                                                             VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                             VM.AudioView.Audio_Codec_SelectedItem
+                                                                                             )
+                };
+            }
+
 
             // FFmpeg Args
             //
             List<string> FFmpegArgs = new List<string>()
             {
-                "\r\n\r\n" + "&&",
+                //"\r\n\r\n" + "&&",
+                "\r\n\r\n" + LogicalOperator_And_ShellFormatter(),
                 "\r\n\r\n" + MainWindow.FFmpegPath(),
 
                 "\r\n\r\n" +
@@ -1186,10 +1469,11 @@ namespace Axiom
                 OnePass_CRF_Args(), //disabled if 2-Pass       
                 TwoPass_Args(), //disabled if 1-Pass/CRF
 
-                "\r\n\r\n" + "&&",
+                //"\r\n\r\n" + "&&",
+                "\r\n\r\n" + LogicalOperator_And_ShellFormatter(),
 
                 // Delete Downloaded File
-                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem, 
+                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
                                                                                                                     VM.VideoView.Video_Codec_SelectedItem,
                                                                                                                     VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                                                                                     VM.AudioView.Audio_Codec_SelectedItem
@@ -1206,25 +1490,34 @@ namespace Axiom
                                              )
             {
                 // Add "do" Closing Tag
-                youtubedlArgs.Add("\r\n)");
+                // CMD
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                {
+                    youtubedlArgs.Add("\r\n)");
+                }
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                                .Where(s => !string.IsNullOrEmpty(s))
-                                                .Where(s => !s.Equals(Environment.NewLine))
-                                                .Where(s => !s.Equals("\r\n\r\n"))
-                                                .Where(s => !s.Equals("\r\n"))
-                                        );
+                ffmpegArgsSort = //ArgsShellFormatter(
+                                    string.Join(" ", youtubedlArgs
+                                                        .Where(s => !string.IsNullOrEmpty(s))
+                                                        .Where(s => !s.Equals(Environment.NewLine))
+                                                        .Where(s => !s.Equals("\r\n\r\n"))
+                                                        .Where(s => !s.Equals("\r\n"))
+                                        //)
+                                    );
 
                 // Inline 
-                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", youtubedlArgs
-                                                               .Where(s => !string.IsNullOrEmpty(s))
-                                                               .Where(s => !s.Equals(Environment.NewLine))
-                                                               .Where(s => !s.Equals("\r\n\r\n"))
-                                                               .Where(s => !s.Equals("\r\n"))
+                ffmpegArgs = MainWindow.RemoveLineBreaks(
+                                //ArgsShellFormatter(
+                                    string.Join(" ", youtubedlArgs
+                                                        .Where(s => !string.IsNullOrEmpty(s))
+                                                        .Where(s => !s.Equals(Environment.NewLine))
+                                                        .Where(s => !s.Equals("\r\n\r\n"))
+                                                        .Where(s => !s.Equals("\r\n"))
                                                         )
-                                        );
+                                        //)
+                                    );
             }
 
             // -------------------------
@@ -1239,21 +1532,26 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                       .Where(s => !string.IsNullOrEmpty(s))
-                                       .Where(s => !s.Equals(Environment.NewLine))
-                                       .Where(s => !s.Equals("\r\n\r\n"))
-                                       .Where(s => !s.Equals("\r\n"))
+                ffmpegArgsSort = //ArgsShellFormatter(
+                                    string.Join(" ", youtubedlArgs
+                                                       .Where(s => !string.IsNullOrEmpty(s))
+                                                       .Where(s => !s.Equals(Environment.NewLine))
+                                                       .Where(s => !s.Equals("\r\n\r\n"))
+                                                       .Where(s => !s.Equals("\r\n"))
+                                    //)
                                  );
 
                 // Inline 
-                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", youtubedlArgs
-                                                               .Where(s => !string.IsNullOrEmpty(s))
-                                                               .Where(s => !s.Equals(Environment.NewLine))
-                                                               .Where(s => !s.Equals("\r\n\r\n"))
-                                                               .Where(s => !s.Equals("\r\n"))
-                                                        )
-                                        );
+                ffmpegArgs = MainWindow.RemoveLineBreaks(
+                                //ArgsShellFormatter(
+                                    string.Join(" ", youtubedlArgs
+                                                        .Where(s => !string.IsNullOrEmpty(s))
+                                                        .Where(s => !s.Equals(Environment.NewLine))
+                                                        .Where(s => !s.Equals("\r\n\r\n"))
+                                                        .Where(s => !s.Equals("\r\n"))
+                                            )
+                                        //)
+                                    );
             }
         }
 
@@ -1261,13 +1559,33 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Arguments Shell Formatter
+        /// </summary>
+        //public static String ArgsShellFormatter(string args)
+        //{
+        //    // Format FFmpeg Arguments for PowerShell
+        //    if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+        //    {
+        //        return args//.Replace("\\", "\\\\") // Format Backslashes \ → \\
+        //                   //.Replace("\"", "\\\"") // Format Quotes " → \"
+        //                   //.Replace("&&", ";") // Format && Logical Operator && → ;
+        //                   //.Replace("&", ";") // Format & Logical Operator & → ;
+        //                   .Replace("cd /d", "cd"); // Format & Logical Operator & → ;
+        //    }
+
+        //    // Default CMD
+        //    return args;
+        //}
 
         /// <summary>
         /// FFmpeg Generate Script
         /// </summary>
         public static void FFmpegScript()
         {
+            // -------------------------
             // Write FFmpeg Args
+            // -------------------------
             VM.MainView.ScriptView_Text = ffmpegArgs;
         }
 
@@ -1277,13 +1595,34 @@ namespace Axiom
         /// </summary>
         public static void FFmpegStart()
         {
-            // Start FFmpeg Process
-            System.Diagnostics.Process.Start("cmd.exe",
-                                             KeepWindow()
-                                             + " cd " + "\"" + MainWindow.outputDir + "\""
-                                             + " & "
-                                             + ffmpegArgs
-                                             );
+            // -------------------------
+            // CMD
+            // -------------------------
+            if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+            {
+                // Start FFmpeg Process
+                System.Diagnostics.Process.Start("cmd.exe",
+                                                 KeepWindow() +
+                                                 "cd " + MainWindow.WrapQuotes(MainWindow.outputDir) +
+                                                 " & " +
+                                                 ffmpegArgs
+                                                 );
+            }
+
+            // -------------------------
+            // PowerShell
+            // -------------------------
+            else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+            {
+                // Start FFmpeg Process
+                System.Diagnostics.Process.Start("powershell.exe",
+                                                 KeepWindow() +
+                                                 "-command \"Set-Location " + MainWindow.outputDir.Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
+                                                                                                  .Replace("\"", "\\\"") + // Format Quotes " → \"
+                                                 "; " +
+                                                 ffmpegArgs.Replace("\"", "\\\"") // Format Quotes " → \"
+                                                 );
+            }
         }
 
 
@@ -1304,6 +1643,7 @@ namespace Axiom
             // Generate Controls Script
             // -------------------------
             // Inline
+            // Contains Arguments Shell Formatter method
             FFmpegScript();
 
             // -------------------------
