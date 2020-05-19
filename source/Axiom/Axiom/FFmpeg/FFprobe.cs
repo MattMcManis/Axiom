@@ -297,18 +297,40 @@ namespace Axiom
             // -------------------------
             else if (VM.MainView.Batch_IsChecked == true)
             {
-                if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                // CMD
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
                 {
-                    vEntryTypeBatch = "stream^=bit_rate";
+                    if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        vEntryTypeBatch = "stream^=bit_rate";
+                    }
+                    else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        vEntryTypeBatch = "format^=bit_rate";
+                    }
+                    // UNLISTED Filetypes & Audio to Video
+                    else
+                    {
+                        vEntryTypeBatch = "stream^=bit_rate";
+                    }
                 }
-                else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+
+                // PowerShell
+                else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
                 {
-                    vEntryTypeBatch = "format^=bit_rate";
-                }
-                // UNLISTED Filetypes & Audio to Video
-                else
-                {
-                    vEntryTypeBatch = "stream^=bit_rate";
+                    if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        vEntryTypeBatch = "stream=bit_rate";
+                    }
+                    else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        vEntryTypeBatch = "format=bit_rate";
+                    }
+                    // UNLISTED Filetypes & Audio to Video
+                    else
+                    {
+                        vEntryTypeBatch = "stream=bit_rate";
+                    }
                 }
             }
         }
@@ -343,17 +365,38 @@ namespace Axiom
             // -------------------------
             else if (VM.MainView.Batch_IsChecked == true)
             {
-                // Choose FFprobe Entry Type based on Input file extension
-                if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-                    string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                // CMD
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
                 {
-                    aEntryType = "format^=bit_rate";
+                    // Choose FFprobe Entry Type based on Input file extension
+                    if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
+                        string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        aEntryType = "format^=bit_rate";
+                    }
+                    else
+                    {
+                        // All other audio types use stream=bit_rate? -maybe
+                        aEntryType = "stream^=bit_rate";
+                    }
                 }
-                else
+
+                // PowerShell
+                else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
                 {
-                    // All other audio types use stream=bit_rate? -maybe
-                    aEntryType = "stream^=bit_rate";
+                    // Choose FFprobe Entry Type based on Input file extension
+                    if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
+                        string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        aEntryType = "format=bit_rate";
+                    }
+                    else
+                    {
+                        // All other audio types use stream=bit_rate? -maybe
+                        aEntryType = "stream=bit_rate";
+                    }
                 }
+
             }
         }
 
