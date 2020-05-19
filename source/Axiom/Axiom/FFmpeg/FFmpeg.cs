@@ -55,7 +55,6 @@ namespace Axiom
         /// Global Variables
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
-        // FFmepg / FFprobe
         public static string ffmpeg { get; set; } // ffmpeg.exe location
         public static string ffmpegArgs { get; set; } // FFmpeg Arguments
         public static string ffmpegArgsSort { get; set; } // FFmpeg Arguments Sorted
@@ -150,52 +149,6 @@ namespace Axiom
                     return "&&";
             }
         }
-
-        /// <summary>
-        /// Input Shell Formatter
-        /// </summary>
-        //public static String Path_ShellFormatter(string path)
-        //{
-        //    // -------------------------
-        //    // Single File
-        //    // -------------------------
-        //    if (VM.MainView.Batch_IsChecked == false)
-        //    {
-        //        // CMD
-        //        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
-        //        {
-        //            return MainWindow.WrapQuotes(path);
-        //        }
-
-        //        // PowerShell
-        //        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-        //        {
-        //            return MainWindow.WrapQuotes(path);
-        //        }
-        //    }
-
-        //    // -------------------------
-        //    // Batch
-        //    // -------------------------
-        //    else if (VM.MainView.Batch_IsChecked == true)
-        //    {
-        //        // CMD
-        //        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
-        //        {
-        //            return MainWindow.WrapQuotes(path);
-        //        }
-
-        //        // PowerShell
-        //        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-        //        {
-        //            return "'\"' + " + path + " + '\"'";
-        //        }
-        //    }
-
-        //    // Default
-        //    return path;
-        //}
-
 
 
         /// <summary>
@@ -483,7 +436,6 @@ namespace Axiom
 
                     "\r\n\r\n" +
                     "\"" + MainWindow.OutputPath() + "\""
-                    //Path_ShellFormatter(MainWindow.OutputPath())
                 };
                 
 
