@@ -79,8 +79,9 @@ namespace Axiom
             LogPath_Text = Log.logDir;
             LogCheckBox_IsChecked = false;
             LogPath_IsEnabled = false;
-            Theme_SelectedItem = "Axiom";
+            Shell_SelectedItem = "CMD";
             Threads_SelectedItem = "optimal";
+            Theme_SelectedItem = "Axiom";
             UpdateAutoCheck_IsChecked = true;
         }
 
@@ -464,6 +465,77 @@ namespace Axiom
 
                 _LogCheckBox_IsEnabled = value;
                 OnPropertyChanged("LogCheckBox_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Shell
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Shell_Items = new List<string>()
+        {
+           "CMD",
+           "PowerShell"
+        };
+        public List<string> Shell_Items
+        {
+            get { return _Shell_Items; }
+            set
+            {
+                _Shell_Items = value;
+                OnPropertyChanged("Shell_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Shell_SelectedIndex { get; set; }
+        public int Shell_SelectedIndex
+        {
+            get { return _Shell_SelectedIndex; }
+            set
+            {
+                if (_Shell_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Shell_SelectedIndex = value;
+                OnPropertyChanged("Shell_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Shell_SelectedItem { get; set; }
+        public string Shell_SelectedItem
+        {
+            get { return _Shell_SelectedItem; }
+            set
+            {
+                if (_Shell_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Shell_SelectedItem = value;
+                OnPropertyChanged("Shell_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Shell_IsEnabled = true;
+        public bool Shell_IsEnabled
+        {
+            get { return _Shell_IsEnabled; }
+            set
+            {
+                if (_Shell_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Shell_IsEnabled = value;
+                OnPropertyChanged("Shell_IsEnabled");
             }
         }
 
