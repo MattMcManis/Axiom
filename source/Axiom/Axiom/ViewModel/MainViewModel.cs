@@ -104,6 +104,11 @@ namespace Axiom
             // Custom
             new Preset() { Name = "Custom",        Category = true  },
 
+            // YouTube
+            new Preset() { Name = "YouTube-DL",       Category = true  },
+            new Preset() { Name = "Video Download",   Category = false },
+            new Preset() { Name = "Music Download",   Category = false },
+
             // Web
             new Preset() { Name = "Web",           Category = true  },
             new Preset() { Name = "HTML5",         Category = false },
@@ -160,11 +165,6 @@ namespace Axiom
             new Preset() { Name = "MP3 Low",       Category = false },
             new Preset() { Name = "iTunes",        Category = false },
             new Preset() { Name = "Voice",         Category = false },
-
-            // YouTube
-            new Preset() { Name = "YouTube-DL",       Category = true  },
-            new Preset() { Name = "Video Download",   Category = false },
-            new Preset() { Name = "Music Download",   Category = false },
         };
 
         public ObservableCollection<Preset> Preset_Items
