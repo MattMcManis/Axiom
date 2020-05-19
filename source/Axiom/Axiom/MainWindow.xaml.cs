@@ -978,6 +978,24 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        /// Path Wrap in Quotes
+        /// </summary>
+        public static String WrapQuotes(string s)
+        {
+           // "my string"
+           return "\"" + s + "\""; 
+        }
+
+        /// <summary>
+        /// Path Wrap in Escaped Quotes
+        /// </summary>
+        public static String WrapEscapedQuotes(string s)
+        {
+            // \"my string\"
+            return "\\\"" + s + "\\\"";
+        }
+
 
         /// <summary>
         /// Clear Global Variables (Method)
@@ -5027,9 +5045,22 @@ namespace Axiom
                     {
                         inputDir = VM.MainView.Input_Text.TrimEnd('\\') + @"\";  // Note: Do not use Path.GetDirectoryName() with Batch Path only
                                                                                  //       It will remove the last dir as a file extension
-
-                        // Note: %f is filename, %~f is full path
-                        inputFileName = "%~f";
+                        // -------------------------
+                        // CMD
+                        // -------------------------
+                        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                        {
+                            // Note: %f is filename, %~f is full path
+                            //inputFileName = "%~f";
+                            inputFileName = "%f";
+                        }
+                        // -------------------------
+                        // PowerShell
+                        // -------------------------
+                        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                        {
+                            inputFileName = "$name";
+                        }
 
                         // Combine Input
                         input = inputDir + inputFileName; // eg. C:\Input\Path\%~f
@@ -5044,7 +5075,25 @@ namespace Axiom
                          pass != "pass 2") // Ignore Pass 2, use existing input path
                 {
                     inputDir = downloadDir;
-                    inputFileName = "%f";
+
+                    //inputFileName = "%f";
+
+                    // -------------------------
+                    // CMD
+                    // -------------------------
+                    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                    {
+                        // Note: %f is filename, %~f is full path
+                        inputFileName = "%f";
+                    }
+                    // -------------------------
+                    // PowerShell
+                    // -------------------------
+                    else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                    {
+                        inputFileName = "$name";
+                    }
+
                     inputExt = "." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
                                                            VM.VideoView.Video_Codec_SelectedItem,
                                                            VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -5191,7 +5240,7 @@ namespace Axiom
                         // Output Empty
                         // Default Output to be same as Input Directory
                         if ((!string.IsNullOrEmpty(VM.MainView.Input_Text) &&
-                            !string.IsNullOrWhiteSpace(VM.MainView.Input_Text)) 
+                            !string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
                             &&
                             (string.IsNullOrEmpty(VM.MainView.Output_Text) ||
                             string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
@@ -5210,9 +5259,20 @@ namespace Axiom
 
                         outputDir = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
 
+                        // -------------------------
                         // Combine Output  
-                        //output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
-                        output = Path.Combine(outputDir, "%~nf" + outputExt); // eg. C:\Output Folder\%~nf.mp4
+                        // -------------------------
+                        // CMD
+                        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                        {
+                            //output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
+                            output = Path.Combine(outputDir, "%~nf" + outputExt); // eg. C:\Output Folder\%~nf.mp4
+                        }
+                        // PowerShell
+                        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                        {
+                            output = Path.Combine(outputDir, "$name" + outputExt); // eg. C:\Output Folder\%~nf.mp4
+                        }
                     }
                 }
 
@@ -5230,7 +5290,18 @@ namespace Axiom
                         string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
                     {
                         outputDir = downloadDir; // Default
-                        outputFileName = "%f";
+                        //outputFileName = "%f";
+                        // CMD
+                        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                        {
+                            // Note: %f is filename, %~f is full path
+                            outputFileName = "%f";
+                        }
+                        // PowerShell
+                        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                        {
+                            outputFileName = "$name";
+                        }
 
                         // Check if output filename already exists
                         // Check if YouTube Download Format is the same as Output Extension
@@ -8702,7 +8773,9 @@ namespace Axiom
                 // Use Arguments from Script TextBox
                 // -------------------------
                 FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
-                                        VM.MainView.ScriptView_Text
+                                        //FFmpeg.ArgsShellFormatter(
+                                            VM.MainView.ScriptView_Text
+                                        //)
                                     );
 
                 // -------------------------
