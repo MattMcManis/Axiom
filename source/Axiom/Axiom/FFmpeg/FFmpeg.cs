@@ -1342,7 +1342,7 @@ namespace Axiom
 
                     // FFmpeg Location
                     "\r\n\r\n" + 
-                    Exe_InvokeOperator_PowerShell() + 
+                    //Exe_InvokeOperator_PowerShell() + 
                     MainWindow.YouTubeDL_FFmpegPath(),
 
                     // Merge Output Format
@@ -1396,7 +1396,7 @@ namespace Axiom
 
                     // FFmpeg Location
                     "\r\n\r\n" +
-                    Exe_InvokeOperator_PowerShell() + 
+                    //Exe_InvokeOperator_PowerShell() + 
                     MainWindow.YouTubeDL_FFmpegPath(),
 
                     // Merge Output Format
