@@ -42,7 +42,7 @@ https://github.com/MattMcManis/Axiom/releases
 #### Files
 - Axiom UI
 - [FFmpeg 4.2.2 64-Bit](https://ffmpeg.zeranoe.com/builds)
-- [youtube-dl 2020.05.08](https://github.com/ytdl-org/youtube-dl/releases) 
+- [youtube-dl 2020.05.08](https://github.com/ytdl-org/youtube-dl/releases)  
 Requires: [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
 - Install Instructions
 - User Guide pdf
