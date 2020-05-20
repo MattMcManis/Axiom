@@ -1342,7 +1342,6 @@ namespace Axiom
 
                     // FFmpeg Location
                     "\r\n\r\n" + 
-                    //Exe_InvokeOperator_PowerShell() + 
                     MainWindow.YouTubeDL_FFmpegPath(),
 
                     // Merge Output Format
@@ -1376,12 +1375,12 @@ namespace Axiom
                 youtubedlArgs = new List<string>()
                 {
                     // Get Title
-                    "\r\n\r\n" + "$name = " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
+                    "$name =" + " & " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
 
                     "\r\n\r\n" + ";",
 
                     // Download Video
-                    "\r\n\r\n" + youtubedl_formatted,
+                    "\r\n\r\n" + "& " + youtubedl_formatted,
 
                     "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
                                                                             VM.FormatView.Format_YouTube_SelectedItem,
@@ -1396,7 +1395,6 @@ namespace Axiom
 
                     // FFmpeg Location
                     "\r\n\r\n" +
-                    //Exe_InvokeOperator_PowerShell() + 
                     MainWindow.YouTubeDL_FFmpegPath(),
 
                     // Merge Output Format
