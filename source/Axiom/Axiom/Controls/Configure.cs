@@ -268,16 +268,18 @@ namespace Axiom
             // --------------------------------------------------
             // Shell
             VM.ConfigureView.Shell_SelectedItem = conf.Read("Settings", "Shell_SelectedItem");
+            if (string.IsNullOrEmpty(VM.ConfigureView.Shell_SelectedItem))
+            {
+                VM.ConfigureView.Shell_SelectedItem = "CMD"; // default
+            }
 
             // Config Path
             VM.ConfigureView.ConfigPath_SelectedItem = conf.Read("Settings", "ConfigPath_SelectedItem");
-
-            // HWAccel
-            string configPath = conf.Read("Settings", "ConfigPath_SelectedItem");
-            if (VM.ConfigureView.ConfigPath_Items.Contains(configPath))
-                VM.ConfigureView.ConfigPath_SelectedItem = configPath;
-            //else
-            //    Profiles.listFailedImports.Add("Settings: Config Path");
+            //string configPath = conf.Read("Settings", "ConfigPath_SelectedItem");
+            //if (VM.ConfigureView.ConfigPath_Items.Contains(configPath))
+            //{
+            //    VM.ConfigureView.ConfigPath_SelectedItem = configPath;
+            //}
 
             // Presets
             VM.ConfigureView.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
