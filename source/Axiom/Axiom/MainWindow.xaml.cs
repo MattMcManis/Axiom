@@ -64,6 +64,10 @@ namespace Axiom
         /// Global Variables
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
+        // MainWindow
+        public static double minWidth = 824;
+        public static double minHeight = 464;
+
         // System
         public static string appRootDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
 
@@ -164,8 +168,8 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            MinWidth = 824;
-            MinHeight = 464;
+            MinWidth = MainWindow.minWidth;
+            MinHeight = MainWindow.minHeight;
 
             // -------------------------
             // Set Current Version to Assembly Version
