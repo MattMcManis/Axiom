@@ -4,10 +4,21 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.4.2] - May 20, 2020
+### Added
+- Import Read Config Null Checks
+- Added Import Read Config `MainWindow` Width/Height defaults
+
+
+## [1.8.4.1] - May 19, 2020
+### Fixed
+- Upgrade Import Config Read `Shell_SelectedItem`
+
+
 ## [1.8.4.0] - May 19, 2020
 ### Added
-- Added Input Audio Bitrate FFprobe `TryParse`
-- Added Video `IsNullOrWhiteSpace` checks
+- Input Audio Bitrate FFprobe `TryParse`
+- Video `IsNullOrWhiteSpace` checks
 
 ### Changed
 - Optimized `Switch/Case`
@@ -15,7 +26,7 @@ Axiom FFmpeg UI
 - Improved Video Bit Rate Calculator
 
 ### Fixed
-- Fixed PowerShell youtube-dl
+- PowerShell youtube-dl
 
 
 ## [1.8.3.1] - May 19, 2020
