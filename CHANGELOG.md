@@ -4,6 +4,11 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.4.3] - May 20, 2020
+### Fixed
+- youtube-dl PowerShell
+
+
 ## [1.8.4.2] - May 20, 2020
 ### Added
 - Import Read Config Null Checks
