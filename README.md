@@ -39,16 +39,20 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 #### Releases
 https://github.com/MattMcManis/Axiom/releases
 
-* Axiom User Interface Standalone
-* Axiom + FFmpeg 64-Bit
-* youtube-dl
-* Install Instructions & User Guide.
+#### Files
+- Axiom UI
+- [FFmpeg 4.2.2 64-Bit](https://ffmpeg.zeranoe.com/builds)
+- [youtube-dl 2020.05.08](https://github.com/ytdl-org/youtube-dl/releases) 
+Requires: [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
+- Install Instructions
+- User Guide pdf
+- Troubleshooter
 
 #### Requires
 [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
 
 #### FFmpeg Builds
-https://ffmpeg.zeranoe.com/builds/
+https://ffmpeg.zeranoe.com/builds
 
 &nbsp;
 
@@ -74,7 +78,8 @@ Axiom is portable and can be run from any location on the computer.
 ---
 
 #### YouTube Download
-`youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. Requires [Microsoft Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) installed.
+`youtube-dl.exe` is included in `Axiom.FFmpeg.7z`.  
+Requires [Microsoft Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+) installed.
 
 Axiom will auto-detect it in its included folder. You can also add it to Windows Environment Variables or specify a path in the Axiom Settings Tab.
 
