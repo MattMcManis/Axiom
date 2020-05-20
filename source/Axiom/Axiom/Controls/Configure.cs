@@ -206,7 +206,7 @@ namespace Axiom
         /// <summary>
         /// Import Read Config
         /// </summary>
-        public static void ReadConfig(MainWindow mainwindow, /*MainView vm, */INIFile conf)
+        public static void ReadConfig(MainWindow mainwindow, INIFile conf)
         {
             // -------------------------
             // Main Window
@@ -243,12 +243,12 @@ namespace Axiom
             }
 
             // Window Width
-            double width;
+            double width = MainWindow.minWidth;
             double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
             mainwindow.Width = width;
 
             // Window Height
-            double height;
+            double height = MainWindow.minHeight;
             double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
             mainwindow.Height = height;
 
@@ -266,46 +266,84 @@ namespace Axiom
             // --------------------------------------------------
             // Settings
             // --------------------------------------------------
-            // Shell
-            VM.ConfigureView.Shell_SelectedItem = conf.Read("Settings", "Shell_SelectedItem");
-            if (string.IsNullOrEmpty(VM.ConfigureView.Shell_SelectedItem))
+            // Config Path
+            string configPath_SelectedItem = conf.Read("Settings", "ConfigPath_SelectedItem");
+            if (!string.IsNullOrEmpty(configPath_SelectedItem) &&
+                !string.IsNullOrWhiteSpace(configPath_SelectedItem))
             {
-                VM.ConfigureView.Shell_SelectedItem = "CMD"; // default
+                VM.ConfigureView.ConfigPath_SelectedItem = configPath_SelectedItem;
             }
 
-            // Config Path
-            VM.ConfigureView.ConfigPath_SelectedItem = conf.Read("Settings", "ConfigPath_SelectedItem");
-            //string configPath = conf.Read("Settings", "ConfigPath_SelectedItem");
-            //if (VM.ConfigureView.ConfigPath_Items.Contains(configPath))
-            //{
-            //    VM.ConfigureView.ConfigPath_SelectedItem = configPath;
-            //}
-
             // Presets
-            VM.ConfigureView.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
+            string customPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
+            if (!string.IsNullOrEmpty(customPresetsPath_Text) &&
+                !string.IsNullOrWhiteSpace(customPresetsPath_Text))
+            {
+                VM.ConfigureView.CustomPresetsPath_Text = customPresetsPath_Text;
+            }
 
             // FFmpeg
-            VM.ConfigureView.FFmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
-            VM.ConfigureView.FFprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
-            VM.ConfigureView.FFplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
+            string ffmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
+            if (!string.IsNullOrEmpty(ffmpegPath_Text) &&
+                !string.IsNullOrWhiteSpace(ffmpegPath_Text))
+            {
+                VM.ConfigureView.FFmpegPath_Text = ffmpegPath_Text;
+            }
+            // FFprobe
+            string ffprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
+            if (!string.IsNullOrEmpty(ffprobePath_Text) &&
+                !string.IsNullOrWhiteSpace(ffprobePath_Text))
+            {
+                VM.ConfigureView.FFprobePath_Text = ffprobePath_Text;
+            }
+            // FFplay
+            string ffplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
+            if (!string.IsNullOrEmpty(ffplayPath_Text) &&
+                !string.IsNullOrWhiteSpace(ffplayPath_Text))
+            {
+                VM.ConfigureView.FFplayPath_Text = ffplayPath_Text;
+            }
 
-            // Log
-            bool settings_LogCheckBox_IsChecked;
-            bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
-            VM.ConfigureView.LogCheckBox_IsChecked = settings_LogCheckBox_IsChecked;
+            // Log CheckBox
+            bool logCheckBox_IsChecked;
+            bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out logCheckBox_IsChecked);
+            VM.ConfigureView.LogCheckBox_IsChecked = logCheckBox_IsChecked;
+            // Log Path
+            string logPath_Text = conf.Read("Settings", "LogPath_Text");
+            if (!string.IsNullOrEmpty(logPath_Text) &&
+                !string.IsNullOrWhiteSpace(logPath_Text))
+            {
+                VM.ConfigureView.LogPath_Text = logPath_Text;
+            }
 
-            VM.ConfigureView.LogPath_Text = conf.Read("Settings", "LogPath_Text");
+            // Shell
+            string shell_SelectedItem = conf.Read("Settings", "Shell_SelectedItem");
+            if (!string.IsNullOrEmpty(shell_SelectedItem) &&
+                !string.IsNullOrWhiteSpace(shell_SelectedItem))
+            {
+                VM.ConfigureView.Shell_SelectedItem = shell_SelectedItem;
+            }
 
             // Threads
-            VM.ConfigureView.Threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
+            string threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
+            if (!string.IsNullOrEmpty(threads_SelectedItem) &&
+                !string.IsNullOrWhiteSpace(threads_SelectedItem))
+            {
+                VM.ConfigureView.Threads_SelectedItem = threads_SelectedItem;
+            }
 
             // Theme
-            VM.ConfigureView.Theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
+            string theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
+            if (!string.IsNullOrEmpty(theme_SelectedItem) &&
+                !string.IsNullOrWhiteSpace(theme_SelectedItem))
+            {
+                VM.ConfigureView.Theme_SelectedItem = theme_SelectedItem;
+            }
 
             // Updates
-            bool settings_UpdateAutoCheck_IsChecked;
-            bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
-            VM.ConfigureView.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
+            bool updateAutoCheck_IsChecked;
+            bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out updateAutoCheck_IsChecked);
+            VM.ConfigureView.UpdateAutoCheck_IsChecked = updateAutoCheck_IsChecked;
         }
 
 
@@ -409,9 +447,6 @@ namespace Axiom
                     // --------------------------------------------------
                     // Settings
                     // --------------------------------------------------
-                    // Shell
-                    conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
-
                     // Config Path
                     conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
 
@@ -426,6 +461,9 @@ namespace Axiom
                     // Log
                     conf.Write("Settings", "LogCheckBox_IsChecked", VM.ConfigureView.LogCheckBox_IsChecked.ToString().ToLower());
                     conf.Write("Settings", "LogPath_Text", VM.ConfigureView.LogPath_Text);
+
+                    // Shell
+                    conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
 
                     // Threads
                     conf.Write("Settings", "Threads_SelectedItem", VM.ConfigureView.Threads_SelectedItem);
