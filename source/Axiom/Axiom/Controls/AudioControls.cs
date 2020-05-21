@@ -472,8 +472,7 @@ namespace Axiom
         /// <summary>
         /// Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(
-                                                   string inputExt,
+        public static bool AutoCopyConditionsCheck(string inputExt,
                                                    string outputExt)
         {
             // Pass Check
@@ -516,8 +515,7 @@ namespace Axiom
             // Halt if Input Extention Null Check
             // or youtube-dl URL
             // -------------------------
-            if (string.IsNullOrEmpty(MainWindow.inputExt) ||
-                string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            if (string.IsNullOrWhiteSpace(MainWindow.inputExt))
             {
                 return;
             }
