@@ -268,38 +268,33 @@ namespace Axiom
             // --------------------------------------------------
             // Config Path
             string configPath_SelectedItem = conf.Read("Settings", "ConfigPath_SelectedItem");
-            if (!string.IsNullOrEmpty(configPath_SelectedItem) &&
-                !string.IsNullOrWhiteSpace(configPath_SelectedItem))
+            if (!string.IsNullOrWhiteSpace(configPath_SelectedItem))
             {
                 VM.ConfigureView.ConfigPath_SelectedItem = configPath_SelectedItem;
             }
 
             // Presets
             string customPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
-            if (!string.IsNullOrEmpty(customPresetsPath_Text) &&
-                !string.IsNullOrWhiteSpace(customPresetsPath_Text))
+            if (!string.IsNullOrWhiteSpace(customPresetsPath_Text))
             {
                 VM.ConfigureView.CustomPresetsPath_Text = customPresetsPath_Text;
             }
 
             // FFmpeg
             string ffmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
-            if (!string.IsNullOrEmpty(ffmpegPath_Text) &&
-                !string.IsNullOrWhiteSpace(ffmpegPath_Text))
+            if (!string.IsNullOrWhiteSpace(ffmpegPath_Text))
             {
                 VM.ConfigureView.FFmpegPath_Text = ffmpegPath_Text;
             }
             // FFprobe
             string ffprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
-            if (!string.IsNullOrEmpty(ffprobePath_Text) &&
-                !string.IsNullOrWhiteSpace(ffprobePath_Text))
+            if (!string.IsNullOrWhiteSpace(ffprobePath_Text))
             {
                 VM.ConfigureView.FFprobePath_Text = ffprobePath_Text;
             }
             // FFplay
             string ffplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
-            if (!string.IsNullOrEmpty(ffplayPath_Text) &&
-                !string.IsNullOrWhiteSpace(ffplayPath_Text))
+            if (!string.IsNullOrWhiteSpace(ffplayPath_Text))
             {
                 VM.ConfigureView.FFplayPath_Text = ffplayPath_Text;
             }
@@ -310,32 +305,28 @@ namespace Axiom
             VM.ConfigureView.LogCheckBox_IsChecked = logCheckBox_IsChecked;
             // Log Path
             string logPath_Text = conf.Read("Settings", "LogPath_Text");
-            if (!string.IsNullOrEmpty(logPath_Text) &&
-                !string.IsNullOrWhiteSpace(logPath_Text))
+            if (!string.IsNullOrWhiteSpace(logPath_Text))
             {
                 VM.ConfigureView.LogPath_Text = logPath_Text;
             }
 
             // Shell
             string shell_SelectedItem = conf.Read("Settings", "Shell_SelectedItem");
-            if (!string.IsNullOrEmpty(shell_SelectedItem) &&
-                !string.IsNullOrWhiteSpace(shell_SelectedItem))
+            if (!string.IsNullOrWhiteSpace(shell_SelectedItem))
             {
                 VM.ConfigureView.Shell_SelectedItem = shell_SelectedItem;
             }
 
             // Threads
             string threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
-            if (!string.IsNullOrEmpty(threads_SelectedItem) &&
-                !string.IsNullOrWhiteSpace(threads_SelectedItem))
+            if (!string.IsNullOrWhiteSpace(threads_SelectedItem))
             {
                 VM.ConfigureView.Threads_SelectedItem = threads_SelectedItem;
             }
 
             // Theme
             string theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
-            if (!string.IsNullOrEmpty(theme_SelectedItem) &&
-                !string.IsNullOrWhiteSpace(theme_SelectedItem))
+            if (!string.IsNullOrWhiteSpace(theme_SelectedItem))
             {
                 VM.ConfigureView.Theme_SelectedItem = theme_SelectedItem;
             }
@@ -479,7 +470,7 @@ namespace Axiom
                     // User
                     // --------------------------------------------------
                     // Input Previous Path
-                    if (!string.IsNullOrEmpty(MainWindow.inputPreviousPath))
+                    if (!string.IsNullOrWhiteSpace(MainWindow.inputPreviousPath))
                     {
                         if (Directory.Exists(MainWindow.inputPreviousPath))
                         {
@@ -488,7 +479,7 @@ namespace Axiom
                     }
 
                     // Output Previous Path
-                    if (!string.IsNullOrEmpty(MainWindow.outputPreviousPath))
+                    if (!string.IsNullOrWhiteSpace(MainWindow.outputPreviousPath))
                     {
                         if (Directory.Exists(MainWindow.outputPreviousPath))
                         {
