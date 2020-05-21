@@ -109,7 +109,7 @@ namespace Axiom
         {
             // Only if BitRate Textbox is not Empty (except for Auto Quality)
             if (quality_SelectedItem == "Auto" || 
-                (!string.IsNullOrEmpty(bitrate_Text) && !string.IsNullOrWhiteSpace(bitrate_Text))
+                !string.IsNullOrWhiteSpace(bitrate_Text)
                 )
             {
                 // CBR
@@ -156,8 +156,7 @@ namespace Axiom
                 // -------------------------
                 // Input Has Audio
                 // -------------------------
-                if (!string.IsNullOrEmpty(FFprobe.inputAudioBitRate) &&
-                    !string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
                 {
                     //MessageBox.Show(FFprobe.inputAudioBitRate); //debug
 
@@ -204,16 +203,14 @@ namespace Axiom
                     // -------------------------
                     // Input Does Not Have Audio Codec
                     // -------------------------
-                    if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec) &&
-                        !string.IsNullOrWhiteSpace(FFprobe.inputAudioCodec))
+                    if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioCodec))
                     {
                         // Default to a new bitrate if Input & Output formats Do Not match
                         if (FFprobe.inputAudioBitRate == "N/A" &&
                             !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                         {
                             // Default to NA value
-                            if (!string.IsNullOrEmpty(aBitRateNA) &&
-                                !string.IsNullOrWhiteSpace(aBitRateNA))
+                            if (!string.IsNullOrWhiteSpace(aBitRateNA))
                             {
                                 //aBitRate = aBitRateNA;
 
@@ -250,8 +247,7 @@ namespace Axiom
                 // -------------------------
                 // Input No Audio
                 // -------------------------
-                else if (string.IsNullOrEmpty(FFprobe.inputAudioBitRate) ||
-                         string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                else if (string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
                 {
                     aBitMode = string.Empty;
                     aBitRate = string.Empty;
@@ -260,8 +256,7 @@ namespace Axiom
                 // -------------------------
                 // Input TextBox is Empty - Auto Value
                 // -------------------------
-                if (string.IsNullOrEmpty(input_Text) ||
-                    string.IsNullOrWhiteSpace(input_Text))
+                if (string.IsNullOrWhiteSpace(input_Text))
                 {
                     aBitMode = "-b:a";
                     //aBitRate = "320";
@@ -291,8 +286,7 @@ namespace Axiom
                 // -------------------------
                 // BitRate Returned Empty, Disable BitMode
                 // -------------------------
-                if (string.IsNullOrEmpty(aBitRate) ||
-                    string.IsNullOrWhiteSpace(aBitRate))
+                if (string.IsNullOrWhiteSpace(aBitRate))
                 {
                     aBitMode = string.Empty;
                 }
@@ -429,8 +423,7 @@ namespace Axiom
                                        bitrate_Text
                                        );
 
-                if (!string.IsNullOrEmpty(aBitMode) &&
-                    !string.IsNullOrWhiteSpace(aBitMode)) // Null Check
+                if (!string.IsNullOrWhiteSpace(aBitMode)) // Null Check
                 {
                     switch (quality_SelectedItem)
                     {
@@ -479,8 +472,7 @@ namespace Axiom
                     // --------------------------------------------------
                     // Add kbps
                     // --------------------------------------------------
-                    if (!string.IsNullOrEmpty(aBitRate) && // Bit Rate Empty Check
-                        !string.IsNullOrWhiteSpace(aBitRate) &&
+                    if (!string.IsNullOrWhiteSpace(aBitRate) && // Bit Rate Empty Check
                         aBitMode != "-q:a" &&              // Ignore VBR
                         aBitRate != "%A" &&                // Ignore Batch Auto Quality CBR
                         aBitRate != "$aBitrate"            // Ignore Batch Auto Quality CBR
@@ -502,7 +494,6 @@ namespace Axiom
 
                     // Quality
                     aQuality = string.Join(" ", aQualityArgs
-                                                .Where(s => !string.IsNullOrEmpty(s))
                                                 .Where(s => !string.IsNullOrWhiteSpace(s))
                                                 .Where(s => !s.Equals("\n"))
                                           );
@@ -539,8 +530,7 @@ namespace Axiom
                 // -------------------------
                 // If Video is has no Audio, don't set Audio BitRate
                 // -------------------------
-                if (!string.IsNullOrEmpty(FFprobe.inputAudioBitRate) &&
-                    !string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
                 {
                     // -------------------------
                     // Filter out any extra spaces after the first 3 characters IMPORTANT
@@ -556,7 +546,6 @@ namespace Axiom
                 // If Video has Audio, calculate BitRate into decimal
                 // -------------------------
                 if (inputAudioBitRate != "N/A" && 
-                    !string.IsNullOrEmpty(FFprobe.inputAudioBitRate) &&
                     !string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
                 {
                     // -------------------------
@@ -919,7 +908,6 @@ namespace Axiom
                 // -------------------------
                 if (compressionLevel_SelectedItem == "none" ||
                     compressionLevel_SelectedItem == "auto" ||
-                    string.IsNullOrEmpty(compressionLevel_SelectedItem) ||
                     string.IsNullOrWhiteSpace(compressionLevel_SelectedItem)
                     )
                 {
@@ -1243,7 +1231,6 @@ namespace Axiom
 
                     // Join List with Spaces, Remove Empty Strings
                     batchAudioAuto = string.Join(" ", BatchAudioAutoList
-                                                        .Where(s => !string.IsNullOrEmpty(s))
                                                         .Where(s => !string.IsNullOrWhiteSpace(s))
                                                         );
                 }
@@ -1263,13 +1250,11 @@ namespace Axiom
             // -------------------------
             // Only if Audio Codec is Not Empty
             // -------------------------
-            if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
-                !string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
+            if (!!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
             {
                 // If TextBox is 100% or Empty
                 if (VM.AudioView.Audio_Volume_Text == "100%" ||
                     VM.AudioView.Audio_Volume_Text == "100" ||
-                    string.IsNullOrEmpty(VM.AudioView.Audio_Volume_Text) ||
                     string.IsNullOrWhiteSpace(VM.AudioView.Audio_Volume_Text))
                 {
                     aVolume = string.Empty;

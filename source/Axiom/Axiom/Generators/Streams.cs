@@ -205,7 +205,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { vMap, cMap };
             // Join List with Spaces, Remove Empty Strings
-            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrWhiteSpace(s)));
 
 
             // Return Value
@@ -251,7 +251,7 @@ namespace Axiom
                     }
 
                     // Join multiple maps: -map 1:s? -map 2:s? -map 3:s?
-                    sMap = string.Join(" ", subtitleMapsList.Where(s => !string.IsNullOrEmpty(s)));
+                    sMap = string.Join(" ", subtitleMapsList.Where(s => !string.IsNullOrWhiteSpace(s)));
 
 
                     // -------------------------
@@ -279,7 +279,7 @@ namespace Axiom
 
                     // Create Default Subtitle
                     string disposition = string.Empty;
-                    if (!string.IsNullOrEmpty(checkedItem))
+                    if (!string.IsNullOrWhiteSpace(checkedItem))
                     {
                         disposition = " \r\n-disposition:s:" + checkedItem + " default";
                     }
@@ -390,7 +390,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { sMap };
             // Join List with Spaces, Remove Empty Strings
-            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrWhiteSpace(s)));
 
             // Return Value
             return map;
@@ -514,7 +514,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { aMap };
             // Join List with Spaces, Remove Empty Strings
-            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrWhiteSpace(s)));
 
 
             // Log Console Message /////////
@@ -573,7 +573,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { mMap };
             // Join List with Spaces, Remove Empty Strings
-            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrWhiteSpace(s)));
 
 
             // Return Value

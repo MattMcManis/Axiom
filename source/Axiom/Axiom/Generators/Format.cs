@@ -332,7 +332,7 @@ namespace Axiom
                 // Time
                 // -------------------------
                 // If Frame Textboxes Default Use Time
-                if (string.IsNullOrEmpty(frameStart_Text))
+                if (string.IsNullOrWhiteSpace(frameStart_Text))
                 {
                     // Start
                     trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
@@ -346,7 +346,7 @@ namespace Axiom
                 // -------------------------
                 // If Frame Textboxes have Text, but not Default, 
                 // use FramesToDecimal Method (Override Time)
-                else if (!string.IsNullOrEmpty(frameStart_Text))
+                else if (!string.IsNullOrWhiteSpace(frameStart_Text))
                 {
                     trimStart = Video.FramesToDecimal(frameStart_Text);
                 }
@@ -395,7 +395,7 @@ namespace Axiom
                     // Time
                     // -------------------------
                     // If Frame Textboxes Default Use Time
-                    if (string.IsNullOrEmpty(frameEnd_Text))
+                    if (string.IsNullOrWhiteSpace(frameEnd_Text))
                     {
                         // End
                         trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
@@ -405,10 +405,10 @@ namespace Axiom
 
                         // If End Time is Empty, Default to Full Duration
                         // Input Null Check
-                        if (!string.IsNullOrEmpty(input_Text))
+                        if (!string.IsNullOrWhiteSpace(input_Text))
                         {
                             if (trimEnd == "00:00:00.000" ||
-                                string.IsNullOrEmpty(trimEnd))
+                                string.IsNullOrWhiteSpace(trimEnd))
                             {
                                 trimEnd = FFprobe.CutDuration(input_Text, batch_IsChecked);
                             }
@@ -421,7 +421,7 @@ namespace Axiom
                     // -------------------------
                     // If Frame Textboxes have Text, but not Default, 
                     // use FramesToDecimal Method (Override Time)
-                    else if (!string.IsNullOrEmpty(frameEnd_Text))
+                    else if (!string.IsNullOrWhiteSpace(frameEnd_Text))
                     {
                         trimEnd = Video.FramesToDecimal(frameEnd_Text);
                     }

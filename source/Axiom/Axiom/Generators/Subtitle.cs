@@ -86,7 +86,7 @@ namespace Axiom
                 subtitleFilePathsList.Count > 0)
             {
                 subtitles = "-i " + string.Join(" \r\n\r\n-i ", subtitleFilePathsList
-                                          .Where(s => !string.IsNullOrEmpty(s))
+                                          .Where(s => !string.IsNullOrWhiteSpace(s))
                                           );
             }
 

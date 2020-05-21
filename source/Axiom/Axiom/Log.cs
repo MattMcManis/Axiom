@@ -97,7 +97,7 @@ namespace Axiom
             if (VM.ConfigureView.LogCheckBox_IsChecked == true)
             {
                 // Empty, Set Log Path to %ProgramData% Directory
-                if (string.IsNullOrEmpty(VM.ConfigureView.LogPath_Text))
+                if (string.IsNullOrWhiteSpace(VM.ConfigureView.LogPath_Text))
                 {
                     //VM.ConfigureView.LogPath_Text = MainWindow.appDir;
                     VM.ConfigureView.LogPath_Text = logDir;

@@ -1235,8 +1235,7 @@ namespace Axiom
             // Halt if Input Extention Null Check
             // or youtube-dl URL
             // -------------------------
-            if (string.IsNullOrEmpty(MainWindow.inputExt) ||
-                string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            if (string.IsNullOrWhiteSpace(MainWindow.inputExt))
             {
                 return;
             }

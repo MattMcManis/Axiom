@@ -67,12 +67,12 @@ namespace Axiom
             //// Crop Width
             //// ------------------------- 
             //// First time use
-            //if (string.IsNullOrEmpty(cropWidth))
+            //if (string.IsNullOrWhiteSpace(cropWidth))
             //{
             //    VM.VideoView.Video_Crop_Width_Text = string.Empty;
             //}
             //// Load Temp Saved String
-            //else if (!string.IsNullOrEmpty(cropWidth))
+            //else if (!string.IsNullOrWhiteSpace(cropWidth))
             //{
             //    VM.VideoView.Video_Crop_Width_Text = cropWidth;
             //}
@@ -81,12 +81,12 @@ namespace Axiom
             //// Crop Height
             //// ------------------------- 
             //// First time use
-            //if (string.IsNullOrEmpty(cropHeight))
+            //if (string.IsNullOrWhiteSpace(cropHeight))
             //{
             //    VM.VideoView.Video_Crop_Height_Text = string.Empty;
             //}
             //// Load Temp Saved String
-            //else if (!string.IsNullOrEmpty(cropHeight))
+            //else if (!string.IsNullOrWhiteSpace(cropHeight))
             //{
             //    VM.VideoView.Video_Crop_Height_Text = cropHeight;
             //}
@@ -95,12 +95,12 @@ namespace Axiom
             //// Crop X
             //// ------------------------- 
             //// First time use
-            //if (string.IsNullOrEmpty(cropX))
+            //if (string.IsNullOrWhiteSpace(cropX))
             //{
             //    VM.VideoView.Video_Crop_X_Text = string.Empty;
             //}
             //// Load Temp Saved String
-            //else if (!string.IsNullOrEmpty(cropX))
+            //else if (!string.IsNullOrWhiteSpace(cropX))
             //{
             //    VM.VideoView.Video_Crop_X_Text = cropX;
             //}
@@ -109,12 +109,12 @@ namespace Axiom
             //// Crop Y
             //// ------------------------- 
             //// First time use
-            //if (string.IsNullOrEmpty(cropY))
+            //if (string.IsNullOrWhiteSpace(cropY))
             //{
             //    VM.VideoView.Video_Crop_Y_Text = string.Empty;
             //}
             //// Load Temp Saved String
-            //else if (!string.IsNullOrEmpty(cropY))
+            //else if (!string.IsNullOrWhiteSpace(cropY))
             //{
             //    VM.VideoView.Video_Crop_Y_Text = cropY;
             //}
@@ -199,28 +199,28 @@ namespace Axiom
 
             // Set Empty Crop Width Textbox to 0
             //
-            if (string.IsNullOrEmpty(cropWidth))
+            if (string.IsNullOrWhiteSpace(cropWidth))
             {
                 VM.VideoView.Video_Crop_Width_Text = "0";
                 cropWidth = VM.VideoView.Video_Crop_Width_Text;
             }
             // Set Empty Crop Height Textbox to 0
             //
-            if (string.IsNullOrEmpty(cropHeight))
+            if (string.IsNullOrWhiteSpace(cropHeight))
             {
                 VM.VideoView.Video_Crop_Height_Text = "0";
                 cropHeight = VM.VideoView.Video_Crop_Height_Text;
             }
             // Set Empty Crop X Textbox to 0
             //
-            if (string.IsNullOrEmpty(cropX))
+            if (string.IsNullOrWhiteSpace(cropX))
             {
                 VM.VideoView.Video_Crop_X_Text = "0";
                 cropX = VM.VideoView.Video_Crop_X_Text;
             }
             // Set Empty Crop Y Textbox to 0
             //
-            if (string.IsNullOrEmpty(cropY))
+            if (string.IsNullOrWhiteSpace(cropY))
             {
                 VM.VideoView.Video_Crop_Y_Text = "0";
                 cropY = VM.VideoView.Video_Crop_Y_Text;

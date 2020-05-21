@@ -453,7 +453,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.passSingle = string.Join(" ", FFmpegArgsSinglePassList
-                                                    .Where(s => !string.IsNullOrEmpty(s))
                                                     .Where(s => !string.IsNullOrWhiteSpace(s))
                                                     .Where(s => !s.Equals(Environment.NewLine))
                                                     .Where(s => !s.Equals("\r\n\r\n"))
@@ -708,7 +707,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
-                                                   .Where(s => !string.IsNullOrEmpty(s))
                                                    .Where(s => !string.IsNullOrWhiteSpace(s))
                                                    .Where(s => !s.Equals(Environment.NewLine))
                                                    .Where(s => !s.Equals("\r\n\r\n"))
@@ -978,7 +976,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.pass2Args = string.Join(" ", FFmpegArgsPass2List
-                                                   .Where(s => !string.IsNullOrEmpty(s))
                                                    .Where(s => !string.IsNullOrWhiteSpace(s))
                                                    .Where(s => !s.Equals(Environment.NewLine))
                                                    .Where(s => !s.Equals("\r\n\r\n"))
@@ -1023,7 +1020,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", FFmpegArgsList
-                                                  .Where(s => !string.IsNullOrEmpty(s))
                                                   .Where(s => !string.IsNullOrWhiteSpace(s))
                                                   .Where(s => !s.Equals(Environment.NewLine))
                                                   .Where(s => !s.Equals("\r\n\r\n"))
@@ -1249,7 +1245,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", ffmpegBatchArgsList
-                                                  .Where(s => !string.IsNullOrEmpty(s))
                                                   .Where(s => !string.IsNullOrWhiteSpace(s))
                                                   .Where(s => !s.Equals(Environment.NewLine))
                                                   .Where(s => !s.Equals("\r\n\r\n"))
@@ -1454,7 +1449,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                                 .Where(s => !string.IsNullOrEmpty(s))
                                                  .Where(s => !string.IsNullOrWhiteSpace(s))
                                                  .Where(s => !s.Equals(Environment.NewLine))
                                                  .Where(s => !s.Equals("\r\n\r\n"))
@@ -1478,7 +1472,6 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                                  .Where(s => !string.IsNullOrEmpty(s))
                                                   .Where(s => !string.IsNullOrWhiteSpace(s))
                                                   .Where(s => !s.Equals(Environment.NewLine))
                                                   .Where(s => !s.Equals("\r\n\r\n"))
