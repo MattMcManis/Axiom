@@ -172,6 +172,25 @@ namespace Axiom
 
             // Speed
             VM.VideoView.Video_Speed_SelectedItem = "auto";
+
+            // Size
+            VM.VideoView.Video_Scale_SelectedItem = "Source";
+
+
+            // Color Range
+            VM.VideoView.Video_Color_Range_SelectedItem = "auto";
+
+            // Color Space
+            VM.VideoView.Video_Color_Space_SelectedItem = "auto";
+
+            // Color Primaries
+            VM.VideoView.Video_Color_Primaries_SelectedItem = "auto";
+
+            // Color Transfer Characteristics
+            VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
+
+            // Color Matrix
+            VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
         }
 
 
