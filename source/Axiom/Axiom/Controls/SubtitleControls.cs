@@ -233,27 +233,23 @@ namespace Axiom
         /// <summary>
         /// Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(string inputExt,
-                                                   string outputExt)
+        public static bool AutoCopyConditionsCheck()
         {
-            // Input Extension is Same as Output Extension and Video Quality is Auto
-            if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
-                VM.VideoView.Video_Scale_SelectedItem == "Source" &&
-                string.IsNullOrWhiteSpace(CropWindow.crop) &&
-                VM.VideoView.Video_FPS_SelectedItem == "auto" &&
-                VM.VideoView.Video_Optimize_SelectedItem == "None" &&
-
-                // Input Extension is Empty or File Extensions Match
-                (string.IsNullOrWhiteSpace(inputExt) || inputExt == outputExt)
+            // Failed
+            if (VM.VideoView.Video_Quality_SelectedItem != "Auto" ||
+                VM.VideoView.Video_Scale_SelectedItem != "Source" ||
+                !string.IsNullOrWhiteSpace(CropWindow.crop) ||
+                VM.VideoView.Video_FPS_SelectedItem != "auto" ||
+                VM.VideoView.Video_Optimize_SelectedItem != "None"
             )
             {
-                return true;
+                return false;
             }
 
-            // Did Not Pass Check
+            // Passed
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -261,8 +257,27 @@ namespace Axiom
         /// <summary>
         /// Copy Controls
         /// <summary>
-        private static void CopyControls()
+        public static void AutoCopySubtitleCodec(string trigger)
         {
+            // -------------------------
+            // Halt if Selected Codec is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(VM.SubtitleView.Subtitle_Codec_SelectedItem))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Halt if trigger is control
+            // Pass if trigger is input
+            // -------------------------
+            if (trigger == "control" &&
+                VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
+                AutoCopyConditionsCheck() == true)
+            {
+                return;
+            }
+
             // -------------------------
             // Halt if Web URL
             // -------------------------
@@ -272,16 +287,29 @@ namespace Axiom
             }
 
             // -------------------------
-            // Get Input/Output Extensions
+            // Get Input Extensions
             // -------------------------
             string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+
+            // -------------------------
+            // Halt if Input Extension is Empty
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(inputExt))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Get Output Extensions
+            // -------------------------
             string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
 
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(inputExt, outputExt) == true)
+            if (AutoCopyConditionsCheck() == true &&
+                inputExt == outputExt)
             {
                 // -------------------------
                 // Set Subtitle Codec Combobox Selected Item to Copy
@@ -373,44 +401,6 @@ namespace Axiom
                 }
             }
         }
-
-
-        /// <summary>
-        /// Auto Codec Copy
-        /// <summary>
-        public static void AutoCopySubtitleCodec()
-        {
-            // Halt if Selected Codec is Null
-            if (string.IsNullOrWhiteSpace(VM.SubtitleView.Subtitle_Codec_SelectedItem))
-            {
-                return;
-            }
-
-            // Halt if Codec is Not Copy
-            //if (VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy")
-            //{
-            //    return;
-            //}
-
-            // -------------------------
-            // Get Input Extension
-            // -------------------------
-            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-
-            // -------------------------
-            // Copy Controls
-            // -------------------------
-            if (// When Input Extension is Not Empty
-                !string.IsNullOrWhiteSpace(inputExt) ||
-                // When Input Extension is Empty and Selected Codec is Copy
-                (string.IsNullOrWhiteSpace(inputExt) && VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
-                )
-            {
-                CopyControls();
-            }
-        }
-
-
 
     }
 }
