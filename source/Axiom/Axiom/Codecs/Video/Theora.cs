@@ -317,11 +317,31 @@ namespace Axiom
             // Optimize ComboBox
             VM.VideoView.Video_Optimize_IsEnabled = true;
 
+            // Size
+            VM.VideoView.Video_Scale_IsEnabled = true;
+
             // Scaling ComboBox
             VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
 
             // Crop
             VM.VideoView.Video_Crop_IsEnabled = true;
+
+
+            // Color Range
+            VM.VideoView.Video_Color_Range_IsEnabled = true;
+
+            // Color Space
+            VM.VideoView.Video_Color_Space_IsEnabled = true;
+
+            // Color Primaries
+            VM.VideoView.Video_Color_Primaries_IsEnabled = true;
+
+            // Color Transfer Characteristics
+            VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
+
+            // Color Matrix
+            VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+
 
             // Subtitle Codec
             VM.SubtitleView.Subtitle_Codec_IsEnabled = true;

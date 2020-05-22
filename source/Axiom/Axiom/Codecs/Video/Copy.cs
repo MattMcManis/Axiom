@@ -297,11 +297,31 @@ namespace Axiom
             // Optimize ComboBox
             VM.VideoView.Video_Optimize_IsEnabled = false;
 
+            // Size
+            VM.VideoView.Video_Scale_IsEnabled = false;
+
             // Scaling ComboBox
             VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
 
             // Crop
             VM.VideoView.Video_Crop_IsEnabled = false;
+
+
+            // Color Range
+            VM.VideoView.Video_Color_Range_IsEnabled = false;
+
+            // Color Space
+            VM.VideoView.Video_Color_Space_IsEnabled = false;
+
+            // Color Primaries
+            VM.VideoView.Video_Color_Primaries_IsEnabled = false;
+
+            // Color Transfer Characteristics
+            VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = false;
+
+            // Color Matrix
+            VM.VideoView.Video_Color_Matrix_IsEnabled = false;
+
         }
     }
 }
