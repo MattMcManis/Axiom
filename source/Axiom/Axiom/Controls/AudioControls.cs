@@ -498,48 +498,68 @@ namespace Axiom
         /// <summary>
         /// Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(string inputExt,
-                                                   string outputExt)
+        public static bool AutoCopyConditionsCheck()
         {
-            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
-
-            // Pass Check
-            if (//VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
-                VM.AudioView.Audio_Quality_SelectedItem == "Auto" &&
-                VM.AudioView.Audio_Channel_SelectedItem == "Source" &&
-                VM.AudioView.Audio_SampleRate_SelectedItem == "auto" &&
-                VM.AudioView.Audio_BitDepth_SelectedItem == "auto" &&
-                VM.AudioView.Audio_HardLimiter_Value == 0.0 &&
-                VM.AudioView.Audio_Volume_Text == "100" &&
+            // Failed
+            if (VM.AudioView.Audio_Quality_SelectedItem != "Auto" ||
+                VM.AudioView.Audio_Channel_SelectedItem != "Source" ||
+                //VM.AudioView.Audio_SampleRate_SelectedItem != "auto" //||
+                VM.AudioView.Audio_BitDepth_SelectedItem != "auto" ||
+                VM.AudioView.Audio_HardLimiter_Value != 0.0 ||
+                VM.AudioView.Audio_Volume_Text != "100" ||
                 // Filters
-                VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem == "disabled" &&
-                VM.FilterAudioView.FilterAudio_Highpass_SelectedItem == "disabled" &&
-                VM.FilterAudioView.FilterAudio_Headphones_SelectedItem == "disabled" &&
-                VM.FilterAudioView.FilterAudio_Contrast_Value == 0 &&
-                VM.FilterAudioView.FilterAudio_ExtraStereo_Value == 0 &&
-                VM.FilterAudioView.FilterAudio_Tempo_Value == 100 &&
-                // Input Extension is Empty or File Extensions Match
-                (string.IsNullOrWhiteSpace(inputExt) || inputExt == outputExt)
+                VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem != "disabled" ||
+                VM.FilterAudioView.FilterAudio_Highpass_SelectedItem != "disabled" ||
+                VM.FilterAudioView.FilterAudio_Headphones_SelectedItem != "disabled" ||
+                VM.FilterAudioView.FilterAudio_Contrast_Value != 0 ||
+                VM.FilterAudioView.FilterAudio_ExtraStereo_Value != 0 ||
+                VM.FilterAudioView.FilterAudio_Tempo_Value != 100
                 )
             {
-                //MessageBox.Show("true"); //debug
-                return true;
+                //MessageBox.Show("false");
+                return false;
             }
 
-            // Did Not Pass Check
+            // Passed
             else
             {
-                //MessageBox.Show("false"); //debug
-                return false;
+                //MessageBox.Show("true");
+                return true;
             }
         }
 
 
         /// <summary>
-        /// Copy Controls
+        /// Auto Copy Audio Codec
         /// <summary>
-        private static void CopyControls()
+        /// <remarks>
+        /// Input Extension is same as Output Extension and Audio Quality is Auto
+        /// </remarks>
+        public static void AutoCopyAudioCodec(string trigger)
         {
+            //string audio_Quality_SelectedItem = VM.AudioView.Audio_Quality_Items.FirstOrDefault(item => item.Name == VM.AudioView.Audio_Quality_SelectedItem)?.Name;
+
+            //MessageBox.Show(VM.AudioView.Audio_Quality_SelectedItem);
+
+            // -------------------------
+            // Halt if Selected Codec is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Halt if trigger is control
+            // Pass if trigger is input
+            // -------------------------
+            if (trigger == "control" &&
+                VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                AutoCopyConditionsCheck() == true)
+            {
+                return;
+            }
+
             // -------------------------
             // Halt if Web URL
             // -------------------------
@@ -549,21 +569,31 @@ namespace Axiom
             }
 
             // -------------------------
-            // Get Input/Output Extensions
+            // Get Input Extensions
             // -------------------------
             string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+
+            // -------------------------
+            // Halt if Input Extension is Empty
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(inputExt))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Get Output Extensions
+            // -------------------------
             string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
-            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
 
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(inputExt, outputExt) == true)
+            if (AutoCopyConditionsCheck() == true &&
+                inputExt == outputExt)
             {
-                // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
-                // -------------------------
                 if (VM.AudioView.Audio_Codec_Items.Count > 0)
                 {
                     if (VM.AudioView.Audio_Codec_Items?.Contains("Copy") == true)
@@ -592,12 +622,6 @@ namespace Axiom
                 // -------------------------
                 if (VM.AudioView.Audio_Codec_SelectedItem == "Copy")
                 {
-                    //// If Quality Not Auto
-                    //if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
-                    //{
-                    //    return;
-                    //}
-
                     switch (VM.FormatView.Format_Container_SelectedItem)
                     {
                         // -------------------------
@@ -674,54 +698,6 @@ namespace Axiom
                 }
             }
         }
-
-
-        /// <summary>
-        /// Auto Codec Copy
-        /// <summary>
-        /// <remarks>
-        /// Input Extension is same as Output Extension and Audio Quality is Auto
-        /// </remarks>
-        public static void AutoCopyAudioCodec()
-        {
-            // Halt if Selected Codec is Null
-            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
-            {
-                return;
-            }
-
-            // Halt if Codec is Not Copy
-            if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-            {
-                return;
-            }
-            //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
-            //    VM.AudioView.Audio_Quality_SelectedItem != "Auto")
-            //{
-            //    return;
-            //}
-
-            //MessageBox.Show(VM.AudioView.Audio_Codec_SelectedItem); //debug
-            //MessageBox.Show(VM.AudioView.Audio_Quality_SelectedItem); //debug
-
-            // -------------------------
-            // Get Input Extension
-            // -------------------------
-            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-
-            // -------------------------
-            // Copy Controls
-            // -------------------------
-            if (// When Input Extension is Not Empty
-                !string.IsNullOrWhiteSpace(inputExt) ||
-                // When Input Extension is Empty and Selected Codec is Copy
-                (string.IsNullOrWhiteSpace(inputExt) && VM.AudioView.Audio_Codec_SelectedItem == "Copy")
-                )
-            {
-                CopyControls();
-            }
-        }
-
 
     }
 }
