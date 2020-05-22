@@ -1785,7 +1785,8 @@
                                                       Width="105" 
                                                       Grid.Row="0"
                                                       Grid.Column="2"
-                                                      Height="22" />
+                                                      Height="22" 
+                                                      SelectionChanged="cboColorRange_SelectionChanged" />
 
                                             <!-- Color Space -->
                                             <Label Style="{DynamicResource LabelStyle}" 
