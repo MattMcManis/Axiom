@@ -1138,109 +1138,123 @@ namespace Axiom
         }
 
 
-
         /// <summary>
         /// Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(string inputExt, 
-                                                   string outputExt
-                                                   )
+        public static bool AutoCopyConditionsCheck()
         {
-            //System.Windows.MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
-
-            // Input Extension is Same as Output Extension and Video Quality is Auto
-            // Note: Aspect Ratio -aspect can be applied to Copy
-            if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
-                VM.VideoView.Video_PixelFormat_SelectedItem == "auto" &&
-                string.IsNullOrWhiteSpace(CropWindow.crop) &&
-                VM.VideoView.Video_Scale_SelectedItem == "Source" &&
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem == "auto" &&
+            // Failed
+            if (VM.VideoView.Video_Quality_SelectedItem != "Auto" ||
+                VM.VideoView.Video_PixelFormat_SelectedItem != "auto" ||
+                !string.IsNullOrWhiteSpace(CropWindow.crop) ||
+                VM.VideoView.Video_Scale_SelectedItem != "Source" ||
+                VM.VideoView.Video_ScalingAlgorithm_SelectedItem != "auto" ||
                 // Do not add Aspect Ratio -aspect, it can be used with Copy
-                VM.VideoView.Video_FPS_SelectedItem == "auto" &&
-                VM.VideoView.Video_Optimize_SelectedItem == "None" &&
+                VM.VideoView.Video_FPS_SelectedItem != "auto" ||
+                VM.VideoView.Video_Optimize_SelectedItem != "None" ||
 
                 // Color
-                VM.VideoView.Video_Color_Range_SelectedItem == "auto" &&
-                VM.VideoView.Video_Color_Space_SelectedItem == "auto" &&
-                VM.VideoView.Video_Color_Primaries_SelectedItem == "auto" &&
-                VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem == "auto" &&
-                VM.VideoView.Video_Color_Matrix_SelectedItem == "auto" &&
+                VM.VideoView.Video_Color_Range_SelectedItem != "auto" ||
+                VM.VideoView.Video_Color_Space_SelectedItem != "auto" ||
+                VM.VideoView.Video_Color_Primaries_SelectedItem != "auto" ||
+                VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem != "auto" ||
+                VM.VideoView.Video_Color_Matrix_SelectedItem != "auto" ||
 
                 // Filters
                 // Fix
-                VM.FilterVideoView.FilterVideo_Deband_SelectedItem == "disabled" &&
-                VM.FilterVideoView.FilterVideo_Deshake_SelectedItem == "disabled" &&
-                VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem == "disabled" &&
-                VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem == "disabled" &&
-                VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "disabled" &&
-                VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "disabled" &&
+                VM.FilterVideoView.FilterVideo_Deband_SelectedItem != "disabled" ||
+                VM.FilterVideoView.FilterVideo_Deshake_SelectedItem != "disabled" ||
+                VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem != "disabled" ||
+                VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem != "disabled" ||
+                VM.FilterVideoView.FilterVideo_Denoise_SelectedItem != "disabled" ||
+                VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem != "disabled" ||
                 // Selective Color
                 // Reds
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value != 0 ||
                 // Yellows
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value != 0 ||
                 // Greens
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value != 0 ||
                 // Cyans
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value != 0 ||
                 // Blues
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value != 0 ||
                 // Magentas
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value != 0 ||
                 // Whites
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value != 0 ||
                 // Neutrals
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value != 0 ||
                 // Blacks
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value == 0 &&
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value != 0 ||
 
                 // EQ
-                VM.FilterVideoView.FilterVideo_EQ_Brightness_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_EQ_Contrast_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_EQ_Saturation_Value == 0 &&
-                VM.FilterVideoView.FilterVideo_EQ_Gamma_Value == 0 &&
-
-                // Input Extension is Empty or File Extensions Match
-                (string.IsNullOrWhiteSpace(inputExt) || inputExt == outputExt)
+                VM.FilterVideoView.FilterVideo_EQ_Brightness_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_EQ_Contrast_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_EQ_Saturation_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_EQ_Gamma_Value != 0
             )
             {
                 //System.Windows.MessageBox.Show("true"); //debug
-                return true;
+                return false;
             }
 
-            // Did Not Pass Check
+            // Passed
             else
             {
                 //System.Windows.MessageBox.Show("false"); //debug
-                return false;
+                return true;
             }
         }
 
 
-
         /// <summary>
-        /// Copy Controls
+        /// Auto Copy Video Codec
         /// <summary>
-        private static void CopyControls()
+        /// <remarks>
+        /// Input Extension is same as Output Extension and Video Quality is Auto
+        /// </remarks>
+        public static void AutoCopyVideoCodec(string trigger)
         {
+            //MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
+
+            // -------------------------
+            // Halt if Selected Codec is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Halt if trigger is control
+            // Pass if trigger is input
+            // -------------------------
+            if (trigger == "control" &&
+                VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                AutoCopyConditionsCheck() == true)
+            {
+                return;
+            }
+
             // -------------------------
             // Halt if Web URL
             // -------------------------
@@ -1250,17 +1264,29 @@ namespace Axiom
             }
 
             // -------------------------
-            // Get Input/Output Extensions
+            // Get Input Extensions
             // -------------------------
             string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+
+            // -------------------------
+            // Halt if Input Extension is Empty
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(inputExt))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Get Output Extensions
+            // -------------------------
             string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
-            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
 
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(inputExt, outputExt) == true)
+            if (AutoCopyConditionsCheck() == true &&
+                inputExt == outputExt)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
@@ -1334,50 +1360,6 @@ namespace Axiom
                 }
             }
         }
-
-
-        /// <summary>
-        /// Auto Codec Copy
-        /// <summary>
-        /// <remarks>
-        /// Input Extension is same as Output Extension and Video Quality is Auto
-        /// </remarks>
-        public static void AutoCopyVideoCodec()
-        {
-            // Halt if Selected Codec is Null
-            if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
-            {
-                return;
-            }
-
-            // Halt if Codec is Not Copy
-            if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
-            {
-                return;
-            }
-            //if (VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
-            //    VM.VideoView.Video_Quality_SelectedItem != "Auto")
-            //{
-            //    return;
-            //}
-
-            // -------------------------
-            // Get Input Extension
-            // -------------------------
-            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-
-            // -------------------------
-            // Copy Controls
-            // -------------------------
-            if (// When Input Extension is Not Empty
-                !string.IsNullOrWhiteSpace(inputExt) ||
-                // When Input Extension is Empty and Selected Codec is Copy
-                (string.IsNullOrWhiteSpace(inputExt) && VM.VideoView.Video_Codec_SelectedItem == "Copy")
-                )
-            {
-                CopyControls();
-            } 
-        } 
 
     }
 }
