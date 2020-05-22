@@ -195,20 +195,20 @@ namespace Axiom
             // Stream
             VM.AudioView.Audio_Stream_IsEnabled = true;
 
-            // Channel
-            VM.AudioView.Audio_Channel_IsEnabled = true;
+            //// Channel
+            //VM.AudioView.Audio_Channel_IsEnabled = true;
 
-            // Audio Quality
-            VM.AudioView.Audio_Quality_IsEnabled = true;
+            //// Audio Quality
+            //VM.AudioView.Audio_Quality_IsEnabled = true;
 
-            // SampleRate
-            VM.AudioView.Audio_SampleRate_IsEnabled = true;
+            //// SampleRate
+            //VM.AudioView.Audio_SampleRate_IsEnabled = true;
 
-            // Volume
-            VM.AudioView.Audio_Volume_IsEnabled = true;
+            //// Volume
+            //VM.AudioView.Audio_Volume_IsEnabled = true;
 
-            // Hard Limiter
-            VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+            //// Hard Limiter
+            //VM.AudioView.Audio_HardLimiter_IsEnabled = true;
         }
 
         // -------------------------
@@ -216,14 +216,39 @@ namespace Axiom
         // -------------------------
         public static void Controls_Disable()
         {
-            // Audio VBR
+            // Channel
+            VM.AudioView.Audio_Channel_IsEnabled = false;
+
+            // Audio Quality
+            //VM.AudioView.Audio_Quality_IsEnabled = false;
+
+            // VBR Button
             VM.AudioView.Audio_VBR_IsEnabled = false;
 
             // Compression Level
             VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
+            // SampleRate
+            VM.AudioView.Audio_SampleRate_IsEnabled = false;
+
             // Bit Depth
             VM.AudioView.Audio_BitDepth_IsEnabled = false;
+
+            // Volume
+            VM.AudioView.Audio_Volume_IsEnabled = false;
+
+            // Hard Limiter
+            VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+
+
+            //// Audio VBR
+            //VM.AudioView.Audio_VBR_IsEnabled = false;
+
+            //// Compression Level
+            //VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+
+            //// Bit Depth
+            //VM.AudioView.Audio_BitDepth_IsEnabled = false;
         }
     }
 }
