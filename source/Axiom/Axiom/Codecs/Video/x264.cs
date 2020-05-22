@@ -380,6 +380,9 @@ namespace Axiom
             // Video Quality
             VM.VideoView.Video_Quality_IsEnabled = true;
 
+            // HW Accel
+            VM.VideoView.Video_HWAccel_IsEnabled = true;
+
             // Video VBR
             VM.VideoView.Video_VBR_IsEnabled = true;
 
@@ -388,6 +391,9 @@ namespace Axiom
 
             // FPS ComboBox
             VM.VideoView.Video_FPS_IsEnabled = true;
+
+            // Speed
+            VM.VideoView.Video_Speed_IsEnabled = true;
 
             // Optimize ComboBox
             VM.VideoView.Video_Optimize_IsEnabled = true;

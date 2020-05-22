@@ -314,6 +314,9 @@ namespace Axiom
             // Video Encode Speed
             VM.VideoView.Video_EncodeSpeed_IsEnabled = true;
 
+            // HW Accel
+            VM.VideoView.Video_HWAccel_IsEnabled = true;
+
             // Video Codec
             VM.VideoView.Video_Codec_IsEnabled = true;
 
@@ -325,6 +328,9 @@ namespace Axiom
 
             // FPS ComboBox
             VM.VideoView.Video_FPS_IsEnabled = true;
+
+            // Speed
+            VM.VideoView.Video_Speed_IsEnabled = true;
 
             // Scaling ComboBox
             VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
