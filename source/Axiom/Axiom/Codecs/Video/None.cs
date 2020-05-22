@@ -161,12 +161,17 @@ namespace Axiom
         // -------------------------
         public static void Controls_Selected()
         {
+            // HW Accel
+            VM.VideoView.Video_HWAccel_SelectedItem = "Off";
 
             // Pixel Format
             VM.VideoView.Video_PixelFormat_SelectedItem = "none";
 
             // Framerate
             VM.VideoView.Video_FPS_SelectedItem = "auto";
+
+            // Speed
+            VM.VideoView.Video_Speed_SelectedItem = "auto";
         }
 
 
@@ -224,6 +229,9 @@ namespace Axiom
             // Video Codec
             //VM.VideoView.Video_Codec_IsEnabled = false;
 
+            // HW Accel
+            VM.VideoView.Video_HWAccel_IsEnabled = false;
+
             // Video Quality
             VM.VideoView.Video_Quality_IsEnabled = false;
 
@@ -235,6 +243,9 @@ namespace Axiom
 
             // FPS ComboBox
             VM.VideoView.Video_FPS_IsEnabled = false;
+
+            // Speed
+            VM.VideoView.Video_Speed_IsEnabled = false;
 
             // Optimize ComboBox
             VM.VideoView.Video_Optimize_IsEnabled = false;
