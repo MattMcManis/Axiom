@@ -4,6 +4,20 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.5.0] - May 22, 2020
+### Added
+- Added Codec Controls Enable/Disable Size & Color
+
+### Changed
+- Optimized Codec Copy Controls
+
+
+## [1.8.4.4] - May 21, 2020
+### Changed
+- Optimized Null, Empty, and Whitespace Checks
+- Disabled Auto Detect Codec Copy
+
+
 ## [1.8.4.3] - May 20, 2020
 ### Fixed
 - youtube-dl PowerShell
