@@ -29,6 +29,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 // Disable XML Comment warnings
@@ -381,8 +382,7 @@ namespace Axiom
         /// <summary>
         /// Audio BitRate Display
         /// </summary>
-        public static void AudioBitRateDisplay(
-                                               List<AudioViewModel.AudioQuality> items,
+        public static void AudioBitRateDisplay(List<AudioViewModel.AudioQuality> items,
                                                string selectedQuality
                                                )
         {
@@ -417,33 +417,59 @@ namespace Axiom
         /// <summary>
         public static void QualityControls()
         {
-            // -------------------------
-            // Enable
-            // -------------------------
-            // Only for Custom
-            if (VM.AudioView.Audio_Quality_SelectedItem == "Custom")
+            switch (VM.AudioView.Audio_Quality_SelectedItem)
             {
-                // BitRate
-                VM.AudioView.Audio_BitRate_IsEnabled = true;
-                VM.AudioView.Audio_BitRate_Text = "";
+                // -------------------------
+                // Enable
+                // -------------------------
+                // Only for Custom
+                case "Custom":
+                    // BitRate
+                    VM.AudioView.Audio_BitRate_IsEnabled = true;
+                    VM.AudioView.Audio_BitRate_Text = "";
+                    break;
+
+                // -------------------------
+                // Disable
+                // -------------------------
+                // Only for Custom
+                case "Auto":
+                    // BitRate
+                    VM.AudioView.Audio_BitRate_IsEnabled = false;
+                    VM.AudioView.Audio_BitRate_Text = "";
+                    break;
+
+                // All Other Qualities
+                default:
+                    // BitRate
+                    VM.AudioView.Audio_BitRate_IsEnabled = false;
+                    break;
             }
 
-            // -------------------------
-            // Disable
-            // -------------------------
-            // Only for Custom
-            else if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
-            {
-                // BitRate
-                VM.AudioView.Audio_BitRate_IsEnabled = false;
-                VM.AudioView.Audio_BitRate_Text = "";
-            }
-            // All Other Qualities
-            else
-            {
-                // BitRate
-                VM.AudioView.Audio_BitRate_IsEnabled = false;
-            }
+            //// Only for Custom
+            //if (VM.AudioView.Audio_Quality_SelectedItem == "Custom")
+            //{
+            //    // BitRate
+            //    VM.AudioView.Audio_BitRate_IsEnabled = true;
+            //    VM.AudioView.Audio_BitRate_Text = "";
+            //}
+
+            //// -------------------------
+            //// Disable
+            //// -------------------------
+            //// Only for Custom
+            //else if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+            //{
+            //    // BitRate
+            //    VM.AudioView.Audio_BitRate_IsEnabled = false;
+            //    VM.AudioView.Audio_BitRate_Text = "";
+            //}
+            //// All Other Qualities
+            //else
+            //{
+            //    // BitRate
+            //    VM.AudioView.Audio_BitRate_IsEnabled = false;
+            //}
 
 
             // -------------------------
@@ -475,8 +501,11 @@ namespace Axiom
         public static bool AutoCopyConditionsCheck(string inputExt,
                                                    string outputExt)
         {
+            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+
             // Pass Check
-            if (VM.AudioView.Audio_Quality_SelectedItem == "Auto" &&
+            if (//VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                VM.AudioView.Audio_Quality_SelectedItem == "Auto" &&
                 VM.AudioView.Audio_Channel_SelectedItem == "Source" &&
                 VM.AudioView.Audio_SampleRate_SelectedItem == "auto" &&
                 VM.AudioView.Audio_BitDepth_SelectedItem == "auto" &&
@@ -489,18 +518,18 @@ namespace Axiom
                 VM.FilterAudioView.FilterAudio_Contrast_Value == 0 &&
                 VM.FilterAudioView.FilterAudio_ExtraStereo_Value == 0 &&
                 VM.FilterAudioView.FilterAudio_Tempo_Value == 100 &&
-                VM.FilterVideoView.FilterVideo_EQ_Gamma_Value == 0 &&
-                // File Extension Match
-                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
+                // Input Extension is Empty or File Extensions Match
+                (string.IsNullOrWhiteSpace(inputExt) || inputExt == outputExt)
                 )
             {
+                //MessageBox.Show("true"); //debug
                 return true;
             }
 
             // Did Not Pass Check
             else
             {
-                //MessageBox.Show("did not pass"); //debug
+                //MessageBox.Show("false"); //debug
                 return false;
             }
         }
@@ -512,19 +541,25 @@ namespace Axiom
         private static void CopyControls()
         {
             // -------------------------
-            // Halt if Input Extention Null Check
-            // or youtube-dl URL
+            // Halt if Web URL
             // -------------------------
-            if (string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            if (MainWindow.IsWebURL(VM.MainView.Input_Text) == true)
             {
                 return;
             }
 
             // -------------------------
+            // Get Input/Output Extensions
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+
+            // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(inputExt, outputExt) == true)
             {
                 // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
@@ -553,96 +588,88 @@ namespace Axiom
             else
             {
                 // -------------------------
-                // Null Check
+                // Copy Selected
                 // -------------------------
-                if (!string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem))
+                if (VM.AudioView.Audio_Codec_SelectedItem == "Copy")
                 {
-                    // -------------------------
-                    // Copy Selected
-                    // -------------------------
-                    if (VM.AudioView.Audio_Codec_SelectedItem == "Copy")
+                    //// If Quality Not Auto
+                    //if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+                    //{
+                    //    return;
+                    //}
+
+                    switch (VM.FormatView.Format_Container_SelectedItem)
                     {
                         // -------------------------
-                        // Switch back to format's default codec
+                        // Video Container
                         // -------------------------
-                        if (VM.AudioView.Audio_Codec_SelectedItem != "Auto" ||
-                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                            )
-                        {
-                            switch (VM.FormatView.Format_Container_SelectedItem)
-                            {
-                                // -------------------------
-                                // Video Container
-                                // -------------------------
-                                // WebM
-                                case "webm":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
-                                    break;
-                                // MP4
-                                case "mp4":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
-                                    break;
-                                // MKV
-                                case "mkv":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "AC3";
-                                    break;
-                                // M2V
-                                case "m2v":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                    break;
-                                // MPG
-                                case "mpg":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "MP2";
-                                    break;
-                                // AVI
-                                case "avi":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
-                                    break;
-                                // OGV
-                                case "ogv":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
-                                    break;
+                        // WebM
+                        case "webm":
+                            VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
+                            break;
+                        // MP4
+                        case "mp4":
+                            VM.AudioView.Audio_Codec_SelectedItem = "AAC";
+                            break;
+                        // MKV
+                        case "mkv":
+                            VM.AudioView.Audio_Codec_SelectedItem = "AC3";
+                            break;
+                        // M2V
+                        case "m2v":
+                            VM.AudioView.Audio_Codec_SelectedItem = "None";
+                            break;
+                        // MPG
+                        case "mpg":
+                            VM.AudioView.Audio_Codec_SelectedItem = "MP2";
+                            break;
+                        // AVI
+                        case "avi":
+                            VM.AudioView.Audio_Codec_SelectedItem = "LAME";
+                            break;
+                        // OGV
+                        case "ogv":
+                            VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
+                            break;
 
-                                // -------------------------
-                                // Audio Container
-                                // -------------------------
-                                // M4A
-                                case "m4a":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
-                                    break;
-                                // MP3
-                                case "mp3":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
-                                    break;
-                                // OGG
-                                case "ogg":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "Opus";
-                                    break;
-                                // FLAC
-                                case "flac":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
-                                    break;
-                                // WAV
-                                case "wav":
-                                    VM.AudioView.Audio_Codec_SelectedItem = "PCM";
-                                    break;
+                        // -------------------------
+                        // Audio Container
+                        // -------------------------
+                        // M4A
+                        case "m4a":
+                            VM.AudioView.Audio_Codec_SelectedItem = "AAC";
+                            break;
+                        // MP3
+                        case "mp3":
+                            VM.AudioView.Audio_Codec_SelectedItem = "LAME";
+                            break;
+                        // OGG
+                        case "ogg":
+                            VM.AudioView.Audio_Codec_SelectedItem = "Opus";
+                            break;
+                        // FLAC
+                        case "flac":
+                            VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
+                            break;
+                        // WAV
+                        case "wav":
+                            VM.AudioView.Audio_Codec_SelectedItem = "PCM";
+                            break;
 
-                                // -------------------------
-                                // Image Container
-                                // -------------------------
-                                //case "jpg":
-                                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                //    break;
+                        // -------------------------
+                        // Image Container
+                        // -------------------------
+                        //case "jpg":
+                        //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+                        //    break;
 
-                                //case "png":
-                                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                //    break;
+                        //case "png":
+                        //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+                        //    break;
 
-                                //case "webp":
-                                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                //    break;
-                            }
-                        }
+                        //case "webp":
+                        //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+                        //    break;
                     }
                 }
             }
@@ -652,21 +679,44 @@ namespace Axiom
         /// <summary>
         /// Auto Codec Copy
         /// <summary>
+        /// <remarks>
+        /// Input Extension is same as Output Extension and Audio Quality is Auto
+        /// </remarks>
         public static void AutoCopyAudioCodec()
         {
-            // --------------------------------------------------
-            // When Input Extension is Not Empty
-            // --------------------------------------------------
-            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            // Halt if Selected Codec is Null
+            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
             {
-                CopyControls();
+                return;
             }
 
-            // --------------------------------------------------
-            // When Input Extension is Empty
-            // --------------------------------------------------
-            else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
-                VM.AudioView.Audio_Codec_SelectedItem == "Copy")
+            // Halt if Codec is Not Copy
+            if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
+            {
+                return;
+            }
+            //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+            //    VM.AudioView.Audio_Quality_SelectedItem != "Auto")
+            //{
+            //    return;
+            //}
+
+            //MessageBox.Show(VM.AudioView.Audio_Codec_SelectedItem); //debug
+            //MessageBox.Show(VM.AudioView.Audio_Quality_SelectedItem); //debug
+
+            // -------------------------
+            // Get Input Extension
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+
+            // -------------------------
+            // Copy Controls
+            // -------------------------
+            if (// When Input Extension is Not Empty
+                !string.IsNullOrWhiteSpace(inputExt) ||
+                // When Input Extension is Empty and Selected Codec is Copy
+                (string.IsNullOrWhiteSpace(inputExt) && VM.AudioView.Audio_Codec_SelectedItem == "Copy")
+                )
             {
                 CopyControls();
             }

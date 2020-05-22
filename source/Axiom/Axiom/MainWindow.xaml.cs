@@ -2690,6 +2690,8 @@ namespace Axiom
         /// </summary>
         public static bool IsWebURL(string input_Text)
         {
+            input_Text = input_Text.Trim();
+
             if (!string.IsNullOrWhiteSpace(input_Text))
             {
                 // URL
@@ -4341,13 +4343,13 @@ namespace Axiom
                 // Default Auto if Input Extension matches Output Extsion
                 // This will trigger Auto Codec Copy
                 // --------------------------------------------------
-                ExtensionMatchCheckAuto();
+                ExtensionMatchLoadAutoValues();
 
                 // -------------------------
                 // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
                 // -------------------------
-                ////VideoControls.AutoCopyVideoCodec();
+                //VideoControls.AutoCopyVideoCodec();
                 //SubtitleControls.AutoCopySubtitleCodec();
                 //AudioControls.AutoCopyAudioCodec();
             }
@@ -4506,7 +4508,7 @@ namespace Axiom
                         // Input File Extension is Same as Output File Extension 
                         // and Quality is Auto
                         // -------------------------
-                        ////VideoControls.AutoCopyVideoCodec();
+                        //VideoControls.AutoCopyVideoCodec();
                         //SubtitleControls.AutoCopySubtitleCodec();
                         //AudioControls.AutoCopyAudioCodec();
                     }
@@ -4904,7 +4906,7 @@ namespace Axiom
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
             // -------------------------
-            ////VideoControls.AutoCopyVideoCodec();
+            //VideoControls.AutoCopyVideoCodec();
             //SubtitleControls.AutoCopySubtitleCodec();
             //AudioControls.AutoCopyAudioCodec();
         }
@@ -4940,14 +4942,14 @@ namespace Axiom
             // Default Auto if Input Extension matches Output Extsion
             // This will trigger Auto Codec Copy
             // --------------------------------------------------
-            ExtensionMatchCheckAuto();
+            ExtensionMatchLoadAutoValues();
 
             // -------------------------
             // Set Video and AudioCodec Combobox to "Copy" if 
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
             // -------------------------
-            ////VideoControls.AutoCopyVideoCodec();
+            //VideoControls.AutoCopyVideoCodec();
             //SubtitleControls.AutoCopySubtitleCodec();
             //AudioControls.AutoCopyAudioCodec();
         }
@@ -5332,55 +5334,79 @@ namespace Axiom
 
 
         /// <summary>
-        /// Extension Match Check Auto
+        /// Extension Match Load Auto
         /// </summary>
         /// <remarks>
         /// Change the Controls to Auto if Input Extension matches Output Extsion
         /// This will trigger Auto Codec Copy
         /// </remarks>
-        public void ExtensionMatchCheckAuto()
+        public void ExtensionMatchLoadAutoValues()
         {
             //MessageBox.Show(inputExt + " " + outputExt); //debug
 
+            //MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
+
             // -------------------------
-            // Video
+            // Get Input/Output Extensions
             // -------------------------
-            if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
-                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+
+            // Extensions Match Check
+            // Input Extension is Empty and Output Extension is Not Empty
+            //if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase) 
+            //    ||
+            //    (string.IsNullOrWhiteSpace(inputExt) && !string.IsNullOrWhiteSpace(outputExt))
+            //    )
+            if (string.IsNullOrWhiteSpace(inputExt) ||
+                inputExt == outputExt)
             {
-                // Set Controls:
+                // -------------------------
+                // Video
+                // -------------------------
+                if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
+                {
+                    // Set Controls:
 
-                // Main
-                VM.VideoView.Video_Quality_SelectedItem = "Auto";
-                VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
-                VM.VideoView.Video_FPS_SelectedItem = "auto";
-                VM.VideoView.Video_Optimize_SelectedItem = "None";
-                VM.VideoView.Video_Scale_SelectedItem = "Source";
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    // Main
+                    //VM.VideoView.Video_Quality_SelectedItem = "Auto";
+                    VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
+                    VM.VideoView.Video_FPS_SelectedItem = "auto";
+                    VM.VideoView.Video_Optimize_SelectedItem = "None";
+                    VM.VideoView.Video_Scale_SelectedItem = "Source";
+                    VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
 
-                // Filters
-                VM.FilterVideoView.LoadFilterVideoDefaults();
-                VM.FilterAudioView.LoadFilterAudioDefaults();
-            }
+                    // Color
+                    VM.VideoView.Video_Color_Range_SelectedItem = "auto";
+                    VM.VideoView.Video_Color_Space_SelectedItem = "auto";
+                    VM.VideoView.Video_Color_Primaries_SelectedItem = "auto";
+                    VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
+                    VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
 
-            // -------------------------
-            // Audio
-            // -------------------------
-            if (VM.AudioView.Audio_Quality_SelectedItem == "Auto" &&
-                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-            {
-                // Set Controls:
+                    // Filters
+                    VM.FilterVideoView.LoadFilterVideoDefaults();
+                    VM.FilterAudioView.LoadFilterAudioDefaults();
+                }
 
-                // Main
-                VM.AudioView.Audio_Quality_SelectedItem = "Auto";
-                VM.AudioView.Audio_Channel_SelectedItem = "Source";
-                VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
-                VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                // -------------------------
+                // Audio
+                // -------------------------
+                if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+                {
+                    // Set Controls:
 
-                // Filters
-                VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 0.0;
-                VM.FilterAudioView.LoadFilterAudioDefaults();
+                    // Main
+                    //VM.AudioView.Audio_Quality_SelectedItem = "Auto";
+                    VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                    VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                    VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+
+                    // Filters
+                    VM.AudioView.Audio_Volume_Text = "100";
+                    VM.AudioView.Audio_HardLimiter_Value = 0.0;
+                    VM.FilterAudioView.LoadFilterAudioDefaults();
+                }
             }
         }
 
@@ -5428,7 +5454,7 @@ namespace Axiom
             // Default Auto if Input Extension matches Output Extsion
             // This will trigger Auto Codec Copy
             // --------------------------------------------------
-            ExtensionMatchCheckAuto();
+            ExtensionMatchLoadAutoValues();
             //MessageBox.Show(inputExt + " " + outputExt); //debug
 
             // -------------------------
@@ -5457,7 +5483,7 @@ namespace Axiom
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
             // -------------------------
-            ////VideoControls.AutoCopyVideoCodec();
+            //VideoControls.AutoCopyVideoCodec();
             //SubtitleControls.AutoCopySubtitleCodec();
             //AudioControls.AutoCopyAudioCodec();
         }
@@ -5769,19 +5795,76 @@ namespace Axiom
         /// </summary>
         private void cboVideo_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // PROBLEM - This Control is being triggered twice?
-            //Change 1 - Is Clicked
-            //Selection is Medium
-            //Change 2 - New Items Loaded from Codec
-            //Selection is Null
+            string video_Codec_SelectedItem = (sender as ComboBox).SelectedItem as string;
 
-            //MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
-            //MessageBox.Show("cboVideo_Codec_SelectionChanged"); //debug
+            // -------------------------
+            // Halt if Selected Codec is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(video_Codec_SelectedItem))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Get Input/Output Extensions
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+
+            // -------------------------
+            // Save Selected Quality
+            // When you change the Quality ComboBox from Auto to 320, it triggers the Codec ComboBox to change from Copy to x264,
+            // in turn changing the Quality ComboBox back to Auto on the Codec switch
+            // -------------------------
+            string userSelected_VideoQuality = string.Empty;
+            if (string.IsNullOrWhiteSpace(inputExt) ||
+                inputExt == outputExt)
+            {
+                if (video_Codec_SelectedItem != "Copy" &&
+                    VM.VideoView.Video_Quality_SelectedItem != "Auto")
+                {
+                    userSelected_VideoQuality = VM.VideoView.Video_Quality_SelectedItem;
+                }
+            }
+
+            // -------------------------
+            // Set Copy Quality to Auto
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(inputExt) ||
+                inputExt == outputExt)
+            {
+                if (video_Codec_SelectedItem == "Copy")
+                {
+                    VM.VideoView.Video_Quality_SelectedItem = "Auto";
+                }
+            }
 
             // -------------------------
             // Set Controls
             // -------------------------
-            VideoControls.SetControls(VM.VideoView.Video_Codec_SelectedItem);
+            VideoControls.SetControls(video_Codec_SelectedItem);
+
+            // -------------------------
+            // Re-Select the Quality Preset
+            // -------------------------
+            // Copy Codec -> VP8, x264, etc Codec
+            if (string.IsNullOrWhiteSpace(inputExt) ||
+                inputExt == outputExt)
+            {
+                if (video_Codec_SelectedItem != "Copy")
+                {
+                    if (!string.IsNullOrWhiteSpace(userSelected_VideoQuality))
+                    {
+                        VM.VideoView.Video_Quality_SelectedItem = userSelected_VideoQuality;
+                    }
+                }
+                // Set to Top of Item List: Auto or None
+                else
+                {
+                    VM.VideoView.Video_Quality_SelectedIndex = 0;
+                }
+            }
 
             // -------------------------
             // Audio Stream Controls
@@ -5883,6 +5966,16 @@ namespace Axiom
         private void cboVideo_Quality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
+            // Halt if: Selected Codec is Null
+            //          Selected Quality is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem) ||
+                string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem))
+            {
+                return;
+            }
+
+            // -------------------------
             // Quality Controls
             // -------------------------
             VideoControls.QualityControls();
@@ -5922,11 +6015,11 @@ namespace Axiom
                                               VM.VideoView.Video_Quality_SelectedItem);
 
             // -------------------------
-            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Set Audio Codec Combobox to "Copy" if 
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
             // -------------------------
-            ////VideoControls.AutoCopyVideoCodec();
+            //VideoControls.AutoCopyVideoCodec();
         }
 
 
@@ -7024,10 +7117,20 @@ namespace Axiom
         /// </summary>
         private void cboSubtitle_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            string subtitle_Codec_SelectedItem = (sender as ComboBox).SelectedItem as string;
+
+            // -------------------------
+            // Halt if Selected Codec is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(subtitle_Codec_SelectedItem))
+            {
+                return;
+            }
+
             // -------------------------
             // Set Controls
             // -------------------------
-            SubtitleControls.SetControls(VM.SubtitleView.Subtitle_Codec_SelectedItem);
+            SubtitleControls.SetControls(subtitle_Codec_SelectedItem);
 
             // -------------------------
             // Convert Button Text Change
@@ -7248,10 +7351,77 @@ namespace Axiom
         /// </summary>
         private void cboAudio_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            string audio_Codec_SelectedItem = (sender as ComboBox).SelectedItem as string;
+            //MessageBox.Show(audio_Codec_SelectedItem); //debug
+
+            // -------------------------
+            // Halt if Selected Codec is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(audio_Codec_SelectedItem))
+            {
+                return;
+            }
+
+            // -------------------------
+            // Get Input/Output Extensions
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+
+            // -------------------------
+            // Save Selected Quality
+            // When you change the Quality ComboBox from Auto to 320, it triggers the Codec ComboBox to change from Copy to x264,
+            // in turn changing the Quality ComboBox back to Auto on the Codec switch
+            // -------------------------
+            string userSelected_AudioQuality = string.Empty;
+            if (string.IsNullOrWhiteSpace(inputExt) || 
+                inputExt == outputExt)
+            {
+                if (audio_Codec_SelectedItem != "Copy" && 
+                    VM.AudioView.Audio_Quality_SelectedItem != "Auto")
+                {
+                    userSelected_AudioQuality = VM.AudioView.Audio_Quality_SelectedItem;
+                }
+            }
+
+            // -------------------------
+            // Set Copy Quality to Auto
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(inputExt) ||
+                inputExt == outputExt)
+            {
+                if (audio_Codec_SelectedItem == "Copy")
+                {
+                    VM.AudioView.Audio_Quality_SelectedItem = "Auto";
+                }
+            }
+
             // -------------------------
             // Set Controls
             // -------------------------
-            AudioControls.SetControls(VM.AudioView.Audio_Codec_SelectedItem);
+            AudioControls.SetControls(audio_Codec_SelectedItem);
+
+            // -------------------------
+            // Re-Select the Quality Preset
+            // -------------------------
+            // Copy Codec -> VP8, x264, etc Codec
+            if (string.IsNullOrWhiteSpace(inputExt) ||
+                inputExt == outputExt)
+            {
+                if (audio_Codec_SelectedItem != "Copy")
+                {
+                    if (!string.IsNullOrWhiteSpace(userSelected_AudioQuality))
+                    {
+                        VM.AudioView.Audio_Quality_SelectedItem = userSelected_AudioQuality;
+                    }
+                }
+                // Set to Top of Item List: Auto or None
+                else
+                {
+                    VM.AudioView.Audio_Quality_SelectedIndex = 0;
+                }
+            }
 
             // -------------------------
             // Audio Stream Controls
@@ -7279,10 +7449,22 @@ namespace Axiom
         /// </summary>
         private void cboAudio_Quality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //(sender as ComboBox).SelectedItem as string;
+            //string audio_Quality_SelectedItem = (sender as AudioViewModel.AudioQuality).Name as string;
+
+            // -------------------------
+            // Halt if: Selected Codec is Null
+            //          Selected Quality is Null
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
+            {
+                return;
+            }
+
             // -------------------------
             // Set Controls
             // -------------------------
-            //AudioControls.SetControls(VM.AudioView.Audio_Codec_SelectedItem);
+            AudioControls.SetControls(VM.AudioView.Audio_Codec_SelectedItem);
 
             // -------------------------
             // Quality Controls
@@ -7388,7 +7570,7 @@ namespace Axiom
             //if (Audio_SampleRate_PreviousItem != VM.AudioView.Audio_SampleRate_SelectedItem)
             //{
             //    // Switch to Copy if inputExt & outputExt match
-            //    AudioControls.AutoCopyAudioCodec();
+            //    //AudioControls.AutoCopyAudioCodec();
             //}
 
             //MessageBox.Show("Current Changed: " + VM.AudioView.Audio_SampleRate_SelectedItem); //debug
@@ -7504,17 +7686,17 @@ namespace Axiom
             // Reset to default
             VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         private void slAudio_HardLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         private void tbxAudio_HardLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -8287,17 +8469,17 @@ namespace Axiom
             // Reset to default
             VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         private void slAudioLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         private void tbxAudioLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -8308,17 +8490,17 @@ namespace Axiom
         //    // Reset to default
         //    slFilterAudio_RemoveClick_Value = 0;
 
-        //    AudioControls.AutoCopyAudioCodec();
+        //    //AudioControls.AutoCopyAudioCodec();
         //}
 
         //private void slFilterAudio_RemoveClick_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         //{
-        //    AudioControls.AutoCopyAudioCodec();
+        //    //AudioControls.AutoCopyAudioCodec();
         //}
 
         //private void tbxFilterAudio_RemoveClick_PreviewKeyUp(object sender, KeyEventArgs e)
         //{
-        //    AudioControls.AutoCopyAudioCodec();
+        //    //AudioControls.AutoCopyAudioCodec();
         //}
 
 
@@ -8331,7 +8513,7 @@ namespace Axiom
             // Reset to default
             VM.FilterAudioView.FilterAudio_Contrast_Value = 0;
 
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
         // Key Down
         private void tbxFilterAudio_Contrast_KeyDown(object sender, KeyEventArgs e)
@@ -8341,12 +8523,12 @@ namespace Axiom
         // Key Up
         private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
         // Mouse Up
         private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -8358,7 +8540,7 @@ namespace Axiom
             // Reset to default
             VM.FilterAudioView.FilterAudio_ExtraStereo_Value = 0;
 
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
         // Key Down
         private void tbxFilterAudio_ExtraStereo_KeyDown(object sender, KeyEventArgs e)
@@ -8368,12 +8550,12 @@ namespace Axiom
         // Key Up
         private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
         // Mouse Up
         private void slFilterAudio_ExtraStereo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -8385,7 +8567,7 @@ namespace Axiom
             // Reset to default
             VM.FilterAudioView.FilterAudio_Tempo_Value = 100;
 
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
         // Key Down
         private void tbxFilterAudio_Tempo_KeyDown(object sender, KeyEventArgs e)
@@ -8395,12 +8577,12 @@ namespace Axiom
         // Key Up
         private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
         // Mouse Up
         private void slFilterAudio_Tempo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
 

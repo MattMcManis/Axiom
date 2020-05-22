@@ -33,7 +33,9 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -1150,12 +1152,19 @@ namespace Axiom
             // Note: Aspect Ratio -aspect can be applied to Copy
             if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
                 VM.VideoView.Video_PixelFormat_SelectedItem == "auto" &&
-                string.IsNullOrEmpty(CropWindow.crop) &&
+                string.IsNullOrWhiteSpace(CropWindow.crop) &&
                 VM.VideoView.Video_Scale_SelectedItem == "Source" &&
                 VM.VideoView.Video_ScalingAlgorithm_SelectedItem == "auto" &&
                 // Do not add Aspect Ratio -aspect, it can be used with Copy
                 VM.VideoView.Video_FPS_SelectedItem == "auto" &&
                 VM.VideoView.Video_Optimize_SelectedItem == "None" &&
+
+                // Color
+                VM.VideoView.Video_Color_Range_SelectedItem == "auto" &&
+                VM.VideoView.Video_Color_Space_SelectedItem == "auto" &&
+                VM.VideoView.Video_Color_Primaries_SelectedItem == "auto" &&
+                VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem == "auto" &&
+                VM.VideoView.Video_Color_Matrix_SelectedItem == "auto" &&
 
                 // Filters
                 // Fix
@@ -1209,17 +1218,18 @@ namespace Axiom
                 VM.FilterVideoView.FilterVideo_EQ_Saturation_Value == 0 &&
                 VM.FilterVideoView.FilterVideo_EQ_Gamma_Value == 0 &&
 
-                // File Extension Match
-                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
+                // Input Extension is Empty or File Extensions Match
+                (string.IsNullOrWhiteSpace(inputExt) || inputExt == outputExt)
             )
             {
-                //System.Windows.MessageBox.Show("pass check"); //debug
+                //System.Windows.MessageBox.Show("true"); //debug
                 return true;
             }
 
             // Did Not Pass Check
             else
             {
+                //System.Windows.MessageBox.Show("false"); //debug
                 return false;
             }
         }
@@ -1232,29 +1242,33 @@ namespace Axiom
         private static void CopyControls()
         {
             // -------------------------
-            // Halt if Input Extention Null Check
-            // or youtube-dl URL
+            // Halt if Web URL
             // -------------------------
-            if (string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            if (MainWindow.IsWebURL(VM.MainView.Input_Text) == true)
             {
                 return;
             }
 
             // -------------------------
+            // Get Input/Output Extensions
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+
+            // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(inputExt, outputExt) == true)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
                 // -------------------------
                 if (VM.VideoView.Video_Codec_Items.Count > 0)
                 {
-                    //System.Windows.MessageBox.Show("copy1"); //debug
                     if (VM.VideoView.Video_Codec_Items?.Contains("Copy") == true)
                     {
-                        //System.Windows.MessageBox.Show("copy2"); //debug
                         VM.VideoView.Video_Codec_SelectedItem = "Copy";
                     }
                 }
@@ -1274,62 +1288,48 @@ namespace Axiom
             else
             {
                 // -------------------------
-                // Null Check
+                // Copy Selected
                 // -------------------------
-                if (!string.IsNullOrEmpty(VM.VideoView.Video_Quality_SelectedItem))
+                if (VM.VideoView.Video_Codec_SelectedItem == "Copy")
                 {
-                    // -------------------------
-                    // Copy Selected
-                    // -------------------------
-                    if (VM.VideoView.Video_Codec_SelectedItem == "Copy")
+                    switch (VM.FormatView.Format_Container_SelectedItem)
                     {
-                        // -------------------------
-                        // Switch back to format's default codec
-                        // -------------------------
-                        if (VM.VideoView.Video_Codec_SelectedItem != "Auto" ||
-                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                            )
-                        {
-                            switch (VM.FormatView.Format_Container_SelectedItem)
-                            {
-                                // WebM
-                                case "webm":
-                                    VM.VideoView.Video_Codec_SelectedItem = "VP8";
-                                    break;
-                                // MP4
-                                case "mp4":
-                                    VM.VideoView.Video_Codec_SelectedItem = "x264";
-                                    break;
-                                // MKV
-                                case "mkv":
-                                    VM.VideoView.Video_Codec_SelectedItem = "x264";
-                                    break;
-                                // MPG
-                                case "mpg":
-                                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
-                                    break;
-                                // AVI
-                                case "avi":
-                                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
-                                    break;
-                                // OGV
-                                case "ogv":
-                                    VM.VideoView.Video_Codec_SelectedItem = "Theora";
-                                    break;
-                                // JPG
-                                case "jpg":
-                                    VM.VideoView.Video_Codec_SelectedItem = "JPEG";
-                                    break;
-                                // PNG
-                                case "png":
-                                    VM.VideoView.Video_Codec_SelectedItem = "PNG";
-                                    break;
-                                // WebP
-                                case "webp":
-                                    VM.VideoView.Video_Codec_SelectedItem = "WebP";
-                                    break;
-                            }
-                        }
+                        // WebM
+                        case "webm":
+                            VM.VideoView.Video_Codec_SelectedItem = "VP8";
+                            break;
+                        // MP4
+                        case "mp4":
+                            VM.VideoView.Video_Codec_SelectedItem = "x264";
+                            break;
+                        // MKV
+                        case "mkv":
+                            VM.VideoView.Video_Codec_SelectedItem = "x264";
+                            break;
+                        // MPG
+                        case "mpg":
+                            VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
+                            break;
+                        // AVI
+                        case "avi":
+                            VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
+                            break;
+                        // OGV
+                        case "ogv":
+                            VM.VideoView.Video_Codec_SelectedItem = "Theora";
+                            break;
+                        // JPG
+                        case "jpg":
+                            VM.VideoView.Video_Codec_SelectedItem = "JPEG";
+                            break;
+                        // PNG
+                        case "png":
+                            VM.VideoView.Video_Codec_SelectedItem = "PNG";
+                            break;
+                        // WebP
+                        case "webp":
+                            VM.VideoView.Video_Codec_SelectedItem = "WebP";
+                            break;
                     }
                 }
             }
@@ -1340,23 +1340,40 @@ namespace Axiom
         /// Auto Codec Copy
         /// <summary>
         /// <remarks>
-        /// Input Extension is Same as Output Extension and Video Quality is Auto
+        /// Input Extension is same as Output Extension and Video Quality is Auto
         /// </remarks>
         public static void AutoCopyVideoCodec()
         {
-            // --------------------------------------------------
-            // When Input Extension is Not Empty
-            // --------------------------------------------------
-            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            // Halt if Selected Codec is Null
+            if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
             {
-                CopyControls();
+                return;
             }
 
-            // --------------------------------------------------
-            // When Input Extension is Empty
-            // --------------------------------------------------
-            else if (string.IsNullOrEmpty(MainWindow.inputExt) && 
-                     VM.VideoView.Video_Codec_SelectedItem == "Copy")
+            // Halt if Codec is Not Copy
+            if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
+            {
+                return;
+            }
+            //if (VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
+            //    VM.VideoView.Video_Quality_SelectedItem != "Auto")
+            //{
+            //    return;
+            //}
+
+            // -------------------------
+            // Get Input Extension
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+
+            // -------------------------
+            // Copy Controls
+            // -------------------------
+            if (// When Input Extension is Not Empty
+                !string.IsNullOrWhiteSpace(inputExt) ||
+                // When Input Extension is Empty and Selected Codec is Copy
+                (string.IsNullOrWhiteSpace(inputExt) && VM.VideoView.Video_Codec_SelectedItem == "Copy")
+                )
             {
                 CopyControls();
             } 

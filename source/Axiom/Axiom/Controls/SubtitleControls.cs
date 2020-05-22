@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System;
+using System.IO;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -232,19 +233,18 @@ namespace Axiom
         /// <summary>
         /// Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(
-                                                   string inputExt,
+        public static bool AutoCopyConditionsCheck(string inputExt,
                                                    string outputExt)
         {
             // Input Extension is Same as Output Extension and Video Quality is Auto
             if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
                 VM.VideoView.Video_Scale_SelectedItem == "Source" &&
-                string.IsNullOrEmpty(CropWindow.crop) &&
+                string.IsNullOrWhiteSpace(CropWindow.crop) &&
                 VM.VideoView.Video_FPS_SelectedItem == "auto" &&
                 VM.VideoView.Video_Optimize_SelectedItem == "None" &&
 
-                // Extension Match
-                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
+                // Input Extension is Empty or File Extensions Match
+                (string.IsNullOrWhiteSpace(inputExt) || inputExt == outputExt)
             )
             {
                 return true;
@@ -264,20 +264,24 @@ namespace Axiom
         private static void CopyControls()
         {
             // -------------------------
-            // Halt if Input Extention Null Check
-            // or youtube-dl URL
+            // Halt if Web URL
             // -------------------------
-            if (string.IsNullOrEmpty(MainWindow.inputExt) ||
-                string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            if (MainWindow.IsWebURL(VM.MainView.Input_Text) == true)
             {
                 return;
             }
 
             // -------------------------
+            // Get Input/Output Extensions
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+
+            // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(inputExt, outputExt) == true)
             {
                 // -------------------------
                 // Set Subtitle Codec Combobox Selected Item to Copy
@@ -305,78 +309,66 @@ namespace Axiom
             else
             {
                 // -------------------------
-                // Null Check
+                // Copy Selected 
                 // -------------------------
-                if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Stream_SelectedItem))
+                if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
                 {
-                    // -------------------------
-                    // Copy Selected 
-                    // -------------------------
-                    if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
+                    switch (VM.FormatView.Format_Container_SelectedItem)
                     {
                         // -------------------------
-                        // Switch back to format's default codec
+                        // WebM
                         // -------------------------
-                        if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            switch (VM.FormatView.Format_Container_SelectedItem)
-                            {
-                                // -------------------------
-                                // WebM
-                                // -------------------------
-                                case "webm":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-                                    break;
-                                // -------------------------
-                                // MP4
-                                // -------------------------
-                                case "mp4":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "MOV Text";
-                                    break;
-                                // -------------------------
-                                // MKV
-                                // -------------------------
-                                case "mkv":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "Copy";
-                                    break;
-                                // -------------------------
-                                // MPG
-                                // -------------------------
-                                case "mpg":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "Copy";
-                                    break;
-                                // -------------------------
-                                // AVI
-                                // -------------------------
-                                case "avi":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
-                                    break;
-                                // -------------------------
-                                // OGV
-                                // -------------------------
-                                case "ogv":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-                                    break;
-                                // -------------------------
-                                // JPG
-                                // -------------------------
-                                case "jpg":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-                                    break;
-                                // -------------------------
-                                // PNG
-                                // -------------------------
-                                case "png":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-                                    break;
-                                // -------------------------
-                                // WebP
-                                // -------------------------
-                                case "webp":
-                                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-                                    break;
-                            }
-                        }
+                        case "webm":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                            break;
+                        // -------------------------
+                        // MP4
+                        // -------------------------
+                        case "mp4":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "MOV Text";
+                            break;
+                        // -------------------------
+                        // MKV
+                        // -------------------------
+                        case "mkv":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "Copy";
+                            break;
+                        // -------------------------
+                        // MPG
+                        // -------------------------
+                        case "mpg":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "Copy";
+                            break;
+                        // -------------------------
+                        // AVI
+                        // -------------------------
+                        case "avi":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
+                            break;
+                        // -------------------------
+                        // OGV
+                        // -------------------------
+                        case "ogv":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                            break;
+                        // -------------------------
+                        // JPG
+                        // -------------------------
+                        case "jpg":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                            break;
+                        // -------------------------
+                        // PNG
+                        // -------------------------
+                        case "png":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                            break;
+                        // -------------------------
+                        // WebP
+                        // -------------------------
+                        case "webp":
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                            break;
                     }
                 }
             }
@@ -388,23 +380,35 @@ namespace Axiom
         /// <summary>
         public static void AutoCopySubtitleCodec()
         {
-            // --------------------------------------------------
-            // When Input Extension is Not Empty
-            // --------------------------------------------------
-            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            // Halt if Selected Codec is Null
+            if (string.IsNullOrWhiteSpace(VM.SubtitleView.Subtitle_Codec_SelectedItem))
             {
-                CopyControls();
+                return;
             }
 
-            // --------------------------------------------------
-            // When Input Extension is Empty
-            // --------------------------------------------------
-            else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
-                VM.AudioView.Audio_Codec_SelectedItem == "Copy")
+            // Halt if Codec is Not Copy
+            //if (VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy")
+            //{
+            //    return;
+            //}
+
+            // -------------------------
+            // Get Input Extension
+            // -------------------------
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+
+            // -------------------------
+            // Copy Controls
+            // -------------------------
+            if (// When Input Extension is Not Empty
+                !string.IsNullOrWhiteSpace(inputExt) ||
+                // When Input Extension is Empty and Selected Codec is Copy
+                (string.IsNullOrWhiteSpace(inputExt) && VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
+                )
             {
                 CopyControls();
             }
-        } 
+        }
 
 
 
