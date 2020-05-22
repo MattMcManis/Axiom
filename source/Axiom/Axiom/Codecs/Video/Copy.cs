@@ -183,11 +183,17 @@ namespace Axiom
         // -------------------------
         public static void Controls_Selected()
         {
+            // HW Accel
+            VM.VideoView.Video_HWAccel_SelectedItem = "Off";
+
             // Pixel Format
             VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
 
             // Framerate
             VM.VideoView.Video_FPS_SelectedItem = "auto";
+
+            // Speed
+            VM.VideoView.Video_Speed_SelectedItem = "auto";
         }
 
 
@@ -234,32 +240,32 @@ namespace Axiom
             // Video Codec
             VM.VideoView.Video_Codec_IsEnabled = true;
 
-            // Video Quality
-            VM.VideoView.Video_Quality_IsEnabled = true;
+            //// Video Quality
+            //VM.VideoView.Video_Quality_IsEnabled = true;
 
-            // Video VBR
-            VM.AudioView.Audio_VBR_IsEnabled = true;
+            //// Video VBR
+            //VM.VideoView.Video_VBR_IsEnabled = true;
 
-            // Pixel Format
-            VM.VideoView.Video_PixelFormat_IsEnabled = true;
+            //// Pixel Format
+            //VM.VideoView.Video_PixelFormat_IsEnabled = true;
 
-            // FPS ComboBox
-            VM.VideoView.Video_FPS_IsEnabled = true;
+            //// FPS ComboBox
+            //VM.VideoView.Video_FPS_IsEnabled = true;
 
-            // Optimize ComboBox
-            VM.VideoView.Video_Optimize_IsEnabled = true;
+            //// Optimize ComboBox
+            //VM.VideoView.Video_Optimize_IsEnabled = true;
 
-            // Scaling ComboBox
-            VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+            //// Scaling ComboBox
+            //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
 
-            // Crop
-            VM.VideoView.Video_Crop_IsEnabled = true;
+            //// Crop
+            //VM.VideoView.Video_Crop_IsEnabled = true;
 
             // Subtitle Codec
-            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+            //VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
 
             // Subtitle Stream
-            VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+            //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
         }
 
         // -------------------------
@@ -269,6 +275,33 @@ namespace Axiom
         {
             // Video Encode Speed
             VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
+            // HW Accel
+            VM.VideoView.Video_HWAccel_IsEnabled = false;
+
+            // Video Quality
+            //VM.VideoView.Video_Quality_IsEnabled = false;
+
+            // Video VBR
+            VM.VideoView.Video_VBR_IsEnabled = false;
+
+            // Pixel Format
+            VM.VideoView.Video_PixelFormat_IsEnabled = false;
+
+            // FPS ComboBox
+            VM.VideoView.Video_FPS_IsEnabled = false;
+
+            // Speed
+            VM.VideoView.Video_Speed_IsEnabled = false;
+
+            // Optimize ComboBox
+            VM.VideoView.Video_Optimize_IsEnabled = false;
+
+            // Scaling ComboBox
+            VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
+
+            // Crop
+            VM.VideoView.Video_Crop_IsEnabled = false;
         }
     }
 }
