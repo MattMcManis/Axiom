@@ -77,6 +77,10 @@ namespace Axiom
             FilterVideo_Denoise_SelectedItem = "disabled";
             FilterVideo_Deinterlace_SelectedItem = "disabled";
 
+            // Transpose
+            FilterVideo_Flip_SelectedItem = "disabled";
+            FilterVideo_Rotate_SelectedItem = "disabled";
+
             // EQ
             FilterVideo_EQ_Brightness_Value = 0;
             FilterVideo_EQ_Contrast_Value = 0;
@@ -163,6 +167,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_Deband_SelectedItem");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_Deband_IsEnabled = true;
+        public bool FilterVideo_Deband_IsEnabled
+        {
+            get { return _FilterVideo_Deband_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Deband_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deband_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Deband_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Deshake
@@ -195,7 +215,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_Deshake_SelectedItem");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_Deshake_IsEnabled = true;
+        public bool FilterVideo_Deshake_IsEnabled
+        {
+            get { return _FilterVideo_Deshake_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Deshake_IsEnabled == value)
+                {
+                    return;
+                }
 
+                _FilterVideo_Deshake_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Deshake_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Deflicker
@@ -227,7 +262,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_Deflicker_SelectedItem");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_Deflicker_IsEnabled = true;
+        public bool FilterVideo_Deflicker_IsEnabled
+        {
+            get { return _FilterVideo_Deflicker_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Deflicker_IsEnabled == value)
+                {
+                    return;
+                }
 
+                _FilterVideo_Deflicker_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Deflicker_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Dejudder
@@ -257,6 +307,22 @@ namespace Axiom
 
                 _FilterVideo_Dejudder_SelectedItem = value;
                 OnPropertyChanged("FilterVideo_Dejudder_SelectedItem");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_Dejudder_IsEnabled = true;
+        public bool FilterVideo_Dejudder_IsEnabled
+        {
+            get { return _FilterVideo_Dejudder_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Dejudder_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Dejudder_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Dejudder_IsEnabled");
             }
         }
 
@@ -291,6 +357,22 @@ namespace Axiom
 
                 _FilterVideo_Denoise_SelectedItem = value;
                 OnPropertyChanged("FilterVideo_Denoise_SelectedItem");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_Denoise_IsEnabled = true;
+        public bool FilterVideo_Denoise_IsEnabled
+        {
+            get { return _FilterVideo_Denoise_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Denoise_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Denoise_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Denoise_IsEnabled");
             }
         }
 
@@ -329,6 +411,97 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_Deinterlace_SelectedItem");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_Deinterlace_IsEnabled = true;
+        public bool FilterVideo_Deinterlace_IsEnabled
+        {
+            get { return _FilterVideo_Deinterlace_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Deinterlace_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deinterlace_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Deinterlace_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Flip
+        // -------------------------
+        // Items
+        public List<string> _FilterVideo_Flip_Items = new List<string>()
+        {
+            "disabled",
+            "horizontal",
+            "vertical",
+            "both"
+        };
+        public List<string> FilterVideo_Flip_Items
+        {
+            get { return _FilterVideo_Flip_Items; }
+            set { _FilterVideo_Flip_Items = value; }
+        }
+
+        // Selected Item
+        private string _FilterVideo_Flip_SelectedItem { get; set; }
+        public string FilterVideo_Flip_SelectedItem
+        {
+            get { return _FilterVideo_Flip_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Flip_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Flip_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Flip_SelectedItem");
+            }
+        }
+
+
+        // -------------------------
+        // Rotate
+        // -------------------------
+        // Items
+        public List<string> _FilterVideo_Rotate_Items = new List<string>()
+        {
+            "disabled",
+            "90° CW",   //transpose=1
+            "180° CW",  //transpose=1, transpose=1
+            "270° CW",  //transpose=1, transpose=1, transpose=1
+            "90° CCW",  //transpose=2
+            "180° CCW", //transpose=2, transpose=2
+            "270° CCW"  //transpose=2, transpose=2, transpose=2
+        };
+        public List<string> FilterVideo_Rotate_Items
+        {
+            get { return _FilterVideo_Rotate_Items; }
+            set { _FilterVideo_Rotate_Items = value; }
+        }
+
+        // Selected Item
+        private string _FilterVideo_Rotate_SelectedItem { get; set; }
+        public string FilterVideo_Rotate_SelectedItem
+        {
+            get { return _FilterVideo_Rotate_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Rotate_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Rotate_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Rotate_SelectedItem");
+            }
+        }
+
+
 
         // -------------------------
         // EQ Brightness
