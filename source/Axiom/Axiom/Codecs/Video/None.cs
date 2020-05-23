@@ -191,6 +191,10 @@ namespace Axiom
 
             // Color Matrix
             VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+
+
+            // Filters
+            //VideoFilters.VideoFilters_ControlsSelectDefaults();
         }
 
 
@@ -300,6 +304,10 @@ namespace Axiom
 
             // Subtitle Stream
             VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+
+
+            // Filters
+            //VideoFilters.VideoFilters_DisableAll();
         }
 
     }
