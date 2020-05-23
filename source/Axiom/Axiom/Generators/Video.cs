@@ -1162,6 +1162,12 @@ namespace Axiom
         {
             inputVideoBitRate = inputVideoBitRate.Trim();
 
+            // Cancel if Input TextBox is Empty
+            if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+            {
+                return inputVideoBitRate;
+            }
+
             // -------------------------
             // Null Check
             // -------------------------
