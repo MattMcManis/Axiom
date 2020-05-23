@@ -120,6 +120,24 @@ namespace Axiom
             }
         }
 
+        // Controls Enable
+        private bool _FilterAudio_Lowpass_IsEnabled = true;
+        public bool FilterAudio_Lowpass_IsEnabled
+        {
+            get { return _FilterAudio_Lowpass_IsEnabled; }
+            set
+            {
+                if (_FilterAudio_Lowpass_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Lowpass_IsEnabled = value;
+                OnPropertyChanged("FilterAudio_Lowpass_IsEnabled");
+            }
+        }
+
+
         // -------------------------
         // Highpass
         // -------------------------
@@ -150,6 +168,23 @@ namespace Axiom
                 OnPropertyChanged("FilterAudio_Highpass_SelectedItem");
             }
         }
+        // Controls Enable
+        private bool _FilterAudio_Highpass_IsEnabled = true;
+        public bool FilterAudio_Highpass_IsEnabled
+        {
+            get { return _FilterAudio_Highpass_IsEnabled; }
+            set
+            {
+                if (_FilterAudio_Highpass_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Highpass_IsEnabled = value;
+                OnPropertyChanged("FilterAudio_Highpass_IsEnabled");
+            }
+        }
+
 
         // -------------------------
         // Headphones (Earwax)
@@ -182,6 +217,23 @@ namespace Axiom
                 OnPropertyChanged("FilterAudio_Headphones_SelectedItem");
             }
         }
+        // Controls Enable
+        private bool _FilterAudio_Headphones_IsEnabled = true;
+        public bool FilterAudio_Headphones_IsEnabled
+        {
+            get { return _FilterAudio_Headphones_IsEnabled; }
+            set
+            {
+                if (_FilterAudio_Headphones_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Headphones_IsEnabled = value;
+                OnPropertyChanged("FilterAudio_Headphones_IsEnabled");
+            }
+        }
+
 
         // -------------------------
         // Contrast
@@ -202,6 +254,23 @@ namespace Axiom
                 OnPropertyChanged("FilterAudio_Contrast_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterAudio_Contrast_IsEnabled = true;
+        public bool FilterAudio_Contrast_IsEnabled
+        {
+            get { return _FilterAudio_Contrast_IsEnabled; }
+            set
+            {
+                if (_FilterAudio_Contrast_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Contrast_IsEnabled = value;
+                OnPropertyChanged("FilterAudio_Contrast_IsEnabled");
+            }
+        }
+
 
         // -------------------------
         // Extra Stereo
@@ -222,6 +291,23 @@ namespace Axiom
                 OnPropertyChanged("FilterAudio_ExtraStereo_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterAudio_ExtraStereo_IsEnabled = true;
+        public bool FilterAudio_ExtraStereo_IsEnabled
+        {
+            get { return _FilterAudio_ExtraStereo_IsEnabled; }
+            set
+            {
+                if (_FilterAudio_ExtraStereo_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_ExtraStereo_IsEnabled = value;
+                OnPropertyChanged("FilterAudio_ExtraStereo_IsEnabled");
+            }
+        }
+
 
         // -------------------------
         // Tempo
@@ -240,6 +326,22 @@ namespace Axiom
 
                 _FilterAudio_Tempo_Value = value;
                 OnPropertyChanged("FilterAudio_Tempo_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterAudio_Tempo_IsEnabled = true;
+        public bool FilterAudio_Tempo_IsEnabled
+        {
+            get { return _FilterAudio_Tempo_IsEnabled; }
+            set
+            {
+                if (_FilterAudio_Tempo_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Tempo_IsEnabled = value;
+                OnPropertyChanged("FilterAudio_Tempo_IsEnabled");
             }
         }
 
