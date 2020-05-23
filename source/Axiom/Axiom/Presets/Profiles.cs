@@ -615,6 +615,23 @@ namespace Axiom
                 else
                     listFailedImports.Add("Filter Video: Deinterlace");
 
+                // Transpose
+                // Flip
+                string filterVideoFlip = inif.Read("Filter Video", "Flip_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_Flip_Items.Contains(filterVideoFlip))
+                    VM.FilterVideoView.FilterVideo_Flip_SelectedItem = filterVideoFlip;
+                else
+                    listFailedImports.Add("Filter Video: Flip");
+
+                // Rotate
+                string filterVideoRotate = inif.Read("Filter Video", "Rotate_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_Rotate_Items.Contains(filterVideoRotate))
+                    VM.FilterVideoView.FilterVideo_Rotate_SelectedItem = filterVideoRotate;
+                else
+                    listFailedImports.Add("Filter Video: Rotate");
+
                 // EQ 
                 // Brightness
                 double video_EQ_Brightness_Value;
@@ -1034,6 +1051,10 @@ namespace Axiom
                 inif.Write("Filter Video", "Dejudder_SelectedItem", VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem);
                 inif.Write("Filter Video", "Denoise_SelectedItem", VM.FilterVideoView.FilterVideo_Denoise_SelectedItem);
                 inif.Write("Filter Video", "Deinterlace_SelectedItem", VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem);
+
+                // Transpose
+                inif.Write("Filter Video", "Flip_SelectedItem", VM.FilterVideoView.FilterVideo_Flip_SelectedItem.ToString());
+                inif.Write("Filter Video", "Rotate_SelectedItem", VM.FilterVideoView.FilterVideo_Rotate_SelectedItem.ToString());
 
                 // EQ
                 inif.Write("Filter Video", "EQ_Brightness_Value", VM.FilterVideoView.FilterVideo_EQ_Brightness_Value.ToString());
