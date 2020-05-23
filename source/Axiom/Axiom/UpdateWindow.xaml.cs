@@ -138,11 +138,7 @@ namespace Axiom
 
                 WebClient wc = new WebClient();
                 wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + MainWindow.currentVersion + "-" + MainWindow.currentBuildPhase + " Update");
-                //wc.Headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"); //error
-                //wc.Headers.Add("accept-language", "en-US,en;q=0.9"); //error
-                //wc.Headers.Add("dnt", "1"); //error
-                //wc.Headers.Add("upgrade-insecure-requests", "1"); //error
-                //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
+                // Do not Add Headers: accept, accept-language, dnt, upgrade-insecure-requests, accept-encoding
 
                 waiter = new ManualResetEvent(false); //start a new waiter for next pass (clicking update again)
 
