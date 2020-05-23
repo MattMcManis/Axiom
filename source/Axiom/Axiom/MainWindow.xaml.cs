@@ -5800,45 +5800,44 @@ namespace Axiom
             // -------------------------
             // Halt if Selected Codec is Null
             // -------------------------
-            if (string.IsNullOrWhiteSpace(video_Codec_SelectedItem))
-            {
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(video_Codec_SelectedItem))
+            //{
+            //    return;
+            //}
 
             // -------------------------
             // Get Input/Output Extensions
             // -------------------------
-            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
-            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+            //string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            //string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
 
             // -------------------------
             // Save Selected Quality
             // When you change the Quality ComboBox from Auto to 320, it triggers the Codec ComboBox to change from Copy to x264,
             // in turn changing the Quality ComboBox back to Auto on the Codec switch
             // -------------------------
-            string userSelected_VideoQuality = string.Empty;
-            if (string.IsNullOrWhiteSpace(inputExt) ||
-                inputExt == outputExt)
-            {
-                if (video_Codec_SelectedItem != "Copy" &&
-                    VM.VideoView.Video_Quality_SelectedItem != "Auto")
-                {
-                    userSelected_VideoQuality = VM.VideoView.Video_Quality_SelectedItem;
-                }
-            }
+            //string userSelected_VideoQuality = string.Empty;
+            //if (string.IsNullOrWhiteSpace(inputExt) ||
+            //    inputExt == outputExt)
+            //{
+            //    if (video_Codec_SelectedItem != "Copy" &&
+            //        VM.VideoView.Video_Quality_SelectedItem != "Auto")
+            //    {
+            //        userSelected_VideoQuality = VM.VideoView.Video_Quality_SelectedItem;
+            //    }
+            //}
 
             // -------------------------
             // Set Copy Quality to Auto
             // -------------------------
-            if (string.IsNullOrWhiteSpace(inputExt) ||
-                inputExt == outputExt)
-            {
-                if (video_Codec_SelectedItem == "Copy")
-                {
-                    VM.VideoView.Video_Quality_SelectedItem = "Auto";
-                }
-            }
+            //if (string.IsNullOrWhiteSpace(inputExt) ||
+            //    inputExt == outputExt)
+            //{
+            //    if (video_Codec_SelectedItem == "Copy")
+            //    {
+            //        VM.VideoView.Video_Quality_SelectedItem = "Auto";
+            //    }
+            //}
 
             // -------------------------
             // Set Controls
@@ -5849,22 +5848,22 @@ namespace Axiom
             // Re-Select the Quality Preset
             // -------------------------
             // Copy Codec -> VP8, x264, etc Codec
-            if (string.IsNullOrWhiteSpace(inputExt) ||
-                inputExt == outputExt)
-            {
-                if (video_Codec_SelectedItem != "Copy")
-                {
-                    if (!string.IsNullOrWhiteSpace(userSelected_VideoQuality))
-                    {
-                        VM.VideoView.Video_Quality_SelectedItem = userSelected_VideoQuality;
-                    }
-                }
-                // Set to Top of Item List: Auto or None
-                else
-                {
-                    VM.VideoView.Video_Quality_SelectedIndex = 0;
-                }
-            }
+            //if (string.IsNullOrWhiteSpace(inputExt) ||
+            //    inputExt == outputExt)
+            //{
+            //    if (video_Codec_SelectedItem != "Copy")
+            //    {
+            //        if (!string.IsNullOrWhiteSpace(userSelected_VideoQuality))
+            //        {
+            //            VM.VideoView.Video_Quality_SelectedItem = userSelected_VideoQuality;
+            //        }
+            //    }
+            //    // Set to Top of Item List: Auto or None
+            //    else
+            //    {
+            //        VM.VideoView.Video_Quality_SelectedIndex = 0;
+            //    }
+            //}
 
             // -------------------------
             // Audio Stream Controls
@@ -5969,11 +5968,11 @@ namespace Axiom
             // Halt if: Selected Codec is Null
             //          Selected Quality is Null
             // -------------------------
-            if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem) ||
-                string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem))
-            {
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem) ||
+            //    string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem))
+            //{
+            //    return;
+            //}
 
             // -------------------------
             // Quality Controls
@@ -7364,45 +7363,44 @@ namespace Axiom
             // -------------------------
             // Halt if Selected Codec is Null
             // -------------------------
-            if (string.IsNullOrWhiteSpace(audio_Codec_SelectedItem))
-            {
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(audio_Codec_SelectedItem))
+            //{
+            //    return;
+            //}
 
             // -------------------------
             // Get Input/Output Extensions
             // -------------------------
-            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
-            //MessageBox.Show(inputExt + "\n" + outputExt); //debug
+            //string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+            //string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
 
             // -------------------------
             // Save Selected Quality
             // When you change the Quality ComboBox from Auto to 320, it triggers the Codec ComboBox to change from Copy to x264,
             // in turn changing the Quality ComboBox back to Auto on the Codec switch
             // -------------------------
-            string userSelected_AudioQuality = string.Empty;
-            if (string.IsNullOrWhiteSpace(inputExt) || 
-                inputExt == outputExt)
-            {
-                if (audio_Codec_SelectedItem != "Copy" && 
-                    VM.AudioView.Audio_Quality_SelectedItem != "Auto")
-                {
-                    userSelected_AudioQuality = VM.AudioView.Audio_Quality_SelectedItem;
-                }
-            }
+            //string userSelected_AudioQuality = string.Empty;
+            //if (string.IsNullOrWhiteSpace(inputExt) || 
+            //    inputExt == outputExt)
+            //{
+            //    if (audio_Codec_SelectedItem != "Copy" && 
+            //        VM.AudioView.Audio_Quality_SelectedItem != "Auto")
+            //    {
+            //        userSelected_AudioQuality = VM.AudioView.Audio_Quality_SelectedItem;
+            //    }
+            //}
 
             // -------------------------
             // Set Copy Quality to Auto
             // -------------------------
-            if (string.IsNullOrWhiteSpace(inputExt) ||
-                inputExt == outputExt)
-            {
-                if (audio_Codec_SelectedItem == "Copy")
-                {
-                    VM.AudioView.Audio_Quality_SelectedItem = "Auto";
-                }
-            }
+            //if (string.IsNullOrWhiteSpace(inputExt) ||
+            //    inputExt == outputExt)
+            //{
+            //    if (audio_Codec_SelectedItem == "Copy")
+            //    {
+            //        VM.AudioView.Audio_Quality_SelectedItem = "Auto";
+            //    }
+            //}
 
             // -------------------------
             // Set Controls
@@ -7413,22 +7411,22 @@ namespace Axiom
             // Re-Select the Quality Preset
             // -------------------------
             // Copy Codec -> VP8, x264, etc Codec
-            if (string.IsNullOrWhiteSpace(inputExt) ||
-                inputExt == outputExt)
-            {
-                if (audio_Codec_SelectedItem != "Copy")
-                {
-                    if (!string.IsNullOrWhiteSpace(userSelected_AudioQuality))
-                    {
-                        VM.AudioView.Audio_Quality_SelectedItem = userSelected_AudioQuality;
-                    }
-                }
-                // Set to Top of Item List: Auto or None
-                else
-                {
-                    VM.AudioView.Audio_Quality_SelectedIndex = 0;
-                }
-            }
+            //if (string.IsNullOrWhiteSpace(inputExt) ||
+            //    inputExt == outputExt)
+            //{
+            //    if (audio_Codec_SelectedItem != "Copy")
+            //    {
+            //        if (!string.IsNullOrWhiteSpace(userSelected_AudioQuality))
+            //        {
+            //            VM.AudioView.Audio_Quality_SelectedItem = userSelected_AudioQuality;
+            //        }
+            //    }
+            //    // Set to Top of Item List: Auto or None
+            //    else
+            //    {
+            //        VM.AudioView.Audio_Quality_SelectedIndex = 0;
+            //    }
+            //}
 
             // -------------------------
             // Audio Stream Controls
@@ -7464,10 +7462,10 @@ namespace Axiom
             // Halt if: Selected Codec is Null
             //          Selected Quality is Null
             // -------------------------
-            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
-            {
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
+            //{
+            //    return;
+            //}
 
             // -------------------------
             // Set Controls
@@ -8241,68 +8239,70 @@ namespace Axiom
         {
             // Reset to default
 
-            // Reds Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
-            // Reds Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
-            // Regs Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+            VideoFilters.FilterVideo_SelectiveColor_ResetAll();
 
-            // Yellows Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
-            // Yellows Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
-            // Yellows Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+            //// Reds Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            //// Reds Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            //// Regs Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
 
-            // Greens Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
-            // Greens Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
-            // Greens Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+            //// Yellows Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            //// Yellows Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            //// Yellows Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
 
-            // Cyans Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
-            // Cyans Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
-            // Cyans Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+            //// Greens Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            //// Greens Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            //// Greens Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
 
-            // Blues Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
-            // Blues Magneta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
-            // Blues Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+            //// Cyans Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            //// Cyans Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            //// Cyans Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
 
-            // Magentas Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
-            // Magentas Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
-            // Magentas Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+            //// Blues Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            //// Blues Magneta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            //// Blues Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
 
-            // Whites Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
-            // Whites Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
-            // Whites Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+            //// Magentas Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            //// Magentas Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            //// Magentas Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
 
-            // Neutrals Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
-            // Neutrals Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
-            // Neutrals Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+            //// Whites Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            //// Whites Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            //// Whites Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
 
-            // Blacks Cyan
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
-            // Blacks Magenta
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
-            // Blacks Yellow
-            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+            //// Neutrals Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            //// Neutrals Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            //// Neutrals Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+
+            //// Blacks Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            //// Blacks Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            //// Blacks Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
 
 
             //VideoControls.AutoCopyVideoCodec("control");
@@ -8406,15 +8406,16 @@ namespace Axiom
         private void btnFilterVideo_EQ_Reset_Click(object sender, RoutedEventArgs e)
         {
             // Reset to default
+            VideoFilters.FilterVideo_EQ_ResetAll();
 
-            // Brightness
-            VM.FilterVideoView.FilterVideo_EQ_Brightness_Value = 0;
-            // Contrast
-            VM.FilterVideoView.FilterVideo_EQ_Contrast_Value = 0;
-            // Saturation
-            VM.FilterVideoView.FilterVideo_EQ_Saturation_Value = 0;
-            // Gamma
-            VM.FilterVideoView.FilterVideo_EQ_Gamma_Value = 0;
+            //// Brightness
+            //VM.FilterVideoView.FilterVideo_EQ_Brightness_Value = 0;
+            //// Contrast
+            //VM.FilterVideoView.FilterVideo_EQ_Contrast_Value = 0;
+            //// Saturation
+            //VM.FilterVideoView.FilterVideo_EQ_Saturation_Value = 0;
+            //// Gamma
+            //VM.FilterVideoView.FilterVideo_EQ_Gamma_Value = 0;
 
             //VideoControls.AutoCopyVideoCodec("control");
         }
