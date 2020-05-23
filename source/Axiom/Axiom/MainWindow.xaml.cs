@@ -8469,6 +8469,21 @@ namespace Axiom
             //VideoControls.AutoCopyVideoCodec("control");
         }
 
+        /// <summary>
+        /// Filter Video - Flip
+        /// </summary>
+        private void cboFilterVideo_Flip_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec("control");
+        }
+
+        /// <summary>
+        /// Filter Video - Rotate
+        /// </summary>
+        private void cboFilterVideo_Rotate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec("control");
+        }
 
 
         /// <summary>
