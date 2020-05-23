@@ -357,6 +357,10 @@ namespace Axiom
 
             // Color Matrix
             VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+
+
+            // Filters
+            VideoFilters.VideoFilters_EnableAll();
         }
 
         // -------------------------

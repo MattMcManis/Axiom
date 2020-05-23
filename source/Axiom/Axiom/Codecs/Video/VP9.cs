@@ -388,6 +388,10 @@ namespace Axiom
 
             // Subtitle Codec
             VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+
+
+            // Filters
+            VideoFilters.VideoFilters_EnableAll();
         }
 
         // -------------------------

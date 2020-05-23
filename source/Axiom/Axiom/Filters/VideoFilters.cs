@@ -68,8 +68,104 @@ namespace Axiom
         /// <summary>
         public static void VideoFilters_EnableAll()
         {
+            // Fix
+            // Deband
+            VM.FilterVideoView.FilterVideo_Deband_IsEnabled = true;
+            // Deshake
+            VM.FilterVideoView.FilterVideo_Deshake_IsEnabled = true;
+            // Deflicker
+            VM.FilterVideoView.FilterVideo_Deflicker_IsEnabled = true;
+            // Dejudder
+            VM.FilterVideoView.FilterVideo_Dejudder_IsEnabled = true;
+            // Denoise
+            VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = true;
             // Deinterlace
             VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = true;
+
+            // Transpose
+            // Flip
+            VM.FilterVideoView.FilterVideo_Flip_IsEnabled = true;
+            // Rotate
+            VM.FilterVideoView.FilterVideo_Rotate_IsEnabled = true;
+
+            // EQ
+            // Brightness
+            VM.FilterVideoView.FilterVideo_EQ_Brightness_IsEnabled = true;
+            // Contrast
+            VM.FilterVideoView.FilterVideo_EQ_Contrast_IsEnabled = true;
+            // Saturation
+            VM.FilterVideoView.FilterVideo_EQ_Saturation_IsEnabled = true;
+            // Gamma
+            VM.FilterVideoView.FilterVideo_EQ_Gamma_IsEnabled = true;
+
+            // Selective Color
+            // Color
+            VM.FilterVideoView.FilterVideo_SelectiveColor_IsEnabled = true;
+            // Method
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Correction_Method_IsEnabled = true;
+
+            // Reds Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled = true;
+            // Reds Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled = true;
+            // Regs Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled = true;
+
+            // Yellows Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled = true;
+            // Yellows Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled = true;
+            // Yellows Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled = true;
+
+            // Greens Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled = true;
+            // Greens Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled = true;
+            // Greens Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled = true;
+
+            // Cyans Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled = true;
+            // Cyans Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled = true;
+            // Cyans Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled = true;
+
+            // Blues Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled = true;
+            // Blues Magneta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled = true;
+            // Blues Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled = true;
+
+            // Magentas Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled = true;
+            // Magentas Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled = true;
+            // Magentas Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled = true;
+
+            // Whites Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled = true;
+            // Whites Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled = true;
+            // Whites Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled = true;
+
+            // Neutrals Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled = true;
+            // Neutrals Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled = true;
+            // Neutrals Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled = true;
+
+            // Blacks Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled = true;
+            // Blacks Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled = true;
+            // Blacks Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled = true;
         }
 
         /// <summary>
@@ -77,6 +173,7 @@ namespace Axiom
         /// <summary>
         public static void VideoFilters_DisableAll()
         {
+            // Fix
             // Deband
             VM.FilterVideoView.FilterVideo_Deband_IsEnabled = false;
             // Deshake
@@ -89,6 +186,93 @@ namespace Axiom
             VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = false;
             // Deinterlace
             VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = false;
+
+            // Transpose
+            // Flip
+            VM.FilterVideoView.FilterVideo_Flip_IsEnabled = false;
+            // Rotate
+            VM.FilterVideoView.FilterVideo_Rotate_IsEnabled = false;
+
+            // EQ
+            // Brightness
+            VM.FilterVideoView.FilterVideo_EQ_Brightness_IsEnabled = false;
+            // Contrast
+            VM.FilterVideoView.FilterVideo_EQ_Contrast_IsEnabled = false;
+            // Saturation
+            VM.FilterVideoView.FilterVideo_EQ_Saturation_IsEnabled = false;
+            // Gamma
+            VM.FilterVideoView.FilterVideo_EQ_Gamma_IsEnabled = false;
+
+            // Selective Color
+            // Color
+            VM.FilterVideoView.FilterVideo_SelectiveColor_IsEnabled = false;
+            // Method
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Correction_Method_IsEnabled = false;
+
+            // Only Disable Reds
+            // Select Reds and and when disabled, it won't be able to switch to other colors, in turn disabling all other colors
+            // Reds Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled = false;
+            // Reds Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled = false;
+            // Regs Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled = false;
+
+            //// Yellows Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled = false;
+            //// Yellows Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled = false;
+            //// Yellows Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled = false;
+
+            //// Greens Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled = false;
+            //// Greens Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled = false;
+            //// Greens Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled = false;
+
+            //// Cyans Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled = false;
+            //// Cyans Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled = false;
+            //// Cyans Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled = false;
+
+            //// Blues Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled = false;
+            //// Blues Magneta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled = false;
+            //// Blues Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled = false;
+
+            //// Magentas Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled = false;
+            //// Magentas Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled = false;
+            //// Magentas Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled = false;
+
+            //// Whites Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled = false;
+            //// Whites Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled = false;
+            //// Whites Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled = false;
+
+            //// Neutrals Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled = false;
+            //// Neutrals Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled = false;
+            //// Neutrals Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled = false;
+
+            //// Blacks Cyan
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled = false;
+            //// Blacks Magenta
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled = false;
+            //// Blacks Yellow
+            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled = false;
         }
 
         /// <summary>
@@ -96,6 +280,7 @@ namespace Axiom
         /// <summary>
         public static void VideoFilters_ControlsSelectDefaults()
         {
+            // Fix
             // Deband
             VM.FilterVideoView.FilterVideo_Deband_SelectedItem = "disabled";
             // Deshake
@@ -108,6 +293,109 @@ namespace Axiom
             VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = "disabled";
             // Deinterlace
             VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = "disabled";
+
+
+            // Transpose
+            // Flip
+            VM.FilterVideoView.FilterVideo_Flip_SelectedItem = "disabled";
+            // Rotate
+            VM.FilterVideoView.FilterVideo_Rotate_SelectedItem = "disabled";
+
+            // EQ
+            FilterVideo_EQ_ResetAll();
+
+            // Selective Color
+            // Color
+            // Only Disable Reds
+            // Select Reds and and when disabled, it won't be able to switch to other colors, in turn disabling all other colors
+            VM.FilterVideoView.FilterVideo_SelectiveColor_SelectedItem = "Reds";
+            // Method
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Correction_Method_SelectedItem = "relative";
+            FilterVideo_SelectiveColor_ResetAll();
+        }
+
+        /// <summary>
+        /// Filter Video EQ Reset All (Method)
+        /// <summary>
+        public static void FilterVideo_EQ_ResetAll()
+        {
+            // Brightness
+            VM.FilterVideoView.FilterVideo_EQ_Brightness_Value = 0;
+            // Contrast
+            VM.FilterVideoView.FilterVideo_EQ_Contrast_Value = 0;
+            // Saturation
+            VM.FilterVideoView.FilterVideo_EQ_Saturation_Value = 0;
+            // Gamma
+            VM.FilterVideoView.FilterVideo_EQ_Gamma_Value = 0;
+        }
+
+        /// <summary>
+        /// Filter Video SelectiveColor Reset All (Method)
+        /// <summary>
+        public static void FilterVideo_SelectiveColor_ResetAll()
+        {
+            // Reds Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            // Reds Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            // Regs Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+
+            // Yellows Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            // Yellows Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            // Yellows Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+
+            // Greens Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            // Greens Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            // Greens Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+
+            // Cyans Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            // Cyans Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            // Cyans Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+
+            // Blues Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            // Blues Magneta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            // Blues Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+
+            // Magentas Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            // Magentas Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            // Magentas Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+
+            // Whites Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            // Whites Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            // Whites Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+
+            // Neutrals Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            // Neutrals Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            // Neutrals Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+
+            // Blacks Cyan
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            // Blacks Magenta
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            // Blacks Yellow
+            VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
         }
 
 

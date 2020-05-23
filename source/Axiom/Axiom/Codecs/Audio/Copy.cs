@@ -168,6 +168,10 @@ namespace Axiom
 
             // Compression Level
             VM.AudioView.Audio_CompressionLevel_SelectedItem = "none";
+
+
+            // Filters
+            AudioFilters.AudioFilters_ControlsSelectDefaults();
         }
 
         // -------------------------
@@ -249,6 +253,10 @@ namespace Axiom
 
             //// Bit Depth
             //VM.AudioView.Audio_BitDepth_IsEnabled = false;
+
+
+            // Filters
+            AudioFilters.AudioFilters_DisableAll();
         }
     }
 }

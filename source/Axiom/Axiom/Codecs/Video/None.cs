@@ -194,7 +194,7 @@ namespace Axiom
 
 
             // Filters
-            //VideoFilters.VideoFilters_ControlsSelectDefaults();
+            VideoFilters.VideoFilters_ControlsSelectDefaults();
         }
 
 
@@ -307,7 +307,7 @@ namespace Axiom
 
 
             // Filters
-            //VideoFilters.VideoFilters_DisableAll();
+            VideoFilters.VideoFilters_DisableAll();
         }
 
     }

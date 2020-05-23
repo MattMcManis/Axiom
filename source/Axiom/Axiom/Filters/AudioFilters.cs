@@ -54,6 +54,81 @@ namespace Axiom
 
 
         /// <summary>
+        /// Audio Filters - Enable All 
+        /// <summary>
+        public static void AudioFilters_EnableAll()
+        {
+            // Lowpass
+            VM.FilterAudioView.FilterAudio_Lowpass_IsEnabled = true;
+            // Highpass
+            VM.FilterAudioView.FilterAudio_Highpass_IsEnabled = true;
+
+            // Contrast
+            VM.FilterAudioView.FilterAudio_Contrast_IsEnabled = true;
+            // ExtraStereo
+            VM.FilterAudioView.FilterAudio_ExtraStereo_IsEnabled = true;
+
+            // Headphones
+            VM.FilterAudioView.FilterAudio_Headphones_IsEnabled = true;
+
+            // Tempo
+            VM.FilterAudioView.FilterAudio_Tempo_IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Audio Filters - Disable All 
+        /// <summary>
+        public static void AudioFilters_DisableAll()
+        {
+            // Lowpass
+            VM.FilterAudioView.FilterAudio_Lowpass_IsEnabled = false;
+            // Highpass
+            VM.FilterAudioView.FilterAudio_Highpass_IsEnabled = false;
+
+            // Contrast
+            VM.FilterAudioView.FilterAudio_Contrast_IsEnabled = false;
+            // ExtraStereo
+            VM.FilterAudioView.FilterAudio_ExtraStereo_IsEnabled = false;
+
+            // Headphones
+            VM.FilterAudioView.FilterAudio_Headphones_IsEnabled = false;
+
+            // Tempo
+            VM.FilterAudioView.FilterAudio_Tempo_IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Audio Filters - Controls Select Defaults
+        /// <summary>
+        public static void AudioFilters_ControlsSelectDefaults()
+        {
+            // Lowpass
+            VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem = "disabled";
+            // Highpass
+            VM.FilterAudioView.FilterAudio_Highpass_SelectedItem = "disabled";
+
+            // Contrast
+            VM.FilterAudioView.FilterAudio_Contrast_Value = 0;
+            // ExtraStereo
+            VM.FilterAudioView.FilterAudio_ExtraStereo_Value = 0;
+
+            // Headphones
+            VM.FilterAudioView.FilterAudio_Headphones_SelectedItem = "disabled";
+
+            // Tempo
+            VM.FilterAudioView.FilterAudio_Tempo_Value = 100;
+        }
+
+
+        /// <summary>
+        /// Filter Audio SelectiveColor Reset All (Method)
+        /// <summary>
+        public static void FilterAudio_SelectiveColor_ResetAll()
+        {
+
+        }
+
+        /// <summary>
         /// Remove Click (Method)
         /// <summary>
         //public static void RemoveClick_Filter(MainWindow mainwindow)

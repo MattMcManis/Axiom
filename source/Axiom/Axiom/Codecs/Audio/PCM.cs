@@ -248,6 +248,10 @@ namespace Axiom
 
             // Hard Limiter
             VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+
+
+            // Filters
+            AudioFilters.AudioFilters_EnableAll();
         }
 
         // -------------------------
