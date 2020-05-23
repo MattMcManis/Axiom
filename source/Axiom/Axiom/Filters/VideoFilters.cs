@@ -64,6 +64,54 @@ namespace Axiom
 
 
         /// <summary>
+        /// Video Filters - Enable All 
+        /// <summary>
+        public static void VideoFilters_EnableAll()
+        {
+            // Deinterlace
+            VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Video Filters - Disable All 
+        /// <summary>
+        public static void VideoFilters_DisableAll()
+        {
+            // Deband
+            VM.FilterVideoView.FilterVideo_Deband_IsEnabled = false;
+            // Deshake
+            VM.FilterVideoView.FilterVideo_Deshake_IsEnabled = false;
+            // Deflicker
+            VM.FilterVideoView.FilterVideo_Deflicker_IsEnabled = false;
+            // Dejudder
+            VM.FilterVideoView.FilterVideo_Dejudder_IsEnabled = false;
+            // Denoise
+            VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = false;
+            // Deinterlace
+            VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Video Filters - Controls Select Defaults
+        /// <summary>
+        public static void VideoFilters_ControlsSelectDefaults()
+        {
+            // Deband
+            VM.FilterVideoView.FilterVideo_Deband_SelectedItem = "disabled";
+            // Deshake
+            VM.FilterVideoView.FilterVideo_Deshake_SelectedItem = "disabled";
+            // Deflicker
+            VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem = "disabled";
+            // Dejudder
+            VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem = "disabled";
+            // Denoise
+            VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = "disabled";
+            // Deinterlace
+            VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = "disabled";
+        }
+
+
+        /// <summary>
         /// PNG to JPG (Method)
         /// <summary>
         public static void PNGtoJPG_Filter()
@@ -356,6 +404,108 @@ namespace Axiom
             }
         }
 
+
+        /// <summary>
+        /// Flip
+        /// <summary>
+        public static void Flip_Filter()
+        {
+            if (VM.FilterVideoView.FilterVideo_Flip_SelectedItem != "disabled")
+            {
+                string flip = string.Empty;
+
+                switch (VM.FilterVideoView.FilterVideo_Flip_SelectedItem)
+                {
+                    // -------------------------
+                    // Horizontal
+                    // -------------------------
+                    case "horizontal":
+                        flip = "hflip";
+                        break;
+
+                    // -------------------------
+                    // Vertical
+                    // -------------------------
+                    case "vertical":
+                        flip = "vflip";
+                        break;
+
+                    // -------------------------
+                    // Both Horizontal & Vertical
+                    // -------------------------
+                    case "both":
+                        flip = "hflip, vflip";
+                        break;
+                }
+
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                vFiltersList.Add(flip);
+            }
+        }
+
+
+        /// <summary>
+        /// Flip
+        /// <summary>
+        public static void Rotate_Filter()
+        {
+            if (VM.FilterVideoView.FilterVideo_Rotate_SelectedItem != "disabled")
+            {
+                string rotate = string.Empty;
+
+                switch (VM.FilterVideoView.FilterVideo_Rotate_SelectedItem)
+                {
+                    // -------------------------
+                    // 90° CW
+                    // -------------------------
+                    case "90° CW":
+                        rotate = "transpose=1";
+                        break;
+
+                    // -------------------------
+                    // 180° CW
+                    // -------------------------
+                    case "180° CW":
+                        rotate = "transpose=1, transpose=1";
+                        break;
+
+                    // -------------------------
+                    // 270° CW
+                    // -------------------------
+                    case "270° CW":
+                        rotate = "transpose=1, transpose=1, transpose=1";
+                        break;
+
+                    // -------------------------
+                    // 90° CCW
+                    // -------------------------
+                    case "90° CCW":
+                        rotate = "transpose=2";
+                        break;
+
+                    // -------------------------
+                    // 180° CCW
+                    // -------------------------
+                    case "180° CCW":
+                        rotate = "transpose=2, transpose=2";
+                        break;
+
+                    // -------------------------
+                    // 270° CW
+                    // -------------------------
+                    case "270° CCW":
+                        rotate = "transpose=2, transpose=2, transpose=2";
+                        break;
+                }
+
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                vFiltersList.Add(rotate);
+            }
+        }
 
 
         /// <summary>
@@ -940,6 +1090,18 @@ namespace Axiom
                 //  Denoise
                 // -------------------------
                 VideoFilters.Deinterlace_Filter();
+
+
+                // -------------------------
+                //  Flip
+                // -------------------------
+                VideoFilters.Flip_Filter();
+
+                // -------------------------
+                //  Rotate
+                // -------------------------
+                VideoFilters.Rotate_Filter();
+
 
                 // -------------------------
                 //  EQ - Brightness, Contrast, Saturation, Gamma
