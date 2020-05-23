@@ -463,6 +463,23 @@ namespace Axiom
             }
         }
 
+        // Controls Enable
+        private bool _FilterVideo_Flip_IsEnabled = true;
+        public bool FilterVideo_Flip_IsEnabled
+        {
+            get { return _FilterVideo_Flip_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Flip_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Flip_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Flip_IsEnabled");
+            }
+        }
+
 
         // -------------------------
         // Rotate
@@ -501,6 +518,22 @@ namespace Axiom
             }
         }
 
+        // Controls Enable
+        private bool _FilterVideo_Rotate_IsEnabled = true;
+        public bool FilterVideo_Rotate_IsEnabled
+        {
+            get { return _FilterVideo_Rotate_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Rotate_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Rotate_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Rotate_IsEnabled");
+            }
+        }
 
 
         // -------------------------
@@ -520,6 +553,22 @@ namespace Axiom
 
                 _FilterVideo_EQ_Brightness_Value = value;
                 OnPropertyChanged("FilterVideo_EQ_Brightness_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_EQ_Brightness_IsEnabled = true;
+        public bool FilterVideo_EQ_Brightness_IsEnabled
+        {
+            get { return _FilterVideo_EQ_Brightness_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_EQ_Brightness_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Brightness_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_EQ_Brightness_IsEnabled");
             }
         }
 
@@ -542,6 +591,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_EQ_Contrast_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_EQ_Contrast_IsEnabled = true;
+        public bool FilterVideo_EQ_Contrast_IsEnabled
+        {
+            get { return _FilterVideo_EQ_Contrast_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_EQ_Contrast_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Contrast_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_EQ_Contrast_IsEnabled");
+            }
+        }
 
         // -------------------------
         // EQ Saturation
@@ -560,6 +625,22 @@ namespace Axiom
 
                 _FilterVideo_EQ_Saturation_Value = value;
                 OnPropertyChanged("FilterVideo_EQ_Saturation_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_EQ_Saturation_IsEnabled = true;
+        public bool FilterVideo_EQ_Saturation_IsEnabled
+        {
+            get { return _FilterVideo_EQ_Saturation_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_EQ_Saturation_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Saturation_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_EQ_Saturation_IsEnabled");
             }
         }
 
@@ -582,7 +663,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_EQ_Gamma_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_EQ_Gamma_IsEnabled = true;
+        public bool FilterVideo_EQ_Gamma_IsEnabled
+        {
+            get { return _FilterVideo_EQ_Gamma_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_EQ_Gamma_IsEnabled == value)
+                {
+                    return;
+                }
 
+                _FilterVideo_EQ_Gamma_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_EQ_Gamma_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Selective Color
@@ -650,6 +746,22 @@ namespace Axiom
             }
         }
 
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Correction Method
@@ -683,6 +795,22 @@ namespace Axiom
             }
         }
 
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Correction_Method_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Correction_Method_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Correction_Method_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Correction_Method_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Correction_Method_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Correction_Method_IsEnabled");
+            }
+        }
 
         // --------------------------------------------------
         // Reds
@@ -706,6 +834,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Reds Magenta
@@ -726,6 +870,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Reds Yellow
@@ -744,6 +904,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Reds_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled");
             }
         }
 
@@ -770,6 +946,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Yellows Magenta
@@ -788,6 +980,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Yellows_Magenta_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Magenta_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled");
             }
         }
 
@@ -810,7 +1018,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Yellow_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
 
+                _FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled");
+            }
+        }
 
         // --------------------------------------------------
         // Greens
@@ -834,6 +1057,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Greens Magenta
@@ -854,6 +1093,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Greens Yellow
@@ -872,6 +1127,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Greens_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled");
             }
         }
 
@@ -897,6 +1168,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Cyans Magenta
@@ -917,6 +1204,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Cyans Yellow
@@ -935,6 +1238,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Cyans_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled");
             }
         }
 
@@ -960,6 +1279,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Blues Magenta
@@ -980,6 +1315,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Blues Yellow
@@ -998,6 +1349,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Blues_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled");
             }
         }
 
@@ -1023,6 +1390,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Magentas Magenta
@@ -1043,6 +1426,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Magentas Yellow
@@ -1061,6 +1460,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Magentas_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled");
             }
         }
 
@@ -1086,6 +1501,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyan_Yellow_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Whites Magenta
@@ -1106,6 +1537,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Whites Yellow
@@ -1124,6 +1571,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Whites_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled");
             }
         }
 
@@ -1149,6 +1612,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyan_Yellow_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Neutrals Magenta
@@ -1169,6 +1648,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Magenta_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Neutrals Yellow
@@ -1187,6 +1682,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Neutrals_Yellow_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Yellow_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled");
             }
         }
 
@@ -1212,6 +1723,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Cyan_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyan_Yellow_IsEnabled");
+            }
+        }
 
         // -------------------------
         // Blacks Magenta
@@ -1230,6 +1757,22 @@ namespace Axiom
 
                 _FilterVideo_SelectiveColor_Blacks_Magenta_Value = value;
                 OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Magenta_Value");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled");
             }
         }
 
@@ -1252,9 +1795,22 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Yellow_Value");
             }
         }
+        // Controls Enable
+        private bool _FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled = true;
+        public bool FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled
+        {
+            get { return _FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled == value)
+                {
+                    return;
+                }
 
-
-
+                _FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled");
+            }
+        }
 
 
     }
