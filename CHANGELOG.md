@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.6.0] - May 22, 2020
+### Added
+- Video Filters Transform `Flip` and `Rotate`
+- Codec `Copy`/`None` Controls Enable/Disable for all Filters
+
+### Fixed
+- Subtitle Burn Filter Path
+- Audio Container to Video Container Switch Quality
+
+
 ## [1.8.5.0] - May 22, 2020
 ### Added
 - Added Codec Controls Enable/Disable Size & Color
