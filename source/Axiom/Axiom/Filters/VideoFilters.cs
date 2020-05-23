@@ -108,7 +108,10 @@ namespace Axiom
                 // -------------------------
                 // Get First Subtitle File
                 // -------------------------
-                string file = Subtitle.subtitleFilePathsList.First().Replace("\"", "'");
+                string file = Subtitle.subtitleFilePathsList.First()                //"C:\Users\Axiom\Videos\subtitles.srt"
+                                                            .Replace("\"", @"'")    //'C:\Users\Axiom\Videos\subtitles.srt'
+                                                            .Replace(@"\", @"\\")   //'C:\\Users\\Axiom\\Videos\\subtitles.srt'
+                                                            .Replace(@":", @"\:");  //'C\:\Users\Axiom\Videos\subtitles.srt'
 
                 // -------------------------
                 // Create Subtitles Filter
