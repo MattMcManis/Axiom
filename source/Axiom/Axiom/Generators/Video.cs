@@ -731,6 +731,7 @@ namespace Axiom
         /// Video Quality - Custom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
+                                         string codec_SelectedItem,
                                          List<VideoViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string crf_Text,
@@ -740,25 +741,71 @@ namespace Axiom
                                          string bufsize_Text
                                          )
         {
+            // --------------------------------------------------
             // CRF
+            // --------------------------------------------------
+            // -------------------------
+            // HW Accel Transcode Codecs
+            // -------------------------
+            // x264 & x265 only
+            if (VM.VideoView.Video_HWAccel_SelectedItem == "On" &&
+                VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&
+                VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&
+                 VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" &&
+                (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")
+               )
+            {
+                //string crf_hwaccel_val = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel;
+                //string cbr_val = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+
+                if (!string.IsNullOrWhiteSpace(crf_Text))
+                {
+                    switch (VM.VideoView.Video_HWAccel_Transcode_SelectedItem)
+                    {
+                        //case "AMD AMF":
+                        //    vCRF = "-rc vbr_hq -qmin 0 -cq " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel + " " +
+                        //           "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                        //    break;
+
+                        case "NVIDIA NVENC":
+                            vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
+                                   "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                            break;
+
+                        case "Intel QSV":
+                            vCRF = "-global_quality " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_Intel_QSV + " -look_ahead 1";
+                            break;
+                    } 
+                }
+
+                return;
+            }
+
+            // -------------------------
+            // Normal Codecs
+            // -------------------------
             if (!string.IsNullOrWhiteSpace(crf_Text))
             {
                 vCRF = "-crf " + crf_Text;
             }
 
-            // BitRate Mode
+
+            // --------------------------------------------------
+            // Bit Rate
+            // --------------------------------------------------
+            // Bit Rate Mode
             vBitMode = BitRateMode(quality_Items,
                                    quality_SelectedItem,
                                    bitrate_Text,
                                    vbr_IsChecked
                                    );
 
-            // BitRate
+            // Bit Rate
             vBitRate = bitrate_Text;
 
 
             // MinRate
-            if (!!string.IsNullOrWhiteSpace(minrate_Text))
+            if (!string.IsNullOrWhiteSpace(minrate_Text))
             {
                 vMinRate = "-minrate " + minrate_Text;
             }
@@ -837,6 +884,45 @@ namespace Axiom
             // -------------------------
             else if (pass_SelectedItem == "CRF")
             {
+                // --------------------------------------------------
+                // HW Accel Transcode Codecs
+                // --------------------------------------------------
+                // x264 & x265 only
+                if (VM.VideoView.Video_HWAccel_SelectedItem == "On" &&
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" &&
+                    (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")
+                   )
+                {
+                    //vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+
+                    if (!string.IsNullOrWhiteSpace(crf_Text))
+                    {
+                        switch (VM.VideoView.Video_HWAccel_Transcode_SelectedItem)
+                        {
+                            //case "AMD AMF":
+                            //    vCRF = "-rc vbr_hq -qmin 0 -cq " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel + " " +
+                            //           "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                            //    break;
+
+                            case "NVIDIA NVENC":
+                                vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
+                                       "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                                break;
+
+                            case "Intel QSV":
+                                vCRF = "-global_quality " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_Intel_QSV + " -look_ahead 1";
+                                break;
+                        }
+                    }
+
+                    return;
+                }
+
+                // --------------------------------------------------
+                // Normal Codecs
+                // --------------------------------------------------
                 // -------------------------
                 // x265 Params
                 // -------------------------
@@ -845,6 +931,8 @@ namespace Axiom
                     // x265 Params
                     VideoParams.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
                     vCRF = string.Empty;
+
+                    return;
                 }
                 // -------------------------
                 // All Other Codecs
@@ -858,6 +946,8 @@ namespace Axiom
                     {
                         vCRF = "-crf " + crf_Text;
                     }
+
+                    return;
                 }
             }
 
@@ -871,6 +961,8 @@ namespace Axiom
                 // BitRate
                 // -------------------------
                 vBitRate = bitrate_Text;
+
+                return;
             }
         }
 
@@ -942,6 +1034,7 @@ namespace Axiom
                 else if (quality_SelectedItem == "Custom")
                 {
                     QualityCustom(vbr_IsChecked,
+                                  codec_SelectedItem,
                                   quality_Items,
                                   quality_SelectedItem,
                                   crf_Text,
