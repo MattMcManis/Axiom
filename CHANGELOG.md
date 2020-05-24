@@ -9,6 +9,9 @@ Axiom FFmpeg UI
 - HW Accel CRF Quality
 - Codec `Copy`/`None` Controls Enable/Disable for all Filters
 
+### Changed
+- Lossless Pass Controls
+
 ### Fixed
 - `x265` Params CRF 
 - Video Quality Custom MinRate
