@@ -1298,10 +1298,17 @@ namespace Axiom
             List<string> youtubedlArgs = new List<string>();
 
             // -------------------------
+            // Set Name Variable
+            // -------------------------
+            string nameVariable = string.Empty;
+
+            // -------------------------
             // CMD
             // -------------------------
             if (VM.ConfigureView.Shell_SelectedItem == "CMD")
             {
+                nameVariable = "%f";
+
                 // -------------------------
                 // YouTube Download Arguments Full
                 // -------------------------
@@ -1353,6 +1360,8 @@ namespace Axiom
             // -------------------------
             else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
             {
+                nameVariable = "$name";
+
                 // Format youtube-dl Path
                 string youtubedl_formatted = string.Empty;
                 // Check if youtube-dl is not default, if so it is a user-defined path, wrap in quotes
@@ -1423,11 +1432,11 @@ namespace Axiom
                 "\r\n\r\n" + LogicalOperator_And_ShellFormatter(),
 
                 // Delete Downloaded File
-                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + nameVariable + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
                                                                                                                     VM.VideoView.Video_Codec_SelectedItem,
                                                                                                                     VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                                                                                     VM.AudioView.Audio_Codec_SelectedItem
-                                                                                                                    ) + "\"",
+                                                                                                ) + "\"",
             };
 
 
@@ -1467,7 +1476,11 @@ namespace Axiom
                 // Join YouTube Args & FFmpeg Args
                 youtubedlArgs.AddRange(ffmpegArgsList);
                 // Add "do" Closing Tag
-                youtubedlArgs.Add("\r\n)");
+                // CMD
+                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                {
+                    youtubedlArgs.Add("\r\n)");
+                }
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
