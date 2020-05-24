@@ -1250,7 +1250,7 @@ namespace Axiom
             // -------------------------
             // Only if Audio Codec is Not Empty
             // -------------------------
-            if (!!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
+            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
             {
                 // If TextBox is 100% or Empty
                 if (VM.AudioView.Audio_Volume_Text == "100%" ||
