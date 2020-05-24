@@ -39,6 +39,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -203,36 +204,46 @@ namespace Axiom
                     // -------------------------
                     // Input Does Not Have Audio Codec
                     // -------------------------
+                    string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+                    string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+
                     if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioCodec))
                     {
                         // Default to a new bitrate if Input & Output formats Do Not match
                         if (FFprobe.inputAudioBitRate == "N/A" &&
-                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                            inputExt != outputExt
+                            //!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                            )
                         {
                             // Default to NA value
                             if (!string.IsNullOrWhiteSpace(aBitRateNA))
                             {
                                 //aBitRate = aBitRateNA;
 
-                                // CBR
-                                if (vbr_IsChecked == false)
+                                switch (vbr_IsChecked)
                                 {
-                                    aBitRate = AudioBitRateCalculator(codec_SelectedItem, 
-                                                                      FFprobe.aEntryType, 
+                                    // -------------------------
+                                    // CBR
+                                    // -------------------------
+                                    case false:
+                                        aBitRate = AudioBitRateCalculator(codec_SelectedItem,
+                                                                      FFprobe.aEntryType,
                                                                       aBitRateNA
                                                                       );
-                                }
+                                        break;
 
-                                // VBR
-                                else if (vbr_IsChecked == true)
-                                {
-                                    //VBR does not have 'k'
-                                    aBitRate = AudioVBRCalculator(vbr_IsChecked, 
-                                                                  codec_SelectedItem,
-                                                                  quality_Items,
-                                                                  quality_SelectedItem,
-                                                                  aBitRateNA
-                                                                  );
+                                    // -------------------------
+                                    // VBR
+                                    // -------------------------
+                                    case true:
+                                        //VBR does not have 'k'
+                                        aBitRate = AudioVBRCalculator(vbr_IsChecked,
+                                                                      codec_SelectedItem,
+                                                                      quality_Items,
+                                                                      quality_SelectedItem,
+                                                                      aBitRateNA
+                                                                      );
+                                        break;
                                 }
                             }
                             // Default to 320k if NA value is empty
