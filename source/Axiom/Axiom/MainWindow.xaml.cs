@@ -1059,22 +1059,6 @@ namespace Axiom
             Video.height = string.Empty;
             //Video.scale = string.Empty;
 
-            //if (Video.x264paramsList != null &&
-            //    Video.x264paramsList.Count > 0)
-            //{
-            //    Video.x264paramsList.Clear();
-            //    Video.x264paramsList.TrimExcess();
-            //}
-
-            //if (Video.x265paramsList != null &&
-            //    Video.x265paramsList.Count > 0)
-            //{
-            //    Video.x265paramsList.Clear();
-            //    Video.x265paramsList.TrimExcess();
-            //}
-
-            //Video.x265params = string.Empty;
-
             if (VideoParams.vParamsList != null &&
                 VideoParams.vParamsList.Count > 0)
             {
@@ -1165,6 +1149,7 @@ namespace Axiom
             //outputFileName
             //FFmpeg.ffmpegArgs
             //FFmpeg.ffmpegArgsSort
+            //Video.scale
             //CropWindow.divisibleCropWidth
             //CropWindow.divisibleCropHeight
             //CropWindow.cropWidth
@@ -1378,26 +1363,27 @@ namespace Axiom
         private void lblConfigPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Open Directory
+            switch (VM.ConfigureView.ConfigPath_SelectedItem)
+            {
+                // AppData Local
+                case "AppData Local":
+                    ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
+                    break;
 
-            // AppData Local
-            if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
-            {
-                ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
-            }
-            // AppData Roaming
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
-            {
-                ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
-            }
-            // Documents
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "Documents")
-            {
-                ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
-            }
-            // App Root
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "App Root")
-            {
-                Process.Start("explorer.exe", appRootDir);          
+                // AppData Roaming
+                case "AppData Roaming":
+                    ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
+                    break;
+
+                // Documents
+                case "Documents":
+                    ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
+                    break;
+
+                // App Root
+                case "App Root":
+                    Process.Start("explorer.exe", appRootDir);
+                    break;
             }
         }
 
@@ -1407,26 +1393,27 @@ namespace Axiom
         private void btnConfigPath_Click(object sender, RoutedEventArgs e)
         {
             // Open Directory
+            switch (VM.ConfigureView.ConfigPath_SelectedItem)
+            {
+                // AppData Local
+                case "AppData Local":
+                    ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
+                    break;
 
-            // AppData Local
-            if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
-            {
-                ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
-            }
-            // AppData Roaming
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
-            {
-                ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
-            }
-            // Documents
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "Documents")
-            {
-                ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
-            }
-            // App Root
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "App Root")
-            {
-                Process.Start("explorer.exe", appRootDir);
+                // AppData Roaming
+                case "AppData Roaming":
+                    ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
+                    break;
+
+                // Documents
+                case "Documents":
+                    ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
+                    break;
+
+                // App Root
+                case "App Root":
+                    Process.Start("explorer.exe", appRootDir);
+                    break;
             }
         }
 
@@ -1588,36 +1575,38 @@ namespace Axiom
             // -------------------------
             // Display Folder Path in Textbox
             // -------------------------
-            // AppData Local
-            if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
+            switch (VM.ConfigureView.ConfigPath_SelectedItem)
             {
-                VM.ConfigureView.CustomPresetsPath_Text = appDataLocalDir + @"Axiom UI\presets\";
-            }
-            // AppData Roaming
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
-            {
-                VM.ConfigureView.CustomPresetsPath_Text = appDataRoamingDir + @"Axiom UI\presets\";
-            }
-            // Documents
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "Documents")
-            {
-                VM.ConfigureView.CustomPresetsPath_Text = documentsDir + @"Axiom UI\presets\";
-            }
-            // App Root
-            else if (VM.ConfigureView.ConfigPath_SelectedItem == "App Root")
-            {
-                if (appRootDir.Contains(programFilesDir) &&
-                    appRootDir.Contains(programFilesX86Dir) &&
-                    appRootDir.Contains(programFilesX64Dir)
-                    )
-                {
-                    // Change Program Files to AppData Local
+                // AppData Local
+                case "AppData Local":
                     VM.ConfigureView.CustomPresetsPath_Text = appDataLocalDir + @"Axiom UI\presets\";
-                }
-                else
-                {
-                    VM.ConfigureView.CustomPresetsPath_Text = appRootDir + @"presets\";
-                }
+                    break;
+
+                // AppData Roaming
+                case "AppData Roaming":
+                    VM.ConfigureView.CustomPresetsPath_Text = appDataRoamingDir + @"Axiom UI\presets\";
+                    break;
+
+                // Documents
+                case "Documents":
+                    VM.ConfigureView.CustomPresetsPath_Text = documentsDir + @"Axiom UI\presets\";
+                    break;
+
+                // App Root
+                case "App Root":
+                    if (appRootDir.Contains(programFilesDir) &&
+                        appRootDir.Contains(programFilesX86Dir) &&
+                        appRootDir.Contains(programFilesX64Dir)
+                        )
+                    {
+                        // Change Program Files to AppData Local
+                        VM.ConfigureView.CustomPresetsPath_Text = appDataLocalDir + @"Axiom UI\presets\";
+                    }
+                    else
+                    {
+                        VM.ConfigureView.CustomPresetsPath_Text = appRootDir + @"presets\";
+                    }
+                    break;
             }
 
             // -------------------------
@@ -4274,117 +4263,117 @@ namespace Axiom
         /// </summary>
         private void btnInput_Click(object sender, RoutedEventArgs e)
         {
-            // -------------------------
-            // Single File
-            // -------------------------
-            if (VM.MainView.Batch_IsChecked == false)
+            switch (VM.MainView.Batch_IsChecked)
             {
-                // Open Select File Window
-                Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
+                // -------------------------
+                // Single File
+                // -------------------------
+                case false:
+                    // Open Select File Window
+                    Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
 
-                // Remember Last Dir
-                //
-                try
-                {
-                    //string previousPath = Settings.Default.InputDir.ToString();
-                    inputPreviousPath = string.Empty;
-
-                    if (File.Exists(Configure.configFile))
+                    // Remember Last Dir
+                    //
+                    try
                     {
-                        Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
-                        inputPreviousPath = conf.Read("User", "InputPreviousPath");
+                        //string previousPath = Settings.Default.InputDir.ToString();
+                        inputPreviousPath = string.Empty;
 
-                        // Use Previous Path if Not Empty
-                        if (!string.IsNullOrWhiteSpace(inputPreviousPath))
-                        {
-                            selectFile.InitialDirectory = inputPreviousPath;
-                        }
-                    }
-                }
-                catch
-                {
-
-                }
-
-                // Show Dialog Box
-                Nullable<bool> result = selectFile.ShowDialog();
-
-                // Process Dialog Box
-                if (result == true)
-                {
-                    // Display path and file in Output Textbox
-                    VM.MainView.Input_Text = selectFile.FileName;
-
-                    // Set Input Dir, Name, Ext
-                    inputDir = Path.GetDirectoryName(VM.MainView.Input_Text).TrimEnd('\\') + @"\";
-
-                    inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
-
-                    inputExt = Path.GetExtension(VM.MainView.Input_Text);
-
-                    // Save Previous Path
-                    //Settings.Default.InputDir = inputDir;
-                    //Settings.Default.Save();
-                    if (File.Exists(Configure.configFile))
-                    {
-                        try
+                        if (File.Exists(Configure.configFile))
                         {
                             Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
-                            conf.Write("User", "InputPreviousPath", inputDir);
-                        }
-                        catch
-                        {
+                            inputPreviousPath = conf.Read("User", "InputPreviousPath");
 
+                            // Use Previous Path if Not Empty
+                            if (!string.IsNullOrWhiteSpace(inputPreviousPath))
+                            {
+                                selectFile.InitialDirectory = inputPreviousPath;
+                            }
                         }
                     }
-                }
+                    catch
+                    {
 
-                // --------------------------------------------------
-                // Default Auto if Input Extension matches Output Extsion
-                // This will trigger Auto Codec Copy
-                // --------------------------------------------------
-                ExtensionMatchLoadAutoValues();
+                    }
+
+                    // Show Dialog Box
+                    Nullable<bool> result = selectFile.ShowDialog();
+
+                    // Process Dialog Box
+                    if (result == true)
+                    {
+                        // Display path and file in Output Textbox
+                        VM.MainView.Input_Text = selectFile.FileName;
+
+                        // Set Input Dir, Name, Ext
+                        inputDir = Path.GetDirectoryName(VM.MainView.Input_Text).TrimEnd('\\') + @"\";
+
+                        inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
+
+                        inputExt = Path.GetExtension(VM.MainView.Input_Text);
+
+                        // Save Previous Path
+                        //Settings.Default.InputDir = inputDir;
+                        //Settings.Default.Save();
+                        if (File.Exists(Configure.configFile))
+                        {
+                            try
+                            {
+                                Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                                conf.Write("User", "InputPreviousPath", inputDir);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+
+                    // --------------------------------------------------
+                    // Default Auto if Input Extension matches Output Extsion
+                    // This will trigger Auto Codec Copy
+                    // --------------------------------------------------
+                    ExtensionMatchLoadAutoValues();
+
+                    // -------------------------
+                    // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
+                    // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                    // -------------------------
+                    //VideoControls.AutoCopyVideoCodec("input");
+                    //SubtitleControls.AutoCopySubtitleCodec("input");
+                    //AudioControls.AutoCopyAudioCodec("input");
+                    break;
 
                 // -------------------------
-                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // Batch
                 // -------------------------
-                //VideoControls.AutoCopyVideoCodec("input");
-                //SubtitleControls.AutoCopySubtitleCodec("input");
-                //AudioControls.AutoCopyAudioCodec("input");
-            }
+                case true:
+                    // Open Batch Folder
+                    System.Windows.Forms.FolderBrowserDialog inputFolder = new System.Windows.Forms.FolderBrowserDialog();
+                    System.Windows.Forms.DialogResult resultBatch = inputFolder.ShowDialog();
 
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (VM.MainView.Batch_IsChecked == true)
-            {
-                // Open Batch Folder
-                System.Windows.Forms.FolderBrowserDialog inputFolder = new System.Windows.Forms.FolderBrowserDialog();
-                System.Windows.Forms.DialogResult result = inputFolder.ShowDialog();
+                    // Show Input Dialog Box
+                    if (resultBatch == System.Windows.Forms.DialogResult.OK)
+                    {
+                        // Display Folder Path in Textbox
+                        VM.MainView.Input_Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
+                        // Input Directory
+                        //inputDir = Path.GetDirectoryName(VM.MainView.Input_Text.TrimEnd('\\') + @"\");
+                        inputDir = VM.MainView.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                                                                                //       It will remove the last dir as a file extension
+                    }
 
-                // Show Input Dialog Box
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    // Display Folder Path in Textbox
-                    VM.MainView.Input_Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
-
-                    // Input Directory
-                    //inputDir = Path.GetDirectoryName(VM.MainView.Input_Text.TrimEnd('\\') + @"\");
-                    inputDir = VM.MainView.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
-                                                                            //       It will remove the last dir as a file extension
-                }
-
-                // -------------------------
-                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                // Set Video and AudioCodec Combobox to "Copy" if 
-                // Input File Extension is Same as Output File Extension 
-                // and Quality is Auto
-                // -------------------------
-                //VideoControls.AutoCopyVideoCodec("input");
-                //SubtitleControls.AutoCopySubtitleCodec("input");
-                //AudioControls.AutoCopyAudioCodec("input");
+                    // -------------------------
+                    // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
+                    // Set Video and AudioCodec Combobox to "Copy" if 
+                    // Input File Extension is Same as Output File Extension 
+                    // and Quality is Auto
+                    // -------------------------
+                    //VideoControls.AutoCopyVideoCodec("input");
+                    //SubtitleControls.AutoCopySubtitleCodec("input");
+                    //AudioControls.AutoCopyAudioCodec("input");
+                    break;
             }
         }
 
@@ -4583,173 +4572,173 @@ namespace Axiom
         /// </summary>
         private void btnOutput_Click(object sender, RoutedEventArgs e)
         {
-            // -------------------------
-            // Single File
-            // -------------------------
-            if (VM.MainView.Batch_IsChecked == false)
+            switch (VM.MainView.Batch_IsChecked)
             {
                 // -------------------------
-                // Get Output Ext
+                // Single File
                 // -------------------------
-                FormatControls.OutputFormatExt();
+                case false:
+                    // -------------------------
+                    // Get Output Ext
+                    // -------------------------
+                    FormatControls.OutputFormatExt();
 
-                // -------------------------
-                // Open 'Save File'
-                // -------------------------
-                Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+                    // -------------------------
+                    // Open 'Save File'
+                    // -------------------------
+                    Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
-                // -------------------------
-                // 'Save File' Default Path same as Input Directory
-                // -------------------------
-                try
-                {
-                    //string previousPath = Settings.Default.OutputDir.ToString();
-                    // Use Input Path if Previous Path is Null
-                    //if (string.IsNullOrWhiteSpace(previousPath))
-                    //{
-                    //    saveFile.InitialDirectory = inputDir;
-                    //}
-
-                    if (File.Exists(Configure.configFile))
+                    // -------------------------
+                    // 'Save File' Default Path same as Input Directory
+                    // -------------------------
+                    try
                     {
-                        Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
-                        outputPreviousPath = conf.Read("User", "OutputPreviousPath");
+                        //string previousPath = Settings.Default.OutputDir.ToString();
+                        // Use Input Path if Previous Path is Null
+                        //if (string.IsNullOrWhiteSpace(previousPath))
+                        //{
+                        //    saveFile.InitialDirectory = inputDir;
+                        //}
 
-                        // Use Input Path is Output Path is Empty
-                        if (string.IsNullOrWhiteSpace(outputPreviousPath))
-                        {
-                            saveFile.InitialDirectory = inputPreviousPath;
-                        }
-                        // Use Output Path if it exists
-                        else
-                        {
-                            saveFile.InitialDirectory = outputPreviousPath;
-                        }
-                    }
-                }
-                catch
-                {
-
-                }
-
-                // Remember Last Dir
-                //saveFile.RestoreDirectory = true;
-                // Default Extension
-                saveFile.DefaultExt = outputExt;
-
-                // Default file name if empty
-                if (string.IsNullOrWhiteSpace(inputFileName))
-                {
-                    saveFile.FileName = "File";
-                }
-                // If file name exists
-                else
-                {
-                    // Output Path
-                    outputDir = inputDir;
-
-                    // File Renamer
-                    // Get new output file name (1) if already exists
-                    outputFileName = FileRenamer(inputFileName);
-
-                    // Same as input file name
-                    saveFile.FileName = outputFileName;
-                }
-
-
-                // -------------------------
-                // Show Dialog Box
-                // -------------------------
-                Nullable<bool> result = saveFile.ShowDialog();
-
-                // Process Dialog Box
-                if (result == true)
-                {
-                    if (IsValidPath(saveFile.FileName))
-                    {
-                        // Display path and file in Output Textbox
-                        VM.MainView.Output_Text = saveFile.FileName;
-
-                        // Output Path
-                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
-
-                        // Output Filename (without extension)
-                        outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-
-                        // Add slash to inputDir path if missing
-                        outputDir = outputDir.TrimEnd('\\') + @"\";
-
-                        // Debug
-                        //MessageBox.Show(VM.MainView.Output_Text);
-                        //MessageBox.Show(outputDir);
-                    }
-
-                    //// Add slash to inputDir path if missing
-                    //if (IsValidPath(outputDir))
-                    //{
-                    //    if (!outputDir.EndsWith("\\"))
-                    //    {
-                    //        outputDir = outputDir.TrimEnd('\\') + @"\";
-                    //    }
-                    //}
-
-                    // Save Previous Path
-                    //Settings.Default.OutputDir = outputDir;
-                    //Settings.Default.Save();
-                    if (File.Exists(Configure.configFile))
-                    {
-                        try
+                        if (File.Exists(Configure.configFile))
                         {
                             Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
-                            conf.Write("User", "OutputPreviousPath", outputDir);
-                        }
-                        catch
-                        {
+                            outputPreviousPath = conf.Read("User", "OutputPreviousPath");
 
+                            // Use Input Path is Output Path is Empty
+                            if (string.IsNullOrWhiteSpace(outputPreviousPath))
+                            {
+                                saveFile.InitialDirectory = inputPreviousPath;
+                            }
+                            // Use Output Path if it exists
+                            else
+                            {
+                                saveFile.InitialDirectory = outputPreviousPath;
+                            }
                         }
                     }
-                }
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (VM.MainView.Batch_IsChecked == true)
-            {
-                // Open 'Select Folder'
-                System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
-                System.Windows.Forms.DialogResult result = outputFolder.ShowDialog();
-
-
-                // Process Dialog Box
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (IsValidPath(outputFolder.SelectedPath.TrimEnd('\\') + @"\"))
+                    catch
                     {
-                        // Display path and file in Output Textbox
-                        VM.MainView.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
-                        // Remove Double Slash in Root Dir, such as C:\
-                        VM.MainView.Output_Text = VM.MainView.Output_Text.Replace(@"\\", @"\");
+                    }
 
+                    // Remember Last Dir
+                    //saveFile.RestoreDirectory = true;
+                    // Default Extension
+                    saveFile.DefaultExt = outputExt;
+
+                    // Default file name if empty
+                    if (string.IsNullOrWhiteSpace(inputFileName))
+                    {
+                        saveFile.FileName = "File";
+                    }
+                    // If file name exists
+                    else
+                    {
                         // Output Path
-                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text);
+                        outputDir = inputDir;
+
+                        // File Renamer
+                        // Get new output file name (1) if already exists
+                        outputFileName = FileRenamer(inputFileName);
+
+                        // Same as input file name
+                        saveFile.FileName = outputFileName;
+                    }
+
+
+                    // -------------------------
+                    // Show Dialog Box
+                    // -------------------------
+                    Nullable<bool> result = saveFile.ShowDialog();
+
+                    // Process Dialog Box
+                    if (result == true)
+                    {
+                        if (IsValidPath(saveFile.FileName))
+                        {
+                            // Display path and file in Output Textbox
+                            VM.MainView.Output_Text = saveFile.FileName;
+
+                            // Output Path
+                            outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+
+                            // Output Filename (without extension)
+                            outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+
+                            // Add slash to inputDir path if missing
+                            outputDir = outputDir.TrimEnd('\\') + @"\";
+
+                            // Debug
+                            //MessageBox.Show(VM.MainView.Output_Text);
+                            //MessageBox.Show(outputDir);
+                        }
+
+                        //// Add slash to inputDir path if missing
+                        //if (IsValidPath(outputDir))
+                        //{
+                        //    if (!outputDir.EndsWith("\\"))
+                        //    {
+                        //        outputDir = outputDir.TrimEnd('\\') + @"\";
+                        //    }
+                        //}
+
+                        // Save Previous Path
+                        //Settings.Default.OutputDir = outputDir;
+                        //Settings.Default.Save();
+                        if (File.Exists(Configure.configFile))
+                        {
+                            try
+                            {
+                                Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                                conf.Write("User", "OutputPreviousPath", outputDir);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+                    break;
+
+                // -------------------------
+                // Batch
+                // -------------------------
+                case true:
+                    // Open 'Select Folder'
+                    System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
+                    System.Windows.Forms.DialogResult resultBatch = outputFolder.ShowDialog();
+
+
+                    // Process Dialog Box
+                    if (resultBatch == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (IsValidPath(outputFolder.SelectedPath.TrimEnd('\\') + @"\"))
+                        {
+                            // Display path and file in Output Textbox
+                            VM.MainView.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+
+                            // Remove Double Slash in Root Dir, such as C:\
+                            VM.MainView.Output_Text = VM.MainView.Output_Text.Replace(@"\\", @"\");
+
+                            // Output Path
+                            outputDir = Path.GetDirectoryName(VM.MainView.Output_Text);
+
+                            // Add slash to inputDir path if missing
+                            outputDir = outputDir.TrimEnd('\\') + @"\";
+                        }
 
                         // Add slash to inputDir path if missing
-                        outputDir = outputDir.TrimEnd('\\') + @"\";
+                        //if (IsValidPath(outputDir))
+                        //{
+                        //    if (!outputDir.EndsWith("\\"))
+                        //    {
+                        //        outputDir = outputDir.TrimEnd('\\') + @"\";
+                        //    }
+                        //}
                     }
-
-                    // Add slash to inputDir path if missing
-                    //if (IsValidPath(outputDir))
-                    //{
-                    //    if (!outputDir.EndsWith("\\"))
-                    //    {
-                    //        outputDir = outputDir.TrimEnd('\\') + @"\";
-                    //    }
-                    //}
-                }
+                    break;
             }
-
         }
 
 
@@ -6588,388 +6577,359 @@ namespace Axiom
         /// </remarks>
         public static void VideoScaleDisplay()
         {
-            // --------------------------------------------------
-            // Change TextBox Resolution Numbers
-            // --------------------------------------------------
-            // -------------------------
-            // Source
-            // -------------------------
-            if (VM.VideoView.Video_Scale_SelectedItem == "Source")
+            switch (VM.VideoView.Video_Scale_SelectedItem)
             {
-                VM.VideoView.Video_Width_Text = "auto";
-                VM.VideoView.Video_Height_Text = "auto";
-
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-            }
-
-            // -------------------------
-            // 8K
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "8K")
-            {
-                // Widescreen
-                ////if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "8192";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
+                // --------------------------------------------------
+                // Change TextBox Resolution Numbers
+                // --------------------------------------------------
+                // -------------------------
+                // Source
+                // -------------------------
+                case "Source":
                     VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "4320";
-                }
-            }
-
-            // -------------------------
-            // 8K UHD
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "8K UHD")
-            {
-                // Widescreen
-                ////if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "7680";
                     VM.VideoView.Video_Height_Text = "auto";
-                }
 
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
+                    VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    break;
+
+                // -------------------------
+                // 8K
+                // -------------------------
+                case "8K":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "8192";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "4320";
+                    }
+                    break;
+
+                // -------------------------
+                // 8K UHD
+                // -------------------------
+                case "8K UHD":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "7680";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "4320";
+                    }
+                    break;
+
+                // -------------------------
+                // 4K
+                // -------------------------
+                case "4K":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "4096";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "2160";
+                    }
+                    break;
+
+                // -------------------------
+                // 4K UHD
+                // -------------------------
+                case "4K UHD":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "3840";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "2160";
+                    }
+                    break;
+
+                // -------------------------
+                // 2K
+                // -------------------------
+                case "2K":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "2048";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "1556";
+                    }
+                    break;
+
+                // -------------------------
+                // 1600p
+                // -------------------------
+                case "1600p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+
+                        VM.VideoView.Video_Width_Text = "2560";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "1600";
+                    }
+                    break;
+
+                // -------------------------
+                // 1440p
+                // -------------------------
+                case "1440p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+
+                        VM.VideoView.Video_Width_Text = "2560";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "1440";
+                    }
+                    break;
+
+                // -------------------------
+                // 1200p
+                // -------------------------
+                case "1200p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "1920";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "1200";
+                    }
+                    break;
+
+                // -------------------------
+                // 1080p
+                // -------------------------
+                case "1080p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "1920";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "1080";
+                    }
+                    break;
+
+                // -------------------------
+                // 900p
+                // -------------------------
+                case "900p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "1600";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "900";
+                    }
+                    break;
+
+                // -------------------------
+                // 720p
+                // -------------------------
+                case "720p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "1280";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "720";
+                    }
+                    break;
+
+                // -------------------------
+                // 576p
+                // -------------------------
+                case "576p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "1024";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "576";
+                    }
+                    break;
+
+                // -------------------------
+                // 480p
+                // -------------------------
+                case "480p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "720";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "480";
+                    }
+                    break;
+
+                // -------------------------
+                // 320p
+                // -------------------------
+                case "320p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "480";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "320";
+                    }
+                    break;
+
+                // -------------------------
+                // 240p
+                // -------------------------
+                case "240p":
+                    // Widescreen
+                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                        )
+                    {
+                        VM.VideoView.Video_Width_Text = "320";
+                        VM.VideoView.Video_Height_Text = "auto";
+                    }
+
+                    // Full Screen
+                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    {
+                        VM.VideoView.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "240";
+                    }
+                    break;
+
+                // -------------------------
+                // Custom
+                // -------------------------
+                case "Custom":
                     VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "4320";
-                }
-            }
-
-            // -------------------------
-            // 4K
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "4K")
-            {
-                // Widescreen
-                ////if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "4096";
                     VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "2160";
-                }
-            }
-
-            // -------------------------
-            // 4K UHD
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "4K UHD")
-            {
-                // Widescreen
-                ////if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "3840";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "2160";
-                }
-            }
-
-            // -------------------------
-            // 2K
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "2K")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "2048";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "1556";
-                }
-            }
-
-            // -------------------------
-            // 1600p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "1600p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-
-                    VM.VideoView.Video_Width_Text = "2560";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "1600";
-                }
-            }
-
-            // -------------------------
-            // 1440p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "1440p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-
-                    VM.VideoView.Video_Width_Text = "2560";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "1440";
-                }
-            }
-
-            // -------------------------
-            // 1200p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "1200p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "1920";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "1200";
-                }
-            }
-
-            // -------------------------
-            // 1080p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "1080p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "1920";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "1080";
-                }
-            }
-
-            // -------------------------
-            // 900p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "900p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "1600";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "900";
-                }
-            }
-
-            // -------------------------
-            // 720p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "720p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "1280";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "720";
-                }
-            }
-
-            // -------------------------
-            // 576p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "576p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "1024";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "576";
-                }
-            }
-
-            // -------------------------
-            // 480p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "480p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "720";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "480";
-                }
-            }
-
-            // -------------------------
-            // 320p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "320p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "480";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "320";
-                }
-            }
-
-            // -------------------------
-            // 240p
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "240p")
-            {
-                // Widescreen
-                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
-                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    )
-                {
-                    VM.VideoView.Video_Width_Text = "320";
-                    VM.VideoView.Video_Height_Text = "auto";
-                }
-
-                // Full Screen
-                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                {
-                    VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "240";
-                }
-            }
-
-            // -------------------------
-            // Custom
-            // -------------------------
-            else if (VM.VideoView.Video_Scale_SelectedItem == "Custom")
-            {
-                VM.VideoView.Video_Width_Text = "auto";
-                VM.VideoView.Video_Height_Text = "auto";
+                    break;
             }
         }
 
@@ -7744,50 +7704,52 @@ namespace Axiom
 
             string selectedItem = VM.FilterVideoView.FilterVideo_SelectiveColor_SelectedItem;
 
-            if (selectedItem == "Reds")
+            switch (selectedItem)
             {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Reds.IsSelected = true;
-            }
-            else if (selectedItem == "Yellows")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Yellows.IsSelected = true;
-            }
-            else if (selectedItem == "Greens")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Greens.IsSelected = true;
-            }
-            else if (selectedItem == "Cyans")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Cyans.IsSelected = true;
-            }
-            else if (selectedItem == "Blues")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Blues.IsSelected = true;
-            }
-            else if (selectedItem == "Magentas")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Magentas.IsSelected = true;
-            }
-            else if (selectedItem == "Whites")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Whites.IsSelected = true;
-            }
-            else if (selectedItem == "Neutrals")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Neutrals.IsSelected = true;
-            }
-            else if (selectedItem == "Blacks")
-            {
-                tabControl_SelectiveColor.SelectedItem = selectedItem;
-                tabItem_SelectiveColor_Blacks.IsSelected = true;
+                case "Reds":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Reds.IsSelected = true;
+                    break;
+
+                case "Yellows":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Yellows.IsSelected = true;
+                    break;
+
+                case "Greens":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Greens.IsSelected = true;
+                    break;
+
+                case "Cyans":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Cyans.IsSelected = true;
+                    break;
+
+                case "Blues":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Blues.IsSelected = true;
+                    break;
+
+                case "Magentas":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Magentas.IsSelected = true;
+                    break;
+
+                case "Whites":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Whites.IsSelected = true;
+                    break;
+
+                case "Neutrals":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Neutrals.IsSelected = true;
+                    break;
+
+                case "Blacks":
+                    tabControl_SelectiveColor.SelectedItem = selectedItem;
+                    tabItem_SelectiveColor_Blacks.IsSelected = true;
+                    break;
             }
         }
 
@@ -8238,72 +8200,7 @@ namespace Axiom
         private void btnFilterVideo_SelectiveColorReset_Click(object sender, RoutedEventArgs e)
         {
             // Reset to default
-
             VideoFilters.FilterVideo_SelectiveColor_ResetAll();
-
-            //// Reds Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
-            //// Reds Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
-            //// Regs Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
-
-            //// Yellows Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
-            //// Yellows Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
-            //// Yellows Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
-
-            //// Greens Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
-            //// Greens Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
-            //// Greens Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
-
-            //// Cyans Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
-            //// Cyans Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
-            //// Cyans Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
-
-            //// Blues Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
-            //// Blues Magneta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
-            //// Blues Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
-
-            //// Magentas Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
-            //// Magentas Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
-            //// Magentas Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
-
-            //// Whites Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
-            //// Whites Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
-            //// Whites Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
-
-            //// Neutrals Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
-            //// Neutrals Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
-            //// Neutrals Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
-
-            //// Blacks Cyan
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
-            //// Blacks Magenta
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
-            //// Blacks Yellow
-            //VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
-
 
             //VideoControls.AutoCopyVideoCodec("control");
         }
@@ -8954,7 +8851,7 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
-            FFplay.Preview(this);
+            FFplay.Preview();
         }
 
 
