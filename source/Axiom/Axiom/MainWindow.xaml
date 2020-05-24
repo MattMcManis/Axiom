@@ -3385,7 +3385,7 @@
                                                 <!-- EQ Reset Button -->
                                                 <Button x:Name="btnFilterVideo_EQ_Reset"
                                                     Style="{DynamicResource ButtonCropStyle}"
-                                                    Margin="54,0,0,4"
+                                                    Margin="54,0,0,6"
                                                     Cursor="Hand" 
                                                     MaxWidth="60" 
                                                     MaxHeight="22"
