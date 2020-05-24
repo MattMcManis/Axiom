@@ -250,12 +250,12 @@ namespace Axiom
                                          VM.VideoView.Video_Codec
                                          ),
 
-                        "\r\n" +
+                        //"\r\n" +
                         // No PassParams() for 1 Pass / CRF
-                        VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
-                                                 VM.VideoView.Video_Codec_SelectedItem,
-                                                 VM.FormatView.Format_MediaType_SelectedItem
-                                                 ),
+                        //VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                        //                         VM.VideoView.Video_Codec_SelectedItem,
+                        //                         VM.FormatView.Format_MediaType_SelectedItem
+                        //                         ),
 
                         "\r\n" +
                         Video.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
@@ -279,6 +279,12 @@ namespace Axiom
                                            VM.VideoView.Video_BufSize_Text,
                                            VM.MainView.Input_Text
                                            ),
+
+                        "\r\n" +
+                        VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                                                 VM.VideoView.Video_Codec_SelectedItem,
+                                                 VM.FormatView.Format_MediaType_SelectedItem
+                                                 ),
 
                         "\r\n" +
                         Video.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
