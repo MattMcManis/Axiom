@@ -410,6 +410,7 @@ namespace Axiom
                 video_Codec_SelectedItem != "Copy" &&
                 format_MediaType_SelectedItem != "Audio")
             {
+                //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
                 // --------------------------------------------------
                 // Add Each Filter to Master Filters List
                 // --------------------------------------------------
