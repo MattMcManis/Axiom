@@ -556,6 +556,8 @@ namespace Axiom
             public string NA { get; set; }
             public string Lossless { get; set; }
             public string CRF { get; set; }
+            public string CRF_HWAccel_Intel_QSV { get; set; }
+            public string CRF_HWAccel_NVIDIA_NVENC { get; set; }
             public string Video_CRF_BitRate { get; set; }
             public string CBR_BitMode { get; set; }
             public string CBR { get; set; }
