@@ -4,6 +4,20 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.8.0] - May 24, 2020
+### Added
+- Speed Optimizations
+- Audio Codec `DTS` Minimum Bitrate
+- Video Codec `AV1` Experimental Parameter
+
+### Removed
+- Video Codec `FFV1` Auto Quality
+- Video Codec `HuffYUV` Auto Quality
+
+### Changed
+- Optimized Encoding Pass Controls
+
+
 ## [1.8.7.0] - May 23, 2020
 ### Added
 - HW Accel CRF Quality
