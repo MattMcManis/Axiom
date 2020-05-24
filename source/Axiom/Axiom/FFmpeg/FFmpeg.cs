@@ -1087,166 +1087,165 @@ namespace Axiom
 
                 List<string> ffmpegBatchArgsList = new List<string>();
 
-                // -------------------------
-                // CMD
-                // -------------------------
-                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                switch (VM.ConfigureView.Shell_SelectedItem)
                 {
                     // -------------------------
-                    // Batch Arguments Full
+                    // CMD
                     // -------------------------
-                    ffmpegBatchArgsList = new List<string>()
-                    {
-                        "cd /d",
-                        "\"" + MainWindow.BatchInputDirectory() + "\"",
-                        //MainWindow.ShellStringFormatter(MainWindow.BatchInputDirectory()),
-
-                        "\r\n\r\n" + "&& for %f in",
-                        "(*" + MainWindow.inputExt + ")",
-                        "do (echo)",
-
-                        // Video
-                        "\r\n\r\n" +
-                        Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
-                                                    VM.VideoView.Video_Codec_SelectedItem,
-                                                    VM.VideoView.Video_Quality_SelectedItem
-                                                    ),
-
-                        // Audio
-                        "\r\n\r\n" +
-                        Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
-                                                    VM.AudioView.Audio_Codec_SelectedItem,
-                                                    VM.AudioView.Audio_Quality_SelectedItem
-                                                    ),
-                        "\r\n\r\n" +
-                        Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
-                                                       VM.AudioView.Audio_Quality_SelectedItem
-                                                       ),
-
-                        "\r\n\r\n" + 
-                        "&&",
-                        "\r\n\r\n" + 
-                        Exe_InvokeOperator_PowerShell() + 
-                        MainWindow.FFmpegPath(),
-
-                        "\r\n\r\n" +
-                        "-y",
-                   
-                        // %~f added in InputPath()
-
-                        OnePass_CRF_Args(), // disabled if 2-Pass       
-                        TwoPass_Args() // disabled if 1-Pass/CRF
-                    };
-                }
-
-                // -------------------------
-                // PowerShell
-                // -------------------------
-                if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                {
-                    // Video Auto Quality Detect Bitrate
-                    string vBitRateBatch = string.Empty;
-                    if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
-                    {
-                        vBitRateBatch = "\r\n" + "$vBitrate = " + Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
-                    }
-
-                    // Audio Auto Quality Detect Bitrate
-                    string aBitRateBatch = string.Empty;
-                    string aBitRateBatch_NullCheck = string.Empty;
-                    string aBitRateBatch_Limited = string.Empty;
-                    if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
-                    {
-                        aBitRateBatch = "\r\n" + "$aBitrate = " + Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
-
-                        // Bitrate Null Check
-                        aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
-
-                        // Bitrate Limiter
-                        switch (VM.AudioView.Audio_Codec_SelectedItem)
+                    case "CMD":
+                        // -------------------------
+                        // Batch Arguments Full
+                        // -------------------------
+                        ffmpegBatchArgsList = new List<string>()
                         {
-                            // Vorbis
-                            case "Vorbis":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 500000) { $aBitrate = 500000 };";
-                                break;
+                            "cd /d",
+                            "\"" + MainWindow.BatchInputDirectory() + "\"",
+                            //MainWindow.ShellStringFormatter(MainWindow.BatchInputDirectory()),
 
-                            // Opus
-                            case "Opus":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 510000) { $aBitrate = 510000 };";
-                                break;
+                            "\r\n\r\n" + "&& for %f in",
+                            "(*" + MainWindow.inputExt + ")",
+                            "do (echo)",
 
-                            // AAC
-                            case "AAC":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 400000) { $aBitrate = 400000 };"; 
-                                break;
+                            // Video
+                            "\r\n\r\n" +
+                            Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
+                                                        VM.VideoView.Video_Codec_SelectedItem,
+                                                        VM.VideoView.Video_Quality_SelectedItem
+                                                        ),
 
-                            // AC3
-                            case "AC3":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 640000) { $aBitrate = 640000 };"; 
-                                break;
+                            // Audio
+                            "\r\n\r\n" +
+                            Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
+                                                        VM.AudioView.Audio_Codec_SelectedItem,
+                                                        VM.AudioView.Audio_Quality_SelectedItem
+                                                        ),
+                            "\r\n\r\n" +
+                            Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
+                                                           VM.AudioView.Audio_Quality_SelectedItem
+                                                           ),
 
-                            // DTS
-                            case "DTS":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
-                                break;
+                            "\r\n\r\n" +
+                            "&&",
+                            "\r\n\r\n" +
+                            Exe_InvokeOperator_PowerShell() +
+                            MainWindow.FFmpegPath(),
 
-                            // MP2
-                            case "MP2":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 384000) { $aBitrate = 384000 };";
-                                break;
-
-                            // LAME
-                            case "LAME":
-                                aBitRateBatch_Limited = "if ($aBitrate -gt 320000) { $aBitrate = 320000 };";
-                                break;
-
-                            //// FLAC
-                            // Do not use, empty is FFmpeg default
-                            //case "FLAC":
-                            //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
-                            //    break;
-
-                            //// PCM
-                            // Do not use, empty is FFmpeg default
-                            //case "PCM":
-                            //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
-                            //    break;
-                        }
-                    }
-
-                    // -------------------------
-                    // Batch Arguments Full
-                    // -------------------------
-                    ffmpegBatchArgsList = new List<string>()
-                    {
-                        "$files = Get-ChildItem " + "\"" + MainWindow.BatchInputDirectory().TrimEnd('\\') + "\"" + " -Filter *" + MainWindow.inputExt, // trim the dir's end backslash
-                        "\r\n\r\n" + ";",
-
-                        "\r\n\r\n" + "foreach ($f in $files) {" +
-
-                        "\r\n\r\n" + "$fullName = $f.FullName" + ";", // capture full path to variable
-                        "\r\n" + "$name = $f.Name" + ";", // capture name to variable
-                        vBitRateBatch, // capture video bitrate to variable
-                        aBitRateBatch, // capture audio bitrate to variable
-                        aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
-                        aBitRateBatch_Limited, // limit audio bitrate
-
-                        "\r\n\r\n" + 
-                        Exe_InvokeOperator_PowerShell() + 
-                        MainWindow.FFmpegPath(),
-                        "\r\n\r\n" +
-                        "-y",
+                            "\r\n\r\n" +
+                            "-y",
                    
-                        // $name added in InputPath()
+                            // %~f added in InputPath()
 
-                        OnePass_CRF_Args(), // disabled if 2-Pass       
-                        TwoPass_Args(), // disabled if 1-Pass/CRF
+                            OnePass_CRF_Args(), // disabled if 2-Pass       
+                            TwoPass_Args() // disabled if 1-Pass/CRF
+                        };
+                        break;
 
-                        "\r\n\r\n" + "}"
-                    };
-                }
+                    // -------------------------
+                    // PowerShell
+                    // -------------------------
+                    case "PowerShell":
+                        // Video Auto Quality Detect Bitrate
+                        string vBitRateBatch = string.Empty;
+                        if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
+                        {
+                            vBitRateBatch = "\r\n" + "$vBitrate = " + Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                        }
 
-                
+                        // Audio Auto Quality Detect Bitrate
+                        string aBitRateBatch = string.Empty;
+                        string aBitRateBatch_NullCheck = string.Empty;
+                        string aBitRateBatch_Limited = string.Empty;
+                        if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+                        {
+                            aBitRateBatch = "\r\n" + "$aBitrate = " + Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+
+                            // Bitrate Null Check
+                            aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
+
+                            // Bitrate Limiter
+                            switch (VM.AudioView.Audio_Codec_SelectedItem)
+                            {
+                                // Vorbis
+                                case "Vorbis":
+                                    aBitRateBatch_Limited = "if ($aBitrate -gt 500000) { $aBitrate = 500000 };";
+                                    break;
+
+                                // Opus
+                                case "Opus":
+                                    aBitRateBatch_Limited = "if ($aBitrate -gt 510000) { $aBitrate = 510000 };";
+                                    break;
+
+                                // AAC
+                                case "AAC":
+                                    aBitRateBatch_Limited = "if ($aBitrate -gt 400000) { $aBitrate = 400000 };";
+                                    break;
+
+                                // AC3
+                                case "AC3":
+                                    aBitRateBatch_Limited = "if ($aBitrate -gt 640000) { $aBitrate = 640000 };";
+                                    break;
+
+                                // DTS
+                                case "DTS":
+                                    aBitRateBatch_Limited = "if ($aBitrate -lt 320000) { $aBitrate = 320000 }; if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
+                                    break;
+
+                                // MP2
+                                case "MP2":
+                                    aBitRateBatch_Limited = "if ($aBitrate -gt 384000) { $aBitrate = 384000 };";
+                                    break;
+
+                                // LAME
+                                case "LAME":
+                                    aBitRateBatch_Limited = "if ($aBitrate -gt 320000) { $aBitrate = 320000 };";
+                                    break;
+
+                                //// FLAC
+                                // Do not use, empty is FFmpeg default
+                                //case "FLAC":
+                                //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
+                                //    break;
+
+                                //// PCM
+                                // Do not use, empty is FFmpeg default
+                                //case "PCM":
+                                //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
+                                //    break;
+                            }
+                        }
+
+                        // -------------------------
+                        // Batch Arguments Full
+                        // -------------------------
+                        ffmpegBatchArgsList = new List<string>()
+                        {
+                            "$files = Get-ChildItem " + "\"" + MainWindow.BatchInputDirectory().TrimEnd('\\') + "\"" + " -Filter *" + MainWindow.inputExt, // trim the dir's end backslash
+                            "\r\n\r\n" + ";",
+
+                            "\r\n\r\n" + "foreach ($f in $files) {" +
+
+                            "\r\n\r\n" + "$fullName = $f.FullName" + ";", // capture full path to variable
+                            "\r\n" + "$name = $f.Name" + ";", // capture name to variable
+                            vBitRateBatch, // capture video bitrate to variable
+                            aBitRateBatch, // capture audio bitrate to variable
+                            aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
+                            aBitRateBatch_Limited, // limit audio bitrate
+
+                            "\r\n\r\n" +
+                            Exe_InvokeOperator_PowerShell() +
+                            MainWindow.FFmpegPath(),
+                            "\r\n\r\n" +
+                            "-y",
+                   
+                            // $name added in InputPath()
+
+                            OnePass_CRF_Args(), // disabled if 2-Pass       
+                            TwoPass_Args(), // disabled if 1-Pass/CRF
+
+                            "\r\n\r\n" + "}"
+                        };
+                        break;
+                }             
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -1308,114 +1307,114 @@ namespace Axiom
             // -------------------------
             string nameVariable = string.Empty;
 
-            // -------------------------
-            // CMD
-            // -------------------------
-            if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+            switch (VM.ConfigureView.Shell_SelectedItem)
             {
-                nameVariable = "%f";
+                // -------------------------
+                // CMD
+                // -------------------------
+                case "CMD":
+                    nameVariable = "%f";
+
+                    // -------------------------
+                    // YouTube Download Arguments Full
+                    // -------------------------
+                    // youtube-dl Args List
+                    youtubedlArgs = new List<string>()
+                    {
+                        "cd /d",
+                        "\"" + outputDir + "\"",
+
+                        "\r\n\r\n" + "&&",
+
+                        "\r\n\r\n" + "for /f \"delims=\" %f in ('",
+
+                        // Get Title
+                        "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+                        "\r\n"  + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
+                        "\r\n" + "')",
+
+                        // Download Video
+                        "\r\n\r\n" + "do (",
+                        "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+
+                        "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
+                                                                               VM.FormatView.Format_YouTube_SelectedItem,
+                                                                               VM.FormatView.Format_YouTube_Quality_SelectedItem
+                                                                               ),
+                        "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
+                        "\r\n" + "-o " + "\"" + outputDir + outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                                    VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                                    VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                                    VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                                    ) + "\"",
+
+                        // FFmpeg Location
+                        "\r\n\r\n" +
+                        MainWindow.YouTubeDL_FFmpegPath(),
+
+                        // Merge Output Format
+                        "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                 VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                 VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                 VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                 )
+                    };
+                    break;
 
                 // -------------------------
-                // YouTube Download Arguments Full
+                // PowerShell
                 // -------------------------
-                // youtube-dl Args List
-                youtubedlArgs = new List<string>()
-                {
-                    "cd /d",
-                    "\"" + outputDir + "\"",
+                case "PowerShell":
+                    nameVariable = "$name";
 
-                    "\r\n\r\n" + "&&",
+                    // Format youtube-dl Path
+                    string youtubedl_formatted = string.Empty;
+                    // Check if youtube-dl is not default, if so it is a user-defined path, wrap in quotes
+                    // If default, it will not be wrapped in quotes
+                    if (MainWindow.youtubedl != "youtube-dl")
+                    {
+                        youtubedl_formatted = MainWindow.WrapQuotes(MainWindow.youtubedl);
+                    }
+                    else
+                    {
+                        youtubedl_formatted = MainWindow.youtubedl;
+                    }
 
-                    "\r\n\r\n" + "for /f \"delims=\" %f in ('",
+                    // youtube-dl Args List
+                    youtubedlArgs = new List<string>()
+                    {
+                        // Get Title
+                        "$name =" + " & " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
 
-                    // Get Title
-                    "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
-                    "\r\n"  + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
-                    "\r\n" + "')",
+                        "\r\n\r\n" + ";",
 
-                    // Download Video
-                    "\r\n\r\n" + "do (",
-                    "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+                        // Download Video
+                        "\r\n\r\n" + "& " + youtubedl_formatted,
 
-                    "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
-                                                                           VM.FormatView.Format_YouTube_SelectedItem,
-                                                                           VM.FormatView.Format_YouTube_Quality_SelectedItem
-                                                                           ),
-                    "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
-                    "\r\n" + "-o " + "\"" + outputDir + outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                                                VM.VideoView.Video_Codec_SelectedItem,
-                                                                                                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                                                VM.AudioView.Audio_Codec_SelectedItem
-                                                                                                                ) + "\"",
+                        "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
+                                                                                VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                VM.FormatView.Format_YouTube_Quality_SelectedItem
+                                                                                ),
+                        "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
+                        "\r\n" +"-o " + "\"" + outputDir + outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                                   VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                                   VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                                   VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                                   ) + "\"",
 
-                    // FFmpeg Location
-                    "\r\n\r\n" + 
-                    MainWindow.YouTubeDL_FFmpegPath(),
+                        // FFmpeg Location
+                        "\r\n\r\n" +
+                        MainWindow.YouTubeDL_FFmpegPath(),
 
-                    // Merge Output Format
-                    "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                             VM.VideoView.Video_Codec_SelectedItem,
-                                                                                             VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                             VM.AudioView.Audio_Codec_SelectedItem
-                                                                                             )
-                };
+                        // Merge Output Format
+                        "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                 VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                 VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                 VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                 )
+                    };
+                    break;
             }
-
-            // -------------------------
-            // PowerShell
-            // -------------------------
-            else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-            {
-                nameVariable = "$name";
-
-                // Format youtube-dl Path
-                string youtubedl_formatted = string.Empty;
-                // Check if youtube-dl is not default, if so it is a user-defined path, wrap in quotes
-                // If default, it will not be wrapped in quotes
-                if (MainWindow.youtubedl != "youtube-dl")
-                {
-                    youtubedl_formatted = MainWindow.WrapQuotes(MainWindow.youtubedl);
-                }
-                else
-                {
-                    youtubedl_formatted = MainWindow.youtubedl;
-                }
-
-                // youtube-dl Args List
-                youtubedlArgs = new List<string>()
-                {
-                    // Get Title
-                    "$name =" + " & " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
-
-                    "\r\n\r\n" + ";",
-
-                    // Download Video
-                    "\r\n\r\n" + "& " + youtubedl_formatted,
-
-                    "\r\n\r\n" + "-f " + MainWindow.YouTubeDownloadQuality(VM.MainView.Input_Text,
-                                                                            VM.FormatView.Format_YouTube_SelectedItem,
-                                                                            VM.FormatView.Format_YouTube_Quality_SelectedItem
-                                                                            ),
-                    "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
-                    "\r\n" +"-o " + "\"" + outputDir + outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                                               VM.VideoView.Video_Codec_SelectedItem,
-                                                                                                               VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                                               VM.AudioView.Audio_Codec_SelectedItem
-                                                                                                               ) + "\"",
-
-                    // FFmpeg Location
-                    "\r\n\r\n" +
-                    MainWindow.YouTubeDL_FFmpegPath(),
-
-                    // Merge Output Format
-                    "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                             VM.VideoView.Video_Codec_SelectedItem,
-                                                                                             VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                             VM.AudioView.Audio_Codec_SelectedItem
-                                                                                             )
-                };
-            }
-
 
             // FFmpeg Args
             //
