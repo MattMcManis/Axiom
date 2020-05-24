@@ -37,7 +37,7 @@ namespace Axiom
              new VideoViewModel.VideoCodec()
              {
                  Codec = "libaom-av1",
-                 Parameters = ""
+                 Parameters = "-strict -2"
              }
         };
 
@@ -117,63 +117,65 @@ namespace Axiom
             // -------------------------
             // Quality
             // -------------------------
-            // Auto
-            if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
+            switch (VM.VideoView.Video_Quality_SelectedItem)
             {
-                VM.VideoView.Video_Pass_Items = new List<string>()
-                {
-                    "2 Pass"
-                };
+                // Auto
+                case "Auto":
+                    VM.VideoView.Video_Pass_Items = new List<string>()
+                    {
+                        "2 Pass"
+                    };
 
-                VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VideoControls.passUserSelected = false;
+                    VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
+                    VM.VideoView.Video_Pass_IsEnabled = false;
+                    VideoControls.passUserSelected = false;
 
-                VM.VideoView.Video_CRF_IsEnabled = false;
-            }
-            // Custom
-            else if (VM.VideoView.Video_Quality_SelectedItem == "Custom")
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+                    break;
 
-                VM.VideoView.Video_Pass_IsEnabled = true;
-                VM.VideoView.Video_CRF_IsEnabled = true;
-            }
-            // None
-            else if (VM.VideoView.Video_Quality_SelectedItem == "None")
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
-                {
-                    "auto"
-                };
+                // Custom
+                case "Custom":
+                    VM.VideoView.Video_Pass_Items = new List<string>()
+                    {
+                        "CRF",
+                        "1 Pass",
+                        "2 Pass"
+                    };
 
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VM.VideoView.Video_CRF_IsEnabled = false;
-            }
-            // Presets: Ultra, High, Medium, Low, Sub
-            else
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                    VM.VideoView.Video_Pass_IsEnabled = true;
+                    VM.VideoView.Video_CRF_IsEnabled = true;
+                    break;
 
-                VM.VideoView.Video_Pass_IsEnabled = true;
-                VM.VideoView.Video_CRF_IsEnabled = false;
+                // None
+                case "None":
+                    VM.VideoView.Video_Pass_Items = new List<string>()
+                    {
+                        "auto"
+                    };
 
-                // Default to CRF
-                if (VideoControls.passUserSelected == false)
-                {
-                    VM.VideoView.Video_Pass_SelectedItem = "CRF";
-                    VideoControls.passUserSelected = true;
-                }
+                    VM.VideoView.Video_Pass_IsEnabled = false;
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+                    break;
+
+                // Presets: Ultra, High, Medium, Low, Sub
+                default:
+                    VM.VideoView.Video_Pass_Items = new List<string>()
+                    {
+                        "CRF",
+                        "1 Pass",
+                        "2 Pass"
+                    };
+
+                    VM.VideoView.Video_Pass_IsEnabled = true;
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+
+                    // Default to CRF
+                    if (VideoControls.passUserSelected == false)
+                    {
+                        VM.VideoView.Video_Pass_SelectedItem = "CRF";
+                        VideoControls.passUserSelected = true;
+                    }
+                    break;
             }
 
             // Clear TextBoxes
