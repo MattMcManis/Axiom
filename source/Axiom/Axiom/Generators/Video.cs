@@ -932,6 +932,8 @@ namespace Axiom
                     VideoParams.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
                     vCRF = string.Empty;
 
+                    //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
+
                     return;
                 }
                 // -------------------------
