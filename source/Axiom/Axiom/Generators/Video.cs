@@ -94,13 +94,6 @@ namespace Axiom
         public static string optFlags { get; set; } // Additional Optimization Flags
         public static string optimize { get; set; } // Contains opTune + optProfile + optLevel
 
-        //// x264 Params
-        //public static List<string> x264paramsList = new List<string>(); // multiple parameters
-        //public static string x264params { get; set; } // combined inline list
-        //// x265 Params
-        //public static List<string> x265paramsList = new List<string>(); // multiple parameters
-        //public static string x265params { get; set; } // combined inline list
-
         // Scale
         public static string width { get; set; }
         public static string height { get; set; }
@@ -118,7 +111,6 @@ namespace Axiom
         public static string batchVideoAuto { get; set; }
 
         // Rendering
-        //public static string hwAcceleration { get; set; }
         public static string hwAccelDecode { get; set; }
         public static string hwAccelTranscode { get; set; }
 
@@ -456,26 +448,25 @@ namespace Axiom
                 !string.IsNullOrWhiteSpace(bitrate_Text)
                 )
             {
-                // -------------------------
-                // CBR
-                // -------------------------
-                if (vbr_IsChecked == false)
+                switch (vbr_IsChecked)
                 {
-                    // -b:v
-                    vBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR_BitMode;
+                    // -------------------------
+                    // CBR
+                    // -------------------------
+                    case false:
+                        // -b:v
+                        vBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR_BitMode;
+                        //MessageBox.Show(vBitMode); //debug
+                        break;
 
-                    //MessageBox.Show(vBitMode); //debug
-                }
-
-                // -------------------------
-                // VBR
-                // -------------------------
-                else if (vbr_IsChecked == true)
-                {
-                    // -q:v
-                    vBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR_BitMode;
-
-                    //MessageBox.Show(vBitMode); //debug
+                    // -------------------------
+                    // VBR
+                    // -------------------------
+                    case true:
+                        // -q:v
+                        vBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR_BitMode;
+                        //MessageBox.Show(vBitMode); //debug
+                        break;
                 }
             }
 
@@ -684,18 +675,18 @@ namespace Axiom
             {
                 // Use the CMD Batch Video Variable
                 vBitMode = "-b:v";
-                //vBitRate = "%V";
 
-                // CMD
-                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                switch (VM.ConfigureView.Shell_SelectedItem)
                 {
-                    vBitRate = "%V";
-                }
-
-                // PowerShell
-                else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                {
-                    vBitRate = "$vBitrate";
+                    // CMD
+                    case "CMD":
+                        vBitRate = "%V";
+                        break;
+                    
+                    // PowerShell
+                    case "PowerShell":
+                        vBitRate = "$vBitrate";
+                        break;
                 }
             }
         }
@@ -714,7 +705,6 @@ namespace Axiom
             if (codec_SelectedItem == "x265")
             {
                 // e.g. -x265-params "lossless"
-                //x265paramsList.Add("lossless");
                 VideoParams.vParamsList.Add("lossless");
             }
             // -------------------------
@@ -941,7 +931,6 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    //crf = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CRF;
                     vBitRate = bitrate_Text;
 
                     if (!string.IsNullOrWhiteSpace(crf_Text))
@@ -1073,21 +1062,6 @@ namespace Axiom
                 List<string> vQualityArgs = new List<string>();
 
                 // -------------------------
-                // x265 Params
-                // -------------------------
-                //if (codec_SelectedItem == "x265" &&
-                //    x265paramsList.Count > 0)
-                //{
-                //    x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList
-                //                                                           .Where(s => !string.IsNullOrWhiteSpace(s)))
-                //                                 + "\"";
-                //}
-                //else
-                //{
-                //    x265params = string.Empty;
-                //}
-
-                // -------------------------
                 // CRF
                 // -------------------------
                 if (pass_SelectedItem == "CRF")
@@ -1179,9 +1153,6 @@ namespace Axiom
             // Video Codec Not Copy
             if (codec_SelectedItem != "Copy")
             {
-                // Batch Check
-                //if (batch_IsChecked == true)
-                //{
                 // -------------------------
                 // Video Auto BitRates
                 // -------------------------
@@ -1189,45 +1160,46 @@ namespace Axiom
                 {
                     List<string> batchVideoAutoList = new List<string>();
 
-                    // -------------------------
-                    // CMD
-                    // -------------------------
-                    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                    switch (VM.ConfigureView.Shell_SelectedItem)
                     {
-                        batchVideoAutoList = new List<string>()
-                        {
-                            // size
-                            "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
-                            // set %S to %size%
-                            "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
+                        // -------------------------
+                        // CMD
+                        // -------------------------
+                        case "CMD":
+                            batchVideoAutoList = new List<string>()
+                            {
+                                // size
+                                "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
+                                // set %S to %size%
+                                "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
 
-                            // duration
-                            "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
-                            // remove duration decimals
-                            "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
-                            // set %D to %duration%
-                            "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
+                                // duration
+                                "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
+                                // remove duration decimals
+                                "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
+                                // set %D to %duration%
+                                "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
 
-                            // vBitRate
-                            "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
-                            // set %V to %vBitRate%
-                            "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
-                            // auto bitrate calcuate
-                            "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video Bit Rate Detected))",
-                            // set %V to %vBitRate%
-                            "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
-                        };
-                    }
+                                // vBitRate
+                                "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
+                                // set %V to %vBitRate%
+                                "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
+                                // auto bitrate calcuate
+                                "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video Bit Rate Detected))",
+                                // set %V to %vBitRate%
+                                "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
+                            };
+                            break;
 
-                    // -------------------------
-                    // PowerShell
-                    // -------------------------
-                    else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                    {
-                        batchVideoAutoList = new List<string>()
-                        {
-                            string.Empty
-                        };
+                        // -------------------------
+                        // PowerShell
+                        // -------------------------
+                        case "PowerShell":
+                            batchVideoAutoList = new List<string>()
+                            {
+                                string.Empty
+                            };
+                            break;
                     }
 
                     // -------------------------
@@ -1236,8 +1208,7 @@ namespace Axiom
                     batchVideoAuto = string.Join(" ", batchVideoAutoList
                                                         .Where(s => !string.IsNullOrWhiteSpace(s)));
 
-                    }
-                //}
+                }
             }
 
             // Return Value
@@ -1328,9 +1299,6 @@ namespace Axiom
                 else if (inputVideoBitRate != "N/A")
                 {
                     // Convert Input Video Bit Rate to Double
-                    //double inputVideoBitRate_Double = Convert.ToDouble(inputVideoBitRate);
-
-                    // Convert Input Video Bit Rate to Double
                     int inputVideoBitRate_Double = 8000000; // Fallback
                     int.TryParse(inputVideoBitRate, out inputVideoBitRate_Double);
 
@@ -1338,61 +1306,6 @@ namespace Axiom
                     // e.g. FFprobe 10000000 bytes -> 10000K (10M)
                     //      -b:v 10000K
                     inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
-
-                    //// 1GB
-                    //if (inputVideoBitRate_Double >= 1000000000)
-                    //{
-                    //    MessageBox.Show("2");
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 1,000M / 1,000,000K
-                    //}
-                    //// 100M
-                    //else if (inputVideoBitRate_Double >= 100000000)
-                    //{
-                    //    MessageBox.Show("3");
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 100,000K
-                    //}
-                    //// 10M
-                    //else if (inputVideoBitRate_Double >= 10000000)
-                    //{
-                    //    //MessageBox.Show("4" + inputVideoBitRate);
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 10,000K
-                    //}
-                    //// 1M / 1000000 bytes
-                    //else if (inputVideoBitRate_Double >= 1000000)
-                    //{
-                    //    MessageBox.Show("5" + inputVideoBitRate);
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 10,000K
-                    //}
-                    //// 0.1M 100k / 100000 bytes
-                    //else if (inputVideoBitRate_Double >= 100000)
-                    //{
-                    //    //MessageBox.Show("6 " + inputVideoBitRate);
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 100k
-                    //}
-                    //// 0.01M / 10k / 10000 bytes
-                    //else if (inputVideoBitRate_Double >= 10000)
-                    //{
-                    //    MessageBox.Show("7");
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
-                    //}
-                    //// 0.1M / 1k / 1000 bytes
-                    //else if (inputVideoBitRate_Double >= 1000)
-                    //{
-                    //    MessageBox.Show("8");
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
-                    //}
-                    //// 0.01M
-                    //else if (inputVideoBitRate_Double >= 100)
-                    //{
-                    //    MessageBox.Show("9");
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001); // 1k / 1,000b
-                    //}
-                    //// 0
-                    //else
-                    //{
-                    //    MessageBox.Show("9");
-                    //    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0);
-                    //}
                 }
 
 
@@ -1495,24 +1408,7 @@ namespace Axiom
                     //pass = string.Empty;
                     VideoParams.vParamsList.Add("pass=" + passNumber);
                 }
-                // All other codecs
-                //else
-                //{
-                //    pass = string.Empty;
-                //}
-                //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
             }
-
-            // -------------------------
-            // Disabled
-            // -------------------------
-            //else if (pass_SelectedItem == "1 Pass" ||
-            //         pass_SelectedItem == "CRF" ||
-            //         pass_SelectedItem == "auto") // JPG, PNG, WebP
-            //{
-            //    pass = string.Empty;
-            //}
-
 
             // Return Value
             return pass;
@@ -1536,9 +1432,7 @@ namespace Axiom
                 // x265 Pass 2 Params
                 if (codec_SelectedItem == "x265")
                 {
-                    //pass1 = "-x265-params pass=1";
                     pass1 = string.Empty;
-                    //VideoParams.vParamsList.Add("pass=1");
                 }
                 // All other codecs
                 else
@@ -1580,9 +1474,7 @@ namespace Axiom
                 // x265 Pass 2 Params
                 if (codec_SelectedItem == "x265")
                 {
-                    //pass2 = "-x265-params pass=2";
                     pass1 = string.Empty;
-                    //VideoParams.vParamsList.Add("pass=2");
                 }
                 // All other codecs
                 else
@@ -1673,8 +1565,6 @@ namespace Axiom
         /// </remarks>
         public static String Color_Primaries(string primaries_SelectedItem)
         {
-            //string colorPrimaries = string.Empty;
-
             if (primaries_SelectedItem != "auto")
             {
                 switch (primaries_SelectedItem)
@@ -1748,8 +1638,6 @@ namespace Axiom
         /// </remarks>
         public static String Color_TransferCharacteristics(string transferChar_SelectedItem)
         {
-            //string colorTransferCharacteristics = string.Empty;
-
             if (transferChar_SelectedItem != "auto")
             {
                 switch (transferChar_SelectedItem)
@@ -1835,8 +1723,6 @@ namespace Axiom
         /// </remarks>
         public static String Color_Space(string colorspace_SelectedItem)
         {
-            //string colorSpace = string.Empty;
-
             if (colorspace_SelectedItem != "auto")
             {
                 switch (colorspace_SelectedItem)
@@ -1898,8 +1784,6 @@ namespace Axiom
         /// </remarks>
         public static String Color_Range(string colorRange_SelectedItem)
         {
-            //string colorRange = string.Empty;
-
             if (colorRange_SelectedItem != "auto")
             {
                 switch (colorRange_SelectedItem)
@@ -1939,58 +1823,7 @@ namespace Axiom
         /// <remarks>
         /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
         /// </remarks>
-        //public static String Color_Matrix(string colormatrix_SelectedItem)
-        //{
-        //    //string colorMatrix = string.Empty;
-
-        //    if (colormatrix_SelectedItem != "auto")
-        //    {
-        //        switch (colormatrix_SelectedItem)
-        //        {
-        //            case "BT.709":
-        //                colorMatrix = "bt709";
-        //                break;
-
-        //            case "FCC":
-        //                colorMatrix = "fcc";
-        //                break;
-
-        //            case "BT.601":
-        //                colorMatrix = "bt601";
-        //                break;
-
-        //            case "BT.470":
-        //                colorMatrix = "bt470";
-        //                break;
-
-        //            case "BT.470BG":
-        //                colorMatrix = "bt470bg";
-        //                break;
-
-        //            case "SMPTE-170M":
-        //                colorMatrix = "smpte170m";
-        //                break;
-
-        //            case "SMPTE-240M":
-        //                colorMatrix = "smpte240m";
-        //                break;
-
-        //            case "BT.2020":
-        //                colorMatrix = "bt2020";
-        //                break;
-        //        }
-
-        //        colorMatrix = "-colormatrix " + colorMatrix;
-
-        //        return colorMatrix;
-        //    }
-
-        //    // Auto
-        //    else
-        //    {
-        //        return string.Empty;
-        //    }
-        //}
+        // Color Matrix is an x264/x265 Param
 
 
         /// <summary>
@@ -2158,7 +1991,6 @@ namespace Axiom
                         catch
                         {
                             /* lock */
-                            //MainWindow.ready = false;
                             // Warning
                             MessageBox.Show("Invalid Custom FPS.",
                             "Notice",
@@ -2334,7 +2166,6 @@ namespace Axiom
                 if (size_SelectedItem != "Custom")
                 {
                     // Widescreen
-                    //if (MainWindow.IsAspectRatioWidescreen(aspectRatio_SelectedItem) == true)
                     if (screenFormat_SelectedItem == "auto" ||
                         screenFormat_SelectedItem == "Widescreen" ||
                         screenFormat_SelectedItem == "Ultrawide"
@@ -2365,9 +2196,6 @@ namespace Axiom
                 // -------------------------
                 else if (size_SelectedItem == "Custom")
                 {
-                    //MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    //MainView vm = mainwindow.DataContext as MainView;
-
                     // Get width height from custom textbox
                     width = width_Text;
                     height = height_Text;
@@ -2520,7 +2348,6 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                //MainWindow.ready = false;
                                 // Warning
                                 MessageBox.Show("Must enter numbers only.",
                                                 "Notice",
@@ -2619,7 +2446,6 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                //MainWindow.ready = false;
                                 // Warning
                                 MessageBox.Show("Must enter numbers only.",
                                                 "Notice",
@@ -2650,15 +2476,6 @@ namespace Axiom
                     } //end codec check
 
                 } //end custom
-
-
-                //// -------------------------
-                //// Combine & Add Scaling Algorithm
-                //// -------------------------
-                //scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
-
-                //// Video Filter Add
-                //VideoFilters.vFiltersList.Add(scale);
 
             } //end Yes
 
@@ -2829,35 +2646,10 @@ namespace Axiom
                         image = string.Empty;
                         break;
                 }
-
-                //// -------------------------
-                //// Image
-                //// -------------------------
-                //if (mediaType_SelectedItem == "Image")
-                //{
-                //    image = "-vframes 1"; //important
-                //}
-
-                //// -------------------------
-                //// Sequence
-                //// -------------------------
-                //else if (mediaType_SelectedItem == "Sequence")
-                //{
-                //    image = string.Empty; //disable -vframes
-                //}
-
-                //// -------------------------
-                //// All Other Media Types
-                //// -------------------------
-                //else
-                //{
-                //    image = string.Empty;
-                //}
             }
 
             return image;
         }
-
 
 
     }
