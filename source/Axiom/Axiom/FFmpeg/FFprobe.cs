@@ -93,8 +93,8 @@ namespace Axiom
             // Only Run FFprobe if Input File is Not Null
             // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
-            if (!string.IsNullOrEmpty(VM.MainView.Input_Text) && 
-                !string.IsNullOrEmpty(ffprobe))
+            if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) && 
+                !string.IsNullOrWhiteSpace(ffprobe))
             {
                 // -------------------------
                 //    FFprobe Video Entry Type Containers
@@ -157,12 +157,12 @@ namespace Axiom
 
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Container: ")) { Foreground = Log.ConsoleDefault });
                     // Single File
-                    if (!string.IsNullOrEmpty(MainWindow.inputExt))
+                    if (!string.IsNullOrWhiteSpace(MainWindow.inputExt))
                     {
                         Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
                     }
                     // Batch
-                    //if (!string.IsNullOrEmpty(MainWindow.inputExt) &&
+                    //if (!string.IsNullOrWhiteSpace(MainWindow.inputExt) &&
                     //    MainWindow.inputExt != "extension")
                     //{
                     //    Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
@@ -413,7 +413,7 @@ namespace Axiom
 
             // Format Time for FFmpeg 00:00:00.000
             //
-            if (!string.IsNullOrEmpty(inputDuration)) //null check
+            if (!string.IsNullOrWhiteSpace(inputDuration)) //null check
             {
                 TimeSpan t = TimeSpan.FromSeconds(Convert.ToDouble(inputDuration));
 
@@ -443,8 +443,8 @@ namespace Axiom
             // Input Empty Check
             // FFprobe.exe Null Check
             if (batch_IsChecked == false && 
-                !string.IsNullOrEmpty(input_Text) && 
-                !string.IsNullOrEmpty(ffprobe))
+                !string.IsNullOrWhiteSpace(input_Text) && 
+                !string.IsNullOrWhiteSpace(ffprobe))
             {
                 // Start FFprobe Process
                 using (Process FFprobeParse = new Process())
@@ -463,7 +463,7 @@ namespace Axiom
                     // Get Ouput Result
                     inputMetaData = FFprobeParse.StandardOutput.ReadToEnd();
 
-                    if (!string.IsNullOrEmpty(inputMetaData))
+                    if (!string.IsNullOrWhiteSpace(inputMetaData))
                     {
                         inputMetaData = inputMetaData.Trim();
                         inputMetaData = inputMetaData.TrimEnd();
