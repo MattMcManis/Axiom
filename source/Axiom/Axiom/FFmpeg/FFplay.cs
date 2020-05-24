@@ -19,7 +19,9 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -36,7 +38,7 @@ namespace Axiom
         /// <summary>
         /// Preview FFplay
         /// </summary>
-        public static void Preview(MainWindow mainwindow)
+        public static void Preview()
         {
             // -------------------------
             // Clear Variables before Run
@@ -59,18 +61,16 @@ namespace Axiom
                 {
                     //ffplay,
 
-                    "-i " + "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
+                    "-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
 
                     Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                VM.SubtitleView.Subtitle_Stream_SelectedItem
                                                ),
 
                     //Video.VideoCodec(),
-                    //Video.Speed(mainwindow),
-                    //Video.VideoQuality(mainwindow),
-                    Video.FPS(//VM.FormatView.Format_MediaType_SelectedItem,
-                              VM.VideoView.Video_Codec_SelectedItem,
-                              //VM.VideoView.Video_Quality_SelectedItem,
+                    //Video.Speed(),
+                    //Video.VideoQuality(),
+                    Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
                               VM.VideoView.Video_FPS_SelectedItem,
                               VM.VideoView.Video_FPS_Text
                               ),
@@ -78,63 +78,55 @@ namespace Axiom
                     VideoFilters.VideoFilter(),
 
                     Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
-                                 VM.VideoView.Video_Codec_SelectedItem//,
-                                 //VM.VideoView.Video_Quality_SelectedItem
+                                 VM.VideoView.Video_Codec_SelectedItem
                                  ),
-                    //Video.Optimize(mainwindow),
-                    //Streams.VideoStreamMaps(mainwindow),
+                    //Video.Optimize(),
+                    //Streams.VideoStreamMaps(),
 
-                    //Video.SubtitleCodec(mainwindow),
-                    //"Streams.SubtitleMaps(mainwindow),
+                    //Video.SubtitleCodec(),
+                    //"Streams.SubtitleMaps(),
 
-                    //Audio.AudioCodec(mainwindow),
-                    //Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(//VM.FormatView.Format_MediaType_SelectedItem,
-                                     VM.AudioView.Audio_Codec_SelectedItem,
-                                     //VM.AudioView.Audio_Stream_SelectedItem,
-                                     //VM.AudioView.Audio_Quality_SelectedItem,
-                                     //VM.AudioView.Audio_Channel_SelectedItem,
+                    //Audio.AudioCodec(),
+                    //Audio.AudioQuality(),
+                    Audio.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
                                      VM.AudioView.Audio_SampleRate_Items,
                                      VM.AudioView.Audio_SampleRate_SelectedItem
                                      ),
 
-                    Audio.BitDepth(//VM.FormatView.Format_MediaType_SelectedItem,
-                                   VM.AudioView.Audio_Codec_SelectedItem,
-                                   //VM.AudioView.Audio_Stream_SelectedItem,
-                                   //VM.AudioView.Audio_Quality_SelectedItem,
+                    Audio.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
                                    VM.AudioView.Audio_BitDepth_Items,
                                    VM.AudioView.Audio_BitDepth_SelectedItem
                                    ),
 
-                    Audio.Channel(//VM.FormatView.Format_MediaType_SelectedItem,
-                                  VM.AudioView.Audio_Codec_SelectedItem,
-                                  //VM.AudioView.Audio_Stream_SelectedItem,
-                                  //VM.AudioView.Audio_Quality_SelectedItem,
+                    Audio.Channel(VM.AudioView.Audio_Codec_SelectedItem,
                                   VM.AudioView.Audio_Channel_SelectedItem
                                   ),
 
                     AudioFilters.AudioFilter(),
-                    //Streams.AudioStreamMaps(mainwindow),
+                    //Streams.AudioStreamMaps(),
 
-                    //Format.Cut(mainwindow),
+                    //Format.Cut(),
 
-                    //Streams.FormatMaps(mainwindow),
+                    //Streams.FormatMaps(),
 
-                    //Format.ForceFormat(mainwindow),
+                    //Format.ForceFormat(),
 
-                    //MainWindow.ThreadDetect(mainwindow),
+                    //MainWindow.ThreadDetect(),
 
-                    //"\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    //"\"" + MainWindow.OutputPath() + "\""
                 };
 
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 string ffplayArgs = MainWindow.ReplaceLineBreaksWithSpaces(
-                                        string.Join(" ", FFplayArgsList)
-                                    );
-
-
+                                            string.Join(" ", FFplayArgsList
+                                                    .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                    .Where(s => !s.Equals(Environment.NewLine))
+                                                    .Where(s => !s.Equals("\r\n\r\n"))
+                                                    .Where(s => !s.Equals("\r\n"))
+                                              )
+                                            );
                 //MessageBox.Show(ffplayArgs); //debug
 
 
