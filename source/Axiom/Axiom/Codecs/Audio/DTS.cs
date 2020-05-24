@@ -82,12 +82,12 @@ namespace Axiom
              new AudioViewModel.AudioQuality() { Name = "640",    CBR_BitMode = "-b:a", CBR = "640",  VBR_BitMode = "", VBR = "" },
              new AudioViewModel.AudioQuality() { Name = "448",    CBR_BitMode = "-b:a", CBR = "448",  VBR_BitMode = "", VBR = "" },
              new AudioViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320",  VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256",  VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224",  VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192",  VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160",  VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128",  VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",   VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256",  VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224",  VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192",  VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160",  VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128",  VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",   VBR_BitMode = "", VBR = "" },
              new AudioViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",     VBR_BitMode = "", VBR = "" },
              new AudioViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",     VBR_BitMode = "", VBR = "" }
         };
