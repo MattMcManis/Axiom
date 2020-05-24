@@ -42,14 +42,15 @@ https://github.com/MattMcManis/Axiom/releases
 #### Files
 - Axiom UI
 - [FFmpeg](https://ffmpeg.zeranoe.com/builds)
-- [youtube-dl](https://github.com/ytdl-org/youtube-dl/releases)  
-Requires: [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
+- [youtube-dl](https://github.com/ytdl-org/youtube-dl/releases)
 - Install Instructions
 - User Guide pdf
 - Troubleshooter
 
-#### Requires
-[Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
+#### Requirements
+- Extract 7z file with [7-Zip](https://www.7-zip.org)
+- Axiom [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
+- youtube-dl [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
 
 #### FFmpeg Builds
 https://ffmpeg.zeranoe.com/builds
