@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.7.0] - May 23, 2020
+### Added
+- HW Accel CRF Quality
+- Codec `Copy`/`None` Controls Enable/Disable for all Filters
+
+### Fixed
+- `x265` Params CRF 
+- Video Quality Custom MinRate
+- Volume Filter
+
+
 ## [1.8.6.0] - May 22, 2020
 ### Added
 - Video Filters Transform `Flip` and `Rotate`
