@@ -166,9 +166,10 @@ namespace Axiom
                 VM.VideoView.Video_Pass_Items = new List<string>()
                 {
                     "1 Pass",
-                    "2 Pass"
+                    //"2 Pass"
                 };
 
+                VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
                 VM.VideoView.Video_Pass_IsEnabled = true;
                 VM.VideoView.Video_CRF_IsEnabled = false;
             }
