@@ -1084,8 +1084,12 @@ namespace Axiom
 
                         // DTS
                         case "DTS":
+                            // max
                             if (aBitRateLimit > 1509075)
                                 return 1509075;
+                            // min 320k
+                            else if (aBitRateLimit < 320000)
+                                return 320000;
                             break;
 
                         // MP2
@@ -1168,7 +1172,8 @@ namespace Axiom
 
                         // DTS
                         case "DTS":
-                            return "& (IF %A gtr 1509075 (SET aBitRate=640000) ELSE (echo BitRate within DTS Limit of 1509.75k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+                            return "& (IF %A lss 320000 (SET aBitRate=320000) ELSE (echo BitRate within DTS Limit of 320k)) & for /F %A in ('echo %aBitRate%') do (echo)" +
+                                   " & (IF %A gtr 1509075 (SET aBitRate=640000) ELSE (echo BitRate within DTS Limit of 1509.75k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
                         // MP2
                         case "MP2":
