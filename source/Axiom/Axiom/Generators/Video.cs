@@ -535,159 +535,160 @@ namespace Axiom
             }
 
 
-            // -------------------------
-            // Single
-            // -------------------------
-            if (batch_IsChecked == false)
+            switch (batch_IsChecked)
             {
                 // -------------------------
-                // Input File Has Video
-                // Input Video BitRate NOT Detected
-                // Input Video Codec Detected
+                // Single
                 // -------------------------
-                if (string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) ||
-                    FFprobe.inputVideoBitRate == "N/A")
-                {
+                case false:
                     // -------------------------
-                    // Codec Detected
+                    // Input File Has Video
+                    // Input Video BitRate NOT Detected
+                    // Input Video Codec Detected
                     // -------------------------
-                    if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
+                    if (string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) ||
+                        FFprobe.inputVideoBitRate == "N/A")
                     {
-                        // 1 Pass / CRF
-                        //
-                        if (pass_SelectedItem == "1 Pass" ||
-                            pass_SelectedItem == "CRF")
+                        // -------------------------
+                        // Codec Detected
+                        // -------------------------
+                        if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
+                        {
+                            // 1 Pass / CRF
+                            //
+                            if (pass_SelectedItem == "1 Pass" ||
+                                pass_SelectedItem == "CRF")
+                            {
+                                vCRF = string.Empty;
+
+                                if (!string.IsNullOrWhiteSpace(vBitRateNA))
+                                {
+                                    vBitMode = BitRateMode(quality_Items,
+                                                           quality_SelectedItem,
+                                                           bitrate_Text,
+                                                           vbr_IsChecked
+                                                           );
+
+                                    vBitRate = vBitRateNA; // N/A e.g. Define 3000K
+                                }
+                            }
+
+                            // 2 Pass
+                            //
+                            else if (pass_SelectedItem == "2 Pass")
+                            {
+                                vCRF = string.Empty;
+
+                                //MessageBox.Show(auto_bitrate_na); //debug
+
+                                if (!string.IsNullOrWhiteSpace(vBitRateNA))
+                                {
+                                    vBitMode = BitRateMode(quality_Items,
+                                                            quality_SelectedItem,
+                                                            bitrate_Text,
+                                                            vbr_IsChecked
+                                                            );
+                                    vBitRate = vBitRateNA; // N/A e.g. Define 3000K
+                                }
+                            }
+                        }
+                        // -------------------------
+                        // Codec Not Detected
+                        // -------------------------
+                        else
                         {
                             vCRF = string.Empty;
 
-                            if (!string.IsNullOrWhiteSpace(vBitRateNA))
+                            // Default to NA BitRate
+                            vBitMode = BitRateMode(quality_Items,
+                                                   quality_SelectedItem,
+                                                   bitrate_Text,
+                                                   vbr_IsChecked
+                                                   );
+
+                            vBitRate = VideoBitRateCalculator(container_SelectedItem,
+                                                              mediaType_SelectedItem,
+                                                              codec_SelectedItem,
+                                                              FFprobe.vEntryType,
+                                                              vBitRateNA);
+
+                            vMinRate = string.Empty;
+                            vMaxRate = string.Empty;
+                            vBufSize = string.Empty;
+
+                            // Pixel Format
+                            vOptions = string.Empty;
+                        }
+                    }
+
+                    // -------------------------
+                    // Input File Has Video
+                    // Input Video BitRate IS Detected
+                    // Input Video Codec Detected
+                    // -------------------------
+                    else if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) &&
+                             FFprobe.inputVideoBitRate != "N/A")
+                    {
+                        // -------------------------
+                        // Codec Detected
+                        // -------------------------
+                        if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
+                        {
+                            //MessageBox.Show("5 " + vBitRate); //debug
+
+                            vCRF = string.Empty;
+
+                            if (!string.IsNullOrWhiteSpace(vBitRate))
                             {
                                 vBitMode = BitRateMode(quality_Items,
                                                        quality_SelectedItem,
                                                        bitrate_Text,
                                                        vbr_IsChecked
                                                        );
-
-                                vBitRate = vBitRateNA; // N/A e.g. Define 3000K
+                                //MessageBox.Show(vBitMode); //debug
                             }
-                        }
 
-                        // 2 Pass
-                        //
-                        else if (pass_SelectedItem == "2 Pass")
+
+                        }
+                        // -------------------------
+                        // Codec Not Detected
+                        // -------------------------
+                        else
                         {
                             vCRF = string.Empty;
 
-                            //MessageBox.Show(auto_bitrate_na); //debug
+                            vBitMode = string.Empty;
+                            vBitRate = string.Empty;
+                            vMinRate = string.Empty;
+                            vMaxRate = string.Empty;
+                            vBufSize = string.Empty;
 
-                            if (!string.IsNullOrWhiteSpace(vBitRateNA))
-                            {
-                                vBitMode = BitRateMode(quality_Items,
-                                                        quality_SelectedItem,
-                                                        bitrate_Text,
-                                                        vbr_IsChecked
-                                                        );
-                                vBitRate = vBitRateNA; // N/A e.g. Define 3000K
-                            }
+                            // Pixel Format
+                            vOptions = string.Empty;
                         }
                     }
-                    // -------------------------
-                    // Codec Not Detected
-                    // -------------------------
-                    else
-                    {
-                        vCRF = string.Empty;
-
-                        // Default to NA BitRate
-                        vBitMode = BitRateMode(quality_Items,
-                                               quality_SelectedItem,
-                                               bitrate_Text,
-                                               vbr_IsChecked
-                                               );
-
-                        vBitRate = VideoBitRateCalculator(container_SelectedItem,
-                                                          mediaType_SelectedItem,
-                                                          codec_SelectedItem,
-                                                          FFprobe.vEntryType,
-                                                          vBitRateNA);
-
-                        vMinRate = string.Empty;
-                        vMaxRate = string.Empty;
-                        vBufSize = string.Empty;
-
-                        // Pixel Format
-                        vOptions = string.Empty;
-                    }
-                }
+                    break;
 
                 // -------------------------
-                // Input File Has Video
-                // Input Video BitRate IS Detected
-                // Input Video Codec Detected
+                // Batch
                 // -------------------------
-                else if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) &&
-                         FFprobe.inputVideoBitRate != "N/A")
-                {
-                    // -------------------------
-                    // Codec Detected
-                    // -------------------------
-                    if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
+                case true:
+                    // Use the CMD Batch Video Variable
+                    vBitMode = "-b:v";
+
+                    switch (VM.ConfigureView.Shell_SelectedItem)
                     {
-                        //MessageBox.Show("5 " + vBitRate); //debug
+                        // CMD
+                        case "CMD":
+                            vBitRate = "%V";
+                            break;
 
-                        vCRF = string.Empty;
-
-                        if (!string.IsNullOrWhiteSpace(vBitRate))
-                        {
-                            vBitMode = BitRateMode(quality_Items,
-                                                   quality_SelectedItem,
-                                                   bitrate_Text,
-                                                   vbr_IsChecked
-                                                   );
-                            //MessageBox.Show(vBitMode); //debug
-                        }
-
-
+                        // PowerShell
+                        case "PowerShell":
+                            vBitRate = "$vBitrate";
+                            break;
                     }
-                    // -------------------------
-                    // Codec Not Detected
-                    // -------------------------
-                    else
-                    {
-                        vCRF = string.Empty;
-
-                        vBitMode = string.Empty;
-                        vBitRate = string.Empty;
-                        vMinRate = string.Empty;
-                        vMaxRate = string.Empty;
-                        vBufSize = string.Empty;
-
-                        // Pixel Format
-                        vOptions = string.Empty;
-                    }
-                }
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (batch_IsChecked == true)
-            {
-                // Use the CMD Batch Video Variable
-                vBitMode = "-b:v";
-
-                switch (VM.ConfigureView.Shell_SelectedItem)
-                {
-                    // CMD
-                    case "CMD":
-                        vBitRate = "%V";
-                        break;
-                    
-                    // PowerShell
-                    case "PowerShell":
-                        vBitRate = "$vBitrate";
-                        break;
-                }
+                    break;
             }
         }
 
@@ -768,6 +769,7 @@ namespace Axiom
                     } 
                 }
 
+                // Halt from going any further
                 return;
             }
 
@@ -857,103 +859,103 @@ namespace Axiom
             // --------------------------------------------------
             // Encoding Pass
             // --------------------------------------------------
-            // -------------------------
-            // auto
-            // -------------------------
-            if (pass_SelectedItem == "auto")
+            switch (pass_SelectedItem)
             {
-                vCRF = string.Empty;
-                vBitRate = string.Empty;
-                vMinRate = string.Empty;
-                vMaxRate = string.Empty;
-                vBufSize = string.Empty;
-            }
+                // -------------------------
+                // auto
+                // -------------------------
+                case "auto":
+                    vCRF = string.Empty;
+                    vBitRate = string.Empty;
+                    vMinRate = string.Empty;
+                    vMaxRate = string.Empty;
+                    vBufSize = string.Empty;
+                    break;
 
-            // -------------------------
-            // CRF
-            // -------------------------
-            else if (pass_SelectedItem == "CRF")
-            {
-                // --------------------------------------------------
-                // HW Accel Transcode Codecs
-                // --------------------------------------------------
-                // x264 & x265 only
-                if (VM.VideoView.Video_HWAccel_SelectedItem == "On" &&
-                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&
-                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&
-                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" &&
-                    (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")
-                   )
-                {
-                    //vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
-
-                    if (!string.IsNullOrWhiteSpace(crf_Text))
+                // -------------------------
+                // CRF
+                // -------------------------
+                case "CRF":
+                    // --------------------------------------------------
+                    // HW Accel Transcode Codecs
+                    // --------------------------------------------------
+                    // x264 & x265 only
+                    if (VM.VideoView.Video_HWAccel_SelectedItem == "On" &&
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" &&
+                        (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")
+                       )
                     {
-                        switch (VM.VideoView.Video_HWAccel_Transcode_SelectedItem)
+                        //vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+
+                        if (!string.IsNullOrWhiteSpace(crf_Text))
                         {
-                            //case "AMD AMF":
-                            //    vCRF = "-rc vbr_hq -qmin 0 -cq " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel + " " +
-                            //           "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
-                            //    break;
+                            switch (VM.VideoView.Video_HWAccel_Transcode_SelectedItem)
+                            {
+                                //case "AMD AMF":
+                                //    vCRF = "-rc vbr_hq -qmin 0 -cq " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel + " " +
+                                //           "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                                //    break;
 
-                            case "NVIDIA NVENC":
-                                vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
-                                       "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
-                                break;
+                                case "NVIDIA NVENC":
+                                    vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
+                                           "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                                    break;
 
-                            case "Intel QSV":
-                                vCRF = "-global_quality " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_Intel_QSV + " -look_ahead 1";
-                                break;
+                                case "Intel QSV":
+                                    vCRF = "-global_quality " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_Intel_QSV + " -look_ahead 1";
+                                    break;
+                            }
+                        }
+
+                        // Halt from going any further
+                        return;
+                    }
+
+                    // --------------------------------------------------
+                    // Normal Codecs
+                    // --------------------------------------------------
+                    // -------------------------
+                    // x265 Params
+                    // -------------------------
+                    if (codec_SelectedItem == "x265")
+                    {
+                        // x265 Params
+                        VideoParams.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
+                        vCRF = string.Empty;
+
+                        //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
+                    }
+                    // -------------------------
+                    // All Other Codecs
+                    // -------------------------
+                    else
+                    {
+                        vBitRate = bitrate_Text;
+
+                        if (!string.IsNullOrWhiteSpace(crf_Text))
+                        {
+                            vCRF = "-crf " + crf_Text;
                         }
                     }
+                    break;
 
-                    return;
-                }
-
-                // --------------------------------------------------
-                // Normal Codecs
-                // --------------------------------------------------
                 // -------------------------
-                // x265 Params
+                // 1 Pass
                 // -------------------------
-                if (codec_SelectedItem == "x265")
-                {
-                    // x265 Params
-                    VideoParams.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
-                    vCRF = string.Empty;
-
-                    //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
-
-                    return;
-                }
-                // -------------------------
-                // All Other Codecs
-                // -------------------------
-                else
-                {
+                case "1 Pass":
+                    // BitRate
                     vBitRate = bitrate_Text;
+                    break;
 
-                    if (!string.IsNullOrWhiteSpace(crf_Text))
-                    {
-                        vCRF = "-crf " + crf_Text;
-                    }
-
-                    return;
-                }
-            }
-
-            // -------------------------
-            // 1 & 2 Pass
-            // -------------------------
-            else if (pass_SelectedItem == "1 Pass" ||
-                     pass_SelectedItem == "2 Pass")
-            {
                 // -------------------------
-                // BitRate
+                // 2 Pass
                 // -------------------------
-                vBitRate = bitrate_Text;
-
-                return;
+                case "2 Pass":
+                    // BitRate
+                    vBitRate = bitrate_Text;
+                    break;
             }
         }
 
@@ -1070,7 +1072,8 @@ namespace Axiom
                     {
                         vLossless,
                         vBitMode,
-                        vBitRate,
+                        //vBitRate,
+                        string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
                         vMinRate,
                         vMaxRate,
                         vBufSize,
@@ -1091,7 +1094,8 @@ namespace Axiom
                     {
                         vLossless,
                         vBitMode,
-                        vBitRate,
+                        //vBitRate,
+                        string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
                         vMinRate,
                         vMaxRate,
                         vBufSize,
@@ -1102,7 +1106,7 @@ namespace Axiom
                 }
 
                 // Format European English comma to US English peroid - 1,234 to 1.234
-                vQuality = string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vQuality);
+                //vQuality = string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vQuality);
 
                 // Join Video Quality Args List
                 vQuality = string.Join(" ", vQualityArgs
@@ -2489,7 +2493,8 @@ namespace Axiom
                 scale = string.Empty;
 
                 // Video Filter Add
-                if (VideoFilters.vFiltersList != null)
+                if (VideoFilters.vFiltersList != null &&
+                    VideoFilters.vFiltersList.Count > 0)
                 {
                     VideoFilters.vFiltersList.Clear();
                     VideoFilters.vFiltersList.TrimExcess();
@@ -2524,23 +2529,22 @@ namespace Axiom
             // Note: Can be used with Video Codec Copy
 
             // None & Default
-            //
-            if (aspectRatio_SelectedItem == "auto")
+            switch (aspectRatio_SelectedItem)
             {
-                vAspectRatio = string.Empty;
-            }
+                // auto
+                case "auto":
+                    vAspectRatio = string.Empty;
+                    break;
 
-            // 2.4:1
-            else if (aspectRatio_SelectedItem == "2.4:1")
-            {
-                vAspectRatio = "-aspect " + "240:100";
-            }
+                // 2.4:1
+                case "2.4:1":
+                    vAspectRatio = "-aspect " + "240:100";
+                    break;
 
-            // 4:3, 16:9, etc.
-            //
-            else
-            {
-                vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
+                // 4:3, 16:9, etc.
+                default:
+                    vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
+                    break;
             }
 
             return vAspectRatio;
