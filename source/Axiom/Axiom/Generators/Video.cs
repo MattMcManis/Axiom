@@ -57,7 +57,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    class Video
+    public class Video
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -1230,149 +1230,133 @@ namespace Axiom
                                                     string vEntryType, 
                                                     string inputVideoBitRate)
         {
-            inputVideoBitRate = inputVideoBitRate.Trim();
-
-            // Cancel if Input TextBox is Empty
+            // -------------------------
+            // Halt if Input TextBox is Empty
+            // -------------------------
             if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
             {
                 return inputVideoBitRate;
             }
 
             // -------------------------
+            // Halt if Input Video Bit Rate does not exist
+            // -------------------------
+            if (string.IsNullOrWhiteSpace(inputVideoBitRate))
+            {
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bit Rate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+                return inputVideoBitRate;
+            }
+
+            // -------------------------
+            // Trim
+            // -------------------------
+            inputVideoBitRate = inputVideoBitRate.Trim();
+
+            // -------------------------
             // Null Check
             // -------------------------
-            if (!string.IsNullOrWhiteSpace(inputVideoBitRate))
+            //if (!string.IsNullOrWhiteSpace(inputVideoBitRate))
+            //{
+            // -------------------------
+            // Remove K & M from input if any
+            // -------------------------
+            inputVideoBitRate = Regex.Replace(inputVideoBitRate, "k", "", RegexOptions.IgnoreCase);
+            inputVideoBitRate = Regex.Replace(inputVideoBitRate, "m", "", RegexOptions.IgnoreCase);
+
+            // -------------------------
+            // Capture only "N/A" from FFprobe
+            // -------------------------
+            if (inputVideoBitRate.Length >= 3) // Out of Rang check
             {
-                // -------------------------
-                // Remove K & M from input if any
-                // -------------------------
-                inputVideoBitRate = Regex.Replace(inputVideoBitRate, "k", "", RegexOptions.IgnoreCase);
-                inputVideoBitRate = Regex.Replace(inputVideoBitRate, "m", "", RegexOptions.IgnoreCase);
-
-                // -------------------------
-                // Capture only "N/A" from FFprobe
-                // -------------------------
-                if (inputVideoBitRate.Length >= 3) // Out of Rang check
+                if (inputVideoBitRate.Substring(0, 3) == "N/A")
                 {
-                    if (inputVideoBitRate.Substring(0, 3) == "N/A")
-                    {
-                        inputVideoBitRate = "N/A";
-                    }
-                }
-
-                // -------------------------
-                // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
-                // Formats like WebM, MKV and with Missing Metadata can have New BitRates calculated and applied
-                // -------------------------
-                if (inputVideoBitRate == "N/A")
-                {
-                    // Calculating BitRate will crash if jpg/png
-                    try
-                    {
-                        // Convert to int to remove decimals
-                        inputVideoBitRate = Convert.ToInt64((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
-
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New BitRate Information...")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-                    }
-                    catch
-                    {
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New BitRate Information...")) { Foreground = Log.ConsoleError });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-                    }
-                }
-
-                // -------------------------
-                // If Video has a BitRate (and is not N/A), calculate BitRate into decimal
-                // -------------------------
-                else if (inputVideoBitRate != "N/A")
-                {
-                    // Convert Input Video Bit Rate to Double
-                    int inputVideoBitRate_Double = 8000000; // Fallback
-                    int.TryParse(inputVideoBitRate, out inputVideoBitRate_Double);
-
-                    // Calculate
-                    // e.g. FFprobe 10000000 bytes -> 10000K (10M)
-                    //      -b:v 10000K
-                    inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
-                }
-
-
-                // -------------------------
-                // WebM Video BitRate Limiter
-                // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
-                // -------------------------
-                if (inputVideoBitRate != "N/A" &&
-                    !string.IsNullOrWhiteSpace(inputVideoBitRate) &&
-                    container_SelectedItem == "webm" &&
-                    codec_SelectedItem != "Copy"
-                    )
-                {
-                    if (Convert.ToDouble(inputVideoBitRate) >= 1500)
-                    {
-                        inputVideoBitRate = "1500";
-                    }
-                }
-
-
-                // -------------------------
-                // Round BitRate, Remove Decimals
-                // -------------------------
-                try
-                {
-                    inputVideoBitRate = Math.Round(double.Parse(inputVideoBitRate)).ToString();
-                }
-                catch
-                {
-                    inputVideoBitRate = "2000";
-                }
-
-                // -------------------------
-                // Add K to end of BitRate
-                // -------------------------
-                if (mediaType_SelectedItem != "Image" &&
-                    mediaType_SelectedItem != "Sequence")
-                {
-                    inputVideoBitRate = inputVideoBitRate + "K";
+                    inputVideoBitRate = "N/A";
                 }
             }
 
             // -------------------------
-            // Input Video BitRate does not exist
+            // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
+            // Formats like WebM, MKV and with Missing Metadata can have New BitRates calculated and applied
             // -------------------------
-            else
+            if (inputVideoBitRate == "N/A")
             {
-                if (string.IsNullOrWhiteSpace(inputVideoBitRate))
+                // Calculating BitRate will crash if input is jpg/png
+                try
                 {
-                    // do nothing (dont remove, it will cause substring to overload)
+                    // Convert to int to remove decimals
+                    inputVideoBitRate = Convert.ToInt64((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
 
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bit Rate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New BitRate Information...")) { Foreground = Log.ConsoleAction });
                         Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New BitRate Information...")) { Foreground = Log.ConsoleError });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
             }
 
+            // -------------------------
+            // If Video has a BitRate (and is not N/A), calculate BitRate into decimal
+            // -------------------------
+            else if (inputVideoBitRate != "N/A")
+            {
+                // Convert Input Video Bit Rate to Double
+                double inputVideoBitRate_Double = 6000000; // Fallback
+                double.TryParse(inputVideoBitRate.Trim(), out inputVideoBitRate_Double);
+
+                // -------------------------
+                // Calculate
+                // e.g. FFprobe 10000000 bytes -> 10000K (10M)
+                //      -b:v 10000K
+                // Round Bit Rate, Remove Decimals
+                // -------------------------
+                inputVideoBitRate = Convert.ToString(Math.Round(inputVideoBitRate_Double * 0.001));
+
+                // -------------------------
+                // WebM Video Auto Quality BitRate Limiter 
+                // If input video bitrate is greater than 1.5M, lower the bitrate to 1500K / 1.5M
+                // -------------------------
+                if (container_SelectedItem == "webm")
+                {
+                    if (Convert.ToDouble(inputVideoBitRate) >= 1500)
+                    {
+                        inputVideoBitRate = "1500";
+                    }
+                }
+            }
+
+            // -------------------------
+            // Add K to end of BitRate
+            // -------------------------
+            if (mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence")
+            {
+                inputVideoBitRate += "K";
+            }
 
             return inputVideoBitRate;
         }
@@ -1569,69 +1553,67 @@ namespace Axiom
         /// </remarks>
         public static String Color_Primaries(string primaries_SelectedItem)
         {
-            if (primaries_SelectedItem != "auto")
-            {
-                switch (primaries_SelectedItem)
-                {
-                    case "BT.709":
-                        colorPrimaries = "bt709";
-                        break;
-
-                    case "BT.470M":
-                        colorPrimaries = "bt470m";
-                        break;
-
-                    case "BT.470BG":
-                        colorPrimaries = "bt470bg";
-                        break;
-
-                    case "BT.601-6 525":
-                        colorPrimaries = "smpte170m";
-                        break;
-
-                    case "BT.601-6 625":
-                        colorPrimaries = "bt470bg";
-                        break;
-
-                    case "SMPTE-170M":
-                        colorPrimaries = "smpte170m";
-                        break;
-
-                    case "SMPTE-240M":
-                        colorPrimaries = "smpte240m";
-                        break;
-
-                    case "film":
-                        colorPrimaries = "film";
-                        break;
-
-                    case "SMPTE-431":
-                        colorPrimaries = "smpte431";
-                        break;
-
-                    case "SMPTE-432":
-                        colorPrimaries = "smpte432";
-                        break;
-
-                    case "BT.2020":
-                        colorPrimaries = "bt2020";
-                        break;
-
-                    case "JEDEC P22 phosphors":
-                        colorPrimaries = "jedec-p22";
-                        break;
-                }
-
-                colorPrimaries = "-color_primaries " + colorPrimaries;
-
-                return colorPrimaries;
-            }
-
             // Auto
-            else
+            if (primaries_SelectedItem == "auto")
             {
                 return string.Empty;
             }
+
+            // Options
+            colorPrimaries = "-color_primaries ";
+      
+            switch (primaries_SelectedItem)
+            {
+                case "BT.709":
+                    colorPrimaries += "bt709";
+                    break;
+
+                case "BT.470M":
+                    colorPrimaries += "bt470m";
+                    break;
+
+                case "BT.470BG":
+                    colorPrimaries += "bt470bg";
+                    break;
+
+                case "BT.601-6 525":
+                    colorPrimaries += "smpte170m";
+                    break;
+
+                case "BT.601-6 625":
+                    colorPrimaries += "bt470bg";
+                    break;
+
+                case "SMPTE-170M":
+                    colorPrimaries += "smpte170m";
+                    break;
+
+                case "SMPTE-240M":
+                    colorPrimaries += "smpte240m";
+                    break;
+
+                case "film":
+                    colorPrimaries += "film";
+                    break;
+
+                case "SMPTE-431":
+                    colorPrimaries += "smpte431";
+                    break;
+
+                case "SMPTE-432":
+                    colorPrimaries += "smpte432";
+                    break;
+
+                case "BT.2020":
+                    colorPrimaries += "bt2020";
+                    break;
+
+                case "JEDEC P22 phosphors":
+                    colorPrimaries += "jedec-p22";
+                    break;
+            }
+
+            return colorPrimaries;
         }
 
         /// <summary>
@@ -1642,81 +1624,79 @@ namespace Axiom
         /// </remarks>
         public static String Color_TransferCharacteristics(string transferChar_SelectedItem)
         {
-            if (transferChar_SelectedItem != "auto")
-            {
-                switch (transferChar_SelectedItem)
-                {
-                    case "BT.709":
-                        colorTransferCharacteristics = "bt709";
-                        break;
-
-                    case "BT.470M":
-                        colorTransferCharacteristics = "bt470m";
-                        break;
-
-                    case "BT.470BG":
-                        colorTransferCharacteristics = "bt470bg";
-                        break;
-
-                    case "Gamma 2.2":
-                        colorTransferCharacteristics = "gamma22";
-                        break;
-
-                    case "Gamma 2.8":
-                        colorTransferCharacteristics = "gamma28";
-                        break;
-
-                    case "BT.601-6 525":
-                        colorTransferCharacteristics = "smpte170m";
-                        break;
-
-                    case "BT.601-6 625":
-                        colorTransferCharacteristics = "smpte170m";
-                        break;
-
-                    case "SMPTE-170M":
-                        colorTransferCharacteristics = "smpte170m";
-                        break;
-
-                    case "SMPTE-240M":
-                        colorTransferCharacteristics = "smpte240m";
-                        break;
-
-                    case "SRGB":
-                        colorTransferCharacteristics = "srgb";
-                        break;
-
-                    case "iec61966-2-1":
-                        colorTransferCharacteristics = "iec61966-2-1";
-                        break;
-
-                    case "iec61966-2-4":
-                        colorTransferCharacteristics = "iec61966-2-4";
-                        break;
-
-                    case "xvycc":
-                        colorTransferCharacteristics = "xvycc";
-                        break;
-
-                    case "BT.2020 10-bit":
-                        colorTransferCharacteristics = "bt2020-10";
-                        break;
-
-                    case "BT.2020 12-bit":
-                        colorTransferCharacteristics = "bt2020-12";
-                        break;
-                }
-
-                colorTransferCharacteristics = "-color_trc " + colorTransferCharacteristics;
-
-                return colorTransferCharacteristics;
-            }
-
             // Auto
-            else
+            if (transferChar_SelectedItem == "auto")
             {
                 return string.Empty;
             }
+
+            // Options
+            colorTransferCharacteristics = "-color_trc ";
+
+            switch (transferChar_SelectedItem)
+            {
+                case "BT.709":
+                    colorTransferCharacteristics += "bt709";
+                    break;
+
+                case "BT.470M":
+                    colorTransferCharacteristics += "bt470m";
+                    break;
+
+                case "BT.470BG":
+                    colorTransferCharacteristics += "bt470bg";
+                    break;
+
+                case "Gamma 2.2":
+                    colorTransferCharacteristics += "gamma22";
+                    break;
+
+                case "Gamma 2.8":
+                    colorTransferCharacteristics += "gamma28";
+                    break;
+
+                case "BT.601-6 525":
+                    colorTransferCharacteristics += "smpte170m";
+                    break;
+
+                case "BT.601-6 625":
+                    colorTransferCharacteristics += "smpte170m";
+                    break;
+
+                case "SMPTE-170M":
+                    colorTransferCharacteristics += "smpte170m";
+                    break;
+
+                case "SMPTE-240M":
+                    colorTransferCharacteristics += "smpte240m";
+                    break;
+
+                case "SRGB":
+                    colorTransferCharacteristics += "srgb";
+                    break;
+
+                case "iec61966-2-1":
+                    colorTransferCharacteristics += "iec61966-2-1";
+                    break;
+
+                case "iec61966-2-4":
+                    colorTransferCharacteristics += "iec61966-2-4";
+                    break;
+
+                case "xvycc":
+                    colorTransferCharacteristics += "xvycc";
+                    break;
+
+                case "BT.2020 10-bit":
+                    colorTransferCharacteristics += "bt2020-10";
+                    break;
+
+                case "BT.2020 12-bit":
+                    colorTransferCharacteristics += "bt2020-12";
+                    break;
+            }
+
+            return colorTransferCharacteristics;
         }
 
         /// <summary>
@@ -1727,57 +1707,55 @@ namespace Axiom
         /// </remarks>
         public static String Color_Space(string colorspace_SelectedItem)
         {
-            if (colorspace_SelectedItem != "auto")
-            {
-                switch (colorspace_SelectedItem)
-                {
-                    case "BT.709":
-                        colorSpace = "bt709";
-                        break;
-
-                    case "FCC":
-                        colorSpace = "fcc";
-                        break;
-
-                    case "BT.470BG":
-                        colorSpace = "bt470bg";
-                        break;
-
-                    case "BT.601-6 525":
-                        colorSpace = "smpte170m";
-                        break;
-
-                    case "BT.601-6 625":
-                        colorSpace = "bt470bg";
-                        break;
-
-                    case "SMPTE-170M":
-                        colorSpace = "smpte170m";
-                        break;
-
-                    case "SMPTE-240M":
-                        colorSpace = "smpte240m";
-                        break;
-
-                    case "YCgCo":
-                        colorSpace = "ycgco";
-                        break;
-
-                    case "BT.2020 NCL":
-                        colorSpace = "bt2020ncl";
-                        break;
-                }
-
-                colorSpace = "-colorspace " + colorSpace;
-
-                return colorSpace;
-            }
-
             // Auto
-            else
+            if (colorspace_SelectedItem == "auto")
             {
                 return string.Empty;
             }
+
+            // Options
+            colorSpace = "-colorspace ";
+
+            switch (colorspace_SelectedItem)
+            {
+                case "BT.709":
+                    colorSpace += "bt709";
+                    break;
+
+                case "FCC":
+                    colorSpace += "fcc";
+                    break;
+
+                case "BT.470BG":
+                    colorSpace += "bt470bg";
+                    break;
+
+                case "BT.601-6 525":
+                    colorSpace += "smpte170m";
+                    break;
+
+                case "BT.601-6 625":
+                    colorSpace += "bt470bg";
+                    break;
+
+                case "SMPTE-170M":
+                    colorSpace += "smpte170m";
+                    break;
+
+                case "SMPTE-240M":
+                    colorSpace += "smpte240m";
+                    break;
+
+                case "YCgCo":
+                    colorSpace += "ycgco";
+                    break;
+
+                case "BT.2020 NCL":
+                    colorSpace += "bt2020ncl";
+                    break;
+            }
+
+            return colorSpace;
         }
 
         /// <summary>
@@ -1788,37 +1766,35 @@ namespace Axiom
         /// </remarks>
         public static String Color_Range(string colorRange_SelectedItem)
         {
-            if (colorRange_SelectedItem != "auto")
-            {
-                switch (colorRange_SelectedItem)
-                {
-                    case "TV":
-                        colorRange = "tv";
-                        break;
-
-                    case "PC":
-                        colorRange = "pc";
-                        break;
-
-                    case "MPEG":
-                        colorRange = "mpeg";
-                        break;
-
-                    case "JPEG":
-                        colorRange = "jpeg";
-                        break;
-                }
-
-                colorRange = "-color_range " + colorRange;
-
-                return colorRange;
-            }
-
             // Auto
-            else
+            if (colorRange_SelectedItem == "auto")
             {
                 return string.Empty;
             }
+
+            // Options
+            colorRange = "-color_range ";
+
+            switch (colorRange_SelectedItem)
+            {
+                case "TV":
+                    colorRange += "tv";
+                    break;
+
+                case "PC":
+                    colorRange += "pc";
+                    break;
+
+                case "MPEG":
+                    colorRange += "mpeg";
+                    break;
+
+                case "JPEG":
+                    colorRange += "jpeg";
+                    break;
+            }
+
+            return colorRange;
         }
 
         /// <summary>
@@ -1837,18 +1813,19 @@ namespace Axiom
                                     string pixelFormat_SelectedItem
                                     )
         {
-            // Check:
-            // Video Codec Not Copy
-            if (codec_SelectedItem != "Copy")
+            // Codec Copy
+            // Pixel Format auto
+            // Pixel Format none
+            if (codec_SelectedItem == "Copy" ||
+                pixelFormat_SelectedItem == "auto" ||
+                pixelFormat_SelectedItem == "none"
+                )
             {
-                // If Auto, Use Empty
-                // If Not Auto, use Selected Item
-                if (pixelFormat_SelectedItem != "auto" &&
-                    pixelFormat_SelectedItem != "none")
-                {
-                    pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
-                }
+                return string.Empty;
             }
+
+            // Option
+            pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
 
             return pix_fmt;
         }
@@ -2022,9 +1999,7 @@ namespace Axiom
         /// <summary>
         /// Video Speed (Method)
         /// <summary>
-        public static void Speed(//string mediaType_SelectedItem,
-                                 string codec_SelectedItem,
-                                 //string quality_SelectedItem,
+        public static void Speed(string codec_SelectedItem,
                                  string speed_SelectedItem,
                                  string speed_Text
                                  )
@@ -2034,31 +2009,28 @@ namespace Axiom
             // Video Codec Copy
             // Video BitRate None
             // Speed Auto/Null
-            if (codec_SelectedItem != "Copy" &&
-                speed_SelectedItem != "auto" &&
-                !string.IsNullOrWhiteSpace(speed_Text)
-                )
+            if (codec_SelectedItem == "Copy" ||
+                speed_SelectedItem == "auto" ||
+                string.IsNullOrWhiteSpace(speed_Text))
             {
-                // Slow Down 50% -vf "setpts=2.0*PTS"
-                // Speed Up 200% -vf "setpts=0.5*PTS"
-
-                // Convert to setpts:
-                // 50%: (100 / (50 * 0.01)) * 0.01) = 200
-                // 2.0: 200 * 0.01 = 2.0
-                try
-                {
-                    double val = Convert.ToDouble(speed_Text.Replace("%", "").Trim());
-                    val = (100 / (val * 0.01)) * 0.01;
-
-                    string speed = "setpts=" + val.ToString("#.#####") + "*PTS";
-
-                    VideoFilters.vFiltersList.Add(speed);
-                }
-                catch
-                {
-
-                }
+                // Halt
+                return;
             }
+
+            // Slow Down 50% -vf "setpts=2.0*PTS"
+            // Speed Up 200% -vf "setpts=0.5*PTS"
+
+            // Convert to setpts:
+            // 50%: (100 / (50 * 0.01)) * 0.01) = 200
+            // 2.0: 200 * 0.01 = 2.0
+            double val = 1; // Fallback
+            double.TryParse(speed_Text.Replace("%", "").Trim(), out val);
+
+            val = (100 / (val * 0.01)) * 0.01;
+
+            string speed = "setpts=" + val.ToString("#.#####") + "*PTS";
+
+            VideoFilters.vFiltersList.Add(speed);
         }
 
 
@@ -2117,6 +2089,7 @@ namespace Axiom
                 return "-2";
             }
 
+            // Fallback
             return "-1";
         }
 
@@ -2623,33 +2596,35 @@ namespace Axiom
                                     string codec_SelectedItem
                                     )
         {
-            // Check:
-            // Video Codec Not Copy
-            if (codec_SelectedItem != "Copy")
+            // Copy
+            if (codec_SelectedItem == "Copy")
             {
-                switch (mediaType_SelectedItem)
-                {
-                    // -------------------------
-                    // Image
-                    // -------------------------
-                    case "Image":
-                        image = "-vframes 1"; //important
-                        break;
+                return string.Empty;
+            }
 
-                    // -------------------------
-                    // Sequence
-                    // -------------------------
-                    case "Sequence":
-                        image = string.Empty; //disable -vframes
-                        break;
+            // Option
+            switch (mediaType_SelectedItem)
+            {
+                // -------------------------
+                // Image
+                // -------------------------
+                case "Image":
+                    image = "-vframes 1"; //important
+                    break;
 
-                    // -------------------------
-                    // All Other Media Types
-                    // -------------------------
-                    default:
-                        image = string.Empty;
-                        break;
-                }
+                // -------------------------
+                // Sequence
+                // -------------------------
+                case "Sequence":
+                    image = string.Empty; //disable -vframes
+                    break;
+
+                // -------------------------
+                // All Other Media Types
+                // -------------------------
+                default:
+                    image = string.Empty;
+                    break;
             }
 
             return image;
