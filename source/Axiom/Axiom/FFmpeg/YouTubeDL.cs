@@ -199,18 +199,6 @@ namespace Axiom
 
                 "\r\n\r\n" +
                 "-y",
-
-                //OnePass_CRF_Args(), //disabled if 2-Pass       
-                //TwoPass_Args(), //disabled if 1-Pass/CRF
-
-                //"\r\n\r\n" + LogicalOperator_And_ShellFormatter(),
-
-                //// Delete Downloaded File
-                //"\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + nameVariable + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                //                                                                                                    VM.VideoView.Video_Codec_SelectedItem,
-                //                                                                                                    VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                //                                                                                                    VM.AudioView.Audio_Codec_SelectedItem
-                //                                                                                ) + "\"",
             };
 
             // Add Arguments to ffmpegArgsList
