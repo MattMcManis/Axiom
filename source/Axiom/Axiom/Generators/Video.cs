@@ -799,19 +799,19 @@ namespace Axiom
             // MinRate
             if (!string.IsNullOrWhiteSpace(minrate_Text))
             {
-                vMinRate = "-minrate " + minrate_Text;
+                vMinRate = "-minrate " + minrate_Text.ToUpper();
             }
 
             // MaxRate
             if (!string.IsNullOrWhiteSpace(maxrate_Text))
             {
-                vMaxRate = "-maxrate " + maxrate_Text;
+                vMaxRate = "-maxrate " + maxrate_Text.ToUpper();
             }
 
             // BufSize
             if (!string.IsNullOrWhiteSpace(bufsize_Text))
             {
-                vBufSize = "-bufsize " + bufsize_Text;
+                vBufSize = "-bufsize " + bufsize_Text.ToUpper();
             }
         }
 
@@ -841,19 +841,19 @@ namespace Axiom
             // MinRate
             if (!string.IsNullOrWhiteSpace(minrate_Text))
             {
-                vMinRate = "-minrate " + minrate_Text;
+                vMinRate = "-minrate " + minrate_Text.ToUpper();
             }
 
             // MaxRate
             if (!string.IsNullOrWhiteSpace(maxrate_Text))
             {
-                vMaxRate = "-maxrate " + maxrate_Text;
+                vMaxRate = "-maxrate " + maxrate_Text.ToUpper();
             }
 
             // BufSize
             if (!string.IsNullOrWhiteSpace(bufsize_Text))
             {
-                vBufSize = "-bufsize " + bufsize_Text;
+                vBufSize = "-bufsize " + bufsize_Text.ToUpper();
             }
 
             // --------------------------------------------------
