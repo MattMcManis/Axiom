@@ -159,10 +159,10 @@ namespace Axiom
                                            VM.VideoView.Video_Quality_SelectedItem,
                                            VM.VideoView.Video_Pass_SelectedItem,
                                            VM.VideoView.Video_CRF_Text,
-                                           VM.VideoView.Video_BitRate_Text,
-                                           VM.VideoView.Video_MinRate_Text,
-                                           VM.VideoView.Video_MaxRate_Text,
-                                           VM.VideoView.Video_BufSize_Text,
+                                           VM.VideoView.Video_BitRate_Text.ToUpper(),
+                                           VM.VideoView.Video_MinRate_Text.ToUpper(),
+                                           VM.VideoView.Video_MaxRate_Text.ToUpper(),
+                                           VM.VideoView.Video_BufSize_Text.ToUpper(),
                                            VM.MainView.Input_Text
                                            ),
 
@@ -172,13 +172,13 @@ namespace Axiom
                                      ),
 
                         "\r\n" +
+                        Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem),
+                        "\r\n" +
+                        Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem),
+                         "\r\n" +
                         Video.Color_Primaries(VM.VideoView.Video_Color_Primaries_SelectedItem),
                         "\r\n" +
                         Video.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem),
-                        "\r\n" +
-                        Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem),
-                        "\r\n" +
-                        Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem),
 
                         "\r\n" +
                         Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
@@ -382,15 +382,13 @@ namespace Axiom
                         "\r\n" +
                         Video.pix_fmt,
                         "\r\n" +
-                        Video.colorPrimaries,
-                        "\r\n" +
-                        Video.colorTransferCharacteristics,
+                        Video.colorRange,
                         "\r\n" +
                         Video.colorSpace,
                         "\r\n" +
-                        Video.colorRange,
-                        "\r\n" +
                         Video.colorPrimaries,
+                        "\r\n" +
+                        Video.colorTransferCharacteristics,
                         "\r\n" +
                         Video.fps,
                         "\r\n" +
