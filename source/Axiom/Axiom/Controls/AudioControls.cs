@@ -333,16 +333,20 @@ namespace Axiom
             // --------------------------------------------------
             // Default Selected Item
             // --------------------------------------------------
+
             // -------------------------
             // Audio Quality Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
-                VM.AudioView.Audio_Quality_SelectedItem != "None" &&
-                VM.AudioView.Audio_Quality_SelectedItem != "none")
+            // Save the Previous Codec's Item
+            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem) &&
+                VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
+                VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "none") // None / none
             {
                 MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
             }
 
+            // Select the Prevoius Codec's Item if available
+            // If missing Select Default to First Item
             VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
                                                                               MainWindow.Audio_Quality_PreviousItem
                                                                              );
@@ -350,13 +354,16 @@ namespace Axiom
             // -------------------------
             // Audio SampleRate Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(VM.AudioView.Audio_SampleRate_SelectedItem) &&
-                VM.AudioView.Audio_SampleRate_SelectedItem != "None" &&
-                VM.AudioView.Audio_SampleRate_SelectedItem != "none")
+            // Save the Previous Codec's Item
+            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem) &&
+                VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "auto" && // Auto / auto
+                VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "none") // None / none
             {
                 MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
             }
 
+            // Select the Prevoius Codec's Item if available
+            // If missing Select Default to First Item
             VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
                                                                                  MainWindow.Audio_SampleRate_PreviousItem
                                                                                  );
@@ -364,18 +371,19 @@ namespace Axiom
             // -------------------------
             // Audio BitDepth Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(VM.AudioView.Audio_BitDepth_SelectedItem) &&
-                VM.AudioView.Audio_BitDepth_SelectedItem != "None" &&
-                VM.AudioView.Audio_BitDepth_SelectedItem != "none")
+            // Save the Previous Codec's Item
+            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem) &&
+                VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "auto" && // Auto / auto
+                VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "none") // None / none
             {
                 MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
             }
 
+            // Select the Prevoius Codec's Item if available
+            // If missing Select Default to First Item
             VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
                                                                                MainWindow.Audio_BitDepth_PreviousItem
                                                                               );
-
-
         }
 
 
@@ -397,16 +405,17 @@ namespace Axiom
                 // -------------------------
                 // Display in TextBox
                 // -------------------------
-                // BitRate CBR
-                if (VM.AudioView.Audio_VBR_IsChecked == false)
+                switch (VM.AudioView.Audio_VBR_IsChecked)
                 {
-                    VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
-                }
+                    // Bit Rate CBR
+                    case false:
+                        VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CBR;
+                        break;
 
-                // BitRate VBR
-                else if (VM.AudioView.Audio_VBR_IsChecked == true)
-                {
-                    VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                    // Bit Rate VBR
+                    case true:
+                        VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.VBR;
+                        break;
                 }
             }
         }
@@ -477,19 +486,21 @@ namespace Axiom
             // -------------------------
             if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
             {
-                // VBR
-                // Enable
-                if (VM.AudioView.Audio_VBR_IsChecked == true)
+                switch (VM.AudioView.Audio_VBR_IsChecked)
                 {
-                    VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
-                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
-                }
-                // CBR
-                // Disable
-                else
-                {
-                    VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
-                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                    // VBR
+                    // Enable
+                    case true:
+                        VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
+                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
+                        break;
+
+                    // CBR
+                    // Disable
+                    case false:
+                        VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                        break;
                 }
             }
         }
