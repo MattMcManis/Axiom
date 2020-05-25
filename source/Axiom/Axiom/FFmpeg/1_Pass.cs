@@ -156,10 +156,10 @@ namespace Axiom
                                            VM.VideoView.Video_Quality_SelectedItem,
                                            VM.VideoView.Video_Pass_SelectedItem,
                                            VM.VideoView.Video_CRF_Text,
-                                           VM.VideoView.Video_BitRate_Text.ToUpper(),
-                                           VM.VideoView.Video_MinRate_Text.ToUpper(),
-                                           VM.VideoView.Video_MaxRate_Text.ToUpper(),
-                                           VM.VideoView.Video_BufSize_Text.ToUpper(),
+                                           VM.VideoView.Video_BitRate_Text,
+                                           VM.VideoView.Video_MinRate_Text,
+                                           VM.VideoView.Video_MaxRate_Text,
+                                           VM.VideoView.Video_BufSize_Text,
                                            VM.MainView.Input_Text
                                            ),
 
