@@ -1276,41 +1276,37 @@ namespace Axiom
         /// <summary>
         /// Selected Item
         /// </summary>
+        // Video
         public static string Video_EncodeSpeed_PreviousItem { get; set; }
         public static string Video_Quality_PreviousItem { get; set; }
         public static string Video_Pass_PreviousItem { get; set; }
         public static string VideoOptimize_PreviousItem { get; set; }
+        // Audio
         public static string Audio_Quality_PreviousItem { get; set; }
         public static string Audio_SampleRate_PreviousItem { get; set; }
         public static string Audio_BitDepth_PreviousItem { get; set; }
-        public static string SelectedItem(List<string> itemsName,
-                                          string selectedItem
+        // Selected Item
+        public static String SelectedItem(List<string> controlItems,
+                                          string previousItem
                                           )
         {
             // -------------------------
-            // Save Previous Selected Item
+            // Select the Prevoius Codec's Item if available
             // -------------------------
-            //if (!string.IsNullOrWhiteSpace(selectedItem))
-            //{
-            // Select Previous Item
-            if (itemsName?.Contains(selectedItem) == true)
+            if (!string.IsNullOrWhiteSpace(previousItem) &&
+                controlItems?.Contains(previousItem) == true)
             {
-                //MessageBox.Show(selectedItem); //debug
-                return selectedItem;
+                //MessageBox.Show(previousItem); //debug
+                return previousItem;
             }
+            // -------------------------
+            // If missing Select Default to First Item
+            // -------------------------
             else
             {
-                //MessageBox.Show("null"); //debug
-                return itemsName.FirstOrDefault();
+                //MessageBox.Show("missing"); //debug
+                return controlItems.FirstOrDefault();
             }
-            //}
-            // Default to First Item
-            //else
-            //{
-            //    return itemsName.FirstOrDefault();
-            //}
-
-            //return selectedItem;
         }
 
 
@@ -5360,7 +5356,7 @@ namespace Axiom
 
                     // Main
                     //VM.VideoView.Video_Quality_SelectedItem = "Auto";
-                    VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
+                    //VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
                     VM.VideoView.Video_FPS_SelectedItem = "auto";
                     VM.VideoView.Video_Optimize_SelectedItem = "None";
                     VM.VideoView.Video_Scale_SelectedItem = "Source";
@@ -5419,6 +5415,13 @@ namespace Axiom
             // Video Encoding Pass
             // -------------------------
             VideoControls.EncodingPassControls();
+
+            // -------------------------
+            // Pixel Format
+            // -------------------------
+            //VideoControls.PixelFormatControls(VM.FormatView.Format_MediaType_SelectedItem,
+            //                                  VM.VideoView.Video_Codec_SelectedItem,
+            //                                  VM.VideoView.Video_Quality_SelectedItem);
 
             // -------------------------
             // Optimize Controls
@@ -5867,7 +5870,9 @@ namespace Axiom
             // -------------------------
             // Pixel Format
             // -------------------------
-            //VideoControls.PixelFormatControls();
+            VideoControls.PixelFormatControls(VM.FormatView.Format_MediaType_SelectedItem,
+                                              VM.VideoView.Video_Codec_SelectedItem,
+                                              VM.VideoView.Video_Quality_SelectedItem);
 
             // -------------------------
             // Optimize Controls
