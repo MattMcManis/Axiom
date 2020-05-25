@@ -4,6 +4,22 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.8.2] - May 25, 2020
+### Added
+- Created Classes for FFmpeg Generate Arguments Methods
+
+### Changed
+- Speed Optimizations
+- Optimized Video Bit Rate Calculator
+- Optimized FFmpeg Arguments Generator
+- Optimized Video Controls Previous Selected Item
+- Optimized Audio Controls Previous Selected Item
+- Optimized Pixel Format Controls
+
+### Fixed
+- Fixed Extension Match Load Auto Values
+
+
 ## [1.8.8.0] - May 24, 2020
 ### Added
 - Speed Optimizations
