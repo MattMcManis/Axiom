@@ -74,6 +74,11 @@
     <Compile Include="FailedImportWindow.xaml.cs">
       <DependentUpon>FailedImportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FFmpeg\1_Pass.cs" />
+    <Compile Include="FFmpeg\2_Pass.cs" />
+    <Compile Include="FFmpeg\Batch.cs" />
+    <Compile Include="FFmpeg\CRF.cs" />
+    <Compile Include="FFmpeg\YouTubeDL.cs" />
     <Compile Include="Generators\Audio.cs" />
     <Compile Include="Controls\AudioControls.cs" />
     <Compile Include="Filters\AudioFilters.cs" />
