@@ -8595,7 +8595,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Single)
                         // -------------------------
                         // disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs();
+                        FFmpeg.Generate_SingleArgs();
                     }
 
                     // -------------------------
@@ -8617,7 +8617,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
                         //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs();
+                        Batch.Generate_FFmpegArgs();
                     }
                 }
 
@@ -8631,7 +8631,8 @@ namespace Axiom
                     // -------------------------
                     // Do not use FFprobe Metadata Parsing
                     // Video/Audio Auto Quality will add BitRate
-                    FFmpeg.YouTubeDownloadGenerateArgs();
+                    //FFmpeg.YouTubeDownloadGenerateArgs();
+                    YouTubeDL.Generate_FFmpegArgs();
                 }
             });
 
