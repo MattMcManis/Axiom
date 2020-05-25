@@ -318,55 +318,53 @@ namespace Axiom
         /// <remarks>
         /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
         /// </remarks>
-        public static String Color_Matrix_Filter()
+        public static String Color_Matrix_Filter(string colorMatrix_SelectedItem)
         {
-            string colorMatrix = string.Empty;
-
-            if (VM.VideoView.Video_Color_Matrix_SelectedItem != "auto")
-            {
-                switch (VM.VideoView.Video_Color_Matrix_SelectedItem)
-                {
-                    case "BT.709":
-                        colorMatrix = "bt709";
-                        break;
-
-                    case "FCC":
-                        colorMatrix = "fcc";
-                        break;
-
-                    //case "BT.601":
-                    //    colorMatrix = "bt601";
-                    //    break;
-
-                    //case "BT.470":
-                    //    colorMatrix = "bt470";
-                    //    break;
-
-                    case "BT.470BG":
-                        colorMatrix = "bt470bg";
-                        break;
-
-                    case "SMPTE-170M":
-                        colorMatrix = "smpte170m";
-                        break;
-
-                    case "SMPTE-240M":
-                        colorMatrix = "smpte240m";
-                        break;
-
-                    //case "BT.2020":
-                    //    colorMatrix = "bt2020";
-                    //    break;
-                }
-
-                return "colormatrix=" + colorMatrix;
-            }
-
             // Auto
-            else
+            if (colorMatrix_SelectedItem == "auto")
             {
                 return string.Empty;
             }
+
+            // Options
+            string colorMatrix = "colormatrix=";
+
+            switch (colorMatrix_SelectedItem)
+            {
+                case "BT.709":
+                    colorMatrix += "bt709";
+                    break;
+
+                case "FCC":
+                    colorMatrix += "fcc";
+                    break;
+
+                //case "BT.601":
+                //    colorMatrix += "bt601";
+                //    break;
+
+                //case "BT.470":
+                //    colorMatrix += "bt470";
+                //    break;
+
+                case "BT.470BG":
+                    colorMatrix += "bt470bg";
+                    break;
+
+                case "SMPTE-170M":
+                    colorMatrix += "smpte170m";
+                    break;
+
+                case "SMPTE-240M":
+                    colorMatrix += "smpte240m";
+                    break;
+
+                //case "BT.2020":
+                //    colorMatrix += "bt2020";
+                //    break;
+            }
+
+            return colorMatrix;
         }
 
         /// <summary>
@@ -381,7 +379,7 @@ namespace Axiom
                 //VideoParams.Color_TransferCharacteristics_Filter(),
                 //VideoParams.Color_Space_Filter(),
                 //VideoParams.Color_Range_Filter(),
-                VideoParams.Color_Matrix_Filter()
+                VideoParams.Color_Matrix_Filter(VM.VideoView.Video_Color_Matrix_SelectedItem)
             };
 
             // Join
