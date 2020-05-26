@@ -135,6 +135,15 @@ namespace Axiom
                     }
                 }
 
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Decode: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(hwaccel_decode_SelectedItem) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
                 return hwAccelDecode;
             }
 
@@ -199,6 +208,15 @@ namespace Axiom
                             break;
                     }
                 }
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Transcode: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(hwaccel_transcode_SelectedItem) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
                 return hwAccelTranscode;
             }
@@ -266,8 +284,16 @@ namespace Axiom
                             Codec.vCodec = "-c:v hevc_qsv";
                         }
                         break;
-
                 }
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec Override: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Codec.vCodec) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
                 return Codec.vCodec;
             }
@@ -337,48 +363,15 @@ namespace Axiom
                         break;
                 }
 
-                //// Check:
-                //// Video Codec Not Copy
-                //if (codec_SelectedItem != "Copy")
-                //{
-                //    // -------------------------
-                //    // Auto / VP8 - Special Rules
-                //    // -------------------------
-                //    if (codec_SelectedItem == "VP8" ||
-                //        codec_SelectedItem == "Auto")
-                //    {
-                //        if (pass == "CRF" ||
-                //            pass == "1 Pass")
-                //        {
-                //            vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
-                //        }
-                //        else if (pass == "2 Pass")
-                //        {
-                //            vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command_2Pass;
-                //        }
-                //    }
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encode Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(encodeSpeed_SelectedItem) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
-                //    // -------------------------
-                //    // All Other Codecs
-                //    // -------------------------
-                //    else
-                //    {
-                //        vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
-                //    }
-
-
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Video Encode Speed: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run(encodeSpeed_SelectedItem) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                //}
-
-
-                // Return Value
                 return vEncodeSpeed;
             }
         }
