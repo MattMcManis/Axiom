@@ -128,8 +128,8 @@ namespace Axiom
             Log.WriteAction = () =>
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Video Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run("all") { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Stream: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run("all") { Foreground = Log.ConsoleDefault }); // always all
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -194,7 +194,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Chapters: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Streams.cMap) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(cMap) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
