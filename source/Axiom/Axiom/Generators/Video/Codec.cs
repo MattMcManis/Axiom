@@ -72,6 +72,17 @@ namespace Axiom
                     }
                 }
 
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(codec_Command) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+                //MessageBox.Show(vCodec); //debug
+
                 return vCodec;
             }
         }
