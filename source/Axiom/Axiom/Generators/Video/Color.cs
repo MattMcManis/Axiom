@@ -123,6 +123,15 @@ namespace Axiom
                         break;
                 }
 
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Color Primaries: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(colorPrimaries) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
                 return colorPrimaries;
             }
 
@@ -206,6 +215,15 @@ namespace Axiom
                         break;
                 }
 
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Color Transfer Characteristics: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(colorTransferCharacteristics) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
                 return colorTransferCharacteristics;
             }
 
@@ -265,6 +283,15 @@ namespace Axiom
                         break;
                 }
 
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Colorspace: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(colorSpace) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
                 return colorSpace;
             }
 
@@ -303,6 +330,15 @@ namespace Axiom
                         colorRange += "jpeg";
                         break;
                 }
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Color Range: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(colorRange) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
                 return colorRange;
             }
