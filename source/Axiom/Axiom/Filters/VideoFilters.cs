@@ -1304,15 +1304,15 @@ namespace Axiom
                     // -------------------------
                     //  Resize - Crop and Divisible Crop are added in the Video Scale() Method
                     // -------------------------
-                    Video.Scale(VM.VideoView.Video_Codec_SelectedItem,
-                                VM.VideoView.Video_Scale_SelectedItem,
-                                VM.VideoView.Video_Width_Text,
-                                VM.VideoView.Video_Height_Text,
-                                VM.VideoView.Video_ScreenFormat_SelectedItem,
-                                //VM.VideoView.Video_AspectRatio_SelectedItem,
-                                VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
-                                VM.VideoView.Video_CropClear_Text
-                                );
+                    Video.Size.Scale(VM.VideoView.Video_Codec_SelectedItem,
+                                     VM.VideoView.Video_Scale_SelectedItem,
+                                     VM.VideoView.Video_Width_Text,
+                                     VM.VideoView.Video_Height_Text,
+                                     VM.VideoView.Video_ScreenFormat_SelectedItem,
+                                     //VM.VideoView.Video_AspectRatio_SelectedItem,
+                                     VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
+                                     VM.VideoView.Video_CropClear_Text
+                                    );
                 }
 
                 // -------------------------
@@ -1323,20 +1323,20 @@ namespace Axiom
                     // -------------------------
                     //  Crop (first)
                     // -------------------------
-                    Video.Crop(MainWindow.cropwindow);
+                    Video.Size.Crop(MainWindow.cropwindow);
 
                     // -------------------------
                     //  Resize (second)
                     // -------------------------
-                    Video.Scale(VM.VideoView.Video_Codec_SelectedItem,
-                                VM.VideoView.Video_Scale_SelectedItem,
-                                VM.VideoView.Video_Width_Text,
-                                VM.VideoView.Video_Height_Text,
-                                VM.VideoView.Video_ScreenFormat_SelectedItem,
-                                //VM.VideoView.Video_AspectRatio_SelectedItem,
-                                VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
-                                VM.VideoView.Video_CropClear_Text
-                                );
+                    Video.Size.Scale(VM.VideoView.Video_Codec_SelectedItem,
+                                     VM.VideoView.Video_Scale_SelectedItem,
+                                     VM.VideoView.Video_Width_Text,
+                                     VM.VideoView.Video_Height_Text,
+                                     VM.VideoView.Video_ScreenFormat_SelectedItem,
+                                     //VM.VideoView.Video_AspectRatio_SelectedItem,
+                                     VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
+                                     VM.VideoView.Video_CropClear_Text
+                                    );
                 }
 
                 // -------------------------
