@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Axiom
 {
@@ -54,6 +55,15 @@ namespace Axiom
                     // -------------------------
                     // HW Accel Decode
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("HW Accel")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> hwAccelDecodeList = new List<string>()
                     {
                         "\r\n\r\n" +
@@ -93,6 +103,17 @@ namespace Axiom
                     // -------------------------
                     // Format
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Format")) { Foreground = Log.ConsoleAction });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Run("Extension: " + MainWindow.outputExt) { Foreground = Log.ConsoleDefault }); // output Extension
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> formatList = new List<string>()
                     {
                         "\r\n\r\n" +
@@ -120,6 +141,15 @@ namespace Axiom
                     // -------------------------
                     // Video
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> videoList = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
@@ -223,6 +253,15 @@ namespace Axiom
                     // -------------------------
                     // Subtitle
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> subtitleList = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
@@ -254,6 +293,15 @@ namespace Axiom
                     // -------------------------
                     // Audio
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> audioList = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Image" &&
