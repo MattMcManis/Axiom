@@ -79,7 +79,7 @@
     <Compile Include="FFmpeg\Batch.cs" />
     <Compile Include="FFmpeg\CRF.cs" />
     <Compile Include="FFmpeg\YouTubeDL.cs" />
-    <Compile Include="Generators\Audio.cs" />
+    <Compile Include="Generators\Audio\Audio.cs" />
     <Compile Include="Controls\AudioControls.cs" />
     <Compile Include="Filters\AudioFilters.cs" />
     <Compile Include="Codecs\Audio\AAC.cs" />
@@ -125,6 +125,14 @@
     <Compile Include="FilePropertiesWindow.xaml.cs">
       <DependentUpon>FilePropertiesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Generators\Audio\Channel.cs" />
+    <Compile Include="Generators\Audio\Codec.cs" />
+    <Compile Include="Generators\Audio\Quality.cs" />
+    <Compile Include="Generators\Video\Codec.cs" />
+    <Compile Include="Generators\Video\Color.cs" />
+    <Compile Include="Generators\Video\Encoding.cs" />
+    <Compile Include="Generators\Video\Quality.cs" />
+    <Compile Include="Generators\Video\Size.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogConsole.xaml.cs">
       <DependentUpon>LogConsole.xaml</DependentUpon>
@@ -144,7 +152,7 @@
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Generators\Video.cs" />
+    <Compile Include="Generators\Video\Video.cs" />
     <Compile Include="Codecs\Video\VP8.cs" />
     <Compile Include="Controls\FormatContainers.cs" />
     <Compile Include="Controls\FormatControls.cs" />
