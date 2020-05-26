@@ -517,52 +517,43 @@ namespace Axiom
 
             // Select the Prevoius Codec's Item if available
             // If missing Select Default to First Item
-            VM.VideoView.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
-                                                                                  MainWindow.Video_EncodeSpeed_PreviousItem
-                                                                                  );
+            // Ignore Codec Copy
+            //if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
+            //{
+                VM.VideoView.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
+                                                                                      MainWindow.Video_EncodeSpeed_PreviousItem
+                                                                                      );
+            //}
 
             // -------------------------
             // Video Quality Selected Item
             // -------------------------
-            // Save the Previous Codec's Item
-            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem) &&
-                VM.VideoView.Video_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
-                VM.VideoView.Video_Quality_SelectedItem.ToLower() != "none") // None / none
-            {
-                MainWindow.Video_Quality_PreviousItem = VM.VideoView.Video_Quality_SelectedItem;
-            }
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem) &&
+            //    VM.VideoView.Video_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.VideoView.Video_Quality_SelectedItem.ToLower() != "none") // None / none
+            //{
+            //    MainWindow.Video_Quality_PreviousItem = VM.VideoView.Video_Quality_SelectedItem;
+            //}
 
-            // Select the Prevoius Codec's Item if available
-            // If missing Select Default to First Item
-            VM.VideoView.Video_Quality_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_Quality_Items.Select(c => c.Name).ToList(),
-                                                                              MainWindow.Video_Quality_PreviousItem
-                                                                              );
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
+            //if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
+            //{
+            //    VM.VideoView.Video_Quality_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_Quality_Items.Select(c => c.Name).ToList(),
+            //                                                                  MainWindow.Video_Quality_PreviousItem
+            //                                                                  );
+            //}
 
             // -------------------------
             // Video Pass Selected Item
             // -------------------------
-            //if (!string.IsNullOrEmpty(VM.VideoView.Video_Pass_SelectedItem))
-            //{
-            //    MainWindow.Video_EncodeSpeed_PreviousItem = VM.VideoView.Video_Pass_SelectedItem;
-            //}
-
-            //VM.VideoView.Video_Pass_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_Pass_Items,
-            //                                               MainWindow.Video_Pass_PreviousItem
-            //                                               );
-
+            
             // -------------------------
             // Video Optimize Selected Item
             // -------------------------
             // Problem, do not use, selects Web in mp4 when coming from webm
-            //if (!string.IsNullOrEmpty(VM.VideoView.Video_Optimize_SelectedItem) &&
-            //    VM.VideoView.Video_Optimize_SelectedItem != "None")
-            //{
-            //    MainWindow.VideoOptimize_PreviousItem = VM.VideoView.Video_Optimize_SelectedItem;
-            //}
-
-            //VM.VideoView.Video_Optimize_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_Optimize_Items.Select(c => c.Name).ToList(),
-            //                                                         MainWindow.VideoOptimize_PreviousItem
-            //                                                         );
         }
 
 
