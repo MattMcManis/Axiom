@@ -364,6 +364,15 @@ namespace Axiom
                 //    break;
             }
 
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Color Matrix: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(colorMatrix) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
             return colorMatrix;
         }
 
