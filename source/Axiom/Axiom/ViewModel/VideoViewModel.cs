@@ -60,13 +60,11 @@ namespace Axiom
         public void LoadControlsDefaults()
         {
             Video_Codec_SelectedItem = "VP8";
-            //Video_EncodeSpeed_SelectedItem = "Medium";
-            Video_EncodeSpeed_SelectedItem = "Auto";
+            Video_EncodeSpeed_SelectedItem = "Medium";
             Video_HWAccel_SelectedItem = "Off";
             Video_Quality_SelectedItem = "Auto";
             Video_VBR_IsChecked = false;
             Video_Pass_SelectedItem = "2 Pass";
-            //Video_PixelFormat_SelectedItem = "auto";
             Video_PixelFormat_SelectedItem = "yuv420p";
             Video_FPS_SelectedItem = "auto";
             Video_Speed_SelectedItem = "auto";
