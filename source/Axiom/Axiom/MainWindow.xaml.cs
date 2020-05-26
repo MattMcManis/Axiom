@@ -316,71 +316,6 @@ namespace Axiom
             }
 
             // -------------------------
-            // Load FFmpeg.exe Path
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
-
-            // -------------------------
-            // Load FFprobe.exe Path
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
-
-            // -------------------------
-            // Load FFplay.exe Path
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
-
-            // -------------------------
-            // Load youtube-dl.exe Path
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("youtube-dl: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
-
-            // -------------------------
-            // Load Log Enabled
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(VM.ConfigureView.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
-
-            // -------------------------
-            // Load Log Path
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.LogPath_Text) { Foreground = Log.ConsoleDefault });
-
-            // -------------------------
-            // Load Threads
-            // -------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.Threads_SelectedItem) { Foreground = Log.ConsoleDefault });
-
-            // -----------------------------------------------------------------
-            // end change !important
-            // -----------------------------------------------------------------
-            logconsole.rtbLog.EndChange();
-
-
-            // -------------------------
             // Volume Up/Down Button Timer Tick
             // Dispatcher Tick
             // In Intializer to prevent Tick from doubling up every MouseDown
@@ -504,6 +439,82 @@ namespace Axiom
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+
+            // --------------------------------------------------
+            // Log Console Messages
+            // --------------------------------------------------
+            // -------------------------
+            // Load FFmpeg.exe Path
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load FFprobe.exe Path
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load FFplay.exe Path
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load youtube-dl.exe Path
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("youtube-dl: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Shell
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Shell: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.Shell_SelectedItem) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load Log Enabled
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(VM.ConfigureView.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load Log Path
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.LogPath_Text) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load Threads
+            // -------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(VM.ConfigureView.Threads_SelectedItem) { Foreground = Log.ConsoleDefault });
+
+            // -----------------------------------------------------------------
+            // end change !important
+            // -----------------------------------------------------------------
+            logconsole.rtbLog.EndChange();
         }
 
 
@@ -2645,6 +2656,8 @@ namespace Axiom
             {
                 // Optimal
                 Configure.threads = "-threads 0";
+
+                return Configure.threads;
             }
 
             // Options
@@ -2662,53 +2675,18 @@ namespace Axiom
 
                 // All
                 case "all":
+                    // e.g. -threads 8
                     Configure.threads = "-threads " + Configure.maxthreads;
                     break;
                 
                 // Selected Number
                 default:
+                    // e.g. -threads 5
                     Configure.threads = "-threads " + VM.ConfigureView.Threads_SelectedItem;
                     break;
             }
 
             return Configure.threads;
-
-            //// -------------------------
-            //// Default
-            //// -------------------------
-            //if (VM.ConfigureView.Threads_SelectedItem == "default")
-            //{
-            //    Configure.threads = string.Empty;
-            //}
-
-            //// -------------------------
-            //// Optimal
-            //// -------------------------
-            //else if (VM.ConfigureView.Threads_SelectedItem == "optimal" ||
-            //         string.IsNullOrWhiteSpace(Configure.threads))
-            //{
-            //    Configure.threads = "-threads 0";
-            //}
-
-            //// -------------------------
-            //// All
-            //// -------------------------
-            //else if (VM.ConfigureView.Threads_SelectedItem == "all" ||
-            //         string.IsNullOrWhiteSpace(Configure.threads))
-            //{
-            //    Configure.threads = "-threads " + Configure.maxthreads;
-            //}
-
-            //// -------------------------
-            //// Custom
-            //// -------------------------
-            //else
-            //{
-            //    Configure.threads = "-threads " + VM.ConfigureView.Threads_SelectedItem;
-            //}
-
-            //// Return Value
-            //return Configure.threads;
         }
 
 
@@ -2748,32 +2726,6 @@ namespace Axiom
 
             // Local File
             return false;
-
-            //if (!string.IsNullOrWhiteSpace(input_Text))
-            //{
-            //    // URL
-            //    if ((input_Text.StartsWith("http://") ||
-            //        input_Text.StartsWith("https://") ||
-            //        input_Text.StartsWith("www.")) //||
-            //        //input_Text.EndsWith(".com")) //&&
-            //        //IsValidURL(input_Text) == true
-            //       )
-            //    {
-            //        return true;
-            //    }
-
-            //    // Local File
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
-            
-            //// Empty
-            //else
-            //{
-            //    return false;
-            //}
         }
 
 
