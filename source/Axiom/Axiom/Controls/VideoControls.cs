@@ -665,162 +665,161 @@ namespace Axiom
             // Enable / Disable
             // -------------------------
 
-            // -------------------------
-            // Custom
-            // -------------------------
-            if (VM.VideoView.Video_Quality_SelectedItem == "Custom")
+            switch (VM.VideoView.Video_Quality_SelectedItem)
             {
-                // Enable and Clear BitRate Text Display
+                // -------------------------
+                // Custom
+                // -------------------------
+                case "Custom":
+                    // Enable and Clear BitRate Text Display
 
-                // Pass
-                VM.VideoView.Video_Pass_IsEnabled = true;
+                    // Pass
+                    VM.VideoView.Video_Pass_IsEnabled = true;
 
-                // CRF
-                if (VM.VideoView.Video_Codec_SelectedItem != "JPEG" || // Special Rule
-                    VM.VideoView.Video_Codec_SelectedItem != "PNG" ||
-                    VM.VideoView.Video_Codec_SelectedItem != "WebP"
-                    ) 
-                {
-                    VM.VideoView.Video_CRF_IsEnabled = true;
-                }
+                    // CRF
+                    if (VM.VideoView.Video_Codec_SelectedItem != "JPEG" || // Special Rule
+                        VM.VideoView.Video_Codec_SelectedItem != "PNG" ||
+                        VM.VideoView.Video_Codec_SelectedItem != "WebP"
+                        )
+                    {
+                        VM.VideoView.Video_CRF_IsEnabled = true;
+                    }
 
-                VM.VideoView.Video_CRF_Text = "";
+                    VM.VideoView.Video_CRF_Text = "";
 
-                // BitRate
-                VM.VideoView.Video_BitRate_IsEnabled = true;
-                VM.VideoView.Video_BitRate_Text = "";
+                    // BitRate
+                    VM.VideoView.Video_BitRate_IsEnabled = true;
+                    VM.VideoView.Video_BitRate_Text = "";
 
-                // VBR
-                VM.VideoView.Video_VBR_IsEnabled = true;
-
-                // MinRate
-                VM.VideoView.Video_MinRate_IsEnabled = true;
-                VM.VideoView.Video_MinRate_Text = "";
-
-                // MaxRate
-                VM.VideoView.Video_MaxRate_IsEnabled = true;
-                VM.VideoView.Video_MaxRate_Text = "";
-
-                // BufSize
-                VM.VideoView.Video_BufSize_IsEnabled = true;
-                VM.VideoView.Video_BufSize_Text = "";
-
-                // Size
-                VM.VideoView.Video_Scale_IsEnabled = true;
-            }
-
-            // -------------------------
-            // Auto
-            // -------------------------
-            else if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
-            {
-                // Disable and Clear BitRate Text Dispaly
-
-                // Pass
-                VM.VideoView.Video_Pass_IsEnabled = false;
-
-                // CRF
-                VM.VideoView.Video_CRF_IsEnabled = false;
-                VM.VideoView.Video_CRF_Text = "";
-
-                // BitRate
-                VM.VideoView.Video_BitRate_IsEnabled = false;
-                VM.VideoView.Video_BitRate_Text = "";
-
-                // VBR
-                VM.VideoView.Video_VBR_IsEnabled = false;
-                VM.VideoView.Video_VBR_IsChecked = false;
-
-                // MinRate
-                VM.VideoView.Video_MinRate_IsEnabled = false;
-                VM.VideoView.Video_MinRate_Text = "";
-
-                // MaxRate
-                VM.VideoView.Video_MaxRate_IsEnabled = false;
-                VM.VideoView.Video_MaxRate_Text = "";
-
-                // BufSize
-                VM.VideoView.Video_BufSize_IsEnabled = false;
-                VM.VideoView.Video_BufSize_Text = "";
-
-                // Size
-                VM.VideoView.Video_Scale_IsEnabled = true;
-            }
-
-            // -------------------------
-            // None
-            // -------------------------
-            else if (VM.VideoView.Video_Quality_SelectedItem == "None")
-            {
-                // BitRate Text is Displayed through VideoBitRateDisplay()
-
-                // Pass
-                VM.VideoView.Video_Pass_IsEnabled = false; 
-
-                // CRF
-                VM.VideoView.Video_CRF_IsEnabled = false;
-
-                // BitRate
-                VM.VideoView.Video_BitRate_IsEnabled = false;
-                // VBR
-                VM.VideoView.Video_VBR_IsEnabled = false;
-                // MinRate
-                VM.VideoView.Video_MinRate_IsEnabled = false;
-                // MaxRate
-                VM.VideoView.Video_MaxRate_IsEnabled = false;
-                // BufSize
-                VM.VideoView.Video_BufSize_IsEnabled = false;
-
-                // Size
-                VM.VideoView.Video_Scale_IsEnabled = false;
-            }
-
-            // -------------------------
-            // All Other Qualities
-            // -------------------------
-            else
-            {
-                // BitRate Text is Displayed through VideoBitRateDisplay()
-
-                // Pass
-                VM.VideoView.Video_Pass_IsEnabled = true; // always enabled
-
-                // CRF
-                VM.VideoView.Video_CRF_IsEnabled = false;
-
-                // BitRate
-                VM.VideoView.Video_BitRate_IsEnabled = false;
-
-                // VBR
-                if (VM.VideoView.Video_Codec_SelectedItem == "VP8" || // special rules
-                    VM.VideoView.Video_Codec_SelectedItem == "x264" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "JPEG" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "AV1" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "FFV1" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "HuffYUV" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "None") 
-                {
-                    // Disabled
-                    VM.VideoView.Video_VBR_IsEnabled = false;
-                }
-                else
-                {
-                    // Enabled
+                    // VBR
                     VM.VideoView.Video_VBR_IsEnabled = true;
-                }
 
-                // MinRate
-                VM.VideoView.Video_MinRate_IsEnabled = false;
+                    // MinRate
+                    VM.VideoView.Video_MinRate_IsEnabled = true;
+                    VM.VideoView.Video_MinRate_Text = "";
 
-                // MaxRate
-                VM.VideoView.Video_MaxRate_IsEnabled = false;
+                    // MaxRate
+                    VM.VideoView.Video_MaxRate_IsEnabled = true;
+                    VM.VideoView.Video_MaxRate_Text = "";
 
-                // BufSize
-                VM.VideoView.Video_BufSize_IsEnabled = false;
+                    // BufSize
+                    VM.VideoView.Video_BufSize_IsEnabled = true;
+                    VM.VideoView.Video_BufSize_Text = "";
 
-                // Size
-                VM.VideoView.Video_Scale_IsEnabled = true;
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+                    break;
+
+                // -------------------------
+                // Auto
+                // -------------------------
+                case "Auto":
+                    // Disable and Clear BitRate Text Dispaly
+
+                    // Pass
+                    VM.VideoView.Video_Pass_IsEnabled = false;
+
+                    // CRF
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+                    VM.VideoView.Video_CRF_Text = "";
+
+                    // BitRate
+                    VM.VideoView.Video_BitRate_IsEnabled = false;
+                    VM.VideoView.Video_BitRate_Text = "";
+
+                    // VBR
+                    VM.VideoView.Video_VBR_IsEnabled = false;
+                    VM.VideoView.Video_VBR_IsChecked = false;
+
+                    // MinRate
+                    VM.VideoView.Video_MinRate_IsEnabled = false;
+                    VM.VideoView.Video_MinRate_Text = "";
+
+                    // MaxRate
+                    VM.VideoView.Video_MaxRate_IsEnabled = false;
+                    VM.VideoView.Video_MaxRate_Text = "";
+
+                    // BufSize
+                    VM.VideoView.Video_BufSize_IsEnabled = false;
+                    VM.VideoView.Video_BufSize_Text = "";
+
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+                    break;
+
+                // -------------------------
+                // None
+                // -------------------------
+                case "None":
+                    // BitRate Text is Displayed through VideoBitRateDisplay()
+
+                    // Pass
+                    VM.VideoView.Video_Pass_IsEnabled = false;
+
+                    // CRF
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+
+                    // BitRate
+                    VM.VideoView.Video_BitRate_IsEnabled = false;
+                    // VBR
+                    VM.VideoView.Video_VBR_IsEnabled = false;
+                    // MinRate
+                    VM.VideoView.Video_MinRate_IsEnabled = false;
+                    // MaxRate
+                    VM.VideoView.Video_MaxRate_IsEnabled = false;
+                    // BufSize
+                    VM.VideoView.Video_BufSize_IsEnabled = false;
+
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = false;
+                    break;
+
+                // -------------------------
+                // All Other Qualities
+                // -------------------------
+                default:
+                    // BitRate Text is Displayed through VideoBitRateDisplay()
+
+                    // Pass
+                    VM.VideoView.Video_Pass_IsEnabled = true; // always enabled
+
+                    // CRF
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+
+                    // BitRate
+                    VM.VideoView.Video_BitRate_IsEnabled = false;
+
+                    // VBR
+                    if (VM.VideoView.Video_Codec_SelectedItem == "VP8" || // special rules
+                        VM.VideoView.Video_Codec_SelectedItem == "x264" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "JPEG" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "AV1" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "FFV1" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "HuffYUV" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "None")
+                    {
+                        // Disabled
+                        VM.VideoView.Video_VBR_IsEnabled = false;
+                    }
+                    else
+                    {
+                        // Enabled
+                        VM.VideoView.Video_VBR_IsEnabled = true;
+                    }
+
+                    // MinRate
+                    VM.VideoView.Video_MinRate_IsEnabled = false;
+
+                    // MaxRate
+                    VM.VideoView.Video_MaxRate_IsEnabled = false;
+
+                    // BufSize
+                    VM.VideoView.Video_BufSize_IsEnabled = false;
+
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+                    break;
             }
         }
 
