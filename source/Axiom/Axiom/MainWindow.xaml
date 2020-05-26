@@ -5014,7 +5014,7 @@
                                                      KeyDown="tbxFilterAudio_Contrast_KeyDown"
                                                      PreviewKeyUp="tbxFilterAudio_Contrast_PreviewKeyUp" 
                                                      Grid.Column="2" 
-                                                     Grid.Row="8"/>
+                                                     Grid.Row="8" TextChanged="tbxFilterAudio_Contrast_TextChanged"/>
 
                                             <!-- Extra Stereo -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -5173,11 +5173,11 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
@@ -5567,7 +5567,7 @@
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Your config file will be saved/moved to this location after program closes." 
                                    Grid.Column="1"
-                                   Grid.Row="6"
+                                   Grid.Row="7"
                                    Width="58"
                                    Cursor="Hand"
                                    PreviewMouseDown="lblConfigPath_PreviewMouseDown"/>
@@ -5583,7 +5583,7 @@
                                       VerticalAlignment="Top" 
                                       Width="105" 
                                       Grid.Column="2"
-                                      Grid.Row="6" 
+                                      Grid.Row="7" 
                                       Margin="10,2,0,0"
                                       ToolTipService.InitialShowDelay="500"
                                       ToolTipService.ShowOnDisabled="True"
@@ -5618,7 +5618,7 @@
                                     ToolTip="Open Location"
                                     Click="btnConfigPath_Click"
                                     Grid.Column="2"
-                                    Grid.Row="6"
+                                    Grid.Row="7"
                                     Style="{DynamicResource ButtonFolderStyle}" >
                                 <Image Width="11"
                                        Height="7" 
@@ -5682,7 +5682,7 @@
                                    ToolTipService.InitialShowDelay="500"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Amount of CPU threads to use."
-                                   Grid.Row="10" 
+                                   Grid.Row="9" 
                                    Grid.Column="1" 
                                    Width="56"/>
                             <ComboBox x:Name="cboThreads"
@@ -5699,7 +5699,7 @@
                                       SelectionChanged="threadSelect_SelectionChanged" 
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="2"
-                                      Grid.Row="10" 
+                                      Grid.Row="9" 
                                       Margin="10,2,0,0"/>
 
                             <!-- Theme -->
