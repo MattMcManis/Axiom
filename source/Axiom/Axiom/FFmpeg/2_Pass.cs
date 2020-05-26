@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Axiom
 {
@@ -59,6 +60,15 @@ namespace Axiom
                     // -------------------------
                     // HW Accel Decode
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("HW Accel")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> hwAccelDecodeList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
@@ -93,6 +103,17 @@ namespace Axiom
                     // -------------------------
                     // Format
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Format")) { Foreground = Log.ConsoleAction });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Run("Extension: " + MainWindow.outputExt) { Foreground = Log.ConsoleDefault }); // output Extension
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> formatList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
@@ -120,6 +141,15 @@ namespace Axiom
                     // -------------------------
                     // Video
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> videoList_Pass1 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
@@ -224,6 +254,8 @@ namespace Axiom
                     // -------------------------
                     // Subtitle
                     // -------------------------
+                    // Log Console Message in Pass 2
+
                     List<string> subtitleList_Pass1 = new List<string>();
 
                     subtitleList_Pass1 = new List<string>()
@@ -236,6 +268,8 @@ namespace Axiom
                     // -------------------------
                     // Audio
                     // -------------------------
+                    // Log Console Message in Pass 2
+
                     List<string> audioList_Pass1 = new List<string>();
 
                     audioList_Pass1 = new List<string>()
@@ -311,10 +345,11 @@ namespace Axiom
                     List<string> hwAccelDecodeList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Video.Encoding.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
-                                                            VM.VideoView.Video_Codec_SelectedItem,
-                                                            VM.VideoView.Video_HWAccel_Decode_SelectedItem
-                                                            ),
+                        Video.Encoding.hwAccelDecode
+                        //Video.Encoding.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
+                        //                                    VM.VideoView.Video_Codec_SelectedItem,
+                        //                                    VM.VideoView.Video_HWAccel_Decode_SelectedItem
+                        //                                    ),
                     };
 
                     // -------------------------
@@ -339,10 +374,11 @@ namespace Axiom
                     List<string> hwAccelTranscodeList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Video.Encoding.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
-                                                               VM.VideoView.Video_Codec_SelectedItem,
-                                                               VM.VideoView.Video_HWAccel_Transcode_SelectedItem
-                                                               ),
+                        Video.Encoding.hwAccelTranscode
+                        //Video.Encoding.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
+                        //                                       VM.VideoView.Video_Codec_SelectedItem,
+                        //                                       VM.VideoView.Video_HWAccel_Transcode_SelectedItem
+                        //                                       ),
                     };
 
                     // -------------------------
@@ -422,6 +458,15 @@ namespace Axiom
                     // -------------------------
                     // Subtitle
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> subtitleList_Pass2 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
@@ -452,6 +497,15 @@ namespace Axiom
                     // -------------------------
                     // Audio
                     // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
                     List<string> audioList_Pass2 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Image" &&
