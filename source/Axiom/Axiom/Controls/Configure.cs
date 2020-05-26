@@ -348,12 +348,12 @@ namespace Axiom
             // -------------------------
             // Check if Directory Exists
             // -------------------------
-            if (!Directory.Exists(path/*configDir*/))
+            if (!Directory.Exists(path))
             {
                 try
                 {
                     // Create Config Directory
-                    Directory.CreateDirectory(path/*configDir*/);
+                    Directory.CreateDirectory(path);
                 }
                 catch
                 {
@@ -394,14 +394,14 @@ namespace Axiom
             // -------------------------
             // Save axiom.conf file if directory exists
             // -------------------------
-            if (Directory.Exists(path/*configDir*/))
+            if (Directory.Exists(path))
             {
                 //MessageBox.Show(path);
 
                 try
                 {
                     // Start conf File Write
-                    Configure.INIFile conf = new Configure.INIFile(path + "axiom.conf"/*configFile*/);
+                    Configure.INIFile conf = new Configure.INIFile(path + "axiom.conf");
 
                     // -------------------------
                     // Main Window
@@ -508,16 +508,15 @@ namespace Axiom
         //}
 
 
-
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         // Control Methods
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
-            // --------------------------------------------------
-            // Custom Presets Folder Browser Dialog
-            // --------------------------------------------------
+        /// <summary>
+        /// Custom Presets Folder Browser Dialog
+        /// </summary>
         public static void CustomPresetsFolderBrowser()
         {
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -540,10 +539,9 @@ namespace Axiom
             }
         }
 
-
-        // --------------------------------------------------
-        // FFmpeg Folder Browser Dialog
-        // --------------------------------------------------
+        /// <summary>
+        /// FFmpeg Folder Browser Dialog
+        /// </summary>
         public static void FFmpegFolderBrowser() 
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -557,10 +555,9 @@ namespace Axiom
             }
         }
 
-
-        // --------------------------------------------------
-        // FFprobe Folder Browser Dialog
-        // --------------------------------------------------
+        /// <summary>
+        /// FFprobe Folder Browser Dialog
+        /// </summary>
         public static void FFprobeFolderBrowser()
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -574,10 +571,9 @@ namespace Axiom
             }
         }
 
-
-        // --------------------------------------------------
-        // FFplay Folder Browser Dialog
-        // --------------------------------------------------
+        /// <summary>
+        /// FFplay Folder Browser Dialog
+        /// </summary>
         public static void FFplayFolderBrowser() // Method
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -591,10 +587,9 @@ namespace Axiom
             }
         }
 
-
-        // --------------------------------------------------
-        // youtube-dl Folder Browser Dialog
-        // --------------------------------------------------
+        /// <summary>
+        /// youtube-dl Folder Browser Dialog
+        /// </summary>
         public static void youtubedlFolderBrowser()
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -608,10 +603,9 @@ namespace Axiom
             }
         }
 
-
-        // --------------------------------------------------
-        // Log Folder Browser Dialog 
-        // --------------------------------------------------
+        /// <summary>
+        /// Log Folder Browser Dialog 
+        /// </summary>
         public static void LogFolderBrowser() // Method
         {
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
