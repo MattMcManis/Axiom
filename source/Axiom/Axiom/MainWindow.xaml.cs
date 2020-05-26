@@ -280,7 +280,7 @@ namespace Axiom
             /// System Info
             /// </summary>
             // Shows OS and Hardware information in Log Console
-            SystemInfoDisplay();
+            SystemInfo();
             //Task<int> task = SystemInfoDisplay();
 
 
@@ -514,6 +514,14 @@ namespace Axiom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow = this;
+
+            // --------------------------------------------------
+            // Event Handlers
+            // --------------------------------------------------
+            // Attach SelectionChanged Handlers
+            // Prevent Bound ComboBox from firing SelectionChanged Event at application startup
+            // Format
+            //cboFormat_Container.SelectionChanged += cboFormat_Container_SelectionChanged;
 
             // -------------------------
             // Control Defaults
@@ -1027,36 +1035,36 @@ namespace Axiom
             FFprobe.aEntryType = string.Empty;
 
             // Video
-            Video.passSingle = string.Empty;
-            Video.vEncodeSpeed = string.Empty;
-            Video.hwAccelDecode = string.Empty;
-            Video.hwAccelTranscode = string.Empty;
-            Video.vCodec = string.Empty;
-            Video.vBitMode = string.Empty;
-            Video.vQuality = string.Empty;
-            Video.vBitRateNA = string.Empty;
-            Video.vLossless = string.Empty;
-            Video.vBitRate = string.Empty;
-            Video.vMinRate = string.Empty;
-            Video.vMaxRate = string.Empty;
-            Video.vBufSize = string.Empty;
-            Video.vOptions = string.Empty;
-            Video.vCRF = string.Empty;
-            Video.pix_fmt = string.Empty;
-            Video.colorPrimaries = string.Empty;
-            Video.colorTransferCharacteristics = string.Empty;
-            Video.colorSpace = string.Empty;
-            Video.colorRange = string.Empty;
-            Video.colorMatrix = string.Empty;
-            Video.vAspectRatio = string.Empty;
-            Video.vScalingAlgorithm = string.Empty;
+            Video.Quality.passSingle = string.Empty;
+            Video.Encoding.vEncodeSpeed = string.Empty;
+            Video.Encoding.hwAccelDecode = string.Empty;
+            Video.Encoding.hwAccelTranscode = string.Empty;
+            Video.Codec.vCodec = string.Empty;
+            Video.Quality.vBitMode = string.Empty;
+            Video.Quality.vQuality = string.Empty;
+            Video.Quality.vBitRateNA = string.Empty;
+            Video.Quality.vLossless = string.Empty;
+            Video.Quality.vBitRate = string.Empty;
+            Video.Quality.vMinRate = string.Empty;
+            Video.Quality.vMaxRate = string.Empty;
+            Video.Quality.vBufSize = string.Empty;
+            Video.Quality.vOptions = string.Empty;
+            Video.Quality.vCRF = string.Empty;
+            Video.Quality.pix_fmt = string.Empty;
+            Video.Color.colorPrimaries = string.Empty;
+            Video.Color.colorTransferCharacteristics = string.Empty;
+            Video.Color.colorSpace = string.Empty;
+            Video.Color.colorRange = string.Empty;
+            Video.Color.colorMatrix = string.Empty;
+            Video.Size.vAspectRatio = string.Empty;
+            Video.Size.vScalingAlgorithm = string.Empty;
             Video.fps = string.Empty;
-            Video.optTune = string.Empty;
-            Video.optProfile = string.Empty;
-            Video.optLevel = string.Empty;
-            Video.optFlags = string.Empty;
-            Video.width = string.Empty;
-            Video.height = string.Empty;
+            Video.Quality.optTune = string.Empty;
+            Video.Quality.optProfile = string.Empty;
+            Video.Quality.optLevel = string.Empty;
+            Video.Quality.optFlags = string.Empty;
+            Video.Size.width = string.Empty;
+            Video.Size.height = string.Empty;
             //Video.scale = string.Empty;
 
             if (VideoParams.vParamsList != null &&
@@ -1090,31 +1098,31 @@ namespace Axiom
                 VideoFilters.vFiltersList.TrimExcess();
             }
 
-            Video.v2PassArgs = string.Empty;
-            Video.pass1Args = string.Empty; // Batch 2-Pass
-            Video.pass2Args = string.Empty; // Batch 2-Pass
-            Video.pass1 = string.Empty;
-            Video.pass2 = string.Empty;
+            Video.Quality.v2PassArgs = string.Empty;
+            Video.Quality.pass1Args = string.Empty; // Batch 2-Pass
+            Video.Quality.pass2Args = string.Empty; // Batch 2-Pass
+            Video.Quality.pass1 = string.Empty;
+            Video.Quality.pass2 = string.Empty;
             Video.image = string.Empty;
-            Video.optimize = string.Empty;
+            Video.Quality.optimize = string.Empty;
            
             // Subtitle
             Subtitle.sCodec = string.Empty;
             Subtitle.subtitles = string.Empty;
 
             // Audio
-            Audio.aCodec = string.Empty;
-            Audio.aChannel = string.Empty;
-            Audio.aBitMode = string.Empty;
-            Audio.aBitRate = string.Empty;
-            Audio.aBitRateNA = string.Empty;
-            Audio.aQuality = string.Empty;
-            Audio.aCompressionLevel = string.Empty;
-            Audio.aSamplerate = string.Empty;
-            Audio.aBitDepth = string.Empty;
+            Audio.Codec.aCodec = string.Empty;
+            Audio.Channels.aChannel = string.Empty;
+            Audio.Quality.aBitMode = string.Empty;
+            Audio.Quality.aBitRate = string.Empty;
+            Audio.Quality.aBitRateNA = string.Empty;
+            Audio.Quality.aQuality = string.Empty;
+            Audio.Quality.aCompressionLevel = string.Empty;
+            Audio.Quality.aSamplerate = string.Empty;
+            Audio.Quality.aBitDepth = string.Empty;
             AudioFilters.aFilter = string.Empty;
-            Audio.aVolume = string.Empty;
-            Audio.aHardLimiter = string.Empty;
+            AudioFilters.aVolume = string.Empty;
+            AudioFilters.aHardLimiter = string.Empty;
 
             if (AudioFilters.aFiltersList != null &&
                 AudioFilters.aFiltersList.Count > 0)
@@ -1125,8 +1133,8 @@ namespace Axiom
 
             // Batch
             FFprobe.batchFFprobeAuto = string.Empty;
-            Video.batchVideoAuto = string.Empty;
-            Audio.batchAudioAuto = string.Empty;
+            Video.Quality.batchVideoAuto = string.Empty;
+            Audio.Quality.batchAudioAuto = string.Empty;
 
             // Streams
             //Streams.map = string.Empty;
@@ -1214,7 +1222,7 @@ namespace Axiom
         /// <summary>
         /// Deny Special Keys
         /// </summary>
-        public void DenySpecialKeys(KeyEventArgs e)
+        public void Deny_Special_Keys(KeyEventArgs e)
         {
             if ((Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8) || // *
                 (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8) ||  // *
@@ -1239,9 +1247,20 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Allow Only Numbers
+        /// Deny Backspace Key
         /// </summary>
-        public void AllowNumbersOnly(KeyEventArgs e)
+        public void Deny_Backspace_Key(KeyEventArgs e)
+        {
+            if (e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Allow Only Numbers & Backspace
+        /// </summary>
+        public void Allow_Only_Number_Keys(KeyEventArgs e)
         {
             // Only allow Numbers
             // Deny Symbols (Shift + Number)
@@ -2134,7 +2153,7 @@ namespace Axiom
         private void threadSelect_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         /// <summary>
@@ -2621,42 +2640,75 @@ namespace Axiom
         /// </summary>
         public static String ThreadDetect()
         {
-            // -------------------------
-            // Default
-            // -------------------------
-            if (VM.ConfigureView.Threads_SelectedItem == "default")
+            // Fallback if maxthreads was not detected in SystemInfo()
+            if (string.IsNullOrWhiteSpace(Configure.threads))
             {
-                Configure.threads = string.Empty;
-            }
-
-            // -------------------------
-            // Optimal
-            // -------------------------
-            else if (VM.ConfigureView.Threads_SelectedItem == "optimal" ||
-                     string.IsNullOrWhiteSpace(Configure.threads))
-            {
+                // Optimal
                 Configure.threads = "-threads 0";
             }
 
-            // -------------------------
-            // All
-            // -------------------------
-            else if (VM.ConfigureView.Threads_SelectedItem == "all" ||
-                     string.IsNullOrWhiteSpace(Configure.threads))
+            // Options
+            switch (VM.ConfigureView.Threads_SelectedItem)
             {
-                Configure.threads = "-threads " + Configure.maxthreads;
+                // Default / Off
+                case "default":
+                    Configure.threads = string.Empty;
+                    break;
+
+                // Optimal
+                case "optimal":
+                    Configure.threads = "-threads 0";
+                    break;
+
+                // All
+                case "all":
+                    Configure.threads = "-threads " + Configure.maxthreads;
+                    break;
+                
+                // Selected Number
+                default:
+                    Configure.threads = "-threads " + VM.ConfigureView.Threads_SelectedItem;
+                    break;
             }
 
-            // -------------------------
-            // Custom
-            // -------------------------
-            else
-            {
-                Configure.threads = "-threads " + VM.ConfigureView.Threads_SelectedItem;
-            }
-
-            // Return Value
             return Configure.threads;
+
+            //// -------------------------
+            //// Default
+            //// -------------------------
+            //if (VM.ConfigureView.Threads_SelectedItem == "default")
+            //{
+            //    Configure.threads = string.Empty;
+            //}
+
+            //// -------------------------
+            //// Optimal
+            //// -------------------------
+            //else if (VM.ConfigureView.Threads_SelectedItem == "optimal" ||
+            //         string.IsNullOrWhiteSpace(Configure.threads))
+            //{
+            //    Configure.threads = "-threads 0";
+            //}
+
+            //// -------------------------
+            //// All
+            //// -------------------------
+            //else if (VM.ConfigureView.Threads_SelectedItem == "all" ||
+            //         string.IsNullOrWhiteSpace(Configure.threads))
+            //{
+            //    Configure.threads = "-threads " + Configure.maxthreads;
+            //}
+
+            //// -------------------------
+            //// Custom
+            //// -------------------------
+            //else
+            //{
+            //    Configure.threads = "-threads " + VM.ConfigureView.Threads_SelectedItem;
+            //}
+
+            //// Return Value
+            //return Configure.threads;
         }
 
 
@@ -2677,31 +2729,51 @@ namespace Axiom
         {
             input_Text = input_Text.Trim();
 
-            if (!string.IsNullOrWhiteSpace(input_Text))
-            {
-                // URL
-                if ((input_Text.StartsWith("http://") ||
-                    input_Text.StartsWith("https://") ||
-                    input_Text.StartsWith("www.")) //||
-                    //input_Text.EndsWith(".com")) //&&
-                    //IsValidURL(input_Text) == true
-                   )
-                {
-                    return true;
-                }
-
-                // Local File
-                else
-                {
-                    return false;
-                }
-            }
-            
             // Empty
-            else
+            if (string.IsNullOrWhiteSpace(input_Text))
             {
                 return false;
             }
+
+            // URL
+            if ((input_Text.StartsWith("http://") ||
+                input_Text.StartsWith("https://") ||
+                input_Text.StartsWith("www.")) //||
+                //input_Text.EndsWith(".com")) //&&
+                //IsValidURL(input_Text) == true
+               )
+            {
+                return true;
+            }
+
+            // Local File
+            return false;
+
+            //if (!string.IsNullOrWhiteSpace(input_Text))
+            //{
+            //    // URL
+            //    if ((input_Text.StartsWith("http://") ||
+            //        input_Text.StartsWith("https://") ||
+            //        input_Text.StartsWith("www.")) //||
+            //        //input_Text.EndsWith(".com")) //&&
+            //        //IsValidURL(input_Text) == true
+            //       )
+            //    {
+            //        return true;
+            //    }
+
+            //    // Local File
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
+            
+            //// Empty
+            //else
+            //{
+            //    return false;
+            //}
         }
 
 
@@ -2710,41 +2782,72 @@ namespace Axiom
         /// </summary>
         public static bool IsYouTubeURL(string input_Text)
         {
-            if (!string.IsNullOrWhiteSpace(input_Text))
-            {
-                // YouTube
-                if (// youtube (any domain extension)
-                   input_Text.StartsWith("https://www.youtube.") ||
-                   input_Text.StartsWith("http://www.youtube.") ||
-                   input_Text.StartsWith("www.youtube.") ||
-                   input_Text.StartsWith("youtube.") ||
-
-                   // youtu.be
-                   input_Text.StartsWith("https://youtu.be") ||
-                   input_Text.StartsWith("http://youtu.be") ||
-                   input_Text.StartsWith("www.youtu.be") ||
-                   input_Text.StartsWith("youtu.be") ||
-
-                   // YouTube Music
-                   input_Text.StartsWith("https://music.youtube.") ||
-                   input_Text.StartsWith("http://music.youtube.") ||
-                   input_Text.StartsWith("music.youtube.")
-                   )
-                {
-                    return true;
-                }
-
-                else
-                {
-                    return false;
-                }
-            }
-
             // Empty
-            else
+            if (string.IsNullOrWhiteSpace(input_Text))
             {
                 return false;
             }
+
+            // YouTube
+            if (// youtube (any domain extension)
+               input_Text.StartsWith("https://www.youtube.") ||
+               input_Text.StartsWith("http://www.youtube.") ||
+               input_Text.StartsWith("www.youtube.") ||
+               input_Text.StartsWith("youtube.") ||
+
+               // youtu.be
+               input_Text.StartsWith("https://youtu.be") ||
+               input_Text.StartsWith("http://youtu.be") ||
+               input_Text.StartsWith("www.youtu.be") ||
+               input_Text.StartsWith("youtu.be") ||
+
+               // YouTube Music
+               input_Text.StartsWith("https://music.youtube.") ||
+               input_Text.StartsWith("http://music.youtube.") ||
+               input_Text.StartsWith("music.youtube.")
+               )
+            {
+                return true;
+            }
+
+            // Local File
+            return false;
+
+            //if (!string.IsNullOrWhiteSpace(input_Text))
+            //{
+            //    // YouTube
+            //    if (// youtube (any domain extension)
+            //       input_Text.StartsWith("https://www.youtube.") ||
+            //       input_Text.StartsWith("http://www.youtube.") ||
+            //       input_Text.StartsWith("www.youtube.") ||
+            //       input_Text.StartsWith("youtube.") ||
+
+            //       // youtu.be
+            //       input_Text.StartsWith("https://youtu.be") ||
+            //       input_Text.StartsWith("http://youtu.be") ||
+            //       input_Text.StartsWith("www.youtu.be") ||
+            //       input_Text.StartsWith("youtu.be") ||
+
+            //       // YouTube Music
+            //       input_Text.StartsWith("https://music.youtube.") ||
+            //       input_Text.StartsWith("http://music.youtube.") ||
+            //       input_Text.StartsWith("music.youtube.")
+            //       )
+            //    {
+            //        return true;
+            //    }
+
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
+
+            //// Empty
+            //else
+            //{
+            //    return false;
+            //}
         }
 
 
@@ -3430,7 +3533,7 @@ namespace Axiom
         /// <summary>
         /// System Info
         /// </summary>
-        public void SystemInfoDisplay()
+        public void SystemInfo()
         {
             //int count = 0;
             //await Task.Factory.StartNew(() =>
@@ -5123,181 +5226,182 @@ namespace Axiom
 
             if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text)) // Check Input
             {
-                // -------------------------
-                // Local File
-                // -------------------------
-                if (IsWebURL(VM.MainView.Input_Text) == false) // Ignore Web URL's
+                switch (IsWebURL(VM.MainView.Input_Text))
                 {
                     // -------------------------
-                    // Single File
+                    // Local File
                     // -------------------------
-                    if (VM.MainView.Batch_IsChecked == false)
-                    {
-                        // Input Not Empty
-                        // Output Empty
-                        // Default Output to be same as Input Directory
-                        if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                            string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                            )
+                    case false:
+                        switch(VM.MainView.Batch_IsChecked)
+                        {                    
+                            // -------------------------
+                            // Single File
+                            // -------------------------
+                            case false:
+                                // Input Not Empty
+                                // Output Empty
+                                // Default Output to be same as Input Directory
+                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
+                                    string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
+                                    )
+                                {
+                                    // Default Output Dir to be same as Input Directory
+                                    outputDir = inputDir;
+                                    outputFileName = inputFileName;
+                                }
+
+                                // Input Not Empty
+                                // Output Not Empty
+                                else
+                                {
+                                    outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                                    outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                                }
+
+                                // -------------------------
+                                // File Renamer
+                                // -------------------------
+                                // Pressing Script or Convert while Output TextBox is empty
+                                if (inputDir == outputDir &&
+                                    inputFileName == outputFileName &&
+                                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                    outputFileName = FileRenamer(inputFileName);
+                                }
+
+                                // -------------------------
+                                // Image Sequence Renamer
+                                // -------------------------
+                                if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
+                                {
+                                    outputFileName = "image-%03d"; //must be this name
+                                }
+
+                                // -------------------------
+                                // Combine Output
+                                // -------------------------
+                                output = Path.Combine(outputDir, outputFileName + outputExt);
+
+                                // -------------------------
+                                // Update TextBox
+                                // -------------------------
+                                // Used if FileRenamer() changes name: filename (1)
+                                // Only used for Single File, ignore Batch and Web URLs
+                                VM.MainView.Output_Text = output;
+                                break; // end single file
+
+                            // -------------------------
+                            // Batch
+                            // -------------------------
+                            case true:
+                                // Input Not Empty
+                                // Output Empty
+                                // Default Output to be same as Input Directory
+                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
+                                    string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
+                                    )
+                                {
+                                    VM.MainView.Output_Text = VM.MainView.Input_Text;
+                                }
+
+                                // Add slash to Batch Output Text folder path if missing
+                                // If Output is not Empty
+                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+                                {
+                                    VM.MainView.Output_Text = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
+                                }
+
+                                outputDir = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
+
+                                // -------------------------
+                                // Combine Output  
+                                // -------------------------
+                                switch (VM.ConfigureView.Shell_SelectedItem)
+                                {
+                                    // CMD
+                                    case "CMD":
+                                        // Note: %f is filename, %~f is full path 
+                                        // eg. C:\Output Folder\%~nf.mp4
+                                        output = Path.Combine(outputDir, "%~nf" + outputExt); // eg. C:\Output Folder\%~nf.mp4
+                                        break;
+
+                                    // PowerShell
+                                    case "PowerShell":
+                                        output = Path.Combine(outputDir, "$name" + outputExt); // eg. C:\Output Folder\$name.mp4
+                                        break;
+                                }
+                                break; // end batch
+                            }
+                        break; // end local file
+
+                    // -------------------------
+                    // YouTube Download
+                    // -------------------------
+                    case true:
+                        // -------------------------
+                        // Auto Output Path
+                        // -------------------------
+                        if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
                         {
-                            // Default Output Dir to be same as Input Directory
-                            outputDir = inputDir;
-                            outputFileName = inputFileName;
+                            outputDir = downloadDir; // Default
+                            
+                            switch (VM.ConfigureView.Shell_SelectedItem)
+                            {
+                                // CMD
+                                case "CMD":
+                                    // Note: %f is filename, %~f is full path
+                                    outputFileName = "%f"; // eg. C:\Output Folder\%f.mp4
+                                    break;
+
+                                // PowerShell
+                                case "PowerShell":
+                                    outputFileName = "$name"; // eg. C:\Output Folder\$name.mp4
+                                    break;
+                            }
+
+                            // Check if output filename already exists
+                            // Check if YouTube Download Format is the same as Output Extension
+                            // The youtub-dl merged format for converting should be mkv for converting, mp4 for download-only
+                            //if ("." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                            //                                VM.VideoView.Video_Codec_SelectedItem,
+                            //                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                            //                                VM.AudioView.Audio_Codec_SelectedItem
+                            //                                )
+                            //                                ==
+                            //                                outputExt
+                            //                                )
+                            //{
+                            //    // Add (1)
+                            //    outputFileName = "%f" + " (1)";
+                            //}
+                            //else
+                            //{
+                            //    outputFileName = "%f";
+                            //}
+
+                            // Combine Output
+                            output = Path.Combine(outputDir, outputFileName + outputExt); // eg. C:\Users\Example\Downloads\%f.webm
+
+                            // -------------------------
+                            // Update TextBox
+                            // -------------------------
+                            // Display Folder + file (%f) + extension
+                            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
                         }
 
-                        // Input Not Empty
-                        // Output Not Empty
+                        // -------------------------
+                        // User Defined Output Path
+                        // -------------------------
                         else
                         {
                             outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
                             outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+
+                            // Combine Output
+                            //output = outputDir + outputFileName + outputExt;
+                            output = Path.Combine(outputDir, outputFileName + outputExt);
                         }
-
-                        // -------------------------
-                        // File Renamer
-                        // -------------------------
-                        // Pressing Script or Convert while Output TextBox is empty
-                        if (inputDir == outputDir &&
-                            inputFileName == outputFileName &&
-                            string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            outputFileName = FileRenamer(inputFileName);
-                        }
-
-                        // -------------------------
-                        // Image Sequence Renamer
-                        // -------------------------
-                        if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
-                        {
-                            outputFileName = "image-%03d"; //must be this name
-                        }
-
-                        // -------------------------
-                        // Combine Output
-                        // -------------------------
-                        //output = outputDir + outputFileName + outputExt; // eg. C:\Output Folder\ + file + .mp4
-                        output = Path.Combine(outputDir, outputFileName + outputExt);
-
-                        // -------------------------
-                        // Update TextBox
-                        // -------------------------
-                        // Used if FileRenamer() changes name: filename (1)
-                        // Only used for Single File, ignore Batch and Web URLs
-                        VM.MainView.Output_Text = output;
-                    }
-
-                    // -------------------------
-                    // Batch
-                    // -------------------------
-                    else if (VM.MainView.Batch_IsChecked == true)
-                    {
-                        // Note: %f is filename, %~f is full path
-
-                        // Input Not Empty
-                        // Output Empty
-                        // Default Output to be same as Input Directory
-                        if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                            string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                            )
-                        {
-                            VM.MainView.Output_Text = VM.MainView.Input_Text;
-                        }
-
-                        // Add slash to Batch Output Text folder path if missing
-                        // If Output is not Empty
-                        if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
-                        {
-                            VM.MainView.Output_Text = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
-                        }
-
-                        outputDir = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
-
-                        // -------------------------
-                        // Combine Output  
-                        // -------------------------
-                        // CMD
-                        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
-                        {
-                            //output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
-                            output = Path.Combine(outputDir, "%~nf" + outputExt); // eg. C:\Output Folder\%~nf.mp4
-                        }
-                        // PowerShell
-                        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                        {
-                            output = Path.Combine(outputDir, "$name" + outputExt); // eg. C:\Output Folder\%~nf.mp4
-                        }
-                    }
-                }
-
-                // -------------------------
-                // YouTube Download
-                // -------------------------
-                else if (IsWebURL(VM.MainView.Input_Text) == true) 
-                {
-                    // Note: %f is filename, %~f is full path
-
-                    // -------------------------
-                    // Auto Output Path
-                    // -------------------------
-                    if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
-                    {
-                        outputDir = downloadDir; // Default
-                        //outputFileName = "%f";
-                        // CMD
-                        if (VM.ConfigureView.Shell_SelectedItem == "CMD")
-                        {
-                            // Note: %f is filename, %~f is full path
-                            outputFileName = "%f";
-                        }
-                        // PowerShell
-                        else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                        {
-                            outputFileName = "$name";
-                        }
-
-                        // Check if output filename already exists
-                        // Check if YouTube Download Format is the same as Output Extension
-                        // The youtub-dl merged format for converting should be mkv for converting, mp4 for download-only
-                        //if ("." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                        //                                VM.VideoView.Video_Codec_SelectedItem,
-                        //                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                        //                                VM.AudioView.Audio_Codec_SelectedItem
-                        //                                )
-                        //                                ==
-                        //                                outputExt
-                        //                                )
-                        //{
-                        //    // Add (1)
-                        //    outputFileName = "%f" + " (1)";
-                        //}
-                        //else
-                        //{
-                        //    outputFileName = "%f";
-                        //}
-
-                        // Combine Output
-                        //output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
-                        output = Path.Combine(outputDir, outputFileName + outputExt); // eg. C:\Users\Example\Downloads\%f.webm
-
-                        // -------------------------
-                        // Update TextBox
-                        // -------------------------
-                        // Display Folder + file (%f) + extension
-                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-                    }
-
-                    // -------------------------
-                    // User Defined Output Path
-                    // -------------------------
-                    else
-                    {
-                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-                        outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-
-                        // Combine Output
-                        //output = outputDir + outputFileName + outputExt;
-                        output = Path.Combine(outputDir, outputFileName + outputExt);
-                    }
+                        break; // end youtube-dl
                 }
             }
 
@@ -5328,7 +5432,6 @@ namespace Axiom
         public void ExtensionMatchLoadAutoValues()
         {
             //MessageBox.Show(inputExt + " " + outputExt); //debug
-
             //MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
 
             // -------------------------
@@ -5339,11 +5442,6 @@ namespace Axiom
             //MessageBox.Show(inputExt + "\n" + outputExt); //debug
 
             // Extensions Match Check
-            // Input Extension is Empty and Output Extension is Not Empty
-            //if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase) 
-            //    ||
-            //    (string.IsNullOrWhiteSpace(inputExt) && !string.IsNullOrWhiteSpace(outputExt))
-            //    )
             if (string.IsNullOrWhiteSpace(inputExt) ||
                 inputExt == outputExt)
             {
@@ -5355,8 +5453,7 @@ namespace Axiom
                     // Set Controls:
 
                     // Main
-                    //VM.VideoView.Video_Quality_SelectedItem = "Auto";
-                    //VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
+                    // Pixel Format Auto uses PixelFormatControls()
                     VM.VideoView.Video_FPS_SelectedItem = "auto";
                     VM.VideoView.Video_Optimize_SelectedItem = "None";
                     VM.VideoView.Video_Scale_SelectedItem = "Source";
@@ -5529,7 +5626,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartHours_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5559,7 +5656,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartMinutes_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5589,7 +5686,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartSeconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5619,7 +5716,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartMilliseconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         /// <summary>
@@ -5652,7 +5749,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndHours_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5682,7 +5779,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndMinutes_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5712,7 +5809,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndSeconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5742,7 +5839,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndMilliseconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
 
@@ -5760,7 +5857,7 @@ namespace Axiom
         // Key Down
         private void tbxFrameStart_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -5777,7 +5874,7 @@ namespace Axiom
         // Key Down
         private void tbxFrameEnd_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
 
@@ -6040,7 +6137,7 @@ namespace Axiom
         private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
         // Slider Value Change
         private void slVideo_CRF_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -6236,7 +6333,7 @@ namespace Axiom
         private void cboVideo_Speed_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
 
@@ -6464,17 +6561,6 @@ namespace Axiom
                 {
                     VM.MainView.Preset_SelectedItem = "Preset";
                 }
-                // Select Newly Created Preset
-                //List<string> presetNamesList = VM.MainView.Preset_Items.Select(item => item.Name).ToList();
-                //if (presetNamesList.Contains(presetFileName))
-                //{
-                //    VM.MainView.Preset_SelectedItem = presetFileName;
-                //}
-                //// Default if does not exist
-                //else
-                //{
-                //    VM.MainView.Preset_SelectedItem = "Preset";
-                //}
             }
 
         }
@@ -7499,7 +7585,7 @@ namespace Axiom
         private void tbxAudio_BitRate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
         // Got Focus
         private void tbxAudio_BitRate_GotFocus(object sender, RoutedEventArgs e)
@@ -7575,7 +7661,7 @@ namespace Axiom
         private void tbxAudio_Volume_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         /// <summary>
@@ -8238,7 +8324,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Brightness_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // Contrast
@@ -8259,7 +8345,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Contrast_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // Saturation
@@ -8280,7 +8366,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Saturation_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // Gamma
@@ -8301,7 +8387,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Gamma_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
 
         // Reset
@@ -8446,7 +8532,7 @@ namespace Axiom
         // Key Down
         private void tbxFilterAudio_Contrast_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
         // Key Up
         private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -8457,6 +8543,15 @@ namespace Axiom
         private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             //AudioControls.AutoCopyAudioCodec("control");
+        }
+        //Text Change
+        private void tbxFilterAudio_Contrast_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Convert Empty to 0
+            //if (string.IsNullOrWhiteSpace(tbxFilterAudio_Contrast.Text))
+            //{
+            //    tbxFilterAudio_Contrast.Text = "0";
+            //}
         }
 
         /// <summary>
@@ -8473,7 +8568,7 @@ namespace Axiom
         // Key Down
         private void tbxFilterAudio_ExtraStereo_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
         // Key Up
         private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -8500,7 +8595,7 @@ namespace Axiom
         // Key Down
         private void tbxFilterAudio_Tempo_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowNumbersOnly(e);
+            Allow_Only_Number_Keys(e);
         }
         // Key Up
         private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -8637,7 +8732,7 @@ namespace Axiom
                     // Do not use FFprobe Metadata Parsing
                     // Video/Audio Auto Quality will add BitRate
                     //FFmpeg.YouTubeDownloadGenerateArgs();
-                    YouTubeDL.Generate_FFmpegArgs();
+                    FFmpeg.YouTubeDL.Generate_FFmpegArgs();
                 }
             });
 
