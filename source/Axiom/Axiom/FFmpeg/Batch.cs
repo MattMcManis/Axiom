@@ -85,21 +85,21 @@ namespace Axiom
 
                             // Video
                             "\r\n\r\n" +
-                            Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
-                                                        VM.VideoView.Video_Codec_SelectedItem,
-                                                        VM.VideoView.Video_Quality_SelectedItem
-                                                        ),
+                            Video.Quality.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
+                                                                VM.VideoView.Video_Codec_SelectedItem,
+                                                                VM.VideoView.Video_Quality_SelectedItem
+                                                                ),
 
                             // Audio
                             "\r\n\r\n" +
-                            Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
-                                                        VM.AudioView.Audio_Codec_SelectedItem,
-                                                        VM.AudioView.Audio_Quality_SelectedItem
-                                                        ),
+                            Audio.Quality.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
+                                                                VM.AudioView.Audio_Codec_SelectedItem,
+                                                                VM.AudioView.Audio_Quality_SelectedItem
+                                                                ),
                             "\r\n\r\n" +
-                            Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
-                                                           VM.AudioView.Audio_Quality_SelectedItem
-                                                           ),
+                            Audio.Quality.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
+                                                                   VM.AudioView.Audio_Quality_SelectedItem
+                                                                   ),
 
                             "\r\n\r\n" +
                             "&&",
@@ -122,28 +122,28 @@ namespace Axiom
                             // CRF
                             // -------------------------
                             case "CRF":
-                                ffmpegBatchArgsList.Add(CRF.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg.CRF.Arguments());
                                 break;
 
                             // -------------------------
                             // 1 Pass
                             // -------------------------
                             case "1 Pass":
-                                ffmpegBatchArgsList.Add(_1_Pass.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
                                 break;
 
                             // -------------------------
                             // 2 Pass
                             // -------------------------
                             case "2 Pass":
-                                ffmpegBatchArgsList.Add(_2_Pass.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg._2_Pass.Arguments());
                                 break;
 
                             // -------------------------
                             // Empty, none, auto / Audio
                             // -------------------------
                             default:
-                                ffmpegBatchArgsList.Add(_1_Pass.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
                                 break;
                         }
 
@@ -261,28 +261,28 @@ namespace Axiom
                             // CRF
                             // -------------------------
                             case "CRF":
-                                ffmpegBatchArgsList.Add(CRF.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg.CRF.Arguments());
                                 break;
 
                             // -------------------------
                             // 1 Pass
                             // -------------------------
                             case "1 Pass":
-                                ffmpegBatchArgsList.Add(_1_Pass.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
                                 break;
 
                             // -------------------------
                             // 2 Pass
                             // -------------------------
                             case "2 Pass":
-                                ffmpegBatchArgsList.Add(_2_Pass.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg._2_Pass.Arguments());
                                 break;
 
                             // -------------------------
                             // Empty, none, auto / Audio
                             // -------------------------
                             default:
-                                ffmpegBatchArgsList.Add(_1_Pass.Arguments());
+                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
                                 break;
                         }
 
