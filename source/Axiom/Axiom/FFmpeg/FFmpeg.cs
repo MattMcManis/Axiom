@@ -44,7 +44,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public class FFmpeg
+    public partial class FFmpeg
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
