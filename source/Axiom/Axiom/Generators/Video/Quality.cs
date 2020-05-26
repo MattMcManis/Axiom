@@ -387,12 +387,11 @@ namespace Axiom
                 // -------------------------
                 // HW Accel Transcode Codecs
                 // -------------------------
-                // x264 & x265 only
                 if (VM.VideoView.Video_HWAccel_SelectedItem == "On" &&
-                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&
-                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&
-                     VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" &&
-                    (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&     // Transcode not off
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&    // Transcode not auto
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" && // Ignore AMD AMF
+                    (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")    // x264 & x265 only
                    )
                 {
                     //string crf_hwaccel_val = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel;
@@ -528,12 +527,11 @@ namespace Axiom
                         // --------------------------------------------------
                         // HW Accel Transcode Codecs
                         // --------------------------------------------------
-                        // x264 & x265 only
                         if (VM.VideoView.Video_HWAccel_SelectedItem == "On" &&
-                            VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&
-                            VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&
-                            VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" &&
-                            (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")
+                            VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&     // Transcode not off
+                            VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&    // Transcode not auto
+                            VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" && // Ignore AMD AMF
+                            (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")    // x264 & x265 only
                            )
                         {
                             //vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
@@ -718,17 +716,18 @@ namespace Axiom
                     if (pass_SelectedItem == "CRF")
                     {
                         vQualityArgs = new List<string>()
-                    {
-                        vLossless,
-                        vBitMode,
-                        //vBitRate,
-                        string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
-                        vMinRate,
-                        vMaxRate,
-                        vBufSize,
-                        vCRF,
-                        vOptions
-                    };
+                        {
+                            vLossless,
+                            vBitMode,
+                            //vBitRate,
+                            // Format European English comma to US English peroid - 1,234 to 1.234
+                            string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
+                            vMinRate,
+                            vMaxRate,
+                            vBufSize,
+                            vCRF,
+                            vOptions
+                        };
                     }
 
                     // -------------------------
@@ -740,22 +739,20 @@ namespace Axiom
                     {
                         // Quality Arguments List
                         vQualityArgs = new List<string>()
-                    {
-                        vLossless,
-                        vBitMode,
-                        //vBitRate,
-                        string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
-                        vMinRate,
-                        vMaxRate,
-                        vBufSize,
-                        vOptions
-                    };
+                        {
+                            vLossless,
+                            vBitMode,
+                            //vBitRate,
+                            // Format European English comma to US English peroid - 1,234 to 1.234
+                            string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
+                            vMinRate,
+                            vMaxRate,
+                            vBufSize,
+                            vOptions
+                        };
 
                         //MessageBox.Show(string.Join("\n", vQualityArgs)); //debug
                     }
-
-                    // Format European English comma to US English peroid - 1,234 to 1.234
-                    //vQuality = string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vQuality);
 
                     // Join Video Quality Args List
                     vQuality = string.Join(" ", vQualityArgs
@@ -820,28 +817,28 @@ namespace Axiom
                             // -------------------------
                             case "CMD":
                                 batchVideoAutoList = new List<string>()
-                            {
-                                // size
-                                "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
-                                // set %S to %size%
-                                "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
+                                {
+                                    // size
+                                    "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
+                                    // set %S to %size%
+                                    "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
 
-                                // duration
-                                "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
-                                // remove duration decimals
-                                "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
-                                // set %D to %duration%
-                                "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
+                                    // duration
+                                    "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
+                                    // remove duration decimals
+                                    "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
+                                    // set %D to %duration%
+                                    "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
 
-                                // vBitRate
-                                "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
-                                // set %V to %vBitRate%
-                                "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
-                                // auto bitrate calcuate
-                                "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video Bit Rate Detected))",
-                                // set %V to %vBitRate%
-                                "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
-                            };
+                                    // vBitRate
+                                    "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
+                                    // set %V to %vBitRate%
+                                    "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
+                                    // auto bitrate calcuate
+                                    "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video Bit Rate Detected))",
+                                    // set %V to %vBitRate%
+                                    "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
+                                };
                                 break;
 
                             // -------------------------
@@ -849,9 +846,9 @@ namespace Axiom
                             // -------------------------
                             case "PowerShell":
                                 batchVideoAutoList = new List<string>()
-                            {
-                                string.Empty
-                            };
+                                {
+                                    string.Empty
+                                };
                                 break;
                         }
 
@@ -1216,11 +1213,11 @@ namespace Axiom
                     // Combine Optimize = Tune + Profile + Level
                     // -------------------------
                     List<string> v2passList = new List<string>() {
-                    optTune,
-                    optProfile,
-                    optLevel,
-                    optFlags
-                };
+                        optTune,
+                        optProfile,
+                        optLevel,
+                        optFlags
+                    };
 
                     optimize = string.Join(" ", v2passList
                                                 .Where(s => !string.IsNullOrWhiteSpace(s))
