@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.8.3] - May 26, 2020
+### Added
+- Video and Audio Partial Classes
+
+### Changed
+- Speed Optimizations
+
+### Fixed
+- Video Encode Speed SelectedItem Default
+
+
 ## [1.8.8.2] - May 25, 2020
 ### Added
 - Created Classes for FFmpeg Generate Arguments Methods
@@ -17,7 +28,7 @@ Axiom FFmpeg UI
 - Optimized Pixel Format Controls
 
 ### Fixed
-- Fixed Extension Match Load Auto Values
+- Extension Match Load Auto Values
 
 
 ## [1.8.8.0] - May 24, 2020
