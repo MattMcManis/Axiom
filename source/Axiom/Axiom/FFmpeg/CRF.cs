@@ -33,17 +33,20 @@ using System.Threading.Tasks;
 
 namespace Axiom
 {
-    public class CRF
+    public partial class FFmpeg
     {
-        /// <summary>
-        /// CRF Arguments
-        /// </summary>
-        /// <remarks>
-        /// Is the same as 1 Pass Arguments
-        /// </remarks>
-        public static String Arguments()
+        public class CRF
         {
-            return _1_Pass.Arguments();
+            /// <summary>
+            /// CRF Arguments
+            /// </summary>
+            /// <remarks>
+            /// Is the same as 1 Pass Arguments
+            /// </remarks>
+            public static String Arguments()
+            {
+                return _1_Pass.Arguments();
+            }
         }
     }
 }
