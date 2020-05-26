@@ -282,16 +282,20 @@ namespace Axiom
                                                   string pass
                                                   )
             {
-                // Check:
-                // Video Codec Not Copy
-                if (codec_SelectedItem != "Copy")
+                // -------------------------
+                // Empty
+                // -------------------------
+                if (string.IsNullOrWhiteSpace(codec_SelectedItem))
+                {
+                    return vEncodeSpeed;
+                }
+
+                switch (codec_SelectedItem)
                 {
                     // -------------------------
-                    // Auto / VP8 - Special Rules
+                    // Auto
                     // -------------------------
-                    if (codec_SelectedItem == "VP8" ||
-                        codec_SelectedItem == "Auto")
-                    {
+                    case "Auto":
                         if (pass == "CRF" ||
                             pass == "1 Pass")
                         {
@@ -301,15 +305,66 @@ namespace Axiom
                         {
                             vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command_2Pass;
                         }
-                    }
+                        break;
+
+                    // -------------------------
+                    // VP8
+                    // -------------------------
+                    case "VP8":
+                        if (pass == "CRF" ||
+                            pass == "1 Pass")
+                        {
+                            vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
+                        }
+                        else if (pass == "2 Pass")
+                        {
+                            vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command_2Pass;
+                        }
+                        break;
+
+                    // -------------------------
+                    // Copy
+                    // -------------------------
+                    case "Copy":
+                        // Skip
+                        break;
 
                     // -------------------------
                     // All Other Codecs
                     // -------------------------
-                    else
-                    {
+                    default:
                         vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
-                    }
+                        break;
+                }
+
+                //// Check:
+                //// Video Codec Not Copy
+                //if (codec_SelectedItem != "Copy")
+                //{
+                //    // -------------------------
+                //    // Auto / VP8 - Special Rules
+                //    // -------------------------
+                //    if (codec_SelectedItem == "VP8" ||
+                //        codec_SelectedItem == "Auto")
+                //    {
+                //        if (pass == "CRF" ||
+                //            pass == "1 Pass")
+                //        {
+                //            vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
+                //        }
+                //        else if (pass == "2 Pass")
+                //        {
+                //            vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command_2Pass;
+                //        }
+                //    }
+
+                //    // -------------------------
+                //    // All Other Codecs
+                //    // -------------------------
+                //    else
+                //    {
+                //        vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
+                //    }
 
 
                     // Log Console Message /////////
@@ -320,7 +375,7 @@ namespace Axiom
                         Log.logParagraph.Inlines.Add(new Run(encodeSpeed_SelectedItem) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
-                }
+                //}
 
 
                 // Return Value
