@@ -88,19 +88,19 @@ namespace Axiom
 
                     //Audio.AudioCodec(),
                     //Audio.AudioQuality(),
-                    Audio.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
-                                     VM.AudioView.Audio_SampleRate_Items,
-                                     VM.AudioView.Audio_SampleRate_SelectedItem
-                                     ),
+                    Audio.Quality.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
+                                             VM.AudioView.Audio_SampleRate_Items,
+                                             VM.AudioView.Audio_SampleRate_SelectedItem
+                                             ),
 
-                    Audio.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
-                                   VM.AudioView.Audio_BitDepth_Items,
-                                   VM.AudioView.Audio_BitDepth_SelectedItem
-                                   ),
+                    Audio.Quality.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
+                                           VM.AudioView.Audio_BitDepth_Items,
+                                           VM.AudioView.Audio_BitDepth_SelectedItem
+                                           ),
 
-                    Audio.Channel(VM.AudioView.Audio_Codec_SelectedItem,
-                                  VM.AudioView.Audio_Channel_SelectedItem
-                                  ),
+                    Audio.Channels.Channel(VM.AudioView.Audio_Codec_SelectedItem,
+                                           VM.AudioView.Audio_Channel_SelectedItem
+                                           ),
 
                     AudioFilters.AudioFilter(),
                     //Streams.AudioStreamMaps(),
@@ -121,10 +121,10 @@ namespace Axiom
                 // Remove: Empty, Null, Standalone LineBreak
                 string ffplayArgs = MainWindow.ReplaceLineBreaksWithSpaces(
                                             string.Join(" ", FFplayArgsList
-                                                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                    .Where(s => !s.Equals(Environment.NewLine))
-                                                    .Where(s => !s.Equals("\r\n\r\n"))
-                                                    .Where(s => !s.Equals("\r\n"))
+                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                            .Where(s => !s.Equals(Environment.NewLine))
+                                                            .Where(s => !s.Equals("\r\n\r\n"))
+                                                            .Where(s => !s.Equals("\r\n"))
                                               )
                                             );
                 //MessageBox.Show(ffplayArgs); //debug
