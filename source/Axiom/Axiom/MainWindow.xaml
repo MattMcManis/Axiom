@@ -38,7 +38,7 @@
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"       
         Width="824"
-        Height="464"
+        Height="1464"
         
         Title="{Binding MainView.TitleVersion, Mode=OneWay}" 
         Style="{DynamicResource WindowStyle}"
@@ -5014,7 +5014,7 @@
                                                      KeyDown="tbxFilterAudio_Contrast_KeyDown"
                                                      PreviewKeyUp="tbxFilterAudio_Contrast_PreviewKeyUp" 
                                                      Grid.Column="2" 
-                                                     Grid.Row="8" TextChanged="tbxFilterAudio_Contrast_TextChanged"/>
+                                                     Grid.Row="8" />
 
                                             <!-- Extra Stereo -->
                                             <Label Style="{DynamicResource LabelStyle}"
