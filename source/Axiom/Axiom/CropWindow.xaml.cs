@@ -52,72 +52,11 @@ namespace Axiom
 
             this.mainwindow = mainwindow;
 
-            //DataContext = new VM();
-
             // Set Min/Max Width/Height to prevent Tablets maximizing
             this.MinWidth = 480;
             this.MinHeight = 270;
             this.MaxWidth = 480;
             this.MaxHeight = 270;
-
-            // --------------------------------------------------
-            // Load From Saved Settings
-            // --------------------------------------------------
-            //// -------------------------
-            //// Crop Width
-            //// ------------------------- 
-            //// First time use
-            //if (string.IsNullOrWhiteSpace(cropWidth))
-            //{
-            //    VM.VideoView.Video_Crop_Width_Text = string.Empty;
-            //}
-            //// Load Temp Saved String
-            //else if (!string.IsNullOrWhiteSpace(cropWidth))
-            //{
-            //    VM.VideoView.Video_Crop_Width_Text = cropWidth;
-            //}
-
-            //// -------------------------
-            //// Crop Height
-            //// ------------------------- 
-            //// First time use
-            //if (string.IsNullOrWhiteSpace(cropHeight))
-            //{
-            //    VM.VideoView.Video_Crop_Height_Text = string.Empty;
-            //}
-            //// Load Temp Saved String
-            //else if (!string.IsNullOrWhiteSpace(cropHeight))
-            //{
-            //    VM.VideoView.Video_Crop_Height_Text = cropHeight;
-            //}
-
-            //// -------------------------
-            //// Crop X
-            //// ------------------------- 
-            //// First time use
-            //if (string.IsNullOrWhiteSpace(cropX))
-            //{
-            //    VM.VideoView.Video_Crop_X_Text = string.Empty;
-            //}
-            //// Load Temp Saved String
-            //else if (!string.IsNullOrWhiteSpace(cropX))
-            //{
-            //    VM.VideoView.Video_Crop_X_Text = cropX;
-            //}
-
-            //// -------------------------
-            //// Crop Y
-            //// ------------------------- 
-            //// First time use
-            //if (string.IsNullOrWhiteSpace(cropY))
-            //{
-            //    VM.VideoView.Video_Crop_Y_Text = string.Empty;
-            //}
-            //// Load Temp Saved String
-            //else if (!string.IsNullOrWhiteSpace(cropY))
-            //{
-            //    VM.VideoView.Video_Crop_Y_Text = cropY;
-            //}
         }
 
 
