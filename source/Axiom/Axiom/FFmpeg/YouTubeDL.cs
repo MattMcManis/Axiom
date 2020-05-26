@@ -35,61 +35,63 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public class YouTubeDL
+    public partial class FFmpeg
     {
-        /// <summary>
-        /// YouTube Download - Generate Args
-        /// </summary>
-        public static void Generate_FFmpegArgs()
+        public class YouTubeDL
         {
-            // Log Console Message /////////
-            Log.WriteAction = () =>
+            /// <summary>
+            /// YouTube Download - Generate Args
+            /// </summary>
+            public static void Generate_FFmpegArgs()
             {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("YouTube Download: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(VM.MainView.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("YouTube Download: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(VM.MainView.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
                 //Log.logParagraph.Inlines.Add(new LineBreak());
                 //Log.logParagraph.Inlines.Add(new LineBreak());
                 //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Convert...")) { Foreground = Log.ConsoleAction });
                 Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+                    Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
-            // -------------------------
-            // Generate the youtube-dl Output Path and break it into sections for args below
-            // -------------------------
-            string outputPath = MainWindow.OutputPath();
-            string outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-            string outputFileName = Path.GetFileNameWithoutExtension(outputPath);
-            string output = Path.Combine(outputDir, outputFileName + MainWindow.outputExt);
-
-            // -------------------------
-            // Generate Download Script
-            // -------------------------
-            List<string> youtubedlArgs = new List<string>();
-
-            // -------------------------
-            // Set Name Variable
-            // -------------------------
-            string nameVariable = string.Empty;
-
-            switch (VM.ConfigureView.Shell_SelectedItem)
-            {
                 // -------------------------
-                // CMD
+                // Generate the youtube-dl Output Path and break it into sections for args below
                 // -------------------------
-                case "CMD":
-                    nameVariable = "%f";
+                string outputPath = MainWindow.OutputPath();
+                string outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                string outputFileName = Path.GetFileNameWithoutExtension(outputPath);
+                string output = Path.Combine(outputDir, outputFileName + MainWindow.outputExt);
 
+                // -------------------------
+                // Generate Download Script
+                // -------------------------
+                List<string> youtubedlArgs = new List<string>();
+
+                // -------------------------
+                // Set Name Variable
+                // -------------------------
+                string nameVariable = string.Empty;
+
+                switch (VM.ConfigureView.Shell_SelectedItem)
+                {
                     // -------------------------
-                    // YouTube Download Arguments Full
+                    // CMD
                     // -------------------------
-                    youtubedlArgs = new List<string>()
+                    case "CMD":
+                        nameVariable = "%f";
+
+                        // -------------------------
+                        // YouTube Download Arguments Full
+                        // -------------------------
+                        youtubedlArgs = new List<string>()
                     {
                         "cd /d",
                         "\"" + outputDir + "\"",
@@ -129,29 +131,29 @@ namespace Axiom
                                                                                                  VM.AudioView.Audio_Codec_SelectedItem
                                                                                                  )
                     };
-                    break;
+                        break;
 
-                // -------------------------
-                // PowerShell
-                // -------------------------
-                case "PowerShell":
-                    nameVariable = "$name";
+                    // -------------------------
+                    // PowerShell
+                    // -------------------------
+                    case "PowerShell":
+                        nameVariable = "$name";
 
-                    // Format youtube-dl Path
-                    string youtubedl_formatted = string.Empty;
-                    // Check if youtube-dl is not default, if so it is a user-defined path, wrap in quotes
-                    // If default, it will not be wrapped in quotes
-                    if (MainWindow.youtubedl != "youtube-dl")
-                    {
-                        youtubedl_formatted = MainWindow.WrapQuotes(MainWindow.youtubedl);
-                    }
-                    else
-                    {
-                        youtubedl_formatted = MainWindow.youtubedl;
-                    }
+                        // Format youtube-dl Path
+                        string youtubedl_formatted = string.Empty;
+                        // Check if youtube-dl is not default, if so it is a user-defined path, wrap in quotes
+                        // If default, it will not be wrapped in quotes
+                        if (MainWindow.youtubedl != "youtube-dl")
+                        {
+                            youtubedl_formatted = MainWindow.WrapQuotes(MainWindow.youtubedl);
+                        }
+                        else
+                        {
+                            youtubedl_formatted = MainWindow.youtubedl;
+                        }
 
-                    // youtube-dl Args List
-                    youtubedlArgs = new List<string>()
+                        // youtube-dl Args List
+                        youtubedlArgs = new List<string>()
                     {
                         // Get Title
                         "$name =" + " & " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
@@ -183,12 +185,12 @@ namespace Axiom
                                                                                                  VM.AudioView.Audio_Codec_SelectedItem
                                                                                                  )
                     };
-                    break;
-            }
+                        break;
+                }
 
-            // FFmpeg Args
-            //
-            List<string> ffmpegArgsList = new List<string>()
+                // FFmpeg Args
+                //
+                List<string> ffmpegArgsList = new List<string>()
             {
                 //"\r\n\r\n" + "&&",
                 "\r\n\r\n" +
@@ -201,102 +203,103 @@ namespace Axiom
                 "-y",
             };
 
-            // Add Arguments to ffmpegArgsList
-            switch (VM.VideoView.Video_Pass_SelectedItem)
-            {
-                // -------------------------
-                // CRF
-                // -------------------------
-                case "CRF":
-                    ffmpegArgsList.Add(CRF.Arguments());
-                    break;
-
-                // -------------------------
-                // 1 Pass
-                // -------------------------
-                case "1 Pass":
-                    ffmpegArgsList.Add(_1_Pass.Arguments());
-                    break;
-
-                // -------------------------
-                // 2 Pass
-                // -------------------------
-                case "2 Pass":
-                    ffmpegArgsList.Add(_2_Pass.Arguments());
-                    break;
-
-                // -------------------------
-                // Empty, none, auto / Audio
-                // -------------------------
-                default:
-                    ffmpegArgsList.Add(_1_Pass.Arguments());
-                    break;
-            }
-
-            // Add Logical Operator &&
-            ffmpegArgsList.Add("\r\n\r\n" + FFmpeg.LogicalOperator_And_ShellFormatter());
-
-            // Add Delete Downloaded File
-            ffmpegArgsList.Add("\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + nameVariable + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                                                                                    VM.VideoView.Video_Codec_SelectedItem,
-                                                                                                                    VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                                                                                    VM.AudioView.Audio_Codec_SelectedItem
-                                                                                                ) + "\"");
-
-
-            // -------------------------
-            // Download-Only
-            // -------------------------
-            if (MainWindow.IsWebDownloadOnly(VM.VideoView.Video_Codec_SelectedItem,
-                                             VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                             VM.AudioView.Audio_Codec_SelectedItem) == true
-                                             )
-            {
-                // Add "do" Closing Tag
-                // CMD
-                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                // Add Arguments to ffmpegArgsList
+                switch (VM.VideoView.Video_Pass_SelectedItem)
                 {
-                    youtubedlArgs.Add("\r\n)");
+                    // -------------------------
+                    // CRF
+                    // -------------------------
+                    case "CRF":
+                        ffmpegArgsList.Add(FFmpeg.CRF.Arguments());
+                        break;
+
+                    // -------------------------
+                    // 1 Pass
+                    // -------------------------
+                    case "1 Pass":
+                        ffmpegArgsList.Add(FFmpeg._1_Pass.Arguments());
+                        break;
+
+                    // -------------------------
+                    // 2 Pass
+                    // -------------------------
+                    case "2 Pass":
+                        ffmpegArgsList.Add(FFmpeg._2_Pass.Arguments());
+                        break;
+
+                    // -------------------------
+                    // Empty, none, auto / Audio
+                    // -------------------------
+                    default:
+                        ffmpegArgsList.Add(FFmpeg._1_Pass.Arguments());
+                        break;
                 }
 
-                // Join List with Spaces
-                // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                                 .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                 .Where(s => !s.Equals(Environment.NewLine))
-                                                 .Where(s => !s.Equals("\r\n\r\n"))
-                                                 .Where(s => !s.Equals("\r\n"))
-                                    );
+                // Add Logical Operator &&
+                ffmpegArgsList.Add("\r\n\r\n" + FFmpeg.LogicalOperator_And_ShellFormatter());
 
-                // Inline 
-                FFmpeg.ffmpegArgs = MainWindow.RemoveLineBreaks(FFmpeg.ffmpegArgsSort);
-            }
+                // Add Delete Downloaded File
+                ffmpegArgsList.Add("\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + nameVariable + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                                                                                                                        VM.VideoView.Video_Codec_SelectedItem,
+                                                                                                                        VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                                                                                        VM.AudioView.Audio_Codec_SelectedItem
+                                                                                                    ) + "\"");
 
-            // -------------------------
-            // Download & Convert
-            // -------------------------
-            else
-            {
-                // Join YouTube Args & FFmpeg Args
-                youtubedlArgs.AddRange(ffmpegArgsList);
-                // Add "do" Closing Tag
-                // CMD
-                if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+
+                // -------------------------
+                // Download-Only
+                // -------------------------
+                if (MainWindow.IsWebDownloadOnly(VM.VideoView.Video_Codec_SelectedItem,
+                                                 VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                 VM.AudioView.Audio_Codec_SelectedItem) == true
+                                                 )
                 {
-                    youtubedlArgs.Add("\r\n)");
+                    // Add "do" Closing Tag
+                    // CMD
+                    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                    {
+                        youtubedlArgs.Add("\r\n)");
+                    }
+
+                    // Join List with Spaces
+                    // Remove: Empty, Null, Standalone LineBreak
+                    FFmpeg.ffmpegArgsSort = string.Join(" ", youtubedlArgs
+                                                     .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                     .Where(s => !s.Equals(Environment.NewLine))
+                                                     .Where(s => !s.Equals("\r\n\r\n"))
+                                                     .Where(s => !s.Equals("\r\n"))
+                                        );
+
+                    // Inline 
+                    FFmpeg.ffmpegArgs = MainWindow.RemoveLineBreaks(FFmpeg.ffmpegArgsSort);
                 }
 
-                // Join List with Spaces
-                // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                                  .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                  .Where(s => !s.Equals(Environment.NewLine))
-                                                  .Where(s => !s.Equals("\r\n\r\n"))
-                                                  .Where(s => !s.Equals("\r\n"))
-                                 );
+                // -------------------------
+                // Download & Convert
+                // -------------------------
+                else
+                {
+                    // Join YouTube Args & FFmpeg Args
+                    youtubedlArgs.AddRange(ffmpegArgsList);
+                    // Add "do" Closing Tag
+                    // CMD
+                    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                    {
+                        youtubedlArgs.Add("\r\n)");
+                    }
 
-                // Inline 
-                FFmpeg.ffmpegArgs = MainWindow.RemoveLineBreaks(FFmpeg.ffmpegArgsSort);
+                    // Join List with Spaces
+                    // Remove: Empty, Null, Standalone LineBreak
+                    FFmpeg.ffmpegArgsSort = string.Join(" ", youtubedlArgs
+                                                      .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                      .Where(s => !s.Equals(Environment.NewLine))
+                                                      .Where(s => !s.Equals("\r\n\r\n"))
+                                                      .Where(s => !s.Equals("\r\n"))
+                                     );
+
+                    // Inline 
+                    FFmpeg.ffmpegArgs = MainWindow.RemoveLineBreaks(FFmpeg.ffmpegArgsSort);
+                }
             }
         }
     }
