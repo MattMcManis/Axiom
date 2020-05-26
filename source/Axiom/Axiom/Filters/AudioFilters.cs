@@ -52,6 +52,9 @@ namespace Axiom
         public static List<string> aFiltersList = new List<string>(); // Filters to String Join
         public static string aFilter { get; set; }
 
+        public static string aVolume { get; set; }
+        public static string aHardLimiter { get; set; }
+
 
         /// <summary>
         /// Audio Filters - Enable All 
@@ -127,6 +130,242 @@ namespace Axiom
         {
 
         }
+
+
+        /// <summary>
+        /// Volume
+        /// <summary>
+        public static void Volume()
+        {
+            // -------------------------
+            // Only if Audio Codec is Not Empty
+            // -------------------------
+            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
+            {
+                // If TextBox is 100% or Empty
+                if (VM.AudioView.Audio_Volume_Text == "100%" ||
+                    VM.AudioView.Audio_Volume_Text == "100" ||
+                    string.IsNullOrWhiteSpace(VM.AudioView.Audio_Volume_Text))
+                {
+                    aVolume = string.Empty;
+                }
+                // If User Custom Entered Value
+                // Convert Volume % to Decimal
+                else
+                {
+                    try
+                    {
+                        // If user enters value, turn on Filter
+                        double volumeDecimal = Convert.ToDouble(VM.AudioView.Audio_Volume_Text.Trim()) * 0.01;
+
+                        aVolume = "volume=" + volumeDecimal;
+
+                        // Audio Filter Add
+                        AudioFilters.aFiltersList.Add(aVolume);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Volume: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(VM.AudioView.Audio_Volume_Text) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+        }
+
+
+        /// <summary>
+        /// Hard Limiter Filter (Method)
+        /// <summary>
+        public static void HardLimiter()
+        {
+            // FFmpeg Range 0.0625 to 1
+            // FFmpeg Default 0
+            // Slider -24 to 0
+            // Slider Default 0
+            // Limit to 4 decimal places
+
+            double value = VM.AudioView.Audio_HardLimiter_Value;
+
+            aHardLimiter = string.Empty;
+
+            if (VM.AudioView.Audio_HardLimiter_IsEnabled == true &&
+                value != 0)
+            {
+
+                try
+                {
+                    string limit = string.Empty;
+
+                    // -0.1 to -3dB
+                    if (value > -4)
+                    {
+                        double inputMin = -3;
+                        double inputMax = -0.1;
+                        double normMin = 0.7;
+                        double normMax = 0.99;
+
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -4 to -7dB
+                    else if (value <= -4 && value >= -7)
+                    {
+                        double inputMin = -7;
+                        double inputMax = -4;
+                        double normMin = 0.45;
+                        double normMax = 0.65;
+
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -8 to -10dB
+                    else if (value <= -8 && value >= -10)
+                    {
+                        double inputMin = -10;
+                        double inputMax = -8;
+                        double normMin = 0.3;
+                        double normMax = 0.4;
+
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -11 to -16dB
+                    else if (value <= -11 && value >= -16)
+                    {
+                        double inputMin = -16;
+                        double inputMax = -11;
+                        double normMin = 0.15;
+                        double normMax = 0.275;
+
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -17 to -19dB
+                    else if (value <= -17 && value >= -19)
+                    {
+                        double inputMin = -19;
+                        double inputMax = -17;
+                        double normMin = 0.1;
+                        double normMax = 0.135;
+
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
+
+                                                    , 8 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -20 to -24dB
+                    else if (value <= -20)
+                    {
+                        double inputMin = -24;
+                        double inputMax = -20;
+                        double normMin = 0.0625;
+                        double normMax = 0.0975;
+
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + limit + ":attack=7:release=100:level=disabled";
+
+                    // Add to Filters List
+                    AudioFilters.aFiltersList.Add(aHardLimiter);
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Hard Limiter .")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Remove Click (Method)
@@ -327,12 +566,12 @@ namespace Axiom
                 // -------------------------
                 // Volume
                 // -------------------------
-                Audio.Volume();
+                Volume();
 
                 // -------------------------
                 // Hard Limiter
                 // -------------------------
-                Audio.HardLimiter();
+                HardLimiter();
 
                 // -------------------------
                 // Remove Click
