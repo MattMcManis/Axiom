@@ -459,10 +459,10 @@ namespace Axiom
                         // Combine Options
                         // --------------------------------------------------
                         List<string> aQualityArgs = new List<string>()
-                    {
-                        aBitMode,
-                        aBitRate
-                    };
+                        {
+                            aBitMode,
+                            aBitRate
+                        };
 
                         // Quality
                         aQuality = string.Join(" ", aQualityArgs
@@ -1097,22 +1097,22 @@ namespace Axiom
                     {
                         // Make List
                         List<string> BatchAudioAutoList = new List<string>()
-                    {
-                        // audio
-                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitRate=%A)",
+                        {
+                            // audio
+                            "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitRate=%A)",
 
-                        // set %A to %aBitRate%
-                        "\r\n\r\n" + "& for /F %A in ('echo %aBitRate%') do (echo)",
+                            // set %A to %aBitRate%
+                            "\r\n\r\n" + "& for /F %A in ('echo %aBitRate%') do (echo)",
 
-                        // basic limiter
-                        "\r\n\r\n" + "& (IF %A EQU N/A (SET aBitRate=320000))",
+                            // basic limiter
+                            "\r\n\r\n" + "& (IF %A EQU N/A (SET aBitRate=320000))",
 
-                        // null check
-                        "\r\n\r\n" + "& (IF %A EQU \"\" (SET aBitRate=320000))",
+                            // null check
+                            "\r\n\r\n" + "& (IF %A EQU \"\" (SET aBitRate=320000))",
 
-                        // set %A to %aBitRate%
-                        "\r\n\r\n" + "& for /F %A in ('echo %aBitRate%') do (echo)"
-                    };
+                            // set %A to %aBitRate%
+                            "\r\n\r\n" + "& for /F %A in ('echo %aBitRate%') do (echo)"
+                        };
 
                         // Join List with Spaces, Remove Empty Strings
                         batchAudioAuto = string.Join(" ", BatchAudioAutoList
