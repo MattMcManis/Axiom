@@ -152,7 +152,7 @@ namespace Axiom
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Format")) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
 
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Container: ")) { Foreground = Log.ConsoleDefault });
@@ -236,33 +236,33 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
 
-            // --------------------------------------------------
-            // Category: General
-            // --------------------------------------------------
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+            //// --------------------------------------------------
+            //// Category: General
+            //// --------------------------------------------------
+            //// Log Console Message /////////
+            //Log.WriteAction = () =>
+            //{
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
+            //};
+            //Log.LogActions.Add(Log.WriteAction);
 
 
-            // -------------------------
-            //    Format
-            // -------------------------
-            // OutputFormat() is not called because it is instead used in Controls
-            // Use a Message for Log Console
+            //// -------------------------
+            ////    Format
+            //// -------------------------
+            //// OutputFormat() is not called because it is instead used in Controls
+            //// Use a Message for Log Console
 
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(MainWindow.outputExt) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+            //// Log Console Message /////////
+            //Log.WriteAction = () =>
+            //{
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
+            //    Log.logParagraph.Inlines.Add(new Run(MainWindow.outputExt) { Foreground = Log.ConsoleDefault });
+            //};
+            //Log.LogActions.Add(Log.WriteAction);
         }
 
 
