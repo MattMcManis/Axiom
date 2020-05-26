@@ -8544,15 +8544,6 @@ namespace Axiom
         {
             //AudioControls.AutoCopyAudioCodec("control");
         }
-        //Text Change
-        private void tbxFilterAudio_Contrast_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // Convert Empty to 0
-            //if (string.IsNullOrWhiteSpace(tbxFilterAudio_Contrast.Text))
-            //{
-            //    tbxFilterAudio_Contrast.Text = "0";
-            //}
-        }
 
         /// <summary>
         /// Filter Audio - Extra Stereo
