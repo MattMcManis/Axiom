@@ -6059,7 +6059,7 @@
                     Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="500"
                     ToolTipService.ShowOnDisabled="True"
-                    ToolTip="Launch Command Prompt"
+                    ToolTip="Launch Command Prompt / PowerShell"
                     Grid.Column="8">
                 <Image Width="11" 
                        Height="11" 
