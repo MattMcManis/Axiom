@@ -101,51 +101,6 @@ namespace Axiom
                     ReadConfig(mainwindow, conf);
                 }
 
-                //// -------------------------
-                //// Check if axiom.conf file exists in in AppData Local Dir
-                //// -------------------------
-                //if (File.Exists(configFile))
-                //{
-                //    conf = new INIFile(configFile);
-
-                //    // Read
-                //    ReadConfig(mainwindow, conf);
-                //}
-
-                //// -------------------------
-                //// Check if axiom.conf file exists in AppData Roaming Dir
-                //// -------------------------
-                //else if (File.Exists(MainWindow.appDataRoamingDir + "axiom.conf"))
-                //{
-                //    conf = new INIFile(MainWindow.appDataRoamingDir + "axiom.conf");
-
-                //    // Read
-                //    ReadConfig(mainwindow, conf);
-                //}
-
-                //// -------------------------
-                //// Check if axiom.conf file exists in App Dir
-                //// -------------------------
-                //else if (File.Exists(MainWindow.appRootDir + "axiom.conf"))
-                //{
-                //    conf = new INIFile(MainWindow.appRootDir + "axiom.conf");
-
-                //    // Read
-                //    ReadConfig(mainwindow, conf);
-                //}
-
-                // -------------------------
-                // conf file does not exist
-                // -------------------------
-                //else if (!File.Exists(configFile))
-                //{
-                //    MessageBox.Show("Confg file axiom.conf does not exist.",
-                //                    "Error",
-                //                    MessageBoxButton.OK,
-                //                    MessageBoxImage.Error);
-                //}
-
-
                 // --------------------------------------------------
                 // Failed Imports
                 // --------------------------------------------------
