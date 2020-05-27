@@ -81,7 +81,7 @@ namespace Axiom
         /// <summary>
         /// Import axiom.conf file
         /// </summary>
-        public static void ImportConfig(MainWindow mainwindow)
+        public static void ImportConfig(MainWindow mainwindow, string location)
         {
             try
             {
@@ -91,9 +91,9 @@ namespace Axiom
                 INIFile conf = null;
 
                 // -------------------------
-                // Check if axiom.conf file exists in C:\Path\To\Axiom UI\
+                // Check if axiom.conf file exists in in AppData Local Dir
                 // -------------------------
-                if (File.Exists(configFile))
+                if (File.Exists(location))
                 {
                     conf = new INIFile(configFile);
 
@@ -101,16 +101,38 @@ namespace Axiom
                     ReadConfig(mainwindow, conf);
                 }
 
-                // -------------------------
-                // Check if axiom.conf file exists in App Dir
-                // -------------------------
-                else if (File.Exists(MainWindow.appRootDir + "axiom.conf"))
-                {
-                    conf = new INIFile(MainWindow.appRootDir + "axiom.conf");
+                //// -------------------------
+                //// Check if axiom.conf file exists in in AppData Local Dir
+                //// -------------------------
+                //if (File.Exists(configFile))
+                //{
+                //    conf = new INIFile(configFile);
 
-                    // Read
-                    ReadConfig(mainwindow, conf);
-                }
+                //    // Read
+                //    ReadConfig(mainwindow, conf);
+                //}
+
+                //// -------------------------
+                //// Check if axiom.conf file exists in AppData Roaming Dir
+                //// -------------------------
+                //else if (File.Exists(MainWindow.appDataRoamingDir + "axiom.conf"))
+                //{
+                //    conf = new INIFile(MainWindow.appDataRoamingDir + "axiom.conf");
+
+                //    // Read
+                //    ReadConfig(mainwindow, conf);
+                //}
+
+                //// -------------------------
+                //// Check if axiom.conf file exists in App Dir
+                //// -------------------------
+                //else if (File.Exists(MainWindow.appRootDir + "axiom.conf"))
+                //{
+                //    conf = new INIFile(MainWindow.appRootDir + "axiom.conf");
+
+                //    // Read
+                //    ReadConfig(mainwindow, conf);
+                //}
 
                 // -------------------------
                 // conf file does not exist
