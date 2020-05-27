@@ -44,17 +44,18 @@ namespace Axiom
 
         public static void Codec_Set()
         {
+            // Set Codec Parameters
             string parameters = string.Empty;
 
-            // 1 Pass
-            if (VM.VideoView.Video_Pass_SelectedItem == "1 Pass")
+            switch (VM.VideoView.Video_Pass_SelectedItem)
             {
-                parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_1Pass;
-            }
-            // 2 Pass
-            else if (VM.VideoView.Video_Pass_SelectedItem == "2 Pass")
-            {
-                parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_2Pass;
+                case "1 Pass":
+                    parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_1Pass;
+                    break;
+
+                case "2 Pass":
+                    parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_2Pass;
+                    break;
             }
 
             // Combine Codec + Parameters
@@ -89,49 +90,8 @@ namespace Axiom
         {
             "auto",
             "bgra",
-            "gbrap",
-            "gbrp",
-            "gbrp10le",
-            "gbrp12le",
-            "gbrp14le",
-            "gbrp9le",
-            "gray",
-            "gray16le",
             "rgb24",
-            "ya8",
-            "yuv410p",
-            "yuv411p",
-            "yuv420p",
-            "yuv420p10le",
-            "yuv420p12le",
-            "yuv420p14le",
-            "yuv420p16le",
-            "yuv420p9le",
             "yuv422p",
-            "yuv422p10le",
-            "yuv422p12le",
-            "yuv422p14le",
-            "yuv422p16le",
-            "yuv422p9le",
-            "yuv440p",
-            "yuv444p",
-            "yuv444p10le",
-            "yuv444p12le",
-            "yuv444p14le",
-            "yuv444p16le",
-            "yuv444p9le",
-            "yuva420p",
-            "yuva420p10le",
-            "yuva420p16le",
-            "yuva420p9le",
-            "yuva422p",
-            "yuva422p10le",
-            "yuva422p16le",
-            "yuva422p9le",
-            "yuva444p",
-            "yuva444p10le",
-            "yuva444p16le",
-            "yuva444p9le",
         };
 
         // -------------------------
@@ -303,7 +263,6 @@ namespace Axiom
         // -------------------------
         public static void Controls_Selected()
         {
-
             // Pixel Format
             VM.VideoView.Video_PixelFormat_SelectedItem = "yuv422p";
 
