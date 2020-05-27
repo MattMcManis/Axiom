@@ -4,6 +4,19 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.9.0] - May 27, 2020
+### Added
+- Video Codec `MagicYUV`
+- PowerShell to CMD Button
+
+### Changed
+- Simplified Import Config
+- Changed Export Write Config If/Else to Switch Case
+
+### Fixed
+- Load Config from AppData Roaming
+
+
 ## [1.8.8.3] - May 26, 2020
 ### Added
 - Video and Audio Partial Classes
