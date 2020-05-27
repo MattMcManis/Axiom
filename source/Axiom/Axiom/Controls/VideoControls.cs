@@ -244,6 +244,34 @@ namespace Axiom
                     break;
 
                 // -------------------------
+                // MagicYUV
+                // -------------------------
+                case "MagicYUV":
+                    // Codec
+                    MagicYUV.Codec_Set();
+
+                    // Items Source
+                    MagicYUV.Controls_ItemsSource();
+                    // Selected Items
+                    MagicYUV.Controls_Selected();
+
+                    // Expanded
+                    MagicYUV.Controls_Expanded();
+                    // Collapsed
+                    MagicYUV.Controls_Collapsed();
+
+                    // Checked
+                    MagicYUV.Controls_Checked();
+                    // Unhecked
+                    MagicYUV.Controls_Unhecked();
+
+                    // Enabled
+                    MagicYUV.Controls_Enable();
+                    // Disabled
+                    MagicYUV.Controls_Disable();
+                    break;
+
+                // -------------------------
                 // HuffYUV
                 // -------------------------
                 case "HuffYUV":
@@ -786,6 +814,7 @@ namespace Axiom
                         VM.VideoView.Video_Codec_SelectedItem == "JPEG" ||
                         VM.VideoView.Video_Codec_SelectedItem == "AV1" ||
                         VM.VideoView.Video_Codec_SelectedItem == "FFV1" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "MagicYUV" ||
                         VM.VideoView.Video_Codec_SelectedItem == "HuffYUV" ||
                         VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
                         VM.VideoView.Video_Codec_SelectedItem == "None")
@@ -899,6 +928,13 @@ namespace Axiom
                     // -------------------------
                     case "FFV1":
                         VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p10le";
+                        break;
+
+                    // -------------------------
+                    // MagicYUV
+                    // -------------------------
+                    case "MagicYUV":
+                        VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
                         break;
 
                     // -------------------------
@@ -1099,6 +1135,12 @@ namespace Axiom
                 // -------------------------
                 case "FFV1":
                     FFV1.EncodingPass();
+                    break;
+                // -------------------------
+                // MagicYUV
+                // -------------------------
+                case "MagicYUV":
+                    MagicYUV.EncodingPass();
                     break;
                 // -------------------------
                 // HuffYUV
