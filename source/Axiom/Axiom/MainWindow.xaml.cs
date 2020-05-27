@@ -179,14 +179,6 @@ namespace Axiom
             string assemblyVersion = fvi.FileVersion;
             currentVersion = new Version(assemblyVersion);
 
-            // -----------------------------------------------------------------
-            /// <summary>
-            /// Control Binding Data Context
-            /// </summary>
-            // -----------------------------------------------------------------
-            //VM vm = new VM();
-            //DataContext = vm;
-
             // -------------------------
             // Start the Log Console (Hidden)
             // -------------------------
@@ -338,85 +330,86 @@ namespace Axiom
             // -------------------------
             if (File.Exists(Path.Combine(appRootDir, "axiom.conf")))
             {
-                // Import Config
-                Configure.ImportConfig(this);
-                VM.ConfigureView.ConfigPath_SelectedItem = "App Root";
-
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
                 Configure.configDir = appRootDir;
                 Configure.configFile = Path.Combine(appRootDir, "axiom.conf");
-                //VM.ConfigureView.ConfigPath_Text = appDir;
 
-                // Change Presets Directory to App Root Directory
-                //Profiles.presetsDir = appDir + @"presets\";
-                //VM.ConfigureView.CustomPresetsPath_Text = Profiles.presetsDir;
+                // Import Config
+                Configure.ImportConfig(this, Configure.configFile);
+                VM.ConfigureView.ConfigPath_SelectedItem = "App Root";
 
                 // Change Log Directory to App Root Directory
                 Log.logDir = appRootDir;
                 VM.ConfigureView.LogPath_Text = Log.logDir;
 
                 // These changes will be seen in Axiom's Settings Tab
+
+                // Log Console Message /////////
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Configure.configFile) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
             // AppData Local Directory
             // -------------------------
-            //else if (File.Exists(Configure.configFile))
             else if (File.Exists(appDataLocalDir + @"Axiom UI\axiom.conf"))
             {
-                // Import Config
-                Configure.ImportConfig(this);
-                VM.ConfigureView.ConfigPath_SelectedItem = "AppData Local";
-
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
                 Configure.configDir = appDataLocalDir + @"Axiom UI\";
                 Configure.configFile = Path.Combine(appDataLocalDir + @"Axiom UI\", "axiom.conf");
-                //VM.ConfigureView.ConfigPath_Text = appDir;
 
-                // Change Presets Directory to App Root Directory
-                //Profiles.presetsDir = appDataLocalDir + @"Axiom UI\presets\";
-                //VM.ConfigureView.CustomPresetsPath_Text = Profiles.presetsDir;
+                // Import Config
+                Configure.ImportConfig(this, Configure.configFile);
+                VM.ConfigureView.ConfigPath_SelectedItem = "AppData Local";
 
                 // Change Log Directory to App Root Directory
                 Log.logDir = appDataLocalDir + @"Axiom UI\";
                 VM.ConfigureView.LogPath_Text = Log.logDir;
 
                 // These changes will be seen in Axiom's Settings Tab
+
+                // Log Console Message /////////
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Configure.configFile) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
             // AppData Roaming Directory
             // -------------------------
-            //else if (File.Exists(Configure.configFile))
             else if (File.Exists(appDataRoamingDir + @"Axiom UI\axiom.conf"))
             {
-                // Import Config
-                Configure.ImportConfig(this);
-                VM.ConfigureView.ConfigPath_SelectedItem = "AppData Roaming";
-
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
                 Configure.configDir = appDataRoamingDir + @"Axiom UI\";
                 Configure.configFile = Path.Combine(appDataRoamingDir + @"Axiom UI\", "axiom.conf");
-                //VM.ConfigureView.ConfigPath_Text = appDir;
 
-                // Change Presets Directory to App Root Directory
-                //Profiles.presetsDir = appDataRoamingDir + @"Axiom UI\presets\";
-                //VM.ConfigureView.CustomPresetsPath_Text = Profiles.presetsDir;
+                // Import Config
+                Configure.ImportConfig(this, Configure.configFile);
+                VM.ConfigureView.ConfigPath_SelectedItem = "AppData Roaming";
 
                 // Change Log Directory to App Root Directory
                 Log.logDir = appDataRoamingDir + @"Axiom UI\";
                 VM.ConfigureView.LogPath_Text = Log.logDir;
 
                 // These changes will be seen in Axiom's Settings Tab
+
+                // Log Console Message /////////
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Configure.configFile) { Foreground = Log.ConsoleDefault });
             }
             // -------------------------
             // Missing, Load Defaults
@@ -429,6 +422,11 @@ namespace Axiom
                 VM.VideoView.LoadControlsDefaults();
                 VM.SubtitleView.LoadControlsDefaults();
                 VM.AudioView.LoadControlsDefaults();
+
+                // Log Console Message /////////
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Run("Cannot Locate Config. Loading defaults.") { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
@@ -540,12 +538,6 @@ namespace Axiom
             lstvSubtitles.SelectionMode = SelectionMode.Single;
 
             // -------------------------
-            // Load ComboBox Items
-            // -------------------------
-            // Filter Selective SelectiveColorPreview
-            //cboFilterVideo_SelectiveColor.ItemsSource = cboSelectiveColor_Items;
-
-            // -------------------------
             // Check for Available Updates
             // -------------------------
             Task<int> task = UpdateAvailableCheck();
@@ -584,323 +576,313 @@ namespace Axiom
                 string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
                 string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
 
-                // -------------------------
-                // App Directory
-                // -------------------------
-                if (VM.ConfigureView.ConfigPath_SelectedItem == "App Root")
+                switch (VM.ConfigureView.ConfigPath_SelectedItem)
                 {
-                    // Change the conf output folder path
-                    Configure.configDir = appRootDir;
+                    // -------------------------
+                    // App Directory
+                    // -------------------------
+                    case "App Root":
+                        // Change the conf output folder path
+                        Configure.configDir = appRootDir;
 
-                    // -------------------------
-                    // Ignore Program Files
-                    // -------------------------
-                    if (!appRootDir.Contains(programFilesDir) &&
-                        !appRootDir.Contains(programFilesX86Dir) &&
-                        !appRootDir.Contains(programFilesX64Dir)
-                        )
-                    {
-                        try
+                        // -------------------------
+                        // Ignore Program Files
+                        // -------------------------
+                        if (!appRootDir.Contains(programFilesDir) &&
+                            !appRootDir.Contains(programFilesX86Dir) &&
+                            !appRootDir.Contains(programFilesX64Dir)
+                            )
                         {
-                            // -------------------------
-                            // Create Axiom UI folder if missing
-                            // -------------------------
-                            if (!Directory.Exists(Configure.configDir))
+                            try
                             {
-                                Directory.CreateDirectory(Configure.configDir);
-                            }
-
-                            // -------------------------
-                            // Move the conf to App Root
-                            // -------------------------
-                            // Move from AppData Local to App Root Directory
-                            if (File.Exists(confAppDataLocalPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppRootPath))
+                                // -------------------------
+                                // Create Axiom UI folder if missing
+                                // -------------------------
+                                if (!Directory.Exists(Configure.configDir))
                                 {
-                                    File.Delete(confAppRootPath);
+                                    Directory.CreateDirectory(Configure.configDir);
                                 }
 
-                                File.Move(confAppDataLocalPath, confAppRootPath);
-                            }
-                            // Move from AppData Roaming to App Root Directory
-                            else if (File.Exists(confAppDataRoamingPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppRootPath))
-                                {
-                                    File.Delete(confAppRootPath);
-                                }
-
-                                File.Move(confAppDataRoamingPath, confAppRootPath);
-                            }
-
-                            // -------------------------
-                            // Move the log to App Root
-                            // -------------------------
-                            // Move from AppData Local to App Root Directory
-                            if (File.Exists(logAppDataLocalPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppRootPath))
-                                {
-                                    File.Delete(logAppRootPath);
-                                }
-
-                                File.Move(logAppDataLocalPath, logAppRootPath);
-                            }
-                            // Move from AppData Roaming to App Root Directory
-                            else if (File.Exists(logAppDataRoamingPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppRootPath))
-                                {
-                                    File.Delete(logAppRootPath);
-                                }
-
-                                File.Move(logAppDataRoamingPath, logAppRootPath);
-                            }
-
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.ToString());
-                        }
-
-                        // Save Config
-                        ExportWriteConfig(Configure.configDir);
-                    }
-
-                    // -------------------------
-                    // Program Files Write Warning
-                    // -------------------------
-                    else
-                    {
-                        if (File.Exists(confAppRootPath) || 
-                            File.Exists(logAppRootPath))
-                        {
-                            MessageBox.Show("Cannot save config/log to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
-                                            "Notice",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Warning);
-                        }
-                    }
-                }
-
-                // -------------------------
-                // AppData Local Directory
-                // -------------------------
-                else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
-                {
-                    // Change the conf output folder path
-                    Configure.configDir = appDataLocalDir + @"Axiom UI\";
-
-                    // -------------------------
-                    // Ignore Program Files
-                    // -------------------------
-                    if (!appRootDir.Contains(programFilesDir) &&
-                        !appRootDir.Contains(programFilesX86Dir) &&
-                        !appRootDir.Contains(programFilesX64Dir)
-                        )
-                    {
-                        try
-                        {
-                            // -------------------------
-                            // Create Axiom UI folder if missing
-                            // -------------------------
-                            if (!Directory.Exists(Configure.configDir))
-                            {
-                                Directory.CreateDirectory(Configure.configDir);
-                            }
-
-                            // -------------------------
-                            // Move the conf to AppData Local
-                            // -------------------------
-                            // Move from App Directory to AppData Local
-                            if (File.Exists(confAppRootPath))
-                            {
-                                // Delete before Move instead of Overwrite
+                                // -------------------------
+                                // Move the conf to App Root
+                                // -------------------------
+                                // Move from AppData Local to App Root Directory
                                 if (File.Exists(confAppDataLocalPath))
                                 {
-                                    File.Delete(confAppDataLocalPath);
-                                }
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(confAppRootPath))
+                                    {
+                                        File.Delete(confAppRootPath);
+                                    }
 
-                                File.Move(confAppRootPath, confAppDataLocalPath);
-                            }
-                            // Move from AppData Roaming to AppData Local
-                            else if (File.Exists(confAppDataRoamingPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppDataLocalPath))
+                                    File.Move(confAppDataLocalPath, confAppRootPath);
+                                }
+                                // Move from AppData Roaming to App Root Directory
+                                else if (File.Exists(confAppDataRoamingPath))
                                 {
-                                    File.Delete(confAppDataLocalPath);
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(confAppRootPath))
+                                    {
+                                        File.Delete(confAppRootPath);
+                                    }
+
+                                    File.Move(confAppDataRoamingPath, confAppRootPath);
                                 }
 
-                                File.Move(confAppDataRoamingPath, confAppDataLocalPath);
-                            }
-
-                            // -------------------------
-                            // Move the log to AppData Local
-                            // -------------------------
-                            // Move from App Directory to AppData Local
-                            if (File.Exists(logAppRootPath))
-                            {
-                                // Delete before Move instead of Overwrite
+                                // -------------------------
+                                // Move the log to App Root
+                                // -------------------------
+                                // Move from AppData Local to App Root Directory
                                 if (File.Exists(logAppDataLocalPath))
                                 {
-                                    File.Delete(logAppDataLocalPath);
-                                }
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(logAppRootPath))
+                                    {
+                                        File.Delete(logAppRootPath);
+                                    }
 
-                                File.Move(logAppRootPath, logAppDataLocalPath);
-                            }
-                            // Move from AppData Roaming to AppData Local
-                            else if (File.Exists(logAppDataRoamingPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppDataLocalPath))
+                                    File.Move(logAppDataLocalPath, logAppRootPath);
+                                }
+                                // Move from AppData Roaming to App Root Directory
+                                else if (File.Exists(logAppDataRoamingPath))
                                 {
-                                    File.Delete(logAppDataLocalPath);
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(logAppRootPath))
+                                    {
+                                        File.Delete(logAppRootPath);
+                                    }
+
+                                    File.Move(logAppDataRoamingPath, logAppRootPath);
                                 }
 
-                                File.Move(logAppDataRoamingPath, logAppDataLocalPath);
+                                // Save Config
+                                ExportWriteConfig(Configure.configDir);
+                            }
+                            catch (IOException ex)
+                            {
+                                MessageBox.Show(ex.ToString());
                             }
                         }
-                        catch (IOException ex)
+
+                        // -------------------------
+                        // Program Files Write Warning
+                        // -------------------------
+                        else
                         {
-                            MessageBox.Show(ex.ToString());
+                            if (File.Exists(confAppRootPath) ||
+                                File.Exists(logAppRootPath))
+                            {
+                                MessageBox.Show("Cannot save config/log to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Warning);
+                            }
                         }
-                    }
+                        break;
 
                     // -------------------------
-                    // Program Files Move Warning
+                    // AppData Local Directory
                     // -------------------------
-                    else
-                    {
-                        if (File.Exists(confAppRootPath) || 
-                            File.Exists(logAppRootPath))
-                        {
-                            MessageBox.Show("Cannot move config/log from Program Files to AppData Local, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
-                                            "Notice",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Warning);
-                        }
-                    }
+                    case "AppData Local":
+                        // Change the conf output folder path
+                        Configure.configDir = appDataLocalDir + @"Axiom UI\";
 
-                    // Save Config
-                    ExportWriteConfig(Configure.configDir);
+                        // -------------------------
+                        // Ignore Program Files
+                        // -------------------------
+                        if (!appRootDir.Contains(programFilesDir) &&
+                            !appRootDir.Contains(programFilesX86Dir) &&
+                            !appRootDir.Contains(programFilesX64Dir)
+                            )
+                        {
+                            try
+                            {
+                                // -------------------------
+                                // Create Axiom UI folder if missing
+                                // -------------------------
+                                if (!Directory.Exists(Configure.configDir))
+                                {
+                                    Directory.CreateDirectory(Configure.configDir);
+                                }
+
+                                // -------------------------
+                                // Move the conf to AppData Local
+                                // -------------------------
+                                // Move from App Directory to AppData Local
+                                if (File.Exists(confAppRootPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(confAppDataLocalPath))
+                                    {
+                                        File.Delete(confAppDataLocalPath);
+                                    }
+
+                                    File.Move(confAppRootPath, confAppDataLocalPath);
+                                }
+                                // Move from AppData Roaming to AppData Local
+                                else if (File.Exists(confAppDataRoamingPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(confAppDataLocalPath))
+                                    {
+                                        File.Delete(confAppDataLocalPath);
+                                    }
+
+                                    File.Move(confAppDataRoamingPath, confAppDataLocalPath);
+                                }
+
+                                // -------------------------
+                                // Move the log to AppData Local
+                                // -------------------------
+                                // Move from App Directory to AppData Local
+                                if (File.Exists(logAppRootPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(logAppDataLocalPath))
+                                    {
+                                        File.Delete(logAppDataLocalPath);
+                                    }
+
+                                    File.Move(logAppRootPath, logAppDataLocalPath);
+                                }
+                                // Move from AppData Roaming to AppData Local
+                                else if (File.Exists(logAppDataRoamingPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(logAppDataLocalPath))
+                                    {
+                                        File.Delete(logAppDataLocalPath);
+                                    }
+
+                                    File.Move(logAppDataRoamingPath, logAppDataLocalPath);
+                                }
+
+                                // Save Config
+                                ExportWriteConfig(Configure.configDir);
+                            }
+                            catch (IOException ex)
+                            {
+                                MessageBox.Show(ex.ToString());
+                            }
+                        }
+
+                        // -------------------------
+                        // Program Files Move Warning
+                        // -------------------------
+                        else
+                        {
+                            if (File.Exists(confAppRootPath) ||
+                                File.Exists(logAppRootPath))
+                            {
+                                MessageBox.Show("Cannot move config/log from Program Files to AppData Local, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Warning);
+                            }
+                        }
+                        break;
+
+                    // -------------------------
+                    // AppData Roaming Directory
+                    // -------------------------
+                    case "AppData Roaming":
+                        // Change the conf output folder path
+                        Configure.configDir = appDataRoamingDir + @"Axiom UI\";
+
+                        // -------------------------
+                        // Ignore Program Files
+                        // -------------------------
+                        if (!appRootDir.Contains(programFilesDir) &&
+                            !appRootDir.Contains(programFilesX86Dir) &&
+                            !appRootDir.Contains(programFilesX64Dir)
+                            )
+                        {
+                            try
+                            {
+                                // -------------------------
+                                // Create Axiom UI folder if missing
+                                // -------------------------
+                                if (!Directory.Exists(Configure.configDir))
+                                {
+                                    Directory.CreateDirectory(Configure.configDir);
+                                }
+
+                                // -------------------------
+                                // Move the conf to AppData Roaming
+                                // -------------------------
+                                // Move from App Root Directory to AppData Roaming
+                                if (File.Exists(confAppRootPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(confAppDataRoamingPath))
+                                    {
+                                        File.Delete(confAppDataRoamingPath);
+                                    }
+
+                                    File.Move(confAppRootPath, confAppDataRoamingPath);
+                                }
+                                // Move from AppData Local to AppData Roaming
+                                else if (File.Exists(confAppDataLocalPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(confAppDataRoamingPath))
+                                    {
+                                        File.Delete(confAppDataRoamingPath);
+                                    }
+
+                                    File.Move(confAppDataLocalPath, confAppDataRoamingPath);
+                                }
+
+                                // -------------------------
+                                // Move the log to AppData Roaming
+                                // -------------------------
+                                // Move from App Root Directory to AppData Roaming
+                                if (File.Exists(logAppRootPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(logAppDataRoamingPath))
+                                    {
+                                        File.Delete(logAppDataRoamingPath);
+                                    }
+
+                                    File.Move(logAppRootPath, logAppDataRoamingPath);
+                                }
+                                // Move from AppData Local to AppData Roaming
+                                else if (File.Exists(logAppDataLocalPath))
+                                {
+                                    // Delete before Move instead of Overwrite
+                                    if (File.Exists(logAppDataRoamingPath))
+                                    {
+                                        File.Delete(logAppDataRoamingPath);
+                                    }
+
+                                    File.Move(logAppDataLocalPath, logAppDataRoamingPath);
+                                }
+
+                                // Save Config
+                                ExportWriteConfig(Configure.configDir);
+                            }
+                            catch (IOException ex)
+                            {
+                                MessageBox.Show(ex.ToString());
+                            }
+                        }
+
+                        // -------------------------
+                        // Program Files Move Warning
+                        // -------------------------
+                        else
+                        {
+                            if (File.Exists(confAppRootPath) || File.Exists(logAppRootPath))
+                            {
+                                MessageBox.Show("Cannot move config/log from Program Files to AppData Roaming, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Warning);
+                            }
+                        }
+                        break;
                 }
-
-                // -------------------------
-                // AppData Roaming Directory
-                // -------------------------
-                else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
-                {
-                    // Change the conf output folder path
-                    Configure.configDir = appDataRoamingDir + @"Axiom UI\";
-
-                    // -------------------------
-                    // Ignore Program Files
-                    // -------------------------
-                    if (!appRootDir.Contains(programFilesDir) &&
-                        !appRootDir.Contains(programFilesX86Dir) &&
-                        !appRootDir.Contains(programFilesX64Dir)
-                        )
-                    {
-                        try
-                        {
-                            // -------------------------
-                            // Create Axiom UI folder if missing
-                            // -------------------------
-                            if (!Directory.Exists(Configure.configDir))
-                            {
-                                Directory.CreateDirectory(Configure.configDir);
-                            }
-
-                            // -------------------------
-                            // Move the conf to AppData Roaming
-                            // -------------------------
-                            // Move from App Root Directory to AppData Roaming
-                            if (File.Exists(confAppRootPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppDataRoamingPath))
-                                {
-                                    File.Delete(confAppDataRoamingPath);
-                                }
-
-                                File.Move(confAppRootPath, confAppDataRoamingPath);
-                            }
-                            // Move from AppData Local to AppData Roaming
-                            else if (File.Exists(confAppDataLocalPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppDataRoamingPath))
-                                {
-                                    File.Delete(confAppDataRoamingPath);
-                                }
-
-                                File.Move(confAppDataLocalPath, confAppDataRoamingPath);
-                            }
-
-                            // -------------------------
-                            // Move the log to AppData Roaming
-                            // -------------------------
-                            // Move from App Root Directory to AppData Roaming
-                            if (File.Exists(logAppRootPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppDataRoamingPath))
-                                {
-                                    File.Delete(logAppDataRoamingPath);
-                                }
-
-                                File.Move(logAppRootPath, logAppDataRoamingPath);
-                            }
-                            // Move from AppData Local to AppData Roaming
-                            else if (File.Exists(logAppDataLocalPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppDataRoamingPath))
-                                {
-                                    File.Delete(logAppDataRoamingPath);
-                                }
-
-                                File.Move(logAppDataLocalPath, logAppDataRoamingPath);
-                            }
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.ToString());
-                        }
-                    }
-
-                    // -------------------------
-                    // Program Files Move Warning
-                    // -------------------------
-                    else
-                    {
-                        if (File.Exists(confAppRootPath) || File.Exists(logAppRootPath))
-                        {
-                            MessageBox.Show("Cannot move config/log from Program Files to AppData Roaming, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
-                                            "Notice",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Warning);
-                        }
-                    }
-
-                    // Save Config
-                    ExportWriteConfig(Configure.configDir);
-                }
-
-                //// -------------------------
-                //// First time, Save Current Selected
-                //// -------------------------
-                //else //if (!File.Exists(Configure.configFile))
-                //{
-                //    // Save Config
-                //    Configure.ExportConfig(this, Configure.configDir);
-                //}
 
             }
             catch (Exception exception)
@@ -1294,7 +1276,7 @@ namespace Axiom
         public void StartLogConsole()
         {
             // Open LogConsole Window
-            logconsole = new LogConsole(/*this*/);
+            logconsole = new LogConsole();
             logconsole.Hide();
 
             // Position with Show();
@@ -3926,9 +3908,9 @@ namespace Axiom
                     else if (latestVersion <= currentVersion)
                     {
                         MessageBox.Show("This version is up to date.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
 
                         return;
                     }
@@ -3938,9 +3920,9 @@ namespace Axiom
                     else // null
                     {
                         MessageBox.Show("Could not find download. Try updating manually.",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
 
                         return;
                     }
@@ -3951,9 +3933,9 @@ namespace Axiom
                 else
                 {
                     MessageBox.Show("GitHub version file returned empty.",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
 
                     return;
                 }
@@ -4219,9 +4201,22 @@ namespace Axiom
         /// </summary>
         private void btnCmd_Click(object sender, RoutedEventArgs e)
         {
-            // launch command prompt
-            Process.Start("CMD.exe", "/k cd %userprofile%");
+            // -------------------------
+            // Launch Shell
+            // -------------------------
+            // Default to User Profile Diretory
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    Process.Start("CMD.exe", "/k cd %userprofile%");
+                    break;
 
+                // PowerShell
+                case "PowerShell":
+                    Process.Start("PowerShell.exe", "-NoExit cd $home");
+                    break;
+            }
         }
 
         /// <summary>
