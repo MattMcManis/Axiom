@@ -521,7 +521,7 @@ namespace Axiom
             Log.WriteAction = () =>
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Stream: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run(VM.AudioView.Audio_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
