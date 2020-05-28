@@ -104,9 +104,350 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Invoke Operator for PowerShell
+        /// Process Priority
         /// </summary>
-        public static String Exe_InvokeOperator_PowerShell()
+        public static String ProcessPriority()
+        {
+            // Empty
+            // Default
+            if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+                VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+            {
+                return string.Empty;
+            }
+
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    return "start \"\" /b /wait " + "/" + ProcessPriorityLevel() + " ";
+                    //return "start " + "/" + ProcessPriorityLevel() + " /wait /b ";
+
+                // PowerShell
+                case "PowerShell":
+                    return "Start-Process ";
+
+                // Empty
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Process Priority PowerShell Flags
+        /// </summary>
+        public static String ProcessPriority_PowerShell_Flags()
+        {
+            // Empty
+            // Default
+            if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+                VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+            {
+                return string.Empty;
+            }
+
+            // Wait
+            string wait = string.Empty;
+            switch (VM.VideoView.Video_Pass_SelectedItem)
+            {
+                // CRF
+                case "CRF":
+                    wait = " -Wait";
+                    break;
+
+                // 1 Pass
+                case "1 Pass":
+                    wait = " -Wait";
+                    break;
+
+                // 2 Pass
+                case "2 Pass":
+                    wait = string.Empty;
+                    break;
+
+                // auto, none, Unknown
+                default:
+                    return string.Empty;
+            }
+
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    return string.Empty;
+
+                // PowerShell
+                case "PowerShell":
+                    return " -NoNewWindow" + wait;
+                    //return " -NoNewWindow -Wait";
+
+                // Empty
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Process Priority PowerShell Single Quote Start
+        /// </summary>
+        public static String ProcessPriorityPowerShell_Arguments_Start()
+        {
+            // Empty
+            // Default
+            if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+                VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+            {
+                return string.Empty;
+            }
+
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // PowerShell
+                case "PowerShell":
+                    return "-ArgumentList '";
+
+                // Empty
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Process Priority PowerShell Single Quote End
+        /// </summary>
+        public static String ProcessPriorityPowerShell_Arguments_End()
+        {
+            // Empty
+            // Default
+            if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+                VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+            {
+                return string.Empty;
+            }
+
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // PowerShell
+                case "PowerShell":
+                    return "'";
+
+                // Empty
+                default:
+                    return string.Empty;
+            }
+        }
+
+
+        /// <summary>
+        /// Process Priority PowerShell Set Start
+        /// </summary>
+        public static String ProcessPriority_PowerShell_Set(string args)
+        {
+
+            // Empty
+            // Default
+            if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+                VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+            {
+                return args;
+            }
+
+            // Format Arguments
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    // Do not format
+                    return args;
+
+                // PowerShell
+                case "PowerShell":
+                    //return args + " -PassThru Set-ProcessPriority -ProcessId $Process.id -Priority " + ProcessPriorityLevel();
+                    //MessageBox.Show("(" + args + " -PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel()); //debug
+                    return "(" + args + " -PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel();
+
+                // Unknown
+                default:
+                    return args;
+            }
+            
+        }
+
+
+        /// <summary>
+        /// Process Priority PowerShell Set Start
+        /// </summary>
+        //public static String ProcessPriority_PowerShell_Set_Start()
+        //{
+        //    // Empty
+        //    // Default
+        //    if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+        //        VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+        //    {
+        //        return string.Empty;
+        //    }
+
+        //    // Shell Check
+        //    switch (VM.ConfigureView.Shell_SelectedItem)
+        //    {
+        //        //// CMD
+        //        //case "CMD":
+        //        //    return string.Empty;
+
+        //        // PowerShell
+        //        case "PowerShell":
+        //            return "(";
+
+        //        // Empty
+        //        default:
+        //            return string.Empty;
+        //    }
+        //}
+
+        /// <summary>
+        /// Process Priority PowerShell Set
+        /// </summary>
+        //public static String ProcessPriority_PowerShell_Set_End()
+        //{
+        //    // Empty
+        //    // Default
+        //    if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
+        //        VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
+        //    {
+        //        return string.Empty;
+        //    }
+
+        //    // Shell Check
+        //    switch (VM.ConfigureView.Shell_SelectedItem)
+        //    {
+        //        //// CMD
+        //        //case "CMD":
+        //        //    return string.Empty;
+
+        //        // PowerShell
+        //        case "PowerShell":
+        //            return "-PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel();
+        //            //return "| ForEach-Object { Set-ProcessPriority -ProcessId $_.id -Priority " + ProcessPriorityLevel() + " }";
+
+        //        // Empty
+        //        default:
+        //            return string.Empty;
+        //    }
+        //}
+
+        /// <summary>
+        /// Process Priority
+        /// </summary>
+        public static String ProcessPriorityLevel()
+        {
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    switch (VM.ConfigureView.ProcessPriority_SelectedItem)
+                    {
+                        // Default
+                        case "Default":
+                            return string.Empty;
+
+                        // Low
+                        case "Low":
+                            return "low";
+
+                        // Below Normal
+                        case "Below Normal":
+                            return "belownormal";
+
+                        // Normal
+                        case "Normal":
+                            return "normal";
+
+                        // Above Normal
+                        case "Above Normal":
+                            return "abovenormal";
+
+                        // High
+                        case "High":
+                            return "high";
+
+                        // Unknown
+                        default:
+                            return "normal";
+                    }
+
+                // PowerShell
+                case "PowerShell":
+                    switch (VM.ConfigureView.ProcessPriority_SelectedItem)
+                    {
+                        // Default
+                        case "Default":
+                            return string.Empty;
+
+                        // Low
+                        case "Low":
+                            return "Low";
+
+                        // Below Normal
+                        case "Below Normal":
+                            return "BelowNormal";
+
+                        // Normal
+                        case "Normal":
+                            return "Normal";
+
+                        // Above Normal
+                        case "Above Normal":
+                            return "AboveNormal";
+
+                        // High
+                        case "High":
+                            return "High";
+
+                        // Unknown
+                        default:
+                            return "Normal";
+                    }
+
+                // Empty
+                default:
+                    return string.Empty;
+            }
+        }
+
+
+        /// <summary>
+        /// Output Overwrite
+        /// </summary>
+        public static String OutputOverwrite()
+        {
+            switch (VM.ConfigureView.OutputOverwrite_SelectedItem)
+            {
+                // Always
+                case "Always":
+                    return "-y";
+                // Never
+                case "Never":
+                    return "-n";
+                // Ask
+                case "Ask":
+                    return string.Empty;
+                // Unknown
+                default:
+                    return string.Empty;
+            }
+        }
+
+
+        /// <summary>
+        /// FFmpeg Invoke Operator
+        /// </summary>
+        public static String Exe_InvokeOperator()
         {
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
@@ -117,7 +458,8 @@ namespace Axiom
 
                 // PowerShell
                 case "PowerShell":
-                    return "& ";
+                    return string.Empty;
+                    //return "& ";
 
                 // Default
                 default:
@@ -156,14 +498,21 @@ namespace Axiom
         {
             if (VM.MainView.Batch_IsChecked == false)
             {
-                List<string> ffmpegArgsList = new List<string>()
-                {
-                    Exe_InvokeOperator_PowerShell() +
-                    MainWindow.FFmpegPath(),
+                List<string> ffmpegArgsList = new List<string>();
+                //List<string> ffmpegArgsList = new List<string>()
+                //{
+                //    ProcessPriority() +
+                //    //Exe_InvokeOperator() + // & symbol For PowerShell
+                //    MainWindow.FFmpegPath() +
+                //    ProcessPriority_PowerShell_Flags(),
 
-                    "\r\n\r\n" +
-                    "-y"
-                };
+                //    "\r\n\r\n" +
+                //    ProcessPriorityPowerShell_Arguments_Start(),
+
+                //    "\r\n\r\n" +
+                //    //"-y"
+                //    OutputOverwrite(),
+                //};
 
                 // Add Arguments
                 switch (VM.VideoView.Video_Pass_SelectedItem)
@@ -205,7 +554,6 @@ namespace Axiom
                                                   .Where(s => !s.Equals("\r\n\r\n"))
                                                   .Where(s => !s.Equals("\r\n"))
                                             );
-
                 // Inline 
                 ffmpegArgs = MainWindow.RemoveLineBreaks(ffmpegArgsSort);
             }
