@@ -126,7 +126,7 @@ namespace Axiom
 
                 // PowerShell
                 case "PowerShell":
-                    return "Start-Process ";
+                    return "$Process = Start-Process ";
 
                 // Empty
                 default:
@@ -147,29 +147,29 @@ namespace Axiom
                 return string.Empty;
             }
 
-            // Wait
-            string wait = string.Empty;
-            switch (VM.VideoView.Video_Pass_SelectedItem)
-            {
-                // CRF
-                case "CRF":
-                    wait = " -Wait";
-                    break;
+            //// Wait
+            //string wait = string.Empty;
+            //switch (VM.VideoView.Video_Pass_SelectedItem)
+            //{
+            //    // CRF
+            //    case "CRF":
+            //        wait = " -Wait";
+            //        break;
 
-                // 1 Pass
-                case "1 Pass":
-                    wait = " -Wait";
-                    break;
+            //    // 1 Pass
+            //    case "1 Pass":
+            //        wait = " -Wait";
+            //        break;
 
-                // 2 Pass
-                case "2 Pass":
-                    wait = string.Empty;
-                    break;
+            //    // 2 Pass
+            //    case "2 Pass":
+            //        wait = string.Empty;
+            //        break;
 
-                // auto, none, Unknown
-                default:
-                    return string.Empty;
-            }
+            //    // auto, none, Unknown
+            //    default:
+            //        return string.Empty;
+            //}
 
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
@@ -180,7 +180,7 @@ namespace Axiom
 
                 // PowerShell
                 case "PowerShell":
-                    return " -NoNewWindow" + wait;
+                    return " -NoNewWindow"/* + wait*/;
                     //return " -NoNewWindow -Wait";
 
                 // Empty
@@ -192,7 +192,7 @@ namespace Axiom
         /// <summary>
         /// Process Priority PowerShell Single Quote Start
         /// </summary>
-        public static String ProcessPriorityPowerShell_Arguments_Start()
+        public static String ProcessPriority_PowerShell_Args_Start()
         {
             // Empty
             // Default
@@ -218,7 +218,7 @@ namespace Axiom
         /// <summary>
         /// Process Priority PowerShell Single Quote End
         /// </summary>
-        public static String ProcessPriorityPowerShell_Arguments_End()
+        public static String ProcessPriority_PowerShell_Args_End()
         {
             // Empty
             // Default
@@ -267,9 +267,7 @@ namespace Axiom
 
                 // PowerShell
                 case "PowerShell":
-                    //return args + " -PassThru Set-ProcessPriority -ProcessId $Process.id -Priority " + ProcessPriorityLevel();
-                    //MessageBox.Show("(" + args + " -PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel()); //debug
-                    return "(" + args + " -PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel();
+                    return "(" + args + " -PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel() +"; Wait-Process -Id $Process.id";
 
                 // Unknown
                 default:
@@ -447,31 +445,33 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Invoke Operator
         /// </summary>
-        public static String Exe_InvokeOperator()
-        {
-            // Shell Check
-            switch (VM.ConfigureView.Shell_SelectedItem)
-            {
-                // CMD
-                case "CMD":
-                    return string.Empty;
+        //public static String Exe_InvokeOperator()
+        //{
+        //    // Shell Check
+        //    switch (VM.ConfigureView.Shell_SelectedItem)
+        //    {
+        //        // CMD
+        //        case "CMD":
+        //            return string.Empty;
 
-                // PowerShell
-                case "PowerShell":
-                    return string.Empty;
-                    //return "& ";
+        //        // PowerShell
+        //        case "PowerShell":
+        //            return "& ";
 
-                // Default
-                default:
-                    return string.Empty;
-            }
-        }
+        //        // Default
+        //        default:
+        //            return string.Empty;
+        //    }
+        //}
 
 
         /// <summary>
-        /// Logical Operator - And && - Shell Formatter
+        /// Shell LogicalOperator And
         /// </summary>
-        public static String LogicalOperator_And_ShellFormatter()
+        /// <remarks>
+        /// Selects && for CMD or ; for PowerShell
+        /// </remarks>
+        public static String Shell_LogicalOperator_And()
         {
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
@@ -499,20 +499,6 @@ namespace Axiom
             if (VM.MainView.Batch_IsChecked == false)
             {
                 List<string> ffmpegArgsList = new List<string>();
-                //List<string> ffmpegArgsList = new List<string>()
-                //{
-                //    ProcessPriority() +
-                //    //Exe_InvokeOperator() + // & symbol For PowerShell
-                //    MainWindow.FFmpegPath() +
-                //    ProcessPriority_PowerShell_Flags(),
-
-                //    "\r\n\r\n" +
-                //    ProcessPriorityPowerShell_Arguments_Start(),
-
-                //    "\r\n\r\n" +
-                //    //"-y"
-                //    OutputOverwrite(),
-                //};
 
                 // Add Arguments
                 switch (VM.VideoView.Video_Pass_SelectedItem)
