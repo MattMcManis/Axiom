@@ -955,7 +955,10 @@ namespace Axiom
                 VM.ConfigureView.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
                 VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
                 VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+                VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
+                VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+                VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
                 VM.ConfigureView.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
                 VM.ConfigureView.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
                 )
@@ -2643,18 +2646,23 @@ namespace Axiom
             // Options
             switch (VM.ConfigureView.Threads_SelectedItem)
             {
+                // Empty
+                case "":
+                    Configure.threads = string.Empty;
+                    break;
+
                 // Default / Off
-                case "default":
+                case "Default":
                     Configure.threads = string.Empty;
                     break;
 
                 // Optimal
-                case "optimal":
+                case "Optimal":
                     Configure.threads = "-threads 0";
                     break;
 
                 // All
-                case "all":
+                case "All":
                     // e.g. -threads 8
                     Configure.threads = "-threads " + Configure.maxthreads;
                     break;
@@ -8653,7 +8661,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
                         //disabled if single file
-                        Batch.Generate_FFmpegArgs();
+                        FFmpeg.Batch.Generate_FFmpegArgs();
                     }
                 }
 
