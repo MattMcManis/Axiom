@@ -58,6 +58,24 @@ namespace Axiom
                     // Pass 1
                     // --------------------------------------------------
                     // -------------------------
+                    // FFmpeg Initialize
+                    // -------------------------
+                    List<string> initializeList_Pass1 = new List<string>()
+                    {
+                        ProcessPriority() +
+                        //Exe_InvokeOperator() + // & symbol For PowerShell
+                        MainWindow.FFmpegPath() +
+                        ProcessPriority_PowerShell_Flags(),
+
+                        "\r\n\r\n" +
+                        ProcessPriorityPowerShell_Arguments_Start(),
+
+                        "\r\n\r\n" +
+                        //"-y"
+                        OutputOverwrite(),
+                    };
+
+                    // -------------------------
                     // HW Accel Decode
                     // -------------------------
                     // Log Console Message /////////
@@ -297,9 +315,11 @@ namespace Axiom
                         "NUL"
                     };
 
-
+                    // -------------------------
                     // Combine Lists
-                    List<string> FFmpegArgsPass1List = hwAccelDecodeList_Pass1
+                    // -------------------------
+                    List<string> FFmpegArgsPass1List = initializeList_Pass1
+                                                       .Concat(hwAccelDecodeList_Pass1)
                                                        .Concat(inputList_Pass1)
                                                        .Concat(hwAccelTranscodeList_Pass1)
                                                        .Concat(formatList_Pass1)
@@ -308,6 +328,12 @@ namespace Axiom
                                                        .Concat(audioList_Pass1)
                                                        .Concat(outputList_Pass1)
                                                        .ToList();
+
+                    // Process Priority PowerShell Arguments End
+                    FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriorityPowerShell_Arguments_End());
+
+                    // Process Priority PowerShell Set
+                    //FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
 
                     // Join List with Spaces
                     // Remove: Empty, Null, Standalone LineBreak
@@ -319,24 +345,34 @@ namespace Axiom
                                                          );
 
 
+                    // Process Priority Format
+                    Video.Quality.pass1Args = ProcessPriority_PowerShell_Set(Video.Quality.pass1Args);
+
+
                     // --------------------------------------------------
                     // Pass 2
                     // --------------------------------------------------
                     // -------------------------
                     // Pass 2 Initialize
                     // -------------------------
-                    List<string> initializeList_Pass2 = new List<string>()
+                    List <string> initializeList_Pass2 = new List<string>()
                     {
-                        "\r\n\r\n" +
-                        //"&&",
-                        FFmpeg.LogicalOperator_And_ShellFormatter(),
+                        //"\r\n\r\n" +
+                        ////"&&",
+                        //LogicalOperator_And_ShellFormatter(),
+
+                        //"\r\n\r\n" +
+                        ProcessPriority() +
+                        //Exe_InvokeOperator() +
+                        MainWindow.FFmpegPath() +
+                        ProcessPriority_PowerShell_Flags(),
 
                         "\r\n\r\n" +
-                        FFmpeg.Exe_InvokeOperator_PowerShell() +
-                        MainWindow.FFmpegPath(),
+                        ProcessPriorityPowerShell_Arguments_Start(),
 
                         "\r\n\r\n" +
-                        "-y",
+                        OutputOverwrite()
+                        //"-y"
                     };
 
                     // -------------------------
@@ -583,7 +619,9 @@ namespace Axiom
                     };
 
 
+                    // -------------------------
                     // Combine Lists
+                    // -------------------------
                     List<string> FFmpegArgsPass2List = initializeList_Pass2
                                                        .Concat(hwAccelDecodeList_Pass2)
                                                        .Concat(inputList_Pass2)
@@ -595,6 +633,12 @@ namespace Axiom
                                                        .Concat(outputList_Pass2)
                                                        .ToList();
 
+                    // Process Priority PowerShell Arguments End
+                    FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriorityPowerShell_Arguments_End());
+
+                    // Process Priority PowerShell Set
+                    //FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
+
 
                     // Join List with Spaces
                     // Remove: Empty, Null, Standalone LineBreak
@@ -605,9 +649,17 @@ namespace Axiom
                                                                .Where(s => !s.Equals("\r\n"))
                                                          );
 
+                    // Process Priority Format
+                    Video.Quality.pass2Args = ProcessPriority_PowerShell_Set(Video.Quality.pass2Args);
+
 
                     // Combine Pass 1 & Pass 2 Args
-                    Video.Quality.v2PassArgs = Video.Quality.pass1Args + " " + Video.Quality.pass2Args;
+                    Video.Quality.v2PassArgs = Video.Quality.pass1Args +
+                                               //" " +
+                                               "\r\n\r\n" +
+                                               LogicalOperator_And_ShellFormatter() +
+                                               "\r\n\r\n" +
+                                               Video.Quality.pass2Args;
                 }
 
 
