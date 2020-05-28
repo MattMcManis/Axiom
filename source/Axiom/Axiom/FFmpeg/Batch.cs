@@ -79,7 +79,6 @@ namespace Axiom
                             {
                                 "cd /d",
                                 "\"" + MainWindow.BatchInputDirectory() + "\"",
-                                //MainWindow.ShellStringFormatter(MainWindow.BatchInputDirectory()),
 
                                 "\r\n\r\n" + "&& for %f in",
                                 "(*" + MainWindow.inputExt + ")",
@@ -105,18 +104,6 @@ namespace Axiom
 
                                 "\r\n\r\n" +
                                 "&&",
-
-                                //"\r\n\r\n" +
-                                ////FFmpeg.Exe_InvokeOperator() +
-                                //MainWindow.FFmpegPath(),
-
-                                //"\r\n\r\n" +
-                                //OutputOverwrite()
-                                ////"-y"
-                   
-                                // %~f added in InputPath()
-                                //OnePass_CRF_Args(), // disabled if 2-Pass       
-                                //TwoPass_Args() // disabled if 1-Pass/CRF
                             };
 
                             // Add Arguments to ffmpegBatchArgsList
@@ -161,7 +148,7 @@ namespace Axiom
                             string vBitRateBatch = string.Empty;
                             if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
                             {
-                                vBitRateBatch = "\r\n" + "$vBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                                vBitRateBatch = "$vBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
                             }
 
                             // Audio Auto Quality Detect Bitrate
@@ -170,7 +157,7 @@ namespace Axiom
                             string aBitRateBatch_Limited = string.Empty;
                             if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
                             {
-                                aBitRateBatch = "\r\n" + "$aBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                                aBitRateBatch = "$aBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
 
                                 // Bitrate Null Check
                                 aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
@@ -213,17 +200,17 @@ namespace Axiom
                                         aBitRateBatch_Limited = "if ($aBitrate -gt 320000) { $aBitrate = 320000 };";
                                         break;
 
-                                        //// FLAC
-                                        // Do not use, empty is FFmpeg default
-                                        //case "FLAC":
-                                        //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
-                                        //    break;
+                                    //// FLAC
+                                    // Do not use, empty is FFmpeg default
+                                    //case "FLAC":
+                                    //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
+                                    //    break;
 
-                                        //// PCM
-                                        // Do not use, empty is FFmpeg default
-                                        //case "PCM":
-                                        //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
-                                        //    break;
+                                    //// PCM
+                                    // Do not use, empty is FFmpeg default
+                                    //case "PCM":
+                                    //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
+                                    //    break;
                                 }
                             }
 
@@ -239,31 +226,19 @@ namespace Axiom
                                 "foreach ($f in $files) {" +
 
                                 "\r\n\r\n" + 
-                                "$fullName = $f.FullName" + ";", // capture full path to variable
+                                "$fullPath = $f.FullName" + ";", // capture full path + name + extension to variable
                                 "\r\n" + 
-                                "$name = $f.Name" + ";", // capture name to variable
+                                "$inputName = $f.Name" + ";", // capture name + extension to variable
+                                "\r\n" +
+                                "$outputName = (Get-Item $inputName).Basename" + ";", // capture name only, remove extension
+                                "\r\n" +
                                 vBitRateBatch, // capture video bitrate to variable
+                                "\r\n" +
                                 aBitRateBatch, // capture audio bitrate to variable
+                                "\r\n" +
                                 aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
+                                "\r\n" +
                                 aBitRateBatch_Limited, // limit audio bitrate
-
-                                //"\r\n\r\n" +
-                                //ProcessPriority() +
-                                ////Exe_InvokeOperator() +
-                                //MainWindow.FFmpegPath() +
-                                //ProcessPriority_PowerShell_Flags(),
-
-                                //"\r\n\r\n" +
-                                //ProcessPriorityPowerShell_Arguments_Start(),
-
-                                //"\r\n\r\n" +
-                                //OutputOverwrite()
-                                //"-y",
-                   
-                                // $name added in InputPath()
-
-                                //OnePass_CRF_Args(), // disabled if 2-Pass       
-                                //TwoPass_Args(), // disabled if 1-Pass/CRF
 
                                 //"\r\n\r\n" + "}"
                             };
