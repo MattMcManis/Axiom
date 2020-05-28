@@ -990,16 +990,33 @@ namespace Axiom
         /// <summary>
         /// Path Wrap in Quotes
         /// </summary>
-        public static String WrapQuotes(string s)
+        public static String WrapWithQuotes(string s)
         {
-           // "my string"
-           return "\"" + s + "\""; 
+            // "my string"
+            //return "\"" + s + "\""; 
+
+            switch (VM.MainView.Batch_IsChecked)
+            {
+                // Single File
+                case false:
+                    // "my string"
+                    s = "\"" + s + "\"";
+                    break;
+
+                // Batch
+                case true:
+                    // `"my string`"
+                    s = "`\"" + s + "`\"";
+                    break;
+            }
+
+            return s;
         }
 
         /// <summary>
         /// Path Wrap in Escaped Quotes
         /// </summary>
-        public static String WrapEscapedQuotes(string s)
+        public static String WrapWithEscapedQuotes(string s)
         {
             // \"my string\"
             return "\\\"" + s + "\\\"";
@@ -2512,7 +2529,8 @@ namespace Axiom
                 if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use included binary
-                    FFmpeg.ffmpeg = "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
+                    //FFmpeg.ffmpeg = "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
+                    FFmpeg.ffmpeg = WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
                 }
                 else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
@@ -2523,7 +2541,8 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFmpeg.ffmpeg = "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
+                //FFmpeg.ffmpeg = "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
+                FFmpeg.ffmpeg = WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
             }
 
             // Return Value
