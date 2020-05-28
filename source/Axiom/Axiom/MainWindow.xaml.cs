@@ -2530,7 +2530,7 @@ namespace Axiom
                 {
                     // use included binary
                     //FFmpeg.ffmpeg = "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
-                    FFmpeg.ffmpeg = WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
+                    FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
                 }
                 else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
@@ -2542,7 +2542,7 @@ namespace Axiom
             else
             {
                 //FFmpeg.ffmpeg = "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
-                FFmpeg.ffmpeg = WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
+                FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
             }
 
             // Return Value
