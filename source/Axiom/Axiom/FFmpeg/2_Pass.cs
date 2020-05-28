@@ -101,9 +101,8 @@ namespace Axiom
                     List<string> inputList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        "-i "+ "\"" +
-                        MainWindow.InputPath("pass 1") + "\"",
-                        //Path_ShellFormatter(MainWindow.InputPath("pass 1"))
+                        //"-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
+                        "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 1"))
                     };
 
                     // -------------------------
@@ -394,8 +393,8 @@ namespace Axiom
                     List<string> inputList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        "-i " +
-                        "\"" + MainWindow.InputPath("pass 2") + "\"",
+                        //"-i " + "\"" + MainWindow.InputPath("pass 2") + "\"",
+                        "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 2")),
 
                         "\r\n\r\n" +
                         Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -613,7 +612,8 @@ namespace Axiom
                         Configure.threads,
 
                         "\r\n\r\n" +
-                        "\"" + MainWindow.OutputPath() + "\""
+                        //"\"" + MainWindow.OutputPath() + "\""
+                        MainWindow.WrapWithQuotes(MainWindow.OutputPath())
                     };
 
 
