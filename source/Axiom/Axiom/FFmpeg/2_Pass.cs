@@ -68,7 +68,7 @@ namespace Axiom
                         ProcessPriority_PowerShell_Flags(),
 
                         "\r\n\r\n" +
-                        ProcessPriorityPowerShell_Arguments_Start(),
+                        ProcessPriority_PowerShell_Args_Start(),
 
                         "\r\n\r\n" +
                         //"-y"
@@ -330,7 +330,7 @@ namespace Axiom
                                                        .ToList();
 
                     // Process Priority PowerShell Arguments End
-                    FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriorityPowerShell_Arguments_End());
+                    FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Args_End());
 
                     // Process Priority PowerShell Set
                     //FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
@@ -359,7 +359,7 @@ namespace Axiom
                     {
                         //"\r\n\r\n" +
                         ////"&&",
-                        //LogicalOperator_And_ShellFormatter(),
+                        //Shell_LogicalOperator_And(),
 
                         //"\r\n\r\n" +
                         ProcessPriority() +
@@ -368,7 +368,7 @@ namespace Axiom
                         ProcessPriority_PowerShell_Flags(),
 
                         "\r\n\r\n" +
-                        ProcessPriorityPowerShell_Arguments_Start(),
+                        ProcessPriority_PowerShell_Args_Start(),
 
                         "\r\n\r\n" +
                         OutputOverwrite()
@@ -396,7 +396,6 @@ namespace Axiom
                         "\r\n\r\n" +
                         "-i " +
                         "\"" + MainWindow.InputPath("pass 2") + "\"",
-                        //Path_ShellFormatter(MainWindow.InputPath("pass 2")),
 
                         "\r\n\r\n" +
                         Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -615,7 +614,6 @@ namespace Axiom
 
                         "\r\n\r\n" +
                         "\"" + MainWindow.OutputPath() + "\""
-                        //Path_ShellFormatter(MainWindow.OutputPath())
                     };
 
 
@@ -634,7 +632,7 @@ namespace Axiom
                                                        .ToList();
 
                     // Process Priority PowerShell Arguments End
-                    FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriorityPowerShell_Arguments_End());
+                    FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Args_End());
 
                     // Process Priority PowerShell Set
                     //FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
@@ -657,7 +655,7 @@ namespace Axiom
                     Video.Quality.v2PassArgs = Video.Quality.pass1Args +
                                                //" " +
                                                "\r\n\r\n" +
-                                               LogicalOperator_And_ShellFormatter() +
+                                               Shell_LogicalOperator_And() +
                                                "\r\n\r\n" +
                                                Video.Quality.pass2Args;
                 }
