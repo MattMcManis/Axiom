@@ -89,11 +89,14 @@ namespace Axiom
             "gray",
             "gray10le",
             "yuv420p",
-            "yuv420p10le",
+            "yuvj420p",
             "yuv422p",
-            "yuv422p10le",
+            "yuvj422p",
             "yuv444p",
-            "yuv444p10le",
+            "yuvj444p",
+            "yuv420p10le",
+            "yuv422p10le",
+            "yuv444p10le"
         };
 
         // -------------------------
