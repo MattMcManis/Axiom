@@ -63,7 +63,7 @@ namespace Axiom
                     List<string> initializeList_Pass1 = new List<string>()
                     {
                         ProcessPriority() +
-                        //Exe_InvokeOperator() + // & symbol For PowerShell
+                        //PowerShell_CallOperator() +
                         MainWindow.FFmpegPath() +
                         ProcessPriority_PowerShell_Flags(),
 
@@ -362,7 +362,7 @@ namespace Axiom
 
                         //"\r\n\r\n" +
                         ProcessPriority() +
-                        //Exe_InvokeOperator() +
+                        //PowerShell_CallOperator() +
                         MainWindow.FFmpegPath() +
                         ProcessPriority_PowerShell_Flags(),
 
