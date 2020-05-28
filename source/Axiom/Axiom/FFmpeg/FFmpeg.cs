@@ -471,9 +471,13 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Invoke Operator
+        /// PowerShell Call Operator
         /// </summary>
-        public static String Exe_InvokeOperator()
+        /// <remarks>
+        /// Adds & symbol before Path to FFmpeg
+        /// e.g. & "C:\path\to\ffmpeg\ffmpeg.exe"
+        /// </remarks>
+        public static String PowerShell_CallOperator()
         {
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
