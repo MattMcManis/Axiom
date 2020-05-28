@@ -34,275 +34,289 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public class Batch
+    public partial class FFmpeg
     {
-        /// <summary>
-        /// FFmpeg Batch - Generate Args
-        /// </summary>
-        public static void Generate_FFmpegArgs()
+        public class Batch
         {
-            if (VM.MainView.Batch_IsChecked == true)
+            /// <summary>
+            /// FFmpeg Batch - Generate Args
+            /// </summary>
+            public static void Generate_FFmpegArgs()
             {
-                // Log Console Message /////////
-                Log.WriteAction = () =>
+                if (VM.MainView.Batch_IsChecked == true)
                 {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Batch: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(VM.MainView.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
-                    //Log.logParagraph.Inlines.Add(new LineBreak());
-                    //Log.logParagraph.Inlines.Add(new LineBreak());
-                    //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Batch: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(Convert.ToString(VM.MainView.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
+                        //Log.logParagraph.Inlines.Add(new LineBreak());
+                        //Log.logParagraph.Inlines.Add(new LineBreak());
+                        //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
 
 
-                List<string> ffmpegBatchArgsList = new List<string>();
+                    List<string> ffmpegBatchArgsList = new List<string>();
 
-                switch (VM.ConfigureView.Shell_SelectedItem)
-                {
-                    // -------------------------
-                    // CMD
-                    // -------------------------
-                    case "CMD":
+                    switch (VM.ConfigureView.Shell_SelectedItem)
+                    {
                         // -------------------------
-                        // Batch Arguments Full
+                        // CMD
                         // -------------------------
-                        ffmpegBatchArgsList = new List<string>()
-                        {
-                            "cd /d",
-                            "\"" + MainWindow.BatchInputDirectory() + "\"",
-                            //MainWindow.ShellStringFormatter(MainWindow.BatchInputDirectory()),
-
-                            "\r\n\r\n" + "&& for %f in",
-                            "(*" + MainWindow.inputExt + ")",
-                            "do (echo)",
-
-                            // Video
-                            "\r\n\r\n" +
-                            Video.Quality.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
-                                                                VM.VideoView.Video_Codec_SelectedItem,
-                                                                VM.VideoView.Video_Quality_SelectedItem
-                                                                ),
-
-                            // Audio
-                            "\r\n\r\n" +
-                            Audio.Quality.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
-                                                                VM.AudioView.Audio_Codec_SelectedItem,
-                                                                VM.AudioView.Audio_Quality_SelectedItem
-                                                                ),
-                            "\r\n\r\n" +
-                            Audio.Quality.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
-                                                                   VM.AudioView.Audio_Quality_SelectedItem
-                                                                   ),
-
-                            "\r\n\r\n" +
-                            "&&",
-                            "\r\n\r\n" +
-                            FFmpeg.Exe_InvokeOperator_PowerShell() +
-                            MainWindow.FFmpegPath(),
-
-                            "\r\n\r\n" +
-                            "-y",
-                   
-                            // %~f added in InputPath()
-                            //OnePass_CRF_Args(), // disabled if 2-Pass       
-                            //TwoPass_Args() // disabled if 1-Pass/CRF
-                        };
-
-                        // Add Arguments to ffmpegBatchArgsList
-                        switch (VM.VideoView.Video_Pass_SelectedItem)
-                        {
+                        case "CMD":
                             // -------------------------
-                            // CRF
+                            // Batch Arguments Full
                             // -------------------------
-                            case "CRF":
-                                ffmpegBatchArgsList.Add(FFmpeg.CRF.Arguments());
-                                break;
-
-                            // -------------------------
-                            // 1 Pass
-                            // -------------------------
-                            case "1 Pass":
-                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
-                                break;
-
-                            // -------------------------
-                            // 2 Pass
-                            // -------------------------
-                            case "2 Pass":
-                                ffmpegBatchArgsList.Add(FFmpeg._2_Pass.Arguments());
-                                break;
-
-                            // -------------------------
-                            // Empty, none, auto / Audio
-                            // -------------------------
-                            default:
-                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
-                                break;
-                        }
-
-                        break;
-
-                    // -------------------------
-                    // PowerShell
-                    // -------------------------
-                    case "PowerShell":
-                        // Video Auto Quality Detect Bitrate
-                        string vBitRateBatch = string.Empty;
-                        if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
-                        {
-                            vBitRateBatch = "\r\n" + "$vBitrate = " + FFmpeg.Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
-                        }
-
-                        // Audio Auto Quality Detect Bitrate
-                        string aBitRateBatch = string.Empty;
-                        string aBitRateBatch_NullCheck = string.Empty;
-                        string aBitRateBatch_Limited = string.Empty;
-                        if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
-                        {
-                            aBitRateBatch = "\r\n" + "$aBitrate = " + FFmpeg.Exe_InvokeOperator_PowerShell() + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
-
-                            // Bitrate Null Check
-                            aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
-
-                            // Bitrate Limiter
-                            switch (VM.AudioView.Audio_Codec_SelectedItem)
+                            ffmpegBatchArgsList = new List<string>()
                             {
-                                // Vorbis
-                                case "Vorbis":
-                                    aBitRateBatch_Limited = "if ($aBitrate -gt 500000) { $aBitrate = 500000 };";
-                                    break;
+                                "cd /d",
+                                "\"" + MainWindow.BatchInputDirectory() + "\"",
+                                //MainWindow.ShellStringFormatter(MainWindow.BatchInputDirectory()),
 
-                                // Opus
-                                case "Opus":
-                                    aBitRateBatch_Limited = "if ($aBitrate -gt 510000) { $aBitrate = 510000 };";
-                                    break;
+                                "\r\n\r\n" + "&& for %f in",
+                                "(*" + MainWindow.inputExt + ")",
+                                "do (echo)",
 
-                                // AAC
-                                case "AAC":
-                                    aBitRateBatch_Limited = "if ($aBitrate -gt 400000) { $aBitrate = 400000 };";
-                                    break;
+                                // Video
+                                "\r\n\r\n" +
+                                Video.Quality.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
+                                                                    VM.VideoView.Video_Codec_SelectedItem,
+                                                                    VM.VideoView.Video_Quality_SelectedItem
+                                                                    ),
 
-                                // AC3
-                                case "AC3":
-                                    aBitRateBatch_Limited = "if ($aBitrate -gt 640000) { $aBitrate = 640000 };";
-                                    break;
+                                // Audio
+                                "\r\n\r\n" +
+                                Audio.Quality.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
+                                                                    VM.AudioView.Audio_Codec_SelectedItem,
+                                                                    VM.AudioView.Audio_Quality_SelectedItem
+                                                                    ),
+                                "\r\n\r\n" +
+                                Audio.Quality.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
+                                                                       VM.AudioView.Audio_Quality_SelectedItem
+                                                                       ),
 
-                                // DTS
-                                case "DTS":
-                                    aBitRateBatch_Limited = "if ($aBitrate -lt 320000) { $aBitrate = 320000 }; if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
-                                    break;
+                                "\r\n\r\n" +
+                                "&&",
 
-                                // MP2
-                                case "MP2":
-                                    aBitRateBatch_Limited = "if ($aBitrate -gt 384000) { $aBitrate = 384000 };";
-                                    break;
+                                //"\r\n\r\n" +
+                                ////FFmpeg.Exe_InvokeOperator() +
+                                //MainWindow.FFmpegPath(),
 
-                                // LAME
-                                case "LAME":
-                                    aBitRateBatch_Limited = "if ($aBitrate -gt 320000) { $aBitrate = 320000 };";
-                                    break;
-
-                                    //// FLAC
-                                    // Do not use, empty is FFmpeg default
-                                    //case "FLAC":
-                                    //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
-                                    //    break;
-
-                                    //// PCM
-                                    // Do not use, empty is FFmpeg default
-                                    //case "PCM":
-                                    //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
-                                    //    break;
-                            }
-                        }
-
-                        // -------------------------
-                        // Batch Arguments Full
-                        // -------------------------
-                        ffmpegBatchArgsList = new List<string>()
-                        {
-                            "$files = Get-ChildItem " + "\"" + MainWindow.BatchInputDirectory().TrimEnd('\\') + "\"" + " -Filter *" + MainWindow.inputExt, // trim the dir's end backslash
-                            "\r\n\r\n" + ";",
-
-                            "\r\n\r\n" + "foreach ($f in $files) {" +
-
-                            "\r\n\r\n" + "$fullName = $f.FullName" + ";", // capture full path to variable
-                            "\r\n" + "$name = $f.Name" + ";", // capture name to variable
-                            vBitRateBatch, // capture video bitrate to variable
-                            aBitRateBatch, // capture audio bitrate to variable
-                            aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
-                            aBitRateBatch_Limited, // limit audio bitrate
-
-                            "\r\n\r\n" +
-                            FFmpeg.Exe_InvokeOperator_PowerShell() +
-                            MainWindow.FFmpegPath(),
-                            "\r\n\r\n" +
-                            "-y",
+                                //"\r\n\r\n" +
+                                //OutputOverwrite()
+                                ////"-y"
                    
-                            // $name added in InputPath()
+                                // %~f added in InputPath()
+                                //OnePass_CRF_Args(), // disabled if 2-Pass       
+                                //TwoPass_Args() // disabled if 1-Pass/CRF
+                            };
 
-                            //OnePass_CRF_Args(), // disabled if 2-Pass       
-                            //TwoPass_Args(), // disabled if 1-Pass/CRF
+                            // Add Arguments to ffmpegBatchArgsList
+                            switch (VM.VideoView.Video_Pass_SelectedItem)
+                            {
+                                // -------------------------
+                                // CRF
+                                // -------------------------
+                                case "CRF":
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg.CRF.Arguments());
+                                    break;
 
-                            //"\r\n\r\n" + "}"
-                        };
+                                // -------------------------
+                                // 1 Pass
+                                // -------------------------
+                                case "1 Pass":
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg._1_Pass.Arguments());
+                                    break;
 
-                        // Add Arguments to ffmpegBatchArgsList
-                        switch (VM.VideoView.Video_Pass_SelectedItem)
-                        {
-                            // -------------------------
-                            // CRF
-                            // -------------------------
-                            case "CRF":
-                                ffmpegBatchArgsList.Add(FFmpeg.CRF.Arguments());
-                                break;
+                                // -------------------------
+                                // 2 Pass
+                                // -------------------------
+                                case "2 Pass":
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg._2_Pass.Arguments());
+                                    break;
+
+                                // -------------------------
+                                // Empty, none, auto / Audio
+                                // -------------------------
+                                default:
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg._1_Pass.Arguments());
+                                    break;
+                            }
+
+                            break;
+
+                        // -------------------------
+                        // PowerShell
+                        // -------------------------
+                        case "PowerShell":
+                            // Video Auto Quality Detect Bitrate
+                            string vBitRateBatch = string.Empty;
+                            if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
+                            {
+                                vBitRateBatch = "\r\n" + "$vBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                            }
+
+                            // Audio Auto Quality Detect Bitrate
+                            string aBitRateBatch = string.Empty;
+                            string aBitRateBatch_NullCheck = string.Empty;
+                            string aBitRateBatch_Limited = string.Empty;
+                            if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+                            {
+                                aBitRateBatch = "\r\n" + "$aBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+
+                                // Bitrate Null Check
+                                aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
+
+                                // Bitrate Limiter
+                                switch (VM.AudioView.Audio_Codec_SelectedItem)
+                                {
+                                    // Vorbis
+                                    case "Vorbis":
+                                        aBitRateBatch_Limited = "if ($aBitrate -gt 500000) { $aBitrate = 500000 };";
+                                        break;
+
+                                    // Opus
+                                    case "Opus":
+                                        aBitRateBatch_Limited = "if ($aBitrate -gt 510000) { $aBitrate = 510000 };";
+                                        break;
+
+                                    // AAC
+                                    case "AAC":
+                                        aBitRateBatch_Limited = "if ($aBitrate -gt 400000) { $aBitrate = 400000 };";
+                                        break;
+
+                                    // AC3
+                                    case "AC3":
+                                        aBitRateBatch_Limited = "if ($aBitrate -gt 640000) { $aBitrate = 640000 };";
+                                        break;
+
+                                    // DTS
+                                    case "DTS":
+                                        aBitRateBatch_Limited = "if ($aBitrate -lt 320000) { $aBitrate = 320000 }; if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
+                                        break;
+
+                                    // MP2
+                                    case "MP2":
+                                        aBitRateBatch_Limited = "if ($aBitrate -gt 384000) { $aBitrate = 384000 };";
+                                        break;
+
+                                    // LAME
+                                    case "LAME":
+                                        aBitRateBatch_Limited = "if ($aBitrate -gt 320000) { $aBitrate = 320000 };";
+                                        break;
+
+                                        //// FLAC
+                                        // Do not use, empty is FFmpeg default
+                                        //case "FLAC":
+                                        //    aBitRateBatch_Limited = "if ($aBitrate -gt 1411000) { $aBitrate = 1411000 };";
+                                        //    break;
+
+                                        //// PCM
+                                        // Do not use, empty is FFmpeg default
+                                        //case "PCM":
+                                        //    aBitRateBatch_Limited = "if ($aBitrate -gt 1536000) { $aBitrate = 1536000 };";
+                                        //    break;
+                                }
+                            }
 
                             // -------------------------
-                            // 1 Pass
+                            // Batch Arguments Full
                             // -------------------------
-                            case "1 Pass":
-                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
-                                break;
+                            ffmpegBatchArgsList = new List<string>()
+                            {
+                                "$files = Get-ChildItem " + "\"" + MainWindow.BatchInputDirectory().TrimEnd('\\') + "\"" + " -Filter *" + MainWindow.inputExt + ";", // trim the dir's end backslash
+                                //"\r\n\r\n" + ";",
 
-                            // -------------------------
-                            // 2 Pass
-                            // -------------------------
-                            case "2 Pass":
-                                ffmpegBatchArgsList.Add(FFmpeg._2_Pass.Arguments());
-                                break;
+                                "\r\n\r\n" + 
+                                "foreach ($f in $files) {" +
 
-                            // -------------------------
-                            // Empty, none, auto / Audio
-                            // -------------------------
-                            default:
-                                ffmpegBatchArgsList.Add(FFmpeg._1_Pass.Arguments());
-                                break;
-                        }
+                                "\r\n\r\n" + 
+                                "$fullName = $f.FullName" + ";", // capture full path to variable
+                                "\r\n" + 
+                                "$name = $f.Name" + ";", // capture name to variable
+                                vBitRateBatch, // capture video bitrate to variable
+                                aBitRateBatch, // capture audio bitrate to variable
+                                aBitRateBatch_NullCheck, // check if bitrate is null, change to 0
+                                aBitRateBatch_Limited, // limit audio bitrate
 
-                        // Add Closing Bracket
-                        ffmpegBatchArgsList.Add("\r\n\r\n" + "}");
+                                //"\r\n\r\n" +
+                                //ProcessPriority() +
+                                ////Exe_InvokeOperator() +
+                                //MainWindow.FFmpegPath() +
+                                //ProcessPriority_PowerShell_Flags(),
 
-                        break;
+                                //"\r\n\r\n" +
+                                //ProcessPriorityPowerShell_Arguments_Start(),
+
+                                //"\r\n\r\n" +
+                                //OutputOverwrite()
+                                //"-y",
+                   
+                                // $name added in InputPath()
+
+                                //OnePass_CRF_Args(), // disabled if 2-Pass       
+                                //TwoPass_Args(), // disabled if 1-Pass/CRF
+
+                                //"\r\n\r\n" + "}"
+                            };
+
+                            // Add Arguments to ffmpegBatchArgsList
+                            switch (VM.VideoView.Video_Pass_SelectedItem)
+                            {
+                                // -------------------------
+                                // CRF
+                                // -------------------------
+                                case "CRF":
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg.CRF.Arguments());
+                                    break;
+
+                                // -------------------------
+                                // 1 Pass
+                                // -------------------------
+                                case "1 Pass":
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg._1_Pass.Arguments());
+                                    break;
+
+                                // -------------------------
+                                // 2 Pass
+                                // -------------------------
+                                case "2 Pass":
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg._2_Pass.Arguments());
+                                    break;
+
+                                // -------------------------
+                                // Empty, none, auto / Audio
+                                // -------------------------
+                                default:
+                                    ffmpegBatchArgsList.Add("\r\n\r\n" + FFmpeg._1_Pass.Arguments());
+                                    break;
+                            }
+
+                            // Add Closing Bracket
+                            ffmpegBatchArgsList.Add("\r\n\r\n" + "}");
+                            break;
+                    }
+
+                    // Join List with Spaces
+                    // Remove: Empty, Null, Standalone LineBreak
+                    FFmpeg.ffmpegArgsSort = string.Join(" ", ffmpegBatchArgsList
+                                                             .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                             .Where(s => !s.Equals(Environment.NewLine))
+                                                             .Where(s => !s.Equals("\r\n\r\n"))
+                                                             .Where(s => !s.Equals("\r\n"))
+                                            );
+
+                    // Inline 
+                    FFmpeg.ffmpegArgs = MainWindow.RemoveLineBreaks(FFmpeg.ffmpegArgsSort);
                 }
-
-                // Join List with Spaces
-                // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ", ffmpegBatchArgsList
-                                                  .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                  .Where(s => !s.Equals(Environment.NewLine))
-                                                  .Where(s => !s.Equals("\r\n\r\n"))
-                                                  .Where(s => !s.Equals("\r\n"))
-                                        );
-
-                // Inline 
-                FFmpeg.ffmpegArgs = MainWindow.RemoveLineBreaks(FFmpeg.ffmpegArgsSort);
             }
         }
     }
