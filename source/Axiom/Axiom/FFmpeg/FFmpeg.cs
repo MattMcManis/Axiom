@@ -207,7 +207,21 @@ namespace Axiom
             {
                 // PowerShell
                 case "PowerShell":
-                    return "-ArgumentList '";
+                    switch (VM.MainView.Batch_IsChecked)
+                    {
+                        // Single
+                        case false:
+                            return "-ArgumentList '";
+
+                        // Batch
+                        case true:
+                            return "-ArgumentList \"";
+
+                        // Unknown
+                        default:
+                            return "-ArgumentList '";
+                    }
+                    //return "-ArgumentList '";
 
                 // Empty
                 default:
@@ -233,7 +247,21 @@ namespace Axiom
             {
                 // PowerShell
                 case "PowerShell":
-                    return "'";
+                    switch (VM.MainView.Batch_IsChecked)
+                    {
+                        // Single
+                        case false:
+                            return "'";
+
+                        // Batch
+                        case true:
+                            return "\"";
+
+                        // Unknown
+                        default:
+                            return "'";
+                    }
+                    //return "'";
 
                 // Empty
                 default:
@@ -445,24 +473,24 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Invoke Operator
         /// </summary>
-        //public static String Exe_InvokeOperator()
-        //{
-        //    // Shell Check
-        //    switch (VM.ConfigureView.Shell_SelectedItem)
-        //    {
-        //        // CMD
-        //        case "CMD":
-        //            return string.Empty;
+        public static String Exe_InvokeOperator()
+        {
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    return string.Empty;
 
-        //        // PowerShell
-        //        case "PowerShell":
-        //            return "& ";
+                // PowerShell
+                case "PowerShell":
+                    return "& ";
 
-        //        // Default
-        //        default:
-        //            return string.Empty;
-        //    }
-        //}
+                // Default
+                default:
+                    return string.Empty;
+            }
+        }
 
 
         /// <summary>
@@ -593,7 +621,7 @@ namespace Axiom
                 case "CMD":
                     System.Diagnostics.Process.Start("cmd.exe",
                                                      KeepWindow() +
-                                                     "cd " + MainWindow.WrapQuotes(MainWindow.outputDir) +
+                                                     "cd " + "\"" + MainWindow.outputDir + "\"" +
                                                      " & " +
                                                      args
                                                     );
@@ -605,8 +633,9 @@ namespace Axiom
                 case "PowerShell":
                     System.Diagnostics.Process.Start("powershell.exe",
                                                      KeepWindow() +
-                                                     "-command \"Set-Location " + MainWindow.WrapQuotes(MainWindow.outputDir).Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
-                                                                                                                             .Replace("\"", "\\\"") + // Format Quotes " → \"
+                                                     "-command \"Set-Location " + "\"" + MainWindow.outputDir.Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
+                                                                                                             .Replace("\"", "\\\"") + // Format Quotes " → \"
+                                                                                  "\"" +
                                                      "; " +
                                                      args.Replace("\"", "\\\"") // Format Quotes " → \"
                                                     );
