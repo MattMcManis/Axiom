@@ -145,7 +145,7 @@ namespace Axiom
                         // If default, it will not be wrapped in quotes
                         if (MainWindow.youtubedl != "youtube-dl")
                         {
-                            youtubedl_formatted = MainWindow.WrapQuotes(MainWindow.youtubedl);
+                            youtubedl_formatted = MainWindow.WrapWithQuotes(MainWindow.youtubedl);
                         }
                         else
                         {
