@@ -80,7 +80,9 @@ namespace Axiom
             LogCheckBox_IsChecked = false;
             LogPath_IsEnabled = false;
             Shell_SelectedItem = "CMD";
-            Threads_SelectedItem = "optimal";
+            ProcessPriority_SelectedItem = "Default";
+            Threads_SelectedItem = "Optimal";
+            OutputOverwrite_SelectedItem = "Always";
             Theme_SelectedItem = "Axiom";
             UpdateAutoCheck_IsChecked = true;
         }
@@ -539,15 +541,91 @@ namespace Axiom
             }
         }
 
+
+        // --------------------------------------------------
+        // Process Priority
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _ProcessPriority_Items = new List<string>()
+        {
+           "Default",
+           "Low",
+           "Below Normal",
+           "Normal",
+           "Above Normal",
+           "High"
+        };
+        public List<string> ProcessPriority_Items
+        {
+            get { return _ProcessPriority_Items; }
+            set
+            {
+                _ProcessPriority_Items = value;
+                OnPropertyChanged("ProcessPriority_Items");
+            }
+        }
+
+        // Selected Index
+        private int _ProcessPriority_SelectedIndex { get; set; }
+        public int ProcessPriority_SelectedIndex
+        {
+            get { return _ProcessPriority_SelectedIndex; }
+            set
+            {
+                if (_ProcessPriority_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _ProcessPriority_SelectedIndex = value;
+                OnPropertyChanged("ProcessPriority_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _ProcessPriority_SelectedItem { get; set; }
+        public string ProcessPriority_SelectedItem
+        {
+            get { return _ProcessPriority_SelectedItem; }
+            set
+            {
+                if (_ProcessPriority_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _ProcessPriority_SelectedItem = value;
+                OnPropertyChanged("ProcessPriority_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _ProcessPriority_IsEnabled = true;
+        public bool ProcessPriority_IsEnabled
+        {
+            get { return _ProcessPriority_IsEnabled; }
+            set
+            {
+                if (_ProcessPriority_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _ProcessPriority_IsEnabled = value;
+                OnPropertyChanged("ProcessPriority_IsEnabled");
+            }
+        }
+
+
         // --------------------------------------------------
         // Threads
         // --------------------------------------------------
         // Items Source
         private List<string> _Threads_Items = new List<string>()
         {
-           "default",
-           "optimal",
-           "all",
+           "Default",
+           "Optimal",
+           "All",
            "1",
            "2",
            "3",
@@ -623,6 +701,78 @@ namespace Axiom
 
                 _Threads_IsEnabled = value;
                 OnPropertyChanged("Threads_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Output File Overwrite
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _OutputOverwrite_Items = new List<string>()
+        {
+           "Ask",
+           "Always",
+           "Never"
+        };
+        public List<string> OutputOverwrite_Items
+        {
+            get { return _OutputOverwrite_Items; }
+            set
+            {
+                _OutputOverwrite_Items = value;
+                OnPropertyChanged("OutputOverwrite_Items");
+            }
+        }
+
+        // Selected Index
+        private int _OutputOverwrite_SelectedIndex { get; set; }
+        public int OutputOverwrite_SelectedIndex
+        {
+            get { return _OutputOverwrite_SelectedIndex; }
+            set
+            {
+                if (_OutputOverwrite_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _OutputOverwrite_SelectedIndex = value;
+                OnPropertyChanged("OutputOverwrite_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _OutputOverwrite_SelectedItem { get; set; }
+        public string OutputOverwrite_SelectedItem
+        {
+            get { return _OutputOverwrite_SelectedItem; }
+            set
+            {
+                if (_OutputOverwrite_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _OutputOverwrite_SelectedItem = value;
+                OnPropertyChanged("OutputOverwrite_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _OutputOverwrite_IsEnabled = true;
+        public bool OutputOverwrite_IsEnabled
+        {
+            get { return _OutputOverwrite_IsEnabled; }
+            set
+            {
+                if (_OutputOverwrite_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _OutputOverwrite_IsEnabled = value;
+                OnPropertyChanged("OutputOverwrite_IsEnabled");
             }
         }
 
