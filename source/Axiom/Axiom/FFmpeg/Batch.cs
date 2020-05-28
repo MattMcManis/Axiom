@@ -148,7 +148,7 @@ namespace Axiom
                             string vBitRateBatch = string.Empty;
                             if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
                             {
-                                vBitRateBatch = "$vBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                                vBitRateBatch = "$vBitrate = " + FFmpeg.Exe_InvokeOperator() /*+ "& "*/ + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
                             }
 
                             // Audio Auto Quality Detect Bitrate
@@ -157,7 +157,7 @@ namespace Axiom
                             string aBitRateBatch_Limited = string.Empty;
                             if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
                             {
-                                aBitRateBatch = "$aBitrate = " /*+ FFmpeg.Exe_InvokeOperator()*/ + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 \"$fullName\"" + ";";
+                                aBitRateBatch = "$aBitrate = " + FFmpeg.Exe_InvokeOperator() /* + "& "*/ + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
 
                                 // Bitrate Null Check
                                 aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
@@ -225,8 +225,8 @@ namespace Axiom
                                 "\r\n\r\n" + 
                                 "foreach ($f in $files) {" +
 
-                                "\r\n\r\n" + 
-                                "$fullPath = $f.FullName" + ";", // capture full path + name + extension to variable
+                                "\r\n\r\n" +
+                                "$fullName = $f.FullName" + ";", // capture full path + name + extension to variable
                                 "\r\n" + 
                                 "$inputName = $f.Name" + ";", // capture name + extension to variable
                                 "\r\n" +
