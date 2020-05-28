@@ -5063,6 +5063,7 @@ namespace Axiom
                     {
                         inputDir = VM.MainView.Input_Text.TrimEnd('\\') + @"\";  // Note: Do not use Path.GetDirectoryName() with Batch Path only
                                                                                  //       It will remove the last dir as a file extension
+                        inputExt = Path.GetExtension(VM.MainView.BatchExtension_Text);
                         // -------------------------
                         // CMD
                         // -------------------------
@@ -5077,7 +5078,8 @@ namespace Axiom
                         // -------------------------
                         else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
                         {
-                            inputFileName = "$name";
+                            //inputFileName = "$name"/*+ inputExt*/;
+                            inputFileName = "$inputName"/*+ inputExt*/;
                         }
 
                         // Combine Input
@@ -5096,20 +5098,34 @@ namespace Axiom
 
                     //inputFileName = "%f";
 
-                    // -------------------------
-                    // CMD
-                    // -------------------------
-                    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                    //// -------------------------
+                    //// CMD
+                    //// -------------------------
+                    //if (VM.ConfigureView.Shell_SelectedItem == "CMD")
+                    //{
+                    //    // Note: %f is filename, %~f is full path
+                    //    inputFileName = "%f";
+                    //}
+                    //// -------------------------
+                    //// PowerShell
+                    //// -------------------------
+                    //else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
+                    //{
+                    //    inputFileName = "$name";
+                    //}
+
+                    // Shell Check
+                    switch (VM.ConfigureView.Shell_SelectedItem)
                     {
-                        // Note: %f is filename, %~f is full path
-                        inputFileName = "%f";
-                    }
-                    // -------------------------
-                    // PowerShell
-                    // -------------------------
-                    else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-                    {
-                        inputFileName = "$name";
+                        // CMD
+                        case "CMD":
+                            inputFileName = "%f";
+                            break;
+
+                        // PowerShell
+                        case "PowerShell":
+                            inputFileName = "$name";
+                            break;
                     }
 
                     inputExt = "." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
@@ -5280,7 +5296,8 @@ namespace Axiom
 
                                     // PowerShell
                                     case "PowerShell":
-                                        output = Path.Combine(outputDir, "$name" + outputExt); // eg. C:\Output Folder\$name.mp4
+                                        //output = Path.Combine(outputDir, "$name" + outputExt); // eg. C:\Output Folder\$name.mp4
+                                        output = Path.Combine(outputDir, "$outputName" + outputExt); // eg. C:\Output Folder\$name.mp4
                                         break;
                                 }
                                 break; // end batch
