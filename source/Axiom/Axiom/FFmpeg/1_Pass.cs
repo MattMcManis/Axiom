@@ -53,6 +53,24 @@ namespace Axiom
                     )
                 {
                     // -------------------------
+                    // FFmpeg Initialize
+                    // -------------------------
+                    List<string> initializeList = new List<string>()
+                    {
+                        ProcessPriority() +
+                        //Exe_InvokeOperator() + // & symbol For PowerShell
+                        MainWindow.FFmpegPath() +
+                        ProcessPriority_PowerShell_Flags(),
+
+                        "\r\n\r\n" +
+                        ProcessPriorityPowerShell_Arguments_Start(),
+
+                        "\r\n\r\n" +
+                        //"-y"
+                        OutputOverwrite(),
+                    };
+
+                    // -------------------------
                     // HW Accel Decode
                     // -------------------------
                     // Log Console Message /////////
@@ -378,8 +396,11 @@ namespace Axiom
                     };
 
 
+                    // -------------------------
                     // Combine Lists
-                    List<string> FFmpegArgsSinglePassList = hwAccelDecodeList
+                    // -------------------------
+                    List<string> FFmpegArgsSinglePassList = initializeList
+                                                            .Concat(hwAccelDecodeList)
                                                             .Concat(inputList)
                                                             .Concat(hwAccelTranscodeList)
                                                             .Concat(formatList)
@@ -389,6 +410,12 @@ namespace Axiom
                                                             .Concat(outputList)
                                                             .ToList();
 
+                    // Process Priority PowerShell Arguments End
+                    FFmpegArgsSinglePassList.Add("\r\n\r\n" + ProcessPriorityPowerShell_Arguments_End());
+
+                    // Process Priority PowerShell Set
+                    //FFmpegArgsSinglePassList.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
+
                     // Join List with Spaces
                     // Remove: Empty, Null, Standalone LineBreak
                     Video.Quality.passSingle = string.Join(" ", FFmpegArgsSinglePassList
@@ -397,6 +424,9 @@ namespace Axiom
                                                                 .Where(s => !s.Equals("\r\n\r\n"))
                                                                 .Where(s => !s.Equals("\r\n"))
                                                           );
+
+                    // Process Priority Format
+                    Video.Quality.passSingle = ProcessPriority_PowerShell_Set(Video.Quality.passSingle);
                 }
 
 
