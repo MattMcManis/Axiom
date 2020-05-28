@@ -63,7 +63,7 @@ namespace Axiom
                         ProcessPriority_PowerShell_Flags(),
 
                         "\r\n\r\n" +
-                        ProcessPriorityPowerShell_Arguments_Start(),
+                        ProcessPriority_PowerShell_Args_Start(),
 
                         "\r\n\r\n" +
                         //"-y"
@@ -98,7 +98,6 @@ namespace Axiom
                     {
                         "\r\n\r\n" +
                         "-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
-                        //"-i " + Path_ShellFormatter(MainWindow.InputPath("pass 1")),
 
                         "\r\n\r\n" +
                         Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -185,10 +184,6 @@ namespace Axiom
 
                             //"\r\n" +
                             // No PassParams() for 1 Pass / CRF
-                            //VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
-                            //                         VM.VideoView.Video_Codec_SelectedItem,
-                            //                         VM.FormatView.Format_MediaType_SelectedItem
-                            //                         ),
 
                             "\r\n" +
                             Video.Encoding.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
@@ -411,7 +406,7 @@ namespace Axiom
                                                             .ToList();
 
                     // Process Priority PowerShell Arguments End
-                    FFmpegArgsSinglePassList.Add("\r\n\r\n" + ProcessPriorityPowerShell_Arguments_End());
+                    FFmpegArgsSinglePassList.Add("\r\n\r\n" + ProcessPriority_PowerShell_Args_End());
 
                     // Process Priority PowerShell Set
                     //FFmpegArgsSinglePassList.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
