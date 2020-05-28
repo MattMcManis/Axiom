@@ -195,7 +195,7 @@ namespace Axiom
                 {
                     //"\r\n\r\n" + "&&",
                     "\r\n\r\n" +
-                    FFmpeg.LogicalOperator_And_ShellFormatter(), //+
+                    FFmpeg.Shell_LogicalOperator_And(), //+
                     //"\r\n\r\n",
 
                     //"\r\n\r\n" +
@@ -205,7 +205,7 @@ namespace Axiom
                     //ProcessPriority_PowerShell_Flags(),
 
                     //"\r\n\r\n" +
-                    //ProcessPriorityPowerShell_Arguments_Start(),
+                    //ProcessPriority_PowerShell_Arguments_Start(),
 
                     //"\r\n\r\n" +
                     //OutputOverwrite()
@@ -245,7 +245,7 @@ namespace Axiom
                 }
 
                 // Add Logical Operator &&
-                ffmpegArgsList.Add("\r\n\r\n" + FFmpeg.LogicalOperator_And_ShellFormatter());
+                ffmpegArgsList.Add("\r\n\r\n" + FFmpeg.Shell_LogicalOperator_And());
 
                 // Add Delete Downloaded File
                 ffmpegArgsList.Add("\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + nameVariable + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
