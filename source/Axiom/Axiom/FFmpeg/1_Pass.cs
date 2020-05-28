@@ -97,7 +97,8 @@ namespace Axiom
                     List<string> inputList = new List<string>()
                     {
                         "\r\n\r\n" +
-                        "-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
+                        //"-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
+                        "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 1")),
 
                         "\r\n\r\n" +
                         Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
@@ -387,7 +388,8 @@ namespace Axiom
                         MainWindow.ThreadDetect(),
 
                         "\r\n\r\n" +
-                        "\"" + MainWindow.OutputPath() + "\""
+                        //"\"" + MainWindow.OutputPath() + "\""
+                        MainWindow.WrapWithQuotes(MainWindow.OutputPath())
                     };
 
 
