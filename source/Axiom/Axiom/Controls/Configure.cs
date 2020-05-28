@@ -294,11 +294,26 @@ namespace Axiom
                 VM.ConfigureView.Shell_SelectedItem = shell_SelectedItem;
             }
 
+            // Process Priority
+            string processPriority_SelectedItem = conf.Read("Settings", "ProcessPriority_SelectedItem");
+            if (!string.IsNullOrWhiteSpace(processPriority_SelectedItem))
+            {
+                VM.ConfigureView.ProcessPriority_SelectedItem = processPriority_SelectedItem;
+            }
+
             // Threads
             string threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
             if (!string.IsNullOrWhiteSpace(threads_SelectedItem))
             {
-                VM.ConfigureView.Threads_SelectedItem = threads_SelectedItem;
+                // Legacy Support: Capitalize First Letter of imported value. Old values are lowercase.
+                VM.ConfigureView.Threads_SelectedItem = char.ToUpper(threads_SelectedItem[0]) + threads_SelectedItem.Substring(1);
+            }
+
+            // Output File Overwrite
+            string outputOverwrite_SelectedItem = conf.Read("Settings", "OutputOverwrite_SelectedItem");
+            if (!string.IsNullOrWhiteSpace(outputOverwrite_SelectedItem))
+            {
+                VM.ConfigureView.OutputOverwrite_SelectedItem = outputOverwrite_SelectedItem;
             }
 
             // Theme
@@ -433,8 +448,14 @@ namespace Axiom
                     // Shell
                     conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
 
+                    // Process Priority
+                    conf.Write("Settings", "ProcessPriority_SelectedItem", VM.ConfigureView.ProcessPriority_SelectedItem);
+
                     // Threads
                     conf.Write("Settings", "Threads_SelectedItem", VM.ConfigureView.Threads_SelectedItem);
+
+                    // Output File Overwrite
+                    conf.Write("Settings", "OutputOverwrite_SelectedItem", VM.ConfigureView.OutputOverwrite_SelectedItem);
 
                     // Theme
                     conf.Write("Settings", "Theme_SelectedItem", VM.ConfigureView.Theme_SelectedItem);
