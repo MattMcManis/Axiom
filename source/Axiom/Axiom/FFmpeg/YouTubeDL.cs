@@ -200,7 +200,7 @@ namespace Axiom
 
                     //"\r\n\r\n" +
                     //ProcessPriority() +
-                    ////FFmpeg.Exe_InvokeOperator() +
+                    ////FFmpeg.PowerShell_CallOperator() +
                     //MainWindow.FFmpegPath() +
                     //ProcessPriority_PowerShell_Flags(),
 
