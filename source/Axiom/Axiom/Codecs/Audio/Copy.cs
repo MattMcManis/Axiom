@@ -82,16 +82,16 @@ namespace Axiom
         public static List<AudioViewModel.AudioQuality> quality = new List<AudioViewModel.AudioQuality>()
         {
              new AudioViewModel.AudioQuality() { Name = "Auto",     CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", NA = "" },
-             new AudioViewModel.AudioQuality() { Name = "Lossless", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "320",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "256",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "224",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "192",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "160",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "128",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "96",       CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "Custom",   CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "Mute",     CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" }
+             //new AudioViewModel.AudioQuality() { Name = "Lossless", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "320",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "256",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "224",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "192",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "160",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "128",      CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "96",       CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "Custom",   CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" },
+             //new AudioViewModel.AudioQuality() { Name = "Mute",     CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "" }
         };
 
         // -------------------------
@@ -224,7 +224,7 @@ namespace Axiom
             VM.AudioView.Audio_Channel_IsEnabled = false;
 
             // Audio Quality
-            //VM.AudioView.Audio_Quality_IsEnabled = false;
+            VM.AudioView.Audio_Quality_IsEnabled = false;
 
             // VBR Button
             VM.AudioView.Audio_VBR_IsEnabled = false;
