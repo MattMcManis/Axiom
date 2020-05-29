@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.0.0] - May 28, 2020
+### Added
+- Added Process Priority Menu
+- Added Output Overwrite Files Menu
+
+### Changed
+- Updated Video Codec x265 Pixel Formats
+- Moved EQ and Selective Color to Video Color Tab
+
+
 ## [1.8.9.0] - May 27, 2020
 ### Added
 - Video Codec `MagicYUV`
