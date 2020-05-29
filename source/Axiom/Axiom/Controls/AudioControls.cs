@@ -334,68 +334,68 @@ namespace Axiom
             // Default Selected Item
             // --------------------------------------------------
 
-            // -------------------------
-            // Audio Quality Selected Item
-            // -------------------------
-            // Save the Previous Codec's Item
-            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem) &&
-                VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
-                VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "none") // None / none
-            {
-                MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
-            }
-
-            // Select the Prevoius Codec's Item if available
-            // If missing Select Default to First Item
-            // Ignore Codec Copy
-            if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-            {
-                VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
-                                                                                  MainWindow.Audio_Quality_PreviousItem
-                                                                                 );
-            }
-
-            // -------------------------
-            // Audio SampleRate Selected Item
-            // -------------------------
-            // Save the Previous Codec's Item
-            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem) &&
-                VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "auto" && // Auto / auto
-                VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "none") // None / none
-            {
-                MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
-            }
-
-            // Select the Prevoius Codec's Item if available
-            // If missing Select Default to First Item
-            // Ignore Codec Copy
-            //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
+            //// -------------------------
+            //// Audio Quality Selected Item
+            //// -------------------------
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem) &&
+            //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "none") // None / none
             //{
-                VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
-                                                                                 MainWindow.Audio_SampleRate_PreviousItem
-                                                                                 );
+            //    MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
             //}
 
-            // -------------------------
-            // Audio BitDepth Selected Item
-            // -------------------------
-            // Save the Previous Codec's Item
-            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem) &&
-                VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "auto" && // Auto / auto
-                VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "none") // None / none
-            {
-                MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
-            }
-
-            // Select the Prevoius Codec's Item if available
-            // If missing Select Default to First Item
-            // Ignore Codec Copy
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
             //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
             //{
-                VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
-                                                                               MainWindow.Audio_BitDepth_PreviousItem
-                                                                              );
+            //    VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
+            //                                                                      MainWindow.Audio_Quality_PreviousItem
+            //                                                                     );
             //}
+
+            //// -------------------------
+            //// Audio SampleRate Selected Item
+            //// -------------------------
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem) &&
+            //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "none") // None / none
+            //{
+            //    MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
+            //}
+
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
+            ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
+            ////{
+            //    VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
+            //                                                                     MainWindow.Audio_SampleRate_PreviousItem
+            //                                                                     );
+            ////}
+
+            //// -------------------------
+            //// Audio BitDepth Selected Item
+            //// -------------------------
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem) &&
+            //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "none") // None / none
+            //{
+            //    MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
+            //}
+
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
+            ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
+            ////{
+            //    VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
+            //                                                                   MainWindow.Audio_BitDepth_PreviousItem
+            //                                                                  );
+            ////}
         }
 
 
