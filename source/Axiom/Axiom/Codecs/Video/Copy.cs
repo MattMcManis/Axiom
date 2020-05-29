@@ -184,6 +184,9 @@ namespace Axiom
         public static void Controls_Selected()
         {
             // HW Accel
+            VM.VideoView.Video_EncodeSpeed_SelectedItem = "none";
+
+            // HW Accel
             VM.VideoView.Video_HWAccel_SelectedItem = "Off";
 
             // Pixel Format
@@ -303,7 +306,7 @@ namespace Axiom
             VM.VideoView.Video_HWAccel_IsEnabled = false;
 
             // Video Quality
-            //VM.VideoView.Video_Quality_IsEnabled = false;
+            VM.VideoView.Video_Quality_IsEnabled = false;
 
             // Video VBR
             VM.VideoView.Video_VBR_IsEnabled = false;
