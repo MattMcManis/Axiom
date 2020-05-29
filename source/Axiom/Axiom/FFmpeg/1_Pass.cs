@@ -58,7 +58,7 @@ namespace Axiom
                     List<string> initializeList = new List<string>()
                     {
                         ProcessPriority() +
-                        //PowerShell_CallOperator() + // & symbol For PowerShell
+                        //PowerShell_CallOperator_FFmpeg() + // & symbol For PowerShell
                         MainWindow.FFmpegPath() +
                         ProcessPriority_PowerShell_Flags(),
 
