@@ -589,9 +589,9 @@ namespace Axiom
                         // -------------------------
                         // Ignore Program Files
                         // -------------------------
-                        if (!appRootDir.Contains(programFilesDir) &&
-                            !appRootDir.Contains(programFilesX86Dir) &&
-                            !appRootDir.Contains(programFilesX64Dir)
+                        if (!Configure.configDir.Contains(programFilesDir) &&
+                            !Configure.configDir.Contains(programFilesX86Dir) &&
+                            !Configure.configDir.Contains(programFilesX64Dir)
                             )
                         {
                             try
@@ -656,7 +656,9 @@ namespace Axiom
                                     File.Move(logAppDataRoamingPath, logAppDataLocalPath);
                                 }
 
+                                // -------------------------
                                 // Save Config
+                                // -------------------------
                                 ExportWriteConfig(Configure.configDir);
                             }
                             catch (IOException ex)
@@ -691,9 +693,9 @@ namespace Axiom
                         // -------------------------
                         // Ignore Program Files
                         // -------------------------
-                        if (!appRootDir.Contains(programFilesDir) &&
-                            !appRootDir.Contains(programFilesX86Dir) &&
-                            !appRootDir.Contains(programFilesX64Dir)
+                        if (!Configure.configDir.Contains(programFilesDir) &&
+                            !Configure.configDir.Contains(programFilesX86Dir) &&
+                            !Configure.configDir.Contains(programFilesX64Dir)
                             )
                         {
                             try
@@ -758,7 +760,9 @@ namespace Axiom
                                     File.Move(logAppDataLocalPath, logAppDataRoamingPath);
                                 }
 
+                                // -------------------------
                                 // Save Config
+                                // -------------------------
                                 ExportWriteConfig(Configure.configDir);
                             }
                             catch (IOException ex)
@@ -792,9 +796,9 @@ namespace Axiom
                         // -------------------------
                         // Ignore Program Files
                         // -------------------------
-                        if (!appRootDir.Contains(programFilesDir) &&
-                            !appRootDir.Contains(programFilesX86Dir) &&
-                            !appRootDir.Contains(programFilesX64Dir)
+                        if (!Configure.configDir.Contains(programFilesDir) &&
+                            !Configure.configDir.Contains(programFilesX86Dir) &&
+                            !Configure.configDir.Contains(programFilesX64Dir)
                             )
                         {
                             try
@@ -859,7 +863,9 @@ namespace Axiom
                                     File.Move(logAppDataRoamingPath, logAppRootPath);
                                 }
 
+                                // -------------------------
                                 // Save Config
+                                // -------------------------
                                 ExportWriteConfig(Configure.configDir);
                             }
                             catch (IOException ex)
@@ -955,11 +961,14 @@ namespace Axiom
                 VM.ConfigureView.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
                 VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
                 VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+
                 VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
                 VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
                 VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
+
                 VM.ConfigureView.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
+
                 VM.ConfigureView.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
                 )
             {
