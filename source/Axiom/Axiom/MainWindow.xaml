@@ -1858,9 +1858,9 @@
                                                 <RowDefinition Height="22" />
                                             </Grid.RowDefinitions>
 
-                                            <!-- Profiles -->
+                                            <!-- Color Space -->
                                             <Label Style="{DynamicResource LabelStyle}"
-                                                   Content="Profiles"
+                                                   Content="Color Space"
                                                    HorizontalAlignment="Left"
                                                    VerticalAlignment="Top"
                                                    Width="95"
