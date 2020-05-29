@@ -2505,21 +2505,21 @@ namespace Axiom
             {
                 if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
-                    // use included binary
+                    // Use included binary
+                    // Do not use WrapWithQuotes() Method
                     FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
-                    //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
                 }
                 else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
-                    // use system installed binaries
+                    // Use system installed binaries
                     FFmpeg.ffmpeg = "ffmpeg";
                 }
             }
             // Use User Custom Path
             else
             {
+                // Do not use WrapWithQuotes() Method
                 FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
-                //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
             }
 
             // Return Value
@@ -2757,42 +2757,6 @@ namespace Axiom
 
             // Local File
             return false;
-
-            //if (!string.IsNullOrWhiteSpace(input_Text))
-            //{
-            //    // YouTube
-            //    if (// youtube (any domain extension)
-            //       input_Text.StartsWith("https://www.youtube.") ||
-            //       input_Text.StartsWith("http://www.youtube.") ||
-            //       input_Text.StartsWith("www.youtube.") ||
-            //       input_Text.StartsWith("youtube.") ||
-
-            //       // youtu.be
-            //       input_Text.StartsWith("https://youtu.be") ||
-            //       input_Text.StartsWith("http://youtu.be") ||
-            //       input_Text.StartsWith("www.youtu.be") ||
-            //       input_Text.StartsWith("youtu.be") ||
-
-            //       // YouTube Music
-            //       input_Text.StartsWith("https://music.youtube.") ||
-            //       input_Text.StartsWith("http://music.youtube.") ||
-            //       input_Text.StartsWith("music.youtube.")
-            //       )
-            //    {
-            //        return true;
-            //    }
-
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
-
-            //// Empty
-            //else
-            //{
-            //    return false;
-            //}
         }
 
 
