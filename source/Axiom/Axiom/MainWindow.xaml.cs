@@ -992,21 +992,43 @@ namespace Axiom
         /// </summary>
         public static String WrapWithQuotes(string s)
         {
-            // "my string"
-            //return "\"" + s + "\""; 
-
-            switch (VM.MainView.Batch_IsChecked)
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
             {
-                // Single File
-                case false:
-                    // "my string"
-                    s = "\"" + s + "\"";
+                // CMD
+                case "CMD":
+                    switch (VM.MainView.Batch_IsChecked)
+                    {
+                        // Single File
+                        case false:
+                            // "my string"
+                            s = "\"" + s + "\"";
+                            break;
+
+                        // Batch
+                        case true:
+                            // "my string" (do not escape)
+                            s = "\"" + s + "\"";
+                            break;
+                    }
                     break;
 
-                // Batch
-                case true:
-                    // `"my string`"
-                    s = "`\"" + s + "`\"";
+                // PowerShell
+                case "PowerShell":
+                    switch (VM.MainView.Batch_IsChecked)
+                    {
+                        // Single File
+                        case false:
+                            // "my string"
+                            s = "\"" + s + "\"";
+                            break;
+
+                        // Batch
+                        case true:
+                            // `"my string`" (escape)
+                            s = "`\"" + s + "`\"";
+                            break;
+                    }
                     break;
             }
 
@@ -2529,8 +2551,8 @@ namespace Axiom
                 if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use included binary
-                    //FFmpeg.ffmpeg = "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
-                    FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
+                    FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
+                    //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
                 }
                 else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
@@ -2541,8 +2563,8 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                //FFmpeg.ffmpeg = "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
-                FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
+                FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
+                //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
             }
 
             // Return Value
