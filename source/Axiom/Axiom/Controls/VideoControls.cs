@@ -548,9 +548,9 @@ namespace Axiom
             // Ignore Codec Copy
             //if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
             //{
-                VM.VideoView.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
-                                                                                      MainWindow.Video_EncodeSpeed_PreviousItem
-                                                                                      );
+            VM.VideoView.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
+                                                                                  MainWindow.Video_EncodeSpeed_PreviousItem
+                                                                                  );
             //}
 
             // -------------------------
@@ -577,7 +577,7 @@ namespace Axiom
             // -------------------------
             // Video Pass Selected Item
             // -------------------------
-            
+
             // -------------------------
             // Video Optimize Selected Item
             // -------------------------
