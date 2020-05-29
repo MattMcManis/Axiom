@@ -23,34 +23,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         xmlns:my="clr-namespace:Axiom"
         xmlns:settings="clr-namespace:Axiom.Properties"
         mc:Ignorable="d"
-        
         Loaded="Window_Loaded"
-        
-        ResizeMode="CanMinimize" 
+        ResizeMode="CanMinimize"
         UseLayoutRounding="True"
-        Title="Failed to Import" 
-        Height="335" 
-        Width="400" 
-        
+        Title="Failed to Import"
+        Height="335"
+        Width="400"
         Icon="axiom.ico"
-        Style="{DynamicResource WindowConfigure}" >
+        Style="{DynamicResource WindowConfigure}">
     <Grid>
-        <RichTextBox x:Name="rtbFailedImport" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 Style="{DynamicResource RichTextBoxStyle}"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                 HorizontalAlignment="Left" 
-                 Height="272" 
-                 Margin="10,10,0,0"
-                 VerticalAlignment="Top" 
-                 Width="364"
-                 Padding="10"
-                 IsReadOnly="True"/>
+        <RichTextBox x:Name="rtbFailedImport"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     Style="{DynamicResource RichTextBoxStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     HorizontalAlignment="Left"
+                     Height="272"
+                     Margin="10,10,0,0"
+                     VerticalAlignment="Top"
+                     Width="364"
+                     Padding="10"
+                     IsReadOnly="True" />
     </Grid>
 </Window>

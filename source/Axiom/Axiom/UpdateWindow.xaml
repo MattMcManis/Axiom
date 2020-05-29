@@ -23,13 +23,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         xmlns:local="clr-namespace:Axiom"
         mc:Ignorable="d"
         UseLayoutRounding="True"
-        Title="Update" 
+        Title="Update"
         Height="200"
         Width="400"
         Icon="axiom.ico"
@@ -37,22 +37,22 @@
 
     <Grid>
         <Grid>
-            
+
             <!-- Progres Info -->
-            <Label x:Name="labelProgressInfo" 
-                   Content="" 
-                   HorizontalContentAlignment="Center" 
-                   Margin="12,52,12,0" 
-                   Height="26" 
+            <Label x:Name="labelProgressInfo"
+                   Content=""
+                   HorizontalContentAlignment="Center"
+                   Margin="12,52,12,0"
+                   Height="26"
                    VerticalAlignment="Top"
-                   Style="{DynamicResource LabelStyle}"/>
+                   Style="{DynamicResource LabelStyle}" />
 
             <!-- Progres Bar -->
-            <ProgressBar x:Name="progressBar" 
-                         Margin="10,85,12,0" 
+            <ProgressBar x:Name="progressBar"
+                         Margin="10,85,12,0"
                          ToolTip="Download Progress"
                          Height="23"
-                         VerticalAlignment="Top"/>
+                         VerticalAlignment="Top" />
         </Grid>
 
     </Grid>

@@ -23,145 +23,146 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         xmlns:my="clr-namespace:Axiom"
         xmlns:local="clr-namespace:Axiom"
         mc:Ignorable="d"
-        
         Title="Crop"
-        Height="270" 
-        Width="480" 
+        Height="270"
+        Width="480"
         Icon="axiom.ico"
-        ResizeMode="CanMinimize" 
+        ResizeMode="CanMinimize"
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
         Style="{DynamicResource WindowCrop}">
 
     <Window.DataContext>
-        <local:VM/>
+        <local:VM />
     </Window.DataContext>
 
     <Grid>
 
         <!-- Crop X -->
-        <Label Style="{DynamicResource LabelStyle}" 
-               Content="X" 
-               HorizontalAlignment="Left" 
-               Margin="15,107,0,0" 
-               VerticalAlignment="Top" 
-               Width="20" />
-        <TextBox x:Name="tbxCropX" 
-                 Text="{Binding VideoView.Video_Crop_X_Text, Mode=TwoWay}"
-                 HorizontalAlignment="Left" 
-                 Height="22" 
-                 Margin="32,109,0,0" 
-                 TextWrapping="NoWrap" 
-                 MaxLines="1"
-                 VerticalAlignment="Top" 
-                 Width="60" 
-                 Style="{DynamicResource TextBoxStyle}" 
-                 KeyDown="tbxVideo_Crop_X_KeyDown" 
-                 ToolTipService.ShowOnDisabled="True" 
-                 ToolTip="Position of Crop from Left"/>
-
-        <!-- Crop Y -->
-        <Label Style="{DynamicResource LabelStyle}" 
-               Content="Y" 
-               HorizontalAlignment="Left" 
-               Margin="186,15,0,0" 
-               VerticalAlignment="Top" 
-               Width="21" />
-        <TextBox x:Name="tbxCropY" 
-                 Text="{Binding VideoView.Video_Crop_Y_Text, Mode=TwoWay}"
-                 HorizontalAlignment="Left" 
-                 Height="22" 
-                 Margin="202,17,0,0" 
-                 TextWrapping="NoWrap" 
-                 MaxLines="1" 
-                 VerticalAlignment="Top"
-                 Width="60" 
-                 Style="{DynamicResource TextBoxStyle}" 
-                 KeyDown="tbxVideo_Crop_Y_KeyDown" 
-                 ToolTipService.ShowOnDisabled="True" 
-                 ToolTip="Position of Crop from Top"/>
-
-        <!-- Crop Width -->
         <Label Style="{DynamicResource LabelStyle}"
-               Content="Width" HorizontalAlignment="Left"
-               Margin="178,84,0,0" 
+               Content="X"
+               HorizontalAlignment="Left"
+               Margin="15,107,0,0"
                VerticalAlignment="Top"
-               Width="44" />
-        <TextBox x:Name="tbxCropWidth" 
-                 Text="{Binding VideoView.Video_Crop_Width_Text, Mode=TwoWay}"
-                 HorizontalAlignment="Left" 
-                 Height="22" 
-                 Margin="170,109,0,0" 
-                 TextWrapping="NoWrap" 
-                 MaxLines="1" 
-                 VerticalAlignment="Top"
-                 Width="60" 
-                 Style="{DynamicResource TextBoxStyle}" 
-                 KeyDown="tbxVideo_Crop_Width_KeyDown" 
-                 ToolTipService.ShowOnDisabled="True" 
-                 ToolTip="Width of Cropped Area"/>
-
-        <!-- Crop Height -->
-        <Label Style="{DynamicResource LabelStyle}" 
-               Content="Height" HorizontalAlignment="Left" 
-               Margin="241,84,0,0" 
-               VerticalAlignment="Top" 
-               Width="48" />
-        <TextBox x:Name="tbxCropHeight" 
-                 Text="{Binding VideoView.Video_Crop_Height_Text, Mode=TwoWay}"
+               Width="20" />
+        <TextBox x:Name="tbxCropX"
+                 Text="{Binding VideoView.Video_Crop_X_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left"
                  Height="22"
-                 Margin="235,109,0,0" 
-                 TextWrapping="NoWrap" 
+                 Margin="32,109,0,0"
+                 TextWrapping="NoWrap"
                  MaxLines="1"
                  VerticalAlignment="Top"
                  Width="60"
-                 Style="{DynamicResource TextBoxStyle}" 
-                 KeyDown="tbxVideo_Crop_Height_KeyDown" 
-                 ToolTipService.ShowOnDisabled="True" 
-                 ToolTip="Height of Cropped Area"/>
+                 Style="{DynamicResource TextBoxStyle}"
+                 KeyDown="tbxVideo_Crop_X_KeyDown"
+                 ToolTipService.ShowOnDisabled="True"
+                 ToolTip="Position of Crop from Left" />
+
+        <!-- Crop Y -->
+        <Label Style="{DynamicResource LabelStyle}"
+               Content="Y"
+               HorizontalAlignment="Left"
+               Margin="186,15,0,0"
+               VerticalAlignment="Top"
+               Width="21" />
+        <TextBox x:Name="tbxCropY"
+                 Text="{Binding VideoView.Video_Crop_Y_Text, Mode=TwoWay}"
+                 HorizontalAlignment="Left"
+                 Height="22"
+                 Margin="202,17,0,0"
+                 TextWrapping="NoWrap"
+                 MaxLines="1"
+                 VerticalAlignment="Top"
+                 Width="60"
+                 Style="{DynamicResource TextBoxStyle}"
+                 KeyDown="tbxVideo_Crop_Y_KeyDown"
+                 ToolTipService.ShowOnDisabled="True"
+                 ToolTip="Position of Crop from Top" />
+
+        <!-- Crop Width -->
+        <Label Style="{DynamicResource LabelStyle}"
+               Content="Width"
+               HorizontalAlignment="Left"
+               Margin="178,84,0,0"
+               VerticalAlignment="Top"
+               Width="44" />
+        <TextBox x:Name="tbxCropWidth"
+                 Text="{Binding VideoView.Video_Crop_Width_Text, Mode=TwoWay}"
+                 HorizontalAlignment="Left"
+                 Height="22"
+                 Margin="170,109,0,0"
+                 TextWrapping="NoWrap"
+                 MaxLines="1"
+                 VerticalAlignment="Top"
+                 Width="60"
+                 Style="{DynamicResource TextBoxStyle}"
+                 KeyDown="tbxVideo_Crop_Width_KeyDown"
+                 ToolTipService.ShowOnDisabled="True"
+                 ToolTip="Width of Cropped Area" />
+
+        <!-- Crop Height -->
+        <Label Style="{DynamicResource LabelStyle}"
+               Content="Height"
+               HorizontalAlignment="Left"
+               Margin="241,84,0,0"
+               VerticalAlignment="Top"
+               Width="48" />
+        <TextBox x:Name="tbxCropHeight"
+                 Text="{Binding VideoView.Video_Crop_Height_Text, Mode=TwoWay}"
+                 HorizontalAlignment="Left"
+                 Height="22"
+                 Margin="235,109,0,0"
+                 TextWrapping="NoWrap"
+                 MaxLines="1"
+                 VerticalAlignment="Top"
+                 Width="60"
+                 Style="{DynamicResource TextBoxStyle}"
+                 KeyDown="tbxVideo_Crop_Height_KeyDown"
+                 ToolTipService.ShowOnDisabled="True"
+                 ToolTip="Height of Cropped Area" />
 
         <!-- Diagram Border -->
         <Rectangle HorizontalAlignment="Left"
                    Height="152"
                    Margin="97,44,0,0"
-                   Stroke="White" 
+                   Stroke="White"
                    VerticalAlignment="Top"
-                   Width="270" 
-                   StrokeThickness="1"/>
+                   Width="270"
+                   StrokeThickness="1" />
 
         <!-- Set button -->
-        <Button x:Name="buttonSet" 
-                Style="{DynamicResource ButtonStyle}" 
-                HorizontalAlignment="Left" 
-                Margin="387,194,0,0" 
-                VerticalAlignment="Top" 
-                Width="60" 
-                Height="22" 
+        <Button x:Name="buttonSet"
+                Style="{DynamicResource ButtonStyle}"
+                HorizontalAlignment="Left"
+                Margin="387,194,0,0"
+                VerticalAlignment="Top"
+                Width="60"
+                Height="22"
                 Cursor="Hand"
                 Click="btnSet_Click">
             <TextBlock Text="Set"
-                       Margin="0,-2,0,0"/>
+                       Margin="0,-2,0,0" />
         </Button>
 
         <!-- Clear Button -->
-        <Button x:Name="btnClear" 
-                Style="{DynamicResource ButtonStyle}" 
+        <Button x:Name="btnClear"
+                Style="{DynamicResource ButtonStyle}"
                 HorizontalAlignment="Left"
-                Margin="17,194,0,0" 
+                Margin="17,194,0,0"
                 VerticalAlignment="Top"
-                Width="60" 
-                Height="22" 
-                Cursor="Hand" 
+                Width="60"
+                Height="22"
+                Cursor="Hand"
                 Click="btnClear_Click">
-            <TextBlock Text="Clear" 
-                       Margin="0,-2,0,0"/>
+            <TextBlock Text="Clear"
+                       Margin="0,-2,0,0" />
         </Button>
 
     </Grid>

@@ -23,46 +23,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         mc:Ignorable="d"
-        
-        Loaded="Window_Loaded" 
-        
-        Title="File Properties" 
+        Loaded="Window_Loaded"
+        Title="File Properties"
         Height="400"
         Width="420"
         Icon="axiom.ico"
         Style="{DynamicResource WindowLogConsole}">
     <Grid>
 
-        <RichTextBox Name="rtbFileProperties" 
-                     Margin="0" Background="{x:Null}" 
-                     Foreground="White" 
+        <RichTextBox Name="rtbFileProperties"
+                     Margin="0"
+                     Background="{x:Null}"
+                     Foreground="White"
                      VerticalScrollBarVisibility="Visible"
-                     RenderOptions.ClearTypeHint="Enabled" 
-                     FontFamily="Consolas" 
+                     RenderOptions.ClearTypeHint="Enabled"
+                     FontFamily="Consolas"
                      Padding="10"
-                     IsReadOnly="True" 
+                     IsReadOnly="True"
                      IsUndoEnabled="False" />
 
-        <Button x:Name="buttonExpand" 
-                Margin="0,10,28,0" 
-                BorderBrush="#7FFFFFFF" 
-                Background="{x:Null}" 
-                Foreground="White" 
+        <Button x:Name="buttonExpand"
+                Margin="0,10,28,0"
+                BorderBrush="#7FFFFFFF"
+                Background="{x:Null}"
+                Foreground="White"
                 Cursor="Hand"
                 Click="buttonExpand_Click"
-                HorizontalAlignment="Right" 
-                Width="20" 
-                ToolTip="Expand Window" 
-                Height="20" 
+                HorizontalAlignment="Right"
+                Width="20"
+                ToolTip="Expand Window"
+                Height="20"
                 VerticalAlignment="Top">
-            
-            <TextBlock x:Name="textBlockExpand" 
-                       Text="+" 
-                       Margin="0,-2,0,0" 
+
+            <TextBlock x:Name="textBlockExpand"
+                       Text="+"
+                       Margin="0,-2,0,0"
                        Foreground="#99FFFFFF" />
         </Button>
 
