@@ -477,7 +477,43 @@ namespace Axiom
         /// Adds & symbol before Path to FFmpeg
         /// e.g. & "C:\path\to\ffmpeg\ffmpeg.exe"
         /// </remarks>
-        public static String PowerShell_CallOperator()
+        public static String PowerShell_CallOperator_FFmpeg()
+        {
+            // Shell Check
+            switch (VM.ConfigureView.Shell_SelectedItem)
+            {
+                // CMD
+                case "CMD":
+                    return string.Empty;
+
+                // PowerShell
+                case "PowerShell":
+                    // Do not use Call Operator if already using Process Priority Start-Process
+                    if (VM.ConfigureView.ProcessPriority_SelectedItem != "Default")
+                    {
+                        return string.Empty;
+                    }
+                    // Use Call Opeator
+                    else
+                    {
+                        return "& ";
+                    }
+                    
+                // Default
+                default:
+                    return string.Empty;
+            }
+        }
+
+
+        /// <summary>
+        /// PowerShell Call Operator FFprobe
+        /// </summary>
+        /// <remarks>
+        /// Adds & symbol before Path to FFprobe
+        /// e.g. & "C:\path\to\ffmpeg\ffprobe.exe"
+        /// </remarks>
+        public static String PowerShell_CallOperator_FFprobe()
         {
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
