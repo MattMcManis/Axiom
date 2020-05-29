@@ -2551,8 +2551,8 @@ namespace Axiom
                 if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use included binary
-                    FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
-                    //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
+                    FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
+                    //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + WrapWithQuotes(appRootDir + @"ffmpeg\bin\ffmpeg.exe");
                 }
                 else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
@@ -2563,8 +2563,8 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
-                //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator() + WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
+                FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
+                //FFmpeg.ffmpeg = FFmpeg.PowerShell_CallOperator_FFmpeg() + WrapWithQuotes(VM.ConfigureView.FFmpegPath_Text);
             }
 
             // Return Value
