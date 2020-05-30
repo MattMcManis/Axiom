@@ -53,8 +53,8 @@ namespace Axiom
             // -------------------------
             // Get Input/Output Extensions
             // -------------------------
-            //string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-            //string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            //string inputExt = Path.GetExtension(VM.MainView.Input_Text);
+            //string outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
 
             // -------------------------
             // Save Selected Quality
@@ -63,7 +63,7 @@ namespace Axiom
             // -------------------------
             //string userSelected_AudioQuality = string.Empty;
             //if (string.IsNullOrWhiteSpace(inputExt) || 
-            //    inputExt == outputExt)
+            //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             //{
             //    if (audio_Codec_SelectedItem != "Copy" && 
             //        VM.AudioView.Audio_Quality_SelectedItem != "Auto")
@@ -76,7 +76,7 @@ namespace Axiom
             // Set Copy Quality to Auto
             // -------------------------
             //if (string.IsNullOrWhiteSpace(inputExt) ||
-            //    inputExt == outputExt)
+            //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             //{
             //    if (audio_Codec_SelectedItem == "Copy")
             //    {
@@ -94,7 +94,7 @@ namespace Axiom
             // -------------------------
             // Copy Codec -> VP8, x264, etc Codec
             //if (string.IsNullOrWhiteSpace(inputExt) ||
-            //    inputExt == outputExt)
+            //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             //{
             //    if (audio_Codec_SelectedItem != "Copy")
             //    {
