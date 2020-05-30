@@ -163,15 +163,15 @@ namespace Generate
                         // -------------------------
                         // Input Does Not Have Audio Codec
                         // -------------------------
-                        string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-                        string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+                        string inputExt = Path.GetExtension(VM.MainView.Input_Text); //.ToLower()
+                        string outputExt = "." + VM.FormatView.Format_Container_SelectedItem; //.ToLower()
 
                         if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputAudioCodec))
                         {
                             // Default to a new bitrate if Input & Output formats Do Not match
                             if (Analyze.FFprobe.inputAudioBitRate == "N/A" &&
-                                inputExt != outputExt
-                                //!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                                //inputExt != outputExt
+                                !string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
                                 )
                             {
                                 // Default to NA value
