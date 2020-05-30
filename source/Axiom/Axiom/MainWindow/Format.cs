@@ -76,7 +76,7 @@ namespace Axiom
             if (VM.MainView.Batch_IsChecked == false) // Ignore batch
             {
                 if (!string.IsNullOrWhiteSpace(inputDir) &&
-                    string.Equals(inputFileName, outputFileName, StringComparison.CurrentCultureIgnoreCase))
+                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
                 {
                     outputFileName = FileRenamer(inputFileName);
                 }
