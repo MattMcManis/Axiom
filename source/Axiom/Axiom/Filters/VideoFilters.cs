@@ -409,8 +409,8 @@ namespace Filters
             if (VM.VideoView.Video_Codec_SelectedItem == "JPEG")
             {
                 // Turn on PNG to JPG Filter
-                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
-                    //|| string.Equals(MainWindow.batchExt, "png", StringComparison.CurrentCultureIgnoreCase)
+                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.OrdinalIgnoreCase)
+                    //|| string.Equals(MainWindow.batchExt, "png", StringComparison.OrdinalIgnoreCase)
                     )
                 {
                     // png transparent to white background
@@ -1298,8 +1298,8 @@ namespace Filters
                     VM.VideoView.Video_Codec_SelectedItem == "MPEG-2" ||
                     VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
                     &&
-                    !string.Equals(VM.VideoView.Video_Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                    !string.Equals(VM.VideoView.Video_Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase)// && 
+                    !string.Equals(VM.VideoView.Video_Width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(VM.VideoView.Video_Height_Text, "auto", StringComparison.OrdinalIgnoreCase)// && 
                     //VM.VideoView.Video_CropClear_Text == "Clear"
                     )
                 {
