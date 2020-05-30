@@ -541,8 +541,10 @@ namespace Controls
                 // -------------------------
                 // Save the Previous Codec's Item
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_EncodeSpeed_SelectedItem) &&
-                    VM.VideoView.Video_EncodeSpeed_SelectedItem.ToLower() != "auto" && // Auto / auto
-                    VM.VideoView.Video_EncodeSpeed_SelectedItem.ToLower() != "none") // None / none
+                    !string.Equals(VM.VideoView.Video_EncodeSpeed_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(VM.VideoView.Video_EncodeSpeed_SelectedItem, "none", StringComparison.OrdinalIgnoreCase))
+                    //VM.VideoView.Video_EncodeSpeed_SelectedItem.ToLower() != "auto" && // Auto / auto
+                    //VM.VideoView.Video_EncodeSpeed_SelectedItem.ToLower() != "none") // None / none
                 {
                     MainWindow.Video_EncodeSpeed_PreviousItem = VM.VideoView.Video_EncodeSpeed_SelectedItem;
                 }
@@ -1361,7 +1363,7 @@ namespace Controls
                 // -------------------------
                 // Get Input Extensions
                 // -------------------------
-                string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+                string inputExt = Path.GetExtension(VM.MainView.Input_Text);
 
                 // -------------------------
                 // Halt if Input Extension is Empty
@@ -1374,14 +1376,14 @@ namespace Controls
                 // -------------------------
                 // Get Output Extensions
                 // -------------------------
-                string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+                string outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
 
                 // -------------------------
                 // Conditions Check
                 // Enable
                 // -------------------------
                 if (AutoCopyConditionsCheck() == true &&
-                    inputExt == outputExt)
+                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
                 {
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
