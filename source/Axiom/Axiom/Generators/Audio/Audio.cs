@@ -25,22 +25,25 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * 
 ---------------------------------- */
 
-//using System;
-//using System.Collections.Generic;
-//using System.Data;
-//using System.IO;
-//using System.Linq;
-//using System.Windows;
-//using System.Windows.Documents;
-//// Disable XML Comment warnings
-//#pragma warning disable 1591
-//#pragma warning disable 1587
-//#pragma warning disable 1570
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Documents;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
 
-//namespace Generate
-//{
-//    public partial class Audio
-//    {
+namespace Generate
+{
+    namespace Audio
+    {
+        public partial class Audio
+        {
 
-//    }
-//}
+        }
+    }
+}
