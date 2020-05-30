@@ -490,11 +490,6 @@ namespace Generate
                                                         string inputAudioBitRate
                                                         )
             {
-                // -------------------------
-                // Remove k from input if any
-                // -------------------------
-                //inputAudioBitRate = Regex.Replace(inputAudioBitRate, "k", "", RegexOptions.IgnoreCase);
-
                 try
                 {
                     // -------------------------
@@ -507,7 +502,7 @@ namespace Generate
                         // -------------------------
                         if (inputAudioBitRate.Substring(0, 3) == "N/A")
                         {
-                            //MessageBox.Show("1");
+                            //MessageBox.Show("1"); //debug
                             inputAudioBitRate = "N/A";
                         }
                     }
@@ -525,112 +520,119 @@ namespace Generate
                         double.TryParse(inputAudioBitRate, out inputAudioBitRate_Double);
 
                         // -------------------------
-                        // Convert FFprobe inputAudioBitRate Value
-                        // 320000 -> 320
+                        // Convert FFprobe inputAudioBitRate byte Value to kb
+                        // e.g. 320000 -> 320
                         // -------------------------
-                        //inputAudioBitRate = Convert.ToString(double.Parse(inputAudioBitRate) * 0.001);
-                        //inputAudioBitRate = Convert.ToString(inputAudioBitRate_Double * 0.001);
                         inputAudioBitRate_Double = inputAudioBitRate_Double * 0.001;
 
                         // -------------------------
-                        // Get New Value
+                        // Apply Bit Rate Min/Max Limits
                         // -------------------------
-                        //inputAudioBitRate_Double = double.Parse(inputAudioBitRate);
+                        switch (codec_SelectedItem)
+                        {
+                            // -------------------------
+                            // Vorbis
+                            // -------------------------
+                            case "Vorbis":
+                                // Min
+                                if (inputAudioBitRate_Double < 45)
+                                {
+                                    inputAudioBitRate = "45";
+                                }
+                                // Max
+                                else if (inputAudioBitRate_Double > 500)
+                                {
+                                    inputAudioBitRate = "500";
+                                }
+                                break;
 
-                        // -------------------------
-                        // Apply limits if BitRate goes over
-                        // -------------------------
-                        // -------------------------
-                        // Vorbis
-                        // -------------------------
-                        if (codec_SelectedItem == "Vorbis" &&
-                            inputAudioBitRate_Double > 500)
-                        {
-                            inputAudioBitRate = Convert.ToString(500); //was 500,000 (before converting to decimal)
-                        }
-                        // -------------------------
-                        // Opus
-                        // -------------------------
-                        else if (codec_SelectedItem == "Opus" &&
-                                 inputAudioBitRate_Double > 510)
-                        {
-                            inputAudioBitRate = Convert.ToString(510); //was 510,000 (before converting to decimal)
-                        }
-                        // -------------------------
-                        // MP2
-                        // -------------------------
-                        else if (codec_SelectedItem == "MP2" &&
-                                 inputAudioBitRate_Double > 384)
-                        {
-                            inputAudioBitRate = Convert.ToString(384); //was 320,000 before converting to decimal)
-                        }
-                        // -------------------------
-                        // LAME
-                        // -------------------------
-                        else if (codec_SelectedItem == "LAME" &&
-                                 inputAudioBitRate_Double > 320)
-                        {
-                            inputAudioBitRate = Convert.ToString(320); //was 320,000 before converting to decimal)
-                        }
-                        // -------------------------
-                        // AC3
-                        // -------------------------
-                        else if (codec_SelectedItem == "AC3" &&
-                                 inputAudioBitRate_Double > 640)
-                        {
-                            inputAudioBitRate = Convert.ToString(640); //was 640,000 (before converting to decimal)
-                        }
-                        // -------------------------
-                        // AAC
-                        // -------------------------
-                        else if (codec_SelectedItem == "AAC" &&
-                                 inputAudioBitRate_Double > 400)
-                        {
-                            inputAudioBitRate = Convert.ToString(400); //was 400,000 (before converting to decimal)
-                        }
-                        // -------------------------
-                        // DTS
-                        // -------------------------
-                        else if (codec_SelectedItem == "DTS" &&
-                                 inputAudioBitRate_Double > 1509)
-                        {
-                            inputAudioBitRate = Convert.ToString(1509); //was 640,000 (before converting to decimal)
-                        }
+                            // -------------------------
+                            // Opus
+                            // -------------------------
+                            case "Opus":
+                                // Min
+                                if (inputAudioBitRate_Double < 6)
+                                {
+                                    inputAudioBitRate = "6";
+                                }
+                                // Max
+                                else if (inputAudioBitRate_Double > 510)
+                                {
+                                    inputAudioBitRate = "510"; 
+                                }
+                                break;
 
-                        // -------------------------
-                        // ALAC, FLAC do not need limit
-                        // -------------------------
+                            // -------------------------
+                            // MP2
+                            // -------------------------
+                            case "MP2":
+                                if (inputAudioBitRate_Double > 384)
+                                {
+                                    inputAudioBitRate = "384"; 
+                                }
+                                break;
 
-                        // -------------------------
-                        // Apply limits if BitRate goes Under
-                        // -------------------------
-                        // -------------------------
-                        // Vorbis
-                        // -------------------------
-                        // Vorbis has a minimum bitrate limit of 45k, if less than, set to 45k
-                        else if (codec_SelectedItem == "Vorbis" &&
-                                 inputAudioBitRate_Double < 45)
-                        {
-                            inputAudioBitRate = Convert.ToString(45);
-                        }
+                            // -------------------------
+                            // LAME
+                            // -------------------------
+                            case "LAME":
+                                if (inputAudioBitRate_Double > 320)
+                                {
+                                    inputAudioBitRate = "320"; 
+                                }
+                                break;
 
-                        // -------------------------
-                        // Opus
-                        // -------------------------
-                        // Opus has a minimum bitrate limit of 6k, if less than, set to 6k
-                        else if (codec_SelectedItem == "Opus" &&
-                                 inputAudioBitRate_Double < 6)
-                        {
-                            inputAudioBitRate = Convert.ToString(6);
+                            // -------------------------
+                            // AC3
+                            // -------------------------
+                            case "AC3":
+                                if (inputAudioBitRate_Double > 640)
+                                {
+                                    inputAudioBitRate = "640"; 
+                                }
+                                break;
+
+                            // -------------------------
+                            // AAC
+                            // -------------------------
+                            case "AAC":
+                                if (inputAudioBitRate_Double > 400)
+                                {
+                                    inputAudioBitRate = "400"; 
+                                }
+                                break;
+
+                            // -------------------------
+                            // DTS
+                            // -------------------------
+                            case "DTS":
+                                if (inputAudioBitRate_Double > 1509)
+                                {
+                                    inputAudioBitRate = "1509";
+                                }
+                                break;
+
+                            // -------------------------
+                            // ALAC, FLAC, PCM
+                            // -------------------------
+                            // Does not need limiter
                         }
 
                         // -------------------------
                         // Remove Decimals
                         // -------------------------
-                        //inputAudioBitRate = Math.Round(inputAudioBitRate_Double).ToString();
                         inputAudioBitRate = string.Format("{0:0.#}", inputAudioBitRate_Double);
+
+                        //// -------------------------
+                        //// Round Bitrate
+                        //// -------------------------
+                        //inputAudioBitRate = Math.Round(inputAudioBitRate_Double).ToString();
                     }
                 }
+
+                // -------------------------
+                // Error
+                // -------------------------
                 catch
                 {
                     MessageBox.Show("Problem calculating Audio BitRate.",
@@ -687,7 +689,7 @@ namespace Generate
                         case "Vorbis":
                             // VBR User entered value algorithm (0 low / 10 high)
 
-                            double inputMin = 0; // kbps
+                            double inputMin = 0;   // kbps
                             double inputMax = 320; // kbps
                             double normMin = 0;    // low
                             double normMax = 10;   // high
@@ -713,11 +715,15 @@ namespace Generate
                             // Above 510k set to 256k
                             if (aBitRate_Double > 510)
                             {
+                                // e.g. -vbr on -b:a 510k -compression_level 10 
                                 aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                             }
                             else
                             {
-                                // Use the original -b:a bitrate detected (e.g. -b:a 256k)
+                                // Use the original -b:a bitrate detected by FFprobe (e.g. -b:a 123k)
+                                // Round to remove decimals
+                                // e.g. -vbr on -b:a 123k -compression_level 10 
+                                aBitRateVBR = Math.Round(aBitRate_Double);
                             }
                             break;
 
