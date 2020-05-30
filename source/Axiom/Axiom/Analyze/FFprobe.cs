@@ -237,34 +237,6 @@ namespace Analyze
                 Log.logParagraph.Inlines.Add(new Run(MainWindow.outputDir) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
-
-            //// --------------------------------------------------
-            //// Category: General
-            //// --------------------------------------------------
-            //// Log Console Message /////////
-            //Log.WriteAction = () =>
-            //{
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
-            //};
-            //Log.LogActions.Add(Log.WriteAction);
-
-
-            //// -------------------------
-            ////    Format
-            //// -------------------------
-            //// OutputFormat() is not called because it is instead used in Controls
-            //// Use a Message for Log Console
-
-            //// Log Console Message /////////
-            //Log.WriteAction = () =>
-            //{
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
-            //    Log.logParagraph.Inlines.Add(new Run(MainWindow.outputExt) { Foreground = Log.ConsoleDefault });
-            //};
-            //Log.LogActions.Add(Log.WriteAction);
         }
 
 
@@ -281,12 +253,12 @@ namespace Analyze
                 // -------------------------
                 case false:
                     // Stream
-                    if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                    if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                     {
                         vEntryType = "stream=bit_rate";
                     }
                     // Format
-                    else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                    else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                     {
                         vEntryType = "format=bit_rate";
                     }
@@ -308,12 +280,12 @@ namespace Analyze
                         // -------------------------
                         case "CMD":
                             // Stream
-                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream^=bit_rate";
                             }
                             // Format
-                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format^=bit_rate";
                             }
@@ -329,12 +301,12 @@ namespace Analyze
                         // -------------------------
                         case "PowerShell":
                             // Stream
-                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream=bit_rate";
                             }
                             // Format
-                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format=bit_rate";
                             }
@@ -347,69 +319,6 @@ namespace Analyze
                     }
                     break;
             }
-
-
-            //// -------------------------
-            //// Single
-            //// -------------------------
-            //if (VM.MainView.Batch_IsChecked == false)
-            //{
-            //    if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
-            //    {
-            //        vEntryType = "stream=bit_rate";
-            //    }
-            //    else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
-            //    {
-            //        vEntryType = "format=bit_rate";
-            //    }
-            //    // UNLISTED Filetypes & Audio to Video
-            //    else
-            //    {
-            //        vEntryTypeBatch = "stream=bit_rate";
-            //    }
-            //}
-
-            //// -------------------------
-            //// Batch
-            //// -------------------------
-            //else if (VM.MainView.Batch_IsChecked == true)
-            //{
-            //    // CMD
-            //    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
-            //    {
-            //        if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
-            //        {
-            //            vEntryTypeBatch = "stream^=bit_rate";
-            //        }
-            //        else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
-            //        {
-            //            vEntryTypeBatch = "format^=bit_rate";
-            //        }
-            //        // UNLISTED Filetypes & Audio to Video
-            //        else
-            //        {
-            //            vEntryTypeBatch = "stream^=bit_rate";
-            //        }
-            //    }
-
-            //    // PowerShell
-            //    else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-            //    {
-            //        if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
-            //        {
-            //            vEntryTypeBatch = "stream=bit_rate";
-            //        }
-            //        else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
-            //        {
-            //            vEntryTypeBatch = "format=bit_rate";
-            //        }
-            //        // UNLISTED Filetypes & Audio to Video
-            //        else
-            //        {
-            //            vEntryTypeBatch = "stream=bit_rate";
-            //        }
-            //    }
-            //}
         }
 
 
@@ -427,8 +336,8 @@ namespace Analyze
                 case false:
                     // These file types need special instructions for FFprobe to detect
                     // Format
-                    if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-                        string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(MainWindow.inputExt, ".wav", StringComparison.OrdinalIgnoreCase))
                     {
                         aEntryType = "format=bit_rate";
                     }
@@ -452,8 +361,8 @@ namespace Analyze
                         case "CMD":
                             // Choose FFprobe Entry Type based on Input file extension
                             // Format
-                            if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-                                string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(MainWindow.inputExt, ".wav", StringComparison.OrdinalIgnoreCase))
                             {
                                 aEntryType = "format^=bit_rate";
                             }
@@ -471,8 +380,8 @@ namespace Analyze
                         case "PowerShell":
                             // Choose FFprobe Entry Type based on Input file extension
                             // Format
-                            if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-                                string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(MainWindow.inputExt, ".wav", StringComparison.OrdinalIgnoreCase))
                             {
                                 aEntryType = "format=bit_rate";
                             }
@@ -486,63 +395,6 @@ namespace Analyze
                     }
                     break;
             }
-
-            //// -------------------------
-            //// Single
-            //// -------------------------
-            //if (VM.MainView.Batch_IsChecked == false)
-            //{
-            //    // These file types need special instructions for FFprobe to detect
-            //    if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-            //        string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
-            //    {
-            //        aEntryType = "format=bit_rate";
-            //    }
-            //    else
-            //    {
-            //        // All other audio types use stream=bit_rate? -maybe
-            //        aEntryType = "stream=bit_rate";
-            //    }
-            //}
-
-            //// -------------------------
-            //// Batch
-            //// -------------------------
-            //else if (VM.MainView.Batch_IsChecked == true)
-            //{
-            //    // CMD
-            //    if (VM.ConfigureView.Shell_SelectedItem == "CMD")
-            //    {
-            //        // Choose FFprobe Entry Type based on Input file extension
-            //        if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-            //            string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
-            //        {
-            //            aEntryType = "format^=bit_rate";
-            //        }
-            //        else
-            //        {
-            //            // All other audio types use stream=bit_rate? -maybe
-            //            aEntryType = "stream^=bit_rate";
-            //        }
-            //    }
-
-            //    // PowerShell
-            //    else if (VM.ConfigureView.Shell_SelectedItem == "PowerShell")
-            //    {
-            //        // Choose FFprobe Entry Type based on Input file extension
-            //        if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-            //            string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
-            //        {
-            //            aEntryType = "format=bit_rate";
-            //        }
-            //        else
-            //        {
-            //            // All other audio types use stream=bit_rate? -maybe
-            //            aEntryType = "stream=bit_rate";
-            //        }
-            //    }
-
-            //}
         }
 
 
