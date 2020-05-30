@@ -198,12 +198,12 @@ namespace Generate
                         height = height_Text;
 
                         // Change the left over Default empty text to "auto"
-                        if (string.Equals(width_Text, "", StringComparison.CurrentCultureIgnoreCase))
+                        if (string.Equals(width_Text, "", StringComparison.OrdinalIgnoreCase))
                         {
                             VM.VideoView.Video_Width_Text = "auto";
                         }
 
-                        if (string.Equals(height_Text, "", StringComparison.CurrentCultureIgnoreCase))
+                        if (string.Equals(height_Text, "", StringComparison.OrdinalIgnoreCase))
                         {
                             VM.VideoView.Video_Height_Text = "auto";
                         }
@@ -219,11 +219,11 @@ namespace Generate
                             codec_SelectedItem == "WebP")
                         {
                             // If User enters "auto" or textbox is empty
-                            if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(width_Text, "auto", StringComparison.OrdinalIgnoreCase))
                             {
                                 width = "-1";
                             }
-                            if (string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(height_Text, "auto", StringComparison.OrdinalIgnoreCase))
                             {
                                 height = "-1";
                             }
@@ -253,8 +253,8 @@ namespace Generate
                             // Width = Custom value
                             // Height = Custom value
                             // -------------------------
-                            if (!string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                !string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            if (!string.Equals(width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
+                                !string.Equals(height_Text, "auto", StringComparison.OrdinalIgnoreCase))
                             {
                                 // -------------------------
                                 // Aspect Must be Cropped to be divisible by 2
@@ -358,8 +358,8 @@ namespace Generate
                             // Width = auto
                             // Height = Custom value
                             // -------------------------
-                            else if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                    !string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            else if (string.Equals(width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
+                                    !string.Equals(height_Text, "auto", StringComparison.OrdinalIgnoreCase))
                             {
                                 //Width
                                 width = "-2";
@@ -407,8 +407,8 @@ namespace Generate
                             // Width = Custom value
                             // Height = auto
                             // -------------------------
-                            else if (!string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                     string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            else if (!string.Equals(width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
+                                     string.Equals(height_Text, "auto", StringComparison.OrdinalIgnoreCase))
                             {
                                 // Height
                                 height = "-2";
@@ -455,16 +455,16 @@ namespace Generate
                             // Width = auto
                             // Height = auto
                             // -------------------------
-                            else if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                     string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            else if (string.Equals(width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
+                                     string.Equals(height_Text, "auto", StringComparison.OrdinalIgnoreCase))
                             {
                                 // If User enters "auto" or textbox is empty
-                                if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                                if (string.Equals(width_Text, "auto", StringComparison.OrdinalIgnoreCase))
                                 {
                                     width = "trunc(iw/2)*2";
 
                                 }
-                                if (string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                                if (string.Equals(height_Text, "auto", StringComparison.OrdinalIgnoreCase))
                                 {
                                     height = "trunc(ih/2)*2";
                                 }
