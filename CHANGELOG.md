@@ -253,7 +253,7 @@ Video Bitrate Calculator from int to double
 - Improve Numbers Only `KeyDown`
 
 ### Fixed
-Crash if Input Extension is null
+- Crash if Input Extension is null
 
 
 ## [1.7.5.2] - Apr 25, 2019
@@ -540,7 +540,7 @@ Crash if Input Extension is null
 - Preset `HEVC`
 
 ### Fixed
-- WebM Video VBR
+- `WebM` Video VBR
 
 
 ## [1.5.4.0] - Mar 16, 2019
@@ -564,7 +564,7 @@ Crash if Input Extension is null
 
 ### Fixed
 - Audio VBR Calculator
-- Opus VBR Auto
+- `Opus` VBR Auto
 - Custom Minrate, Maxrate, Bufsize Preset Clear
 
 
@@ -615,7 +615,7 @@ Crash if Input Extension is null
 ### Fixed
 - LogPath Settings Save
 - Media Type Image Audio Quality Controls
-- VP8 Subtitle Enable Controls
+- `VP8` Subtitle Enable Controls
 - Preset ComboBox Crash on Auto Codec Copy
 
 ### Changed
