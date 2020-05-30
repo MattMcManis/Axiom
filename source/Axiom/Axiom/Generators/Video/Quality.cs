@@ -39,14 +39,16 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
-    public partial class Video
+    namespace Video
     {
         public class Quality
         {
@@ -84,7 +86,7 @@ namespace Axiom
             /// <summary>
             /// BitRate Mode
             /// <summary>
-            public static String BitRateMode(List<VideoViewModel.VideoQuality> quality_Items,
+            public static String BitRateMode(List<ViewModel.Video.VideoQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string bitrate_Text,
                                              bool vbr_IsChecked
@@ -131,7 +133,7 @@ namespace Axiom
                                            string container_SelectedItem,
                                            string mediaType_SelectedItem,
                                            string codec_SelectedItem,
-                                           List<VideoViewModel.VideoQuality> quality_Items,
+                                           List<ViewModel.Video.VideoQuality> quality_Items,
                                            string quality_SelectedItem,
                                            string pass_SelectedItem,
                                            string crf_Text,
@@ -149,8 +151,8 @@ namespace Axiom
                     vBitRate = VideoBitRateCalculator(container_SelectedItem,
                                                       mediaType_SelectedItem,
                                                       codec_SelectedItem,
-                                                      FFprobe.vEntryType,
-                                                      FFprobe.inputVideoBitRate);
+                                                      Analyze.FFprobe.vEntryType,
+                                                      Analyze.FFprobe.inputVideoBitRate);
                 }
                 // Images
                 else if (mediaType_SelectedItem == "Image" ||
@@ -195,13 +197,13 @@ namespace Axiom
                         // Input Video BitRate NOT Detected
                         // Input Video Codec Detected
                         // -------------------------
-                        if (string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) ||
-                            FFprobe.inputVideoBitRate == "N/A")
+                        if (string.IsNullOrWhiteSpace(Analyze.FFprobe.inputVideoBitRate) ||
+                            Analyze.FFprobe.inputVideoBitRate == "N/A")
                         {
                             // -------------------------
                             // Codec Detected
                             // -------------------------
-                            if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
+                            if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputVideoCodec))
                             {
                                 // 1 Pass / CRF
                                 //
@@ -258,7 +260,7 @@ namespace Axiom
                                 vBitRate = VideoBitRateCalculator(container_SelectedItem,
                                                                   mediaType_SelectedItem,
                                                                   codec_SelectedItem,
-                                                                  FFprobe.vEntryType,
+                                                                  Analyze.FFprobe.vEntryType,
                                                                   vBitRateNA);
 
                                 vMinRate = string.Empty;
@@ -275,13 +277,13 @@ namespace Axiom
                         // Input Video BitRate IS Detected
                         // Input Video Codec Detected
                         // -------------------------
-                        else if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoBitRate) &&
-                                 FFprobe.inputVideoBitRate != "N/A")
+                        else if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputVideoBitRate) &&
+                                 Analyze.FFprobe.inputVideoBitRate != "N/A")
                         {
                             // -------------------------
                             // Codec Detected
                             // -------------------------
-                            if (!string.IsNullOrWhiteSpace(FFprobe.inputVideoCodec))
+                            if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputVideoCodec))
                             {
                                 //MessageBox.Show("5 " + vBitRate); //debug
 
@@ -346,7 +348,7 @@ namespace Axiom
             /// Video Quality - Lossless
             /// <summary>
             public static void QualityLossless(string codec_SelectedItem,
-                                               List<VideoViewModel.VideoQuality> qualityItems
+                                               List<ViewModel.Video.VideoQuality> qualityItems
                                                )
             {
                 // -------------------------
@@ -355,7 +357,7 @@ namespace Axiom
                 if (codec_SelectedItem == "x265")
                 {
                     // e.g. -x265-params "lossless"
-                    VideoParams.vParamsList.Add("lossless");
+                    Params.vParamsList.Add("lossless");
                 }
                 // -------------------------
                 // All Other Codecs
@@ -372,7 +374,7 @@ namespace Axiom
             /// <summary>
             public static void QualityCustom(bool vbr_IsChecked,
                                              string codec_SelectedItem,
-                                             List<VideoViewModel.VideoQuality> quality_Items,
+                                             List<ViewModel.Video.VideoQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string crf_Text,
                                              string bitrate_Text,
@@ -469,7 +471,7 @@ namespace Axiom
             /// <summary>
             public static void QualityPreset(bool vbr_IsChecked,
                                              string codec_SelectedItem,
-                                             List<VideoViewModel.VideoQuality> quality_Items,
+                                             List<ViewModel.Video.VideoQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string pass_SelectedItem,
                                              string crf_Text,
@@ -569,7 +571,7 @@ namespace Axiom
                         if (codec_SelectedItem == "x265")
                         {
                             // x265 Params
-                            VideoParams.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
+                            Params.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
                             vCRF = string.Empty;
 
                             //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
@@ -616,7 +618,7 @@ namespace Axiom
                                               string container_SelectedItem,
                                               string mediaType_SelectedItem,
                                               string codec_SelectedItem,
-                                              List<VideoViewModel.VideoQuality> quality_Items,
+                                              List<ViewModel.Video.VideoQuality> quality_Items,
                                               string quality_SelectedItem,
                                               string pass_SelectedItem,
                                               string crf_Text,
@@ -819,19 +821,19 @@ namespace Axiom
                                 batchVideoAutoList = new List<string>()
                                 {
                                     // size
-                                    "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
+                                    "& for /F \"delims=\" %S in ('@" + Analyze.FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
                                     // set %S to %size%
                                     "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
 
                                     // duration
-                                    "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
+                                    "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + Analyze.FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
                                     // remove duration decimals
                                     "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
                                     // set %D to %duration%
                                     "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
 
                                     // vBitRate
-                                    "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
+                                    "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + Analyze.FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + Analyze.FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
                                     // set %V to %vBitRate%
                                     "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                                     // auto bitrate calcuate
@@ -939,7 +941,7 @@ namespace Axiom
                     try
                     {
                         // Convert to int to remove decimals
-                        inputVideoBitRate = Convert.ToInt64((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
+                        inputVideoBitRate = Convert.ToInt64((double.Parse(Analyze.FFprobe.inputSize) * 8) / 1000 / double.Parse(Analyze.FFprobe.inputDuration)).ToString();
 
                         // Log Console Message /////////
                         Log.WriteAction = () =>
@@ -1022,11 +1024,11 @@ namespace Axiom
                 // -------------------------
                 if (passNumber == "2")
                 {
-                    if (VideoParams.vParamsList != null &&
-                        VideoParams.vParamsList.Count > 0)
+                    if (Params.vParamsList != null &&
+                        Params.vParamsList.Count > 0)
                     {
-                        VideoParams.vParamsList.Clear();
-                        VideoParams.vParamsList.TrimExcess();
+                        Params.vParamsList.Clear();
+                        Params.vParamsList.TrimExcess();
                     }
                 }
 
@@ -1040,7 +1042,7 @@ namespace Axiom
                     if (codec_SelectedItem == "x265")
                     {
                         //pass = string.Empty;
-                        VideoParams.vParamsList.Add("pass=" + passNumber);
+                        Params.vParamsList.Add("pass=" + passNumber);
                     }
                 }
 
@@ -1162,7 +1164,7 @@ namespace Axiom
             /// Optimize
             /// <summary>
             public static String Optimize(string codec_SelectedItem,
-                                          List<VideoViewModel.VideoOptimize> optimize_Items,
+                                          List<ViewModel.Video.VideoOptimize> optimize_Items,
                                           string optimize_SelectedItem,
                                           string tune_SelectedItem,
                                           string profile_SelectedItem,

@@ -24,21 +24,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Profiles
 {
     public class Profiles
     {
-        /// <summary>
-        /// Global Variables
-        /// </summary>
-        //public static string presetsDir = MainWindow.appDataLocalDir + @"Axiom UI\presets\"; // Custom User ini presets
-
-
         /// <summary>
         /// Scan PC Custom Presets
         /// </summary>
@@ -82,7 +78,7 @@ namespace Axiom
                             !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
                             )
                         {
-                            VM.MainView.Preset_Items.Insert(3, new MainViewModel.Preset() { Name = presetName, Category = false, Type = "Custom" });
+                            VM.MainView.Preset_Items.Insert(3, new ViewModel.Main.Preset() { Name = presetName, Category = false, Type = "Custom" });
                         }
                     }
                 }
@@ -104,8 +100,7 @@ namespace Axiom
                     for (int i = VM.MainView.Preset_Items.Count - 1; i >= 0; --i)
                     {
                         // If .ini File List does not contain Preset Name
-                        if (!customPresetPathsList.Contains(/*Profiles.presetsDir*/ VM.ConfigureView.CustomPresetsPath_Text + presetNamesList[i] + ".ini"))
-                        //if (!File.Exists(Profiles.presetsDir + presetNamesList[i] + ".ini"))
+                        if (!customPresetPathsList.Contains(VM.ConfigureView.CustomPresetsPath_Text + presetNamesList[i] + ".ini"))
                         {
                             // Remove from Presets List if Type is Custom
                             if (VM.MainView.Preset_Items.FirstOrDefault(item => item.Name == presetNamesList[i])?.Type == "Custom")
@@ -142,14 +137,14 @@ namespace Axiom
             List<string> listFailedImports = new List<string>();
 
             // Start INI File Read
-            Configure.INIFile inif = null;
+            Controls.Configure.INIFile inif = null;
 
             // -------------------------
             // Check if Preset ini file exists
             // -------------------------
             if (File.Exists(profile))
             {
-                inif = new Configure.INIFile(profile);
+                inif = new Controls.Configure.INIFile(profile);
 
                 // --------------------------------------------------
                 // Main Window
@@ -287,6 +282,22 @@ namespace Axiom
                 bool.TryParse(inif.Read("Video", "VBR_IsChecked").ToLower(), out video_VBR_IsChecked);
                 VM.VideoView.Video_VBR_IsChecked = video_VBR_IsChecked;
 
+                // Color Range
+                string videoColorRange = inif.Read("Video", "Color_Range_SelectedItem");
+
+                if (VM.VideoView.Video_Color_Range_Items.Contains(videoColorRange))
+                    VM.VideoView.Video_Color_Range_SelectedItem = videoColorRange;
+                else
+                    listFailedImports.Add("Video: Color Range");
+
+                // Color Space
+                string videoColorSpace = inif.Read("Video", "Color_Space_SelectedItem");
+
+                if (VM.VideoView.Video_Color_Space_Items.Contains(videoColorSpace))
+                    VM.VideoView.Video_Color_Space_SelectedItem = videoColorSpace;
+                else
+                    listFailedImports.Add("Video: Color Space");
+
                 // Color Primaries
                 string videoColorPrimaries = inif.Read("Video", "Color_Primaries_SelectedItem");
 
@@ -302,22 +313,6 @@ namespace Axiom
                     VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = videoColorTransferCharacteristics;
                 else
                     listFailedImports.Add("Video: Color Transfer Characteristics");
-
-                // Color Space
-                string videoColorSpace = inif.Read("Video", "Color_Space_SelectedItem");
-
-                if (VM.VideoView.Video_Color_Space_Items.Contains(videoColorSpace))
-                    VM.VideoView.Video_Color_Space_SelectedItem = videoColorSpace;
-                else
-                    listFailedImports.Add("Video: Color Space");
-
-                // Color Range
-                string videoColorRange = inif.Read("Video", "Color_Range_SelectedItem");
-
-                if (VM.VideoView.Video_Color_Range_Items.Contains(videoColorRange))
-                    VM.VideoView.Video_Color_Range_SelectedItem = videoColorRange;
-                else
-                    listFailedImports.Add("Video: Color Range");
 
                 // Color Matrix
                 string videoColorMatrix = inif.Read("Video", "Color_Matrix_SelectedItem");
@@ -888,7 +883,7 @@ namespace Axiom
             if (Directory.Exists(VM.ConfigureView.CustomPresetsPath_Text))
             {
                 // Start INI File Write
-                Configure.INIFile inif = new Configure.INIFile(profile);
+                Controls.Configure.INIFile inif = new Controls.Configure.INIFile(profile);
 
                 // --------------------------------------------------
                 // Main Window
@@ -949,14 +944,14 @@ namespace Axiom
                 inif.Write("Video", "VBR_IsChecked", VM.VideoView.Video_VBR_IsChecked.ToString().ToLower());
                 inif.Write("Video", "PixelFormat_SelectedItem", VM.VideoView.Video_PixelFormat_SelectedItem);
 
+                // Color Range
+                inif.Write("Video", "Color_Range_SelectedItem", VM.VideoView.Video_Color_Range_SelectedItem);
+                // Color Space
+                inif.Write("Video", "Color_Space_SelectedItem", VM.VideoView.Video_Color_Space_SelectedItem);
                 // Color Primaries
                 inif.Write("Video", "Color_Primaries_SelectedItem", VM.VideoView.Video_Color_Primaries_SelectedItem);
                 // Color Transfer Characteristics
                 inif.Write("Video", "Color_TransferCharacteristics_SelectedItem", VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem);
-                // Color Space
-                inif.Write("Video", "Color_Space_SelectedItem", VM.VideoView.Video_Color_Space_SelectedItem);
-                // Color Range
-                inif.Write("Video", "Color_Range_SelectedItem", VM.VideoView.Video_Color_Range_SelectedItem);
                 // Color Matrix
                 inif.Write("Video", "Color_Matrix_SelectedItem", VM.VideoView.Video_Color_Matrix_SelectedItem);
 
@@ -1053,8 +1048,8 @@ namespace Axiom
                 inif.Write("Filter Video", "Deinterlace_SelectedItem", VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem);
 
                 // Transpose
-                inif.Write("Filter Video", "Flip_SelectedItem", VM.FilterVideoView.FilterVideo_Flip_SelectedItem.ToString());
-                inif.Write("Filter Video", "Rotate_SelectedItem", VM.FilterVideoView.FilterVideo_Rotate_SelectedItem.ToString());
+                inif.Write("Filter Video", "Flip_SelectedItem", VM.FilterVideoView.FilterVideo_Flip_SelectedItem);
+                inif.Write("Filter Video", "Rotate_SelectedItem", VM.FilterVideoView.FilterVideo_Rotate_SelectedItem);
 
                 // EQ
                 inif.Write("Filter Video", "EQ_Brightness_Value", VM.FilterVideoView.FilterVideo_EQ_Brightness_Value.ToString());

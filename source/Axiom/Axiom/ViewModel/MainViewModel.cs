@@ -27,9 +27,9 @@ using System.Windows;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class Main : INotifyPropertyChanged
     {
         //private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
@@ -54,7 +54,7 @@ namespace Axiom
         /// <summary>
         /// Main View Model
         /// </summary>
-        public MainViewModel()
+        public Main()
         {
             LoadControlsDefaults();
         }

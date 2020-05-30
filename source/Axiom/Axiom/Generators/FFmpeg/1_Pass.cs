@@ -31,8 +31,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 
-namespace Axiom
+namespace Generate
 {
     public partial class FFmpeg
     {
@@ -178,7 +180,7 @@ namespace Axiom
                         videoList = new List<string>()
                         {
                             "\r\n\r\n" +
-                            Video.Codec.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
+                            Generate.Video.Codec.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
                                                    VM.VideoView.Video_Codec_SelectedItem,
                                                    VM.VideoView.Video_Codec
                                                    ),
@@ -210,7 +212,7 @@ namespace Axiom
                                                        ),
 
                             "\r\n" +
-                            VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                            Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
                                                      VM.VideoView.Video_Codec_SelectedItem,
                                                      VM.FormatView.Format_MediaType_SelectedItem
                                                      ),
@@ -230,16 +232,16 @@ namespace Axiom
                             Video.Color.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem),
 
                             "\r\n" +
-                            Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
+                            Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
                                       VM.VideoView.Video_FPS_SelectedItem,
                                       VM.VideoView.Video_FPS_Text
                                       ),
                             "\r\n" +
-                            VideoFilters.VideoFilter(),
+                            Filters.Video.VideoFilter(),
                             "\r\n" +
                             Video.Size.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem),
                             "\r\n" +
-                            Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                            Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
                                          VM.VideoView.Video_Codec_SelectedItem
                                          ),
                             "\r\n" +
@@ -329,9 +331,9 @@ namespace Axiom
                         audioList = new List<string>()
                         {
                             "\r\n\r\n" +
-                            Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
-                                                   VM.AudioView.Audio_Codec
-                                                   ),
+                            Generate.Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
+                                                            VM.AudioView.Audio_Codec
+                                                            ),
                             "\r\n" +
                             Audio.Quality.AudioQuality(VM.MainView.Input_Text,
                                                        VM.MainView.Batch_IsChecked,
@@ -358,7 +360,7 @@ namespace Axiom
                                                    VM.AudioView.Audio_Channel_SelectedItem
                                                    ),
                             "\r\n" +
-                            AudioFilters.AudioFilter(),
+                            Filters.Audio.AudioFilter(),
                             "\r\n" +
                             Streams.AudioStreamMaps(),
                         };

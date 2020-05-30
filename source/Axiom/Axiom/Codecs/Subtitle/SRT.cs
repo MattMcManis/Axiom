@@ -24,116 +24,123 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel;
 
-namespace Axiom
+namespace Controls
 {
-    public class SRT
+    namespace Subtitles
     {
-        // ---------------------------------------------------------------------------
-        // Codec
-        // ---------------------------------------------------------------------------
-        public static List<SubtitleViewModel.SubtitleCodec> codec = new List<SubtitleViewModel.SubtitleCodec>()
+        namespace Codec
         {
-             new SubtitleViewModel.SubtitleCodec()
-             {
-                 Codec = "srt",
-                 Parameters = ""
-             }
-        };
-
-        public static void Codec_Set()
-        {
-            // Combine Codec + Parameters
-            List<string> codec = new List<string>()
+            public class SRT
             {
-                "-c:s",
-                SRT.codec.FirstOrDefault()?.Codec,
-                SRT.codec.FirstOrDefault()?.Parameters
-            };
+                // ---------------------------------------------------------------------------
+                // Codec
+                // ---------------------------------------------------------------------------
+                public static List<ViewModel.Subtitle.SubtitleCodec> codec = new List<ViewModel.Subtitle.SubtitleCodec>()
+                {
+                     new ViewModel.Subtitle.SubtitleCodec()
+                     {
+                         Codec = "srt",
+                         Parameters = ""
+                     }
+                };
 
-            VM.SubtitleView.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+                public static void Codec_Set()
+                {
+                    // Combine Codec + Parameters
+                    List<string> codec = new List<string>()
+                    {
+                        "-c:s",
+                        SRT.codec.FirstOrDefault()?.Codec,
+                        SRT.codec.FirstOrDefault()?.Parameters
+                    };
+
+                    VM.SubtitleView.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+                }
+
+                // -------------------------
+                // Stream
+                // -------------------------
+                public static List<string> stream = new List<string>()
+                {
+                    "none",
+                    "external",
+                    "all",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                };
+
+
+
+                // ---------------------------------------------------------------------------
+                // Controls Behavior
+                // ---------------------------------------------------------------------------
+
+                // -------------------------
+                // Items Source
+                // -------------------------
+                public static void Controls_ItemsSource()
+                {
+                    VM.SubtitleView.Subtitle_Stream_Items = stream;
+                }
+
+                // -------------------------
+                // Selected Items
+                // -------------------------
+                public static void Controls_Selected()
+                {
+                    // Stream
+                    VM.SubtitleView.Subtitle_Stream_SelectedItem = "all";
+                }
+
+                // -------------------------
+                // Checked
+                // -------------------------
+                public static void Controls_Checked()
+                {
+                    // None
+                }
+
+                // -------------------------
+                // Unchecked
+                // -------------------------
+                public static void Controls_Unhecked()
+                {
+                    // None
+                }
+
+                // -------------------------
+                // Enabled
+                // -------------------------
+                public static void Controls_Enable()
+                {
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+
+                    // Subtitle Stream
+                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+
+                    // Subtitle List View
+                    // Controlled in cboSubtitle_Stream_SelectionChanged
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                public static void Controls_Disable()
+                {
+                    // None
+                }
+
+
+            }
         }
-
-        // -------------------------
-        // Stream
-        // -------------------------
-        public static List<string> stream = new List<string>()
-        {
-            "none",
-            "external",
-            "all",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-        };
-
-
-
-        // ---------------------------------------------------------------------------
-        // Controls Behavior
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
-        // Items Source
-        // -------------------------
-        public static void Controls_ItemsSource()
-        {
-            VM.SubtitleView.Subtitle_Stream_Items = stream;
-        }
-
-        // -------------------------
-        // Selected Items
-        // -------------------------
-        public static void Controls_Selected()
-        {
-            // Stream
-            VM.SubtitleView.Subtitle_Stream_SelectedItem = "all";
-        }
-
-        // -------------------------
-        // Checked
-        // -------------------------
-        public static void Controls_Checked()
-        {
-            // None
-        }
-
-        // -------------------------
-        // Unchecked
-        // -------------------------
-        public static void Controls_Unhecked()
-        {
-            // None
-        }
-
-        // -------------------------
-        // Enabled
-        // -------------------------
-        public static void Controls_Enable()
-        {
-            // Subtitle Codec
-            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
-
-            // Subtitle Stream
-            VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-
-            // Subtitle List View
-            // Controlled in cboSubtitle_Stream_SelectionChanged
-        }
-
-        // -------------------------
-        // Disabled
-        // -------------------------
-        public static void Controls_Disable()
-        {
-            // None
-        }
-
-
     }
 }

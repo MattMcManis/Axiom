@@ -36,14 +36,16 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
-    public partial class Video
+    namespace Video
     {
         public class Size
         {
@@ -146,7 +148,7 @@ namespace Axiom
                         scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
                         // Video Filter Add
-                        VideoFilters.vFiltersList.Add(scale);
+                        Filters.Video.vFiltersList.Add(scale);
                     }
                 }
 
@@ -183,7 +185,7 @@ namespace Axiom
                         scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
                         // Video Filter Add
-                        VideoFilters.vFiltersList.Add(scale);
+                        Filters.Video.vFiltersList.Add(scale);
                     }
 
                     // -------------------------
@@ -232,7 +234,7 @@ namespace Axiom
                             scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
                             // Video Filter Add
-                            VideoFilters.vFiltersList.Add(scale);
+                            Filters.Video.vFiltersList.Add(scale);
                         }
 
 
@@ -298,13 +300,13 @@ namespace Axiom
                                         // Combine & Add Scaling Algorithm
                                         // -------------------------
                                         scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
-                                        VideoFilters.vFiltersList.Add(scale);
+                                        Filters.Video.vFiltersList.Add(scale);
 
                                         // Divisible Crop - crop off the extra pixels
                                         if (width_int % 2 != 0 || height_int % 2 != 0)
                                         {
                                             CropWindow.crop = Convert.ToString("crop=" + divisibleWidthCrop + ":" + divisibleHeightCrop + ":" + cropX + ":" + cropY);
-                                            VideoFilters.vFiltersList.Add(CropWindow.crop);
+                                            Filters.Video.vFiltersList.Add(CropWindow.crop);
                                         }
                                     }
 
@@ -317,17 +319,17 @@ namespace Axiom
                                         // Combine & Add Scaling Algorithm
                                         // -------------------------
                                         // Manual Crop - Crop what you want out of the video
-                                        VideoFilters.vFiltersList.Add(CropWindow.crop);
+                                        Filters.Video.vFiltersList.Add(CropWindow.crop);
 
                                         // Scale - Resize video
                                         scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
-                                        VideoFilters.vFiltersList.Add(scale);
+                                        Filters.Video.vFiltersList.Add(scale);
 
                                         // Divisible Crop - crop off the extra pixels
                                         if (width_int % 2 != 0 || height_int % 2 != 0)
                                         {
                                             string divisibleCrop = Convert.ToString("crop=" + divisibleWidthCrop + ":" + divisibleHeightCrop + ":" + cropX + ":" + cropY);
-                                            VideoFilters.vFiltersList.Add(divisibleCrop);
+                                            Filters.Video.vFiltersList.Add(divisibleCrop);
                                         }
                                     }
                                 }
@@ -484,11 +486,11 @@ namespace Axiom
                     scale = string.Empty;
 
                     // Video Filter Add
-                    if (VideoFilters.vFiltersList != null &&
-                        VideoFilters.vFiltersList.Count > 0)
+                    if (Filters.Video.vFiltersList != null &&
+                        Filters.Video.vFiltersList.Count > 0)
                     {
-                        VideoFilters.vFiltersList.Clear();
-                        VideoFilters.vFiltersList.TrimExcess();
+                        Filters.Video.vFiltersList.Clear();
+                        Filters.Video.vFiltersList.TrimExcess();
                     }
                 }
 
@@ -602,7 +604,7 @@ namespace Axiom
                 if (!string.IsNullOrWhiteSpace(CropWindow.crop))
                 {
                     // Video Filters Add
-                    VideoFilters.vFiltersList.Add(CropWindow.crop);
+                    Filters.Video.vFiltersList.Add(CropWindow.crop);
                 }
             }
         }

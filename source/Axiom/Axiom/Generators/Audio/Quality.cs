@@ -40,14 +40,16 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
-    public partial class Audio
+    namespace Audio
     {
         public class Quality
         {
@@ -65,7 +67,7 @@ namespace Axiom
             /// BitRate Mode
             /// <summary>
             public static String BitRateMode(bool vbr_IsChecked,
-                                             List<AudioViewModel.AudioQuality> quality_Items,
+                                             List<ViewModel.Audio.AudioQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string bitrate_Text)
             {
@@ -102,7 +104,7 @@ namespace Axiom
                                            string mediaType_SelectedItem,
                                            string stream_SelectedItem,
                                            string codec_SelectedItem,
-                                           List<AudioViewModel.AudioQuality> quality_Items,
+                                           List<ViewModel.Audio.AudioQuality> quality_Items,
                                            string quality_SelectedItem,
                                            bool vbr_IsChecked
                                            )
@@ -118,30 +120,26 @@ namespace Axiom
                     // -------------------------
                     // Input Has Audio
                     // -------------------------
-                    if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                    if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputAudioBitRate))
                     {
                         //MessageBox.Show(FFprobe.inputAudioBitRate); //debug
 
                         // Input BitRate was detected
-                        if (FFprobe.inputAudioBitRate != "N/A")
+                        if (Analyze.FFprobe.inputAudioBitRate != "N/A")
                         {
                             // CBR
                             if (vbr_IsChecked == false)
                             {
                                 // Parse FFprobe Audio Bit Rate
                                 int inputAudioBitRate_Int = 320000; // Fallback
-                                int.TryParse(FFprobe.inputAudioBitRate, out inputAudioBitRate_Int);
+                                int.TryParse(Analyze.FFprobe.inputAudioBitRate, out inputAudioBitRate_Int);
 
                                 // aBitMode = "-b:a";
                                 aBitRate = AudioBitRateCalculator(codec_SelectedItem,
-                                                                  FFprobe.aEntryType,
-
-                                                                  //FFprobe.inputAudioBitRate
-
+                                                                  Analyze.FFprobe.aEntryType,
                                                                   // Limit FFprobe Input Audio BitRate if higher than Codec's maximum bit rate
                                                                   AudioBitRateLimiter(codec_SelectedItem,
                                                                                       quality_SelectedItem,
-                                                                                      //Convert.ToInt32(FFprobe.inputAudioBitRate)
                                                                                       inputAudioBitRate_Int
                                                                                       )
                                                                                       .ToString()
@@ -157,7 +155,7 @@ namespace Axiom
                                                               codec_SelectedItem,
                                                               quality_Items,
                                                               quality_SelectedItem,
-                                                              FFprobe.inputAudioBitRate // VBR Birate Limiter is handled in VBR Calculator
+                                                              Analyze.FFprobe.inputAudioBitRate // VBR Birate Limiter is handled in VBR Calculator
                                                               );
                             }
                         }
@@ -168,10 +166,10 @@ namespace Axiom
                         string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
                         string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
 
-                        if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioCodec))
+                        if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputAudioCodec))
                         {
                             // Default to a new bitrate if Input & Output formats Do Not match
-                            if (FFprobe.inputAudioBitRate == "N/A" &&
+                            if (Analyze.FFprobe.inputAudioBitRate == "N/A" &&
                                 inputExt != outputExt
                                 //!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                                 )
@@ -188,9 +186,9 @@ namespace Axiom
                                         // -------------------------
                                         case false:
                                             aBitRate = AudioBitRateCalculator(codec_SelectedItem,
-                                                                          FFprobe.aEntryType,
-                                                                          aBitRateNA
-                                                                          );
+                                                                              Analyze.FFprobe.aEntryType,
+                                                                              aBitRateNA
+                                                                              );
                                             break;
 
                                         // -------------------------
@@ -219,7 +217,7 @@ namespace Axiom
                     // -------------------------
                     // Input No Audio
                     // -------------------------
-                    else if (string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                    else if (string.IsNullOrWhiteSpace(Analyze.FFprobe.inputAudioBitRate))
                     {
                         aBitMode = string.Empty;
                         aBitRate = string.Empty;
@@ -314,7 +312,7 @@ namespace Axiom
             /// <summary>
             /// Audio Quality - Lossless
             /// <summary>
-            public static void QualityLossless(List<AudioViewModel.AudioQuality> quality_Items)
+            public static void QualityLossless(List<ViewModel.Audio.AudioQuality> quality_Items)
             {
                 aLossless = quality_Items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
             }
@@ -337,7 +335,7 @@ namespace Axiom
             /// <summary>
             public static void QualityCustom(bool vbr_IsChecked,
                                              string codec_SelectedItem,
-                                             List<AudioViewModel.AudioQuality> quality_Items,
+                                             List<ViewModel.Audio.AudioQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string bitrate_Text
                                              )
@@ -378,7 +376,7 @@ namespace Axiom
                                               string mediaType_SelectedItem,
                                               string stream_SelectedItem,
                                               string codec_SelectedItem,
-                                              List<AudioViewModel.AudioQuality> quality_Items,
+                                              List<ViewModel.Audio.AudioQuality> quality_Items,
                                               string quality_SelectedItem,
                                               string bitrate_Text,
                                               bool vbr_IsChecked
@@ -502,7 +500,7 @@ namespace Axiom
                     // -------------------------
                     // If Video is has no Audio, don't set Audio BitRate
                     // -------------------------
-                    if (!string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                    if (!string.IsNullOrWhiteSpace(Analyze.FFprobe.inputAudioBitRate))
                     {
                         // -------------------------
                         // Filter out any extra spaces after the first 3 characters IMPORTANT
@@ -518,17 +516,26 @@ namespace Axiom
                     // If Video has Audio, calculate BitRate into decimal
                     // -------------------------
                     if (inputAudioBitRate != "N/A" &&
-                        !string.IsNullOrWhiteSpace(FFprobe.inputAudioBitRate))
+                        !string.IsNullOrWhiteSpace(Analyze.FFprobe.inputAudioBitRate))
                     {
-                        // -------------------------
-                        // Convert inputAudioBitRate to Decimal
-                        // -------------------------
-                        inputAudioBitRate = Convert.ToString(double.Parse(inputAudioBitRate) * 0.001);
-
                         // -------------------------
                         // Convert inputAudioBitRate to Double
                         // -------------------------
-                        double inputAudioBitRate_Double = double.Parse(inputAudioBitRate);
+                        double inputAudioBitRate_Double = 0; // Fallback
+                        double.TryParse(inputAudioBitRate, out inputAudioBitRate_Double);
+
+                        // -------------------------
+                        // Convert FFprobe inputAudioBitRate Value
+                        // 320000 -> 320
+                        // -------------------------
+                        //inputAudioBitRate = Convert.ToString(double.Parse(inputAudioBitRate) * 0.001);
+                        //inputAudioBitRate = Convert.ToString(inputAudioBitRate_Double * 0.001);
+                        inputAudioBitRate_Double = inputAudioBitRate_Double * 0.001;
+
+                        // -------------------------
+                        // Get New Value
+                        // -------------------------
+                        //inputAudioBitRate_Double = double.Parse(inputAudioBitRate);
 
                         // -------------------------
                         // Apply limits if BitRate goes over
@@ -618,9 +625,10 @@ namespace Axiom
                         }
 
                         // -------------------------
-                        // Round BitRate, Remove Decimals
+                        // Remove Decimals
                         // -------------------------
-                        inputAudioBitRate = Math.Round(inputAudioBitRate_Double).ToString();
+                        //inputAudioBitRate = Math.Round(inputAudioBitRate_Double).ToString();
+                        inputAudioBitRate = string.Format("{0:0.#}", inputAudioBitRate_Double);
                     }
                 }
                 catch
@@ -640,7 +648,7 @@ namespace Axiom
             /// <summary>
             public static String AudioVBRCalculator(bool vbr_IsChecked,
                                                     string codec_SelectedItem,
-                                                    List<AudioViewModel.AudioQuality> quality_Items,
+                                                    List<ViewModel.Audio.AudioQuality> quality_Items,
                                                     string quality_SelectedItem,
                                                     string inputBitRate
                                                     )
@@ -656,14 +664,19 @@ namespace Axiom
                 {
                     // Used to Calculate VBR Double
                     //
-                    double aBitRateVBR = (double.Parse(inputBitRate)); // If passed from
+                    //double aBitRateVBR = double.Parse(inputBitRate);
+                    double aBitRate_Double = 320000; // Fallback
+                    double.TryParse(inputBitRate, out aBitRate_Double);
+
+                    double aBitRateVBR = 0;
 
                     // If inputBitRate is from Auto Quality FFprobe Parse, divide by 1000 to get smaller value
                     // e.g. (320000 to 320)
                     // If inputBirate is from Custom Quality User Input value, leave the same
                     if (quality_SelectedItem == "Auto")
                     {
-                        aBitRateVBR = aBitRateVBR / 1000;
+                        //aBitRateVBR = aBitRateVBR / 1000;
+                        aBitRate_Double = aBitRate_Double / 1000;
                     }
 
                     switch (codec_SelectedItem)
@@ -681,7 +694,7 @@ namespace Axiom
 
                             aBitRateVBR = Math.Round(
                                                 MainWindow.NormalizeValue(
-                                                                aBitRateVBR, // input
+                                                                aBitRate_Double, // input
                                                                 inputMin,    // input min
                                                                 inputMax,    // input max
                                                                 normMin,     // normalize min
@@ -698,7 +711,7 @@ namespace Axiom
                         // -------------------------
                         case "Opus":
                             // Above 510k set to 256k
-                            if (aBitRateVBR > 510)
+                            if (aBitRate_Double > 510)
                             {
                                 aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                             }
@@ -714,14 +727,14 @@ namespace Axiom
                         case "AAC":
                             // Range 
                             // Above 320k 
-                            if (aBitRateVBR > 400)
+                            if (aBitRate_Double > 400)
                             {
                                 aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                             }
                             else
                             {
                                 // VBR User entered value algorithm (0.1 low / 2 high)
-                                aBitRateVBR = Math.Min(2, Math.Max(aBitRateVBR * 0.00625, 0.1));
+                                aBitRateVBR = Math.Min(2, Math.Max(aBitRate_Double * 0.00625, 0.1));
                             }
                             break;
 
@@ -730,14 +743,14 @@ namespace Axiom
                         // -------------------------
                         case "MP2":
                             // Above 384k set to V0
-                            if (aBitRateVBR > 384)
+                            if (aBitRate_Double > 384)
                             {
                                 aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                             }
                             else
                             {
                                 // VBR User entered value algorithm (10 low / 0 high)
-                                aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
+                                aBitRateVBR = (((aBitRate_Double * (-0.01)) / 2.60) + 1) * 10;
                             }
                             break;
 
@@ -746,14 +759,14 @@ namespace Axiom
                         // -------------------------
                         case "LAME":
                             // Above 320k set to V0
-                            if (aBitRateVBR > 320)
+                            if (aBitRate_Double > 320)
                             {
                                 aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                             }
                             else
                             {
                                 // VBR User entered value algorithm (10 low / 0 high)
-                                aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
+                                aBitRateVBR = (((aBitRate_Double * (-0.01)) / 2.60) + 1) * 10;
                             }
                             break;
                     }
@@ -763,6 +776,10 @@ namespace Axiom
                     // -------------------------
                     aBitRate = Convert.ToString(aBitRateVBR);
 
+                    // -------------------------
+                    // Limit to 5 Decimal Places
+                    // -------------------------
+                    aBitRate = string.Format("{0:0.#####}", Convert.ToDouble(aBitRate));
                 }
 
                 //MessageBox.Show(aBitRate); //debug
@@ -822,7 +839,7 @@ namespace Axiom
             /// Sample Rate
             /// <summary>
             public static String SampleRate(string codec_SelectedItem,
-                                            List<AudioViewModel.AudioSampleRate> sampleRate_Items,
+                                            List<ViewModel.Audio.AudioSampleRate> sampleRate_Items,
                                             string sampleRate_SelectedItem
                                             )
             {
@@ -860,7 +877,7 @@ namespace Axiom
             /// Bit Depth
             /// <summary>
             public static String BitDepth(string codec_SelectedItem,
-                                          List<AudioViewModel.AudioBitDepth> bitDepth_Items,
+                                          List<ViewModel.Audio.AudioBitDepth> bitDepth_Items,
                                           string bitDepth_SelectedItem
                                          )
             {
@@ -1052,15 +1069,15 @@ namespace Axiom
                             case "LAME":
                                 return "& (IF %A gtr 320000 (SET aBitRate=320000) ELSE (echo BitRate within LAME Limit of 320k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
-                                //// FLAC
-                                // Do not use, empty is FFmpeg default
-                                //case "FLAC":
-                                //    return "& (IF %A gtr 1411000 (SET aBitRate=1411000) ELSE (echo BitRate within LAME Limit of 1411k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+                            //// FLAC
+                            // Do not use, empty is FFmpeg default
+                            //case "FLAC":
+                            //    return "& (IF %A gtr 1411000 (SET aBitRate=1411000) ELSE (echo BitRate within LAME Limit of 1411k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
-                                //// PCM
-                                // Do not use, empty is FFmpeg default
-                                //case "PCM":
-                                //    return "& (IF %A gtr 1536000 (SET aBitRate=1536000) ELSE (echo BitRate within LAME Limit of 1536k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+                            //// PCM
+                            // Do not use, empty is FFmpeg default
+                            //case "PCM":
+                            //    return "& (IF %A gtr 1536000 (SET aBitRate=1536000) ELSE (echo BitRate within LAME Limit of 1536k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
                         }
                     }
@@ -1099,7 +1116,7 @@ namespace Axiom
                         List<string> BatchAudioAutoList = new List<string>()
                         {
                             // audio
-                            "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitRate=%A)",
+                            "& for /F \"delims=\" %A in ('@" + Analyze.FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + Analyze.FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitRate=%A)",
 
                             // set %A to %aBitRate%
                             "\r\n\r\n" + "& for /F %A in ('echo %aBitRate%') do (echo)",

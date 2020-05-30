@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Windows;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 

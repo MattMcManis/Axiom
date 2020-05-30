@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -67,48 +68,48 @@ namespace Axiom
             // -------------------------
             // Text Theme SelectiveColorPreview
             // -------------------------
-            //Configure.LoadTheme(mainwindow);
+            //Controls.Configure.LoadTheme(mainwindow);
 
             // -------------------------
             // Debug Text Theme SelectiveColorPreview
             // -------------------------
-            if (Configure.theme == "Axiom")
+            if (Controls.Configure.theme == "Axiom")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
                 DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             }
-            else if (Configure.theme == "FFmpeg")
+            else if (Controls.Configure.theme == "FFmpeg")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#878787"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c"));
                 DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             }
-            else if (Configure.theme == "Cyberpunk")
+            else if (Controls.Configure.theme == "Cyberpunk")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9a989c"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2"));
                 DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             }
-            else if (Configure.theme == "Onyx")
+            else if (Controls.Configure.theme == "Onyx")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#EEEEEE"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999"));
                 DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             }
-            else if (Configure.theme == "Circuit")
+            else if (Controls.Configure.theme == "Circuit")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
                 DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             }
-            else if (Configure.theme == "Prelude")
+            else if (Controls.Configure.theme == "Prelude")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
                 DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             }
-            else if (Configure.theme == "System")
+            else if (Controls.Configure.theme == "System")
             {
                 DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
                 DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
@@ -121,7 +122,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Controls.Configure.theme) { Foreground = Log.ConsoleDefault });
 
         }
 
@@ -227,7 +228,7 @@ namespace Axiom
 
             try
             {
-                Video.Encoding.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
+                Generate.Video.Encoding.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
                                              VM.VideoView.Video_Codec_SelectedItem,
                                              VM.VideoView.Video_HWAccel_Decode_SelectedItem
                                              );
@@ -248,15 +249,15 @@ namespace Axiom
 
             try
             {
-                Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                               VM.SubtitleView.Subtitle_Stream_SelectedItem
-                                               );
+                Generate.Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                   VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                                   );
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Encoding.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
+                Generate.Video.Encoding.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
                                                   VM.VideoView.Video_Codec_SelectedItem,
                                                   VM.VideoView.Video_HWAccel_Transcode_SelectedItem
                                                   );
@@ -265,7 +266,7 @@ namespace Axiom
 
             try
             {
-                Format.CutStart(VM.MainView.Input_Text,
+                Generate.Format.CutStart(VM.MainView.Input_Text,
                                     VM.MainView.Batch_IsChecked,
                                     VM.FormatView.Format_Cut_SelectedItem,
                                     VM.FormatView.Format_CutStart_Hours_Text,
@@ -279,7 +280,7 @@ namespace Axiom
 
             try
             {
-                Format.CutEnd(VM.MainView.Input_Text,
+                Generate.Format.CutEnd(VM.MainView.Input_Text,
                                   VM.MainView.Batch_IsChecked,
                                   VM.FormatView.Format_MediaType_SelectedItem,
                                   VM.FormatView.Format_Cut_SelectedItem,
@@ -294,7 +295,7 @@ namespace Axiom
 
             try
             {
-                Video.Codec.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
+                Generate.Video.Codec.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
                                          VM.VideoView.Video_Codec_SelectedItem,
                                          VM.VideoView.Video_Codec
                                          );
@@ -303,7 +304,7 @@ namespace Axiom
 
             try
             {
-                VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                Generate.Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
                                                  VM.VideoView.Video_Codec_SelectedItem,
                                                  VM.FormatView.Format_MediaType_SelectedItem
                                                  );
@@ -312,7 +313,7 @@ namespace Axiom
 
             try
             {
-                Video.Encoding.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
+                Generate.Video.Encoding.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
                                                VM.VideoView.Video_EncodeSpeed_SelectedItem,
                                                VM.VideoView.Video_Codec_SelectedItem,
                                                VM.VideoView.Video_Pass_SelectedItem
@@ -322,7 +323,7 @@ namespace Axiom
 
             try
             {
-                Video.Quality.VideoQuality(VM.MainView.Batch_IsChecked,
+                Generate.Video.Quality.VideoQuality(VM.MainView.Batch_IsChecked,
                                            VM.VideoView.Video_VBR_IsChecked,
                                            VM.FormatView.Format_Container_SelectedItem,
                                            VM.FormatView.Format_MediaType_SelectedItem,
@@ -342,7 +343,7 @@ namespace Axiom
 
             try
             {
-                Video.Quality.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
+                Generate.Video.Quality.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
                                      VM.VideoView.Video_PixelFormat_SelectedItem
                                      );
             }
@@ -350,60 +351,60 @@ namespace Axiom
 
             try
             {
-                Video.Color.Color_Primaries(VM.VideoView.Video_Color_Primaries_SelectedItem);
+                Generate.Video.Color.Color_Primaries(VM.VideoView.Video_Color_Primaries_SelectedItem);
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Color.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem);
+                Generate.Video.Color.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem);
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Color.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem);
+                Generate.Video.Color.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem);
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Color.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem);
+                Generate.Video.Color.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem);
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
-                                  VM.VideoView.Video_FPS_SelectedItem,
-                                  VM.VideoView.Video_FPS_Text
-                                  );
+                Generate.Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
+                                          VM.VideoView.Video_FPS_SelectedItem,
+                                          VM.VideoView.Video_FPS_Text
+                                          );
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                VideoFilters.VideoFilter();
+                Filters.Video.VideoFilter();
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Size.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem);
+                Generate.Video.Size.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem);
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
-                                     VM.VideoView.Video_Codec_SelectedItem
-                                     );
+                Generate.Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                                             VM.VideoView.Video_Codec_SelectedItem
+                                             );
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Video.Quality.Optimize(VM.VideoView.Video_Codec_SelectedItem,
+                Generate.Video.Quality.Optimize(VM.VideoView.Video_Codec_SelectedItem,
                                        VM.VideoView.Video_Optimize_Items,
                                        VM.VideoView.Video_Optimize_SelectedItem,
                                        VM.VideoView.Video_Video_Optimize_Tune_SelectedItem,
@@ -415,13 +416,13 @@ namespace Axiom
 
             try
             {
-                Streams.VideoStreamMaps();
+                Generate.Streams.VideoStreamMaps();
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                Generate.Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                VM.SubtitleView.Subtitle_Codec
                                                );
             }
@@ -429,13 +430,13 @@ namespace Axiom
 
             try
             {
-                Streams.SubtitleMaps();
+                Generate.Streams.SubtitleMaps();
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
+                Generate.Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
                                        VM.AudioView.Audio_Codec
                                        );
             }
@@ -443,7 +444,7 @@ namespace Axiom
 
             try
             {
-                Audio.Quality.AudioQuality(VM.MainView.Input_Text,
+                Generate.Audio.Quality.AudioQuality(VM.MainView.Input_Text,
                                            VM.MainView.Batch_IsChecked,
                                            VM.FormatView.Format_MediaType_SelectedItem,
                                            VM.AudioView.Audio_Stream_SelectedItem,
@@ -458,7 +459,7 @@ namespace Axiom
 
             try
             {
-                Audio.Quality.CompressionLevel(VM.AudioView.Audio_Codec_SelectedItem,
+                Generate.Audio.Quality.CompressionLevel(VM.AudioView.Audio_Codec_SelectedItem,
                                                VM.AudioView.Audio_CompressionLevel_SelectedItem
                                                );
             }
@@ -466,7 +467,7 @@ namespace Axiom
 
             try
             {
-                Audio.Quality.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
+                Generate.Audio.Quality.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
                                          VM.AudioView.Audio_SampleRate_Items,
                                          VM.AudioView.Audio_SampleRate_SelectedItem
                                          );
@@ -475,7 +476,7 @@ namespace Axiom
 
             try
             {
-                Audio.Quality.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
+                Generate.Audio.Quality.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
                                        VM.AudioView.Audio_BitDepth_Items,
                                        VM.AudioView.Audio_BitDepth_SelectedItem
                                        );
@@ -484,7 +485,7 @@ namespace Axiom
 
             try
             {
-                Audio.Channels.Channel(VM.AudioView.Audio_Codec_SelectedItem,
+                Generate.Audio.Channels.Channel(VM.AudioView.Audio_Codec_SelectedItem,
                                        VM.AudioView.Audio_Channel_SelectedItem
                                        );
             }
@@ -492,25 +493,25 @@ namespace Axiom
 
             try
             {
-                AudioFilters.AudioFilter();
+                Filters.Audio.AudioFilter();
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Streams.AudioStreamMaps();
+                Generate.Streams.AudioStreamMaps();
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Streams.FormatMaps();
+                Generate.Streams.FormatMaps();
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
             try
             {
-                Format.ForceFormat(VM.FormatView.Format_Container_SelectedItem);
+                Generate.Format.ForceFormat(VM.FormatView.Format_Container_SelectedItem);
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
@@ -745,11 +746,11 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("threads ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.threads) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Controls.Configure.threads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("maxthreads ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.maxthreads) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Controls.Configure.maxthreads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("appDir ")) { Foreground = Variable });
@@ -765,15 +766,15 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("theme ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Controls.Configure.theme) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpeg ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFmpeg.ffmpeg) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.FFmpeg.ffmpeg) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffprobe ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.ffprobe) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.ffprobe) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegPath ")) { Foreground = Variable });
@@ -861,15 +862,15 @@ namespace Axiom
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("batchFFprobeAuto ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.batchFFprobeAuto) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.batchFFprobeAuto) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("batchVideoAuto ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.batchVideoAuto) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.batchVideoAuto) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("batchAudioAuto ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Quality.batchAudioAuto) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Quality.batchAudioAuto) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -881,118 +882,118 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("hwAccelDecode ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Encoding.hwAccelDecode) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Encoding.hwAccelDecode) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("hwAccelTranscode ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Encoding.hwAccelTranscode) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Encoding.hwAccelTranscode) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vEncodeSpeed ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Encoding.vEncodeSpeed) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Encoding.vEncodeSpeed) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Codec.vCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Codec.vCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vQuality ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vQuality) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vQuality) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vLossless ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vLossless) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vLossless) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("vBitMode ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Video.vBitMode) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Run(Generate.Video.vBitMode) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vBitRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vBitRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vMaxRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vMaxRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vMaxRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vBufSize ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vBufSize) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vBufSize) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vOptions ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vOptions) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vOptions) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("crf ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.vCRF) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.vCRF) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("x265params ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Video.x265params) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Run(Generate.Video.x265params) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vParams ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(VideoParams.vParams) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Params.vParams) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("fps ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.fps) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Video.fps) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("image ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.image) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Video.image) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vEncodeSpeed ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Encoding.vEncodeSpeed) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Encoding.vEncodeSpeed) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("passUserSelected ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(VideoControls.passUserSelected.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Controls.Video.Controls.passUserSelected.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("pass1 ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.pass1) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.pass1) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("pass2 ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.pass2) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.pass2) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("v2passArgs ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.v2PassArgs) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.v2PassArgs) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optTune ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.optTune) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.optTune) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optProfile ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.optProfile) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.optProfile) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optLevel ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.optLevel) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.optLevel) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optimize ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Quality.optimize) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Quality.optimize) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
 
             debugParagraph.Inlines.Add(new Bold(new Run("width ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Size.width) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Size.width) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("height ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Size.height) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Size.height) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropWidth ")) { Foreground = Variable });
@@ -1016,17 +1017,17 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vAspectRatio ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Size.vAspectRatio) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Video.Size.vAspectRatio) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("geq ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(VideoFilters.geq) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Filters.Video.geq) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vFilter ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(VideoFilters.vFilter) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Filters.Video.vFilter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -1038,49 +1039,49 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Codec.aCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Codec.aCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aQuality ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Quality.aQuality) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Quality.aQuality) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aBitMode ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Quality.aBitMode) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Quality.aBitMode) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aBitRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Quality.aBitRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Quality.aBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aChannel ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Channels.aChannel) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Channels.aChannel) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aSamplerate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Quality.aSamplerate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Quality.aSamplerate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aBitDepth ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.Quality.aBitDepth) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Audio.Quality.aBitDepth) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("volume ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(AudioFilters.aVolume) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Filters.Audio.aVolume) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aHardLimiter ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(AudioFilters.aHardLimiter) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Filters.Audio.aHardLimiter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aFilter ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(AudioFilters.aFilter) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Filters.Audio.aFilter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("aBitRateLimiter ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Audio.aBitRateLimiter) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Run(Generate.Audio.aBitRateLimiter) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -1092,27 +1093,27 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vMap ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Streams.vMap) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Streams.vMap) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aMap ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Streams.aMap) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Streams.aMap) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cMap ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Streams.cMap) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Streams.cMap) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("sMap ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Streams.sMap) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Streams.sMap) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("mMap ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Streams.mMap) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Streams.mMap) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("map ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Streams.map) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Run(Generate.Streams.map) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -1124,15 +1125,15 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("trimStart ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Format.trimStart) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Format.trimStart) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("trimEnd ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Format.trimEnd) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.Format.trimEnd) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("trim ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Format.trim) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Run(Generate.Format.trim) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -1144,80 +1145,80 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsProperties ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsProperties) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsProperties) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsVideoCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsVideoCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsVideoCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsAudioCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsAudioCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsAudioCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsVideoBitRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsVideoBitRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsVideoBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsAudioBitRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsAudioBitRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsAudioBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsSize ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsSize) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsSize) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsDuration ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsDuration) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsDuration) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsFrameRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsFrameRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.argsFrameRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputFileProperties ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputFileProperties) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputVideoCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputVideoCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputVideoCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputVideoBitRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputVideoBitRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputVideoBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputAudioCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputAudioCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputAudioCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputAudioBitRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputAudioBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputSize ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputSize) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputSize) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputDuration ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputDuration) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputDuration) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputFrameRate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputFrameRate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputFrameRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vEntryType ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.vEntryType) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.vEntryType) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aEntryType ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.aEntryType) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Analyze.FFprobe.aEntryType) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -1233,7 +1234,7 @@ namespace Axiom
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegArgs ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Generate.FFmpeg.ffmpegArgs) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //////////////////////////////////////////////////

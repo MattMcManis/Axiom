@@ -24,90 +24,97 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel;
 
-namespace Axiom
+namespace Controls
 {
-    public class Burn
+    namespace Subtitles
     {
-        // ---------------------------------------------------------------------------
-        // Codec
-        // ---------------------------------------------------------------------------
-        public static void Codec_Set()
+        namespace Codec
         {
-            VM.SubtitleView.Subtitle_Codec = string.Empty;
+            public class Burn
+            {
+                // ---------------------------------------------------------------------------
+                // Codec
+                // ---------------------------------------------------------------------------
+                public static void Codec_Set()
+                {
+                    VM.SubtitleView.Subtitle_Codec = string.Empty;
+                }
+
+                // -------------------------
+                // Stream
+                // -------------------------
+                public static List<string> stream = new List<string>()
+                {
+                    "none",
+                    "external"
+                };
+
+
+
+                // ---------------------------------------------------------------------------
+                // Controls Behavior
+                // ---------------------------------------------------------------------------
+
+                // -------------------------
+                // Items Source
+                // -------------------------
+                public static void Controls_ItemsSource()
+                {
+                    VM.SubtitleView.Subtitle_Stream_Items = stream;
+                }
+
+                // -------------------------
+                // Selected Items
+                // -------------------------
+                public static void Controls_Selected()
+                {
+                    // Stream
+                    VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
+                }
+
+                // -------------------------
+                // Checked
+                // -------------------------
+                public static void Controls_Checked()
+                {
+                    // None
+                }
+
+                // -------------------------
+                // Unchecked
+                // -------------------------
+                public static void Controls_Unhecked()
+                {
+                    // None
+                }
+
+                // -------------------------
+                // Enabled
+                // -------------------------
+                public static void Controls_Enable()
+                {
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+
+                    // Subtitle Stream
+                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+
+                    // Subtitle List View
+                    // Controlled in cboSubtitle_Stream_SelectionChanged
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                public static void Controls_Disable()
+                {
+                    // None
+                }
+
+
+            }
         }
-
-        // -------------------------
-        // Stream
-        // -------------------------
-        public static List<string> stream = new List<string>()
-        {
-            "none",
-            "external"
-        };
-
-
-
-        // ---------------------------------------------------------------------------
-        // Controls Behavior
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
-        // Items Source
-        // -------------------------
-        public static void Controls_ItemsSource()
-        {
-            VM.SubtitleView.Subtitle_Stream_Items = stream;
-        }
-
-        // -------------------------
-        // Selected Items
-        // -------------------------
-        public static void Controls_Selected()
-        {
-            // Stream
-            VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
-        }
-
-        // -------------------------
-        // Checked
-        // -------------------------
-        public static void Controls_Checked()
-        {
-            // None
-        }
-
-        // -------------------------
-        // Unchecked
-        // -------------------------
-        public static void Controls_Unhecked()
-        {
-            // None
-        }
-
-        // -------------------------
-        // Enabled
-        // -------------------------
-        public static void Controls_Enable()
-        {
-            // Subtitle Codec
-            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
-
-            // Subtitle Stream
-            VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-
-            // Subtitle List View
-            // Controlled in cboSubtitle_Stream_SelectionChanged
-        }
-
-        // -------------------------
-        // Disabled
-        // -------------------------
-        public static void Controls_Disable()
-        {
-            // None
-        }
-
-
     }
 }

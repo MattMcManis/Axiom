@@ -38,14 +38,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
-    public partial class Video
+    namespace Video
     {
         public class Color
         {

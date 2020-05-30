@@ -27,7 +27,7 @@ using System.Linq;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
     public class Subtitle
     {

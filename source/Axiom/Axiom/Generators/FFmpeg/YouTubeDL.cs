@@ -32,8 +32,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
     public partial class FFmpeg
     {
@@ -54,9 +60,6 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
-                    //Log.logParagraph.Inlines.Add(new LineBreak());
-                    //Log.logParagraph.Inlines.Add(new LineBreak());
-                    //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Convert...")) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
                 };
@@ -156,9 +159,9 @@ namespace Axiom
                         youtubedlArgs = new List<string>()
                         {
                             // Get Title
-                            "$name =" + " & " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"",
+                            "$name =" + " & " + youtubedl_formatted + " " + "--get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(VM.MainView.Input_Text) + "\"" + ";",
 
-                            "\r\n\r\n" + ";",
+                            //"\r\n\r\n" ,
 
                             // Download Video
                             "\r\n\r\n" + "& " + youtubedl_formatted,
@@ -190,26 +193,10 @@ namespace Axiom
 
                 // FFmpeg Args
                 //
-                //List<string> ffmpegArgsList = new List<string>();
                 List<string> ffmpegArgsList = new List<string>()
                 {
-                    //"\r\n\r\n" + "&&",
                     "\r\n\r\n" +
-                    FFmpeg.Shell_LogicalOperator_And(), //+
-                    //"\r\n\r\n",
-
-                    //"\r\n\r\n" +
-                    //ProcessPriority() +
-                    ////FFmpeg.PowerShell_CallOperator_FFmpeg() +
-                    //MainWindow.FFmpegPath() +
-                    //ProcessPriority_PowerShell_Flags(),
-
-                    //"\r\n\r\n" +
-                    //ProcessPriority_PowerShell_Arguments_Start(),
-
-                    //"\r\n\r\n" +
-                    //OutputOverwrite()
-                    ////"-y",
+                    FFmpeg.Shell_LogicalOperator_And(),
                 };
 
                 // Add Arguments to ffmpegArgsList

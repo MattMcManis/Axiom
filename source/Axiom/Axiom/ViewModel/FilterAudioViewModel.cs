@@ -26,9 +26,9 @@ using System.ComponentModel;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class FilterAudioViewModel : INotifyPropertyChanged
+    public class FilterAudio : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -48,7 +48,7 @@ namespace Axiom
         /// <summary>
         /// Filter View Model
         /// </summary>
-        public FilterAudioViewModel()
+        public FilterAudio()
         {
             LoadControlsDefaults();
         }

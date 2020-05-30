@@ -24,334 +24,341 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel;
 
-namespace Axiom
+namespace Controls
 {
-    public class WebP
+    namespace Image
     {
-        // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
-        // Codec
-        // -------------------------
-        public static List<VideoViewModel.VideoCodec> codec = new List<VideoViewModel.VideoCodec>()
+        namespace Codec
         {
-             new VideoViewModel.VideoCodec()
-             {
-                 Codec = "libwebp",
-                 Parameters = ""
-             }
-        };
-
-        public static void Codec_Set()
-        {
-            // Combine Codec + Parameters
-            List<string> codec = new List<string>()
+            public class WebP
             {
-                "-c:v",
-                WebP.codec.FirstOrDefault()?.Codec,
-                WebP.codec.FirstOrDefault()?.Parameters
-            };
+                // ---------------------------------------------------------------------------
+                // Arguments
+                // ---------------------------------------------------------------------------
 
-            VM.VideoView.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
-        }
-
-
-
-        // ---------------------------------------------------------------------------
-        // Items Source
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
-        // Encode Speed
-        // -------------------------
-        public static List<VideoViewModel.VideoEncodeSpeed> encodeSpeed = new List<VideoViewModel.VideoEncodeSpeed>()
-        {
-             new VideoViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
-        };
-
-        // -------------------------
-        // Pixel Format
-        // -------------------------
-        public static List<string> pixelFormat = new List<string>()
-        {
-            "auto",
-            "bgra",
-            "yuv420p",
-            "yuva420p"
-        };
-
-        // -------------------------
-        // Quality
-        // -------------------------
-        public static List<VideoViewModel.VideoQuality> quality = new List<VideoViewModel.VideoQuality>()
-        {
-             new VideoViewModel.VideoQuality() { Name = "Auto",     CRF = "", CBR_BitMode = "-q:v", CBR = "85",  VBR_BitMode = "-q:v", VBR = "85",  MinRate = "", MaxRate = "", BufSize ="", NA = "85" },
-             new VideoViewModel.VideoQuality() { Name = "Lossless", CRF = "", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "",     VBR = "",    MinRate = "", MaxRate = "", BufSize ="", Lossless = "-lossless 1" },
-             new VideoViewModel.VideoQuality() { Name = "Ultra",    CRF = "", CBR_BitMode = "-q:v", CBR = "100", VBR_BitMode = "-q:v", VBR = "100", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoViewModel.VideoQuality() { Name = "High",     CRF = "", CBR_BitMode = "-q:v", CBR = "85",  VBR_BitMode = "-q:v", VBR = "85",  MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoViewModel.VideoQuality() { Name = "Medium",   CRF = "", CBR_BitMode = "-q:v", CBR = "60",  VBR_BitMode = "-q:v", VBR = "60",  MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoViewModel.VideoQuality() { Name = "Low",      CRF = "", CBR_BitMode = "-q:v", CBR = "45",  VBR_BitMode = "-q:v", VBR = "45",  MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoViewModel.VideoQuality() { Name = "Sub",      CRF = "", CBR_BitMode = "-q:v", CBR = "25",  VBR_BitMode = "-q:v", VBR = "25",  MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoViewModel.VideoQuality() { Name = "Custom",   CRF = "", CBR_BitMode = "-q:v", CBR = "",    VBR_BitMode = "-q:v", VBR = "",    MinRate = "", MaxRate = "", BufSize ="" }
-        };
-
-        // -------------------------
-        // Pass
-        // -------------------------
-        public static void EncodingPass()
-        {
-            // -------------------------
-            // Quality
-            // -------------------------
-            // Auto
-            if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Codec
+                // -------------------------
+                public static List<ViewModel.Video.VideoCodec> codec = new List<ViewModel.Video.VideoCodec>()
                 {
-                    "1 Pass"
+                     new ViewModel.Video.VideoCodec()
+                     {
+                         Codec = "libwebp",
+                         Parameters = ""
+                     }
                 };
 
-                VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VideoControls.passUserSelected = false;
-
-                VM.VideoView.Video_CRF_IsEnabled = false;
-            }
-            // Lossless
-            else if (VM.VideoView.Video_Quality_SelectedItem == "Lossless")
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                public static void Codec_Set()
                 {
-                    "1 Pass"
+                    // Combine Codec + Parameters
+                    List<string> codec = new List<string>()
+                    {
+                        "-c:v",
+                        WebP.codec.FirstOrDefault()?.Codec,
+                        WebP.codec.FirstOrDefault()?.Parameters
+                    };
+
+                    VM.VideoView.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+                }
+
+
+
+                // ---------------------------------------------------------------------------
+                // Items Source
+                // ---------------------------------------------------------------------------
+
+                // -------------------------
+                // Encode Speed
+                // -------------------------
+                public static List<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.Video.VideoEncodeSpeed>()
+                {
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "none", Command = ""},
                 };
 
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VM.VideoView.Video_CRF_IsEnabled = false;
-            }
-            // Custom
-            else if (VM.VideoView.Video_Quality_SelectedItem == "Custom")
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Pixel Format
+                // -------------------------
+                public static List<string> pixelFormat = new List<string>()
                 {
-                    "1 Pass"
+                    "auto",
+                    "bgra",
+                    "yuv420p",
+                    "yuva420p"
                 };
 
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VM.VideoView.Video_CRF_IsEnabled = true;
-            }
-            // None
-            else if (VM.VideoView.Video_Quality_SelectedItem == "None")
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Quality
+                // -------------------------
+                public static List<ViewModel.Video.VideoQuality> quality = new List<ViewModel.Video.VideoQuality>()
                 {
-                    "auto"
+                     new ViewModel.Video.VideoQuality() { Name = "Auto",     CRF = "", CBR_BitMode = "-q:v", CBR = "85",  VBR_BitMode = "-q:v", VBR = "85",  MinRate = "", MaxRate = "", BufSize ="", NA = "85" },
+                     new ViewModel.Video.VideoQuality() { Name = "Lossless", CRF = "", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "",     VBR = "",    MinRate = "", MaxRate = "", BufSize ="", Lossless = "-lossless 1" },
+                     new ViewModel.Video.VideoQuality() { Name = "Ultra",    CRF = "", CBR_BitMode = "-q:v", CBR = "100", VBR_BitMode = "-q:v", VBR = "100", MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "High",     CRF = "", CBR_BitMode = "-q:v", CBR = "85",  VBR_BitMode = "-q:v", VBR = "85",  MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Medium",   CRF = "", CBR_BitMode = "-q:v", CBR = "60",  VBR_BitMode = "-q:v", VBR = "60",  MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Low",      CRF = "", CBR_BitMode = "-q:v", CBR = "45",  VBR_BitMode = "-q:v", VBR = "45",  MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Sub",      CRF = "", CBR_BitMode = "-q:v", CBR = "25",  VBR_BitMode = "-q:v", VBR = "25",  MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Custom",   CRF = "", CBR_BitMode = "-q:v", CBR = "",    VBR_BitMode = "-q:v", VBR = "",    MinRate = "", MaxRate = "", BufSize ="" }
                 };
 
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VM.VideoView.Video_CRF_IsEnabled = false;
-            }
-            // Presets: Ultra, High, Medium, Low, Sub
-            else
-            {
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Pass
+                // -------------------------
+                public static void EncodingPass()
                 {
-                    "1 Pass"
+                    // -------------------------
+                    // Quality
+                    // -------------------------
+                    // Auto
+                    if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
+                    {
+                        VM.VideoView.Video_Pass_Items = new List<string>()
+                        {
+                            "1 Pass"
+                        };
+
+                        VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
+                        VM.VideoView.Video_Pass_IsEnabled = false;
+                        Video.Controls.passUserSelected = false;
+
+                        VM.VideoView.Video_CRF_IsEnabled = false;
+                    }
+                    // Lossless
+                    else if (VM.VideoView.Video_Quality_SelectedItem == "Lossless")
+                    {
+                        VM.VideoView.Video_Pass_Items = new List<string>()
+                        {
+                            "1 Pass"
+                        };
+
+                        VM.VideoView.Video_Pass_IsEnabled = false;
+                        VM.VideoView.Video_CRF_IsEnabled = false;
+                    }
+                    // Custom
+                    else if (VM.VideoView.Video_Quality_SelectedItem == "Custom")
+                    {
+                        VM.VideoView.Video_Pass_Items = new List<string>()
+                        {
+                            "1 Pass"
+                        };
+
+                        VM.VideoView.Video_Pass_IsEnabled = false;
+                        VM.VideoView.Video_CRF_IsEnabled = true;
+                    }
+                    // None
+                    else if (VM.VideoView.Video_Quality_SelectedItem == "None")
+                    {
+                        VM.VideoView.Video_Pass_Items = new List<string>()
+                        {
+                            "auto"
+                        };
+
+                        VM.VideoView.Video_Pass_IsEnabled = false;
+                        VM.VideoView.Video_CRF_IsEnabled = false;
+                    }
+                    // Presets: Ultra, High, Medium, Low, Sub
+                    else
+                    {
+                        VM.VideoView.Video_Pass_Items = new List<string>()
+                        {
+                            "1 Pass"
+                        };
+
+                        VM.VideoView.Video_Pass_IsEnabled = false;
+                        VM.VideoView.Video_CRF_IsEnabled = false;
+
+                        // Default to 1 Pass
+                        if (Video.Controls.passUserSelected == false)
+                        {
+                            VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
+                            Video.Controls.passUserSelected = true;
+                        }
+                    }
+
+                    // Clear TextBoxes
+                    if (VM.VideoView.Video_Quality_SelectedItem == "Auto" ||
+                        VM.VideoView.Video_Quality_SelectedItem == "Lossless" ||
+                        VM.VideoView.Video_Quality_SelectedItem == "Custom" ||
+                        VM.VideoView.Video_Quality_SelectedItem == "None"
+                        )
+                    {
+                        VM.VideoView.Video_CRF_Text = string.Empty;
+                        VM.VideoView.Video_BitRate_Text = string.Empty;
+                        VM.VideoView.Video_MinRate_Text = string.Empty;
+                        VM.VideoView.Video_MaxRate_Text = string.Empty;
+                        VM.VideoView.Video_BufSize_Text = string.Empty;
+                    }
+
+                }
+
+                // -------------------------
+                // Optimize
+                // -------------------------
+                public static List<ViewModel.Video.VideoOptimize> optimize = new List<ViewModel.Video.VideoOptimize>()
+                {
+                    new ViewModel.Video.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" },
                 };
 
-                VM.VideoView.Video_Pass_IsEnabled = false;
-                VM.VideoView.Video_CRF_IsEnabled = false;
-
-                // Default to 1 Pass
-                if (VideoControls.passUserSelected == false)
+                // -------------------------
+                // Tune
+                // -------------------------
+                public static List<string> tune = new List<string>()
                 {
-                    VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
-                    VideoControls.passUserSelected = true;
+                    "none"
+                };
+
+                // -------------------------
+                // Profile
+                // -------------------------
+                public static List<string> profile = new List<string>()
+                {
+                    "none"
+                };
+
+                // -------------------------
+                // Level
+                // -------------------------
+                public static List<string> level = new List<string>()
+                {
+                    "none"
+                };
+
+
+
+                // ---------------------------------------------------------------------------
+                // Controls Behavior
+                // ---------------------------------------------------------------------------
+
+                // -------------------------
+                // Items Source
+                // -------------------------
+                public static void Controls_ItemsSource()
+                {
+                    // Encode Speed
+                    VM.VideoView.Video_EncodeSpeed_Items = encodeSpeed;
+
+                    // Pixel Format
+                    VM.VideoView.Video_PixelFormat_Items = pixelFormat;
+
+                    // Pass
+                    //VM.VideoView.Video_Pass_Items = pass;
+                    EncodingPass();
+
+                    // Video Quality
+                    VM.VideoView.Video_Quality_Items = quality;
+
+                    // Optimize
+                    VM.VideoView.Video_Optimize_Items = optimize;
+                    // Tune
+                    VM.VideoView.Video_Optimize_Tune_Items = tune;
+                    // Profile
+                    VM.VideoView.Video_Optimize_Profile_Items = profile;
+                    // Level
+                    VM.VideoView.Video_Optimize_Level_Items = level;
+                }
+
+                // -------------------------
+                // Selected Items
+                // -------------------------
+                public static void Controls_Selected()
+                {
+                    // Pixel Format
+                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuva420p";
+
+                    // Framerate
+                    VM.VideoView.Video_FPS_SelectedItem = "auto";
+
+                    // Channel
+                    VM.AudioView.Audio_Channel_SelectedItem = "none";
+                }
+
+
+                // -------------------------
+                // Expanded
+                // -------------------------
+                public static void Controls_Expanded()
+                {
+                    // None
+                }
+
+                // -------------------------
+                // Collapsed
+                // -------------------------
+                public static void Controls_Collapsed()
+                {
+                    VM.VideoView.Video_Optimize_IsExpanded = false;
+                }
+
+
+                // -------------------------
+                // Checked
+                // -------------------------
+                public static void Controls_Checked()
+                {
+                    // BitRate Mode
+                    VM.VideoView.Video_VBR_IsChecked = true;
+                }
+
+                // -------------------------
+                // Unchecked
+                // -------------------------
+                public static void Controls_Unhecked()
+                {
+                    // None
+                }
+
+
+                // -------------------------
+                // Enabled
+                // -------------------------
+                public static void Controls_Enable()
+                {
+                    // Video Codec
+                    VM.VideoView.Video_Codec_IsEnabled = true;
+
+                    // Video Quality
+                    VM.VideoView.Video_Quality_IsEnabled = true;
+
+                    // Pixel Format
+                    VM.VideoView.Video_PixelFormat_IsEnabled = true;
+
+                    // FPS ComboBox
+                    VM.VideoView.Video_FPS_IsEnabled = true;
+
+                    // Scaling ComboBox
+                    VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+
+                    // Crop
+                    VM.VideoView.Video_Crop_IsEnabled = true;
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+
+                    // Subtitle Stream
+                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+
+
+                    // Filters
+                    Filters.Video.VideoFilters_EnableAll();
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                public static void Controls_Disable()
+                {
+                    // Video Encode Speed
+                    VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
+                    // Video VBR
+                    VM.VideoView.Video_VBR_IsEnabled = false;
+
+                    // Optimize ComboBox
+                    VM.VideoView.Video_Optimize_IsEnabled = false;
                 }
             }
-
-            // Clear TextBoxes
-            if (VM.VideoView.Video_Quality_SelectedItem == "Auto" ||
-                VM.VideoView.Video_Quality_SelectedItem == "Lossless" ||
-                VM.VideoView.Video_Quality_SelectedItem == "Custom" ||
-                VM.VideoView.Video_Quality_SelectedItem == "None"
-                )
-            {
-                VM.VideoView.Video_CRF_Text = string.Empty;
-                VM.VideoView.Video_BitRate_Text = string.Empty;
-                VM.VideoView.Video_MinRate_Text = string.Empty;
-                VM.VideoView.Video_MaxRate_Text = string.Empty;
-                VM.VideoView.Video_BufSize_Text = string.Empty;
-            }
-
-        }
-
-        // -------------------------
-        // Optimize
-        // -------------------------
-        public static List<VideoViewModel.VideoOptimize> optimize = new List<VideoViewModel.VideoOptimize>()
-        {
-            new VideoViewModel.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" },
-        };
-
-        // -------------------------
-        // Tune
-        // -------------------------
-        public static List<string> tune = new List<string>()
-        {
-            "none"
-        };
-
-        // -------------------------
-        // Profile
-        // -------------------------
-        public static List<string> profile = new List<string>()
-        {
-            "none"
-        };
-
-        // -------------------------
-        // Level
-        // -------------------------
-        public static List<string> level = new List<string>()
-        {
-            "none"
-        };
-
-
-
-        // ---------------------------------------------------------------------------
-        // Controls Behavior
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
-        // Items Source
-        // -------------------------
-        public static void Controls_ItemsSource()
-        {
-            // Encode Speed
-            VM.VideoView.Video_EncodeSpeed_Items = encodeSpeed;
-
-            // Pixel Format
-            VM.VideoView.Video_PixelFormat_Items = pixelFormat;
-
-            // Pass
-            //VM.VideoView.Video_Pass_Items = pass;
-            EncodingPass();
-
-            // Video Quality
-            VM.VideoView.Video_Quality_Items = quality;
-
-            // Optimize
-            VM.VideoView.Video_Optimize_Items = optimize;
-            // Tune
-            VM.VideoView.Video_Optimize_Tune_Items = tune;
-            // Profile
-            VM.VideoView.Video_Optimize_Profile_Items = profile;
-            // Level
-            VM.VideoView.Video_Optimize_Level_Items = level;
-        }
-
-        // -------------------------
-        // Selected Items
-        // -------------------------
-        public static void Controls_Selected()
-        {
-            // Pixel Format
-            VM.VideoView.Video_PixelFormat_SelectedItem = "yuva420p";
-
-            // Framerate
-            VM.VideoView.Video_FPS_SelectedItem = "auto";
-
-            // Channel
-            VM.AudioView.Audio_Channel_SelectedItem = "none";
-        }
-
-
-        // -------------------------
-        // Expanded
-        // -------------------------
-        public static void Controls_Expanded()
-        {
-            // None
-        }
-
-        // -------------------------
-        // Collapsed
-        // -------------------------
-        public static void Controls_Collapsed()
-        {
-            VM.VideoView.Video_Optimize_IsExpanded = false;
-        }
-
-
-        // -------------------------
-        // Checked
-        // -------------------------
-        public static void Controls_Checked()
-        {
-            // BitRate Mode
-            VM.VideoView.Video_VBR_IsChecked = true;
-        }
-
-        // -------------------------
-        // Unchecked
-        // -------------------------
-        public static void Controls_Unhecked()
-        {
-            // None
-        }
-
-
-        // -------------------------
-        // Enabled
-        // -------------------------
-        public static void Controls_Enable()
-        {
-            // Video Codec
-            VM.VideoView.Video_Codec_IsEnabled = true;
-
-            // Video Quality
-            VM.VideoView.Video_Quality_IsEnabled = true;
-
-            // Pixel Format
-            VM.VideoView.Video_PixelFormat_IsEnabled = true;
-
-            // FPS ComboBox
-            VM.VideoView.Video_FPS_IsEnabled = true;
-
-            // Scaling ComboBox
-            VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
-
-            // Crop
-            VM.VideoView.Video_Crop_IsEnabled = true;
-
-            // Subtitle Codec
-            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
-
-            // Subtitle Stream
-            VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-
-
-            // Filters
-            VideoFilters.VideoFilters_EnableAll();
-        }
-
-        // -------------------------
-        // Disabled
-        // -------------------------
-        public static void Controls_Disable()
-        {
-            // Video Encode Speed
-            VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
-
-            // Video VBR
-            VM.VideoView.Video_VBR_IsEnabled = false;
-
-            // Optimize ComboBox
-            VM.VideoView.Video_Optimize_IsEnabled = false;
         }
     }
 }

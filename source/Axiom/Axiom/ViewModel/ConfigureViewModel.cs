@@ -23,14 +23,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class ConfigureViewModel : INotifyPropertyChanged
+    public class Configure : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -50,7 +51,7 @@ namespace Axiom
         /// <summary>
         /// Configure View Model
         /// </summary>
-        public ConfigureViewModel()
+        public Configure()
         {
             LoadControlsDefaults();
         }

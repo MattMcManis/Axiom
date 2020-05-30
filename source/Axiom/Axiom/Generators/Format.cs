@@ -36,7 +36,7 @@ using System.Windows.Forms;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
     public class Format
     {
@@ -348,7 +348,7 @@ namespace Axiom
                 // use FramesToDecimal Method (Override Time)
                 else if (!string.IsNullOrWhiteSpace(frameStart_Text))
                 {
-                    trimStart = Video.FramesToDecimal(frameStart_Text);
+                    trimStart = Video.Video.FramesToDecimal(frameStart_Text);
                 }
 
 
@@ -410,7 +410,7 @@ namespace Axiom
                             if (trimEnd == "00:00:00.000" ||
                                 string.IsNullOrWhiteSpace(trimEnd))
                             {
-                                trimEnd = FFprobe.CutDuration(input_Text, batch_IsChecked);
+                                trimEnd = Analyze.FFprobe.CutDuration(input_Text, batch_IsChecked);
                             }
                         }
 
@@ -423,7 +423,7 @@ namespace Axiom
                     // use FramesToDecimal Method (Override Time)
                     else if (!string.IsNullOrWhiteSpace(frameEnd_Text))
                     {
-                        trimEnd = Video.FramesToDecimal(frameEnd_Text);
+                        trimEnd = Video.Video.FramesToDecimal(frameEnd_Text);
                     }
 
 

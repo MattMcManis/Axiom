@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
 using System.Windows.Documents;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -75,19 +76,19 @@ namespace Axiom
                 // Start
                 rtbFileProperties.Document = new FlowDocument(propertiesParagraph); 
 
-                FFprobe.argsFileProperties = " -i" + " " + "\"" + VM.MainView.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                Analyze.FFprobe.argsFileProperties = " -i" + " " + "\"" + VM.MainView.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
 
-                FFprobe.inputFileProperties = FFprobe.InputFileInfo(VM.MainView.Input_Text, 
-                                                                    VM.MainView.Batch_IsChecked, 
-                                                                    FFprobe.argsFileProperties
-                                                                    );
+                Analyze.FFprobe.inputFileProperties = Analyze.FFprobe.InputFileInfo(VM.MainView.Input_Text, 
+                                                                                VM.MainView.Batch_IsChecked, 
+                                                                                Analyze.FFprobe.argsFileProperties
+                                                                                );
 
                 // Write All File Properties to Rich Text Box
-                if (!string.IsNullOrEmpty(FFprobe.inputFileProperties))
+                if (!string.IsNullOrEmpty(Analyze.FFprobe.inputFileProperties))
                 {
                     rtbFileProperties.BeginChange(); // begin change
 
-                    propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
+                    propertiesParagraph.Inlines.Add(new Run(Analyze.FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
 
                     rtbFileProperties.EndChange(); // end change
                 }

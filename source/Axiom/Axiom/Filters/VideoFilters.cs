@@ -45,17 +45,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Media;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Filters
 {
     /// <summary>
     /// Video Filters (Class)
     /// <summary>
-    public class VideoFilters
+    public class Video
     {
         // Filter
         public static List<string> vFiltersList = new List<string>(); // Master Filters List
@@ -433,7 +435,7 @@ namespace Axiom
             string burn = string.Empty;
 
             if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Burn" &&
-                Subtitle.subtitleFileNamesList.Count > 0)
+                Generate.Subtitle.subtitleFileNamesList.Count > 0)
             {
                 // Join File Names List
                 //string files = string.Join(",", subtitleFileNamesList.Where(s => !string.IsNullOrEmpty(s)));
@@ -444,10 +446,10 @@ namespace Axiom
                 // -------------------------
                 // Get First Subtitle File
                 // -------------------------
-                string file = Subtitle.subtitleFilePathsList.First()                //"C:\Users\Axiom\Videos\subtitles.srt"
-                                                            .Replace("\"", @"'")    //'C:\Users\Axiom\Videos\subtitles.srt'
-                                                            .Replace(@"\", @"\\")   //'C:\\Users\\Axiom\\Videos\\subtitles.srt'
-                                                            .Replace(@":", @"\:");  //'C\:\Users\Axiom\Videos\subtitles.srt'
+                string file = Generate.Subtitle.subtitleFilePathsList.First()                //"C:\Users\Axiom\Videos\subtitles.srt"
+                                                                     .Replace("\"", @"'")    //'C:\Users\Axiom\Videos\subtitles.srt'
+                                                                     .Replace(@"\", @"\\")   //'C:\\Users\\Axiom\\Videos\\subtitles.srt'
+                                                                     .Replace(@":", @"\:");  //'C\:\Users\Axiom\Videos\subtitles.srt'
 
                 // -------------------------
                 // Create Subtitles Filter
@@ -1029,13 +1031,13 @@ namespace Axiom
                 List<string> vEQ_Filter_List = new List<string>()
                 {
                     // EQ Brightness
-                    VideoFilters.Video_EQ_Brightness_Filter(),
+                    Video_EQ_Brightness_Filter(),
                     // Contrast
-                    VideoFilters.Video_EQ_Contrast_Filter(),
+                    Video_EQ_Contrast_Filter(),
                     // Struation
-                    VideoFilters.Video_EQ_Saturation_Filter(),
+                    Video_EQ_Saturation_Filter(),
                     // Gamma
-                    VideoFilters.Video_EQ_Gamma_Filter(),
+                    Video_EQ_Gamma_Filter(),
                 };
 
                 // Join
@@ -1279,12 +1281,12 @@ namespace Axiom
                 // -------------------------
                 //  Speed
                 // -------------------------
-                Video.Speed(//VM.FormatView.Format_MediaType_SelectedItem,
-                            VM.VideoView.Video_Codec_SelectedItem,
-                            //VM.VideoView.Video_Quality_SelectedItem,
-                            VM.VideoView.Video_Speed_SelectedItem,
-                            VM.VideoView.Video_Speed_Text
-                            );
+                Generate.Video.Video.Speed(//VM.FormatView.Format_MediaType_SelectedItem,
+                                           VM.VideoView.Video_Codec_SelectedItem,
+                                           //VM.VideoView.Video_Quality_SelectedItem,
+                                           VM.VideoView.Video_Speed_SelectedItem,
+                                           VM.VideoView.Video_Speed_Text
+                                           );
 
                 // -------------------------
                 // Crop/Scale Switcher
@@ -1304,15 +1306,15 @@ namespace Axiom
                     // -------------------------
                     //  Resize - Crop and Divisible Crop are added in the Video Scale() Method
                     // -------------------------
-                    Video.Size.Scale(VM.VideoView.Video_Codec_SelectedItem,
-                                     VM.VideoView.Video_Scale_SelectedItem,
-                                     VM.VideoView.Video_Width_Text,
-                                     VM.VideoView.Video_Height_Text,
-                                     VM.VideoView.Video_ScreenFormat_SelectedItem,
-                                     //VM.VideoView.Video_AspectRatio_SelectedItem,
-                                     VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
-                                     VM.VideoView.Video_CropClear_Text
-                                    );
+                    Generate.Video.Size.Scale(VM.VideoView.Video_Codec_SelectedItem,
+                                              VM.VideoView.Video_Scale_SelectedItem,
+                                              VM.VideoView.Video_Width_Text,
+                                              VM.VideoView.Video_Height_Text,
+                                              VM.VideoView.Video_ScreenFormat_SelectedItem,
+                                              //VM.VideoView.Video_AspectRatio_SelectedItem,
+                                              VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
+                                              VM.VideoView.Video_CropClear_Text
+                                              );
                 }
 
                 // -------------------------
@@ -1323,83 +1325,83 @@ namespace Axiom
                     // -------------------------
                     //  Crop (first)
                     // -------------------------
-                    Video.Size.Crop(MainWindow.cropwindow);
+                    Generate.Video.Size.Crop(MainWindow.cropwindow);
 
                     // -------------------------
                     //  Resize (second)
                     // -------------------------
-                    Video.Size.Scale(VM.VideoView.Video_Codec_SelectedItem,
-                                     VM.VideoView.Video_Scale_SelectedItem,
-                                     VM.VideoView.Video_Width_Text,
-                                     VM.VideoView.Video_Height_Text,
-                                     VM.VideoView.Video_ScreenFormat_SelectedItem,
-                                     //VM.VideoView.Video_AspectRatio_SelectedItem,
-                                     VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
-                                     VM.VideoView.Video_CropClear_Text
-                                    );
+                    Generate.Video.Size.Scale(VM.VideoView.Video_Codec_SelectedItem,
+                                              VM.VideoView.Video_Scale_SelectedItem,
+                                              VM.VideoView.Video_Width_Text,
+                                              VM.VideoView.Video_Height_Text,
+                                              VM.VideoView.Video_ScreenFormat_SelectedItem,
+                                              //VM.VideoView.Video_AspectRatio_SelectedItem,
+                                              VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
+                                              VM.VideoView.Video_CropClear_Text
+                                              );
                 }
 
                 // -------------------------
                 // PNG to JPEG
                 // -------------------------
-                VideoFilters.PNGtoJPG_Filter();
+                PNGtoJPG_Filter();
 
                 // -------------------------
                 //    Subtitles Burn
                 // -------------------------
-                VideoFilters.SubtitlesBurn_Filter();
+                SubtitlesBurn_Filter();
 
                 // -------------------------
                 //  Deband
                 // -------------------------
-                VideoFilters.Deband_Filter();
+                Deband_Filter();
 
                 // -------------------------
                 //  Deshake
                 // -------------------------
-                VideoFilters.Deshake_Filter();
+                Deshake_Filter();
 
                 // -------------------------
                 //  Deflicker
                 // -------------------------
-                VideoFilters.Deflicker_Filter();
+                Deflicker_Filter();
 
                 // -------------------------
                 //  Dejudder
                 // -------------------------
-                VideoFilters.Dejudder_Filter();
+                Dejudder_Filter();
 
                 // -------------------------
                 //  Denoise
                 // -------------------------
-                VideoFilters.Denoise_Filter();
+                Denoise_Filter();
 
                 // -------------------------
                 //  Denoise
                 // -------------------------
-                VideoFilters.Deinterlace_Filter();
+                Deinterlace_Filter();
 
 
                 // -------------------------
                 //  Flip
                 // -------------------------
-                VideoFilters.Flip_Filter();
+                Flip_Filter();
 
                 // -------------------------
                 //  Rotate
                 // -------------------------
-                VideoFilters.Rotate_Filter();
+                Rotate_Filter();
 
 
                 // -------------------------
                 //  EQ - Brightness, Contrast, Saturation, Gamma
                 // -------------------------
-                VideoFilters.Video_EQ_Filter();
+                Video_EQ_Filter();
 
                 // -------------------------
                 //  Selective SelectiveColorPreview
                 // -------------------------
-                VideoFilters.SelectiveColor_Filter();
+                SelectiveColor_Filter();
 
                 // -------------------------
                 // Empty Halt

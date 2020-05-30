@@ -31,8 +31,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 
-namespace Axiom
+namespace Generate
 {
     public partial class FFmpeg
     {
@@ -187,7 +189,7 @@ namespace Axiom
                                              "1"
                                              ),
                             "\r\n" +
-                            VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                            Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
                                                      VM.VideoView.Video_Codec_SelectedItem,
                                                      VM.FormatView.Format_MediaType_SelectedItem
                                                      ),
@@ -230,16 +232,16 @@ namespace Axiom
                             Video.Color.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem),
 
                             "\r\n" +
-                            Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
+                            Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
                                       VM.VideoView.Video_FPS_SelectedItem,
                                       VM.VideoView.Video_FPS_Text
                                       ),
                             "\r\n" +
-                            VideoFilters.VideoFilter(),
+                            Filters.Video.VideoFilter(),
                             "\r\n" +
                             Video.Size.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem),
                             "\r\n" +
-                            Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                            Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
                                          VM.VideoView.Video_Codec_SelectedItem
                                          ),
                             "\r\n" +
@@ -356,11 +358,6 @@ namespace Axiom
                     // -------------------------
                     List <string> initializeList_Pass2 = new List<string>()
                     {
-                        //"\r\n\r\n" +
-                        ////"&&",
-                        //Shell_LogicalOperator_And(),
-
-                        //"\r\n\r\n" +
                         ProcessPriority() +
                         //PowerShell_CallOperator_FFmpeg() +
                         MainWindow.FFmpegPath() +
@@ -371,7 +368,6 @@ namespace Axiom
 
                         "\r\n\r\n" +
                         OutputOverwrite()
-                        //"-y"
                     };
 
                     // -------------------------
@@ -381,10 +377,6 @@ namespace Axiom
                     {
                         "\r\n\r\n" +
                         Video.Encoding.hwAccelDecode
-                        //Video.Encoding.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
-                        //                                    VM.VideoView.Video_Codec_SelectedItem,
-                        //                                    VM.VideoView.Video_HWAccel_Decode_SelectedItem
-                        //                                    ),
                     };
 
                     // -------------------------
@@ -409,10 +401,6 @@ namespace Axiom
                     {
                         "\r\n\r\n" +
                         Video.Encoding.hwAccelTranscode
-                        //Video.Encoding.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
-                        //                                       VM.VideoView.Video_Codec_SelectedItem,
-                        //                                       VM.VideoView.Video_HWAccel_Transcode_SelectedItem
-                        //                                       ),
                     };
 
                     // -------------------------
@@ -444,7 +432,7 @@ namespace Axiom
                                                      "2"
                                                      ),
                             "\r\n" +
-                            VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,    // Note: Use Method, not String, to re-generate all Pass 2 Params
+                            Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,    // Note: Use Method, not String, to re-generate all Pass 2 Params
                                                      VM.VideoView.Video_Codec_SelectedItem,      //       for 2 Pass -x265-params pass=2
                                                      VM.FormatView.Format_MediaType_SelectedItem
                                                      ),
@@ -462,13 +450,13 @@ namespace Axiom
                             "\r\n" +
                             Video.Color.colorTransferCharacteristics,
                             "\r\n" +
-                            Video.fps,
+                            Video.Video.fps,
                             "\r\n" +
-                            VideoFilters.vFilter,
+                            Filters.Video.vFilter,
                             "\r\n" +
                             Video.Size.vAspectRatio,
                             "\r\n" +
-                            Video.image,
+                            Video.Video.image,
                             "\r\n" +
                             Video.Quality.optimize,
                             "\r\n" +
@@ -553,9 +541,9 @@ namespace Axiom
                         audioList_Pass2 = new List<string>()
                         {
                             "\r\n\r\n" +
-                            Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
-                                             VM.AudioView.Audio_Codec
-                                             ),
+                            Generate.Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
+                                                            VM.AudioView.Audio_Codec
+                                                            ),
                             "\r\n" +
                             Audio.Quality.AudioQuality(VM.MainView.Input_Text,
                                                VM.MainView.Batch_IsChecked,
@@ -582,7 +570,7 @@ namespace Axiom
                                                    VM.AudioView.Audio_Channel_SelectedItem
                                                    ),
                             "\r\n" +
-                            AudioFilters.AudioFilter(),
+                            Filters.Audio.AudioFilter(),
                             "\r\n" +
                             Streams.AudioStreamMaps(),
                         };
@@ -609,7 +597,7 @@ namespace Axiom
                         Format.ForceFormat(VM.FormatView.Format_Container_SelectedItem),
 
                         "\r\n\r\n" +
-                        Configure.threads,
+                        Controls.Configure.threads,
 
                         "\r\n\r\n" +
                         //"\"" + MainWindow.OutputPath() + "\""
@@ -636,7 +624,6 @@ namespace Axiom
 
                     // Process Priority PowerShell Set
                     //FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
-
 
                     // Join List with Spaces
                     // Remove: Empty, Null, Standalone LineBreak

@@ -35,14 +35,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
-    public partial class Video
+    namespace Video
     {
         public class Encoding
         {
@@ -302,7 +303,7 @@ namespace Axiom
             /// <summary>
             /// Encode Speed
             /// <summary>
-            public static String VideoEncodeSpeed(List<VideoViewModel.VideoEncodeSpeed> encodeSpeedItems,
+            public static String VideoEncodeSpeed(List<ViewModel.Video.VideoEncodeSpeed> encodeSpeedItems,
                                                   string encodeSpeed_SelectedItem,
                                                   string codec_SelectedItem,
                                                   string pass

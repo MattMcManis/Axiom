@@ -36,17 +36,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Media;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Filters
 {
     /// <summary>
     /// Audio Filters (Class)
     /// <summary>
-    public class AudioFilters
+    public class Audio
     {
         // Filter Lists
         public static List<string> aFiltersList = new List<string>(); // Filters to String Join
@@ -161,7 +163,7 @@ namespace Axiom
                         aVolume = "volume=" + volumeDecimal;
 
                         // Audio Filter Add
-                        AudioFilters.aFiltersList.Add(aVolume);
+                        aFiltersList.Add(aVolume);
                     }
                     catch
                     {
@@ -351,7 +353,7 @@ namespace Axiom
                     aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + limit + ":attack=7:release=100:level=disabled";
 
                     // Add to Filters List
-                    AudioFilters.aFiltersList.Add(aHardLimiter);
+                    aFiltersList.Add(aHardLimiter);
                 }
                 catch
                 {

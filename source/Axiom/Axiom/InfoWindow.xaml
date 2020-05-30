@@ -28,7 +28,7 @@
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         xmlns:my="clr-namespace:Axiom"
-        xmlns:local="clr-namespace:Axiom"
+        xmlns:local="clr-namespace:ViewModel"
         xmlns:settings="clr-namespace:Axiom.Properties"
         mc:Ignorable="d"
         Loaded="Window_Loaded"

@@ -27,9 +27,9 @@ using System.ComponentModel;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class SubtitleViewModel : INotifyPropertyChanged
+    public class Subtitle : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -49,7 +49,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle View Model
         /// </summary>
-        public SubtitleViewModel()
+        public Subtitle()
         {
             LoadControlsDefaults();
         }

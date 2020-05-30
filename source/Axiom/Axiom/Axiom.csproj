@@ -75,11 +75,11 @@
     <Compile Include="FailedImportWindow.xaml.cs">
       <DependentUpon>FailedImportWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FFmpeg\1_Pass.cs" />
-    <Compile Include="FFmpeg\2_Pass.cs" />
-    <Compile Include="FFmpeg\Batch.cs" />
-    <Compile Include="FFmpeg\CRF.cs" />
-    <Compile Include="FFmpeg\YouTubeDL.cs" />
+    <Compile Include="Generators\FFmpeg\1_Pass.cs" />
+    <Compile Include="Generators\FFmpeg\2_Pass.cs" />
+    <Compile Include="Generators\FFmpeg\Batch.cs" />
+    <Compile Include="Generators\FFmpeg\CRF.cs" />
+    <Compile Include="Generators\FFmpeg\YouTubeDL.cs" />
     <Compile Include="Generators\Audio\Audio.cs" />
     <Compile Include="Controls\AudioControls.cs" />
     <Compile Include="Filters\AudioFilters.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Codecs\Subtitle\Copy.cs" />
     <Compile Include="Codecs\Subtitle\MOV_Text.cs" />
     <Compile Include="Codecs\Subtitle\SRT.cs" />
-    <Compile Include="Codecs\Subtitle\SubtitleNone.cs" />
+    <Compile Include="Codecs\Subtitle\None.cs" />
     <Compile Include="Codecs\Subtitle\SSA.cs" />
     <Compile Include="Codecs\Video\AV1.cs" />
     <Compile Include="Codecs\Image\JPEG.cs" />
@@ -120,9 +120,9 @@
     <Compile Include="DebugConsole.xaml.cs">
       <DependentUpon>DebugConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FFmpeg\FFmpeg.cs" />
-    <Compile Include="FFmpeg\FFplay.cs" />
-    <Compile Include="FFmpeg\FFprobe.cs" />
+    <Compile Include="Generators\FFmpeg\FFmpeg.cs" />
+    <Compile Include="Preview\FFplay.cs" />
+    <Compile Include="Analyze\FFprobe.cs" />
     <Compile Include="FilePropertiesWindow.xaml.cs">
       <DependentUpon>FilePropertiesWindow.xaml</DependentUpon>
     </Compile>
@@ -138,7 +138,17 @@
     <Compile Include="LogConsole.xaml.cs">
       <DependentUpon>LogConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Params\VideoParams.cs" />
+    <Compile Include="MainWindow\Audio.cs" />
+    <Compile Include="MainWindow\FFmpeg.cs" />
+    <Compile Include="MainWindow\Filters.cs" />
+    <Compile Include="MainWindow\Format.cs" />
+    <Compile Include="MainWindow\Input.cs" />
+    <Compile Include="MainWindow\Output.cs" />
+    <Compile Include="MainWindow\Settings.cs" />
+    <Compile Include="MainWindow\Subtitles.cs" />
+    <Compile Include="MainWindow\Updater.cs" />
+    <Compile Include="MainWindow\Video.cs" />
+    <Compile Include="Generators\Video\Params.cs" />
     <Compile Include="Presets\Profiles.cs" />
     <Compile Include="Filters\VideoFilters.cs" />
     <Compile Include="Generators\Format.cs" />
@@ -150,6 +160,7 @@
     <Compile Include="Generators\Streams.cs" />
     <Compile Include="Generators\Subtitle.cs" />
     <Compile Include="Controls\SubtitleControls.cs" />
+    <Compile Include="MainWindow\Script.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>

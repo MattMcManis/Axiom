@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Preview
 {
     public class FFplay
     {
@@ -63,23 +65,23 @@ namespace Axiom
 
                     "-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
 
-                    Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                               VM.SubtitleView.Subtitle_Stream_SelectedItem
-                                               ),
+                    Generate.Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                        VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                                        ),
 
                     //Video.VideoCodec(),
                     //Video.Speed(),
                     //Video.VideoQuality(),
-                    Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
-                              VM.VideoView.Video_FPS_SelectedItem,
-                              VM.VideoView.Video_FPS_Text
-                              ),
+                    Generate.Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
+                                             VM.VideoView.Video_FPS_SelectedItem,
+                                             VM.VideoView.Video_FPS_Text
+                                             ),
 
-                    VideoFilters.VideoFilter(),
+                    Filters.Video.VideoFilter(),
 
-                    Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
-                                 VM.VideoView.Video_Codec_SelectedItem
-                                 ),
+                    Generate.Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                                                VM.VideoView.Video_Codec_SelectedItem
+                                                ),
                     //Video.Optimize(),
                     //Streams.VideoStreamMaps(),
 
@@ -88,21 +90,21 @@ namespace Axiom
 
                     //Audio.AudioCodec(),
                     //Audio.AudioQuality(),
-                    Audio.Quality.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
-                                             VM.AudioView.Audio_SampleRate_Items,
-                                             VM.AudioView.Audio_SampleRate_SelectedItem
-                                             ),
+                    Generate.Audio.Quality.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
+                                                     VM.AudioView.Audio_SampleRate_Items,
+                                                     VM.AudioView.Audio_SampleRate_SelectedItem
+                                                     ),
 
-                    Audio.Quality.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
-                                           VM.AudioView.Audio_BitDepth_Items,
-                                           VM.AudioView.Audio_BitDepth_SelectedItem
-                                           ),
+                    Generate.Audio.Quality.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
+                                                   VM.AudioView.Audio_BitDepth_Items,
+                                                   VM.AudioView.Audio_BitDepth_SelectedItem
+                                                   ),
 
-                    Audio.Channels.Channel(VM.AudioView.Audio_Codec_SelectedItem,
-                                           VM.AudioView.Audio_Channel_SelectedItem
-                                           ),
+                    Generate.Audio.Channels.Channel(VM.AudioView.Audio_Codec_SelectedItem,
+                                                   VM.AudioView.Audio_Channel_SelectedItem
+                                                   ),
 
-                    AudioFilters.AudioFilter(),
+                    Filters.Audio.AudioFilter(),
                     //Streams.AudioStreamMaps(),
 
                     //Format.Cut(),

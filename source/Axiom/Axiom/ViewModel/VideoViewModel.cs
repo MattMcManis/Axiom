@@ -26,9 +26,9 @@ using System.ComponentModel;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class VideoViewModel : INotifyPropertyChanged
+    public class Video : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -48,7 +48,7 @@ namespace Axiom
         /// <summary>
         /// Video View Model
         /// </summary>
-        public VideoViewModel()
+        public Video()
         {
             LoadControlsDefaults();
         }
@@ -218,15 +218,6 @@ namespace Axiom
             get { return _Video_EncodeSpeed_SelectedItem; }
             set
             {
-                var previousItem = _Video_EncodeSpeed_SelectedItem;
-
-                if (!string.IsNullOrEmpty(Video_EncodeSpeed_SelectedItem) &&
-                    Video_EncodeSpeed_SelectedItem != "none")
-                {
-                    MainWindow.Video_EncodeSpeed_PreviousItem = previousItem;
-                }
-
-
                 if (_Video_EncodeSpeed_SelectedItem == value)
                 {
                     return;
@@ -235,6 +226,27 @@ namespace Axiom
                 _Video_EncodeSpeed_SelectedItem = value;
                 OnPropertyChanged("Video_EncodeSpeed_SelectedItem");
             }
+
+            //get { return _Video_EncodeSpeed_SelectedItem; }
+            //set
+            //{
+            //    var previousItem = _Video_EncodeSpeed_SelectedItem;
+
+            //    if (!string.IsNullOrEmpty(Video_EncodeSpeed_SelectedItem) &&
+            //        Video_EncodeSpeed_SelectedItem != "none")
+            //    {
+            //        MainWindow.Video_EncodeSpeed_PreviousItem = previousItem;
+            //    }
+
+
+            //    if (_Video_EncodeSpeed_SelectedItem == value)
+            //    {
+            //        return;
+            //    }
+
+            //    _Video_EncodeSpeed_SelectedItem = value;
+            //    OnPropertyChanged("Video_EncodeSpeed_SelectedItem");
+            //}
         }
 
         // Controls Enable

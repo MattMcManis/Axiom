@@ -37,12 +37,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
     public partial class FFmpeg
     {
@@ -661,6 +663,7 @@ namespace Axiom
                 case "CMD":
                     System.Diagnostics.Process.Start("cmd.exe",
                                                      KeepWindow() +
+                                                     // Do not use WrapWithQuotes() Method on outputDir
                                                      "cd " + "\"" + MainWindow.outputDir + "\"" +
                                                      " & " +
                                                      args
@@ -673,6 +676,7 @@ namespace Axiom
                 case "PowerShell":
                     System.Diagnostics.Process.Start("powershell.exe",
                                                      KeepWindow() +
+                                                     // Do not use WrapWithQuotes() Method on outputDir
                                                      "-command \"Set-Location " + "\"" + MainWindow.outputDir.Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
                                                                                                              .Replace("\"", "\\\"") + // Format Quotes " → \"
                                                                                   "\"" +
@@ -693,7 +697,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Running Convert...")) { Foreground = Log.ConsoleAction });
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Converting...")) { Foreground = Log.ConsoleAction });
             };
             Log.LogActions.Add(Log.WriteAction);
 

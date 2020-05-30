@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -242,13 +243,13 @@ namespace Axiom
         /// </summary>
         public static void CropClear()
         {
-            VideoFilters.vFilter = string.Empty;
+            Filters.Video.vFilter = string.Empty;
 
-            if (VideoFilters.vFiltersList != null && 
-                VideoFilters.vFiltersList.Count > 0)
+            if (Filters.Video.vFiltersList != null && 
+                Filters.Video.vFiltersList.Count > 0)
             {
-                VideoFilters.vFiltersList.Clear();
-                VideoFilters.vFiltersList.TrimExcess();
+                Filters.Video.vFiltersList.Clear();
+                Filters.Video.vFiltersList.TrimExcess();
             }
 
             VM.VideoView.Video_Crop_Width_Text = string.Empty;

@@ -27,7 +27,7 @@
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         xmlns:my="clr-namespace:Axiom"
-        xmlns:local="clr-namespace:Axiom"
+        xmlns:local="clr-namespace:ViewModel"
         mc:Ignorable="d"
         Title="Crop"
         Height="270"

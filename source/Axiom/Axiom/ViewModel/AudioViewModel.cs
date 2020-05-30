@@ -26,9 +26,9 @@ using System.ComponentModel;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class AudioViewModel : INotifyPropertyChanged
+    public class Audio : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -42,13 +42,14 @@ namespace Axiom
         }
 
         // Audio View Model
-        //public static AudioView vm = new AudioViewModel();
+        //public static AudioView vm = new ViewModel.Audio();
 
 
         /// <summary>
         /// Audio View Model
         /// </summary>
-        public AudioViewModel()
+        //public ViewModel.Audio()
+        public Audio()
         {
             LoadControlsDefaults();
         }

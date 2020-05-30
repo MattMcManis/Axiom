@@ -21,12 +21,13 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Windows.Documents;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Controls
 {
     public class ScriptView
     {

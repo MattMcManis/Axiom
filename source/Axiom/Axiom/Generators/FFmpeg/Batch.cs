@@ -31,8 +31,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 
-namespace Axiom
+namespace Generate
 {
     public partial class FFmpeg
     {
@@ -55,9 +57,6 @@ namespace Axiom
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
-                        //Log.logParagraph.Inlines.Add(new LineBreak());
-                        //Log.logParagraph.Inlines.Add(new LineBreak());
-                        //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
                     };
@@ -78,9 +77,9 @@ namespace Axiom
                             ffmpegBatchArgsList = new List<string>()
                             {
                                 "cd /d",
-                                "\"" + MainWindow.BatchInputDirectory() + "\"",
+                                "\"" + MainWindow.BatchInputDirectory() + "\"" + " && ",
 
-                                "\r\n\r\n" + "&& for %f in",
+                                "\r\n\r\n" + "for %f in",
                                 "(*" + MainWindow.inputExt + ")",
                                 "do (echo)",
 
@@ -148,7 +147,7 @@ namespace Axiom
                             string vBitRateBatch = string.Empty;
                             if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
                             {
-                                vBitRateBatch = "$vBitrate = " + PowerShell_CallOperator_FFprobe() + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
+                                vBitRateBatch = "$vBitrate = " + PowerShell_CallOperator_FFprobe() + Analyze.FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + Analyze.FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
                             }
 
                             // Audio Auto Quality Detect Bitrate
@@ -157,7 +156,7 @@ namespace Axiom
                             string aBitRateBatch_Limited = string.Empty;
                             if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
                             {
-                                aBitRateBatch = "$aBitrate = " + PowerShell_CallOperator_FFprobe() + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
+                                aBitRateBatch = "$aBitrate = " + PowerShell_CallOperator_FFprobe() + Analyze.FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + Analyze.FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
 
                                 // Bitrate Null Check
                                 aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
@@ -187,7 +186,9 @@ namespace Axiom
 
                                     // DTS
                                     case "DTS":
-                                        aBitRateBatch_Limited = "if ($aBitrate -lt 320000) { $aBitrate = 320000 }; if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
+                                        aBitRateBatch_Limited = "if ($aBitrate -lt 320000) { $aBitrate = 320000 };" + 
+                                                                "\r\n" +
+                                                                "if ($aBitrate -gt 1509075) { $aBitrate = 1509075 };";
                                         break;
 
                                     // MP2

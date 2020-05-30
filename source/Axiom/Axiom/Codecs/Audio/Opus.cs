@@ -24,209 +24,216 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel;
 
-namespace Axiom
+namespace Controls
 {
-    public class Opus
+    namespace Audio
     {
-        // ---------------------------------------------------------------------------
-        // Codec
-        // ---------------------------------------------------------------------------
-        public static List<AudioViewModel.AudioCodec> codec = new List<AudioViewModel.AudioCodec>()
+        namespace Codec
         {
-             new AudioViewModel.AudioCodec()
-             {
-                 Codec = "libopus",
-                 Parameters = ""
-             }
-        };
-
-        public static void Codec_Set()
-        {
-            // Combine Codec + Parameters
-            List<string> codec = new List<string>()
+            public class Opus
             {
-                "-c:a",
-                Opus.codec.FirstOrDefault()?.Codec,
-                Opus.codec.FirstOrDefault()?.Parameters
-            };
+                // ---------------------------------------------------------------------------
+                // Codec
+                // ---------------------------------------------------------------------------
+                public static List<ViewModel.Audio.AudioCodec> codec = new List<ViewModel.Audio.AudioCodec>()
+                {
+                     new ViewModel.Audio.AudioCodec()
+                     {
+                         Codec = "libopus",
+                         Parameters = ""
+                     }
+                };
 
-            VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
-        }
+                public static void Codec_Set()
+                {
+                    // Combine Codec + Parameters
+                    List<string> codec = new List<string>()
+                    {
+                        "-c:a",
+                        Opus.codec.FirstOrDefault()?.Codec,
+                        Opus.codec.FirstOrDefault()?.Parameters
+                    };
 
-
-
-        // ---------------------------------------------------------------------------
-        // Items Source
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
-        // Channel
-        // -------------------------
-        public static List<string> channel = new List<string>()
-        {
-            "Source",
-            "Mono",
-            "Stereo",
-            "5.1"
-        };
-
-        // -------------------------
-        // Quality
-        // -------------------------
-        public static List<AudioViewModel.AudioQuality> quality = new List<AudioViewModel.AudioQuality>()
-        {
-             new AudioViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "256", NA = "265" },
-             new AudioViewModel.AudioQuality() { Name = "510",    CBR_BitMode = "-b:a", CBR = "510", VBR_BitMode="-vbr on -b:a", VBR = "256" },
-             new AudioViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode="-vbr on -b:a", VBR = "256" },
-             new AudioViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode="-vbr on -b:a", VBR = "256" },
-             new AudioViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode="-vbr on -b:a", VBR = "224" },
-             new AudioViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode="-vbr on -b:a", VBR = "192" },
-             new AudioViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode="-vbr on -b:a", VBR = "160" },
-             new AudioViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode="-vbr on -b:a", VBR = "128" },
-             new AudioViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode="-vbr on -b:a", VBR = "96" },
-             new AudioViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "" },
-             new AudioViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode="",             VBR = "" }
-        };
-
-        // -------------------------
-        // Compression Level
-        // -------------------------
-        public static List<string> compressionLevel = new List<string>()
-        {
-            "auto",
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-        };
-
-        // -------------------------
-        // Sample Rate
-        // -------------------------
-        public static List<AudioViewModel.AudioSampleRate> sampleRate = new List<AudioViewModel.AudioSampleRate>()
-        {
-             new AudioViewModel.AudioSampleRate() { Name = "auto",     Frequency = "" },
-             new AudioViewModel.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
-             new AudioViewModel.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
-             new AudioViewModel.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
-             new AudioViewModel.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
-             new AudioViewModel.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
-        };
-
-        // -------------------------
-        // Bit Depth
-        // -------------------------
-        public static List<AudioViewModel.AudioBitDepth> bitDepth = new List<AudioViewModel.AudioBitDepth>()
-        {
-             new AudioViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
-        };
+                    VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+                }
 
 
-        // ---------------------------------------------------------------------------
-        // Controls Behavior
-        // ---------------------------------------------------------------------------
 
-        // -------------------------
-        // Items Source
-        // -------------------------
-        public static void Controls_ItemsSource()
-        {
-            // Channel
-            VM.AudioView.Audio_Channel_Items = channel;
+                // ---------------------------------------------------------------------------
+                // Items Source
+                // ---------------------------------------------------------------------------
 
-            // Quality
-            VM.AudioView.Audio_Quality_Items = quality;
+                // -------------------------
+                // Channel
+                // -------------------------
+                public static List<string> channel = new List<string>()
+                {
+                    "Source",
+                    "Mono",
+                    "Stereo",
+                    "5.1"
+                };
 
-            // Compression Level
-            VM.AudioView.Audio_CompressionLevel_Items = compressionLevel;
+                // -------------------------
+                // Quality
+                // -------------------------
+                public static List<ViewModel.Audio.AudioQuality> quality = new List<ViewModel.Audio.AudioQuality>()
+                {
+                     new ViewModel.Audio.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "256", NA = "265" },
+                     new ViewModel.Audio.AudioQuality() { Name = "510",    CBR_BitMode = "-b:a", CBR = "510", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+                     new ViewModel.Audio.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+                     new ViewModel.Audio.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+                     new ViewModel.Audio.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode="-vbr on -b:a", VBR = "224" },
+                     new ViewModel.Audio.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode="-vbr on -b:a", VBR = "192" },
+                     new ViewModel.Audio.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode="-vbr on -b:a", VBR = "160" },
+                     new ViewModel.Audio.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode="-vbr on -b:a", VBR = "128" },
+                     new ViewModel.Audio.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode="-vbr on -b:a", VBR = "96" },
+                     new ViewModel.Audio.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "" },
+                     new ViewModel.Audio.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode="",             VBR = "" }
+                };
 
-            // Samplerate
-            VM.AudioView.Audio_SampleRate_Items = sampleRate;
+                // -------------------------
+                // Compression Level
+                // -------------------------
+                public static List<string> compressionLevel = new List<string>()
+                {
+                    "auto",
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                };
 
-            // Bit Depth
-            VM.AudioView.Audio_BitDepth_Items = bitDepth;
-        }
+                // -------------------------
+                // Sample Rate
+                // -------------------------
+                public static List<ViewModel.Audio.AudioSampleRate> sampleRate = new List<ViewModel.Audio.AudioSampleRate>()
+                {
+                     new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
+                     new ViewModel.Audio.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
+                     new ViewModel.Audio.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
+                     new ViewModel.Audio.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
+                     new ViewModel.Audio.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
+                     new ViewModel.Audio.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
+                };
 
-        // -------------------------
-        // Selected Items
-        // -------------------------
-        public static void Controls_Selected()
-        {
-            //VM.AudioView.Audio_Stream_SelectedItem = "all";
-
-            // Compression Level
-            VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
-        }
-
-        // -------------------------
-        // Checked
-        // -------------------------
-        public static void Controls_Checked()
-        {
-            // BitRate Mode
-            VM.AudioView.Audio_VBR_IsChecked = true;
-        }
-
-        // -------------------------
-        // Unchecked
-        // -------------------------
-        public static void Controls_Unhecked()
-        {
-            // None
-        }
-
-        // -------------------------
-        // Enabled
-        // -------------------------
-        public static void Controls_Enable()
-        {
-            // Audio Codec
-            VM.AudioView.Audio_Codec_IsEnabled = true;
-
-            // Stream
-            VM.AudioView.Audio_Stream_IsEnabled = true;
-
-            // Channel
-            VM.AudioView.Audio_Channel_IsEnabled = true;
-
-            // Audio Quality
-            VM.AudioView.Audio_Quality_IsEnabled = true;
-
-            // VBR Button
-            VM.AudioView.Audio_VBR_IsEnabled = true;
-
-            // SampleRate
-            VM.AudioView.Audio_SampleRate_IsEnabled = true;
-
-            // Volume
-            VM.AudioView.Audio_Volume_IsEnabled = true;
-
-            // Hard Limiter
-            VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                // -------------------------
+                // Bit Depth
+                // -------------------------
+                public static List<ViewModel.Audio.AudioBitDepth> bitDepth = new List<ViewModel.Audio.AudioBitDepth>()
+                {
+                     new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" }
+                };
 
 
-            // Filters
-            AudioFilters.AudioFilters_EnableAll();
-        }
+                // ---------------------------------------------------------------------------
+                // Controls Behavior
+                // ---------------------------------------------------------------------------
 
-        // -------------------------
-        // Disabled
-        // -------------------------
-        public static void Controls_Disable()
-        {
-            // Compression Level
-            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+                // -------------------------
+                // Items Source
+                // -------------------------
+                public static void Controls_ItemsSource()
+                {
+                    // Channel
+                    VM.AudioView.Audio_Channel_Items = channel;
 
-            // Bit Depth
-            VM.AudioView.Audio_BitDepth_IsEnabled = false;
+                    // Quality
+                    VM.AudioView.Audio_Quality_Items = quality;
+
+                    // Compression Level
+                    VM.AudioView.Audio_CompressionLevel_Items = compressionLevel;
+
+                    // Samplerate
+                    VM.AudioView.Audio_SampleRate_Items = sampleRate;
+
+                    // Bit Depth
+                    VM.AudioView.Audio_BitDepth_Items = bitDepth;
+                }
+
+                // -------------------------
+                // Selected Items
+                // -------------------------
+                public static void Controls_Selected()
+                {
+                    //VM.AudioView.Audio_Stream_SelectedItem = "all";
+
+                    // Compression Level
+                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
+                }
+
+                // -------------------------
+                // Checked
+                // -------------------------
+                public static void Controls_Checked()
+                {
+                    // BitRate Mode
+                    VM.AudioView.Audio_VBR_IsChecked = true;
+                }
+
+                // -------------------------
+                // Unchecked
+                // -------------------------
+                public static void Controls_Unhecked()
+                {
+                    // None
+                }
+
+                // -------------------------
+                // Enabled
+                // -------------------------
+                public static void Controls_Enable()
+                {
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_IsEnabled = true;
+
+                    // Stream
+                    VM.AudioView.Audio_Stream_IsEnabled = true;
+
+                    // Channel
+                    VM.AudioView.Audio_Channel_IsEnabled = true;
+
+                    // Audio Quality
+                    VM.AudioView.Audio_Quality_IsEnabled = true;
+
+                    // VBR Button
+                    VM.AudioView.Audio_VBR_IsEnabled = true;
+
+                    // SampleRate
+                    VM.AudioView.Audio_SampleRate_IsEnabled = true;
+
+                    // Volume
+                    VM.AudioView.Audio_Volume_IsEnabled = true;
+
+                    // Hard Limiter
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+
+
+                    // Filters
+                    Filters.Audio.AudioFilters_EnableAll();
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                public static void Controls_Disable()
+                {
+                    // Compression Level
+                    VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+
+                    // Bit Depth
+                    VM.AudioView.Audio_BitDepth_IsEnabled = false;
+                }
+            }
         }
     }
 }

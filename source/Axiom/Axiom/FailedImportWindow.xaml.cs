@@ -48,11 +48,11 @@ namespace Axiom
 
             rtbFailedImport.BeginChange();
             p.Inlines.Add(new Run("Please set the following and re-save your profile.\n\n"));
-            p.Inlines.Add(new Run(Profiles.failedImportMessage));
+            p.Inlines.Add(new Run(Profiles.Profiles.failedImportMessage));
             rtbFailedImport.EndChange();
 
             // Clear
-            Profiles.failedImportMessage = string.Empty;
+            Profiles.Profiles.failedImportMessage = string.Empty;
         }
 
 

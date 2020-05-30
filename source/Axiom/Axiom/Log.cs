@@ -26,6 +26,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587

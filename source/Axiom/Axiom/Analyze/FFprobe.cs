@@ -25,10 +25,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
-namespace Axiom
+namespace Analyze
 {
     public class FFprobe
     {
@@ -279,12 +281,12 @@ namespace Axiom
                 // -------------------------
                 case false:
                     // Stream
-                    if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                    if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
                     {
                         vEntryType = "stream=bit_rate";
                     }
                     // Format
-                    else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                    else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
                     {
                         vEntryType = "format=bit_rate";
                     }
@@ -306,12 +308,12 @@ namespace Axiom
                         // -------------------------
                         case "CMD":
                             // Stream
-                            if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream^=bit_rate";
                             }
                             // Format
-                            else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format^=bit_rate";
                             }
@@ -327,12 +329,12 @@ namespace Axiom
                         // -------------------------
                         case "PowerShell":
                             // Stream
-                            if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream=bit_rate";
                             }
                             // Format
-                            else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt.ToLower(), StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format=bit_rate";
                             }

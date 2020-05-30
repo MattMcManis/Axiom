@@ -27,10 +27,12 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
-namespace Axiom
+namespace Controls
 {
     public class Configure
     {
@@ -106,7 +108,7 @@ namespace Axiom
                 // --------------------------------------------------
                 if (listFailedImports.Count > 0 && listFailedImports != null)
                 {
-                    Profiles.failedImportMessage = string.Join(Environment.NewLine, listFailedImports);
+                    Profiles.Profiles.failedImportMessage = string.Join(Environment.NewLine, listFailedImports);
 
                     // Detect which screen we're on
                     var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
@@ -533,7 +535,7 @@ namespace Axiom
                 // Load Custom Presets
                 // Refresh Presets ComboBox
                 // -------------------------
-                Profiles.LoadCustomPresets();
+                Profiles.Profiles.LoadCustomPresets();
             }
         }
 

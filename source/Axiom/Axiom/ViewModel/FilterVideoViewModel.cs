@@ -27,9 +27,9 @@ using System.Windows.Media;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
-    public class FilterVideoViewModel : INotifyPropertyChanged
+    public class FilterVideo : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -49,7 +49,7 @@ namespace Axiom
         /// <summary>
         /// Filter View Model
         /// </summary>
-        public FilterVideoViewModel()
+        public FilterVideo()
         {
             LoadControlsDefaults();
         }

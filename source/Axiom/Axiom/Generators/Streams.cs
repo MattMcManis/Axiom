@@ -24,12 +24,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Documents;
+using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace Generate
 {
     public class Streams
     {

@@ -26,7 +26,7 @@ using System.ComponentModel;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Axiom
+namespace ViewModel
 {
     public class VM : INotifyPropertyChanged
     {
@@ -50,21 +50,21 @@ namespace Axiom
         }
 
         // Main
-        public static MainViewModel MainView { get; set; } = new MainViewModel();
+        public static ViewModel.Main MainView { get; set; } = new Main();
         // Format
-        public static FormatViewModel FormatView { get; set; } = new FormatViewModel();
+        public static ViewModel.Format FormatView { get; set; } = new Format();
         // Video
-        public static VideoViewModel VideoView { get; set; } = new VideoViewModel();
+        public static ViewModel.Video VideoView { get; set; } = new Video();
         // Subtitle
-        public static SubtitleViewModel SubtitleView { get; set; } = new SubtitleViewModel();
+        public static ViewModel.Subtitle SubtitleView { get; set; } = new Subtitle();
         // Audio
-        public static AudioViewModel AudioView { get; set; } = new AudioViewModel();
+        public static ViewModel.Audio AudioView { get; set; } = new Audio();
         // Filter Video
-        public static FilterVideoViewModel FilterVideoView { get; set; } = new FilterVideoViewModel();
+        public static ViewModel.FilterVideo FilterVideoView { get; set; } = new FilterVideo();
         // Filter Audio
-        public static FilterAudioViewModel FilterAudioView { get; set; } = new FilterAudioViewModel();
+        public static ViewModel.FilterAudio FilterAudioView { get; set; } = new FilterAudio();
         // Configure
-        public static ConfigureViewModel ConfigureView { get; set; } = new ConfigureViewModel();
+        public static ViewModel.Configure ConfigureView { get; set; } = new Configure();
 
     }
 }
