@@ -10,8 +10,8 @@ Axiom FFmpeg UI
 - Added Output Overwrite Files Menu
 
 ### Changed
-- Updated Video Codec x265 Pixel Formats
-- Moved EQ and Selective Color to Video Color Tab
+- Updated Video Codec `x265` Pixel Formats
+- Moved `EQ` and `Selective Color` to Video Color Tab
 
 
 ## [1.8.9.0] - May 27, 2020
