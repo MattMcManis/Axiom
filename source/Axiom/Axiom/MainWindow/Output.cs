@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -108,6 +109,9 @@ namespace Axiom
 
                         // File Renamer
                         // Get new output file name (1) if already exists
+                        // Add Settings to File Name
+                        // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
+                        //outputFileName = FileRenamer(FileNameAddSettings(inputFileName));
                         outputFileName = FileRenamer(inputFileName);
 
                         // Same as input file name
@@ -242,6 +246,10 @@ namespace Axiom
                                     // Default Output Dir to be same as Input Directory
                                     outputDir = inputDir;
                                     outputFileName = inputFileName;
+
+                                    // Add Settings to File Name
+                                    // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
+                                    //outputFileName = FileNameAddSettings(inputFileName);
                                 }
 
                                 // Input Not Empty
@@ -258,8 +266,14 @@ namespace Axiom
                                 // Pressing Script or Convert while Output TextBox is empty
                                 if (inputDir == outputDir &&
                                     inputFileName == outputFileName &&
-                                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
                                 {
+                                    // Renamer 
+                                    // Get new output file name (1) if already exists
+                                    // Add Settings to File Name
+                                    // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
+                                    //outputFileName = FileRenamer(FileNameAddSettings(inputFileName));
+
                                     outputFileName = FileRenamer(inputFileName);
                                 }
 
@@ -506,6 +520,147 @@ namespace Axiom
 
             return outputNewFileName;
         }
+
+
+        /// <summary>
+        /// File Name Add Settings (Method)
+        /// </summary>
+        public static String FileNameAddSettings(string filename)
+        {
+            // -------------------------
+            // Format
+            // -------------------------
+            string format_inputExt = SettingsCheck(Path.GetExtension(VM.MainView.Input_Text)
+                                                   .Replace(".", "")
+                                                   .ToLower()
+                                                   );
+
+            // -------------------------
+            // Video
+            // -------------------------
+            string video_hwAccel_Transcode = SettingsCheck(VM.VideoView.Video_HWAccel_Transcode_SelectedItem);
+            string video_Codec = SettingsCheck(VM.VideoView.Video_Codec_SelectedItem);
+            string video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem);
+            string video_BitRate = SettingsCheck(VM.VideoView.Video_BitRate_Text);
+
+            // Preset
+            string video_Preset = VM.VideoView.Video_EncodeSpeed_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name;
+            if (!string.IsNullOrWhiteSpace(video_Preset))
+            {
+                video_Preset = "p-" + video_Preset.ToLower();
+            }
+
+            // Pixel Format
+            string video_PixelFormat = SettingsCheck(VM.VideoView.Video_PixelFormat_SelectedItem);
+
+            // Scale/Size
+            string video_Scale = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem);
+
+            // Scaling
+            string video_ScalingAlgorithm = SettingsCheck(VM.VideoView.Video_ScalingAlgorithm_SelectedItem);
+
+            // FPS
+            string video_FPS = SettingsCheck(VM.VideoView.Video_FPS_SelectedItem);
+            if (!string.IsNullOrWhiteSpace(video_FPS))
+            {
+                video_FPS = video_FPS + "fps";
+            }
+
+            // -------------------------
+            // Audio
+            // -------------------------
+            // Codec
+            string audio_Codec = SettingsCheck(VM.AudioView.Audio_Codec_SelectedItem);
+
+            // Channel
+            string audio_Channel = SettingsCheck(VM.AudioView.Audio_Channel_SelectedItem);
+            if (!string.IsNullOrWhiteSpace(audio_Channel))
+            {
+                audio_Channel = "CH" + audio_Channel;
+            }
+
+            // VBR
+            string audio_VBR = string.Empty;
+            if (VM.AudioView.Audio_VBR_IsChecked == true)
+            {
+                audio_VBR = "VBR";
+            }
+
+            // Bit Rate
+            string audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text);
+
+            // Compression Level
+            string audio_CompressionLevel = SettingsCheck(VM.AudioView.Audio_CompressionLevel_SelectedItem);
+
+            // Sample Rate
+            string audio_SampleRate = SettingsCheck(VM.AudioView.Audio_SampleRate_SelectedItem) + "kHz";
+
+            // Bit Depth
+            string audio_BitDepth = SettingsCheck(VM.AudioView.Audio_BitDepth_SelectedItem) + "-bit";
+
+            // Merge
+            List<string> newFileName = new List<string>()
+            {
+                // Original File Name
+                filename,
+
+                // Format
+                format_inputExt,
+
+                // Video
+                video_hwAccel_Transcode,
+                video_Codec,
+                video_Pass,
+                video_BitRate,
+                video_Preset,
+                video_PixelFormat,
+                video_Scale,
+                video_ScalingAlgorithm,
+                video_FPS,
+
+                // Audio
+                audio_Codec,
+                audio_Channel,
+                audio_VBR,
+                audio_BitRate,
+                audio_CompressionLevel,
+                audio_SampleRate,
+                audio_BitDepth
+            };
+
+            // New File Name
+            return string.Join(" ", newFileName
+                                    .Where(s => !string.IsNullOrWhiteSpace(s))
+                                    .Where(s => !s.Equals("CRF"))
+                                    .Where(s => !s.Equals("fps"))
+                                    .Where(s => !s.Equals("p-"))
+                                    .Where(s => !s.Equals("-bit"))
+                                    .Where(s => !s.Equals("kHz"))
+                                    .Where(s => !s.Equals("CH"))
+                              );
+        }
+
+        public static String SettingsCheck(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s) ||
+                s.Equals("off", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("none", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("auto", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("Source", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("Copy", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("CRF", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("CH", StringComparison.OrdinalIgnoreCase)
+                )
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return s;
+            }
+        }
+
+
 
     }
 }
