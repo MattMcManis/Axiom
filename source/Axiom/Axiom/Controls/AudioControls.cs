@@ -598,7 +598,7 @@ namespace Controls
                 // -------------------------
                 // Get Input Extensions
                 // -------------------------
-                string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
+                string inputExt = Path.GetExtension(VM.MainView.Input_Text);
 
                 // -------------------------
                 // Halt if Input Extension is Empty
@@ -611,14 +611,14 @@ namespace Controls
                 // -------------------------
                 // Get Output Extensions
                 // -------------------------
-                string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+                string outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
 
                 // -------------------------
                 // Conditions Check
                 // Enable
                 // -------------------------
                 if (AutoCopyConditionsCheck() == true &&
-                    inputExt == outputExt)
+                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
                 {
                     // Set Audio Codec Combobox Selected Item to Copy
                     if (VM.AudioView.Audio_Codec_Items.Count > 0)
