@@ -74,8 +74,8 @@ namespace Profiles
                         // Ignore Desktop.ini
                         // Ignore ntuser.ini
                         if (!presetNamesList.Contains(presetName) &&
-                            !string.Equals(presetName, "desktop", StringComparison.CurrentCultureIgnoreCase) &&
-                            !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
+                            !string.Equals(presetName, "desktop", StringComparison.OrdinalIgnoreCase) &&
+                            !string.Equals(presetName, "ntuser", StringComparison.OrdinalIgnoreCase)
                             )
                         {
                             VM.MainView.Preset_Items.Insert(3, new ViewModel.Main.Preset() { Name = presetName, Category = false, Type = "Custom" });
