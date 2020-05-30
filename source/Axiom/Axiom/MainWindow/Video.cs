@@ -64,7 +64,7 @@ namespace Axiom
             // -------------------------
             //string userSelected_VideoQuality = string.Empty;
             //if (string.IsNullOrWhiteSpace(inputExt) ||
-            //    inputExt == outputExt)
+            //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             //{
             //    if (video_Codec_SelectedItem != "Copy" &&
             //        VM.VideoView.Video_Quality_SelectedItem != "Auto")
@@ -77,7 +77,7 @@ namespace Axiom
             // Set Copy Quality to Auto
             // -------------------------
             //if (string.IsNullOrWhiteSpace(inputExt) ||
-            //    inputExt == outputExt)
+            //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             //{
             //    if (video_Codec_SelectedItem == "Copy")
             //    {
@@ -95,7 +95,7 @@ namespace Axiom
             // -------------------------
             // Copy Codec -> VP8, x264, etc Codec
             //if (string.IsNullOrWhiteSpace(inputExt) ||
-            //    inputExt == outputExt)
+            //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             //{
             //    if (video_Codec_SelectedItem != "Copy")
             //    {
