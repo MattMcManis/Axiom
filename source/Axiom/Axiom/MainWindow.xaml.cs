@@ -1449,7 +1449,7 @@ namespace Axiom
                     }
 
                     // If Configure Path is ffmpeg.exe and not another Program
-                    //if (string.Equals(VM.ConfigureView.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    //if (string.Equals(VM.ConfigureView.FFmpegPath_Text, fullPath, StringComparison.OrdinalIgnoreCase))
                     //{
                     //    // let pass
                     //    //ffCheckCleared = true;
@@ -1535,7 +1535,7 @@ namespace Axiom
                     }
 
                     //// If Configure Path is FFmpeg.exe and not another Program
-                    //if (string.Equals(VM.ConfigureView.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    //if (string.Equals(VM.ConfigureView.FFprobePath_Text, fullPath, StringComparison.OrdinalIgnoreCase))
                     //{
                     //    // let pass
                     //    //ffCheckCleared = true;
@@ -2073,8 +2073,8 @@ namespace Axiom
             if (VM.MainView.Batch_IsChecked == true &&
                 !string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
             {
-                if (string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) &&
-                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                if (string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
                 {
                     //MessageBox.Show("inputDir = " + inputDir); //debug
                     //MessageBox.Show("outputDir = " + outputDir); //debug
@@ -2753,13 +2753,13 @@ namespace Axiom
             // -------------------------
             // Get Input/Output Extensions
             // -------------------------
-            string inputExt = Path.GetExtension(VM.MainView.Input_Text).ToLower();
-            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem.ToLower();
+            string inputExt = Path.GetExtension(VM.MainView.Input_Text);
+            string outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
             //MessageBox.Show(inputExt + "\n" + outputExt); //debug
 
             // Extensions Match Check
             if (string.IsNullOrWhiteSpace(inputExt) ||
-                inputExt == outputExt)
+                string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
             {
                 // -------------------------
                 // Video
