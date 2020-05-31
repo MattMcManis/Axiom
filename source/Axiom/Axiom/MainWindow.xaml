@@ -36,7 +36,7 @@
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
         Width="824"
-        Height="464"
+        Height="1464"
         Title="{Binding MainView.TitleVersion, Mode=OneWay}"
         Style="{DynamicResource WindowStyle}">
 
@@ -1174,7 +1174,8 @@
                                                       ToolTipService.InitialShowDelay="500"
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression."
-                                                      Margin="0,2,0,0">
+                                                      Margin="0,2,0,0"
+                                                      SelectionChanged="cboEncodeSpeed_SelectionChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid>
@@ -1282,7 +1283,8 @@
                                                       ToolTip="Hardware Acceleration Transcode"
                                                       Grid.Row="5"
                                                       Grid.Column="2"
-                                                      Height="22" />
+                                                      Height="22"
+                                                      SelectionChanged="cboHWAccelTranscode_SelectionChanged" />
 
 
                                             <!-- Video Quality -->
@@ -4109,7 +4111,8 @@
                                      ToolTip="Custom Audio Bit Rate (e.g. 245)"
                                      Grid.Column="2"
                                      Grid.Row="5"
-                                     Margin="0,2,0,0" />
+                                     Margin="0,2,0,0"
+                                     TextChanged="tbxAudio_BitRate_TextChanged" />
 
                             <!-- VBR Toggle -->
                             <ToggleButton x:Name="tglAudio_VBR"
@@ -4504,10 +4507,10 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                         <!-- Name -->
-                                        <GridViewColumn Width="Auto">
-                                            <!--<GridViewColumn>-->
-                                            <GridViewColumn />
-                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" />
+                                        <!--<GridViewColumn>-->
+                                        <!--<GridViewColumn />-->
+
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -5884,7 +5887,7 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="33" />
-                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="215" />
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="22" />
 
@@ -5921,7 +5924,7 @@
                                           IsSynchronizedWithCurrentItem="False"
                                           SelectionMode="Multiple"
                                           Height="168"
-                                          Margin="10,9,13,0"
+                                          Margin="6,31,43,0"
                                           VerticalAlignment="Top"
                                           BorderThickness="0"
                                           Style="{DynamicResource ListViewStyle}"
@@ -5929,7 +5932,8 @@
                                           ToolTipService.InitialShowDelay="500"
                                           ToolTipService.ShowOnDisabled="True"
                                           Grid.Row="1"
-                                          Grid.Column="2">
+                                          Grid.Column="1"
+                                          Grid.ColumnSpan="2">
 
                                     <ListView.Resources>
                                         <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -6005,7 +6009,7 @@
                                         Height="22"
                                         Cursor="Hand"
                                         Click="btnOutputNaming_SortUp_Click"
-                                        Margin="10,182,0,0"
+                                        Margin="120,31,0,0"
                                         HorizontalAlignment="Left"
                                         Width="22"
                                         Grid.Column="2"
@@ -6023,7 +6027,7 @@
                                         Height="22"
                                         Cursor="Hand"
                                         Click="btnOutputNaming_SortDown_Click"
-                                        Margin="37,182,0,0"
+                                        Margin="120,58,0,0"
                                         Grid.Column="2"
                                         Grid.Row="1">
                                     <TextBlock Text="▾"
@@ -6039,7 +6043,7 @@
                                         Height="22"
                                         Cursor="Hand"
                                         Click="btnOutputNaming_SelectAll_Click"
-                                        Margin="64,182,0,0"
+                                        Margin="120,85,0,0"
                                         Grid.Column="2"
                                         Grid.Row="1"
                                         ToolTipService.InitialShowDelay="500"
@@ -6059,7 +6063,7 @@
                                         Height="22"
                                         Cursor="Hand"
                                         Click="btnOutputNaming_DeselectAll_Click"
-                                        Margin="91,182,0,0"
+                                        Margin="120,112,0,0"
                                         Grid.Column="2"
                                         Grid.Row="1"
                                         ToolTipService.InitialShowDelay="500"
@@ -6071,7 +6075,7 @@
                                 <!-- Output Naming Load Defaults -->
                                 <Button x:Name="btnOutputNamingDefaults"
                                         HorizontalAlignment="Left"
-                                        Margin="118,182,0,0"
+                                        Margin="120,139,0,0"
                                         VerticalAlignment="Top"
                                         Width="22"
                                         Height="22"
