@@ -627,9 +627,12 @@ namespace Filters
                     if (aFiltersList.Count == 1)
                     {
                         // Always wrap in quotes
-                        aFilter = "-af \"" + string.Join(", \r\n\r\n", aFiltersList
-                                                   .Where(s => !string.IsNullOrEmpty(s)))
-                                                   + "\"";
+                        //aFilter = "-af \"" + string.Join(", \r\n\r\n", aFiltersList
+                        //                           .Where(s => !string.IsNullOrEmpty(s)))
+                        //                           + "\"";
+                        aFilter = "-af " + MainWindow.WrapWithQuotes(string.Join("", aFiltersList
+                                                                                     .Where(s => !string.IsNullOrEmpty(s)))
+                                                                    );
                     }
 
                     // -------------------------
@@ -639,9 +642,11 @@ namespace Filters
                     {
                         // Always wrap in quotes
                         // Linebreak beginning and end
-                        aFilter = "-af \"\r\n" + string.Join(", \r\n\r\n", aFiltersList
-                                                       .Where(s => !string.IsNullOrEmpty(s)))
-                                                       + "\r\n\"";
+                        aFilter = "-af " + MainWindow.WrapWithQuotes("\r\n" +
+                                                                     string.Join(", \r\n\r\n", aFiltersList
+                                                                                               .Where(s => !string.IsNullOrEmpty(s))) +
+                                                                     "\r\n"
+                                                                    );
 
                         //System.Windows.MessageBox.Show(aFilter); //debug
                     }
