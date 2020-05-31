@@ -113,6 +113,7 @@ namespace Axiom
                         // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
                         //outputFileName = FileRenamer(FileNameAddSettings(inputFileName));
                         outputFileName = FileRenamer(inputFileName);
+                        outputFileName_Original = outputFileName;
                         outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
 
                         // Same as input file name
@@ -260,6 +261,7 @@ namespace Axiom
                                     // Default Output Dir to be same as Input Directory
                                     outputDir = inputDir;
                                     outputFileName = inputFileName;
+                                    outputFileName_Original = outputFileName;
 
                                     // Add Settings to File Name
                                     // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
@@ -274,7 +276,8 @@ namespace Axiom
                                     outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
                                     //outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
 
-                                    outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                                    //outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text); //problem with OutputPath_UpdateDisplay()
+                                    outputFileName = Path.GetFileNameWithoutExtension(outputFileName_Original);
                                     outputFileName_Tokens = FileNameAddSettings(Path.GetFileNameWithoutExtension(inputFileName));
                                 }
 
@@ -292,6 +295,7 @@ namespace Axiom
                                     // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
                                     //outputFileName = FileRenamer(FileNameAddSettings(inputFileName));
                                     outputFileName = FileRenamer(inputFileName);
+                                    outputFileName_Original = outputFileName;
                                     outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
                                 }
 
@@ -577,9 +581,9 @@ namespace Axiom
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Input Ext"))
             {
                 format_inputExt = SettingsCheck(Path.GetExtension(VM.MainView.Input_Text)
-                                                   .Replace(".", "")
-                                                   .ToLower()
-                                                   );
+                                                    .Replace(".", "")
+                                                    .ToLower()
+                                               );
             }
 
             // -------------------------
@@ -603,25 +607,38 @@ namespace Axiom
             string video_Pass = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Pass"))
             {
-                video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem);
+                // null check prevents unknown crash
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Pass_SelectedItem))
+                {
+                    video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem).Replace(" ", "-"); // do not lowercase
+                }
             }
 
             // Video Bit Rate
             string video_BitRate = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video BitRate"))
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Bit Rate"))
             {
                 video_BitRate = SettingsCheck(VM.VideoView.Video_BitRate_Text);
+            }
+
+            // CRF
+            string video_CRF = string.Empty;
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video CRF"))
+            {
+                video_CRF = "CRF" + SettingsCheck(VM.VideoView.Video_CRF_Text);
             }
 
             // Preset
             string video_Preset = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Preset"))
             {
-                video_Preset = VM.VideoView.Video_EncodeSpeed_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name;
+                video_Preset = SettingsCheck(VM.VideoView.Video_EncodeSpeed_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name);
 
                 if (!string.IsNullOrWhiteSpace(video_Preset))
                 {
-                    video_Preset = "p-" + video_Preset.ToLower();
+                    video_Preset = "p-" + video_Preset
+                                          .Replace(" ", "-")
+                                          .ToLower();
                 }
             }
 
@@ -644,6 +661,13 @@ namespace Axiom
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Scaling"))
             {
                 video_ScalingAlgorithm = SettingsCheck(VM.VideoView.Video_ScalingAlgorithm_SelectedItem);
+
+                if (!string.IsNullOrWhiteSpace(video_ScalingAlgorithm))
+                {
+                    video_ScalingAlgorithm = "s-" + video_ScalingAlgorithm
+                                                    .Replace(" ", "-")
+                                                    .ToLower();
+                }
             }
 
             // FPS
@@ -676,7 +700,9 @@ namespace Axiom
 
                 if (!string.IsNullOrWhiteSpace(audio_Channel))
                 {
-                    audio_Channel = "CH-" + audio_Channel;
+                    audio_Channel = "CH-" + audio_Channel
+                                            .Replace(" ", "-");
+                                            // do not lowercase
                 }
             }
 
@@ -684,13 +710,40 @@ namespace Axiom
             string audio_BitRate = string.Empty;
             // VBR
             string audio_VBR = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Audio BitRate"))
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Audio Bit Rate"))
             {
-                audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text);
+                //audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text) + "k";
 
-                if (VM.AudioView.Audio_VBR_IsChecked == true)
+                if (VM.AudioView.Audio_Quality_SelectedItem == "Custom")
+                {
+                    // TextBox
+                    //audio_BitRate = VM.AudioView.Audio_BitRate_Text.Replace("k", "");
+                    audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text) + "k";
+                }
+                else
+                {
+                    // Quality ComboBox
+                    //audio_BitRate = VM.AudioView.Audio_Quality_SelectedItem.Replace("k", "");
+                    audio_BitRate = SettingsCheck(VM.AudioView.Audio_Quality_SelectedItem) + "k";
+                }
+
+                if (VM.AudioView.Audio_VBR_IsChecked == true &&
+                    !string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitRate_Text))
                 {
                     audio_VBR = "VBR";
+
+                    //if (VM.AudioView.Audio_Quality_SelectedItem != "Custom")
+                    //{
+                    //    //audio_BitRate = VM.AudioView.Audio_BitRate_Text.Replace("k", "");
+                    //    audio_BitRate = VM.AudioView.Audio_Quality_SelectedItem.Replace("k", "");
+                    //}
+
+                    //audio_BitRate = Generate.Audio.Quality.AudioVBRCalculator(VM.AudioView.Audio_VBR_IsChecked,
+                    //                                                          VM.AudioView.Audio_Codec_SelectedItem,
+                    //                                                          VM.AudioView.Audio_Quality_Items,
+                    //                                                          VM.AudioView.Audio_Quality_SelectedItem,
+                    //                                                          VM.AudioView.Audio_BitRate_Text
+                    //                                                          );
                 }
             }       
 
@@ -698,7 +751,7 @@ namespace Axiom
             string audio_SampleRate = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Sample Rate"))
             {
-                audio_SampleRate = SettingsCheck(VM.AudioView.Audio_SampleRate_SelectedItem).Replace("k", "") + "kHz";
+                audio_SampleRate = SettingsCheck(VM.AudioView.Audio_SampleRate_SelectedItem.Replace("k", "")) + "kHz";
             }
 
             // Bit Depth
@@ -760,8 +813,11 @@ namespace Axiom
                     case "Pass":
                         newFileName.Add(video_Pass);
                         break;
-                    case "Video BitRate":
+                    case "Video Bit Rate":
                         newFileName.Add(video_BitRate);
+                        break;
+                    case "Video CRF":
+                        newFileName.Add(video_CRF);
                         break;
                     case "Preset":
                         newFileName.Add(video_Preset);
@@ -786,8 +842,8 @@ namespace Axiom
                     case "Channel":
                         newFileName.Add(audio_Channel);
                         break;
-                    case "Audio BitRate":
-                        newFileName.Add(audio_VBR + audio_BitRate);
+                    case "Audio Bit Rate":
+                        newFileName.Add(audio_BitRate + audio_VBR);
                         break;
                     case "Sample Rate":
                         newFileName.Add(audio_SampleRate);
@@ -805,6 +861,7 @@ namespace Axiom
                                     .Where(s => !s.Equals("fps"))
                                     .Where(s => !s.Equals("p-"))
                                     .Where(s => !s.Equals("CH-"))
+                                    .Where(s => !s.Equals("k"))
                                     .Where(s => !s.Equals("-bit"))
                                     .Where(s => !s.Equals("kHz"))
                             );
@@ -812,18 +869,24 @@ namespace Axiom
 
         public static String SettingsCheck(string s)
         {
-            if (string.IsNullOrWhiteSpace(s) ||
-                s.Equals("off", StringComparison.OrdinalIgnoreCase) ||
-                s.Equals("none", StringComparison.OrdinalIgnoreCase) ||
-                s.Equals("auto", StringComparison.OrdinalIgnoreCase) ||
-                s.Equals("Source", StringComparison.OrdinalIgnoreCase) ||
-                s.Equals("Copy", StringComparison.OrdinalIgnoreCase) ||
-                s.Equals("CRF", StringComparison.OrdinalIgnoreCase) //||
-                //s.Equals("CH-", StringComparison.OrdinalIgnoreCase)
+            // Fail
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return string.Empty;
+            }
+            // Fail
+            else if (s.Equals("off", StringComparison.OrdinalIgnoreCase) ||
+                     s.Equals("none", StringComparison.OrdinalIgnoreCase) ||
+                     s.Equals("auto", StringComparison.OrdinalIgnoreCase) ||
+                     s.Equals("Source", StringComparison.OrdinalIgnoreCase) ||
+                     s.Equals("Copy", StringComparison.OrdinalIgnoreCase) ||
+                     s.Equals("CRF", StringComparison.OrdinalIgnoreCase) || // Use CRF TextBox instead of Pass
+                     s.Equals("Custom", StringComparison.OrdinalIgnoreCase)
                 )
             {
                 return string.Empty;
             }
+            // Pass
             else
             {
                 return s;
@@ -833,6 +896,30 @@ namespace Axiom
         /// <summary>
         /// Output Path Update Display (Method)
         /// </summary>
+        public static List<string> outputNaming_Defaults = new List<string>()
+        {
+            // Format
+            "Input Ext",
+
+            // Video
+            "HW Accel",
+            "Video Codec",
+            "Pass",
+            "Video Bit Rate",
+            "Video CRF",
+            "Preset",
+            "Pixel Format",
+            "Frame Rate",
+            "Size",
+            "Scaling",
+
+            // Audio
+            "Audio Codec",
+            "Channel",
+            "Audio Bit Rate",
+            "Sample Rate",
+            "Bit Depth"
+        };
         public static void OutputPath_UpdateDisplay()
         {
             // Halt if Input is Empty
@@ -897,6 +984,8 @@ namespace Axiom
 
                 // Display
                 VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+
+                //MessageBox.Show("Default"); //debug
             }
             // File Name Settings
             else
@@ -911,7 +1000,10 @@ namespace Axiom
                 else
                 {
                     // Regenerate
-                    outputFileName_Tokens = FileNameAddSettings(outputFileName);
+                    //outputFileName_Tokens = FileNameAddSettings(outputFileName); //probem
+                    outputFileName_Tokens = FileNameAddSettings(outputFileName_Original); //working
+
+                    //MessageBox.Show("Regenerate"); //debug
                 }
 
                 // Display
