@@ -365,6 +365,12 @@ namespace Controls
                     // Color Matrix
                     VM.VideoView.Video_Color_Matrix_IsEnabled = true;
 
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+
+                    // Subtitle Stream
+                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+
 
                     // Filters
                     Filters.Video.VideoFilters_EnableAll();
@@ -375,11 +381,11 @@ namespace Controls
                 // -------------------------
                 public static void Controls_Disable()
                 {
-                    // Subtitle Codec
-                    VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
+                    //// Subtitle Codec
+                    //VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
 
-                    // Subtitle Stream
-                    VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+                    //// Subtitle Stream
+                    //VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
                 }
 
             }
