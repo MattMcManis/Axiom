@@ -751,17 +751,6 @@ namespace ViewModel
                 OnPropertyChanged("OutputNaming_ListView_Items");
             }
         }
-        // Selected
-        private List<string> _OutputNaming_ListView_Selected = new List<string>();
-        public List<string> OutputNaming_ListView_Selected
-        {
-            get { return _OutputNaming_ListView_Selected; }
-            set
-            {
-                _OutputNaming_ListView_Selected = value;
-                OnPropertyChanged("OutputNaming_ListView_Selected");
-            }
-        }
         // Selected Items
         private List<string> _OutputNaming_ListView_SelectedItems = new List<string>();
         public List<string> OutputNaming_ListView_SelectedItems
