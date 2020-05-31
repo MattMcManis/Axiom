@@ -838,6 +838,7 @@ namespace Generate
                                     "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                                     // auto bitrate calcuate
                                     "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video Bit Rate Detected))",
+                                    //"\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=(((%S * 8) / 1000) / %D) * 1000) ELSE (echo Video Bit Rate Detected))",
                                     // set %V to %vBitRate%
                                     "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                                 };
