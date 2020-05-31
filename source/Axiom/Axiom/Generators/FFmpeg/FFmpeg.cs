@@ -209,21 +209,22 @@ namespace Generate
             {
                 // PowerShell
                 case "PowerShell":
-                    switch (VM.MainView.Batch_IsChecked)
-                    {
-                        // Single
-                        case false:
-                            return "-ArgumentList '";
+                    //switch (VM.MainView.Batch_IsChecked)
+                    //{
+                    //    // Single
+                    //    case false:
+                    //        return "-ArgumentList '";
 
-                        // Batch
-                        case true:
-                            return "-ArgumentList \"";
+                    //    // Batch
+                    //    case true:
+                    //        return "-ArgumentList \"";
 
-                        // Unknown
-                        default:
-                            return "-ArgumentList '";
-                    }
+                    //    // Unknown
+                    //    default:
+                    //        return "-ArgumentList '";
+                    //}
                     //return "-ArgumentList '";
+                    return "-ArgumentList \"";
 
                 // Empty
                 default:
@@ -249,21 +250,22 @@ namespace Generate
             {
                 // PowerShell
                 case "PowerShell":
-                    switch (VM.MainView.Batch_IsChecked)
-                    {
-                        // Single
-                        case false:
-                            return "'";
+                    //switch (VM.MainView.Batch_IsChecked)
+                    //{
+                    //    // Single
+                    //    case false:
+                    //        return "'";
 
-                        // Batch
-                        case true:
-                            return "\"";
+                    //    // Batch
+                    //    case true:
+                    //        return "\"";
 
-                        // Unknown
-                        default:
-                            return "'";
-                    }
+                    //    // Unknown
+                    //    default:
+                    //        return "'";
+                    //}
                     //return "'";
+                    return "\"";
 
                 // Empty
                 default:
