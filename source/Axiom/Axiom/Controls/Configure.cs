@@ -322,29 +322,48 @@ namespace Controls
             {
                 // Split the list by commas
                 string[] arrOutputNaming_ItemOrder = outputNaming_ItemOrder.Split(',');
+
                 // Create the new list
                 VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(arrOutputNaming_ItemOrder);
+
+                // Check the Master Default List for Missing Items
+                List<string> missingItems = MainWindow.outputNaming_Defaults.Except(arrOutputNaming_ItemOrder).ToList();
+                //IEnumerable<string> missingItems = MainWindow.outputNaming_Defaults.Except(arrOutputNaming_ItemOrder).ToList();
+                //VM.MainView.ScriptView_Text = string.Join("\n", MainWindow.outputNaming_Defaults) + 
+                //                              "\n\n" + 
+                //                              string.Join("\n", arrOutputNaming_ItemOrder) +
+                //                              "\n\n" +
+                //                              string.Join("\n", missingItems)
+                //                              ; //debug
+
+                // Add the missing items to the bottom of the ListView
+                for (var i = 0; i < missingItems.Count; i++)
+                //foreach (string item in missingItems)
+                {
+                    VM.ConfigureView.OutputNaming_ListView_Items.Add(/*item*/missingItems[i]);
+                    //VM.MainView.ScriptView_Text = missingItems[i]; /debug
+                }
 
                 // Selected Items String (items separated by commas)
                 string outputNaming_SelectedItems = conf.Read("Settings", "OutputNaming_SelectedItems");
                 // Empty List Check
                 if (!string.IsNullOrEmpty(outputNaming_SelectedItems))
                 {
-                    string[] arrOuputNaming_Items = outputNaming_SelectedItems.Split(',');
+                    string[] arrOuputNaming_SelectedItems = outputNaming_SelectedItems.Split(',');
 
                     // Import Selected Items
-                    for (var i = 0; i < arrOuputNaming_Items.Length; i++)
+                    for (var i = 0; i < arrOuputNaming_SelectedItems.Length; i++)
                     {
                         // If Items List Contains the Imported Item
-                        if (VM.ConfigureView.OutputNaming_ListView_Items.Contains(arrOuputNaming_Items[i]))
+                        if (VM.ConfigureView.OutputNaming_ListView_Items.Contains(arrOuputNaming_SelectedItems[i]))
                         {
                             // Added Item to Selected Items List
-                            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(arrOuputNaming_Items[i]);
+                            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(arrOuputNaming_SelectedItems[i]);
 
                             // Select the Item
                             try
                             {
-                                mainwindow.lstvOutputNaming.SelectedItems.Add(arrOuputNaming_Items[i]);
+                                mainwindow.lstvOutputNaming.SelectedItems.Add(arrOuputNaming_SelectedItems[i]);
                             }
                             catch
                             {
