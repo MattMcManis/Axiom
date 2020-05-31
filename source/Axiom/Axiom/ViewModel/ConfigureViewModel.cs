@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -83,6 +84,7 @@ namespace ViewModel
             Shell_SelectedItem = "CMD";
             ProcessPriority_SelectedItem = "Default";
             Threads_SelectedItem = "Optimal";
+            OutputNaming_ListView_SelectedIndex = -1;
             OutputOverwrite_SelectedItem = "Always";
             Theme_SelectedItem = "Axiom";
             UpdateAutoCheck_IsChecked = true;
@@ -702,6 +704,120 @@ namespace ViewModel
 
                 _Threads_IsEnabled = value;
                 OnPropertyChanged("Threads_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Output Naming ListView
+        // --------------------------------------------------
+        public static ObservableCollection<string> OutputNaming_LoadDefaults()
+        {
+            ObservableCollection<string> items = new ObservableCollection<string>()
+            {
+                // Format
+                "Input Ext",
+
+                // Video
+                "HW Accel",
+                "Video Codec",
+                "Pass",
+                "Video BitRate",
+                "Preset",
+                "Pixel Format",
+                "Frame Rate",
+                "Size",
+                "Scaling",
+
+                // Audio
+                "Audio Codec",
+                "Channel",
+                "Audio BitRate",
+                "Sample Rate",
+                "Bit Depth"
+            };
+
+            return items;
+        }
+
+        // Items Source
+        private ObservableCollection<string> _OutputNaming_ListView_Items = OutputNaming_LoadDefaults();
+        public ObservableCollection<string> OutputNaming_ListView_Items
+        {
+            get { return _OutputNaming_ListView_Items; }
+            set
+            {
+                _OutputNaming_ListView_Items = value;
+                OnPropertyChanged("OutputNaming_ListView_Items");
+            }
+        }
+        // Selected
+        private List<string> _OutputNaming_ListView_Selected = new List<string>();
+        public List<string> OutputNaming_ListView_Selected
+        {
+            get { return _OutputNaming_ListView_Selected; }
+            set
+            {
+                _OutputNaming_ListView_Selected = value;
+                OnPropertyChanged("OutputNaming_ListView_Selected");
+            }
+        }
+        // Selected Items
+        private List<string> _OutputNaming_ListView_SelectedItems = new List<string>();
+        public List<string> OutputNaming_ListView_SelectedItems
+        {
+            get { return _OutputNaming_ListView_SelectedItems; }
+            set
+            {
+                _OutputNaming_ListView_SelectedItems = value;
+                OnPropertyChanged("OutputNaming_ListView_SelectedItems");
+            }
+        }
+        // Selected Index
+        private int _OutputNaming_ListView_SelectedIndex { get; set; }
+        public int OutputNaming_ListView_SelectedIndex
+        {
+            get { return _OutputNaming_ListView_SelectedIndex; }
+            set
+            {
+                if (_OutputNaming_ListView_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _OutputNaming_ListView_SelectedIndex = value;
+                OnPropertyChanged("OutputNaming_ListView_SelectedIndex");
+            }
+        }
+        private double _OutputNaming_ListView_Opacity { get; set; }
+        public double OutputNaming_ListView_Opacity
+        {
+            get { return _OutputNaming_ListView_Opacity; }
+            set
+            {
+                if (_OutputNaming_ListView_Opacity == value)
+                {
+                    return;
+                }
+
+                _OutputNaming_ListView_Opacity = value;
+                OnPropertyChanged("OutputNaming_ListView_Opacity");
+            }
+        }
+        // Controls Enable
+        public bool _OutputNaming_ListView_IsEnabled = true;
+        public bool OutputNaming_ListView_IsEnabled
+        {
+            get { return _OutputNaming_ListView_IsEnabled; }
+            set
+            {
+                if (_OutputNaming_ListView_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _OutputNaming_ListView_IsEnabled = value;
+                OnPropertyChanged("OutputNaming_ListView_IsEnabled");
             }
         }
 
