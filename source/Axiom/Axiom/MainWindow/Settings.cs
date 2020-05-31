@@ -28,6 +28,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ViewModel;
+using Axiom;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -859,6 +860,136 @@ namespace Axiom
             // Only allow Numbers and Backspace
             Allow_Only_Number_Keys(e);
         }
+
+
+        /// <summary>
+        /// Output Naming ListView
+        /// </summary>
+        private void lstvOutputNaming_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Clear before adding new selected items
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems != null &&
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count > 0)
+            {
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems.Clear();
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems.TrimExcess();
+            }
+
+            // Create Selected Items List for ViewModel
+            VM.ConfigureView.OutputNaming_ListView_SelectedItems = lstvOutputNaming.SelectedItems
+                                                                                   .Cast<string>()
+                                                                                   .ToList();
+
+            // -------------------------
+            // Update Ouput Textbox with Name Settings
+            // -------------------------
+            if (VM.MainView.Batch_IsChecked == false && // Single File
+                !string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
+                !string.IsNullOrWhiteSpace(inputExt)) // Path Combine with null file extension causes error
+            {
+                //MessageBox.Show(outputExt); //debug
+                if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
+                    !string.IsNullOrWhiteSpace(outputFileName))
+                {
+                    // Default
+                    if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+                        VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
+                    {
+                        // Display
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                    }
+                    // File Name Settings
+                    else
+                    {
+                        // Regenerate
+                        outputFileName_Tokens = FileNameAddSettings(outputFileName);
+                        // Display
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Output Naming Sort Up
+        /// </summary>
+        private void btnOutputNaming_SortUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count > 0)
+            {
+                var selectedIndex = VM.ConfigureView.OutputNaming_ListView_SelectedIndex;
+
+                if (selectedIndex > 0)
+                {
+                    // ListView Items
+                    var itemlsvItems = VM.ConfigureView.OutputNaming_ListView_Items[selectedIndex];
+                    VM.ConfigureView.OutputNaming_ListView_Items.RemoveAt(selectedIndex);
+                    VM.ConfigureView.OutputNaming_ListView_Items.Insert(selectedIndex - 1, itemlsvItems);
+
+                    // Highlight Selected Index
+                    VM.ConfigureView.OutputNaming_ListView_SelectedIndex = selectedIndex - 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Output Naming Sort Down
+        /// </summary>
+        private void btnOutputNaming_SortDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count > 0)
+            {
+                var selectedIndex = VM.ConfigureView.OutputNaming_ListView_SelectedIndex;
+
+                if (selectedIndex + 1 < VM.ConfigureView.OutputNaming_ListView_Items.Count)
+                {
+                    // ListView Items
+                    var itemlsvItems = VM.ConfigureView.OutputNaming_ListView_Items[selectedIndex];
+                    VM.ConfigureView.OutputNaming_ListView_Items.RemoveAt(selectedIndex);
+                    VM.ConfigureView.OutputNaming_ListView_Items.Insert(selectedIndex + 1, itemlsvItems);
+
+                    // Highlight Selected Index
+                    VM.ConfigureView.OutputNaming_ListView_SelectedIndex = selectedIndex + 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Output Naming Select All
+        /// </summary>
+        private void btnOutputNaming_SelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            lstvOutputNaming.SelectAll();
+        }
+
+        /// <summary>
+        /// Output Naming Deselect All
+        /// </summary>
+        private void btnOutputNaming_DeselectAll_Click(object sender, RoutedEventArgs e)
+        {
+            lstvOutputNaming.SelectedIndex = -1;
+        }
+
+        /// <summary>
+        /// Output Naming Load Defaults
+        /// </summary>
+        private void btnOutputNamingDefaults_Click(object sender, RoutedEventArgs e)
+        {
+            // Deselect All
+            lstvOutputNaming.SelectedIndex = -1;
+
+            //// Clear Selected Items
+            //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems != null &&
+            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count > 0)
+            //{
+            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Clear();
+            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.TrimExcess();
+            //}
+
+            // Load Defaults
+            VM.ConfigureView.OutputNaming_ListView_Items = ViewModel.Configure.OutputNaming_LoadDefaults();
+        }
+
 
         /// <summary>
         /// Theme Select - ComboBox
