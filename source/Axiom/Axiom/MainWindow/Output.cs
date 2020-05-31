@@ -149,11 +149,11 @@ namespace Axiom
                             outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
 
                             // Output Filename (without extension)
-                            outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-                            outputFileName_Tokens = outputFileName;
+                            //outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                            //outputFileName_Tokens = outputFileName;
 
                             // Add slash to inputDir path if missing
-                            outputDir = outputDir.TrimEnd('\\') + @"\";
+                            //outputDir = outputDir.TrimEnd('\\') + @"\";
 
                             // Debug
                             //MessageBox.Show(VM.MainView.Output_Text);
@@ -558,7 +558,8 @@ namespace Axiom
             //MessageBox.Show(string.Join("\n",VM.ConfigureView.OutputNaming_ListView_SelectedItems)); //debug
 
             // Halt if No Output Naming is Selected
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+            if (VM.MainView.Batch_IsChecked == true || // Ignore batch
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
                 VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
             {
                 //outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
@@ -620,7 +621,7 @@ namespace Axiom
 
                 if (!string.IsNullOrWhiteSpace(video_Preset))
                 {
-                    video_Preset = "P-" + video_Preset.ToLower();
+                    video_Preset = "p-" + video_Preset.ToLower();
                 }
             }
 
@@ -693,13 +694,6 @@ namespace Axiom
                 }
             }       
 
-            //// Audio Compression Level
-            //string audio_CompressionLevel = string.Empty;
-            //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("A Compression"))
-            //{
-            //    audio_CompressionLevel = SettingsCheck(VM.AudioView.Audio_CompressionLevel_SelectedItem);
-            //}
-
             // Sample Rate
             string audio_SampleRate = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Sample Rate"))
@@ -715,44 +709,105 @@ namespace Axiom
             }
 
             // Merge
-            List<string> newFileName = new List<string>()
+            List<string> newFileName = new List<string>();
+            // Add Original File Name
+            newFileName.Add(filename);
+            //List<string> newFileName = new List<string>()
+            //{
+            //    // Original File Name
+            //    filename,
+
+            //    // Format
+            //    format_inputExt,
+
+            //    // Video
+            //    video_hwAccel_Transcode,
+            //    video_Codec,
+            //    video_Pass,
+            //    video_BitRate,
+            //    video_Preset,
+            //    video_PixelFormat,
+            //    video_Scale,
+            //    video_ScalingAlgorithm,
+            //    video_FPS,
+
+            //    // Audio
+            //    audio_Codec,
+            //    audio_Channel,
+            //    audio_VBR + audio_BitRate,
+            //    audio_SampleRate,
+            //    audio_BitDepth
+            //};
+            // Create new File Name by Options Order Arranged
+            for (var i = 0; i < VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count; i++)
             {
-                // Original File Name
-                filename,
+                switch (VM.ConfigureView.OutputNaming_ListView_SelectedItems[i])
+                {
+                    // Add
 
-                // Format
-                format_inputExt,
+                    // Format
+                    case "Input Ext":
+                        newFileName.Add(format_inputExt);
+                        break;
 
-                // Video
-                video_hwAccel_Transcode,
-                video_Codec,
-                video_Pass,
-                video_BitRate,
-                video_Preset,
-                video_PixelFormat,
-                video_Scale,
-                video_ScalingAlgorithm,
-                video_FPS,
+                    // Video
+                    case "HW Accel":
+                        newFileName.Add(video_hwAccel_Transcode);
+                        break;
+                    case "Video Codec":
+                        newFileName.Add(video_Codec);
+                        break;
+                    case "Pass":
+                        newFileName.Add(video_Pass);
+                        break;
+                    case "Video BitRate":
+                        newFileName.Add(video_BitRate);
+                        break;
+                    case "Preset":
+                        newFileName.Add(video_Preset);
+                        break;
+                    case "Pixel Format":
+                        newFileName.Add(video_PixelFormat);
+                        break;
+                    case "Frame Rate":
+                        newFileName.Add(video_FPS);
+                        break;
+                    case "Size":
+                        newFileName.Add(video_Scale);
+                        break;
+                    case "Scaling":
+                        newFileName.Add(video_ScalingAlgorithm);
+                        break;
 
-                // Audio
-                audio_Codec,
-                audio_Channel,
-                audio_VBR + audio_BitRate,
-                //audio_CompressionLevel,
-                audio_SampleRate,
-                audio_BitDepth
-            };
+                    // Audio
+                    case "Audio Codec":
+                        newFileName.Add(audio_Codec);
+                        break;
+                    case "Channel":
+                        newFileName.Add(audio_Channel);
+                        break;
+                    case "Audio BitRate":
+                        newFileName.Add(audio_VBR + audio_BitRate);
+                        break;
+                    case "Sample Rate":
+                        newFileName.Add(audio_SampleRate);
+                        break;
+                    case "Bit Depth":
+                        newFileName.Add(audio_BitDepth);
+                        break;
+                }
+            }
 
             // New File Name
             return string.Join(" ", newFileName
                                     .Where(s => !string.IsNullOrWhiteSpace(s))
                                     .Where(s => !s.Equals("CRF"))
                                     .Where(s => !s.Equals("fps"))
-                                    .Where(s => !s.Equals("P-"))
+                                    .Where(s => !s.Equals("p-"))
                                     .Where(s => !s.Equals("CH-"))
                                     .Where(s => !s.Equals("-bit"))
                                     .Where(s => !s.Equals("kHz"))
-                              );
+                            );
         }
 
         public static String SettingsCheck(string s)
@@ -775,7 +830,94 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        /// Output Path Update Display (Method)
+        /// </summary>
+        public static void OutputPath_UpdateDisplay()
+        {
+            // Halt if Input is Empty
+            if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+            {
+                return;
+            }
 
+            // Halt if Input Extension is Empty
+            // Path Combine with null file extension causes error
+            if (string.IsNullOrWhiteSpace(inputExt))
+            {
+                return;
+            }
+
+            // Halt if Output is Empty
+            if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+            {
+                return;
+            }
+
+            // Halt if Output Directory is Empty
+            // Prevents a crash when changing containers if input and output paths are not empty
+            if (string.IsNullOrWhiteSpace(outputDir))
+            {
+                return;
+            }
+
+            // Halt if Output Filename is Empty
+            if (string.IsNullOrWhiteSpace(outputFileName))
+            {
+                return;
+            }
+
+            // Halt if Output Naming is Empty
+            //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
+            //{
+            //    return;
+            //}
+
+            // Halt if Batch
+            if (VM.MainView.Batch_IsChecked == true)
+            {
+                return;
+            }
+
+            // -------------------------
+            // Update Ouput Textbox with current Format extension
+            // -------------------------
+            // Default
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
+            {
+                // File Renamer
+                // Add (1) if File Names are the same
+                if (!string.IsNullOrWhiteSpace(inputDir) &&
+                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
+                {
+                    outputFileName = FileRenamer(inputFileName);
+                }
+
+                // Display
+                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+            }
+            // File Name Settings
+            else
+            {
+                // File Renamer
+                // Add (1) if File Names are the same
+                if (!string.IsNullOrWhiteSpace(inputDir) &&
+                    string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase))
+                {
+                    outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+                }
+                else
+                {
+                    // Regenerate
+                    outputFileName_Tokens = FileNameAddSettings(outputFileName);
+                }
+
+                // Display
+                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+            }
+        }
 
     }
 }
