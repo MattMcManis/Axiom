@@ -119,6 +119,11 @@ namespace Axiom
             // Convert Button Text Change
             // -------------------------
             ConvertButtonText();
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
@@ -127,7 +132,10 @@ namespace Axiom
         /// </summary>
         private void cboAudio_Channel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
@@ -167,6 +175,11 @@ namespace Axiom
                                                              );
 
             // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
+
+            // -------------------------
             // Set Video and AudioCodec Combobox to "Copy" if 
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
@@ -174,6 +187,16 @@ namespace Axiom
             //Controls.Audio.Controls.AutoCopyAudioCodec("control");
         }
 
+        /// <summary>
+        /// Audio VBR - TextBox
+        /// </summary>
+        private void tbxAudio_BitRate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
+        }
 
         /// <summary>
         /// Audio VBR - Toggle
@@ -192,6 +215,11 @@ namespace Axiom
             Controls.Audio.Controls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
                                               VM.AudioView.Audio_Quality_SelectedItem
                                               );
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
         // Unchecked
         private void tglAudio_VBR_Unchecked(object sender, RoutedEventArgs e)
@@ -264,6 +292,11 @@ namespace Axiom
             //MessageBox.Show("Current Changed: " + VM.AudioView.Audio_SampleRate_SelectedItem); //debug
 
             //Controls.Audio.Controls.AutoCopyAudioCodec("control");
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
@@ -276,6 +309,11 @@ namespace Axiom
             {
                 Controls.Audio.Codec.PCM.Codec_Set();
             }
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
