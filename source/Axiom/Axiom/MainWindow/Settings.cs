@@ -876,38 +876,67 @@ namespace Axiom
             }
 
             // Create Selected Items List for ViewModel
-            VM.ConfigureView.OutputNaming_ListView_SelectedItems = lstvOutputNaming.SelectedItems
-                                                                                   .Cast<string>()
-                                                                                   .ToList();
+            //VM.ConfigureView.OutputNaming_ListView_SelectedItems = lstvOutputNaming.SelectedItems
+            //                                                                       .Cast<string>()
+            //                                                                       .ToList();
+
+            // Build the list by Order Arranged
+            for (var i = 0; i < VM.ConfigureView.OutputNaming_ListView_Items.Count; i++)
+            {
+                if (lstvOutputNaming.SelectedItems.Cast<string>().ToList().Contains(VM.ConfigureView.OutputNaming_ListView_Items[i]))
+                {
+                    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(VM.ConfigureView.OutputNaming_ListView_Items[i]);
+                }
+            }
+
+            //MessageBox.Show(string.Join("\n", lstvOutputNaming.SelectedItems.Cast<string>().ToList())); //debug
 
             // -------------------------
             // Update Ouput Textbox with Name Settings
             // -------------------------
-            if (VM.MainView.Batch_IsChecked == false && // Single File
-                !string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
-                !string.IsNullOrWhiteSpace(inputExt)) // Path Combine with null file extension causes error
-            {
-                //MessageBox.Show(outputExt); //debug
-                if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
-                    !string.IsNullOrWhiteSpace(outputFileName))
-                {
-                    // Default
-                    if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
-                        VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
-                    {
-                        // Display
-                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-                    }
-                    // File Name Settings
-                    else
-                    {
-                        // Regenerate
-                        outputFileName_Tokens = FileNameAddSettings(outputFileName);
-                        // Display
-                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-                    }
-                }
-            }
+            OutputPath_UpdateDisplay();
+            //if (VM.MainView.Batch_IsChecked == false && // Single File
+            //    !string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
+            //    !string.IsNullOrWhiteSpace(inputExt)) // Path Combine with null file extension causes error
+            //{
+            //    //MessageBox.Show(outputExt); //debug
+            //    if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
+            //        !string.IsNullOrWhiteSpace(outputFileName))
+            //    {
+            //        // Default
+            //        if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+            //            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
+            //        {
+            //            // File Renamer
+            //            // Add (1) if File Names are the same
+            //            if (!string.IsNullOrWhiteSpace(inputDir) &&
+            //                string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
+            //            {
+            //                outputFileName = FileRenamer(inputFileName);
+            //            }
+
+            //            // Display
+            //            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+            //        }
+            //        // File Name Settings
+            //        else
+            //        {
+            //            // Regenerate
+            //            outputFileName_Tokens = FileNameAddSettings(outputFileName);
+
+            //            // File Renamer
+            //            // Add (1) if File Names are the same
+            //            if (!string.IsNullOrWhiteSpace(inputDir) &&
+            //                string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase))
+            //            {
+            //                outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+            //            }
+
+            //            // Display
+            //            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
