@@ -861,6 +861,11 @@ namespace Axiom
             // Update Width/Height TextBox Display
             // -------------------------
             VideoScaleDisplay();
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
@@ -1335,7 +1340,10 @@ namespace Axiom
         /// </summary>
         private void cboVideo_ScalingAlgorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
