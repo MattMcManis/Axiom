@@ -69,19 +69,19 @@ namespace Axiom
             Controls.Video.Controls.OptimizeControls();
 
 
-            // -------------------------
-            // File Renamer
-            // -------------------------
-            // Add (1) if File Names are the same
-            if (VM.MainView.Batch_IsChecked == false) // Ignore batch
-            {
-                if (!string.IsNullOrWhiteSpace(inputDir) &&
-                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
-                {
-                    outputFileName = FileRenamer(inputFileName);
-                    outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
-                }
-            }
+            //// -------------------------
+            //// File Renamer
+            //// -------------------------
+            //// Add (1) if File Names are the same
+            //if (VM.MainView.Batch_IsChecked == false) // Ignore batch
+            //{
+            //    if (!string.IsNullOrWhiteSpace(inputDir) &&
+            //        string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        outputFileName = FileRenamer(inputFileName);
+            //        outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+            //    }
+            //}
 
             // --------------------------------------------------
             // Default Auto if Input Extension matches Output Extsion
@@ -93,34 +93,52 @@ namespace Axiom
             // -------------------------
             // Update Ouput Textbox with current Format extension
             // -------------------------
-            if (VM.MainView.Batch_IsChecked == false && // Single File
-                !string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
-                !string.IsNullOrWhiteSpace(inputExt)) // Path Combine with null file extension causes error
-            {
-                //MessageBox.Show(outputExt); //debug
-                if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
-                    !string.IsNullOrWhiteSpace(outputFileName))
-                {
-                    //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-                    //VM.MainView.Output_Text = Path.Combine(outputDir, FileNameAddSettings(outputFileName) + outputExt);
+            OutputPath_UpdateDisplay();
+            //if (VM.MainView.Batch_IsChecked == false && // Single File
+            //    !string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
+            //    !string.IsNullOrWhiteSpace(inputExt)) // Path Combine with null file extension causes error
+            //{
+            //    //MessageBox.Show(outputExt); //debug
+            //    if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
+            //        !string.IsNullOrWhiteSpace(outputFileName))
+            //    {
+            //        //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+            //        //VM.MainView.Output_Text = Path.Combine(outputDir, FileNameAddSettings(outputFileName) + outputExt);
 
-                    // Default
-                    if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
-                        VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
-                    {
-                        // Display
-                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-                    }
-                    // File Name Settings
-                    else
-                    {
-                        // Regenerate
-                        outputFileName_Tokens = FileNameAddSettings(outputFileName);
-                        // Display
-                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-                    }
-                }
-            }
+            //        // Default
+            //        if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+            //            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
+            //        {
+            //            // File Renamer
+            //            // Add (1) if File Names are the same
+            //            if (!string.IsNullOrWhiteSpace(inputDir) &&
+            //                string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
+            //            {
+            //                outputFileName = FileRenamer(inputFileName);
+            //            }
+
+            //            // Display
+            //            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+            //        }
+            //        // File Name Settings
+            //        else
+            //        {
+            //            // Regenerate
+            //            outputFileName_Tokens = FileNameAddSettings(outputFileName);
+
+            //            // File Renamer
+            //            // Add (1) if File Names are the same
+            //            if (!string.IsNullOrWhiteSpace(inputDir) &&
+            //                string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase))
+            //            {
+            //                outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+            //            }
+
+            //            // Display
+            //            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+            //        }
+            //    }
+            //}
 
             // -------------------------
             // Force MediaTypeControls ComboBox to fire SelectionChanged Event
