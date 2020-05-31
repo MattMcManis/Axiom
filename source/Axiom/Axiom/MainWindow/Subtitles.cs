@@ -130,7 +130,8 @@ namespace Axiom
                 for (var i = 0; i < selectFiles.FileNames.Length; i++)
                 {
                     // Wrap in quotes for ffmpeg -i
-                    Generate.Subtitle.subtitleFilePathsList.Add("\"" + selectFiles.FileNames[i] + "\"");
+                    //Generate.Subtitle.subtitleFilePathsList.Add("\"" + selectFiles.FileNames[i] + "\"");
+                    Generate.Subtitle.subtitleFilePathsList.Add(WrapWithQuotes(selectFiles.FileNames[i]));
                     //MessageBox.Show(Video.subtitleFiles[i]); //debug
 
                     Generate.Subtitle.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
