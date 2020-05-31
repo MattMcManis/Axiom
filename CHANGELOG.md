@@ -4,10 +4,26 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.1.0] - May 31, 2020
+### Added
+- Namespaces for code readability
+- `VP8` Subtitle Burn
+- Output Naming Tokens in Settings Tab
+
+### Changed
+- Improved Audio Bit Rate Calculator
+- Improved Audio VBR Calculator
+- Changed PowerShell Process Priority Arguments to use `"`
+- Changed PowerShell Process Priority Arguments `"` Escape
+
+### Fixed
+- PowerShell Subtitle External Path
+
+
 ## [1.9.0.0] - May 28, 2020
 ### Added
-- Added Process Priority Menu
-- Added Output Overwrite Files Menu
+- Process Priority Menu
+- Output Overwrite Files Menu
 
 ### Changed
 - Updated Video Codec `x265` Pixel Formats
