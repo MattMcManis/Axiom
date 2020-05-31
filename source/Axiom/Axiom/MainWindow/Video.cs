@@ -37,6 +37,28 @@ namespace Axiom
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// Encode Speed Presets - ComboBox
+        /// </summary>
+        private void cboEncodeSpeed_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
+        }
+
+        /// <summary>
+        /// HW Accel Transcode - ComboBox
+        /// </summary>
+        private void cboHWAccelTranscode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
+        }
+
+        /// <summary>
         /// Video Codec - ComboBox
         /// </summary>
         private void cboVideo_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,6 +156,11 @@ namespace Axiom
             Controls.Video.Controls.OptimizeControls();
 
             // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
+
+            // -------------------------
             // Convert Button Text Change
             // -------------------------
             ConvertButtonText();
@@ -199,6 +226,10 @@ namespace Axiom
             Controls.Video.Controls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
                                                              VM.VideoView.Video_Quality_SelectedItem,
                                                              VM.VideoView.Video_Pass_SelectedItem);
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
         private void cboVideo_Pass_DropDownClosed(object sender, EventArgs e)
         {
@@ -262,6 +293,11 @@ namespace Axiom
                                                        VM.VideoView.Video_Quality_SelectedItem);
 
             // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
+
+            // -------------------------
             // Set Audio Codec Combobox to "Copy" if 
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
@@ -288,6 +324,11 @@ namespace Axiom
             //  VM.VideoView.Video_CRF_Value = 0;
             //  VM.VideoView.Video_CRF_Text = string.Empty;
             //}
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
 
         }
         // TextBox Key Down
@@ -391,7 +432,10 @@ namespace Axiom
         /// </summary>
         private void cboVideo_PixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
 
@@ -428,6 +472,11 @@ namespace Axiom
                 // Clear Custom Text
                 VM.VideoView.Video_FPS_SelectedIndex = -1;
             }
+
+            // -------------------------
+            // Output Path Update Display
+            // -------------------------
+            OutputPath_UpdateDisplay();
         }
 
         // Speed Custom KeyDown
