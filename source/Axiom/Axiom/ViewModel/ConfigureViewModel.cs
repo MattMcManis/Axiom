@@ -713,29 +713,7 @@ namespace ViewModel
         // --------------------------------------------------
         public static ObservableCollection<string> OutputNaming_LoadDefaults()
         {
-            ObservableCollection<string> items = new ObservableCollection<string>()
-            {
-                // Format
-                "Input Ext",
-
-                // Video
-                "HW Accel",
-                "Video Codec",
-                "Pass",
-                "Video BitRate",
-                "Preset",
-                "Pixel Format",
-                "Frame Rate",
-                "Size",
-                "Scaling",
-
-                // Audio
-                "Audio Codec",
-                "Channel",
-                "Audio BitRate",
-                "Sample Rate",
-                "Bit Depth"
-            };
+            ObservableCollection<string> items = new ObservableCollection<string>(MainWindow.outputNaming_Defaults);
 
             return items;
         }
