@@ -751,7 +751,6 @@ namespace Axiom
                 if (VM.AudioView.Audio_Quality_SelectedItem == "Custom")
                 {
                     // TextBox
-                    //audio_BitRate = VM.AudioView.Audio_BitRate_Text.Replace("k", "");
                     if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitRate_Text))
                     {
                         audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text) + "k";
@@ -760,7 +759,6 @@ namespace Axiom
                 else
                 {
                     // Quality ComboBox
-                    //audio_BitRate = VM.AudioView.Audio_Quality_SelectedItem.Replace("k", "");
                     if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
                     {
                         audio_BitRate = SettingsCheck(VM.AudioView.Audio_Quality_SelectedItem) + "k";
@@ -771,19 +769,6 @@ namespace Axiom
                     !string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitRate_Text))
                 {
                     audio_VBR = "VBR";
-
-                    //if (VM.AudioView.Audio_Quality_SelectedItem != "Custom")
-                    //{
-                    //    //audio_BitRate = VM.AudioView.Audio_BitRate_Text.Replace("k", "");
-                    //    audio_BitRate = VM.AudioView.Audio_Quality_SelectedItem.Replace("k", "");
-                    //}
-
-                    //audio_BitRate = Generate.Audio.Quality.AudioVBRCalculator(VM.AudioView.Audio_VBR_IsChecked,
-                    //                                                          VM.AudioView.Audio_Codec_SelectedItem,
-                    //                                                          VM.AudioView.Audio_Quality_Items,
-                    //                                                          VM.AudioView.Audio_Quality_SelectedItem,
-                    //                                                          VM.AudioView.Audio_BitRate_Text
-                    //                                                          );
                 }
             }       
 
@@ -811,32 +796,7 @@ namespace Axiom
             List<string> newFileName = new List<string>();
             // Add Original File Name
             newFileName.Add(filename);
-            //List<string> newFileName = new List<string>()
-            //{
-            //    // Original File Name
-            //    filename,
 
-            //    // Format
-            //    format_inputExt,
-
-            //    // Video
-            //    video_hwAccel_Transcode,
-            //    video_Codec,
-            //    video_Pass,
-            //    video_BitRate,
-            //    video_Preset,
-            //    video_PixelFormat,
-            //    video_Scale,
-            //    video_ScalingAlgorithm,
-            //    video_FPS,
-
-            //    // Audio
-            //    audio_Codec,
-            //    audio_Channel,
-            //    audio_VBR + audio_BitRate,
-            //    audio_SampleRate,
-            //    audio_BitDepth
-            //};
             // Create new File Name by Options Order Arranged
             for (var i = 0; i < VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count; i++)
             {
