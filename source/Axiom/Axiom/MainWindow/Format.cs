@@ -79,6 +79,7 @@ namespace Axiom
                     string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
                 {
                     outputFileName = FileRenamer(inputFileName);
+                    outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
                 }
             }
 
@@ -100,7 +101,24 @@ namespace Axiom
                 if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
                     !string.IsNullOrWhiteSpace(outputFileName))
                 {
-                    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                    //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                    //VM.MainView.Output_Text = Path.Combine(outputDir, FileNameAddSettings(outputFileName) + outputExt);
+
+                    // Default
+                    if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
+                        VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
+                    {
+                        // Display
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                    }
+                    // File Name Settings
+                    else
+                    {
+                        // Regenerate
+                        outputFileName_Tokens = FileNameAddSettings(outputFileName);
+                        // Display
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+                    }
                 }
             }
 
