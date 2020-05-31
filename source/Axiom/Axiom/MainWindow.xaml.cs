@@ -99,6 +99,7 @@ namespace Axiom
         public static string outputPreviousPath { get; set; }
         public static string outputDir { get; set; } // Output Path
         public static string outputFileName { get; set; } // Output Directory + Filename (No Extension)
+        public static string outputFileName_Tokens { get; set; } // Output Directory + Filename (No Extension) + Settings
         public static string outputExt { get; set; } // (eg. .webm)
         public static string output { get; set; } // Single: outputDir + outputFileName + outputExt /// Batch: outputDir + %~nf
         public static string outputNewFileName { get; set; } // File Rename if File already exists
@@ -951,35 +952,53 @@ namespace Axiom
             {
                 // CMD
                 case "CMD":
-                    switch (VM.MainView.Batch_IsChecked)
-                    {
-                        // Single File
-                        case false:
-                            // "my string"
-                            s = "\"" + s + "\"";
-                            break;
+                    //switch (VM.MainView.Batch_IsChecked)
+                    //{
+                    //    // Single File
+                    //    case false:
+                    //        // "my string"
+                    //        s = "\"" + s + "\"";
+                    //        break;
 
-                        // Batch
-                        case true:
-                            // "my string" (do not escape)
-                            s = "\"" + s + "\"";
-                            break;
-                    }
+                    //    // Batch
+                    //    case true:
+                    //        // "my string" (do not escape)
+                    //        s = "\"" + s + "\"";
+                    //        break;
+                    //}
+                    s = "\"" + s + "\"";
                     break;
 
                 // PowerShell
                 case "PowerShell":
-                    switch (VM.MainView.Batch_IsChecked)
+                    //switch (VM.MainView.Batch_IsChecked)
+                    //{
+                    //    // Single File
+                    //    case false:
+                    //        // "my string"
+                    //        s = "\"" + s + "\"";
+                    //        break;
+
+                    //    // Batch
+                    //    case true:
+                    //        // `"my string`" (escape)
+                    //        s = "`\"" + s + "`\"";
+                    //        break;
+                    //}
+                    // `"my string`" (escape)
+                    //s = "`\"" + s + "`\"";
+                    // Process Priority
+                    switch (VM.ConfigureView.ProcessPriority_SelectedItem)
                     {
-                        // Single File
-                        case false:
+                        // Default
+                        case "Default":
                             // "my string"
                             s = "\"" + s + "\"";
                             break;
 
-                        // Batch
-                        case true:
-                            // `"my string`" (escape)
+                        // All Other Options (escape)
+                        default:
+                            // `"my string`"
                             s = "`\"" + s + "`\"";
                             break;
                     }
@@ -1140,6 +1159,7 @@ namespace Axiom
             //input
             //outputDir
             //outputFileName
+            //outputFileName_Tokens
             //outputNewFileName
             //FFmpeg.ffmpegArgs
             //FFmpeg.ffmpegArgsSort
@@ -1153,7 +1173,6 @@ namespace Axiom
             //Streams.map
             //FFmpeg.cmdWindow
         }
-
 
         /// <summary>
         /// Remove Linebreaks (Method)
