@@ -29,6 +29,7 @@ using System.Text;
 using System.Windows;
 using ViewModel;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -36,6 +37,8 @@ namespace Controls
 {
     public class Configure
     {
+        private MainWindow mainwindow = (MainWindow)Application.Current.MainWindow;
+
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
@@ -311,6 +314,47 @@ namespace Controls
                 VM.ConfigureView.Threads_SelectedItem = char.ToUpper(threads_SelectedItem[0]) + threads_SelectedItem.Substring(1);
             }
 
+            // Ouput Naming
+            // import full list new order
+            string outputNaming_ItemOrder = conf.Read("Settings", "OutputNaming_ItemOrder");
+            // null check
+            if (!string.IsNullOrWhiteSpace(outputNaming_ItemOrder))
+            {
+                // Split the list by commas
+                string[] arrOutputNaming_ItemOrder = outputNaming_ItemOrder.Split(',');
+                // Create the new list
+                VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(arrOutputNaming_ItemOrder);
+
+                // Selected Items String (items separated by commas)
+                string outputNaming_SelectedItems = conf.Read("Settings", "OutputNaming_SelectedItems");
+                // Empty List Check
+                if (!string.IsNullOrEmpty(outputNaming_SelectedItems))
+                {
+                    string[] arrOuputNaming_Items = outputNaming_SelectedItems.Split(',');
+
+                    // Import Selected Items
+                    for (var i = 0; i < arrOuputNaming_Items.Length; i++)
+                    {
+                        // If Items List Contains the Imported Item
+                        if (VM.ConfigureView.OutputNaming_ListView_Items.Contains(arrOuputNaming_Items[i]))
+                        {
+                            // Added Item to Selected Items List
+                            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(arrOuputNaming_Items[i]);
+
+                            // Select the Item
+                            try
+                            {
+                                mainwindow.lstvOutputNaming.SelectedItems.Add(arrOuputNaming_Items[i]);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+
             // Output File Overwrite
             string outputOverwrite_SelectedItem = conf.Read("Settings", "OutputOverwrite_SelectedItem");
             if (!string.IsNullOrWhiteSpace(outputOverwrite_SelectedItem))
@@ -432,6 +476,9 @@ namespace Controls
                     // --------------------------------------------------
                     // Settings
                     // --------------------------------------------------
+                    // -------------------------
+                    // Config
+                    // -------------------------
                     // Config Path
                     conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
 
@@ -447,6 +494,9 @@ namespace Controls
                     conf.Write("Settings", "LogCheckBox_IsChecked", VM.ConfigureView.LogCheckBox_IsChecked.ToString().ToLower());
                     conf.Write("Settings", "LogPath_Text", VM.ConfigureView.LogPath_Text);
 
+                    // -------------------------
+                    // Process
+                    // -------------------------
                     // Shell
                     conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
 
@@ -456,9 +506,25 @@ namespace Controls
                     // Threads
                     conf.Write("Settings", "Threads_SelectedItem", VM.ConfigureView.Threads_SelectedItem);
 
+                    // -------------------------
+                    // Output
+                    // -------------------------
+                    // Order
+                    string outputNaming_ItemOrder = string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
+                                                                     .Where(s => !string.IsNullOrWhiteSpace(s)));
+                    conf.Write("Settings", "OutputNaming_ItemOrder", outputNaming_ItemOrder);
+
+                    // Selected
+                    string outputNaming_SelectedItems = string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
+                                                                         .Where(s => !string.IsNullOrEmpty(s)));
+                    conf.Write("Settings", "OutputNaming_SelectedItems", outputNaming_SelectedItems);
+
                     // Output File Overwrite
                     conf.Write("Settings", "OutputOverwrite_SelectedItem", VM.ConfigureView.OutputOverwrite_SelectedItem);
 
+                    // -------------------------
+                    // App
+                    // -------------------------
                     // Theme
                     conf.Write("Settings", "Theme_SelectedItem", VM.ConfigureView.Theme_SelectedItem);
 
