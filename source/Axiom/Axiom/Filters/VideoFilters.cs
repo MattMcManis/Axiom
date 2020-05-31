@@ -447,6 +447,7 @@ namespace Filters
                 // Get First Subtitle File
                 // -------------------------
                 string file = Generate.Subtitle.subtitleFilePathsList.First()                //"C:\Users\Axiom\Videos\subtitles.srt"
+                                                                     .Replace("`\"", @"'")    //`"C:\Users\Axiom\Videos\subtitles.srt`" (escaped)
                                                                      .Replace("\"", @"'")    //'C:\Users\Axiom\Videos\subtitles.srt'
                                                                      .Replace(@"\", @"\\")   //'C:\\Users\\Axiom\\Videos\\subtitles.srt'
                                                                      .Replace(@":", @"\:");  //'C\:\Users\Axiom\Videos\subtitles.srt'
@@ -1428,10 +1429,11 @@ namespace Filters
                 // -------------------------
                 if (vFiltersList.Count == 1)
                 {
-                    // Always wrap in quotes
-                    vFilter = "-vf \"" + string.Join("", vFiltersList
-                                               .Where(s => !string.IsNullOrEmpty(s)))
-                                + "\"";
+                    //// Always wrap in quotes
+                    //vFilter = "-vf \"" + string.Join("", vFiltersList
+                    //                           .Where(s => !string.IsNullOrEmpty(s)))
+                    //            + "\"";
+                    vFilter = "-vf " + MainWindow.WrapWithQuotes(string.Join("", vFiltersList.Where(s => !string.IsNullOrEmpty(s))));
                 }
 
                 // -------------------------
@@ -1441,9 +1443,14 @@ namespace Filters
                 {
                     // Always wrap in quotes
                     // Linebreak beginning and end
-                    vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
-                                                   .Where(s => !string.IsNullOrEmpty(s)))
-                                + "\r\n\"";
+                    //vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
+                    //                               .Where(s => !string.IsNullOrEmpty(s)))
+                    //            + "\r\n\"";
+                    vFilter = "-vf " + MainWindow.WrapWithQuotes("\r\n" + 
+                                                                 string.Join(", \r\n\r\n", vFiltersList
+                                                                                           .Where(s => !string.IsNullOrEmpty(s))) + 
+                                                                 "\r\n"
+                                                                );
                 }
 
                 // -------------------------
