@@ -36,7 +36,7 @@
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
         Width="824"
-        Height="1464"
+        Height="464"
         Title="{Binding MainView.TitleVersion, Mode=OneWay}"
         Style="{DynamicResource WindowStyle}">
 
