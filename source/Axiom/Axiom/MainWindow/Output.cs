@@ -580,10 +580,13 @@ namespace Axiom
             string format_inputExt = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Input Ext"))
             {
-                format_inputExt = SettingsCheck(Path.GetExtension(VM.MainView.Input_Text)
-                                                    .Replace(".", "")
-                                                    .ToLower()
-                                               );
+                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+                {
+                    format_inputExt = SettingsCheck(Path.GetExtension(VM.MainView.Input_Text)
+                                                                        .Replace(".", "")
+                                                                        .ToLower()
+                                                   );
+                }
             }
 
             // -------------------------
@@ -593,14 +596,20 @@ namespace Axiom
             string video_hwAccel_Transcode = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("HW Accel"))
             {
-                video_hwAccel_Transcode = SettingsCheck(VM.VideoView.Video_HWAccel_Transcode_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_HWAccel_Transcode_SelectedItem))
+                {
+                    video_hwAccel_Transcode = SettingsCheck(VM.VideoView.Video_HWAccel_Transcode_SelectedItem.Replace(" ", "-"));
+                }
             }
 
             // Video Codec
             string video_Codec = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Codec"))
             {
-                video_Codec = SettingsCheck(VM.VideoView.Video_Codec_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
+                {
+                    video_Codec = SettingsCheck(VM.VideoView.Video_Codec_SelectedItem);
+                }
             }
 
             // Pass
@@ -610,7 +619,7 @@ namespace Axiom
                 // null check prevents unknown crash
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Pass_SelectedItem))
                 {
-                    video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem).Replace(" ", "-"); // do not lowercase
+                    video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem.Replace(" ", "-")); // do not lowercase
                 }
             }
 
@@ -618,21 +627,28 @@ namespace Axiom
             string video_BitRate = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Bit Rate"))
             {
-                video_BitRate = SettingsCheck(VM.VideoView.Video_BitRate_Text);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_BitRate_Text))
+                {
+                    video_BitRate = SettingsCheck(VM.VideoView.Video_BitRate_Text.ToUpper()); //K / M
+                }
             }
 
             // CRF
             string video_CRF = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video CRF"))
             {
-                video_CRF = "CRF" + SettingsCheck(VM.VideoView.Video_CRF_Text);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_CRF_Text))
+                {
+                    video_CRF = "CRF" + SettingsCheck(VM.VideoView.Video_CRF_Text);
+                }
             }
 
             // Preset
             string video_Preset = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Preset"))
             {
-                video_Preset = SettingsCheck(VM.VideoView.Video_EncodeSpeed_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name);
+                video_Preset = SettingsCheck(VM.VideoView.Video_EncodeSpeed_Items
+                                               .FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name);
 
                 if (!string.IsNullOrWhiteSpace(video_Preset))
                 {
@@ -646,35 +662,47 @@ namespace Axiom
             string video_PixelFormat = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Pixel Format"))
             {
-                video_PixelFormat = SettingsCheck(VM.VideoView.Video_PixelFormat_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_PixelFormat_SelectedItem))
+                {
+                    video_PixelFormat = SettingsCheck(VM.VideoView.Video_PixelFormat_SelectedItem);
+                }
             }
 
             // Scale/Size
             string video_Scale = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Size"))
             {
-                video_Scale = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem))
+                {
+                    video_Scale = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem);
+                }
             }
 
             // Scaling
             string video_ScalingAlgorithm = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Scaling"))
             {
-                video_ScalingAlgorithm = SettingsCheck(VM.VideoView.Video_ScalingAlgorithm_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_ScalingAlgorithm_SelectedItem))
+                {
+                    video_ScalingAlgorithm = SettingsCheck(VM.VideoView.Video_ScalingAlgorithm_SelectedItem);
+                }
 
                 if (!string.IsNullOrWhiteSpace(video_ScalingAlgorithm))
                 {
-                    video_ScalingAlgorithm = "s-" + video_ScalingAlgorithm
-                                                    .Replace(" ", "-")
-                                                    .ToLower();
+                    video_ScalingAlgorithm = "sa-" + video_ScalingAlgorithm
+                                                     .Replace(" ", "-")
+                                                     .ToLower();
                 }
             }
 
             // FPS
             string video_FPS = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("FPS"))
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Frame Rate"))
             {
-                video_FPS = SettingsCheck(VM.VideoView.Video_FPS_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_FPS_SelectedItem))
+                {
+                    video_FPS = SettingsCheck(VM.VideoView.Video_FPS_SelectedItem);
+                }
 
                 if (!string.IsNullOrWhiteSpace(video_FPS))
                 {
@@ -689,14 +717,20 @@ namespace Axiom
             string audio_Codec = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Audio Codec"))
             {
-                audio_Codec = SettingsCheck(VM.AudioView.Audio_Codec_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
+                {
+                    audio_Codec = SettingsCheck(VM.AudioView.Audio_Codec_SelectedItem);
+                }
             }
 
             // Channel
             string audio_Channel = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Channel"))
             {
-                audio_Channel = SettingsCheck(VM.AudioView.Audio_Channel_SelectedItem);
+                if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Channel_SelectedItem))
+                {
+                    audio_Channel = SettingsCheck(VM.AudioView.Audio_Channel_SelectedItem);
+                }
 
                 if (!string.IsNullOrWhiteSpace(audio_Channel))
                 {
@@ -718,13 +752,19 @@ namespace Axiom
                 {
                     // TextBox
                     //audio_BitRate = VM.AudioView.Audio_BitRate_Text.Replace("k", "");
-                    audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text) + "k";
+                    if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitRate_Text))
+                    {
+                        audio_BitRate = SettingsCheck(VM.AudioView.Audio_BitRate_Text) + "k";
+                    }
                 }
                 else
                 {
                     // Quality ComboBox
                     //audio_BitRate = VM.AudioView.Audio_Quality_SelectedItem.Replace("k", "");
-                    audio_BitRate = SettingsCheck(VM.AudioView.Audio_Quality_SelectedItem) + "k";
+                    if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
+                    {
+                        audio_BitRate = SettingsCheck(VM.AudioView.Audio_Quality_SelectedItem) + "k";
+                    }
                 }
 
                 if (VM.AudioView.Audio_VBR_IsChecked == true &&
@@ -751,14 +791,20 @@ namespace Axiom
             string audio_SampleRate = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Sample Rate"))
             {
-                audio_SampleRate = SettingsCheck(VM.AudioView.Audio_SampleRate_SelectedItem.Replace("k", "")) + "kHz";
+                if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem))
+                {
+                    audio_SampleRate = SettingsCheck(VM.AudioView.Audio_SampleRate_SelectedItem.Replace("k", "")) + "kHz";
+                }
             }
 
             // Bit Depth
             string audio_BitDepth = string.Empty;
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Bit Depth"))
             {
-                audio_BitDepth = SettingsCheck(VM.AudioView.Audio_BitDepth_SelectedItem) + "-bit";
+                if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem))
+                {
+                    audio_BitDepth = SettingsCheck(VM.AudioView.Audio_BitDepth_SelectedItem) + "-bit";
+                }
             }
 
             // Merge
@@ -860,6 +906,7 @@ namespace Axiom
                                     .Where(s => !s.Equals("CRF"))
                                     .Where(s => !s.Equals("fps"))
                                     .Where(s => !s.Equals("p-"))
+                                    .Where(s => !s.Equals("sa-"))
                                     .Where(s => !s.Equals("CH-"))
                                     .Where(s => !s.Equals("k"))
                                     .Where(s => !s.Equals("-bit"))
