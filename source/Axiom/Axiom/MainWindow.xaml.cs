@@ -99,6 +99,7 @@ namespace Axiom
         public static string outputPreviousPath { get; set; }
         public static string outputDir { get; set; } // Output Path
         public static string outputFileName { get; set; } // Output Directory + Filename (No Extension)
+        public static string outputFileName_Original { get; set; } // Output Directory + Filename (No Extension) // Backup Original
         public static string outputFileName_Tokens { get; set; } // Output Directory + Filename (No Extension) + Settings
         public static string outputExt { get; set; } // (eg. .webm)
         public static string output { get; set; } // Single: outputDir + outputFileName + outputExt /// Batch: outputDir + %~nf
@@ -1159,6 +1160,7 @@ namespace Axiom
             //input
             //outputDir
             //outputFileName
+            //outputFileName_Original
             //outputFileName_Tokens
             //outputNewFileName
             //FFmpeg.ffmpegArgs
