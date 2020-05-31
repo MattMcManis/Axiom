@@ -62,7 +62,8 @@ namespace Controls
 
             public static List<string> subtitle = new List<string>()
             {
-                "None"
+                "None",
+                "Burn"
             };
         }
 
