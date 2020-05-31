@@ -674,7 +674,7 @@ namespace Axiom
             {
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem))
                 {
-                    video_Scale = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem);
+                    video_Scale = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem.Replace(" ", "-"));
                 }
             }
 
