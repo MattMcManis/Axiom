@@ -18,6 +18,7 @@ Axiom FFmpeg UI
 
 ### Fixed
 - PowerShell Subtitle External Path
+- Input Previous Path Saving
 
 
 ## [1.9.0.0] - May 28, 2020
