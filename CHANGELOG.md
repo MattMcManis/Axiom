@@ -9,6 +9,7 @@ Axiom FFmpeg UI
 - Namespaces for code readability
 - `VP8` Subtitle Burn
 - Output Naming Tokens in Settings Tab
+- Output SaveFileDialog Format Filters
 
 ### Changed
 - Improved Audio Bit Rate Calculator
