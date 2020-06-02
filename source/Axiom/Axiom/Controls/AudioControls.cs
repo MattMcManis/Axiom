@@ -34,6 +34,7 @@ using System.Linq;
 using System.Windows;
 using ViewModel;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -406,7 +407,7 @@ namespace Controls
             /// <summary>
             /// Audio BitRate Display
             /// </summary>
-            public static void AudioBitRateDisplay(List<ViewModel.Audio.AudioQuality> items,
+            public static void AudioBitRateDisplay(ObservableCollection<ViewModel.Audio.AudioQuality> items,
                                                    string selectedQuality
                                                    )
             {

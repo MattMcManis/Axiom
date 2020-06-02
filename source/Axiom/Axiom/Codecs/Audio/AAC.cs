@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ViewModel;
 
@@ -35,13 +36,13 @@ namespace Controls
                 // ---------------------------------------------------------------------------
                 // Codec
                 // ---------------------------------------------------------------------------
-                public static List<ViewModel.Audio.AudioCodec> codec = new List<ViewModel.Audio.AudioCodec>()
+                public static ObservableCollection<ViewModel.Audio.AudioCodec> codec = new ObservableCollection<ViewModel.Audio.AudioCodec>()
                 {
-                        new ViewModel.Audio.AudioCodec()
-                        {
-                            Codec = "aac",
-                            Parameters = ""
-                        }
+                    new ViewModel.Audio.AudioCodec()
+                    {
+                        Codec = "aac",
+                        Parameters = ""
+                    }
                 };
 
                 public static void Codec_Set()
@@ -66,7 +67,7 @@ namespace Controls
                 // -------------------------
                 // Channel
                 // -------------------------
-                public static List<string> channel = new List<string>()
+                public static ObservableCollection<string> channel = new ObservableCollection<string>()
                 {
                     "Source",
                     "Mono",
@@ -77,7 +78,7 @@ namespace Controls
                 // -------------------------
                 // Quality
                 // -------------------------
-                public static List<ViewModel.Audio.AudioQuality> quality = new List<ViewModel.Audio.AudioQuality>()
+                public static ObservableCollection<ViewModel.Audio.AudioQuality> quality = new ObservableCollection<ViewModel.Audio.AudioQuality>()
                 {
                         new ViewModel.Audio.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "-q:a", VBR = "2", NA = "400" },
                         new ViewModel.Audio.AudioQuality() { Name = "400",    CBR_BitMode = "-b:a", CBR = "400", VBR_BitMode = "-q:a", VBR = "2"   },
@@ -95,7 +96,7 @@ namespace Controls
                 // -------------------------
                 // Compression Level
                 // -------------------------
-                public static List<string> compressionLevel = new List<string>()
+                public static ObservableCollection<string> compressionLevel = new ObservableCollection<string>()
                 {
                     "auto"
                 };
@@ -103,7 +104,7 @@ namespace Controls
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                public static List<ViewModel.Audio.AudioSampleRate> sampleRate = new List<ViewModel.Audio.AudioSampleRate>()
+                public static ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
                 {
                         new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
                         new ViewModel.Audio.AudioSampleRate() { Name = "7.35k",    Frequency = "7350" },
@@ -121,7 +122,7 @@ namespace Controls
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                public static List<ViewModel.Audio.AudioBitDepth> bitDepth = new List<ViewModel.Audio.AudioBitDepth>()
+                public static ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
                 {
                         new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" }
                 };

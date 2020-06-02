@@ -19,8 +19,10 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+using Axiom;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +39,7 @@ namespace Controls
                 // ---------------------------------------------------------------------------
                 // Codec
                 // ---------------------------------------------------------------------------
-                public static List<ViewModel.Video.VideoCodec> codec = new List<ViewModel.Video.VideoCodec>()
+                public static ObservableCollection<ViewModel.Video.VideoCodec> codec = new ObservableCollection<ViewModel.Video.VideoCodec>()
                 {
                      new ViewModel.Video.VideoCodec()
                      {
@@ -68,7 +70,7 @@ namespace Controls
                 // -------------------------
                 // Encode Speed
                 // -------------------------
-                public static List<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.Video.VideoEncodeSpeed>()
+                public static ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
                 {
                      new ViewModel.Video.VideoEncodeSpeed() { Name = "none",       Command = ""},
                      new ViewModel.Video.VideoEncodeSpeed() { Name = "Placebo",    Command = "-preset placebo" },
@@ -86,7 +88,7 @@ namespace Controls
                 // -------------------------
                 // Pixel Format
                 // -------------------------
-                public static List<string> pixelFormat = new List<string>()
+                public static ObservableCollection<string> pixelFormat = new ObservableCollection<string>()
                 {
                     "auto",
                     "gray",
@@ -109,7 +111,7 @@ namespace Controls
                 // -------------------------
                 // Quality
                 // -------------------------
-                public static List<ViewModel.Video.VideoQuality> quality = new List<ViewModel.Video.VideoQuality>()
+                public static ObservableCollection<ViewModel.Video.VideoQuality> quality = new ObservableCollection<ViewModel.Video.VideoQuality>()
                 {
                      new ViewModel.Video.VideoQuality() { Name = "Auto",      CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
                      new ViewModel.Video.VideoQuality() { Name = "Lossless",  CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "-qp 0" },
@@ -133,7 +135,7 @@ namespace Controls
                     {
                         // Auto
                         case "Auto":
-                            VM.VideoView.Video_Pass_Items = new List<string>()
+                            VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                             {
                                 "2 Pass"
                             };
@@ -147,7 +149,7 @@ namespace Controls
 
                         // Lossless
                         case "Lossless":
-                            VM.VideoView.Video_Pass_Items = new List<string>()
+                            VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                             {
                                 "1 Pass"
                             };
@@ -159,7 +161,7 @@ namespace Controls
 
                         // Custom
                         case "Custom":
-                            VM.VideoView.Video_Pass_Items = new List<string>()
+                            VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                             {
                                 "CRF",
                                 "1 Pass",
@@ -172,7 +174,7 @@ namespace Controls
 
                         // None
                         case "None":
-                            VM.VideoView.Video_Pass_Items = new List<string>()
+                            VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                             {
                                 "auto"
                             };
@@ -183,7 +185,7 @@ namespace Controls
 
                         // Presets: Ultra, High, Medium, Low, Sub
                         default:
-                            VM.VideoView.Video_Pass_Items = new List<string>()
+                            VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                             {
                                 "CRF",
                                 "1 Pass",
@@ -222,7 +224,7 @@ namespace Controls
                 // -------------------------
                 // Optimize
                 // -------------------------
-                public static List<ViewModel.Video.VideoOptimize> optimize = new List<ViewModel.Video.VideoOptimize>()
+                public static ObservableCollection<ViewModel.Video.VideoOptimize> optimize = new ObservableCollection<ViewModel.Video.VideoOptimize>()
                 {
                     new ViewModel.Video.VideoOptimize() { Name = "None",      Tune = "none",      Profile = "none",     Level = "none", Command = "" },
                     new ViewModel.Video.VideoOptimize() { Name = "Custom",    Tune = "none",      Profile = "none",     Level = "none", Command = "" },
@@ -230,7 +232,7 @@ namespace Controls
                     new ViewModel.Video.VideoOptimize() { Name = "Animation", Tune = "animation", Profile = "main",     Level = "4.1",  Command = "" },
                     new ViewModel.Video.VideoOptimize() { Name = "PC HD",     Tune = "none",      Profile = "high",     Level = "4.2",  Command = "" },
                     new ViewModel.Video.VideoOptimize() { Name = "PC SD",     Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
-                    new ViewModel.Video.VideoOptimize() { Name = "Blu-ray",   Tune = "none",      Profile = "main",     Level = "4.1",  Command = "-deblock 0:0 -sar 1/1 -x264-params \"bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict\"" },
+                    new ViewModel.Video.VideoOptimize() { Name = "Blu-ray",   Tune = "none",      Profile = "none",     Level = "none",  Command = "-deblock 0:0 -x264-params " + MainWindow.WrapWithQuotes("bluray-compat=1:level=4.1:open-gop=1:slices=4:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict") },
                     new ViewModel.Video.VideoOptimize() { Name = "Windows",   Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
                     new ViewModel.Video.VideoOptimize() { Name = "Apple",     Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
                     new ViewModel.Video.VideoOptimize() { Name = "Android",   Tune = "none",      Profile = "baseline", Level = "3.0",  Command = "" },
@@ -243,7 +245,7 @@ namespace Controls
                 // -------------------------
                 // Tune
                 // -------------------------
-                public static List<string> tune = new List<string>()
+                public static ObservableCollection<string> tune = new ObservableCollection<string>()
                 {
                     "none",
                     "film",
@@ -257,7 +259,7 @@ namespace Controls
                 // -------------------------
                 // Profile
                 // -------------------------
-                public static List<string> profile = new List<string>()
+                public static ObservableCollection<string> profile = new ObservableCollection<string>()
                 {
                     "none",
                     "baseline",
@@ -268,7 +270,7 @@ namespace Controls
                 // -------------------------
                 // Level
                 // -------------------------
-                public static List<string> level = new List<string>()
+                public static ObservableCollection<string> level = new ObservableCollection<string>()
                 {
                     "none",
                     "1.0",

@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace Controls
                 // -------------------------
                 // Channel
                 // -------------------------
-                public static List<string> channel = new List<string>()
+                public static ObservableCollection<string> channel = new ObservableCollection<string>()
                 {
                     "none"
                 };
@@ -59,7 +60,7 @@ namespace Controls
                 // -------------------------
                 // Quality
                 // -------------------------
-                public static List<ViewModel.Audio.AudioQuality> quality = new List<ViewModel.Audio.AudioQuality>()
+                public static ObservableCollection<ViewModel.Audio.AudioQuality> quality = new ObservableCollection<ViewModel.Audio.AudioQuality>()
                 {
                      new ViewModel.Audio.AudioQuality() { Name = "None", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", NA = ""}
                 };
@@ -67,7 +68,7 @@ namespace Controls
                 // -------------------------
                 // Compression Level
                 // -------------------------
-                public static List<string> compressionLevel = new List<string>()
+                public static ObservableCollection<string> compressionLevel = new ObservableCollection<string>()
                 {
                     "none"
                 };
@@ -75,7 +76,7 @@ namespace Controls
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                public static List<ViewModel.Audio.AudioSampleRate> sampleRate = new List<ViewModel.Audio.AudioSampleRate>()
+                public static ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
                 {
                      new ViewModel.Audio.AudioSampleRate() { Name = "auto", Frequency = "" }
                 };
@@ -83,7 +84,7 @@ namespace Controls
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                public static List<ViewModel.Audio.AudioBitDepth> bitDepth = new List<ViewModel.Audio.AudioBitDepth>()
+                public static ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
                 {
                      new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" }
                 };

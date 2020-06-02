@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Controls
                 // ---------------------------------------------------------------------------
                 // Codec
                 // ---------------------------------------------------------------------------
-                public static List<ViewModel.Subtitle.SubtitleCodec> codec = new List<ViewModel.Subtitle.SubtitleCodec>()
+                public static ObservableCollection<ViewModel.Subtitle.SubtitleCodec> codec = new ObservableCollection<ViewModel.Subtitle.SubtitleCodec>()
                 {
                      new ViewModel.Subtitle.SubtitleCodec()
                      {
@@ -62,7 +63,7 @@ namespace Controls
                 // -------------------------
                 // Stream
                 // -------------------------
-                public static List<string> stream = new List<string>()
+                public static ObservableCollection<string> stream = new ObservableCollection<string>()
                 {
                     "none",
                     "external",

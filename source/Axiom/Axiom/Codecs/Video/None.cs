@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace Controls
                 // -------------------------
                 // Encode Speed
                 // -------------------------
-                public static List<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.Video.VideoEncodeSpeed>()
+                public static ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
                 {
                      new ViewModel.Video.VideoEncodeSpeed() { Name = "none", Command = ""},
                 };
@@ -59,7 +60,7 @@ namespace Controls
                 // -------------------------
                 // Pixel Format
                 // -------------------------
-                public static List<string> pixelFormat = new List<string>()
+                public static ObservableCollection<string> pixelFormat = new ObservableCollection<string>()
                 {
                     "none"
                 };
@@ -67,7 +68,7 @@ namespace Controls
                 // -------------------------
                 // Quality
                 // -------------------------
-                public static List<ViewModel.Video.VideoQuality> quality = new List<ViewModel.Video.VideoQuality>()
+                public static ObservableCollection<ViewModel.Video.VideoQuality> quality = new ObservableCollection<ViewModel.Video.VideoQuality>()
                 {
                      new ViewModel.Video.VideoQuality() { Name = "None", }
                 };
@@ -78,7 +79,7 @@ namespace Controls
                 public static void EncodingPass()
                 {
                     // Items Source
-                    VM.VideoView.Video_Pass_Items = new List<string>()
+                    VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                     {
                         "auto"
                     };
@@ -98,7 +99,7 @@ namespace Controls
                 // -------------------------
                 // Optimize
                 // -------------------------
-                public static List<ViewModel.Video.VideoOptimize> optimize = new List<ViewModel.Video.VideoOptimize>()
+                public static ObservableCollection<ViewModel.Video.VideoOptimize> optimize = new ObservableCollection<ViewModel.Video.VideoOptimize>()
                 {
                     new ViewModel.Video.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" }
                 };
@@ -106,7 +107,7 @@ namespace Controls
                 // -------------------------
                 // Tune
                 // -------------------------
-                public static List<string> tune = new List<string>()
+                public static ObservableCollection<string> tune = new ObservableCollection<string>()
                 {
                     "none"
                 };
@@ -114,7 +115,7 @@ namespace Controls
                 // -------------------------
                 // Profile
                 // -------------------------
-                public static List<string> profile = new List<string>()
+                public static ObservableCollection<string> profile = new ObservableCollection<string>()
                 {
                     "none"
                 };
@@ -122,7 +123,7 @@ namespace Controls
                 // -------------------------
                 // Level
                 // -------------------------
-                public static List<string> level = new List<string>()
+                public static ObservableCollection<string> level = new ObservableCollection<string>()
                 {
                     "none"
                 };
