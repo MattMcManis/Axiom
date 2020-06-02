@@ -171,8 +171,8 @@ namespace Axiom
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Audio.Controls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
-                                                             VM.AudioView.Audio_Quality_SelectedItem
-                                                             );
+                                                        VM.AudioView.Audio_Quality_SelectedItem
+                                                        );
 
             // -------------------------
             // Output Path Update Display
