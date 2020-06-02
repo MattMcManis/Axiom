@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -575,7 +576,7 @@ namespace Axiom
             // Codec
             if (VM.VideoView.Video_Codec_IsEnabled == true)
             {
-                VM.VideoView.Video_Codec_SelectedItem = SelectRandom(VM.VideoView.Video_Codec_Items);
+                VM.VideoView.Video_Codec_SelectedItem = SelectRandom(VM.VideoView.Video_Codec_Items.ToList());
             }
 
             // Encode Speed
@@ -604,13 +605,13 @@ namespace Axiom
             // Pass
             if (VM.VideoView.Video_Pass_IsEnabled == true)
             {
-                VM.VideoView.Video_Pass_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+                VM.VideoView.Video_Pass_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items.ToList());
             }
 
             // Pixel Format
             if (VM.VideoView.Video_PixelFormat_IsEnabled == true)
             {
-                VM.VideoView.Video_PixelFormat_SelectedItem = SelectRandom(VM.VideoView.Video_PixelFormat_Items);
+                VM.VideoView.Video_PixelFormat_SelectedItem = SelectRandom(VM.VideoView.Video_PixelFormat_Items.ToList());
             }
 
             // Optimize
@@ -627,7 +628,7 @@ namespace Axiom
             // Codec
             if (VM.SubtitleView.Subtitle_Codec_IsEnabled == true)
             {
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = SelectRandom(VM.SubtitleView.Subtitle_Codec_Items);
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = SelectRandom(VM.SubtitleView.Subtitle_Codec_Items.ToList());
             }
 
 
@@ -637,13 +638,13 @@ namespace Axiom
             // Codec
             if (VM.AudioView.Audio_Codec_IsEnabled == true)
             {
-                VM.AudioView.Audio_Codec_SelectedItem = SelectRandom(VM.AudioView.Audio_Codec_Items);
+                VM.AudioView.Audio_Codec_SelectedItem = SelectRandom(VM.AudioView.Audio_Codec_Items.ToList());
             }
 
             // Channel
             if (VM.AudioView.Audio_Channel_IsEnabled == true)
             {
-                VM.AudioView.Audio_Channel_SelectedItem = SelectRandom(VM.AudioView.Audio_Channel_Items);
+                VM.AudioView.Audio_Channel_SelectedItem = SelectRandom(VM.AudioView.Audio_Channel_Items.ToList());
             }
 
             // Quality
