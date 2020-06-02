@@ -435,6 +435,7 @@
                      MaxLines="1"
                      VerticalAlignment="Top"
                      TextChanged="tbxOutput_TextChanged"
+                     KeyUp="tbxOutput_KeyUp"
                      AllowDrop="True"
                      PreviewDragOver="tbxOutput_PreviewDragOver"
                      PreviewDragEnter="tbxOutput_PreviewDragOver"
@@ -4507,10 +4508,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                         <!-- Name -->
-                                        <GridViewColumn Width="Auto" />
-                                        <!--<GridViewColumn>-->
-                                        <!--<GridViewColumn />-->
-
+                                        <GridViewColumn Width="125" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -5898,13 +5896,13 @@
                                        Content="Output"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
-                                       Width="95"
+                                       Width="54"
                                        FontFamily="Segoe UI Semibold"
                                        Grid.Row="0"
                                        Height="26"
                                        Grid.Column="1" />
 
-                                <!-- Naming -->
+                                <!-- Naming Tokens -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Naming"
                                        HorizontalAlignment="Left"
@@ -5915,8 +5913,8 @@
                                        ToolTip="Add these settings to the output filename."
                                        Grid.Row="1"
                                        Grid.Column="1"
-                                       Width="68" />
-                                <!-- Output Naming List -->
+                                       Width="54" />
+                                <!-- Tokens List -->
                                 <ListView x:Name="lstvOutputNaming"
                                           ItemsSource="{Binding OutputNaming_ListView_Items}"
                                           SelectedIndex="{Binding OutputNaming_ListView_SelectedIndex}"
@@ -5955,10 +5953,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
                                             <!-- Name -->
-                                            <GridViewColumn Width="Auto" />
-                                            <!--<GridViewColumn Width="Auto">
-                                                <GridViewColumn />
-                                            </GridViewColumn>-->
+                                            <GridViewColumn Width="122" />
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -6086,7 +6081,7 @@
                                         Grid.Row="1"
                                         ToolTipService.InitialShowDelay="200"
                                         ToolTipService.ShowOnDisabled="True"
-                                        ToolTip="Load Defaults">
+                                        ToolTip="Load Default Positions and Selections">
                                     <Image Width="9"
                                            Height="11"
                                            Stretch="Uniform"
