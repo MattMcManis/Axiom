@@ -1087,35 +1087,22 @@ namespace Axiom
         {
             // -------------------------
             // Halts
-            // -------------------------
-            // Halt if Input is Empty
-            if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
-            {
-                return;
-            }
-
-            // Halt if Input Extension is Empty
-            // Path Combine with null file extension causes error
-            if (string.IsNullOrWhiteSpace(inputExt))
-            {
-                return;
-            }
-
-            // Halt if Output is Empty
-            if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
-            {
-                return;
-            }
-
-            // Halt if Output Directory is Empty
-            // Prevents a crash when changing containers if input and output paths are not empty
-            if (string.IsNullOrWhiteSpace(outputDir))
-            {
-                return;
-            }
-
-            // Halt if Output Filename is Empty
-            if (string.IsNullOrWhiteSpace(outputFileName))
+            // -------------------------         
+            if (// Halt if Input is Empty
+                string.IsNullOrWhiteSpace(VM.MainView.Input_Text) ||
+                // Halt if Input Extension is Empty
+                // Path Combine with null file extension causes error
+                string.IsNullOrWhiteSpace(inputExt) ||
+                // Halt if Output is Empty
+                string.IsNullOrWhiteSpace(VM.MainView.Output_Text) ||
+                // Halt if Output Directory is Empty
+                // Prevents a crash when changing containers if input and output paths are not empty
+                string.IsNullOrWhiteSpace(outputDir) ||
+                // Halt if Output Filename is Empty
+                string.IsNullOrWhiteSpace(outputFileName) ||
+                // Halt if Batch
+                VM.MainView.Batch_IsChecked == true
+                )
             {
                 return;
             }
@@ -1128,19 +1115,15 @@ namespace Axiom
             //    return;
             //}
 
-            // Halt if Batch
-            if (VM.MainView.Batch_IsChecked == true)
-            {
-                return;
-            }
-
             // -------------------------
             // Update Ouput Textbox with current Format extension
             // -------------------------
             // -------------------------
             // Default
             // -------------------------
-            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() ||
+                // Is Web URL
+                IsWebURL(VM.MainView.Input_Text) == true)
             {
                 // File Renamer
                 // Add (1) if File Names are the same
@@ -1163,7 +1146,16 @@ namespace Axiom
                     // Output Not Empty
                     else
                     {
-                        outputFileName = FileRenamer(outputFileName_Original);
+                        // Web URL
+                        if (IsWebURL(VM.MainView.Input_Text) == true)
+                        {
+                            outputFileName = FileRenamer(outputFileName);
+                        }
+                        // Local File
+                        else
+                        {
+                            outputFileName = FileRenamer(outputFileName_Original);
+                        }
                     }
                 }
 
