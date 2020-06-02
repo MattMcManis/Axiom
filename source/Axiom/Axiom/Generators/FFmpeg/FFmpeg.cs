@@ -39,6 +39,7 @@ using System.Windows;
 using System.Windows.Documents;
 using ViewModel;
 using Axiom;
+using System.Collections;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -124,11 +125,11 @@ namespace Generate
                 // CMD
                 case "CMD":
                     return "start \"\" /b /wait " + "/" + ProcessPriorityLevel() + " ";
-                    //return "start " + "/" + ProcessPriorityLevel() + " /wait /b ";
 
                 // PowerShell
                 case "PowerShell":
-                    return "$Process = Start-Process ";
+                    return "($Process = Start-Process ";
+                    //return "$Process = Start-Process ";
 
                 // Empty
                 default:
@@ -149,30 +150,6 @@ namespace Generate
                 return string.Empty;
             }
 
-            //// Wait
-            //string wait = string.Empty;
-            //switch (VM.VideoView.Video_Pass_SelectedItem)
-            //{
-            //    // CRF
-            //    case "CRF":
-            //        wait = " -Wait";
-            //        break;
-
-            //    // 1 Pass
-            //    case "1 Pass":
-            //        wait = " -Wait";
-            //        break;
-
-            //    // 2 Pass
-            //    case "2 Pass":
-            //        wait = string.Empty;
-            //        break;
-
-            //    // auto, none, Unknown
-            //    default:
-            //        return string.Empty;
-            //}
-
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
             {
@@ -182,8 +159,7 @@ namespace Generate
 
                 // PowerShell
                 case "PowerShell":
-                    return " -NoNewWindow"/* + wait*/;
-                    //return " -NoNewWindow -Wait";
+                    return " -NoNewWindow";
 
                 // Empty
                 default:
@@ -191,184 +167,100 @@ namespace Generate
             }
         }
 
+
         /// <summary>
-        /// Process Priority PowerShell Single Quote Start
+        /// Process Priority - PowerShell - ArgumentsList Wrap
         /// </summary>
-        public static String ProcessPriority_PowerShell_Args_Start()
+        public static IEnumerable<string> ProcessPriority_PowerShell_ArgumentsListWrap(IEnumerable<string> ffmpegArgs)
         {
-            // Empty
-            // Default
+            // Process Priority Default
             if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
                 VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
             {
-                return string.Empty;
+                return ffmpegArgs;
             }
 
-            // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
             {
+                // CMD
+                case "CMD":
+                    return ffmpegArgs;
+
                 // PowerShell
                 case "PowerShell":
-                    //switch (VM.MainView.Batch_IsChecked)
-                    //{
-                    //    // Single
-                    //    case false:
-                    //        return "-ArgumentList '";
-
-                    //    // Batch
-                    //    case true:
-                    //        return "-ArgumentList \"";
-
-                    //    // Unknown
-                    //    default:
-                    //        return "-ArgumentList '";
-                    //}
-                    //return "-ArgumentList '";
-                    return "-ArgumentList \"";
-
-                // Empty
+                    // Wrap
+                    IEnumerable<string> start = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-ArgumentList \""
+                    };
+                    IEnumerable<string> end = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "\""
+                    };
+                    return start
+                            .Concat(ffmpegArgs)
+                            .Concat(end)
+                            .ToList();
+                
+                // Unkown
                 default:
-                    return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Process Priority PowerShell Single Quote End
-        /// </summary>
-        public static String ProcessPriority_PowerShell_Args_End()
-        {
-            // Empty
-            // Default
-            if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
-                VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
-            {
-                return string.Empty;
-            }
-
-            // Shell Check
-            switch (VM.ConfigureView.Shell_SelectedItem)
-            {
-                // PowerShell
-                case "PowerShell":
-                    //switch (VM.MainView.Batch_IsChecked)
-                    //{
-                    //    // Single
-                    //    case false:
-                    //        return "'";
-
-                    //    // Batch
-                    //    case true:
-                    //        return "\"";
-
-                    //    // Unknown
-                    //    default:
-                    //        return "'";
-                    //}
-                    //return "'";
-                    return "\"";
-
-                // Empty
-                default:
-                    return string.Empty;
+                    return ffmpegArgs;
             }
         }
 
 
         /// <summary>
-        /// Process Priority PowerShell Set Start
+        /// Process Priority - PowerShell - Set
         /// </summary>
-        public static String ProcessPriority_PowerShell_Set(string args)
+        public static IEnumerable<string> ProcessPriority_PowerShell_Set(IEnumerable<string> shellArgs)
         {
-
-            // Empty
-            // Default
+            // Process Priority Default
             if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
                 VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
             {
-                return args;
+                return shellArgs;
             }
 
-            // Format Arguments
             // Shell Check
             switch (VM.ConfigureView.Shell_SelectedItem)
             {
                 // CMD
                 case "CMD":
                     // Do not format
-                    return args;
+                    return shellArgs;
 
                 // PowerShell
                 case "PowerShell":
-                    return "(" + args + " -PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel() +"; Wait-Process -Id $Process.id";
+                    // Opening Parentheses
+                    //IList<string> shellArgsMod = shellArgs.ToList();
+                    //shellArgsMod = shellArgsMod.Select(x => x.Replace("$Process = Start-Process", "($Process = Start-Process")).ToList();
+
+                    // Opening Parentheses
+                    // Already Added in ProcessPriority() Method
+
+                    // Closing
+                    IEnumerable<string> closing = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel() + "; " +
+                        "\r\n" +
+                        "Wait-Process -Id $Process.id"
+                    };
+
+                    return //.Concat(shellArgs)
+                           //shellArgsMod.AsEnumerable()
+                           shellArgs
+                           .Concat(closing)
+                           .ToList();
 
                 // Unknown
                 default:
-                    return args;
+                    return shellArgs;
             }
-            
         }
 
-
-        /// <summary>
-        /// Process Priority PowerShell Set Start
-        /// </summary>
-        //public static String ProcessPriority_PowerShell_Set_Start()
-        //{
-        //    // Empty
-        //    // Default
-        //    if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
-        //        VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
-        //    {
-        //        return string.Empty;
-        //    }
-
-        //    // Shell Check
-        //    switch (VM.ConfigureView.Shell_SelectedItem)
-        //    {
-        //        //// CMD
-        //        //case "CMD":
-        //        //    return string.Empty;
-
-        //        // PowerShell
-        //        case "PowerShell":
-        //            return "(";
-
-        //        // Empty
-        //        default:
-        //            return string.Empty;
-        //    }
-        //}
-
-        /// <summary>
-        /// Process Priority PowerShell Set
-        /// </summary>
-        //public static String ProcessPriority_PowerShell_Set_End()
-        //{
-        //    // Empty
-        //    // Default
-        //    if (string.IsNullOrWhiteSpace(VM.ConfigureView.ProcessPriority_SelectedItem) ||
-        //        VM.ConfigureView.ProcessPriority_SelectedItem == "Default")
-        //    {
-        //        return string.Empty;
-        //    }
-
-        //    // Shell Check
-        //    switch (VM.ConfigureView.Shell_SelectedItem)
-        //    {
-        //        //// CMD
-        //        //case "CMD":
-        //        //    return string.Empty;
-
-        //        // PowerShell
-        //        case "PowerShell":
-        //            return "-PassThru).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::" + ProcessPriorityLevel();
-        //            //return "| ForEach-Object { Set-ProcessPriority -ProcessId $_.id -Priority " + ProcessPriorityLevel() + " }";
-
-        //        // Empty
-        //        default:
-        //            return string.Empty;
-        //    }
-        //}
 
         /// <summary>
         /// Process Priority
