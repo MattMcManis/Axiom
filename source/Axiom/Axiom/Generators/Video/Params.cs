@@ -465,9 +465,13 @@ namespace Generate
                     if (vParamsList.Count == 1)
                     {
                         // Always wrap in quotes
-                        vParams = codec + "\"" + string.Join("", vParamsList
-                                                       .Where(s => !string.IsNullOrEmpty(s)))
-                                        + "\"";
+                        //vParams = codec + "\"" + string.Join("", vParamsList
+                        //                               .Where(s => !string.IsNullOrEmpty(s)))
+                        //                + "\"";
+                        vParams = codec + MainWindow.WrapWithQuotes(string.Join("", vParamsList
+                                                                                    .Where(s => !string.IsNullOrEmpty(s))
+                                                                               )
+                                                                    );
                     }
 
                     // -------------------------
@@ -477,9 +481,15 @@ namespace Generate
                     {
                         // Always wrap in quotes
                         // Linebreak beginning and end
-                        vParams = codec + "\"\r\n" + string.Join("\r\n:", vParamsList
-                                                           .Where(s => !string.IsNullOrEmpty(s)))
-                                        + "\r\n\"";
+                        //vParams = codec + "\"\r\n" + string.Join("\r\n:", vParamsList
+                        //                                   .Where(s => !string.IsNullOrEmpty(s)))
+                        //                + "\r\n\"";
+                        vParams = codec + MainWindow.WrapWithQuotes("\r\n" +
+                                                                    string.Join("\r\n:", vParamsList
+                                                                                         .Where(s => !string.IsNullOrEmpty(s))
+                                                                               ) +
+                                                                    "\r\n"
+                                                                    );
                     }
 
                     // -------------------------
