@@ -631,7 +631,8 @@ namespace Filters
                         //                           .Where(s => !string.IsNullOrEmpty(s)))
                         //                           + "\"";
                         aFilter = "-af " + MainWindow.WrapWithQuotes(string.Join("", aFiltersList
-                                                                                     .Where(s => !string.IsNullOrEmpty(s)))
+                                                                                     .Where(s => !string.IsNullOrEmpty(s))
+                                                                                )
                                                                     );
                     }
 
@@ -644,7 +645,8 @@ namespace Filters
                         // Linebreak beginning and end
                         aFilter = "-af " + MainWindow.WrapWithQuotes("\r\n" +
                                                                      string.Join(", \r\n\r\n", aFiltersList
-                                                                                               .Where(s => !string.IsNullOrEmpty(s))) +
+                                                                                               .Where(s => !string.IsNullOrEmpty(s))
+                                                                                ) +
                                                                      "\r\n"
                                                                     );
 
