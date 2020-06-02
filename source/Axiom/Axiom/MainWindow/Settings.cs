@@ -29,6 +29,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ViewModel;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -357,7 +358,7 @@ namespace Axiom
                 {
                     var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
 
-                    List<string> files = new List<string>();
+                    IEnumerable<string> files = new List<string>();
                     string exePath = string.Empty;
 
                     // Get Environment Variable Paths
@@ -374,7 +375,7 @@ namespace Axiom
                                                  .ToList();
 
                                 // Find ffmpeg.exe in files list
-                                if (files != null && files.Count > 0)
+                                if (files != null && files.Count() > 0)
                                 {
                                     foreach (string file in files)
                                     {
@@ -461,7 +462,7 @@ namespace Axiom
                 {
                     var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
 
-                    List<string> files = new List<string>();
+                    IEnumerable<string> files = new List<string>();
                     string exePath = string.Empty;
 
                     // Get Environment Variable Paths
@@ -478,7 +479,7 @@ namespace Axiom
                                                  .ToList();
 
                                 // Find ffprobe.exe in files list
-                                if (files != null && files.Count > 0)
+                                if (files != null && files.Count() > 0)
                                 {
                                     foreach (string file in files)
                                     {
@@ -564,7 +565,7 @@ namespace Axiom
                 {
                     var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
 
-                    List<string> files = new List<string>();
+                    IEnumerable<string> files = new List<string>();
                     string exePath = string.Empty;
 
                     // Get Environment Variable Paths
@@ -581,7 +582,7 @@ namespace Axiom
                                                  .ToList();
 
                                 // Find ffplay.exe in files list
-                                if (files != null && files.Count > 0)
+                                if (files != null && files.Count() > 0)
                                 {
                                     foreach (string file in files)
                                     {
@@ -667,7 +668,7 @@ namespace Axiom
                 {
                     var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
 
-                    List<string> files = new List<string>();
+                    IEnumerable<string> files = new List<string>();
                     string exePath = string.Empty;
 
                     // Get Environment Variable Paths
@@ -684,7 +685,7 @@ namespace Axiom
                                                  .ToList();
 
                                 // Find youtube-dl.exe in files list
-                                if (files != null && files.Count > 0)
+                                if (files != null && files.Count() > 0)
                                 {
                                     foreach (string file in files)
                                     {
@@ -867,9 +868,9 @@ namespace Axiom
         /// </summary>
         private void lstvOutputNaming_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Clear before adding new selected items
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems != null &&
-                VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count > 0)
+            // If ListView Selected Items Contains Any Items
+            // Clear before adding new Selected Items
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
             {
                 VM.ConfigureView.OutputNaming_ListView_SelectedItems.Clear();
                 VM.ConfigureView.OutputNaming_ListView_SelectedItems.TrimExcess();
@@ -880,6 +881,10 @@ namespace Axiom
             //                                                                       .Cast<string>()
             //                                                                       .ToList();
 
+            // Remove ListView Items Duplicates
+            VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(VM.ConfigureView.OutputNaming_ListView_Items.Distinct().ToList().AsEnumerable());
+            //VM.ConfigureView.OutputNaming_ListView_Items = VM.ConfigureView.OutputNaming_ListView_Items.Distinct().ToList();
+
             // Build the list by Order Arranged
             for (var i = 0; i < VM.ConfigureView.OutputNaming_ListView_Items.Count; i++)
             {
@@ -889,54 +894,14 @@ namespace Axiom
                 }
             }
 
+            // Remove ListView Selected Items Duplicates
+            VM.ConfigureView.OutputNaming_ListView_SelectedItems = VM.ConfigureView.OutputNaming_ListView_SelectedItems.Distinct().ToList();
             //MessageBox.Show(string.Join("\n", lstvOutputNaming.SelectedItems.Cast<string>().ToList())); //debug
 
             // -------------------------
             // Update Ouput Textbox with Name Settings
             // -------------------------
             OutputPath_UpdateDisplay();
-            //if (VM.MainView.Batch_IsChecked == false && // Single File
-            //    !string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
-            //    !string.IsNullOrWhiteSpace(inputExt)) // Path Combine with null file extension causes error
-            //{
-            //    //MessageBox.Show(outputExt); //debug
-            //    if (!string.IsNullOrWhiteSpace(outputDir) && // Prevents a crash when changing containers if input and output paths are not empty
-            //        !string.IsNullOrWhiteSpace(outputFileName))
-            //    {
-            //        // Default
-            //        if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
-            //            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
-            //        {
-            //            // File Renamer
-            //            // Add (1) if File Names are the same
-            //            if (!string.IsNullOrWhiteSpace(inputDir) &&
-            //                string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
-            //            {
-            //                outputFileName = FileRenamer(inputFileName);
-            //            }
-
-            //            // Display
-            //            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-            //        }
-            //        // File Name Settings
-            //        else
-            //        {
-            //            // Regenerate
-            //            outputFileName_Tokens = FileNameAddSettings(outputFileName);
-
-            //            // File Renamer
-            //            // Add (1) if File Names are the same
-            //            if (!string.IsNullOrWhiteSpace(inputDir) &&
-            //                string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase))
-            //            {
-            //                outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
-            //            }
-
-            //            // Display
-            //            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -1007,13 +972,12 @@ namespace Axiom
             // Deselect All
             lstvOutputNaming.SelectedIndex = -1;
 
-            //// Clear Selected Items
-            //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems != null &&
-            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count > 0)
-            //{
-            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Clear();
-            //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.TrimExcess();
-            //}
+            // Clear Selected Items
+            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+            {
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems.Clear();
+                VM.ConfigureView.OutputNaming_ListView_SelectedItems.TrimExcess();
+            }
 
             // Load Defaults
             VM.ConfigureView.OutputNaming_ListView_Items = ViewModel.Configure.OutputNaming_LoadDefaults();
