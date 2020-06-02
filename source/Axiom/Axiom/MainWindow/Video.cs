@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -224,8 +225,8 @@ namespace Axiom
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Video.Controls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
-                                                             VM.VideoView.Video_Quality_SelectedItem,
-                                                             VM.VideoView.Video_Pass_SelectedItem);
+                                                        VM.VideoView.Video_Quality_SelectedItem,
+                                                        VM.VideoView.Video_Pass_SelectedItem);
             // -------------------------
             // Output Path Update Display
             // -------------------------
@@ -367,7 +368,7 @@ namespace Axiom
                 VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
             {
                 // Change ItemsSource
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                 {
                     "1 Pass",
                 };
@@ -405,7 +406,7 @@ namespace Axiom
                 VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
             {
                 // Change ItemsSource
-                VM.VideoView.Video_Pass_Items = new List<string>()
+                VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                 {
                     "2 Pass",
                     "1 Pass",

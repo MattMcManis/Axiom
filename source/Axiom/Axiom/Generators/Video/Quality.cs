@@ -41,6 +41,7 @@ using System.Windows;
 using System.Windows.Documents;
 using ViewModel;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -86,7 +87,7 @@ namespace Generate
             /// <summary>
             /// BitRate Mode
             /// <summary>
-            public static String BitRateMode(List<ViewModel.Video.VideoQuality> quality_Items,
+            public static String BitRateMode(ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string bitrate_Text,
                                              bool vbr_IsChecked
@@ -133,7 +134,7 @@ namespace Generate
                                            string container_SelectedItem,
                                            string mediaType_SelectedItem,
                                            string codec_SelectedItem,
-                                           List<ViewModel.Video.VideoQuality> quality_Items,
+                                           ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
                                            string quality_SelectedItem,
                                            string pass_SelectedItem,
                                            string crf_Text,
@@ -348,7 +349,7 @@ namespace Generate
             /// Video Quality - Lossless
             /// <summary>
             public static void QualityLossless(string codec_SelectedItem,
-                                               List<ViewModel.Video.VideoQuality> qualityItems
+                                               ObservableCollection<ViewModel.Video.VideoQuality> qualityItems
                                                )
             {
                 // -------------------------
@@ -374,7 +375,7 @@ namespace Generate
             /// <summary>
             public static void QualityCustom(bool vbr_IsChecked,
                                              string codec_SelectedItem,
-                                             List<ViewModel.Video.VideoQuality> quality_Items,
+                                             ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string crf_Text,
                                              string bitrate_Text,
@@ -471,7 +472,7 @@ namespace Generate
             /// <summary>
             public static void QualityPreset(bool vbr_IsChecked,
                                              string codec_SelectedItem,
-                                             List<ViewModel.Video.VideoQuality> quality_Items,
+                                             ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string pass_SelectedItem,
                                              string crf_Text,
@@ -618,7 +619,7 @@ namespace Generate
                                               string container_SelectedItem,
                                               string mediaType_SelectedItem,
                                               string codec_SelectedItem,
-                                              List<ViewModel.Video.VideoQuality> quality_Items,
+                                              ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
                                               string quality_SelectedItem,
                                               string pass_SelectedItem,
                                               string crf_Text,
@@ -710,7 +711,7 @@ namespace Generate
                     // --------------------------------------------------
                     // Combine
                     // --------------------------------------------------
-                    List<string> vQualityArgs = new List<string>();
+                    IEnumerable<string> vQualityArgs = new List<string>();
 
                     // -------------------------
                     // CRF
@@ -810,7 +811,7 @@ namespace Generate
                     // -------------------------
                     if (quality_SelectedItem == "Auto")
                     {
-                        List<string> batchVideoAutoList = new List<string>();
+                        IEnumerable<string> batchVideoAutoList = new List<string>();
 
                         switch (VM.ConfigureView.Shell_SelectedItem)
                         {
@@ -1165,7 +1166,7 @@ namespace Generate
             /// Optimize
             /// <summary>
             public static String Optimize(string codec_SelectedItem,
-                                          List<ViewModel.Video.VideoOptimize> optimize_Items,
+                                          ObservableCollection<ViewModel.Video.VideoOptimize> optimize_Items,
                                           string optimize_SelectedItem,
                                           string tune_SelectedItem,
                                           string profile_SelectedItem,
@@ -1215,7 +1216,7 @@ namespace Generate
                     // -------------------------
                     // Combine Optimize = Tune + Profile + Level
                     // -------------------------
-                    List<string> v2passList = new List<string>() {
+                    IEnumerable<string> v2passList = new List<string>() {
                         optTune,
                         optProfile,
                         optLevel,

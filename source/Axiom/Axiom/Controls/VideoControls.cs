@@ -38,6 +38,7 @@ using System.Linq;
 using System.Windows;
 using ViewModel;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -595,7 +596,7 @@ namespace Controls
             /// <summary>
             /// BitRate Display
             /// </summary>
-            public static void VideoBitRateDisplay(List<ViewModel.Video.VideoQuality> items,
+            public static void VideoBitRateDisplay(ObservableCollection<ViewModel.Video.VideoQuality> items,
                                                    string selectedQuality,
                                                    string selectedPass)
             {

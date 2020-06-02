@@ -27,6 +27,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Linq;
 using ViewModel;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -659,7 +660,7 @@ namespace Axiom
                 VM.FormatView.Format_YouTube_SelectedItem == "Video Only")
             {
                 // Change Items Source
-                VM.FormatView.Format_YouTube_Quality_Items = new List<string>()
+                VM.FormatView.Format_YouTube_Quality_Items = new ObservableCollection<string>()
                 {
                     "best",
                     "best 4K",
@@ -677,7 +678,7 @@ namespace Axiom
             else if (VM.FormatView.Format_YouTube_SelectedItem == "Audio Only")
             {
                 // Change Items Source
-                VM.FormatView.Format_YouTube_Quality_Items = new List<string>()
+                VM.FormatView.Format_YouTube_Quality_Items = new ObservableCollection<string>()
                 {
                     "best",
                     "worst"

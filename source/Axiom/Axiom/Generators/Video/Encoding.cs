@@ -36,6 +36,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -303,7 +304,7 @@ namespace Generate
             /// <summary>
             /// Encode Speed
             /// <summary>
-            public static String VideoEncodeSpeed(List<ViewModel.Video.VideoEncodeSpeed> encodeSpeedItems,
+            public static String VideoEncodeSpeed(ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeedItems,
                                                   string encodeSpeed_SelectedItem,
                                                   string codec_SelectedItem,
                                                   string pass

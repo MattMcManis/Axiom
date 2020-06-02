@@ -42,6 +42,7 @@ using System.Windows;
 using System.Windows.Documents;
 using ViewModel;
 using Axiom;
+using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -67,7 +68,7 @@ namespace Generate
             /// BitRate Mode
             /// <summary>
             public static String BitRateMode(bool vbr_IsChecked,
-                                             List<ViewModel.Audio.AudioQuality> quality_Items,
+                                             ObservableCollection<ViewModel.Audio.AudioQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string bitrate_Text)
             {
@@ -104,7 +105,7 @@ namespace Generate
                                            string mediaType_SelectedItem,
                                            string stream_SelectedItem,
                                            string codec_SelectedItem,
-                                           List<ViewModel.Audio.AudioQuality> quality_Items,
+                                           ObservableCollection<ViewModel.Audio.AudioQuality> quality_Items,
                                            string quality_SelectedItem,
                                            bool vbr_IsChecked
                                            )
@@ -312,7 +313,7 @@ namespace Generate
             /// <summary>
             /// Audio Quality - Lossless
             /// <summary>
-            public static void QualityLossless(List<ViewModel.Audio.AudioQuality> quality_Items)
+            public static void QualityLossless(ObservableCollection<ViewModel.Audio.AudioQuality> quality_Items)
             {
                 aLossless = quality_Items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
             }
@@ -335,7 +336,7 @@ namespace Generate
             /// <summary>
             public static void QualityCustom(bool vbr_IsChecked,
                                              string codec_SelectedItem,
-                                             List<ViewModel.Audio.AudioQuality> quality_Items,
+                                             ObservableCollection<ViewModel.Audio.AudioQuality> quality_Items,
                                              string quality_SelectedItem,
                                              string bitrate_Text
                                              )
@@ -376,7 +377,7 @@ namespace Generate
                                               string mediaType_SelectedItem,
                                               string stream_SelectedItem,
                                               string codec_SelectedItem,
-                                              List<ViewModel.Audio.AudioQuality> quality_Items,
+                                              ObservableCollection<ViewModel.Audio.AudioQuality> quality_Items,
                                               string quality_SelectedItem,
                                               string bitrate_Text,
                                               bool vbr_IsChecked
@@ -456,7 +457,7 @@ namespace Generate
                         // --------------------------------------------------
                         // Combine Options
                         // --------------------------------------------------
-                        List<string> aQualityArgs = new List<string>()
+                        IEnumerable<string> aQualityArgs = new List<string>()
                         {
                             aBitMode,
                             aBitRate
@@ -650,7 +651,7 @@ namespace Generate
             /// <summary>
             public static String AudioVBRCalculator(bool vbr_IsChecked,
                                                     string codec_SelectedItem,
-                                                    List<ViewModel.Audio.AudioQuality> quality_Items,
+                                                    ObservableCollection<ViewModel.Audio.AudioQuality> quality_Items,
                                                     string quality_SelectedItem,
                                                     string inputBitRate
                                                     )
@@ -845,7 +846,7 @@ namespace Generate
             /// Sample Rate
             /// <summary>
             public static String SampleRate(string codec_SelectedItem,
-                                            List<ViewModel.Audio.AudioSampleRate> sampleRate_Items,
+                                            ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate_Items,
                                             string sampleRate_SelectedItem
                                             )
             {
@@ -883,7 +884,7 @@ namespace Generate
             /// Bit Depth
             /// <summary>
             public static String BitDepth(string codec_SelectedItem,
-                                          List<ViewModel.Audio.AudioBitDepth> bitDepth_Items,
+                                          ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth_Items,
                                           string bitDepth_SelectedItem
                                          )
             {
@@ -1119,7 +1120,7 @@ namespace Generate
                         )
                     {
                         // Make List
-                        List<string> BatchAudioAutoList = new List<string>()
+                        IEnumerable<string> BatchAudioAutoList = new List<string>()
                         {
                             // audio
                             "& for /F \"delims=\" %A in ('@" + Analyze.FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + Analyze.FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitRate=%A)",
