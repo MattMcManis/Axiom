@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -315,6 +316,11 @@ namespace Axiom
             // -------------------------
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
             dispatcherTimerDown.Tick += new EventHandler(dispatcherTimerDown_Tick);
+
+            // --------------------------
+            // Input/Output Copy/Paste
+            // --------------------------
+            DataObject.AddPastingHandler(tbxOutput, OnOutputTextBoxPaste);
 
             // --------------------------
             // ScriptView Copy/Paste
@@ -887,6 +893,8 @@ namespace Axiom
             bool settings_UpdateAutoCheck_IsChecked;
             bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
 
+            //string outputNaming_ItemOrder = string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items.Where(s => !string.IsNullOrWhiteSpace(s)))
+
             // -------------------------
             // Save only if changes have been made
             // -------------------------
@@ -895,13 +903,11 @@ namespace Axiom
                 this.Left != left ||
                 this.Width != width ||
                 this.Height != height ||
-
                 //this.WindowState != windowState ||
-
                 VM.MainView.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
                 VM.MainView.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
 
-                // Settings
+                // Config
                 VM.ConfigureView.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
                 VM.ConfigureView.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
                 VM.ConfigureView.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
@@ -909,13 +915,22 @@ namespace Axiom
                 VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
                 VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
 
+                // Process
                 VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
                 VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+
+                // Output
+                string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
+                      .Where(s => !string.IsNullOrWhiteSpace(s))) != conf.Read("Settings", "OutputNaming_ItemOrder") ||
+
+                string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
+                      .Where(s => !string.IsNullOrEmpty(s))) != conf.Read("Settings", "OutputNaming_SelectedItems") ||
+
                 VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
 
+                // App
                 VM.ConfigureView.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
-
                 VM.ConfigureView.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
                 )
             {
@@ -942,7 +957,14 @@ namespace Axiom
             }
         }
 
-
+        /// <summary>
+        /// Path Wrap in Quotes
+        /// </summary>
+        //public static String WrapWithQuotes(string s)
+        //{
+        //    // "my string"
+        //    return "\"" + s + "\"";
+        //}
         /// <summary>
         /// Path Wrap in Quotes
         /// </summary>
@@ -953,71 +975,49 @@ namespace Axiom
             {
                 // CMD
                 case "CMD":
-                    //switch (VM.MainView.Batch_IsChecked)
-                    //{
-                    //    // Single File
-                    //    case false:
-                    //        // "my string"
-                    //        s = "\"" + s + "\"";
-                    //        break;
-
-                    //    // Batch
-                    //    case true:
-                    //        // "my string" (do not escape)
-                    //        s = "\"" + s + "\"";
-                    //        break;
-                    //}
-                    s = "\"" + s + "\"";
-                    break;
+                    // "my string"
+                    return "\"" + s + "\"";
 
                 // PowerShell
                 case "PowerShell":
-                    //switch (VM.MainView.Batch_IsChecked)
-                    //{
-                    //    // Single File
-                    //    case false:
-                    //        // "my string"
-                    //        s = "\"" + s + "\"";
-                    //        break;
-
-                    //    // Batch
-                    //    case true:
-                    //        // `"my string`" (escape)
-                    //        s = "`\"" + s + "`\"";
-                    //        break;
-                    //}
-                    // `"my string`" (escape)
-                    //s = "`\"" + s + "`\"";
                     // Process Priority
                     switch (VM.ConfigureView.ProcessPriority_SelectedItem)
                     {
                         // Default
                         case "Default":
                             // "my string"
-                            s = "\"" + s + "\"";
-                            break;
+                            return "\"" + s + "\"";
 
                         // All Other Options (escape)
                         default:
                             // `"my string`"
-                            s = "`\"" + s + "`\"";
-                            break;
+                            return "`\"" + s + "`\"";
                     }
-                    break;
-            }
 
-            return s;
+                // Unknown
+                default:
+                    return s;
+            }
         }
 
         /// <summary>
         /// Path Wrap in Escaped Quotes
         /// </summary>
-        public static String WrapWithEscapedQuotes(string s)
-        {
-            // \"my string\"
-            return "\\\"" + s + "\\\"";
-        }
+        //public static String WrapWithEscapedQuotes(string s)
+        //{
+        //    // \"my string\"
+        //    return "\\\"" + s + "\\\"";
+        //}
 
+
+        /// <summary>
+        /// PowerShell Escape Quotes
+        /// </summary>
+        public static String PowerShellEscapeQuotes(string s)
+        {
+            // `"my string`"
+            return Regex.Replace(s, "\"", "`\"");
+        }
 
         /// <summary>
         /// Clear Global Variables (Method)
@@ -1533,7 +1533,7 @@ namespace Axiom
                 }
                 // If User Defined Path
                 else if (VM.ConfigureView.FFprobePath_Text != "<auto>" &&
-                        IsValidPath(VM.ConfigureView.FFprobePath_Text))
+                         IsValidPath(VM.ConfigureView.FFprobePath_Text))
                 {
                     var dirPath = Path.GetDirectoryName(VM.ConfigureView.FFprobePath_Text).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffprobe.exe");
@@ -1999,16 +1999,16 @@ namespace Axiom
             if (VM.VideoView.Video_Quality_SelectedItem == "Custom" &&
                 VM.VideoView.Video_BitRate_IsEnabled == true &&
                 VM.VideoView.Video_BitRate_Text != "0" && // Constant Bit Rate 0 does not need K or M
-                VM.VideoView.Video_VBR_IsChecked != true)
+                VM.VideoView.Video_VBR_IsChecked == false)
             {
                 // Error List
-                List<string> errors = new List<string>();
+                ICollection<string> errors = new List<string>();
 
                 // Bit Rate
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_BitRate_Text))
                 {
-                    if (VM.VideoView.Video_BitRate_Text.ToUpper()?.Contains("K") != true &&
-                        VM.VideoView.Video_BitRate_Text.ToUpper()?.Contains("M") != true)
+                    if (VM.VideoView.Video_BitRate_Text.ToUpper()?.Contains("K") == false &&
+                        VM.VideoView.Video_BitRate_Text.ToUpper()?.Contains("M") == false)
                     {
                         errors.Add("Bit Rate");
                     }
@@ -2017,8 +2017,8 @@ namespace Axiom
                 // Min Rate
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_MinRate_Text))
                 {
-                    if (VM.VideoView.Video_MinRate_Text.ToUpper()?.Contains("K") != true &&
-                        VM.VideoView.Video_MinRate_Text.ToUpper()?.Contains("M") != true)
+                    if (VM.VideoView.Video_MinRate_Text.ToUpper()?.Contains("K") == false &&
+                        VM.VideoView.Video_MinRate_Text.ToUpper()?.Contains("M") == false)
                     {
                         errors.Add("Min Rate");
                     }
@@ -2027,8 +2027,8 @@ namespace Axiom
                 // Max Rate
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_MaxRate_Text))
                 {
-                    if (VM.VideoView.Video_MaxRate_Text.ToUpper()?.Contains("K") != true &&
-                        VM.VideoView.Video_MaxRate_Text.ToUpper()?.Contains("M") != true)
+                    if (VM.VideoView.Video_MaxRate_Text.ToUpper()?.Contains("K") == false &&
+                        VM.VideoView.Video_MaxRate_Text.ToUpper()?.Contains("M") == false)
                     {
                         errors.Add("Max Rate");
                     }
@@ -2037,8 +2037,8 @@ namespace Axiom
                 // Buf Size
                 if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_BufSize_Text))
                 {
-                    if (VM.VideoView.Video_BufSize_Text.ToUpper()?.Contains("K") != true &&
-                        VM.VideoView.Video_BufSize_Text.ToUpper()?.Contains("M") != true)
+                    if (VM.VideoView.Video_BufSize_Text.ToUpper()?.Contains("K") == false &&
+                        VM.VideoView.Video_BufSize_Text.ToUpper()?.Contains("M") == false)
                     {
                         errors.Add("Buf Size");
                     }
