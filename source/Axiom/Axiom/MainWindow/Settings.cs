@@ -882,20 +882,29 @@ namespace Axiom
             //                                                                       .ToList();
 
             // Remove ListView Items Duplicates
-            VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(VM.ConfigureView.OutputNaming_ListView_Items.Distinct().ToList().AsEnumerable());
+            VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(VM.ConfigureView.OutputNaming_ListView_Items
+                                                                                                            .Distinct()
+                                                                                                            .ToList()
+                                                                                                            .AsEnumerable()
+                                                                                                            );
             //VM.ConfigureView.OutputNaming_ListView_Items = VM.ConfigureView.OutputNaming_ListView_Items.Distinct().ToList();
 
             // Build the list by Order Arranged
             for (var i = 0; i < VM.ConfigureView.OutputNaming_ListView_Items.Count; i++)
             {
-                if (lstvOutputNaming.SelectedItems.Cast<string>().ToList().Contains(VM.ConfigureView.OutputNaming_ListView_Items[i]))
+                if (lstvOutputNaming.SelectedItems
+                                    .Cast<string>()
+                                    .ToList()
+                                    .Contains(VM.ConfigureView.OutputNaming_ListView_Items[i]))
                 {
                     VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(VM.ConfigureView.OutputNaming_ListView_Items[i]);
                 }
             }
 
             // Remove ListView Selected Items Duplicates
-            VM.ConfigureView.OutputNaming_ListView_SelectedItems = VM.ConfigureView.OutputNaming_ListView_SelectedItems.Distinct().ToList();
+            VM.ConfigureView.OutputNaming_ListView_SelectedItems = VM.ConfigureView.OutputNaming_ListView_SelectedItems
+                                                                                   .Distinct()
+                                                                                   .ToList();
             //MessageBox.Show(string.Join("\n", lstvOutputNaming.SelectedItems.Cast<string>().ToList())); //debug
 
             // -------------------------
