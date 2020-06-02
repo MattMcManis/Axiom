@@ -1522,9 +1522,9 @@ namespace Axiom
                         {
                             // lock
                             MessageBox.Show("Cannot locate FFprobe Path in Environment Variables or Current Folder.",
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
 
                             return false;
                         }
