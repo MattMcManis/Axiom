@@ -1433,7 +1433,9 @@ namespace Filters
                     //vFilter = "-vf \"" + string.Join("", vFiltersList
                     //                           .Where(s => !string.IsNullOrEmpty(s)))
                     //            + "\"";
-                    vFilter = "-vf " + MainWindow.WrapWithQuotes(string.Join("", vFiltersList.Where(s => !string.IsNullOrEmpty(s))));
+                    vFilter = "-vf " + MainWindow.WrapWithQuotes(string.Join("", vFiltersList
+                                                                                 .Where(s => !string.IsNullOrEmpty(s)))
+                                                                );
                 }
 
                 // -------------------------
@@ -1448,7 +1450,8 @@ namespace Filters
                     //            + "\r\n\"";
                     vFilter = "-vf " + MainWindow.WrapWithQuotes("\r\n" + 
                                                                  string.Join(", \r\n\r\n", vFiltersList
-                                                                                           .Where(s => !string.IsNullOrEmpty(s))) + 
+                                                                                           .Where(s => !string.IsNullOrEmpty(s))
+                                                                            ) + 
                                                                  "\r\n"
                                                                 );
                 }
