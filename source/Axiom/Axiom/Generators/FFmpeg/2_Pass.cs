@@ -62,19 +62,20 @@ namespace Generate
                     // -------------------------
                     // FFmpeg Initialize
                     // -------------------------
-                    List<string> initializeList_Pass1 = new List<string>()
+                    IEnumerable<string> ffmpegInitializeList_Pass1 = new List<string>()
                     {
                         ProcessPriority() +
-                        //PowerShell_CallOperator_FFmpeg() +
                         MainWindow.FFmpegPath() +
                         ProcessPriority_PowerShell_Flags(),
+                    };
 
+                    // -------------------------
+                    // Options
+                    // -------------------------
+                    IEnumerable<string> optionsList_Pass1 = new List<string>()
+                    {
                         "\r\n\r\n" +
-                        ProcessPriority_PowerShell_Args_Start(),
-
-                        "\r\n\r\n" +
-                        //"-y"
-                        OutputOverwrite(),
+                        OutputOverwrite(), //-y, -n
                     };
 
                     // -------------------------
@@ -89,7 +90,7 @@ namespace Generate
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
-                    List<string> hwAccelDecodeList_Pass1 = new List<string>()
+                    IEnumerable<string> hwAccelDecodeList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Video.Encoding.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
@@ -100,17 +101,16 @@ namespace Generate
                     // -------------------------
                     // Input
                     // -------------------------
-                    List<string> inputList_Pass1 = new List<string>()
+                    IEnumerable<string> inputList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        //"-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
                         "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 1"))
                     };
 
                     // -------------------------
                     // HW Accel Transcode
                     // -------------------------
-                    List<string> hwAccelTranscodeList_Pass1 = new List<string>()
+                    IEnumerable<string> hwAccelTranscodeList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Video.Encoding.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
@@ -133,7 +133,7 @@ namespace Generate
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
-                    List<string> formatList_Pass1 = new List<string>()
+                    IEnumerable<string> formatList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Format.CutStart(VM.MainView.Input_Text,
@@ -169,7 +169,7 @@ namespace Generate
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
-                    List<string> videoList_Pass1 = new List<string>();
+                    IEnumerable<string> videoList_Pass1 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
                         VM.VideoView.Video_Codec_SelectedItem != "None" &&
@@ -275,7 +275,7 @@ namespace Generate
                     // -------------------------
                     // Log Console Message in Pass 2
 
-                    List<string> subtitleList_Pass1 = new List<string>();
+                    IEnumerable<string> subtitleList_Pass1 = new List<string>();
 
                     subtitleList_Pass1 = new List<string>()
                     {
@@ -289,7 +289,7 @@ namespace Generate
                     // -------------------------
                     // Log Console Message in Pass 2
 
-                    List<string> audioList_Pass1 = new List<string>();
+                    IEnumerable<string> audioList_Pass1 = new List<string>();
 
                     audioList_Pass1 = new List<string>()
                     {
@@ -301,7 +301,7 @@ namespace Generate
                     // -------------------------
                     // Output
                     // -------------------------
-                    List<string> outputList_Pass1 = new List<string>()
+                    IEnumerable<string> outputList_Pass1 = new List<string>()
                     {
                         // Disable FormatMaps()
 
@@ -313,41 +313,47 @@ namespace Generate
 
                         // Output Path Null
                         "\r\n\r\n" +
-                        "NUL"
+                        "NUL",
                     };
 
                     // -------------------------
                     // Combine Lists
                     // -------------------------
-                    List<string> FFmpegArgsPass1List = initializeList_Pass1
-                                                       .Concat(hwAccelDecodeList_Pass1)
-                                                       .Concat(inputList_Pass1)
-                                                       .Concat(hwAccelTranscodeList_Pass1)
-                                                       .Concat(formatList_Pass1)
-                                                       .Concat(videoList_Pass1)
-                                                       .Concat(subtitleList_Pass1)
-                                                       .Concat(audioList_Pass1)
-                                                       .Concat(outputList_Pass1)
-                                                       .ToList();
+                    IEnumerable<string> FFmpegArgs_Pass1_List = optionsList_Pass1
+                                                                .Concat(hwAccelDecodeList_Pass1)
+                                                                .Concat(inputList_Pass1)
+                                                                .Concat(hwAccelTranscodeList_Pass1)
+                                                                .Concat(formatList_Pass1)
+                                                                .Concat(videoList_Pass1)
+                                                                .Concat(subtitleList_Pass1)
+                                                                .Concat(audioList_Pass1)
+                                                                .Concat(outputList_Pass1)
+                                                                .ToList();
 
-                    // Process Priority PowerShell Arguments End
-                    FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Args_End());
-
-                    // Process Priority PowerShell Set
-                    //FFmpegArgsPass1List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
+                    // -------------------------
+                    // Shell Arguments
+                    // -------------------------
+                    IEnumerable<string> ShellArgs_List_Pass1 = // Process Priority
+                                                               ProcessPriority_PowerShell_Set(
+                                                                    // FFmpeg Init
+                                                                    ffmpegInitializeList_Pass1
+                                                                    // FFmpeg PowerShell -ArgsList
+                                                                    .Concat(ProcessPriority_PowerShell_ArgumentsListWrap(
+                                                                                // FFmpeg Args
+                                                                                FFmpegArgs_Pass1_List
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                .ToList();
 
                     // Join List with Spaces
                     // Remove: Empty, Null, Standalone LineBreak
-                    Video.Quality.pass1Args = string.Join(" ", FFmpegArgsPass1List
+                    Video.Quality.pass1Args = string.Join(" ", ShellArgs_List_Pass1
                                                                .Where(s => !string.IsNullOrWhiteSpace(s))
                                                                .Where(s => !s.Equals(Environment.NewLine))
                                                                .Where(s => !s.Equals("\r\n\r\n"))
                                                                .Where(s => !s.Equals("\r\n"))
                                                          );
-
-
-                    // Process Priority Format
-                    Video.Quality.pass1Args = ProcessPriority_PowerShell_Set(Video.Quality.pass1Args);
 
 
                     // --------------------------------------------------
@@ -356,24 +362,26 @@ namespace Generate
                     // -------------------------
                     // Pass 2 Initialize
                     // -------------------------
-                    List <string> initializeList_Pass2 = new List<string>()
+                    IEnumerable<string> ffmpegInitializeList_Pass2 = new List<string>()
                     {
                         ProcessPriority() +
-                        //PowerShell_CallOperator_FFmpeg() +
                         MainWindow.FFmpegPath() +
                         ProcessPriority_PowerShell_Flags(),
+                    };
 
+                    // -------------------------
+                    // Options
+                    // -------------------------
+                    IEnumerable<string> optionsList_Pass2 = new List<string>()
+                    {
                         "\r\n\r\n" +
-                        ProcessPriority_PowerShell_Args_Start(),
-
-                        "\r\n\r\n" +
-                        OutputOverwrite()
+                        OutputOverwrite(), //-y, -n
                     };
 
                     // -------------------------
                     // HW Accel Decode
                     // -------------------------
-                    List<string> hwAccelDecodeList_Pass2 = new List<string>()
+                    IEnumerable<string> hwAccelDecodeList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Video.Encoding.hwAccelDecode
@@ -382,10 +390,9 @@ namespace Generate
                     // -------------------------
                     // Input
                     // -------------------------
-                    List<string> inputList_Pass2 = new List<string>()
+                    IEnumerable<string> inputList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        //"-i " + "\"" + MainWindow.InputPath("pass 2") + "\"",
                         "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 2")),
 
                         "\r\n\r\n" +
@@ -397,7 +404,7 @@ namespace Generate
                     // -------------------------
                     // HW Accel Transcode
                     // -------------------------
-                    List<string> hwAccelTranscodeList_Pass2 = new List<string>()
+                    IEnumerable<string> hwAccelTranscodeList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Video.Encoding.hwAccelTranscode
@@ -406,7 +413,7 @@ namespace Generate
                     // -------------------------
                     // Format
                     // -------------------------
-                    List<string> formatList_Pass2 = new List<string>()
+                    IEnumerable<string> formatList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Format.trimStart,
@@ -416,7 +423,7 @@ namespace Generate
                     // -------------------------
                     // Video
                     // -------------------------
-                    List<string> videoList_Pass2 = new List<string>();
+                    IEnumerable<string> videoList_Pass2 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
                         VM.VideoView.Video_Codec_SelectedItem != "None" &&
@@ -433,8 +440,8 @@ namespace Generate
                                                      ),
                             "\r\n" +
                             Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,    // Note: Use Method, not String, to re-generate all Pass 2 Params
-                                                     VM.VideoView.Video_Codec_SelectedItem,      //       for 2 Pass -x265-params pass=2
-                                                     VM.FormatView.Format_MediaType_SelectedItem
+                                                      VM.VideoView.Video_Codec_SelectedItem,      //       for 2 Pass -x265-params pass=2
+                                                      VM.FormatView.Format_MediaType_SelectedItem
                                                      ),
                             "\r\n" +
                             Video.Encoding.vEncodeSpeed,
@@ -489,7 +496,7 @@ namespace Generate
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
-                    List<string> subtitleList_Pass2 = new List<string>();
+                    IEnumerable<string> subtitleList_Pass2 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
                         VM.VideoView.Video_Codec_SelectedItem != "None" &&
@@ -528,7 +535,7 @@ namespace Generate
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
-                    List<string> audioList_Pass2 = new List<string>();
+                    IEnumerable<string> audioList_Pass2 = new List<string>();
 
                     if (VM.FormatView.Format_MediaType_SelectedItem != "Image" &&
                         VM.FormatView.Format_MediaType_SelectedItem != "Sequence" &&
@@ -588,7 +595,7 @@ namespace Generate
                     // -------------------------
                     // Output
                     // -------------------------
-                    List<string> outputList_Pass2 = new List<string>()
+                    IEnumerable<string> outputList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
                         Streams.FormatMaps(),
@@ -600,43 +607,48 @@ namespace Generate
                         Controls.Configure.threads,
 
                         "\r\n\r\n" +
-                        //"\"" + MainWindow.OutputPath() + "\""
-                        MainWindow.WrapWithQuotes(MainWindow.OutputPath())
+                        MainWindow.WrapWithQuotes(MainWindow.OutputPath()),
                     };
 
 
                     // -------------------------
                     // Combine Lists
                     // -------------------------
-                    List<string> FFmpegArgsPass2List = initializeList_Pass2
-                                                       .Concat(hwAccelDecodeList_Pass2)
-                                                       .Concat(inputList_Pass2)
-                                                       .Concat(hwAccelTranscodeList_Pass2)
-                                                       .Concat(formatList_Pass2)
-                                                       .Concat(videoList_Pass2)
-                                                       .Concat(subtitleList_Pass2)
-                                                       .Concat(audioList_Pass2)
-                                                       .Concat(outputList_Pass2)
-                                                       .ToList();
+                    IEnumerable<string> FFmpegArgs_Pass2_List = optionsList_Pass2
+                                                                .Concat(hwAccelDecodeList_Pass2)
+                                                                .Concat(inputList_Pass2)
+                                                                .Concat(hwAccelTranscodeList_Pass2)
+                                                                .Concat(formatList_Pass2)
+                                                                .Concat(videoList_Pass2)
+                                                                .Concat(subtitleList_Pass2)
+                                                                .Concat(audioList_Pass2)
+                                                                .Concat(outputList_Pass2)
+                                                                .ToList();
 
-                    // Process Priority PowerShell Arguments End
-                    FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Args_End());
-
-                    // Process Priority PowerShell Set
-                    //FFmpegArgsPass2List.Add("\r\n\r\n" + ProcessPriority_PowerShell_Set_End());
+                    // -------------------------
+                    // Shell Arguments
+                    // -------------------------
+                    IEnumerable<string> ShellArgs_List_Pass2 = // Process Priority
+                                                               ProcessPriority_PowerShell_Set(
+                                                                    // FFmpeg Init
+                                                                    ffmpegInitializeList_Pass2
+                                                                    // FFmpeg PowerShell -ArgsList
+                                                                    .Concat(ProcessPriority_PowerShell_ArgumentsListWrap(
+                                                                                // FFmpeg Args
+                                                                                FFmpegArgs_Pass2_List
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                .ToList();
 
                     // Join List with Spaces
                     // Remove: Empty, Null, Standalone LineBreak
-                    Video.Quality.pass2Args = string.Join(" ", FFmpegArgsPass2List
+                    Video.Quality.pass2Args = string.Join(" ", ShellArgs_List_Pass2
                                                                .Where(s => !string.IsNullOrWhiteSpace(s))
                                                                .Where(s => !s.Equals(Environment.NewLine))
                                                                .Where(s => !s.Equals("\r\n\r\n"))
                                                                .Where(s => !s.Equals("\r\n"))
                                                          );
-
-                    // Process Priority Format
-                    Video.Quality.pass2Args = ProcessPriority_PowerShell_Set(Video.Quality.pass2Args);
-
 
                     // Combine Pass 1 & Pass 2 Args
                     Video.Quality.v2PassArgs = Video.Quality.pass1Args +
