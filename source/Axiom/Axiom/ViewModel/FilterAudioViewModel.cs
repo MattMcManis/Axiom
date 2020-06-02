@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -92,12 +93,12 @@ namespace ViewModel
         // Lowpass
         // -------------------------
         // Items
-        public List<string> _FilterAudio_Lowpass_Items = new List<string>()
+        public ObservableCollection<string> _FilterAudio_Lowpass_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterAudio_Lowpass_Items
+        public ObservableCollection<string> FilterAudio_Lowpass_Items
         {
             get { return _FilterAudio_Lowpass_Items; }
             set { _FilterAudio_Lowpass_Items = value; }
@@ -142,12 +143,12 @@ namespace ViewModel
         // Highpass
         // -------------------------
         // Items
-        public List<string> _FilterAudio_Highpass_Items = new List<string>()
+        public ObservableCollection<string> _FilterAudio_Highpass_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterAudio_Highpass_Items
+        public ObservableCollection<string> FilterAudio_Highpass_Items
         {
             get { return _FilterAudio_Highpass_Items; }
             set { _FilterAudio_Highpass_Items = value; }
@@ -190,12 +191,12 @@ namespace ViewModel
         // Headphones (Earwax)
         // -------------------------
         // Items
-        public List<string> _FilterAudio_Headphones_Items = new List<string>()
+        public ObservableCollection<string> _FilterAudio_Headphones_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterAudio_Headphones_Items
+        public ObservableCollection<string> FilterAudio_Headphones_Items
         {
             get { return _FilterAudio_Headphones_Items; }
             set { _FilterAudio_Headphones_Items = value; }

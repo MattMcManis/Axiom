@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
 // Disable XML Comment warnings
@@ -140,12 +141,12 @@ namespace ViewModel
         // Deband
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Deband_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Deband_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterVideo_Deband_Items
+        public ObservableCollection<string> FilterVideo_Deband_Items
         {
             get { return _FilterVideo_Deband_Items; }
             set { _FilterVideo_Deband_Items = value; }
@@ -188,12 +189,12 @@ namespace ViewModel
         // Deshake
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Deshake_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Deshake_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterVideo_Deshake_Items
+        public ObservableCollection<string> FilterVideo_Deshake_Items
         {
             get { return _FilterVideo_Deshake_Items; }
             set { _FilterVideo_Deshake_Items = value; }
@@ -236,12 +237,12 @@ namespace ViewModel
         // Deflicker
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Deflicker_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Deflicker_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterVideo_Deflicker_Items
+        public ObservableCollection<string> FilterVideo_Deflicker_Items
         {
             get { return _FilterVideo_Deflicker_Items; }
             set { _FilterVideo_Deflicker_Items = value; }
@@ -283,12 +284,12 @@ namespace ViewModel
         // Dejudder
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Dejudder_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Dejudder_Items = new ObservableCollection<string>()
         {
             "disabled",
             "enabled"
         };
-        public List<string> FilterVideo_Dejudder_Items
+        public ObservableCollection<string> FilterVideo_Dejudder_Items
         {
             get { return _FilterVideo_Dejudder_Items; }
             set { _FilterVideo_Dejudder_Items = value; }
@@ -330,7 +331,7 @@ namespace ViewModel
         // Denoise
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Denoise_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Denoise_Items = new ObservableCollection<string>()
         {
             "disabled",
             "default",
@@ -338,7 +339,7 @@ namespace ViewModel
             "medium",
             "heavy",
         };
-        public List<string> FilterVideo_Denoise_Items
+        public ObservableCollection<string> FilterVideo_Denoise_Items
         {
             get { return _FilterVideo_Denoise_Items; }
             set { _FilterVideo_Denoise_Items = value; }
@@ -380,7 +381,7 @@ namespace ViewModel
         // Deinterlace
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Deinterlace_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Deinterlace_Items = new ObservableCollection<string>()
         {
             "disabled",
             "frame",
@@ -390,7 +391,7 @@ namespace ViewModel
             //"cuda frame",
             //"cuda field"
         };
-        public List<string> FilterVideo_Deinterlace_Items
+        public ObservableCollection<string> FilterVideo_Deinterlace_Items
         {
             get { return _FilterVideo_Deinterlace_Items; }
             set { _FilterVideo_Deinterlace_Items = value; }
@@ -433,14 +434,14 @@ namespace ViewModel
         // Flip
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Flip_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Flip_Items = new ObservableCollection<string>()
         {
             "disabled",
             "horizontal",
             "vertical",
             "both"
         };
-        public List<string> FilterVideo_Flip_Items
+        public ObservableCollection<string> FilterVideo_Flip_Items
         {
             get { return _FilterVideo_Flip_Items; }
             set { _FilterVideo_Flip_Items = value; }
@@ -485,7 +486,7 @@ namespace ViewModel
         // Rotate
         // -------------------------
         // Items
-        public List<string> _FilterVideo_Rotate_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_Rotate_Items = new ObservableCollection<string>()
         {
             "disabled",
             "90° CW",   //transpose=1
@@ -495,7 +496,7 @@ namespace ViewModel
             "180° CCW", //transpose=2, transpose=2
             "270° CCW"  //transpose=2, transpose=2, transpose=2
         };
-        public List<string> FilterVideo_Rotate_Items
+        public ObservableCollection<string> FilterVideo_Rotate_Items
         {
             get { return _FilterVideo_Rotate_Items; }
             set { _FilterVideo_Rotate_Items = value; }
@@ -767,12 +768,12 @@ namespace ViewModel
         // Correction Method
         // -------------------------
         // Items
-        public List<string> _FilterVideo_SelectiveColor_Correction_Method_Items = new List<string>()
+        public ObservableCollection<string> _FilterVideo_SelectiveColor_Correction_Method_Items = new ObservableCollection<string>()
         {
             "relative",
             "absolute"
         };
-        public List<string> FilterVideo_SelectiveColor_Correction_Method_Items
+        public ObservableCollection<string> FilterVideo_SelectiveColor_Correction_Method_Items
         {
             get { return _FilterVideo_SelectiveColor_Correction_Method_Items; }
             set { _FilterVideo_SelectiveColor_Correction_Method_Items = value; }

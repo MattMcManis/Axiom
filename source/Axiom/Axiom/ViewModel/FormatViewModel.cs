@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -81,7 +82,7 @@ namespace ViewModel
             public bool Category { get; set; }
         }
 
-        public List<FormatContainer> _Format_Container_Items = new List<FormatContainer>()
+        public ObservableCollection<FormatContainer> _Format_Container_Items = new ObservableCollection<FormatContainer>()
         {
             new FormatContainer() { Name = "Video", Category = true  },
             new FormatContainer() { Name = "webm",  Category = false },
@@ -105,7 +106,7 @@ namespace ViewModel
             new FormatContainer() { Name = "webp",  Category = false },
         };
 
-        public List<FormatContainer> Format_Container_Items
+        public ObservableCollection<FormatContainer> Format_Container_Items
         {
             get { return _Format_Container_Items; }
             set
@@ -172,14 +173,14 @@ namespace ViewModel
         // Media Type
         // --------------------------------------------------
         // Items Source
-        private List<string> _Format_MediaType_Items = new List<string>()
+        private ObservableCollection<string> _Format_MediaType_Items = new ObservableCollection<string>()
         {
             "Video",
             "Audio",
             "Image",
             "Sequence"
         };
-        public List<string> Format_MediaType_Items
+        public ObservableCollection<string> Format_MediaType_Items
         {
             get { return _Format_MediaType_Items; }
             set
@@ -245,12 +246,12 @@ namespace ViewModel
         // Cut
         // --------------------------------------------------
         // Items Source
-        private List<string> _Format_Cut_Items = new List<string>()
+        private ObservableCollection<string> _Format_Cut_Items = new ObservableCollection<string>()
         {
             "No",
             "Yes"
         };
-        public List<string> Format_Cut_Items
+        public ObservableCollection<string> Format_Cut_Items
         {
             get { return _Format_Cut_Items; }
             set
@@ -752,13 +753,13 @@ namespace ViewModel
         // YouTube
         // --------------------------------------------------
         // Items Source
-        private List<string> _Format_YouTube_Items = new List<string>()
+        private ObservableCollection<string> _Format_YouTube_Items = new ObservableCollection<string>()
         {
             "Video + Audio",
             "Video Only",
             "Audio Only"
         };
-        public List<string> Format_YouTube_Items
+        public ObservableCollection<string> Format_YouTube_Items
         {
             get { return _Format_YouTube_Items; }
             set
@@ -824,7 +825,7 @@ namespace ViewModel
         // YouTube_Quality
         // --------------------------------------------------
         // Items Source
-        private List<string> _Format_YouTube_Quality_Items = new List<string>()
+        private ObservableCollection<string> _Format_YouTube_Quality_Items = new ObservableCollection<string>()
         {
             "best",
             "best 4K",
@@ -833,7 +834,7 @@ namespace ViewModel
             "best 480p",
             "worst"
         };
-        public List<string> Format_YouTube_Quality_Items
+        public ObservableCollection<string> Format_YouTube_Quality_Items
         {
             get { return _Format_YouTube_Quality_Items; }
             set

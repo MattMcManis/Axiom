@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -95,8 +96,8 @@ namespace ViewModel
         // Video Codec
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Codec_Items = new List<string>();
-        public List<string> Video_Codec_Items
+        private ObservableCollection<string> _Video_Codec_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Video_Codec_Items
         {
             get { return _Video_Codec_Items; }
             set
@@ -183,8 +184,8 @@ namespace ViewModel
             public string Command { get; set; }
             public string Command_2Pass { get; set; }
         }
-        public List<VideoEncodeSpeed> _Video_EncodeSpeed_Items = new List<VideoEncodeSpeed>();
-        public List<VideoEncodeSpeed> Video_EncodeSpeed_Items
+        public ObservableCollection<VideoEncodeSpeed> _Video_EncodeSpeed_Items = new ObservableCollection<VideoEncodeSpeed>();
+        public ObservableCollection<VideoEncodeSpeed> Video_EncodeSpeed_Items
         {
             get { return _Video_EncodeSpeed_Items; }
             set
@@ -271,13 +272,13 @@ namespace ViewModel
         // HW Accel
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_HWAccel_Items = new List<string>()
+        private ObservableCollection<string> _Video_HWAccel_Items = new ObservableCollection<string>()
         {
             "Off",
             "On",
             "Auto"
         };
-        public List<string> Video_HWAccel_Items
+        public ObservableCollection<string> Video_HWAccel_Items
         {
             get { return _Video_HWAccel_Items; }
             set
@@ -342,7 +343,7 @@ namespace ViewModel
         // HW Accel Decode
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_HWAccel_Decode_Items = new List<string>()
+        private ObservableCollection<string> _Video_HWAccel_Decode_Items = new ObservableCollection<string>()
         {
             "off",
             "auto",
@@ -352,7 +353,7 @@ namespace ViewModel
             "DXVA2",
             "Intel QSV"
         };
-        public List<string> Video_HWAccel_Decode_Items
+        public ObservableCollection<string> Video_HWAccel_Decode_Items
         {
             get { return _Video_HWAccel_Decode_Items; }
             set
@@ -417,7 +418,7 @@ namespace ViewModel
         // HW Accel Transcode
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_HWAccel_Transcode_Items = new List<string>()
+        private ObservableCollection<string> _Video_HWAccel_Transcode_Items = new ObservableCollection<string>()
         {
             "off",
             "auto",
@@ -425,7 +426,7 @@ namespace ViewModel
             "NVIDIA NVENC",
             "Intel QSV"
         };
-        public List<string> Video_HWAccel_Transcode_Items
+        public ObservableCollection<string> Video_HWAccel_Transcode_Items
         {
             get { return _Video_HWAccel_Transcode_Items; }
             set
@@ -491,13 +492,13 @@ namespace ViewModel
         // Pass
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Pass_Items = new List<string>()
+        private ObservableCollection<string> _Video_Pass_Items = new ObservableCollection<string>()
         {
             "CRF",
             "1 Pass",
             "2 Pass"
         };
-        public List<string> Video_Pass_Items
+        public ObservableCollection<string> Video_Pass_Items
         {
             get { return _Video_Pass_Items; }
             set
@@ -580,8 +581,8 @@ namespace ViewModel
             public string BufSize { get; set; }
             //public string Custom { get; set; }
         }
-        private List<VideoQuality> _Video_Quality_Items = new List<VideoQuality>();
-        public List<VideoQuality> Video_Quality_Items
+        private ObservableCollection<VideoQuality> _Video_Quality_Items = new ObservableCollection<VideoQuality>();
+        public ObservableCollection<VideoQuality> Video_Quality_Items
         {
             get { return _Video_Quality_Items; }
             set
@@ -884,8 +885,8 @@ namespace ViewModel
         // Pixel Format
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_PixelFormat_Items = new List<string>();
-        public List<string> Video_PixelFormat_Items
+        private ObservableCollection<string> _Video_PixelFormat_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Video_PixelFormat_Items
         {
             get { return _Video_PixelFormat_Items; }
             set
@@ -951,7 +952,7 @@ namespace ViewModel
         // FPS
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_FPS_Items = new List<string>()
+        private ObservableCollection<string> _Video_FPS_Items = new ObservableCollection<string>()
         {
             "auto",
             "ntsc",
@@ -968,7 +969,7 @@ namespace ViewModel
             "60",
             "Custom"
         };
-        public List<string> Video_FPS_Items
+        public ObservableCollection<string> Video_FPS_Items
         {
             get { return _Video_FPS_Items; }
             set
@@ -1068,7 +1069,7 @@ namespace ViewModel
         // Speed
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Speed_Items = new List<string>()
+        private ObservableCollection<string> _Video_Speed_Items = new ObservableCollection<string>()
         {
             "auto",
             "10%",
@@ -1083,7 +1084,7 @@ namespace ViewModel
             "500%",
             "Custom"
         };
-        public List<string> Video_Speed_Items
+        public ObservableCollection<string> Video_Speed_Items
         {
             get { return _Video_Speed_Items; }
             set
@@ -1190,10 +1191,10 @@ namespace ViewModel
             public string Profile { get; set; }
             public string Level { get; set; }
         }
-        private List<VideoOptimize> _Video_Optimize_Items = new List<VideoOptimize>();
+        private ObservableCollection<VideoOptimize> _Video_Optimize_Items = new ObservableCollection<VideoOptimize>();
         // Items Source
-        //private List<string> _Optimize_Items = new List<string>();
-        public List<VideoOptimize> Video_Optimize_Items
+        //private ObservableCollection<string> _Optimize_Items = new ObservableCollection<string>();
+        public ObservableCollection<VideoOptimize> Video_Optimize_Items
         {
             get { return _Video_Optimize_Items; }
             set
@@ -1276,8 +1277,8 @@ namespace ViewModel
         // Optimize Tune
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Optimize_Tune_Items = new List<string>();
-        public List<string> Video_Optimize_Tune_Items
+        private ObservableCollection<string> _Video_Optimize_Tune_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Video_Optimize_Tune_Items
         {
             get { return _Video_Optimize_Tune_Items; }
             set
@@ -1343,8 +1344,8 @@ namespace ViewModel
         // Optimize Profile
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Optimize_Profile_Items = new List<string>();
-        public List<string> Video_Optimize_Profile_Items
+        private ObservableCollection<string> _Video_Optimize_Profile_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Video_Optimize_Profile_Items
         {
             get { return _Video_Optimize_Profile_Items; }
             set
@@ -1410,8 +1411,8 @@ namespace ViewModel
         // Optimize Level
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Optimize_Level_Items = new List<string>();
-        public List<string> Video_Optimize_Level_Items
+        private ObservableCollection<string> _Video_Optimize_Level_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Video_Optimize_Level_Items
         {
             get { return _Video_Optimize_Level_Items; }
             set
@@ -1478,7 +1479,7 @@ namespace ViewModel
         // Color Matrix
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Color_Matrix_Items = new List<string>()
+        private ObservableCollection<string> _Video_Color_Matrix_Items = new ObservableCollection<string>()
         {
             "auto",
             "BT.709",
@@ -1490,7 +1491,7 @@ namespace ViewModel
             "SMPTE-240M",
             //"BT.2020" // doesn't work
         };
-        public List<string> Video_Color_Matrix_Items
+        public ObservableCollection<string> Video_Color_Matrix_Items
         {
             get { return _Video_Color_Matrix_Items; }
             set
@@ -1556,7 +1557,7 @@ namespace ViewModel
         // Color Space
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Color_Space_Items = new List<string>()
+        private ObservableCollection<string> _Video_Color_Space_Items = new ObservableCollection<string>()
         {
             "auto",
             "BT.709",
@@ -1569,7 +1570,7 @@ namespace ViewModel
             "YCgCo",
             "BT.2020 NCL"
         };
-        public List<string> Video_Color_Space_Items
+        public ObservableCollection<string> Video_Color_Space_Items
         {
             get { return _Video_Color_Space_Items; }
             set
@@ -1635,7 +1636,7 @@ namespace ViewModel
         // Color Transfer Characteristics
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Color_TransferCharacteristics_Items = new List<string>()
+        private ObservableCollection<string> _Video_Color_TransferCharacteristics_Items = new ObservableCollection<string>()
         {
             "auto",
             "BT.709",
@@ -1655,7 +1656,7 @@ namespace ViewModel
             "BT.2020 12-bit"
 
         };
-        public List<string> Video_Color_TransferCharacteristics_Items
+        public ObservableCollection<string> Video_Color_TransferCharacteristics_Items
         {
             get { return _Video_Color_TransferCharacteristics_Items; }
             set
@@ -1721,7 +1722,7 @@ namespace ViewModel
         // Color Primaries
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Color_Primaries_Items = new List<string>()
+        private ObservableCollection<string> _Video_Color_Primaries_Items = new ObservableCollection<string>()
         {
             "auto",
             "BT.709",
@@ -1738,7 +1739,7 @@ namespace ViewModel
             "JEDEC P22 phosphors"
 
         };
-        public List<string> Video_Color_Primaries_Items
+        public ObservableCollection<string> Video_Color_Primaries_Items
         {
             get { return _Video_Color_Primaries_Items; }
             set
@@ -1804,7 +1805,7 @@ namespace ViewModel
         // Color Range
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Color_Range_Items = new List<string>()
+        private ObservableCollection<string> _Video_Color_Range_Items = new ObservableCollection<string>()
         {
             "auto",
             "TV",
@@ -1812,7 +1813,7 @@ namespace ViewModel
             "MPEG",
             "JPEG"
         };
-        public List<string> Video_Color_Range_Items
+        public ObservableCollection<string> Video_Color_Range_Items
         {
             get { return _Video_Color_Range_Items; }
             set
@@ -1879,7 +1880,7 @@ namespace ViewModel
         // Size
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_Scale_Items = new List<string>()
+        private ObservableCollection<string> _Video_Scale_Items = new ObservableCollection<string>()
         {
             "Source",
             "8K",
@@ -1899,7 +1900,7 @@ namespace ViewModel
             "240p",
             "Custom"
         };
-        public List<string> Video_Scale_Items
+        public ObservableCollection<string> Video_Scale_Items
         {
             get { return _Video_Scale_Items; }
             set
@@ -2037,14 +2038,14 @@ namespace ViewModel
         // Screen Format
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_ScreenFormat_Items = new List<string>()
+        private ObservableCollection<string> _Video_ScreenFormat_Items = new ObservableCollection<string>()
         {
             //"auto",
             "Full Screen",
             "Widescreen",
             //"Ultrawide"
         };
-        public List<string> Video_ScreenFormat_Items
+        public ObservableCollection<string> Video_ScreenFormat_Items
         {
             get { return _Video_ScreenFormat_Items; }
             set
@@ -2110,7 +2111,7 @@ namespace ViewModel
         // Aspect Ratio
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_AspectRatio_Items = new List<string>()
+        private ObservableCollection<string> _Video_AspectRatio_Items = new ObservableCollection<string>()
         {
             "auto",
             "1:1",
@@ -2126,7 +2127,7 @@ namespace ViewModel
             "21:9",
             "32:9",
         };
-        public List<string> Video_AspectRatio_Items
+        public ObservableCollection<string> Video_AspectRatio_Items
         {
             get { return _Video_AspectRatio_Items; }
             set
@@ -2192,7 +2193,7 @@ namespace ViewModel
         // Scaling
         // --------------------------------------------------
         // Items Source
-        private List<string> _Video_ScalingAlgorithm_Items = new List<string>()
+        private ObservableCollection<string> _Video_ScalingAlgorithm_Items = new ObservableCollection<string>()
         {
             "auto",
             "neighbor",
@@ -2207,7 +2208,7 @@ namespace ViewModel
             "lanczos",
             "spline"
         };
-        public List<string> Video_ScalingAlgorithm_Items
+        public ObservableCollection<string> Video_ScalingAlgorithm_Items
         {
             get { return _Video_ScalingAlgorithm_Items; }
             set

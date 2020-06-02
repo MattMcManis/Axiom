@@ -75,8 +75,8 @@ namespace ViewModel
         // Subtitle Codec
         // --------------------------------------------------
         // Items Source
-        public List<string> _Subtitle_Codec_Items = new List<string>();
-        public List<string> Subtitle_Codec_Items
+        public ObservableCollection<string> _Subtitle_Codec_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Subtitle_Codec_Items
         {
             get { return _Subtitle_Codec_Items; }
             set
@@ -152,8 +152,8 @@ namespace ViewModel
         // Subtitle Stream
         // --------------------------------------------------
         // Items Source
-        public List<string> _Subtitle_Stream_Items = new List<string>();
-        public List<string> Subtitle_Stream_Items
+        public ObservableCollection<string> _Subtitle_Stream_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Subtitle_Stream_Items
         {
             get { return _Subtitle_Stream_Items; }
             set

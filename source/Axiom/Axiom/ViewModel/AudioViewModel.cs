@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -80,8 +81,8 @@ namespace ViewModel
         // Audio Codec
         // --------------------------------------------------
         // Items Source
-        private List<string> _Audio_Codec_Items = new List<string>();
-        public List<string> Audio_Codec_Items
+        private ObservableCollection<string> _Audio_Codec_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Audio_Codec_Items
         {
             get { return _Audio_Codec_Items; }
             set
@@ -157,7 +158,7 @@ namespace ViewModel
         // Audio Stream
         // --------------------------------------------------
         // Items Source
-        private List<string> _Audio_Stream_Items = new List<string>()
+        private ObservableCollection<string> _Audio_Stream_Items = new ObservableCollection<string>()
         {
             "none",
             "all",
@@ -170,7 +171,7 @@ namespace ViewModel
             "7",
             "8",
         };
-        public List<string> Audio_Stream_Items
+        public ObservableCollection<string> Audio_Stream_Items
         {
             get { return _Audio_Stream_Items; }
             set
@@ -236,8 +237,8 @@ namespace ViewModel
         // Audio Channel
         // --------------------------------------------------
         // Items Source
-        private List<string> _Audio_Channel_Items = new List<string>();
-        public List<string> Audio_Channel_Items
+        private ObservableCollection<string> _Audio_Channel_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Audio_Channel_Items
         {
             get { return _Audio_Channel_Items; }
             set
@@ -315,8 +316,8 @@ namespace ViewModel
             public string VBR { get; set; }
             //public string Custom { get; set; }
         }
-        public List<AudioQuality> _Audio_Quality_Items = new List<AudioQuality>();
-        public List<AudioQuality> Audio_Quality_Items
+        public ObservableCollection<AudioQuality> _Audio_Quality_Items = new ObservableCollection<AudioQuality>();
+        public ObservableCollection<AudioQuality> Audio_Quality_Items
         {
             get { return _Audio_Quality_Items; }
             set
@@ -455,8 +456,8 @@ namespace ViewModel
         // Audio Compression Level
         // --------------------------------------------------
         // Items Source
-        private List<string> _Audio_CompressionLevel_Items = new List<string>();
-        public List<string> Audio_CompressionLevel_Items
+        private ObservableCollection<string> _Audio_CompressionLevel_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Audio_CompressionLevel_Items
         {
             get { return _Audio_CompressionLevel_Items; }
             set
@@ -544,8 +545,8 @@ namespace ViewModel
             public string Name { get; set; }
             public string Frequency { get; set; }
         }
-        public List<AudioSampleRate> _Audio_SampleRate_Items = new List<AudioSampleRate>();
-        public List<AudioSampleRate> Audio_SampleRate_Items
+        public ObservableCollection<AudioSampleRate> _Audio_SampleRate_Items = new ObservableCollection<AudioSampleRate>();
+        public ObservableCollection<AudioSampleRate> Audio_SampleRate_Items
         {
             get { return _Audio_SampleRate_Items; }
             set
@@ -616,8 +617,8 @@ namespace ViewModel
             public string Name { get; set; }
             public string Depth { get; set; }
         }
-        public List<AudioBitDepth> _Audio_BitDepth_Items = new List<AudioBitDepth>();
-        public List<AudioBitDepth> Audio_BitDepth_Items
+        public ObservableCollection<AudioBitDepth> _Audio_BitDepth_Items = new ObservableCollection<AudioBitDepth>();
+        public ObservableCollection<AudioBitDepth> Audio_BitDepth_Items
         {
             get { return _Audio_BitDepth_Items; }
             set

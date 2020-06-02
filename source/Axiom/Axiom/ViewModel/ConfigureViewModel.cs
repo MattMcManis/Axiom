@@ -100,14 +100,14 @@ namespace ViewModel
         // Config Path
         // -------------------------
         // Items Source
-        private List<string> _ConfigPath_Items = new List<string>()
+        private ObservableCollection<string> _ConfigPath_Items = new ObservableCollection<string>()
         {
            "AppData Local",
            "AppData Roaming",
            //"Documents",
            "App Root"
         };
-        public List<string> ConfigPath_Items
+        public ObservableCollection<string> ConfigPath_Items
         {
             get { return _ConfigPath_Items; }
             set
@@ -478,12 +478,12 @@ namespace ViewModel
         // Shell
         // --------------------------------------------------
         // Items Source
-        private List<string> _Shell_Items = new List<string>()
+        private ObservableCollection<string> _Shell_Items = new ObservableCollection<string>()
         {
            "CMD",
            "PowerShell"
         };
-        public List<string> Shell_Items
+        public ObservableCollection<string> Shell_Items
         {
             get { return _Shell_Items; }
             set
@@ -549,7 +549,7 @@ namespace ViewModel
         // Process Priority
         // --------------------------------------------------
         // Items Source
-        private List<string> _ProcessPriority_Items = new List<string>()
+        private ObservableCollection<string> _ProcessPriority_Items = new ObservableCollection<string>()
         {
            "Default",
            "Low",
@@ -558,7 +558,7 @@ namespace ViewModel
            "Above Normal",
            "High"
         };
-        public List<string> ProcessPriority_Items
+        public ObservableCollection<string> ProcessPriority_Items
         {
             get { return _ProcessPriority_Items; }
             set
@@ -624,7 +624,7 @@ namespace ViewModel
         // Threads
         // --------------------------------------------------
         // Items Source
-        private List<string> _Threads_Items = new List<string>()
+        private ObservableCollection<string> _Threads_Items = new ObservableCollection<string>()
         {
            "Default",
            "Optimal",
@@ -646,7 +646,7 @@ namespace ViewModel
            "15",
            "16"
         };
-        public List<string> Threads_Items
+        public ObservableCollection<string> Threads_Items
         {
             get { return _Threads_Items; }
             set
@@ -793,13 +793,13 @@ namespace ViewModel
         // Output File Overwrite
         // --------------------------------------------------
         // Items Source
-        private List<string> _OutputOverwrite_Items = new List<string>()
+        private ObservableCollection<string> _OutputOverwrite_Items = new ObservableCollection<string>()
         {
            "Ask",
            "Always",
            "Never"
         };
-        public List<string> OutputOverwrite_Items
+        public ObservableCollection<string> OutputOverwrite_Items
         {
             get { return _OutputOverwrite_Items; }
             set
@@ -865,7 +865,7 @@ namespace ViewModel
         // Theme
         // --------------------------------------------------
         // Items Source
-        private List<string> _Theme_Items = new List<string>()
+        private ObservableCollection<string> _Theme_Items = new ObservableCollection<string>()
         {
             "Axiom",
             "FFmpeg",
@@ -874,7 +874,7 @@ namespace ViewModel
             "Circuit",
             "System"
         };
-        public List<string> Theme_Items
+        public ObservableCollection<string> Theme_Items
         {
             get { return _Theme_Items; }
             set
