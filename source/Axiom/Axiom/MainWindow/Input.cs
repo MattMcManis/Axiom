@@ -49,29 +49,29 @@ namespace Axiom
                     // Open Select File Window
                     Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
 
-                    // Remember Last Dir
-                    //
-                    try
-                    {
-                        //string previousPath = Settings.Default.InputDir.ToString();
-                        inputPreviousPath = string.Empty;
+                    //// Remember Last Dir
+                    ////
+                    //try
+                    //{
+                    //    //string previousPath = Settings.Default.InputDir.ToString();
+                    //    inputPreviousPath = string.Empty;
 
-                        if (File.Exists(Controls.Configure.configFile))
-                        {
-                            Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
-                            inputPreviousPath = conf.Read("User", "InputPreviousPath");
+                    //    if (File.Exists(Controls.Configure.configFile))
+                    //    {
+                    //        Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
+                    //        inputPreviousPath = conf.Read("User", "InputPreviousPath");
 
-                            // Use Previous Path if Not Empty
-                            if (!string.IsNullOrWhiteSpace(inputPreviousPath))
-                            {
-                                selectFile.InitialDirectory = inputPreviousPath;
-                            }
-                        }
-                    }
-                    catch
-                    {
+                    //        // Use Previous Path if Not Empty
+                    //        if (!string.IsNullOrWhiteSpace(inputPreviousPath))
+                    //        {
+                    //            selectFile.InitialDirectory = inputPreviousPath;
+                    //        }
+                    //    }
+                    //}
+                    //catch
+                    //{
 
-                    }
+                    //}
 
                     // Show Dialog Box
                     Nullable<bool> result = selectFile.ShowDialog();
@@ -83,27 +83,25 @@ namespace Axiom
                         VM.MainView.Input_Text = selectFile.FileName;
 
                         // Set Input Dir, Name, Ext
-                        inputDir = Path.GetDirectoryName(VM.MainView.Input_Text).TrimEnd('\\') + @"\";
+                        inputDir = Path.GetDirectoryName(selectFile.FileName).TrimEnd('\\') + @"\";
 
-                        inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
+                        inputFileName = Path.GetFileNameWithoutExtension(selectFile.FileName);
 
-                        inputExt = Path.GetExtension(VM.MainView.Input_Text);
+                        inputExt = Path.GetExtension(selectFile.FileName);
 
-                        // Save Previous Path
-                        //Settings.Default.InputDir = inputDir;
-                        //Settings.Default.Save();
-                        if (File.Exists(Controls.Configure.configFile))
-                        {
-                            try
-                            {
-                                Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
-                                conf.Write("User", "InputPreviousPath", inputDir);
-                            }
-                            catch
-                            {
+                        //// Save Previous Path
+                        //if (File.Exists(Controls.Configure.configFile))
+                        //{
+                        //    try
+                        //    {
+                        //        Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
+                        //        conf.Write("User", "InputPreviousPath", inputDir);
+                        //    }
+                        //    catch
+                        //    {
 
-                            }
-                        }
+                        //    }
+                        //}
                     }
 
                     // --------------------------------------------------
