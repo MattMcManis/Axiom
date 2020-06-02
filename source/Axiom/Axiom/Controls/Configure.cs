@@ -324,24 +324,24 @@ namespace Controls
                 string[] arrOutputNaming_ItemOrder = outputNaming_ItemOrder.Split(',');
 
                 // Create the new list
-                VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(arrOutputNaming_ItemOrder);
+                // Remove Duplicates
+                VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(arrOutputNaming_ItemOrder
+                                                                                                .Distinct()
+                                                                                                .ToList()
+                                                                                                .AsEnumerable()
+                                                                                               );
+                //VM.ConfigureView.OutputNaming_ListView_Items = arrOutputNaming_ItemOrder.Distinct().ToList();
 
                 // Check the Master Default List for Missing Items
-                List<string> missingItems = MainWindow.outputNaming_Defaults.Except(arrOutputNaming_ItemOrder).ToList();
-                //IEnumerable<string> missingItems = MainWindow.outputNaming_Defaults.Except(arrOutputNaming_ItemOrder).ToList();
-                //VM.MainView.ScriptView_Text = string.Join("\n", MainWindow.outputNaming_Defaults) + 
-                //                              "\n\n" + 
-                //                              string.Join("\n", arrOutputNaming_ItemOrder) +
-                //                              "\n\n" +
-                //                              string.Join("\n", missingItems)
-                //                              ; //debug
+                IEnumerable<string> missingItems = MainWindow.outputNaming_Defaults
+                                                             .Except(VM.ConfigureView.OutputNaming_ListView_Items/*arrOutputNaming_ItemOrder*/)
+                                                             .ToList()
+                                                             .AsEnumerable();
+                //List<string> missingItems = MainWindow.outputNaming_Defaults.Except(arrOutputNaming_ItemOrder).ToList();
 
-                // Add the missing items to the bottom of the ListView
-                for (var i = 0; i < missingItems.Count; i++)
-                //foreach (string item in missingItems)
+                foreach (string item in missingItems)
                 {
-                    VM.ConfigureView.OutputNaming_ListView_Items.Add(/*item*/missingItems[i]);
-                    //VM.MainView.ScriptView_Text = missingItems[i]; /debug
+                    VM.ConfigureView.OutputNaming_ListView_Items.Add(item/*missingItems[i]*/);
                 }
 
                 // Selected Items String (items separated by commas)
@@ -349,16 +349,20 @@ namespace Controls
                 // Empty List Check
                 if (!string.IsNullOrEmpty(outputNaming_SelectedItems))
                 {
+                    // Split
                     string[] arrOuputNaming_SelectedItems = outputNaming_SelectedItems.Split(',');
 
+                    // Remove Duplicates
+                    List<string> lstOuputNaming_SelectedItems = arrOuputNaming_SelectedItems.Distinct().ToList();
+
                     // Import Selected Items
-                    for (var i = 0; i < arrOuputNaming_SelectedItems.Length; i++)
+                    for (var i = 0; i < lstOuputNaming_SelectedItems.Count; i++)
                     {
                         // If Items List Contains the Imported Item
                         if (VM.ConfigureView.OutputNaming_ListView_Items.Contains(arrOuputNaming_SelectedItems[i]))
                         {
                             // Added Item to Selected Items List
-                            VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(arrOuputNaming_SelectedItems[i]);
+                            //VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(arrOuputNaming_SelectedItems[i]);
 
                             // Select the Item
                             try
@@ -393,7 +397,6 @@ namespace Controls
             bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out updateAutoCheck_IsChecked);
             VM.ConfigureView.UpdateAutoCheck_IsChecked = updateAutoCheck_IsChecked;
         }
-
 
 
 
@@ -659,7 +662,7 @@ namespace Controls
         /// <summary>
         /// FFplay Folder Browser Dialog
         /// </summary>
-        public static void FFplayFolderBrowser() // Method
+        public static void FFplayFolderBrowser()
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
@@ -691,7 +694,7 @@ namespace Controls
         /// <summary>
         /// Log Folder Browser Dialog 
         /// </summary>
-        public static void LogFolderBrowser() // Method
+        public static void LogFolderBrowser()
         {
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
