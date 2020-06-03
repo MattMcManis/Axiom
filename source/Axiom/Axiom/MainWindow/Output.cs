@@ -704,154 +704,161 @@ namespace Axiom
             // -------------------------
             // Video
             // -------------------------
-            // HW Accel
             string video_hwAccel_Transcode = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("HW Accel"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_HWAccel_Transcode_SelectedItem))
-                {
-                    video_hwAccel_Transcode = SettingsCheck(VM.VideoView.Video_HWAccel_Transcode_SelectedItem.Replace(" ", "-"));
-                }
-            }
-
-            // Video Codec
             string video_Codec = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Codec"))
-            {
-                // Ignore Copy
-                if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
-                {
-                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
-                    {
-                        video_Codec = SettingsCheck(VM.VideoView.Video_Codec_SelectedItem);
-                    }
-                }
-            }
-
-            // Video Codec Copy
             string video_Codec_Copy = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Codec Copy"))
+            string video_Pass = string.Empty;
+            string video_BitRate = string.Empty;
+            string video_CRF = string.Empty;
+            string video_Preset = string.Empty;
+            string video_PixelFormat = string.Empty;
+            string video_Size = string.Empty;
+            string video_Size_Source = string.Empty;
+            string video_ScalingAlgorithm = string.Empty;
+            string video_FPS = string.Empty;
+
+            if (VM.FormatView.Format_MediaType_SelectedItem == "Video" ||
+                VM.FormatView.Format_MediaType_SelectedItem == "Image" ||
+                VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
             {
-                if (VM.VideoView.Video_Codec_SelectedItem == "Copy")
+                // HW Accel
+                video_hwAccel_Transcode = string.Empty;
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("HW Accel"))
                 {
-                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_HWAccel_Transcode_SelectedItem))
                     {
-                        video_Codec_Copy = "cv-" + SettingsCheck(VM.VideoView.Video_Codec_SelectedItem.ToLower());
+                        video_hwAccel_Transcode = SettingsCheck(VM.VideoView.Video_HWAccel_Transcode_SelectedItem.Replace(" ", "-"));
                     }
                 }
-            }
 
-            // Pass
-            string video_Pass = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Pass"))
-            {
-                // null check prevents unknown crash
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Pass_SelectedItem))
+                // Video Codec
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Codec"))
                 {
-                    video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem.Replace(" ", "-")); // do not lowercase
+                    // Ignore Copy
+                    if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
+                    {
+                        if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
+                        {
+                            video_Codec = SettingsCheck(VM.VideoView.Video_Codec_SelectedItem);
+                        }
+                    }
                 }
-            }
 
-            // Video Bit Rate
-            string video_BitRate = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Bit Rate"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_BitRate_Text))
+                // Video Codec Copy
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Codec Copy"))
                 {
-                    video_BitRate = SettingsCheck(VM.VideoView.Video_BitRate_Text.ToUpper()); //K / M
+                    if (VM.VideoView.Video_Codec_SelectedItem == "Copy")
+                    {
+                        if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem))
+                        {
+                            video_Codec_Copy = "cv-" + SettingsCheck(VM.VideoView.Video_Codec_SelectedItem.ToLower());
+                        }
+                    }
                 }
-            }
 
-            // CRF
-            string video_CRF = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video CRF"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_CRF_Text))
+                // Pass
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Pass"))
                 {
-                    video_CRF = "CRF" + SettingsCheck(VM.VideoView.Video_CRF_Text);
+                    // null check prevents unknown crash
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Pass_SelectedItem))
+                    {
+                        video_Pass = SettingsCheck(VM.VideoView.Video_Pass_SelectedItem.Replace(" ", "-")); // do not lowercase
+                    }
                 }
-            }
 
-            // Preset
-            string video_Preset = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Preset"))
-            {
-                video_Preset = SettingsCheck(VM.VideoView.Video_EncodeSpeed_Items
-                                               .FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name);
-
-                if (!string.IsNullOrWhiteSpace(video_Preset))
+                // Video Bit Rate
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video Bit Rate"))
                 {
-                    video_Preset = "p-" + video_Preset
-                                          .Replace(" ", "-")
-                                          .ToLower();
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_BitRate_Text))
+                    {
+                        video_BitRate = SettingsCheck(VM.VideoView.Video_BitRate_Text.ToUpper()); //K / M
+                    }
                 }
-            }
 
-            // Pixel Format
-            string video_PixelFormat = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Pixel Format"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_PixelFormat_SelectedItem))
+                // CRF
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Video CRF"))
                 {
-                    video_PixelFormat = SettingsCheck(VM.VideoView.Video_PixelFormat_SelectedItem);
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_CRF_Text))
+                    {
+                        video_CRF = "CRF" + SettingsCheck(VM.VideoView.Video_CRF_Text);
+                    }
                 }
-            }
 
-            // Scale/Size
-            string video_Size = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Size"))
-            {
-                if (VM.VideoView.Video_Scale_SelectedItem != "Source")
+                // Preset
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Preset"))
+                {
+                    video_Preset = SettingsCheck(VM.VideoView.Video_EncodeSpeed_Items
+                                                   .FirstOrDefault(item => item.Name == VM.VideoView.Video_EncodeSpeed_SelectedItem)?.Name);
+
+                    if (!string.IsNullOrWhiteSpace(video_Preset))
+                    {
+                        video_Preset = "p-" + video_Preset
+                                              .Replace(" ", "-")
+                                              .ToLower();
+                    }
+                }
+
+                // Pixel Format
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Pixel Format"))
+                {
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_PixelFormat_SelectedItem))
+                    {
+                        video_PixelFormat = SettingsCheck(VM.VideoView.Video_PixelFormat_SelectedItem);
+                    }
+                }
+
+                // Scale/Size
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Size"))
+                {
+                    if (VM.VideoView.Video_Scale_SelectedItem != "Source")
+                    {
+                        if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem))
+                        {
+                            video_Size = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem.Replace(" ", "-"));
+                        }
+                    }
+                }
+
+                // Scale/Size Source
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Size Source"))
                 {
                     if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem))
                     {
-                        video_Size = SettingsCheck(VM.VideoView.Video_Scale_SelectedItem.Replace(" ", "-"));
+                        if (VM.VideoView.Video_Scale_SelectedItem == "Source")
+                        {
+                            video_Size_Source = "sz-" + SettingsCheck(VM.VideoView.Video_Scale_SelectedItem.ToLower());
+                        }
                     }
                 }
-            }
 
-            // Scale/Size Source
-            string video_Size_Source = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Size Source"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem))
+                // Scaling
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Scaling"))
                 {
-                    if (VM.VideoView.Video_Scale_SelectedItem == "Source")
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_ScalingAlgorithm_SelectedItem))
                     {
-                        video_Size_Source = "sz-" + SettingsCheck(VM.VideoView.Video_Scale_SelectedItem.ToLower());
+                        video_ScalingAlgorithm = SettingsCheck(VM.VideoView.Video_ScalingAlgorithm_SelectedItem);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(video_ScalingAlgorithm))
+                    {
+                        video_ScalingAlgorithm = "sa-" + video_ScalingAlgorithm
+                                                         .Replace(" ", "-")
+                                                         .ToLower();
                     }
                 }
-            }
 
-            // Scaling
-            string video_ScalingAlgorithm = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Scaling"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_ScalingAlgorithm_SelectedItem))
+                // FPS
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Frame Rate"))
                 {
-                    video_ScalingAlgorithm = SettingsCheck(VM.VideoView.Video_ScalingAlgorithm_SelectedItem);
-                }
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_FPS_SelectedItem))
+                    {
+                        video_FPS = SettingsCheck(VM.VideoView.Video_FPS_SelectedItem);
+                    }
 
-                if (!string.IsNullOrWhiteSpace(video_ScalingAlgorithm))
-                {
-                    video_ScalingAlgorithm = "sa-" + video_ScalingAlgorithm
-                                                     .Replace(" ", "-")
-                                                     .ToLower();
-                }
-            }
-
-            // FPS
-            string video_FPS = string.Empty;
-            if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Frame Rate"))
-            {
-                if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_FPS_SelectedItem))
-                {
-                    video_FPS = SettingsCheck(VM.VideoView.Video_FPS_SelectedItem);
-                }
-
-                if (!string.IsNullOrWhiteSpace(video_FPS))
-                {
-                    video_FPS = video_FPS + "fps";
+                    if (!string.IsNullOrWhiteSpace(video_FPS))
+                    {
+                        video_FPS = video_FPS + "fps";
+                    }
                 }
             }
 
@@ -1293,26 +1300,36 @@ namespace Axiom
 
             string containers = @"(?<![.])(\s*(webm|mp4|mkv|mpg|avi|ogv|mp3|m4a|ogg|flac|wav|jpg|png|webp))";
 
-            string hwAccelTranscode = @"|\s*(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
-                                                                 .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                 .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                                 .Where(s => !s.Equals("off", StringComparison.OrdinalIgnoreCase))
-                                                                 .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+            string hwAccelTranscode = string.Empty;
+            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_HWAccel_Transcode_SelectedItem) &&
+                !string.Equals(VM.VideoView.Video_HWAccel_Transcode_SelectedItem, "off", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(VM.VideoView.Video_HWAccel_Transcode_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase))
+            {
+                hwAccelTranscode = @"|\s*(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
+                                                                 //.Where(s => !string.IsNullOrWhiteSpace(s))
+                                                                 //.Where(s => !s.Equals("off", StringComparison.OrdinalIgnoreCase))
+                                                                 //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
                                                                  .OrderByDescending(x => x).ToList()
                                                 ).Replace(" ", "-") +
                                             ")";
+            }
 
             string presets = @"|\s*(p-placebo|p-very-slow|p-slower|p-slow|p-medium|p-fast|p-faster|p-very-fast|p-super-fast|p-ultra-fast)";
 
             //string vCodecs = @"|\s*(x264|x265|VP8|VP9|AV1|FFV1|MagicYUV|HuffYUV|Theora|cv-copy)";
-            string vCodecs = @"|\s*(" + string.Join("|", VM.VideoView.Video_Codec_Items
-                                                        .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                        .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                        .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                        .OrderByDescending(x => x).ToList()
-                                                    ) +
-                                "|cv-copy" +
-                                ")";
+            string vCodecs = string.Empty;
+            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem) &&
+                !string.Equals(VM.VideoView.Video_Codec_SelectedItem, "None", StringComparison.OrdinalIgnoreCase))
+            {
+                vCodecs = @"|\s*(" + string.Join("|", VM.VideoView.Video_Codec_Items
+                                                     //.Where(s => !string.IsNullOrWhiteSpace(s))
+                                                     //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                     //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                                                     .OrderByDescending(x => x).ToList()
+                                                ) +
+                                    //"|cv-copy" +
+                                    ")";
+            }
 
             string pass = @"|\s*(1-Pass|2-Pass)";
 
@@ -1322,71 +1339,105 @@ namespace Axiom
 
             string vBitRate = @"|\s*((\d+K)|(\d+\.\d+M)|(CRF\d+))"; //vBitRate and aBitRate k are here
 
-            string pixelFormat = @"|\s*(" + string.Join("|", VM.VideoView.Video_PixelFormat_Items
-                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                            .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                            .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+            string pixelFormat = string.Empty;
+            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_PixelFormat_SelectedItem) &&
+                !string.Equals(VM.VideoView.Video_PixelFormat_SelectedItem, "none", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(VM.VideoView.Video_PixelFormat_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase))
+            {
+                pixelFormat = @"|\s*(" + string.Join("|", VM.VideoView.Video_PixelFormat_Items
+                                                            //.Where(s => !string.IsNullOrWhiteSpace(s))
+                                                            //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                            //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
                                                             .OrderByDescending(x => x).ToList()
                                                        )
 
                                     + ")";
+            }
 
             //string size = @"|\s*(8K|8KUHD|4K|4KUHD|2K|1600p|1400p|1200p|1080p|900p|720p|576p|480p|320p|240p|sz-source)";
-            string size = @"|\s*(" + string.Join("|", VM.VideoView.Video_Scale_Items
-                                                                  .OrderByDescending(x => x).ToList()
-                                                ).Replace(" ", "-") +
-                                "|sz-source" +
+            string size = string.Empty;
+            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem) &&
+                !string.Equals(VM.VideoView.Video_Scale_SelectedItem, "Source", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(VM.VideoView.Video_Scale_SelectedItem, "Custom", StringComparison.OrdinalIgnoreCase))
+            {
+                size = @"|\s*(" + string.Join("|", VM.VideoView.Video_Scale_Items
+                                                   .OrderByDescending(x => x).ToList()
+                                             ).Replace(" ", "-") +
+                                //"|sz-source" +
                                 ")";
+            }
 
             //string scaling = @"|\s*(sa-neighbor|sa-area|sa-fast_bilinear|sa-bilinear|sa-bicubic|sa-experimental|sa-bicublin|sa-gauss|sa-sinc|sa-lanczos|sa-spline)";
-            string scaling = @"|\s*(" + string.Join("|sa-", VM.VideoView.Video_ScalingAlgorithm_Items
-                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                            .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                            .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+            string scaling = string.Empty;
+            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_ScalingAlgorithm_SelectedItem) &&
+                !string.Equals(VM.VideoView.Video_ScalingAlgorithm_SelectedItem, "none", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(VM.VideoView.Video_ScalingAlgorithm_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase))
+            {
+                scaling = @"|\s*(" + string.Join("|sa-", VM.VideoView.Video_ScalingAlgorithm_Items
+                                                            //.Where(s => !string.IsNullOrWhiteSpace(s))
+                                                            //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                            //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
                                                             .OrderByDescending(x => x).ToList()
                                                 )
 
                             + ")";
+            }
 
             string fps = @"|\s*(\d+fps)";
 
             //string aCodecs = @"|\s*(AC3|AAC|DTS|Vorbis|Opus|LAME|FLAC|PCM|ca-copy)";
-            string aCodecs = @"|\s*(" + string.Join("|", VM.AudioView.Audio_Codec_Items
-                                                        .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                        .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                        .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+            string aCodecs = string.Empty;
+            if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem) &&
+                !string.Equals(VM.AudioView.Audio_Codec_SelectedItem, "None", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(VM.AudioView.Audio_Codec_SelectedItem, "Auto", StringComparison.OrdinalIgnoreCase))
+            {
+                aCodecs = @"|\s*(" + string.Join("|", VM.AudioView.Audio_Codec_Items
+                                                        //.Where(s => !string.IsNullOrWhiteSpace(s))
+                                                        //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                        //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
                                                         .OrderByDescending(x => x).ToList()
                                                     ) +
-                                "|ca-copy" +
+                                //"|ca-copy" +
                                 ")";
+            }
 
-            string channel = @"|\s*(\d+CH)";
+            string channel = @"|\s*(\d+\.\d+CH|\d+CH)";
 
             string bitDepth = @"|\s*(\d+-bit)";
 
-            // Remove Tokens
-            filename = Regex.Replace(
-                filename,
+            string regex =
                 // build regex rules
                 // order is important
                 containers +
                 hwAccelTranscode +
                 presets +
                 vCodecs +
+                @"|\s*(cv-copy)" +
                 pass +
                 sampleRate +
                 aBitRate +
                 vBitRate +
                 pixelFormat +
                 size +
+                @"|\s*(sz-source)" +
                 scaling +
                 fps +
                 aCodecs +
+                @"|\s*(ca-copy)" +
                 channel +
-                bitDepth
+                bitDepth;
+                //.Replace("|\s*()", ""); // remove any empty rules
+
+            // Remove Tokens
+            filename = Regex.Replace(
+                filename,
+                regex
                 , ""
                 , RegexOptions.IgnoreCase
             );
+
+            // debug regex rules
+            //VM.MainView.ScriptView_Text = regex;
 
             return filename;
         }
