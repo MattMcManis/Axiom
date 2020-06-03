@@ -80,7 +80,7 @@ namespace Axiom
             //        string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
             //    {
             //        outputFileName = FileRenamer(inputFileName);
-            //        outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+            //        outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
             //    }
             //}
 
