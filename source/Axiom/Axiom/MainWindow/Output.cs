@@ -1286,9 +1286,9 @@ namespace Axiom
         /// </summary>
         public static String OutputPath_Token_Remover(string filename)
         {
-            // Order Matters
+            // Order is important
             // e.g. "kHz" must before "k"
-            // e.g. "yuv420p" must before "yuv420p10le"
+            // e.g. "yuv420p10le" must before "yuv420p"
             // Use .OrderByDescending to put longest length items first
 
             string containers = @"(?<![.])(\s*(webm|mp4|mkv|mpg|avi|ogv|mp3|m4a|ogg|flac|wav|jpg|png|webp))";
@@ -1367,12 +1367,15 @@ namespace Axiom
             // Remove Tokens
             filename = Regex.Replace(
                 filename,
-                //"(?i)" +
+                // build regex rules
+                // order is important
                 containers +
                 hwAccelTranscode +
                 presets +
                 vCodecs +
                 pass +
+                sampleRate +
+                aBitRate +
                 vBitRate +
                 pixelFormat +
                 size +
@@ -1380,8 +1383,6 @@ namespace Axiom
                 fps +
                 aCodecs +
                 channel +
-                aBitRate +
-                sampleRate +
                 bitDepth
                 , ""
                 , RegexOptions.IgnoreCase
