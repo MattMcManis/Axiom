@@ -146,30 +146,52 @@ namespace Axiom
                     // Default Extension
                     saveFile.DefaultExt = outputExt;
 
+   
+                    // -------------------------
                     // Default file name if empty
+                    // -------------------------
                     if (string.IsNullOrWhiteSpace(inputFileName))
                     {
                         saveFile.FileName = "File";
                     }
+                    // -------------------------
                     // If file name exists
+                    // -------------------------
                     else
                     {
-                        // Output Path
-                        outputDir = inputDir;
+                        // Output TextBox is Empty
+                        // Save as Input file name
+                        if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                        {
+                            // Output Path
+                            outputDir = inputDir;
 
-                        // File Renamer
-                        // Get new output file name (1) if already exists
-                        // Add Settings to File Name
-                        // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                        //outputFileName = FileRenamer(FileNameAddSettings(inputFileName));
-                        outputFileName = FileRenamer(inputFileName);
-                        outputFileName_Original = outputFileName;
-                        outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+                            // File Renamer
+                            // Get new output file name (1) if already exists
+                            // Add Settings to File Name
+                            // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
+                            outputFileName = FileRenamer(inputFileName);
+                            outputFileName_Original = outputFileName;
+                            outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
 
-                        // Same as input file name
-                        saveFile.FileName = outputFileName;
+                            saveFile.FileName = outputFileName;
+                        }
+
+                        // Output TextBox Not Empty
+                        // Save as Existing Output file name
+                        else
+                        {
+                            // File Renamer
+                            // Get new output file name (1) if already exists
+                            // Add Settings to File Name
+                            // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
+                            outputFileName = FileRenamer(Path.GetFileNameWithoutExtension(OutputPath_Token_Remover(VM.MainView.Output_Text)));
+                            outputFileName_Original = outputFileName;
+                            outputFileName_Tokens = FileRenamer(FileNameAddTokens(outputFileName_Original));
+
+                            saveFile.FileName = outputFileName;
+                        }
                     }
-
 
                     // -------------------------
                     // Show Dialog Box
@@ -199,7 +221,7 @@ namespace Axiom
                             // File Name Settings
                             else
                             {
-                                outputFileName_Tokens = Path.GetFileNameWithoutExtension(FileNameAddSettings(outputFileName_Original));
+                                outputFileName_Tokens = Path.GetFileNameWithoutExtension(FileNameAddTokens(outputFileName_Original));
 
                                 // Display Path+File+Ext in Output Textbox
                                 VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
@@ -289,8 +311,8 @@ namespace Axiom
 
                                     // Add Settings to File Name
                                     // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                                    //outputFileName = FileNameAddSettings(inputFileName);
-                                    outputFileName_Tokens = FileNameAddSettings(inputFileName);
+                                    //outputFileName = FileNameAddTokens(inputFileName);
+                                    outputFileName_Tokens = FileNameAddTokens(inputFileName);
                                 }
 
                                 // Input Not Empty
@@ -301,27 +323,28 @@ namespace Axiom
         
                                     outputFileName = Path.GetFileNameWithoutExtension(outputFileName_Original);
 
-                                    outputFileName_Tokens = FileNameAddSettings(Path.GetFileNameWithoutExtension(outputFileName_Original));
+                                    outputFileName_Tokens = FileNameAddTokens(Path.GetFileNameWithoutExtension(outputFileName_Original));
                                 }
 
                                 // -------------------------
                                 // File Renamer
                                 // -------------------------
                                 // Pressing Script or Convert while Output TextBox is empty
-                                //if (string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
-                                //    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase) &&
-                                //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
-                                //{
+                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
+                                    string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
+                                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase) &&
+                                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
+                                {
                                     // Renamer 
                                     // Get new output file name (1) if already exists
                                     // Add Settings to File Name
                                     // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                                    //outputFileName = FileRenamer(FileNameAddSettings(inputFileName));
+                                    //outputFileName = FileRenamer(FileNameAddTokens(inputFileName));
                                     outputFileName = FileRenamer(inputFileName);
                                     outputFileName_Original = outputFileName;
                                     //outputFileName_Original = FileRenamer(outputFileName);
-                                    outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName)); // problem?
-                                //}
+                                    outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName)); // problem?
+                                }
 
                                 // -------------------------
                                 // Image Sequence Renamer
@@ -646,7 +669,7 @@ namespace Axiom
         /// <summary>
         /// File Name Add Settings (Method)
         /// </summary>
-        public static String FileNameAddSettings(string filename)
+        public static String FileNameAddTokens(string filename)
         {
             //MessageBox.Show(string.Join("\n",VM.ConfigureView.OutputNaming_ListView_SelectedItems)); //debug
 
@@ -1220,8 +1243,8 @@ namespace Axiom
                 //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
                 //    )
                 //{
-                    //outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
-                    //outputFileName_Tokens = FileRenamer(FileNameAddSettings(outputFileName_Original));
+                    //outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
+                    //outputFileName_Tokens = FileRenamer(FileNameAddTokens(outputFileName_Original));
 
                     // Input Not Empty
                     // Output Empty
@@ -1230,14 +1253,14 @@ namespace Axiom
                         string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
                         )
                     {
-                        outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
+                        outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
                     }
 
                     // Input Not Empty
                     // Output Not Empty
                     else
                     {
-                        outputFileName_Tokens = FileRenamer(FileNameAddSettings(outputFileName_Original));
+                        outputFileName_Tokens = FileRenamer(FileNameAddTokens(outputFileName_Original));
                     }
                 //}
                 //// -------------------------
@@ -1246,8 +1269,8 @@ namespace Axiom
                 //else
                 //{
                 //    // Regenerate
-                //    //outputFileName_Tokens = FileNameAddSettings(outputFileName); //probem
-                //    outputFileName_Tokens = FileNameAddSettings(outputFileName_Original); //working
+                //    //outputFileName_Tokens = FileNameAddTokens(outputFileName); //probem
+                //    outputFileName_Tokens = FileNameAddTokens(outputFileName_Original); //working
 
                 //    //MessageBox.Show("Regenerate"); //debug
                 //}
@@ -1264,31 +1287,46 @@ namespace Axiom
         public static String OutputPath_Token_Remover(string filename)
         {
             // Order Matters
-            // Use .OrderByDescending to put largest items first
+            // e.g. "kHz" must before "k"
+            // e.g. "yuv420p" must before "yuv420p10le"
+            // Use .OrderByDescending to put longest length items first
 
             string containers = @"(?<![.])(\s*(webm|mp4|mkv|mpg|avi|ogv|mp3|m4a|ogg|flac|wav|jpg|png|webp))";
+
+            string hwAccelTranscode = @"|\s*(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
+                                                                 .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                                 .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                                 .Where(s => !s.Equals("off", StringComparison.OrdinalIgnoreCase))
+                                                                 .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                                                                 .OrderByDescending(x => x).ToList()
+                                                ).Replace(" ", "-") +
+                                            ")";
 
             string presets = @"|\s*(p-placebo|p-very-slow|p-slower|p-slow|p-medium|p-fast|p-faster|p-very-fast|p-super-fast|p-ultra-fast)";
 
             //string vCodecs = @"|\s*(x264|x265|VP8|VP9|AV1|FFV1|MagicYUV|HuffYUV|Theora|cv-copy)";
             string vCodecs = @"|\s*(" + string.Join("|", VM.VideoView.Video_Codec_Items
-                                                                     .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                     .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                                     .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                                     .OrderByDescending(x => x).ToList()
+                                                        .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                        .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                        .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                                                        .OrderByDescending(x => x).ToList()
                                                     ) +
                                 "|cv-copy" +
                                 ")";
 
             string pass = @"|\s*(1-Pass|2-Pass)";
 
+            string sampleRate = @"|\s*(\d+\.\d+(kHz))";
+
+            string aBitRate = @"|\s*(\d+(kVBR))|(\d+(k))";
+
             string vBitRate = @"|\s*((\d+(K|M))|(\d+\.\d+(M))|(CRF(\d+)))";
 
             string pixelFormat = @"|\s*(" + string.Join("|", VM.VideoView.Video_PixelFormat_Items
-                                                                         .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                         .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                                         .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                                         .OrderByDescending(x => x).ToList()
+                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                            .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                            .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                                                            .OrderByDescending(x => x).ToList()
                                                        )
 
                                     + ")";
@@ -1296,16 +1334,16 @@ namespace Axiom
             //string size = @"|\s*(8K|8KUHD|4K|4KUHD|2K|1600p|1400p|1200p|1080p|900p|720p|576p|480p|320p|240p|sz-source)";
             string size = @"|\s*(" + string.Join("|", VM.VideoView.Video_Scale_Items
                                                                   .OrderByDescending(x => x).ToList()
-                                                ) +
+                                                ).Replace(" ", "-") +
                                 "|sz-source" +
                                 ")";
 
             //string scaling = @"|\s*(sa-neighbor|sa-area|sa-fast_bilinear|sa-bilinear|sa-bicubic|sa-experimental|sa-bicublin|sa-gauss|sa-sinc|sa-lanczos|sa-spline)";
             string scaling = @"|\s*(" + string.Join("|sa-", VM.VideoView.Video_ScalingAlgorithm_Items
-                                                                     .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                     .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                                     .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                                     .OrderByDescending(x => x).ToList()
+                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                            .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                            .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                                                            .OrderByDescending(x => x).ToList()
                                                 )
 
                             + ")";
@@ -1314,19 +1352,15 @@ namespace Axiom
 
             //string aCodecs = @"|\s*(AC3|AAC|DTS|Vorbis|Opus|LAME|FLAC|PCM|ca-copy)";
             string aCodecs = @"|\s*(" + string.Join("|", VM.AudioView.Audio_Codec_Items
-                                                                     .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                     .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                                     .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                                     .OrderByDescending(x => x).ToList()
+                                                        .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                        .Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                                                        .Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                                                        .OrderByDescending(x => x).ToList()
                                                     ) +
                                 "|ca-copy" +
                                 ")";
 
             string channel = @"|\s*(\d+(CH))";
-
-            string sampleRate = @"|\s*(\d+\.\d+(kHz))";
-
-            string aBitRate = @"|\s*(\d+(kVBR))|(\d+(k))";
 
             string bitDepth = @"|\s*(\d+(-bit))";
 
@@ -1335,6 +1369,7 @@ namespace Axiom
                 filename,
                 //"(?i)" +
                 containers +
+                hwAccelTranscode +
                 presets +
                 vCodecs +
                 pass +
