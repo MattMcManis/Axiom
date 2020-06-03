@@ -544,7 +544,7 @@ namespace Axiom
         /// <summary>
         /// Output Textbox - KeyUp
         /// </summary>
-        private void tbxOutput_KeyUp(object sender, KeyEventArgs e)
+        private void tbxOutput_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             // Output Name Token Remover
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() &&
@@ -1316,11 +1316,11 @@ namespace Axiom
 
             string pass = @"|\s*(1-Pass|2-Pass)";
 
-            string sampleRate = @"|\s*(\d+\.\d+(kHz))";
+            string sampleRate = @"|\s*(\d+\.\d+kHz)";
 
-            string aBitRate = @"|\s*(\d+(kVBR))|(\d+(k))";
+            string aBitRate = @"|\s*(\d+kVBR)";
 
-            string vBitRate = @"|\s*((\d+(K|M))|(\d+\.\d+(M))|(CRF(\d+)))";
+            string vBitRate = @"|\s*((\d+K)|(\d+\.\d+M)|(CRF\d+))"; //vBitRate and aBitRate k are here
 
             string pixelFormat = @"|\s*(" + string.Join("|", VM.VideoView.Video_PixelFormat_Items
                                                             .Where(s => !string.IsNullOrWhiteSpace(s))
@@ -1348,7 +1348,7 @@ namespace Axiom
 
                             + ")";
 
-            string fps = @"|\s*(\d+(fps))";
+            string fps = @"|\s*(\d+fps)";
 
             //string aCodecs = @"|\s*(AC3|AAC|DTS|Vorbis|Opus|LAME|FLAC|PCM|ca-copy)";
             string aCodecs = @"|\s*(" + string.Join("|", VM.AudioView.Audio_Codec_Items
@@ -1360,9 +1360,9 @@ namespace Axiom
                                 "|ca-copy" +
                                 ")";
 
-            string channel = @"|\s*(\d+(CH))";
+            string channel = @"|\s*(\d+CH)";
 
-            string bitDepth = @"|\s*(\d+(-bit))";
+            string bitDepth = @"|\s*(\d+-bit)";
 
             // Remove Tokens
             filename = Regex.Replace(
