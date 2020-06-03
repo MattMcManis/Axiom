@@ -75,11 +75,11 @@
     <Compile Include="FailedImportWindow.xaml.cs">
       <DependentUpon>FailedImportWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Generators\FFmpeg\1_Pass.cs" />
-    <Compile Include="Generators\FFmpeg\2_Pass.cs" />
-    <Compile Include="Generators\FFmpeg\Batch.cs" />
-    <Compile Include="Generators\FFmpeg\CRF.cs" />
-    <Compile Include="Generators\FFmpeg\YouTubeDL.cs" />
+    <Compile Include="Generators\Arguments\1_Pass.cs" />
+    <Compile Include="Generators\Arguments\2_Pass.cs" />
+    <Compile Include="Generators\Arguments\Batch.cs" />
+    <Compile Include="Generators\Arguments\CRF.cs" />
+    <Compile Include="Generators\Arguments\YouTubeDL.cs" />
     <Compile Include="Generators\Audio\Audio.cs" />
     <Compile Include="Controls\AudioControls.cs" />
     <Compile Include="Filters\AudioFilters.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="DebugConsole.xaml.cs">
       <DependentUpon>DebugConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Generators\FFmpeg\FFmpeg.cs" />
+    <Compile Include="Generators\FFmpeg.cs" />
     <Compile Include="Preview\FFplay.cs" />
     <Compile Include="Analyze\FFprobe.cs" />
     <Compile Include="FilePropertiesWindow.xaml.cs">
