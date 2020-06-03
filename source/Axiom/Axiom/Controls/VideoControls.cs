@@ -589,6 +589,16 @@ namespace Controls
                 // Video Optimize Selected Item
                 // -------------------------
                 // Problem, do not use, selects Web in mp4 when coming from webm
+
+                // -------------------------
+                // Video Quality Selected Item Null Check
+                // -------------------------
+                // For errors causing ComboBox not to select an item
+                if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem))
+                {
+                    // Default to First Item
+                    VM.VideoView.Video_Quality_Items.FirstOrDefault();
+                }
             }
 
 
