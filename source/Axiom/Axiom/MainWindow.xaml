@@ -5813,7 +5813,8 @@
                                           IsTextSearchEnabled="False"
                                           Grid.Column="2"
                                           Grid.Row="1"
-                                          Margin="10,2,0,0" />
+                                          Margin="10,2,0,0"
+                                          SelectionChanged="cboShell_SelectionChanged" />
 
                                 <!-- Priority -->
                                 <Label Style="{DynamicResource LabelStyle}"
