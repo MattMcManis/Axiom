@@ -4,6 +4,27 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.1.3] - June 3, 2020
+### Added
+- Output Naming Token Regex Remover
+- Video Controls Quality Selected Item Null Check
+- Audio Controls Quality Selected Item Null Check
+
+### Changed
+- Optimized File Renamer
+
+
+## [1.9.1.2] - June 2, 2020
+### Added
+- Output Naming Tokens Import/Export Duplication Check
+
+### Changed
+- Improved FFmpeg Arguments List Concatenation
+
+### Fixed
+- Fixed Output Filename with YouTube Download Settings Shell Switch
+
+
 ## [1.9.1.0] - May 31, 2020
 ### Added
 - Namespaces for code readability
