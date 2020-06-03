@@ -836,8 +836,8 @@ namespace Axiom
             // in Generate.FFmpeg.YouTubeDL.Generate_FFmpegArgs(),
             // the outputFileName gets stuck with the old value
             // because it reads it from VM.MainView.Output_Text
-            //if (IsWebURL(VM.MainView.Input_Text) == true)
-            //{
+            if (!string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+            {
                 switch (VM.ConfigureView.Shell_SelectedItem)
                 {
                     // CMD
@@ -850,7 +850,7 @@ namespace Axiom
                         VM.MainView.Output_Text = VM.MainView.Output_Text.Replace("%f", "$name"); // eg. C:\Output Folder\$name.mp4
                         break;
                 }
-            //}
+            }
         }
 
         /// <summary>
