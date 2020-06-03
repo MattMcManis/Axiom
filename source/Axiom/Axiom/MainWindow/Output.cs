@@ -1117,10 +1117,15 @@ namespace Axiom
                 // Is Web URL
                 IsWebURL(VM.MainView.Input_Text) == true)
             {
+                // -------------------------
                 // File Renamer
+                // -------------------------
                 // Add (1) if File Names are the same
                 if (!string.IsNullOrWhiteSpace(inputDir) &&
-                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase))
+                    string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
+                    )
                 {
                     //outputFileName = FileRenamer(inputFileName);
 
@@ -1158,14 +1163,19 @@ namespace Axiom
             }
 
             // -------------------------
-            // File Name Settings
+            // Output File Name Settings Tokens
             // -------------------------
             else
             {
+                // -------------------------
                 // File Renamer
+                // -------------------------
                 // Add (1) if File Names are the same
                 if (!string.IsNullOrWhiteSpace(inputDir) &&
-                    string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase))
+                    string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
+                    )
                 {
                     //outputFileName_Tokens = FileRenamer(FileNameAddSettings(inputFileName));
                     //outputFileName_Tokens = FileRenamer(FileNameAddSettings(outputFileName_Original));
@@ -1187,6 +1197,9 @@ namespace Axiom
                         outputFileName_Tokens = FileRenamer(FileNameAddSettings(outputFileName_Original));
                     }
                 }
+                // -------------------------
+                // Normal
+                // -------------------------
                 else
                 {
                     // Regenerate
