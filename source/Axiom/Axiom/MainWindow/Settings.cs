@@ -824,6 +824,34 @@ namespace Axiom
             VM.ConfigureView.LogPath_Text = Log.logDir;
         }
 
+        /// <summary>
+        /// Shell - ComboBox
+        /// </summary>
+        private void cboShell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Re-Set YouTube-DL File Name in the Output TextBox
+            // -------------------------
+            // Without it, on cboShell_SelectionChanged,
+            // in Generate.FFmpeg.YouTubeDL.Generate_FFmpegArgs(),
+            // the outputFileName gets stuck with the old value
+            // because it reads it from VM.MainView.Output_Text
+            //if (IsWebURL(VM.MainView.Input_Text) == true)
+            //{
+                switch (VM.ConfigureView.Shell_SelectedItem)
+                {
+                    // CMD
+                    case "CMD":
+                        VM.MainView.Output_Text = VM.MainView.Output_Text.Replace("$name", "%f"); // eg. C:\Output Folder\$f.mp4
+                        break;
+
+                    // PowerShell
+                    case "PowerShell":
+                        VM.MainView.Output_Text = VM.MainView.Output_Text.Replace("%f", "$name"); // eg. C:\Output Folder\$name.mp4
+                        break;
+                }
+            //}
+        }
 
         /// <summary>
         /// Threads - ComboBox
