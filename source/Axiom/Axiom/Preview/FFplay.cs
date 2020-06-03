@@ -127,6 +127,15 @@ namespace Preview
                                                             .Where(s => !s.Equals(Environment.NewLine))
                                                             .Where(s => !s.Equals("\r\n\r\n"))
                                                             .Where(s => !s.Equals("\r\n"))
+                                                            .Where(s => !s.Equals("\n"))
+                                                            .Where(s => !s.Equals("\u2028"))
+                                                            .Where(s => !s.Equals("\u000A"))
+                                                            .Where(s => !s.Equals("\u000B"))
+                                                            .Where(s => !s.Equals("\u000C"))
+                                                            .Where(s => !s.Equals("\u000D"))
+                                                            .Where(s => !s.Equals("\u0085"))
+                                                            .Where(s => !s.Equals("\u2028"))
+                                                            .Where(s => !s.Equals("\u2029"))
                                               )
                                             );
                 //MessageBox.Show(ffplayArgs); //debug
