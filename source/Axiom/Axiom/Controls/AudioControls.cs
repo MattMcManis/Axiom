@@ -401,6 +401,16 @@ namespace Controls
                 //                                                                   MainWindow.Audio_BitDepth_PreviousItem
                 //                                                                  );
                 ////}
+
+                // -------------------------
+                // Audio Quality Selected Item Null Check
+                // -------------------------
+                // For errors causing ComboBox not to select an item
+                if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
+                {
+                    // Default to First Item
+                    VM.AudioView.Audio_Quality_Items.FirstOrDefault();
+                }
             }
 
 
@@ -708,20 +718,20 @@ namespace Controls
                                 VM.AudioView.Audio_Codec_SelectedItem = "PCM";
                                 break;
 
-                                // -------------------------
-                                // Image Container
-                                // -------------------------
-                                //case "jpg":
-                                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                //    break;
+                            // -------------------------
+                            // Image Container
+                            // -------------------------
+                            //case "jpg":
+                            //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+                            //    break;
 
-                                //case "png":
-                                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                //    break;
+                            //case "png":
+                            //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+                            //    break;
 
-                                //case "webp":
-                                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-                                //    break;
+                            //case "webp":
+                            //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+                            //    break;
                         }
                     }
                 }
