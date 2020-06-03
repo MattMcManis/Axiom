@@ -414,11 +414,13 @@ namespace Axiom
                                 case "CMD":
                                     // Note: %f is filename, %~f is full path
                                     outputFileName = "%f"; // eg. C:\Output Folder\%f.mp4
+                                    outputFileName_Tokens = "%f";
                                     break;
 
                                 // PowerShell
                                 case "PowerShell":
                                     outputFileName = "$name"; // eg. C:\Output Folder\$name.mp4
+                                    outputFileName_Tokens = "$name";
                                     break;
                             }
 
@@ -606,18 +608,12 @@ namespace Axiom
             //MessageBox.Show(string.Join("\n",VM.ConfigureView.OutputNaming_ListView_SelectedItems)); //debug
 
             // -------------------------
-            // Halt if No Output Naming is Selected
+            // Halt 
             // -------------------------
-            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-            {
-                // return original
-                return outputFileName;
-            }
-
-            // -------------------------
-            // Halt if Batch
-            // -------------------------
-            if (VM.MainView.Batch_IsChecked == true)
+            if (// If No Output Naming is Selected
+                !VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() ||
+                // If Batch
+                VM.MainView.Batch_IsChecked == true)
             {
                 // return original
                 return outputFileName;
@@ -932,7 +928,7 @@ namespace Axiom
             }
 
             // Merge
-            IList<string> newFileName = new List<string>();
+            List<string> newFileName = new List<string>();
             // Add Original File Name
             newFileName.Add(filename);
 
@@ -1032,16 +1028,12 @@ namespace Axiom
         public static String SettingsCheck(string s)
         {
             // Fail
-            if (string.IsNullOrWhiteSpace(s))
-            {
-                return string.Empty;
-            }
-            // Fail
-            else if (s.Equals("off", StringComparison.OrdinalIgnoreCase) ||
-                     s.Equals("none", StringComparison.OrdinalIgnoreCase) ||
-                     s.Equals("auto", StringComparison.OrdinalIgnoreCase) ||
-                     s.Equals("CRF", StringComparison.OrdinalIgnoreCase) || // Use CRF TextBox instead of Pass
-                     s.Equals("Custom", StringComparison.OrdinalIgnoreCase)
+            if (string.IsNullOrWhiteSpace(s) ||
+                s.Equals("off", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("none", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("auto", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("CRF", StringComparison.OrdinalIgnoreCase) || // Use CRF TextBox instead of Pass
+                s.Equals("Custom", StringComparison.OrdinalIgnoreCase)
                 )
             {
                 return string.Empty;
