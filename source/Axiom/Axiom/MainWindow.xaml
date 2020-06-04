@@ -5774,6 +5774,7 @@
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
                                     <RowDefinition Height="22" />
                                 </Grid.RowDefinitions>
 
@@ -5816,6 +5817,34 @@
                                           Margin="10,2,0,0"
                                           SelectionChanged="cboShell_SelectionChanged" />
 
+                                <!-- Shell Title -->
+                                <Label Style="{DynamicResource LabelStyle}"
+                                       Content="Title"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Height="26"
+                                       ToolTipService.InitialShowDelay="500"
+                                       ToolTipService.ShowOnDisabled="True"
+                                       ToolTip="Custom: User Defined, Job: File Name, Tokens: Selected Options"
+                                       Grid.Row="2"
+                                       Grid.Column="1"
+                                       Width="56" />
+                                <ComboBox x:Name="cboShellTitle"
+                                          ItemsSource="{Binding ShellTitle_Items}"
+                                          SelectedIndex="{Binding ShellTitle_SelectedIndex}"
+                                          SelectedItem="{Binding ShellTitle_SelectedItem}"
+                                          IsEnabled="{Binding ShellTitle_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Style="{DynamicResource ComboBoxStyle}"
+                                          ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          Width="105"
+                                          IsTextSearchEnabled="False"
+                                          Grid.Column="2"
+                                          Grid.Row="2"
+                                          Margin="10,2,0,0"
+                                          SelectionChanged="cboShellTitle_SelectionChanged" />
+
                                 <!-- Priority -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Priority"
@@ -5825,7 +5854,7 @@
                                        ToolTipService.InitialShowDelay="500"
                                        ToolTipService.ShowOnDisabled="True"
                                        ToolTip="Process Priority"
-                                       Grid.Row="2"
+                                       Grid.Row="3"
                                        Grid.Column="1"
                                        Width="56" />
                                 <ComboBox x:Name="cboProcessPriority"
@@ -5840,7 +5869,7 @@
                                           Width="105"
                                           IsTextSearchEnabled="False"
                                           Grid.Column="2"
-                                          Grid.Row="2"
+                                          Grid.Row="3"
                                           Margin="10,2,0,0" />
 
                                 <!-- Threads -->
@@ -5852,7 +5881,7 @@
                                        ToolTipService.InitialShowDelay="500"
                                        ToolTipService.ShowOnDisabled="True"
                                        ToolTip="Amount of CPU threads to use."
-                                       Grid.Row="3"
+                                       Grid.Row="4"
                                        Grid.Column="1"
                                        Width="56" />
                                 <ComboBox x:Name="cboThreads"
@@ -5869,7 +5898,7 @@
                                           SelectionChanged="threadSelect_SelectionChanged"
                                           KeyDown="threadSelect_KeyDown"
                                           Grid.Column="2"
-                                          Grid.Row="3"
+                                          Grid.Row="4"
                                           Margin="10,2,0,0" />
                             </Grid>
 
