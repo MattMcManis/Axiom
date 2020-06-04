@@ -222,7 +222,7 @@ namespace Generate
                 List<string> ffmpegArgsList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    FFmpeg.Shell_LogicalOperator_And(),
+                    Sys.Shell.Shell_LogicalOperator_And(),
                 };
 
                 // Add Arguments to ffmpegArgsList
@@ -258,7 +258,7 @@ namespace Generate
                 }
 
                 // Add Logical Operator &&
-                ffmpegArgsList.Add("\r\n\r\n" + FFmpeg.Shell_LogicalOperator_And());
+                ffmpegArgsList.Add("\r\n\r\n" + Sys.Shell.Shell_LogicalOperator_And());
 
                 // Add Delete Downloaded File
                 ffmpegArgsList.Add("\r\n\r\n" + "del " + "\"" + Path.Combine(MainWindow.downloadDir, nameVariable + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
