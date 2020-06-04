@@ -195,7 +195,7 @@ namespace Axiom
                 // -------------------------
                 // FFmpeg Convert
                 // -------------------------
-                Generate.FFmpeg.FFmpegConvert();
+                Encode.FFmpeg.FFmpegConvert();
 
                 // -------------------------
                 // Sort Script
@@ -223,6 +223,9 @@ namespace Axiom
                 //ClearGlobalVariables();
                 GC.Collect();
             }
+
+            // Update Output TextBox
+            //VM.MainView.Output_Text = output;
         }
 
 
