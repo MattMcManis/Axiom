@@ -253,12 +253,12 @@ namespace Analyze
                 // -------------------------
                 case false:
                     // Stream
-                    if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                    if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                     {
                         vEntryType = "stream=bit_rate";
                     }
                     // Format
-                    else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                    else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                     {
                         vEntryType = "format=bit_rate";
                     }
@@ -280,12 +280,12 @@ namespace Analyze
                         // -------------------------
                         case "CMD":
                             // Stream
-                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream^=bit_rate";
                             }
                             // Format
-                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format^=bit_rate";
                             }
@@ -301,12 +301,12 @@ namespace Analyze
                         // -------------------------
                         case "PowerShell":
                             // Stream
-                            if (Generate.Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream=bit_rate";
                             }
                             // Format
-                            else if (Generate.Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format=bit_rate";
                             }
