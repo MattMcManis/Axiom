@@ -854,6 +854,14 @@ namespace Axiom
         }
 
         /// <summary>
+        /// Shell Title - ComboBox
+        /// </summary>
+        private void cboShellTitle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
         /// Threads - ComboBox
         /// </summary>
         private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
