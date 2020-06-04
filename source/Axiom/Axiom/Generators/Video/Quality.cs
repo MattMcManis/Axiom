@@ -942,9 +942,25 @@ namespace Generate
                     // Calculating BitRate will crash if input is jpg/png
                     try
                     {
-                        // Convert to int to remove decimals
-                        inputVideoBitRate = Convert.ToInt64((double.Parse(Analyze.FFprobe.inputSize) * 8) / 1000 / double.Parse(Analyze.FFprobe.inputDuration)).ToString();
+                        // Input Size
+                        double inputSize_Double = 0; // Fallback
+                        double.TryParse(Analyze.FFprobe.inputSize.Trim(), out inputSize_Double);
 
+                        // Input Duration
+                        double inputDuration_Double = 0; // Fallback
+                        double.TryParse(Analyze.FFprobe.inputDuration.Trim(), out inputDuration_Double);
+
+                        // Convert to int to remove decimals
+                        if (inputSize_Double == 0 ||
+                            inputDuration_Double == 0)
+                        {
+                            inputVideoBitRate = "0";
+                        }
+                        else
+                        {
+                            inputVideoBitRate = Convert.ToInt64((double.Parse(Analyze.FFprobe.inputSize.Trim()) * 8) / 1000 / double.Parse(Analyze.FFprobe.inputDuration.Trim())).ToString();
+                        }
+                        
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
