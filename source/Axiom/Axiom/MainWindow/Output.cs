@@ -1339,7 +1339,7 @@ namespace Axiom
                                 ")";
             }
 
-            string fps = @"|\s*(\d+fps)";
+            string fps = @"|\s*(\d+\.\d+fps)";
 
             string aCodecs = string.Empty;
             if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem) &&
@@ -1356,27 +1356,56 @@ namespace Axiom
 
             string bitDepth = @"|\s*(\d+-bit)";
 
-            string regex =
-                // build regex rules
-                // order is important
-                containers +
-                hwAccelTranscode +
-                presets +
-                vCodecs +
-                @"|\s*(cv-copy)" +
-                pass +
-                sampleRate +
-                aBitRate +
-                vBitRate +
-                pixelFormat +
-                size +
-                @"|\s*(sz-source)" +
-                scaling +
-                fps +
-                aCodecs +
-                @"|\s*(ca-copy)" +
-                channel +
-                bitDepth;
+            // build regex rules
+            // order is important
+            IEnumerable<string> regexList = new List<string>()
+            {
+                containers,
+                hwAccelTranscode,
+                presets,
+                vCodecs,
+                @"|\s*(cv-copy)",
+                pass,
+                sampleRate,
+                aBitRate,
+                vBitRate,
+                pixelFormat,
+                size,
+                @"|\s*(sz-source)",
+                scaling,
+                fps,
+                aCodecs,
+                @"|\s*(ca-copy)",
+                channel,
+                bitDepth
+            };
+
+            string regex = string.Join("", regexList
+                                           //.OrderByDescending(x => x)
+                                           .Distinct()
+                                           );
+
+            //string regex =
+            //    // build regex rules
+            //    // order is important
+            //    containers +
+            //    hwAccelTranscode +
+            //    presets +
+            //    vCodecs +
+            //    @"|\s*(cv-copy)" +
+            //    pass +
+            //    sampleRate +
+            //    aBitRate +
+            //    vBitRate +
+            //    pixelFormat +
+            //    size +
+            //    @"|\s*(sz-source)" +
+            //    scaling +
+            //    fps +
+            //    aCodecs +
+            //    @"|\s*(ca-copy)" +
+            //    channel +
+            //    bitDepth;
 
             // Remove Tokens
             filename = Regex.Replace(
