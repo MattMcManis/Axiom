@@ -178,7 +178,7 @@ namespace Generate
         // -------------------------
         public static IEnumerable<string> VideoFormats = new List<string>()
         {
-            "yuv",
+            //"yuv",
             "x265",
             "x264",
             "wmv",
