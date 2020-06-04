@@ -83,162 +83,140 @@ namespace Axiom
             }
         }
 
+
         /// <summary>
         /// Output Button
         /// </summary>
         private void btnOutput_Click(object sender, RoutedEventArgs e)
         {
+            // Get Output File Extension
+            Controls.Format.Controls.OutputFormatExt();
+
             switch (VM.MainView.Batch_IsChecked)
             {
                 // -------------------------
                 // Single File
                 // -------------------------
                 case false:
-                    // -------------------------
-                    // Get Output Ext
-                    // -------------------------
-                    Controls.Format.Controls.OutputFormatExt();
-
-                    // -------------------------
-                    // Open 'Save File'
-                    // -------------------------
+                    // Initialize 'Save File' Dialog Window
                     Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
-
                     // File Filter
                     saveFile.Filter = Output_SaveFileDialog_Filter();
-
-                    // -------------------------
-                    // 'Save File' Default Path same as Input Directory
-                    // -------------------------
-                    try
-                    {
-                        //string previousPath = Settings.Default.OutputDir.ToString();
-                        // Use Input Path if Previous Path is Null
-                        //if (string.IsNullOrWhiteSpace(previousPath))
-                        //{
-                        //    saveFile.InitialDirectory = inputDir;
-                        //}
-
-                        if (File.Exists(Controls.Configure.configFile))
-                        {
-                            Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
-                            outputPreviousPath = conf.Read("User", "OutputPreviousPath");
-
-                            // Use Input Path is Output Path is Empty
-                            if (string.IsNullOrWhiteSpace(outputPreviousPath))
-                            {
-                                saveFile.InitialDirectory = inputPreviousPath;
-                            }
-                            // Use Output Path if it exists
-                            else
-                            {
-                                saveFile.InitialDirectory = outputPreviousPath;
-                            }
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-
-                    // Remember Last Dir
-                    //saveFile.RestoreDirectory = true;
-                    // Default Extension
+                    // Set Output Extension
                     saveFile.DefaultExt = outputExt;
 
-   
                     // -------------------------
-                    // Default file name if empty
+                    // Output TextBox is Empty
                     // -------------------------
-                    if (string.IsNullOrWhiteSpace(inputFileName))
+                    if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
                     {
-                        saveFile.FileName = "File";
-                    }
-                    // -------------------------
-                    // If file name exists
-                    // -------------------------
-                    else
-                    {
-                        // Output TextBox is Empty
-                        // Save as Input file name
-                        if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                        // Input File Name is Empty
+                        if (string.IsNullOrWhiteSpace(inputFileName))
                         {
-                            // Output Path
-                            outputDir = inputDir;
-
-                            // File Renamer
-                            // Get new output file name (1) if already exists
-                            // Add Settings to File Name
-                            // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                            outputFileName = FileRenamer(inputFileName);
-                            outputFileName_Original = outputFileName;
-                            outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
-
-                            saveFile.FileName = outputFileName;
-                        }
-
-                        // Output TextBox Not Empty
-                        // Save as Existing Output file name
-                        else
-                        {
-                            // File Renamer
-                            // Get new output file name (1) if already exists
-                            // Add Settings to File Name
-                            // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                            outputFileName = FileRenamer(Path.GetFileNameWithoutExtension(OutputPath_Token_Remover(VM.MainView.Output_Text)));
-                            outputFileName_Original = outputFileName;
-                            outputFileName_Tokens = FileRenamer(FileNameAddTokens(outputFileName_Original));
-
-                            saveFile.FileName = outputFileName;
-                        }
-                    }
-
-                    // -------------------------
-                    // Show Dialog Box
-                    // -------------------------
-                    Nullable<bool> result = saveFile.ShowDialog();
-
-                    // Process Dialog Box
-                    if (result == true)
-                    {
-                        if (IsValidPath(saveFile.FileName))
-                        {
-                            // Output Path
-                            outputDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
-                            // Output Extension
-                            outputExt = Path.GetExtension(saveFile.FileName);
-
-                            outputFileName_Original = Path.GetFileNameWithoutExtension(saveFile.FileName);
-
-                            // Default
-                            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-                            {
-                                outputFileName = Path.GetFileNameWithoutExtension(outputFileName_Original);
-
-                                // Display Path+File+Ext in Output Textbox
-                                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-                            }
-                            // File Name Settings
-                            else
-                            {
-                                outputFileName_Tokens = Path.GetFileNameWithoutExtension(FileNameAddTokens(outputFileName_Original));
-
-                                // Display Path+File+Ext in Output Textbox
-                                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-                            }
-                        }
-
-                        // Save Previous Path
-                        if (File.Exists(Controls.Configure.configFile))
-                        {
+                            // Load InitialDirectory from axiom.conf
                             try
                             {
-                                Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
-                                conf.Write("User", "OutputPreviousPath", outputDir);
+                                if (File.Exists(Controls.Configure.configFile))
+                                {
+                                    Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
+                                    outputPreviousPath = conf.Read("User", "OutputPreviousPath");
+
+                                    if (!string.IsNullOrWhiteSpace(outputPreviousPath))
+                                    {
+                                        saveFile.InitialDirectory = outputPreviousPath;
+                                    }
+                                }
                             }
                             catch
                             {
 
+                            }
+
+                            saveFile.FileName = "File";
+                        }
+                        // Input has File Name
+                        else
+                        {
+                            // Set Output to same as Input
+                            saveFile.InitialDirectory = inputDir;
+                            saveFile.FileName = FileRenamer(inputDir,      // comparision
+                                                            inputDir,      // comparision
+                                                            inputFileName, // comparision
+                                                            inputFileName  // comparison / name to change
+                                                           );
+                        }
+                    }
+
+                    // -------------------------
+                    // Output TextBox has Text
+                    // -------------------------
+                    else
+                    {
+                        // Set Output to it's original text
+
+                        // Set Initial Directory
+                        saveFile.InitialDirectory = Path.GetDirectoryName(VM.MainView.Output_Text);
+
+                        // Default
+                        if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+                        {
+                            // Set Output to it's original text
+                            saveFile.FileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                        }
+                        // Output Name Tokens
+                        else
+                        {
+                            // Display Path+File+Ext in Output Textbox
+                            saveFile.FileName = Path.GetFileNameWithoutExtension(
+                                                        OutputPath_Token_Remover(VM.MainView.Output_Text)
+                                                    );
+                        }
+                    }
+
+                    // -------------------------
+                    // Show 'Save File' Dialog Window
+                    // -------------------------
+                    Nullable<bool> result = saveFile.ShowDialog();
+
+                    // Process Dialog Window
+                    if (result == true)
+                    {
+                        if (IsValidPath(saveFile.FileName))
+                        {
+                            // Set Output to Dialog Window entered
+                            outputDir = Path.GetDirectoryName(Path.Combine(saveFile.InitialDirectory, saveFile.FileName + outputExt));
+                            outputFileName_Original = Path.GetFileNameWithoutExtension(saveFile.FileName);
+
+                            // -------------------------
+                            // Update Output TextBox
+                            // -------------------------
+                            // Default
+                            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+                            {
+                                // Display Path+File+Ext in Output Textbox
+                                outputFileName = Path.GetFileNameWithoutExtension(outputFileName_Original);
+                                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                            }
+                            // Output Name Tokens
+                            else
+                            {
+                                // Display Path+File+Ext in Output Textbox
+                                outputFileName_Tokens = FileNameAddTokens(outputFileName_Original);
+                                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+                            }
+
+                            // Save Previous Path
+                            if (File.Exists(Controls.Configure.configFile))
+                            {
+                                try
+                                {
+                                    Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
+                                    conf.Write("User", "OutputPreviousPath", outputDir);
+                                }
+                                catch
+                                {
+
+                                }
                             }
                         }
                     }
@@ -248,26 +226,24 @@ namespace Axiom
                 // Batch
                 // -------------------------
                 case true:
-                    // Open 'Select Folder'
+                    // Initialize 'Select Folder' Dialog Window
                     System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
+
+                    // -------------------------
+                    // Show 'Save File' Dialog Window
+                    // -------------------------
                     System.Windows.Forms.DialogResult resultBatch = outputFolder.ShowDialog();
 
-                    // Process Dialog Box
+                    // Process Dialog Window
                     if (resultBatch == System.Windows.Forms.DialogResult.OK)
                     {
                         if (IsValidPath(outputFolder.SelectedPath.TrimEnd('\\') + @"\"))
                         {
-                            // Display path and file in Output Textbox
+                            // Set Output Path
+                            outputDir = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+
+                            // Update Output TextBox
                             VM.MainView.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
-
-                            // Remove Double Slash in Root Dir, such as C:\
-                            VM.MainView.Output_Text = VM.MainView.Output_Text.Replace(@"\\", @"\");
-
-                            // Output Path
-                            outputDir = Path.GetDirectoryName(VM.MainView.Output_Text);
-
-                            // Add slash to inputDir path if missing
-                            outputDir = outputDir.TrimEnd('\\') + @"\";
                         }
                     }
                     break;
@@ -280,234 +256,245 @@ namespace Axiom
         /// </summary>
         public static String OutputPath()
         {
-            // Get Output Extension (Method)
+            // Get Output File Extension
             Controls.Format.Controls.OutputFormatExt();
 
-            if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text)) // Check Input
+            switch (VM.MainView.Batch_IsChecked)
             {
-                switch (IsWebURL(VM.MainView.Input_Text))
-                {
-                    // -------------------------
-                    // Local File
-                    // -------------------------
-                    case false:
-                        switch (VM.MainView.Batch_IsChecked)
+                // -------------------------
+                // Single File
+                // -------------------------
+                case false:
+                    OutputPath_SingleFile();
+                    break;
+
+                // -------------------------
+                // Batch
+                // -------------------------
+                case true:
+                    OutputPath_Batch();
+                    break;
+            }
+
+            // Update Output TextBox
+            //VM.MainView.Output_Text = output;
+
+            return output;
+        }
+
+
+        /// <summary>
+        /// Output Path - Single File
+        /// </summary>
+        public static void OutputPath_SingleFile()
+        {
+            // Input TextBox is Empty
+            // Return Output TextBox's original text (either File Path or Empty)
+            if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+            {
+                // Clear Inputs
+                inputDir = string.Empty;
+                inputFileName = string.Empty;
+                inputExt = string.Empty;
+
+                // Set Output
+                output = VM.MainView.Output_Text;
+                return;
+            }
+
+            // Input TextBox has Text
+            switch (IsWebURL(VM.MainView.Input_Text))
+            {
+                // -------------------------
+                // Local File
+                // -------------------------
+                case false:
+                    // Output TextBox is Empty
+                    if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                    {
+                        // Set Output to be same as Input
+                        outputDir = inputDir;
+
+                        // Original File Name
+                        outputFileName_Original = inputFileName;
+
+                        // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
+                        if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                         {
-                            // -------------------------
-                            // Single File
-                            // -------------------------
-                            case false:
-                                // Input Not Empty
-                                // Output Empty
-                                // Default Output to be same as Input Directory
-                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                                    string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                                    )
-                                {
-                                    // Default Output Dir to be same as Input Directory
-                                    outputDir = inputDir;
-                                    outputFileName = inputFileName;
-                                    outputFileName_Original = outputFileName;
-
-                                    // Add Settings to File Name
-                                    // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                                    //outputFileName = FileNameAddTokens(inputFileName);
-                                    outputFileName_Tokens = FileNameAddTokens(inputFileName);
-                                }
-
-                                // Input Not Empty
-                                // Output Not Empty
-                                else
-                                {
-                                    outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-        
-                                    outputFileName = Path.GetFileNameWithoutExtension(outputFileName_Original);
-
-                                    outputFileName_Tokens = FileNameAddTokens(Path.GetFileNameWithoutExtension(outputFileName_Original));
-                                }
-
-                                // -------------------------
-                                // File Renamer
-                                // -------------------------
-                                // Pressing Script or Convert while Output TextBox is empty
-                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                                    string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
-                                    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase) &&
-                                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    // Renamer 
-                                    // Get new output file name (1) if already exists
-                                    // Add Settings to File Name
-                                    // e.g. MyFile x265 CRF25 1080p AAC 320k.mp4
-                                    //outputFileName = FileRenamer(FileNameAddTokens(inputFileName));
-                                    outputFileName = FileRenamer(inputFileName);
-                                    outputFileName_Original = outputFileName;
-                                    //outputFileName_Original = FileRenamer(outputFileName);
-                                    outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName)); // problem?
-                                }
-
-                                // -------------------------
-                                // Image Sequence Renamer
-                                // -------------------------
-                                if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
-                                {
-                                    outputFileName = "image-%03d"; //must be this name
-                                    //outputFileName_Original = "image-%03d";
-                                    outputFileName_Tokens = "image-%03d";
-                                }
-
-                                // -------------------------
-                                // Combine Output
-                                // -------------------------
-                                // Default
-                                if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-                                {
-                                    output = Path.Combine(outputDir, outputFileName + outputExt);
-                                }
-                                // File Name Settings
-                                else
-                                {
-                                    output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-                                }
-
-                                // -------------------------
-                                // Update TextBox
-                                // -------------------------
-                                // Used if FileRenamer() changes name: filename (1)
-                                // Only used for Single File, ignore Batch and Web URLs
-                                VM.MainView.Output_Text = output;
-                                break; // end single file
-
-                            // -------------------------
-                            // Batch
-                            // -------------------------
-                            case true:
-                                // Input Not Empty
-                                // Output Empty
-                                // Default Output to be same as Input Directory
-                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                                    string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                                    )
-                                {
-                                    VM.MainView.Output_Text = VM.MainView.Input_Text;
-                                }
-
-                                // Add slash to Batch Output Text folder path if missing
-                                // If Output is not Empty
-                                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
-                                {
-                                    VM.MainView.Output_Text = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
-                                }
-
-                                outputDir = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
-
-                                // -------------------------
-                                // Combine Output  
-                                // -------------------------
-                                switch (VM.ConfigureView.Shell_SelectedItem)
-                                {
-                                    // CMD
-                                    case "CMD":
-                                        // Note: %f is filename, %~f is full path 
-                                        // eg. C:\Output Folder\%~nf.mp4
-                                        output = Path.Combine(outputDir, "%~nf" + outputExt); // eg. C:\Output Folder\%~nf.mp4
-                                        break;
-
-                                    // PowerShell
-                                    case "PowerShell":
-                                        output = Path.Combine(outputDir, "$outputName" + outputExt); // eg. C:\Output Folder\$name.mp4
-                                        break;
-                                }
-                                break; // end batch
-                        }
-                        break; // end local file
-
-                    // -------------------------
-                    // YouTube Download
-                    // -------------------------
-                    case true:
-                        // -------------------------
-                        // Auto Output Path
-                        // -------------------------
-                        if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
-                        {
-                            outputDir = downloadDir; // Default
-
-                            switch (VM.ConfigureView.Shell_SelectedItem)
-                            {
-                                // CMD
-                                case "CMD":
-                                    // Note: %f is filename, %~f is full path
-                                    outputFileName = "%f"; // eg. C:\Output Folder\%f.mp4
-                                    outputFileName_Tokens = "%f";
-                                    break;
-
-                                // PowerShell
-                                case "PowerShell":
-                                    outputFileName = "$name"; // eg. C:\Output Folder\$name.mp4
-                                    outputFileName_Tokens = "$name";
-                                    break;
-                            }
-
-                            // Check if output filename already exists
-                            // Check if YouTube Download Format is the same as Output Extension
-                            // The youtub-dl merged format for converting should be mkv for converting, mp4 for download-only
-                            //if ("." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                            //                                VM.VideoView.Video_Codec_SelectedItem,
-                            //                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                            //                                VM.AudioView.Audio_Codec_SelectedItem
-                            //                                )
-                            //                                ==
-                            //                                outputExt
-                            //                                )
-                            //{
-                            //    // Add (1)
-                            //    outputFileName = "%f" + " (1)";
-                            //}
-                            //else
-                            //{
-                            //    outputFileName = "%f";
-                            //}
-
-                            // Combine Output
-                            output = Path.Combine(outputDir, outputFileName + outputExt); // eg. C:\Users\Example\Downloads\%f.webm
-
-                            // -------------------------
-                            // Update TextBox
-                            // -------------------------
-                            // Display Folder + file (%f) + extension
-                            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                            outputFileName_Tokens = FileNameAddTokens(inputFileName);
+                            outputFileName_Tokens = FileRenamer(inputDir,      // comparision
+                                                                outputDir,     // comparision
+                                                                inputFileName, // comparision
+                                                                outputFileName_Tokens // comparison / name to change
+                                                               );
                         }
 
-                        // -------------------------
-                        // User Defined Output Path
-                        // -------------------------
-                        else
-                        {
-                            outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-                            outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                        // e.g. MyFile
+                        outputFileName = outputFileName_Original;
 
-                            // Combine Output
-                            output = Path.Combine(outputDir, outputFileName + outputExt);
+                        //MessageBox.Show("orig: " + outputFileName_Original + " " + "tokens: " + outputFileName_Tokens); //debug
+                    }
+
+                    // Output TextBox has Text
+                    else
+                    {
+                        // e.g. C:\Output\Path\
+                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+
+                        // Original File Name - Do not set outputFileName_Original
+
+                        // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
+                        if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+                        {
+                            outputFileName_Tokens = FileNameAddTokens(outputFileName_Original);
+                            outputFileName_Tokens = FileRenamer(inputDir,      // comparision
+                                                                outputDir,     // comparision
+                                                                inputFileName, // comparision
+                                                                outputFileName_Tokens // comparison / name to change
+                                                               );
                         }
-                        break; // end youtube-dl
-                }
+
+                        // e.g. MyFile
+                        outputFileName = FileRenamer(inputDir,      // comparision
+                                                     outputDir,     // comparision
+                                                     inputFileName, // comparision
+                                                     outputFileName_Original // comparison / name to change
+                                                    );
+                    }
+
+                    // Image Sequence Renamer
+                    if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
+                    {
+                        // Must be this name
+                        outputFileName_Original = "image-%03d";
+                        outputFileName_Tokens = "image-%03d";
+                        outputFileName = "image-%03d";
+                    }
+                    break;
+
+                // -------------------------
+                // Web URL
+                // -------------------------
+                case true:
+                    // Output TextBox is Empty
+                    if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                    {
+                        // Default
+                        outputDir = downloadDir;
+
+                        switch (VM.ConfigureView.Shell_SelectedItem)
+                        {
+                            // CMD
+                            case "CMD":
+                                // eg. C:\Output\Path\%f.mp4
+                                outputFileName_Original = "%f";
+                                outputFileName_Tokens = "%f";
+                                outputFileName = "%f";
+                                break;
+
+                            // PowerShell
+                            case "PowerShell":
+                                // eg. C:\Output\Path\$name.mp4
+                                outputFileName_Original = "$name";
+                                outputFileName_Tokens = "$name";
+                                outputFileName = "$name";
+                                break;
+                        }
+                    }
+
+                    // Output TextBox has Text
+                    else
+                    {
+                        // e.g. C:\Output\Path\
+                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+                        // e.g. C:\Output\Path\MyFile.mp4
+                        outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                        // Set Original Name
+                        outputFileName_Original = outputFileName;
+                        // Disable Tokens
+                        outputFileName_Tokens = outputFileName;
+                    }
+                    break;
             }
 
             // -------------------------
-            // Input Empty
+            // Combine Output
             // -------------------------
-            // Output must have an Input
+            // eg. C:\Users\Example\Videos\MyFile.webm
+
+            //MessageBox.Show(outputDir + " " + outputFileName + " " + outputExt); //debug
+
+            // Default
+            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+            {
+                output = Path.Combine(outputDir, outputFileName + outputExt);
+            }
+            // Output Name Tokens
             else
             {
-                outputDir = string.Empty;
-                outputFileName = string.Empty;
-                output = string.Empty;
+                output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+            }
+        }
+
+
+        /// <summary>
+        /// Output Path - Batch
+        /// </summary>
+        public static void OutputPath_Batch()
+        {
+            // Input TextBox is Empty
+            // Return Output TextBox's original text (either File Path or Empty)
+            if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+            {
+                // Clear Inputs
+                inputDir = string.Empty;
+                inputFileName = string.Empty;
+                inputExt = string.Empty;
+
+                // Set Output
+                output = VM.MainView.Output_Text;
+                return;
             }
 
+            // Input TextBox has Text
+            switch (IsWebURL(VM.MainView.Input_Text))
+            {
+                // -------------------------
+                // Local File
+                // -------------------------
+                case false:
+                    // Output TextBox is Empty
+                    if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                    {
+                        // Set Output Directory to be same as Input Directory
+                        outputDir = inputDir.TrimEnd('\\') + @"\";
+                    }
 
-            // Return Value
-            return output;
+                    // Output TextBox has Text
+                    else
+                    {
+                        // e.g. C:\Output\Path\
+                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+                    }
+                    break;
+
+                // -------------------------
+                // Web URL
+                // -------------------------
+                case true:
+                    outputDir = string.Empty;
+
+                    // Notice
+                    MessageBox.Show("Cannot Batch Process Web URL's.",
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                    break;
+            }
+
+            // Output
+            // eg. C:\Users\Example\Videos\
+            output = outputDir;
         }
 
 
@@ -551,7 +538,7 @@ namespace Axiom
                 !string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
             {
                 //outputFileName_Original = OutputPath_Token_Remover(outputFileName_Tokens);
-                outputFileName_Original = Path.GetFileNameWithoutExtension(OutputPath_Token_Remover(VM.MainView.Output_Text));
+                outputFileName_Original = OutputPath_Token_Remover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
             }
             // Normal Output Name
             else
@@ -611,32 +598,26 @@ namespace Axiom
         /// <summary>
         /// File Renamer (Method)
         /// </summary>
-        public static String FileRenamer(string filename//, 
-                                         //string inputDir,
-                                         //string outputDir,
-                                         //string inputFileName,
-                                         //string outputFileName,
-                                         //string inputExt,
-                                         //string outputExt
-                                         )
+        public static String FileRenamer(string inputDir,      // comparison
+                                         string outputDir,     // comparison
+                                         string inputFileName, // comparison
+                                         string outputFileName // comparison / name to change
+            )
         {
-            string inputFullPath = Path.Combine(outputDir, inputFileName + outputExt);
+            string inputFullPath = Path.Combine(inputDir, inputFileName + inputExt);
             string outputFullPath = Path.Combine(outputDir, outputFileName + outputExt);
+
+            //MessageBox.Show("inPath: " + inputFullPath + " " + "outPath: " + outputFullPath); //debug
 
             if (// Input is not Empty
                 !string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                //!string.IsNullOrWhiteSpace(inputDir) &&
                 // Input & Output Match
                 string.Equals(inputFullPath, outputFullPath, StringComparison.OrdinalIgnoreCase)
-                //// Input Directory & Output Directory Match
-                //string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
-                //// Input File Name & Output File Name Match
-                //string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase) &&
-                //// Input Extension & Output Extension Match
-                //string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
                 )
             {
-                string output = Path.Combine(outputDir, filename + outputExt);
+                //MessageBox.Show("inPath: " + inputFullPath + " " + "outPath: " + outputFullPath); //debug
+
+                string output = Path.Combine(outputDir, outputFileName/*filename*/ + outputExt);
                 string outputNewFileName = string.Empty;
 
                 int count = 1;
@@ -646,14 +627,14 @@ namespace Axiom
                 {
                     while (File.Exists(output))
                     {
-                        outputNewFileName = string.Format("{0}({1})", filename + " ", count++);
+                        outputNewFileName = string.Format("{0}({1})", outputFileName/*filename*/ + " ", count++);
                         output = Path.Combine(outputDir, outputNewFileName + outputExt);
                     }
                 }
                 // stay original
                 else
                 {
-                    outputNewFileName = filename;
+                    outputNewFileName = outputFileName/*filename*/;
                 }
 
                 return outputNewFileName;
@@ -661,7 +642,7 @@ namespace Axiom
             // stay original
             else
             {
-                return filename;
+                return outputFileName/*filename*/;
             }       
         }
 
@@ -682,6 +663,7 @@ namespace Axiom
                 VM.MainView.Batch_IsChecked == true)
             {
                 // return original
+                //return filename;
                 return outputFileName;
             }
 
@@ -1190,44 +1172,43 @@ namespace Axiom
                 // Is Web URL
                 IsWebURL(VM.MainView.Input_Text) == true)
             {
-                //// -------------------------
-                //// File Renamer
-                //// -------------------------
-                //// Add (1) if File Names are the same
-                //if (!string.IsNullOrWhiteSpace(inputDir) &&
-                //    string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
-                //    string.Equals(inputFileName, outputFileName, StringComparison.OrdinalIgnoreCase) &&
-                //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
-                //    )
-                //{
-                    //outputFileName = FileRenamer(inputFileName);
+                // Input Not Empty
+                // Output Empty
+                // Default Output to be same as Input Directory
+                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
+                    string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
+                    )
+                {
+                    outputFileName = FileRenamer(inputDir,      // comparision
+                                                 outputDir,     // comparision
+                                                 inputFileName, // comparision
+                                                 outputFileName // comparison / name to change
+                                                );
+                }
 
-                    // Input Not Empty
-                    // Output Empty
-                    // Default Output to be same as Input Directory
-                    if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                        string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                        )
+                // Input Not Empty
+                // Output Not Empty
+                else
+                {
+                    // Web URL
+                    if (IsWebURL(VM.MainView.Input_Text) == true)
                     {
-                        outputFileName = FileRenamer(inputFileName);
+                        outputFileName = FileRenamer(inputDir,      // comparision
+                                                     outputDir,     // comparision
+                                                     inputFileName, // comparision
+                                                     outputFileName // comparison / name to change
+                                                    );
                     }
-
-                    // Input Not Empty
-                    // Output Not Empty
+                    // Local File
                     else
                     {
-                        // Web URL
-                        if (IsWebURL(VM.MainView.Input_Text) == true)
-                        {
-                            outputFileName = FileRenamer(outputFileName);
-                        }
-                        // Local File
-                        else
-                        {
-                            outputFileName = FileRenamer(outputFileName_Original);
-                        }
+                        outputFileName = FileRenamer(inputDir,               // comparision
+                                                     outputDir,              // comparision
+                                                     inputFileName,          // comparision
+                                                     outputFileName_Original // comparison / name to change
+                                                    );
                     }
-                //}
+                }
 
                 // Display
                 VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
@@ -1240,47 +1221,34 @@ namespace Axiom
             // -------------------------
             else
             {
-                //// -------------------------
-                //// File Renamer
-                //// -------------------------
-                //// Add (1) if File Names are the same
-                //if (!string.IsNullOrWhiteSpace(inputDir) &&
-                //    string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
-                //    string.Equals(inputFileName, outputFileName_Tokens, StringComparison.OrdinalIgnoreCase) &&
-                //    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
-                //    )
-                //{
-                    //outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
-                    //outputFileName_Tokens = FileRenamer(FileNameAddTokens(outputFileName_Original));
+                // Input Not Empty
+                // Output Empty
+                // Default Output to be same as Input Directory
+                if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
+                    string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
+                    )
+                {
+                    outputFileName_Tokens = FileNameAddTokens(inputFileName);
+                    outputFileName_Tokens = FileRenamer(inputDir,      // comparision
+                                                        outputDir,     // comparision
+                                                        inputFileName, // comparision
+                                                        outputFileName_Tokens // comparison / name to change
+                                                       );
+                }
 
-                    // Input Not Empty
-                    // Output Empty
-                    // Default Output to be same as Input Directory
-                    if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                        string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                        )
-                    {
-                        outputFileName_Tokens = FileRenamer(FileNameAddTokens(inputFileName));
-                    }
+                // Input Not Empty
+                // Output Not Empty
+                else
+                {
+                    outputFileName_Tokens = FileNameAddTokens(outputFileName_Original);
+                    outputFileName_Tokens = FileRenamer(inputDir,      // comparision
+                                                        outputDir,     // comparision
+                                                        inputFileName, // comparision
+                                                        outputFileName_Tokens // comparison / name to change
+                                                       );
 
-                    // Input Not Empty
-                    // Output Not Empty
-                    else
-                    {
-                        outputFileName_Tokens = FileRenamer(FileNameAddTokens(outputFileName_Original));
-                    }
-                //}
-                //// -------------------------
-                //// Normal
-                //// -------------------------
-                //else
-                //{
-                //    // Regenerate
-                //    //outputFileName_Tokens = FileNameAddTokens(outputFileName); //probem
-                //    outputFileName_Tokens = FileNameAddTokens(outputFileName_Original); //working
-
-                //    //MessageBox.Show("Regenerate"); //debug
-                //}
+                    //MessageBox.Show("debug");
+                }
 
                 // Display
                 VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
@@ -1306,29 +1274,21 @@ namespace Axiom
                 !string.Equals(VM.VideoView.Video_HWAccel_Transcode_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase))
             {
                 hwAccelTranscode = @"|\s*(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
-                                                                 //.Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                 //.Where(s => !s.Equals("off", StringComparison.OrdinalIgnoreCase))
-                                                                 //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                                 .OrderByDescending(x => x).ToList()
-                                                ).Replace(" ", "-") +
-                                            ")";
+                                                               .OrderByDescending(x => x).ToList()
+                                                         ).Replace(" ", "-") +
+                                        ")";
             }
 
             string presets = @"|\s*(p-placebo|p-very-slow|p-slower|p-slow|p-medium|p-fast|p-faster|p-very-fast|p-super-fast|p-ultra-fast)";
 
-            //string vCodecs = @"|\s*(x264|x265|VP8|VP9|AV1|FFV1|MagicYUV|HuffYUV|Theora|cv-copy)";
             string vCodecs = string.Empty;
             if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Codec_SelectedItem) &&
                 !string.Equals(VM.VideoView.Video_Codec_SelectedItem, "None", StringComparison.OrdinalIgnoreCase))
             {
                 vCodecs = @"|\s*(" + string.Join("|", VM.VideoView.Video_Codec_Items
-                                                     //.Where(s => !string.IsNullOrWhiteSpace(s))
-                                                     //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                     //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
                                                      .OrderByDescending(x => x).ToList()
                                                 ) +
-                                    //"|cv-copy" +
-                                    ")";
+                                ")";
             }
 
             string pass = @"|\s*(1-Pass|2-Pass)";
@@ -1345,16 +1305,12 @@ namespace Axiom
                 !string.Equals(VM.VideoView.Video_PixelFormat_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase))
             {
                 pixelFormat = @"|\s*(" + string.Join("|", VM.VideoView.Video_PixelFormat_Items
-                                                            //.Where(s => !string.IsNullOrWhiteSpace(s))
-                                                            //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                            //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                            .OrderByDescending(x => x).ToList()
-                                                       )
+                                                          .OrderByDescending(x => x).ToList()
+                                                    ) +
 
-                                    + ")";
+                                   ")";
             }
 
-            //string size = @"|\s*(8K|8KUHD|4K|4KUHD|2K|1600p|1400p|1200p|1080p|900p|720p|576p|480p|320p|240p|sz-source)";
             string size = string.Empty;
             if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Scale_SelectedItem) &&
                 !string.Equals(VM.VideoView.Video_Scale_SelectedItem, "Source", StringComparison.OrdinalIgnoreCase) &&
@@ -1363,41 +1319,30 @@ namespace Axiom
                 size = @"|\s*(" + string.Join("|", VM.VideoView.Video_Scale_Items
                                                    .OrderByDescending(x => x).ToList()
                                              ).Replace(" ", "-") +
-                                //"|sz-source" +
-                                ")";
+                            ")";
             }
 
-            //string scaling = @"|\s*(sa-neighbor|sa-area|sa-fast_bilinear|sa-bilinear|sa-bicubic|sa-experimental|sa-bicublin|sa-gauss|sa-sinc|sa-lanczos|sa-spline)";
             string scaling = string.Empty;
             if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_ScalingAlgorithm_SelectedItem) &&
                 !string.Equals(VM.VideoView.Video_ScalingAlgorithm_SelectedItem, "none", StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(VM.VideoView.Video_ScalingAlgorithm_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase))
             {
-                scaling = @"|\s*(" + string.Join("|sa-", VM.VideoView.Video_ScalingAlgorithm_Items
-                                                            //.Where(s => !string.IsNullOrWhiteSpace(s))
-                                                            //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                            //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                scaling = @"|\s*(sa-" + string.Join("|sa-", VM.VideoView.Video_ScalingAlgorithm_Items
                                                             .OrderByDescending(x => x).ToList()
-                                                )
-
-                            + ")";
+                                                   ) +
+                                ")";
             }
 
             string fps = @"|\s*(\d+fps)";
 
-            //string aCodecs = @"|\s*(AC3|AAC|DTS|Vorbis|Opus|LAME|FLAC|PCM|ca-copy)";
             string aCodecs = string.Empty;
             if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem) &&
                 !string.Equals(VM.AudioView.Audio_Codec_SelectedItem, "None", StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(VM.AudioView.Audio_Codec_SelectedItem, "Auto", StringComparison.OrdinalIgnoreCase))
             {
                 aCodecs = @"|\s*(" + string.Join("|", VM.AudioView.Audio_Codec_Items
-                                                        //.Where(s => !string.IsNullOrWhiteSpace(s))
-                                                        //.Where(s => !s.Equals("none", StringComparison.OrdinalIgnoreCase))
-                                                        //.Where(s => !s.Equals("auto", StringComparison.OrdinalIgnoreCase))
-                                                        .OrderByDescending(x => x).ToList()
-                                                    ) +
-                                //"|ca-copy" +
+                                                      .OrderByDescending(x => x).ToList()
+                                                ) +
                                 ")";
             }
 
@@ -1426,7 +1371,6 @@ namespace Axiom
                 @"|\s*(ca-copy)" +
                 channel +
                 bitDepth;
-                //.Replace("|\s*()", ""); // remove any empty rules
 
             // Remove Tokens
             filename = Regex.Replace(
