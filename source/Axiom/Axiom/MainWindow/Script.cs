@@ -254,6 +254,9 @@ namespace Axiom
                 ClearGlobalVariables();
                 GC.Collect();
             }
+
+            // Update Output TextBox
+            VM.MainView.Output_Text = output;
         }
 
 
@@ -333,7 +336,7 @@ namespace Axiom
                 // -------------------------
                 // Start FFmpeg
                 // -------------------------
-                Generate.FFmpeg.FFmpegStart(Generate.FFmpeg.ffmpegArgs);
+                Encode.FFmpeg.FFmpegStart(Generate.FFmpeg.ffmpegArgs);
 
                 // -------------------------
                 // Create output.log
