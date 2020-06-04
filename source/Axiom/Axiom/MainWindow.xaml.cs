@@ -84,6 +84,7 @@ namespace Axiom
 
         public static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).TrimEnd('\\') + @"\";
         public static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
+        public static string videosDir = userProfile + @"Videos\"; // C:\Users\Example\Videos\
         public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
 
         // Programs
@@ -917,6 +918,7 @@ namespace Axiom
 
                 // Process
                 VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
+                VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "ShellTitle_SelectedItem") ||
                 VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
 
@@ -1607,7 +1609,7 @@ namespace Axiom
                 {
                     // Use included binary
                     // Do not use WrapWithQuotes() Method
-                    Generate.FFmpeg.ffmpeg = Generate.FFmpeg.PowerShell_CallOperator_FFmpeg() + "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
+                    Generate.FFmpeg.ffmpeg = Sys.Shell.PowerShell_CallOperator_FFmpeg() + "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
                 }
                 else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
@@ -1619,7 +1621,7 @@ namespace Axiom
             else
             {
                 // Do not use WrapWithQuotes() Method
-                Generate.FFmpeg.ffmpeg = Generate.FFmpeg.PowerShell_CallOperator_FFmpeg() + "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
+                Generate.FFmpeg.ffmpeg = Sys.Shell.PowerShell_CallOperator_FFmpeg() + "\"" + VM.ConfigureView.FFmpegPath_Text + "\"";
             }
 
             // Return Value
@@ -1759,7 +1761,10 @@ namespace Axiom
             }
 
             // Local File
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -1797,7 +1802,10 @@ namespace Axiom
             }
 
             // Local File
-            return false;
+            else
+            { 
+                return false;
+            }
         }
 
 
