@@ -59,9 +59,10 @@ namespace Generate
                     // -------------------------
                     IEnumerable<string> ffmpegInitializeList = new List<string>()
                     {
-                        ProcessPriority() +
+                        Sys.Shell.ShellTitle() +
+                        Sys.Shell.ProcessPriority() +
                         MainWindow.FFmpegPath() +
-                        ProcessPriority_PowerShell_Flags(),
+                        Sys.Shell.ProcessPriority_PowerShell_Flags(),
                     };
 
                     // -------------------------
@@ -414,11 +415,11 @@ namespace Generate
                     // Shell Arguments
                     // -------------------------
                     IEnumerable<string> ShellArgs_List = // Process Priority
-                                                         ProcessPriority_PowerShell_Set( 
+                                                         Sys.Shell.ProcessPriority_PowerShell_Set( 
                                                             // FFmpeg Init
                                                             ffmpegInitializeList
                                                             // FFmpeg PowerShell -ArgsList
-                                                            .Concat(ProcessPriority_PowerShell_ArgumentsListWrap(
+                                                            .Concat(Sys.Shell.ProcessPriority_PowerShell_ArgumentsListWrap(
                                                                         // FFmpeg Arguments
                                                                         FFmpegArgs_SinglePass_List
                                                                     )
