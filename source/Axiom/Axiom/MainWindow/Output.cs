@@ -1266,7 +1266,13 @@ namespace Axiom
             // e.g. "yuv420p10le" must before "yuv420p"
             // Use .OrderByDescending to put longest length items first
 
-            string containers = @"(?<![.])(\s*(webm|mp4|mkv|mpg|avi|ogv|mp3|m4a|ogg|flac|wav|jpg|png|webp))";
+            //string containers = @"(?<![.])(\s*(webm|mp4|mkv|mpg|avi|ogv|mp3|m4a|ogg|flac|wav|jpg|png|webp))";
+            string containers = @"(?<![.])(\s*(" + string.Join("|", Generate.Format.VideoFormats
+                                                                    .Concat(Generate.Format.AudioFormats)
+                                                                    .Concat(Generate.Format.AudioFormats)
+                                                                    .OrderByDescending(x => x).Distinct().ToList()
+                                                              ) +
+                                             "))";
 
             string hwAccelTranscode = string.Empty;
             if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_HWAccel_Transcode_SelectedItem) &&
