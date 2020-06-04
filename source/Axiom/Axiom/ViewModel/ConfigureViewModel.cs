@@ -82,6 +82,7 @@ namespace ViewModel
             LogCheckBox_IsChecked = false;
             LogPath_IsEnabled = false;
             Shell_SelectedItem = "CMD";
+            ShellTitle_SelectedItem = "Disabled";
             ProcessPriority_SelectedItem = "Default";
             Threads_SelectedItem = "Optimal";
             OutputNaming_ListView_SelectedIndex = -1;
@@ -544,6 +545,78 @@ namespace ViewModel
             }
         }
 
+        // --------------------------------------------------
+        // Shell Title
+        // --------------------------------------------------
+        // Items Source
+        private ObservableCollection<string> _ShellTitle_Items = new ObservableCollection<string>()
+        {
+           "Disabled",
+           "Custom",
+           "Job",
+           "Tokens",
+           "Job+Tokens"
+        };
+        public ObservableCollection<string> ShellTitle_Items
+        {
+            get { return _ShellTitle_Items; }
+            set
+            {
+                _ShellTitle_Items = value;
+                OnPropertyChanged("ShellTitle_Items");
+            }
+        }
+
+        // Selected Index
+        private int _ShellTitle_SelectedIndex { get; set; }
+        public int ShellTitle_SelectedIndex
+        {
+            get { return _ShellTitle_SelectedIndex; }
+            set
+            {
+                if (_ShellTitle_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _ShellTitle_SelectedIndex = value;
+                OnPropertyChanged("ShellTitle_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _ShellTitle_SelectedItem { get; set; }
+        public string ShellTitle_SelectedItem
+        {
+            get { return _ShellTitle_SelectedItem; }
+            set
+            {
+                if (_ShellTitle_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _ShellTitle_SelectedItem = value;
+                OnPropertyChanged("ShellTitle_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _ShellTitle_IsEnabled = true;
+        public bool ShellTitle_IsEnabled
+        {
+            get { return _ShellTitle_IsEnabled; }
+            set
+            {
+                if (_ShellTitle_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _ShellTitle_IsEnabled = value;
+                OnPropertyChanged("ShellTitle_IsEnabled");
+            }
+        }
 
         // --------------------------------------------------
         // Process Priority
