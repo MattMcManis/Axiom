@@ -4,6 +4,18 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.1.4] - June 4, 2020
+### Added
+- Shell Title Menu
+- Sys Namespace
+- Encode Namespace
+
+### Changed
+- Improved Output Dialog Window
+- Improved OutputPath Method
+- Improved Ouput Naming Tokens
+
+
 ## [1.9.1.3] - June 3, 2020
 ### Added
 - Output Naming Token Regex Remover
