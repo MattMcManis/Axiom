@@ -299,6 +299,13 @@ namespace Controls
                 VM.ConfigureView.Shell_SelectedItem = shell_SelectedItem;
             }
 
+            // Shell Title
+            string shellTitle_SelectedItem = conf.Read("Settings", "ShellTitle_SelectedItem");
+            if (!string.IsNullOrWhiteSpace(shellTitle_SelectedItem))
+            {
+                VM.ConfigureView.ShellTitle_SelectedItem = shellTitle_SelectedItem;
+            }
+
             // Process Priority
             string processPriority_SelectedItem = conf.Read("Settings", "ProcessPriority_SelectedItem");
             if (!string.IsNullOrWhiteSpace(processPriority_SelectedItem))
@@ -521,6 +528,9 @@ namespace Controls
                     // -------------------------
                     // Shell
                     conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
+
+                    // Shell Title
+                    conf.Write("Settings", "ShellTitle_SelectedItem", VM.ConfigureView.ShellTitle_SelectedItem);
 
                     // Process Priority
                     conf.Write("Settings", "ProcessPriority_SelectedItem", VM.ConfigureView.ProcessPriority_SelectedItem);
