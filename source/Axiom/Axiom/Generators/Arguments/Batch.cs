@@ -147,7 +147,7 @@ namespace Generate
                             string vBitRateBatch = string.Empty;
                             if (VM.VideoView.Video_Quality_SelectedItem == "Auto")
                             {
-                                vBitRateBatch = "$vBitrate = " + PowerShell_CallOperator_FFprobe() + Analyze.FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + Analyze.FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
+                                vBitRateBatch = "$vBitrate = " + Sys.Shell.PowerShell_CallOperator_FFprobe() + Analyze.FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + Analyze.FFprobe.vEntryTypeBatch + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
                             }
 
                             // Audio Auto Quality Detect Bitrate
@@ -156,7 +156,7 @@ namespace Generate
                             string aBitRateBatch_Limited = string.Empty;
                             if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
                             {
-                                aBitRateBatch = "$aBitrate = " + PowerShell_CallOperator_FFprobe() + Analyze.FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + Analyze.FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
+                                aBitRateBatch = "$aBitrate = " + Sys.Shell.PowerShell_CallOperator_FFprobe() + Analyze.FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + Analyze.FFprobe.aEntryType + " -of default=noprint_wrappers=1:nokey=1 `\"$fullName`\"" + ";";
 
                                 // Bitrate Null Check
                                 aBitRateBatch_NullCheck = "if (!$aBitrate) { $aBitrate = 0};";
