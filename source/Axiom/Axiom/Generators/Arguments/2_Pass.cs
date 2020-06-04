@@ -64,9 +64,10 @@ namespace Generate
                     // -------------------------
                     IEnumerable<string> ffmpegInitializeList_Pass1 = new List<string>()
                     {
-                        ProcessPriority() +
+                        Sys.Shell.ShellTitle() +
+                        Sys.Shell.ProcessPriority() +
                         MainWindow.FFmpegPath() +
-                        ProcessPriority_PowerShell_Flags(),
+                        Sys.Shell.ProcessPriority_PowerShell_Flags(),
                     };
 
                     // -------------------------
@@ -334,11 +335,11 @@ namespace Generate
                     // Shell Arguments
                     // -------------------------
                     IEnumerable<string> ShellArgs_List_Pass1 = // Process Priority
-                                                               ProcessPriority_PowerShell_Set(
+                                                               Sys.Shell.ProcessPriority_PowerShell_Set(
                                                                     // FFmpeg Init
                                                                     ffmpegInitializeList_Pass1
                                                                     // FFmpeg PowerShell -ArgsList
-                                                                    .Concat(ProcessPriority_PowerShell_ArgumentsListWrap(
+                                                                    .Concat(Sys.Shell.ProcessPriority_PowerShell_ArgumentsListWrap(
                                                                                 // FFmpeg Args
                                                                                 FFmpegArgs_Pass1_List
                                                                             )
@@ -377,9 +378,10 @@ namespace Generate
                     // -------------------------
                     IEnumerable<string> ffmpegInitializeList_Pass2 = new List<string>()
                     {
-                        ProcessPriority() +
+                        Sys.Shell.ShellTitle() +
+                        Sys.Shell.ProcessPriority() +
                         MainWindow.FFmpegPath() +
-                        ProcessPriority_PowerShell_Flags(),
+                        Sys.Shell.ProcessPriority_PowerShell_Flags(),
                     };
 
                     // -------------------------
@@ -642,11 +644,11 @@ namespace Generate
                     // Shell Arguments
                     // -------------------------
                     IEnumerable<string> ShellArgs_List_Pass2 = // Process Priority
-                                                               ProcessPriority_PowerShell_Set(
+                                                               Sys.Shell.ProcessPriority_PowerShell_Set(
                                                                     // FFmpeg Init
                                                                     ffmpegInitializeList_Pass2
                                                                     // FFmpeg PowerShell -ArgsList
-                                                                    .Concat(ProcessPriority_PowerShell_ArgumentsListWrap(
+                                                                    .Concat(Sys.Shell.ProcessPriority_PowerShell_ArgumentsListWrap(
                                                                                 // FFmpeg Args
                                                                                 FFmpegArgs_Pass2_List
                                                                             )
@@ -676,7 +678,7 @@ namespace Generate
                     Video.Quality.v2PassArgs = Video.Quality.pass1Args +
                                                //" " +
                                                "\r\n\r\n" +
-                                               Shell_LogicalOperator_And() +
+                                               Sys.Shell.Shell_LogicalOperator_And() +
                                                "\r\n\r\n" +
                                                Video.Quality.pass2Args;
                 }
