@@ -70,10 +70,11 @@ namespace Generate
                 // -------------------------
                 // Generate the youtube-dl Output Path and break it into sections for args below
                 // -------------------------
-                string outputPath = MainWindow.OutputPath();
-                string outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-                string outputFileName = Path.GetFileNameWithoutExtension(outputPath);
-                string output = Path.Combine(outputDir, outputFileName + MainWindow.outputExt);
+                MainWindow.OutputPath();
+                //string outputPath = MainWindow.OutputPath();
+                //string outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                //string outputFileName = Path.GetFileNameWithoutExtension(outputPath);
+                //string output = Path.Combine(MainWindow.outputDir, MainWindow.outputFileName + MainWindow.outputExt);
 
                 // -------------------------
                 // Generate Download Script
@@ -99,7 +100,7 @@ namespace Generate
                         youtubedlArgs = new List<string>()
                         {
                             "cd /d",
-                            "\"" + outputDir + "\"",
+                            "\"" + MainWindow.outputDir + "\"",
 
                             "\r\n\r\n" + 
                             "&&",
@@ -134,7 +135,7 @@ namespace Generate
                             "\"" + VM.MainView.Input_Text + "\"",
 
                             "\r\n" + 
-                            "-o " + "\"" + outputDir + outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                            "-o " + "\"" + MainWindow.outputDir + MainWindow.outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
                                                                                                                VM.VideoView.Video_Codec_SelectedItem,
                                                                                                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                                                                                VM.AudioView.Audio_Codec_SelectedItem
@@ -194,7 +195,7 @@ namespace Generate
                             "\"" + VM.MainView.Input_Text + "\"",
 
                             "\r\n" + 
-                            "-o " + "\"" + Path.Combine(outputDir, outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                            "-o " + "\"" + Path.Combine(MainWindow.outputDir, MainWindow.outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
                                                                                                                            VM.VideoView.Video_Codec_SelectedItem,
                                                                                                                            VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                                                                                            VM.AudioView.Audio_Codec_SelectedItem
