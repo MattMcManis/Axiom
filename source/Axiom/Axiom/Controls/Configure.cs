@@ -385,6 +385,25 @@ namespace Controls
                 }
             }
 
+            // Tags
+            string tags_SelectedItem = conf.Read("Settings", "Tags_SelectedItem");
+            if (!string.IsNullOrWhiteSpace(tags_SelectedItem))
+            {
+                // Legacy Values Fix
+                switch (tags_SelectedItem)
+                {
+                    case "Job":
+                        VM.ConfigureView.Tags_SelectedItem = "Filename";
+                        break;
+                    case "Job+Tokens":
+                        VM.ConfigureView.Tags_SelectedItem = "Filename+Tokens";
+                        break;
+                    default:
+                        VM.ConfigureView.Tags_SelectedItem = tags_SelectedItem;
+                        break;
+                }
+            }
+
             // Output File Overwrite
             string outputOverwrite_SelectedItem = conf.Read("Settings", "OutputOverwrite_SelectedItem");
             if (!string.IsNullOrWhiteSpace(outputOverwrite_SelectedItem))
@@ -550,6 +569,9 @@ namespace Controls
                     string outputNaming_SelectedItems = string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
                                                                          .Where(s => !string.IsNullOrEmpty(s)));
                     conf.Write("Settings", "OutputNaming_SelectedItems", outputNaming_SelectedItems);
+
+                    // Tags
+                    conf.Write("Settings", "Tags_SelectedItem", VM.ConfigureView.Tags_SelectedItem);
 
                     // Output File Overwrite
                     conf.Write("Settings", "OutputOverwrite_SelectedItem", VM.ConfigureView.OutputOverwrite_SelectedItem);
