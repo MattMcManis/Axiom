@@ -142,11 +142,13 @@ namespace Axiom
                         {
                             // Set Output to same as Input
                             saveFile.InitialDirectory = inputDir;
-                            saveFile.FileName = FileRenamer(inputDir,      // comparision
+                            saveFile.FileName = TagRemover(
+                                                        FileRenamer(inputDir, // comparision
                                                             inputDir,      // comparision
                                                             inputFileName, // comparision
                                                             inputFileName  // comparison / name to change
-                                                           );
+                                                           )
+                                                    );
                         }
                     }
 
@@ -385,6 +387,22 @@ namespace Axiom
                         outputFileName_Tokens = "image-%03d";
                         outputFileName = "image-%03d";
                     }
+
+                    // -------------------------
+                    // Combine Output
+                    // -------------------------
+                    // eg. C:\Users\Example\Videos\MyFile.webm
+
+                    // Default
+                    if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+                    {
+                        output = Path.Combine(outputDir, outputFileName + outputExt);
+                    }
+                    // Output Name Tokens
+                    else
+                    {
+                        output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+                    }
                     break;
 
                 // -------------------------
@@ -429,26 +447,32 @@ namespace Axiom
                         // Disable Tokens
                         outputFileName_Tokens = outputFileName;
                     }
+
+                    // -------------------------
+                    // Combine Output
+                    // -------------------------
+                    // eg. C:\Users\Example\Downloads\%f.webm
+                    output = outputFileName_Original;
                     break;
             }
 
-            // -------------------------
-            // Combine Output
-            // -------------------------
-            // eg. C:\Users\Example\Videos\MyFile.webm
+            //// -------------------------
+            //// Combine Output
+            //// -------------------------
+            //// eg. C:\Users\Example\Videos\MyFile.webm
 
-            //MessageBox.Show(outputDir + " " + outputFileName + " " + outputExt); //debug
+            ////MessageBox.Show(outputDir + " " + outputFileName + " " + outputExt); //debug
 
-            // Default
-            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-            {
-                output = Path.Combine(outputDir, outputFileName + outputExt);
-            }
-            // Output Name Tokens
-            else
-            {
-                output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-            }
+            //// Default
+            //if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+            //{
+            //    output = Path.Combine(outputDir, outputFileName + outputExt);
+            //}
+            //// Output Name Tokens
+            //else
+            //{
+            //    output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+            //}
         }
 
 
@@ -1185,7 +1209,8 @@ namespace Axiom
             // -------------------------
             // Default
             // -------------------------
-            if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() ||
+            if (// Tokens are not selected
+                !VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() ||
                 // Is Web URL
                 IsWebURL(VM.MainView.Input_Text) == true)
             {
@@ -1207,23 +1232,24 @@ namespace Axiom
                 // Output Not Empty
                 else
                 {
-                    // Web URL
-                    if (IsWebURL(VM.MainView.Input_Text) == true)
-                    {
-                        outputFileName = FileRenamer(inputDir,      // comparision
-                                                     outputDir,     // comparision
-                                                     inputFileName, // comparision
-                                                     outputFileName // comparison / name to change
-                                                    );
-                    }
                     // Local File
-                    else
+                    if (IsWebURL(VM.MainView.Input_Text) == false)
                     {
                         outputFileName = FileRenamer(inputDir,               // comparision
                                                      outputDir,              // comparision
                                                      inputFileName,          // comparision
                                                      TagRemover(outputFileName_Original) // comparison / name to change
                                                     );
+                    }
+                    // Web URL
+                    else
+                    {
+                        outputFileName = outputFileName_Original;
+                        //outputFileName = FileRenamer(inputDir,      // comparision
+                        //                             outputDir,     // comparision
+                        //                             inputFileName, // comparision
+                        //                             outputFileName // comparison / name to change
+                        //                            );
                     }
                 }
 
@@ -1285,6 +1311,16 @@ namespace Axiom
             // Remove
             if (VM.ConfigureView.Tags_SelectedItem == "Remove")
             {
+                // Spacing
+                // Remove period spacing
+                filename = Regex.Replace(filename, @"(?<!\.)\.(?!\.)", " ");
+                // Remove dash spacing, preserve hyphens
+                filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
+                // Multiple dashes to single dash
+                filename = Regex.Replace(filename, "[-]{2,}", "");
+                // Underscore Spacing
+                filename = Regex.Replace(filename, "_", " ");
+
                 // Containers
                 List<string> formatsList = Generate.Format.VideoFormats
                                            .Concat(Generate.Format.AudioFormats)
@@ -1443,14 +1479,6 @@ namespace Axiom
                     RegexOptions.IgnoreCase
                 );
 
-                // Spacing
-                // Remove period spacing
-                filename = Regex.Replace(filename, @"(?<!\.)\.(?!\.)", " ", RegexOptions.IgnoreCase);
-                // Remove dash spacing, preserve hyphens
-                filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1", RegexOptions.IgnoreCase).Trim();
-                // Multiple dashes to single dash
-                filename = Regex.Replace(filename, "[-]{2,}", "", RegexOptions.IgnoreCase).Trim();
-
                 //// Log Console Message /////////
                 //Log.WriteAction = () =>
                 //{
@@ -1460,7 +1488,7 @@ namespace Axiom
                 //};
                 //Log.LogActions.Add(Log.WriteAction);
 
-                return filename;
+                return filename.Trim();
             }
 
             // stay the same
