@@ -57,6 +57,7 @@ namespace Generate
         // -------------------------
         // Video
         // -------------------------
+        // Sort by Descending Order
         public static IEnumerable<string> VideoExtensions = new List<string>()
         {
             ".yuv",
@@ -133,6 +134,7 @@ namespace Generate
         // -------------------------
         // Audio
         // -------------------------
+        // Sort by Descending Order
         public static IEnumerable<string> AudioExtensions = new List<string>()
         {
             ".wv",
@@ -176,9 +178,10 @@ namespace Generate
         // -------------------------
         // Video Formats
         // -------------------------
+        // Sort by Descending Order
         public static IEnumerable<string> VideoFormats = new List<string>()
         {
-            //"yuv",
+            "yuv",
             "x265",
             "x264",
             "wmv",
@@ -226,6 +229,7 @@ namespace Generate
         // -------------------------
         // Audio Formats
         // -------------------------
+        // Sort by Descending Order
         public static IEnumerable<string> AudioFormats = new List<string>()
         {
             "wv",
@@ -292,6 +296,7 @@ namespace Generate
         // -------------------------
         // Image Formats
         // -------------------------
+        // Sort by Descending Order
         public static IEnumerable<string> ImageFormats = new List<string>()
         {
             "webp",
