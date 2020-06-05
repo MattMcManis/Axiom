@@ -922,6 +922,9 @@ namespace Axiom
                 VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
 
+                // Input
+                VM.ConfigureView.Tags_SelectedItem != conf.Read("Settings", "Tags_SelectedItem") ||
+
                 // Output
                 string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
                       .Where(s => !string.IsNullOrWhiteSpace(s))) != conf.Read("Settings", "OutputNaming_ItemOrder") ||
@@ -1026,6 +1029,9 @@ namespace Axiom
         /// </summary>
         public static void ClearGlobalVariables()
         {
+            // Output
+            regexTags = string.Empty;
+
             // FFprobe
             Analyze.FFprobe.argsVideoCodec = string.Empty;
             Analyze.FFprobe.argsAudioCodec = string.Empty;
@@ -2837,5 +2843,9 @@ namespace Axiom
             }
         }
 
+        private void cboTags_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
