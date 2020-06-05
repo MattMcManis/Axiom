@@ -5296,6 +5296,7 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
                             <!-- Config Group -->
@@ -5825,7 +5826,7 @@
                                        Height="26"
                                        ToolTipService.InitialShowDelay="500"
                                        ToolTipService.ShowOnDisabled="True"
-                                       ToolTip="Custom: User Defined, Job: File Name, Tokens: Selected Options"
+                                       ToolTip="Shell Title"
                                        Grid.Row="2"
                                        Grid.Column="1"
                                        Width="56" />
@@ -5902,7 +5903,7 @@
                                           Margin="10,2,0,0" />
                             </Grid>
 
-                            <!-- Output Group -->
+                            <!-- Input Group -->
                             <Grid Margin="0,0,0,0"
                                   VerticalAlignment="Top"
                                   Grid.Row="2">
@@ -5915,10 +5916,67 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="22" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Input -->
+                                <Label Style="{DynamicResource LabelStyle}"
+                                       Content="Input"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Width="54"
+                                       FontFamily="Segoe UI Semibold"
+                                       Grid.Row="0"
+                                       Height="26"
+                                       Grid.Column="1" />
+
+                                <!-- Tags -->
+                                <Label Style="{DynamicResource LabelStyle}"
+                                       Content="Tags"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Height="26"
+                                       ToolTipService.InitialShowDelay="500"
+                                       ToolTipService.ShowOnDisabled="True"
+                                       ToolTip="Keep or Remove Input Filename Tags (e.g. 1080p x264 DD7.1)"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       Width="56" />
+                                <ComboBox x:Name="cboTags"
+                                          ItemsSource="{Binding Tags_Items}"
+                                          SelectedIndex="{Binding Tags_SelectedIndex}"
+                                          SelectedItem="{Binding Tags_SelectedItem}"
+                                          IsEnabled="{Binding Tags_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Style="{DynamicResource ComboBoxStyle}"
+                                          ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          Width="105"
+                                          IsTextSearchEnabled="False"
+                                          Grid.Column="2"
+                                          Grid.Row="1"
+                                          Margin="10,2,0,0"
+                                          SelectionChanged="cboTags_SelectionChanged" />
+                                
+                            </Grid>
+
+                            <!-- Output Group -->
+                            <Grid Margin="0,0,0,0"
+                                  VerticalAlignment="Top"
+                                  Grid.Row="3">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33" />
                                     <RowDefinition Height="215" />
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="22" />
-
                                 </Grid.RowDefinitions>
 
                                 <!-- Output -->
@@ -5988,44 +6046,6 @@
                                     </ListView.View>
                                 </ListView>
 
-                                <!-- Add -->
-                                <!--<Button x:Name="btnOutputNaming_Add"
-                                        IsEnabled="{Binding OutputNaming_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Style="{DynamicResource ButtonNavigationStyle}"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Width="22"
-                                        Height="22"
-                                        Cursor="Hand"
-                                        Click="btnOutputNaming_Add_Click"
-                                        Margin="122,7,0,0"
-                                        ToolTipService.InitialShowDelay="500"
-                                        ToolTipService.ShowOnDisabled="True"
-                                        ToolTip="Add"
-                                        Grid.Column="2"
-                                        Grid.Row="1">
-                                    <TextBlock Text="+"
-                                               Margin="0,-2,0,0" />
-                                </Button>-->
-                                <!-- Remove -->
-                                <!--<Button x:Name="btnOutputNaming_Remove"
-                                        IsEnabled="{Binding OutputNaming_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Style="{DynamicResource ButtonNavigationStyle}"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Width="22"
-                                        Height="22"
-                                        Cursor="Hand"
-                                        Click="btnOutputNaming_Remove_Click"
-                                        Margin="83,34,0,0"
-                                        ToolTipService.InitialShowDelay="500"
-                                        ToolTipService.ShowOnDisabled="True"
-                                        ToolTip="Remove"
-                                        Grid.Column="2"
-                                        Grid.Row="1">
-                                    <TextBlock Text="-"
-                                               Margin="0,-2,0,0" />
-                                </Button>-->
                                 <!-- Sort Up -->
                                 <Button x:Name="btnOutputNaming_SortUp"
                                         IsEnabled="{Binding OutputNaming_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -6152,7 +6172,7 @@
                             <!-- App Group -->
                             <Grid Margin="0,0,0,0"
                                   VerticalAlignment="Top"
-                                  Grid.Row="3">
+                                  Grid.Row="4">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="15" />
@@ -6175,7 +6195,7 @@
                                        Content="App"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
-                                       Width="95"
+                                       Width="54"
                                        FontFamily="Segoe UI Semibold"
                                        Grid.Row="0"
                                        Height="26"
