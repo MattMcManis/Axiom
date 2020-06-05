@@ -256,7 +256,24 @@ namespace Axiom
             }
 
             // Update Output TextBox
-            VM.MainView.Output_Text = output;
+            if (!string.IsNullOrWhiteSpace(outputDir))
+            {
+                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+            }
+
+
+            //VM.MainView.Output_Text = output;
+
+            //// Default
+            //if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
+            //{
+            //    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+            //}
+            //// Output Name Tokens
+            //else
+            //{
+            //    VM.MainView.Output_Text = output;
+            //}
         }
 
 
