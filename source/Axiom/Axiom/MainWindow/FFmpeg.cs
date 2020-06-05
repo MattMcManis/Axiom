@@ -25,6 +25,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Linq;
 using ViewModel;
+using System.IO;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -226,6 +227,11 @@ namespace Axiom
 
             // Update Output TextBox
             //VM.MainView.Output_Text = output;
+
+            if (!string.IsNullOrWhiteSpace(outputDir))
+            {
+                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+            }
         }
 
 
