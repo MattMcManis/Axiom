@@ -113,15 +113,17 @@ namespace Sys
                             title = string.Empty;
                             break;
 
-                        case "Job":
-                            title = MainWindow.OutputPath_Token_Remover(Path.GetFileName(MainWindow.OutputPath()));
+                        case "Filename":
+                            MainWindow.OutputPath(); // Set Output
+                            title = MainWindow.outputFileName_Original + MainWindow.outputExt;
+                            //title = MainWindow.OutputFile_Token_Remover(Path.GetFileName(MainWindow.OutputPath()));
                             break;
 
                         case "Tokens":
                             title = MainWindow.FileNameAddTokens(string.Empty);
                             break;
 
-                        case "Job+Tokens":
+                        case "Filename+Tokens":
                             title = Path.GetFileName(MainWindow.OutputPath());
                             break;
 
@@ -140,15 +142,17 @@ namespace Sys
                             title = string.Empty;
                             break;
 
-                        case "Job":
-                            title = MainWindow.OutputPath_Token_Remover(Path.GetFileName(MainWindow.OutputPath()));
+                        case "Filename":
+                            MainWindow.OutputPath(); // Set Output
+                            title = MainWindow.outputFileName_Original + MainWindow.outputExt;
+                            //title = MainWindow.OutputFile_Token_Remover(Path.GetFileName(MainWindow.OutputPath()));
                             break;
 
                         case "Tokens":
                             title = MainWindow.FileNameAddTokens(string.Empty);
                             break;
 
-                        case "Job+Tokens":
+                        case "Filename+Tokens":
                             title = Path.GetFileName(MainWindow.OutputPath());
                             break;
 
@@ -188,7 +192,7 @@ namespace Sys
                 // PowerShell
                 case "PowerShell":
                     return "($Process = Start-Process ";
-                //return "$Process = Start-Process ";
+                    //return "$Process = Start-Process ";
 
                 // Empty
                 default:
