@@ -178,6 +178,7 @@
     <Compile Include="Generators\Subtitle.cs" />
     <Compile Include="Controls\SubtitleControls.cs" />
     <Compile Include="MainWindow\Script.cs" />
+    <Compile Include="Types\Codecs.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
