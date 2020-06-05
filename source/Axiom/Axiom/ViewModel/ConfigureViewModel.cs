@@ -86,6 +86,7 @@ namespace ViewModel
             ProcessPriority_SelectedItem = "Default";
             Threads_SelectedItem = "Optimal";
             OutputNaming_ListView_SelectedIndex = -1;
+            Tags_SelectedItem = "Keep";
             OutputOverwrite_SelectedItem = "Always";
             Theme_SelectedItem = "Axiom";
             UpdateAutoCheck_IsChecked = true;
@@ -553,9 +554,9 @@ namespace ViewModel
         {
            "Disabled",
            "Custom",
-           "Job",
+           "Filename",
            "Tokens",
-           "Job+Tokens"
+           "Filename+Tokens"
         };
         public ObservableCollection<string> ShellTitle_Items
         {
@@ -861,6 +862,58 @@ namespace ViewModel
             }
         }
 
+        // --------------------------------------------------
+        // Tags
+        // --------------------------------------------------
+        // Items Source
+        private ObservableCollection<string> _Tags_Items = new ObservableCollection<string>()
+        {
+           "Keep",
+           "Remove"
+        };
+        public ObservableCollection<string> Tags_Items
+        {
+            get { return _Tags_Items; }
+            set
+            {
+                _Tags_Items = value;
+                OnPropertyChanged("Tags_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Tags_SelectedIndex { get; set; }
+        public int Tags_SelectedIndex
+        {
+            get { return _Tags_SelectedIndex; }
+            set
+            {
+                if (_Tags_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Tags_SelectedIndex = value;
+                OnPropertyChanged("Tags_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Tags_SelectedItem { get; set; }
+        public string Tags_SelectedItem
+        {
+            get { return _Tags_SelectedItem; }
+            set
+            {
+                if (_Tags_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Tags_SelectedItem = value;
+                OnPropertyChanged("Tags_SelectedItem");
+            }
+        }
 
         // --------------------------------------------------
         // Output File Overwrite
