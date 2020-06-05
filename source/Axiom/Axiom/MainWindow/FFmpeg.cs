@@ -225,13 +225,25 @@ namespace Axiom
                 GC.Collect();
             }
 
+            // -------------------------
             // Update Output TextBox
-            //VM.MainView.Output_Text = output;
-
-            if (!string.IsNullOrWhiteSpace(outputDir))
+            // -------------------------
+            // Single file
+            if (VM.MainView.Batch_IsChecked == false)
             {
-                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+                if (!string.IsNullOrWhiteSpace(outputDir))
+                {
+                    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+                }
             }
+
+            // Batch
+            if (VM.MainView.Batch_IsChecked == true)
+            {
+                VM.MainView.Output_Text = outputDir;
+            }
+
+            //VM.MainView.Output_Text = output;
         }
 
 
