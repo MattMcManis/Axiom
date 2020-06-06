@@ -5365,7 +5365,7 @@
                                           ToolTipService.ShowOnDisabled="True"
                                           ToolTip="Your config file will be saved/moved to this location after program closes."
                                           SelectionChanged="cboConfigPath_SelectionChangedSelectionChangeCommitted" />
-                                <Button x:Name="btnConfigPathAuto"
+                                <Button x:Name="btnConfigPath"
                                         HorizontalAlignment="Left"
                                         Margin="122,1,0,0"
                                         VerticalAlignment="Top"
@@ -6090,7 +6090,7 @@
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="33" />
-                                    <RowDefinition Height="215" />
+                                    <RowDefinition Height="205" />
                                     <RowDefinition Height="22" />
                                 </Grid.RowDefinitions>
 
@@ -6283,7 +6283,7 @@
                                           Grid.Row="2"
                                           Margin="10,2,0,0" />
                                 <!-- Revert Button -->
-                                <Button x:Name="btnOutputFileNameSpacing"
+                                <Button x:Name="btnOutputFileNameSpacingDefault"
                                         HorizontalAlignment="Left"
                                         Margin="122,1,0,0"
                                         VerticalAlignment="Top"
@@ -6293,7 +6293,7 @@
                                         ToolTipService.InitialShowDelay="200"
                                         ToolTipService.ShowOnDisabled="True"
                                         ToolTip="Revert to Default"
-                                        Click="btnOutputFileNameSpacing_Click"
+                                        Click="btnOutputFileNameSpacingDefault_Click"
                                         Style="{DynamicResource ButtonFolderStyle}"
                                         Grid.Column="2"
                                         Grid.Row="2">
@@ -6440,7 +6440,7 @@
                                               ToolTipService.InitialShowDelay="500"
                                               ToolTipService.ShowOnDisabled="True"
                                               ToolTip="Automatically check for updates at startup."
-                                              Width="58"
+                                              Width="55"
                                               Height="22"
                                               Style="{DynamicResource ToggleButtonStyle}"
                                               Checked="tglUpdateAutoCheck_Checked"
@@ -6454,13 +6454,13 @@
                                 </ToggleButton>
 
                                 <Label Style="{DynamicResource LabelStyle}"
-                                       Content="Auto Check"
+                                       Content="Auto-Check"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Height="26"
                                        Grid.Column="2"
                                        Grid.Row="3"
-                                       Margin="73,0,0,0"
+                                       Margin="69,0,0,0"
                                        Width="75" />
 
                                 <!-- Reset Saved Settings -->
@@ -6480,15 +6480,44 @@
                                         Height="23"
                                         ToolTipService.InitialShowDelay="500"
                                         ToolTipService.ShowOnDisabled="True"
-                                        ToolTip="Reset the Saved Settings to Default."
+                                        ToolTip="Delete config file and reset settings."
                                         Cursor="Hand"
                                         Click="btnResetConfig_Click"
                                         Style="{DynamicResource ButtonSmallStyle}"
                                         Grid.Column="2"
                                         Grid.Row="5"
-                                        Margin="10,2,0,0">
+                                        Margin="72,2,0,0">
                                     <TextBlock Style="{DynamicResource TextBlockStyle}"
                                                Text="Reset"
+                                               Margin="0,-1,0,0" />
+                                </Button>
+
+                                <!-- Settings Default -->
+                                <Label Style="{DynamicResource LabelStyle}"
+                                       Content="Settings"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Height="26"
+                                       Grid.Row="5"
+                                       Grid.Column="1"
+                                       Width="58" />
+                                <Button x:Name="btnSettingsDefault"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Width="55"
+                                        Background="{x:Null}"
+                                        Height="23"
+                                        ToolTipService.InitialShowDelay="500"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Set all settings to default."
+                                        Cursor="Hand"
+                                        Click="btnSettingsDefault_Click"
+                                        Style="{DynamicResource ButtonSmallStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="5"
+                                        Margin="10,2,0,0">
+                                    <TextBlock Style="{DynamicResource TextBlockStyle}"
+                                               Text="Default"
                                                Margin="0,-1,0,0" />
                                 </Button>
                             </Grid>
