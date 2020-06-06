@@ -923,7 +923,7 @@ namespace Axiom
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
 
                 // Input
-                VM.ConfigureView.Tags_SelectedItem != conf.Read("Settings", "Tags_SelectedItem") ||
+                VM.ConfigureView.InputFileNameTokens_SelectedItem != conf.Read("Settings", "InputFileNameTokens_SelectedItem") ||
 
                 // Output
                 string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
@@ -932,6 +932,7 @@ namespace Axiom
                 string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
                       .Where(s => !string.IsNullOrEmpty(s))) != conf.Read("Settings", "OutputNaming_SelectedItems") ||
 
+                VM.ConfigureView.OutputFileNameSpacing_SelectedItem != conf.Read("Settings", "OutputFileNameSpacing_SelectedItem") ||
                 VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
 
                 // App
@@ -2843,9 +2844,5 @@ namespace Axiom
             }
         }
 
-        private void cboTags_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
