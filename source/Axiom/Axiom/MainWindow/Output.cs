@@ -1288,6 +1288,8 @@ namespace Axiom
                 }
 
                 // Display
+                // Updates the output Extension display 
+                //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
                 //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
 
                 //MessageBox.Show("Default"); //debug
@@ -1332,7 +1334,9 @@ namespace Axiom
                 }
 
                 // Display
+                // Updates the output Extension display 
                 //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+                //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
             }
         }
 
@@ -1555,6 +1559,8 @@ namespace Axiom
                 case "Spaces":
                     // periods
                     filename = Regex.Replace(filename, @"(?<!CRF\d*)(\d[.]\d)|[.]", m => m.Groups[1].Success ? m.Groups[1].Value : " ");
+                    //var m_pat = @"\bCRF\d+|[A-Za-z]+(?:\d+(?:\.\d+)?)?|\d+(?:\.\d+)?[a-zA-Z]*";
+                    //filename = string.Join(" ", Regex.Matches(filename, m_pat).Cast<Match>().Select(x => x.Value))
                     // dashes
                     filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
                     // underscores
