@@ -1473,17 +1473,23 @@ namespace Axiom
                     RegexOptions.IgnoreCase
                 );
 
+                // Fix Multiple Spaces, Periods, Dashes, Underscores
+                filename = Regex.Replace(filename, @"\s{2,}", "");
+                filename = Regex.Replace(filename, @"[.]{2,}", "");
+                filename = Regex.Replace(filename, @"[-]{2,}", "");
+                filename = Regex.Replace(filename, @"[_]{2,}", "");
+
                 // Spacing
                 // Remove period spacing
                 //filename = Regex.Replace(filename, @"(?<!\.)\.(?!\.)", " "); //problem with decimals
-                // Remove multiple periods
-                filename = Regex.Replace(filename, "[.]{2,}", "");
-                // Remove dash spacing, preserve hyphens
-                filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
-                // Multiple dashes to single dash
-                filename = Regex.Replace(filename, "[-]{2,}", "-");
-                // Remove Underscore Spacing
-                filename = Regex.Replace(filename, "_", " ");
+                //// Remove multiple periods
+                //filename = Regex.Replace(filename, "[.]{2,}", "");
+                //// Remove dash spacing, preserve hyphens
+                //filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
+                //// Multiple dashes to single dash
+                //filename = Regex.Replace(filename, "[-]{2,}", "-");
+                //// Remove Underscore Spacing
+                //filename = Regex.Replace(filename, "_", " ");
 
                 //// Log Console Message /////////
                 //Log.WriteAction = () =>
@@ -1515,14 +1521,41 @@ namespace Axiom
                 case "Original":
                     return filename;
 
+                case "Spaces":
+                    // periods
+                    filename = Regex.Replace(filename, @"(?<!CRF\d*)(\d[.]\d)|[.]", m => m.Groups[1].Success ? m.Groups[1].Value : " ");
+                    // dashes
+                    filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
+                    // underscores
+                    filename = Regex.Replace(filename, "_", " ");
+                    return filename;
+
                 case "Periods":
-                    return Regex.Replace(filename, " ", ".");
+                    // spaces
+                    filename = Regex.Replace(filename, " ", ".");
+                    // dashes
+                    filename = Regex.Replace(filename, "-", ".");
+                    // underscores
+                    filename = Regex.Replace(filename, "_", ".");
+                    return filename;
 
                 case "Dashes":
-                    return Regex.Replace(filename, " ", "-");
+                    // spaces
+                    filename = Regex.Replace(filename, " ", "-");
+                    // periods
+                    filename = Regex.Replace(filename, @"(?<!CRF\d*)(\d[.]\d)|[.]", m => m.Groups[1].Success ? m.Groups[1].Value : "-");
+                    // underscores
+                    filename = Regex.Replace(filename, "_", "-");
+                    return filename;
 
                 case "Underscores":
-                    return Regex.Replace(filename, " ", "_");
+                    // spaces
+                    filename = Regex.Replace(filename, " ", "_");
+                    // periods
+                    filename = Regex.Replace(filename, @"(?<!CRF\d*)(\d[.]\d)|[.]", m => m.Groups[1].Success ? m.Groups[1].Value : "_");
+                    // dashes
+                    filename = Regex.Replace(filename, "-", "_");
+                    return filename;
 
                 default:
                     return filename;
