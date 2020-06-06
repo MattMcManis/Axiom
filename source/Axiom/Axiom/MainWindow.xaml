@@ -5817,7 +5817,30 @@
                                           Grid.Row="1"
                                           Margin="10,2,0,0"
                                           SelectionChanged="cboShell_SelectionChanged" />
-
+                                <!-- Revert Button -->
+                                <Button x:Name="btnShellDefault"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnShellDefault_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="1">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
+                                
                                 <!-- Shell Title -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Title"
@@ -5845,7 +5868,30 @@
                                           Grid.Row="2"
                                           Margin="10,2,0,0"
                                           SelectionChanged="cboShellTitle_SelectionChanged" />
-
+                                <!-- Revert Button -->
+                                <Button x:Name="btnShellTitleDefault"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnShellTitleDefault_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="2">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
+                                
                                 <!-- Priority -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Priority"
@@ -5872,6 +5918,29 @@
                                           Grid.Column="2"
                                           Grid.Row="3"
                                           Margin="10,2,0,0" />
+                                <!-- Revert Button -->
+                                <Button x:Name="btnProcessPriorityDefault"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnProcessPriorityDefault_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="3">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
 
                                 <!-- Threads -->
                                 <Label Style="{DynamicResource LabelStyle}"
@@ -5901,6 +5970,29 @@
                                           Grid.Column="2"
                                           Grid.Row="4"
                                           Margin="10,2,0,0" />
+                                <!-- Revert Button -->
+                                <Button x:Name="btnThreadsDefault"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnThreadsDefault_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="4">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
                             </Grid>
 
                             <!-- Input Group -->
@@ -5958,7 +6050,29 @@
                                           Grid.Row="1"
                                           Margin="10,2,0,0"
                                           SelectionChanged="cboInputFileNameTokens_SelectionChanged" />
-                                
+                                <!-- Revert Button -->
+                                <Button x:Name="btnInputFileNameTokensDefault"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnInputFileNameTokensDefault_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="1">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
                             </Grid>
 
                             <!-- Output Group -->
@@ -6168,6 +6282,29 @@
                                           Grid.Column="2"
                                           Grid.Row="2"
                                           Margin="10,2,0,0" />
+                                <!-- Revert Button -->
+                                <Button x:Name="btnOutputFileNameSpacing"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnOutputFileNameSpacing_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="2">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
                                 
                                 <!-- Overwrite -->
                                 <Label Style="{DynamicResource LabelStyle}"
@@ -6195,6 +6332,29 @@
                                           Grid.Column="2"
                                           Grid.Row="1"
                                           Margin="10,2,0,0" />
+                                <!-- Revert Button -->
+                                <Button x:Name="btnOutputOverwriteDefault"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnOutputOverwriteDefault_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="1">
+                                    <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                </Button>
                             </Grid>
 
                             <!-- App Group -->
