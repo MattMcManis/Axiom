@@ -89,6 +89,9 @@ namespace Axiom
 
                         inputExt = Path.GetExtension(selectFile.FileName);
 
+                        // Clear Output TextBox
+                        VM.MainView.Output_Text = string.Empty;
+
                         //// Save Previous Path
                         //if (File.Exists(Controls.Configure.configFile))
                         //{
