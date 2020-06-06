@@ -86,7 +86,8 @@ namespace ViewModel
             ProcessPriority_SelectedItem = "Default";
             Threads_SelectedItem = "Optimal";
             OutputNaming_ListView_SelectedIndex = -1;
-            Tags_SelectedItem = "Keep";
+            InputFileNameTokens_SelectedItem = "Keep";
+            OutputFileNameSpacing_SelectedItem = "Original";
             OutputOverwrite_SelectedItem = "Always";
             Theme_SelectedItem = "Axiom";
             UpdateAutoCheck_IsChecked = true;
@@ -863,57 +864,132 @@ namespace ViewModel
         }
 
         // --------------------------------------------------
-        // Tags
+        // Input Filename Tokens
         // --------------------------------------------------
         // Items Source
-        private ObservableCollection<string> _Tags_Items = new ObservableCollection<string>()
+        private ObservableCollection<string> _InputFileNameTokens_Items = new ObservableCollection<string>()
         {
            "Keep",
            "Remove"
         };
-        public ObservableCollection<string> Tags_Items
+        public ObservableCollection<string> InputFileNameTokens_Items
         {
-            get { return _Tags_Items; }
+            get { return _InputFileNameTokens_Items; }
             set
             {
-                _Tags_Items = value;
-                OnPropertyChanged("Tags_Items");
+                _InputFileNameTokens_Items = value;
+                OnPropertyChanged("InputFileNameTokens_Items");
             }
         }
 
         // Selected Index
-        private int _Tags_SelectedIndex { get; set; }
-        public int Tags_SelectedIndex
+        private int _InputFileNameTokens_SelectedIndex { get; set; }
+        public int InputFileNameTokens_SelectedIndex
         {
-            get { return _Tags_SelectedIndex; }
+            get { return _InputFileNameTokens_SelectedIndex; }
             set
             {
-                if (_Tags_SelectedIndex == value)
+                if (_InputFileNameTokens_SelectedIndex == value)
                 {
                     return;
                 }
 
-                _Tags_SelectedIndex = value;
-                OnPropertyChanged("Tags_SelectedIndex");
+                _InputFileNameTokens_SelectedIndex = value;
+                OnPropertyChanged("InputFileNameTokens_SelectedIndex");
             }
         }
 
         // Selected Item
-        private string _Tags_SelectedItem { get; set; }
-        public string Tags_SelectedItem
+        private string _InputFileNameTokens_SelectedItem { get; set; }
+        public string InputFileNameTokens_SelectedItem
         {
-            get { return _Tags_SelectedItem; }
+            get { return _InputFileNameTokens_SelectedItem; }
             set
             {
-                if (_Tags_SelectedItem == value)
+                if (_InputFileNameTokens_SelectedItem == value)
                 {
                     return;
                 }
 
-                _Tags_SelectedItem = value;
-                OnPropertyChanged("Tags_SelectedItem");
+                _InputFileNameTokens_SelectedItem = value;
+                OnPropertyChanged("InputFileNameTokens_SelectedItem");
             }
         }
+
+
+        // --------------------------------------------------
+        // Output Filename Spacing
+        // --------------------------------------------------
+        // Items Source
+        private ObservableCollection<string> _OutputFileNameSpacing_Items = new ObservableCollection<string>()
+        {
+           "Original",
+           "Spaces",
+           "Periods",
+           "Dashes",
+           "Underscores"
+        };
+        public ObservableCollection<string> OutputFileNameSpacing_Items
+        {
+            get { return _OutputFileNameSpacing_Items; }
+            set
+            {
+                _OutputFileNameSpacing_Items = value;
+                OnPropertyChanged("OutputFileNameSpacing_Items");
+            }
+        }
+
+        // Selected Index
+        private int _OutputFileNameSpacing_SelectedIndex { get; set; }
+        public int OutputFileNameSpacing_SelectedIndex
+        {
+            get { return _OutputFileNameSpacing_SelectedIndex; }
+            set
+            {
+                if (_OutputFileNameSpacing_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _OutputFileNameSpacing_SelectedIndex = value;
+                OnPropertyChanged("OutputFileNameSpacing_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _OutputFileNameSpacing_SelectedItem { get; set; }
+        public string OutputFileNameSpacing_SelectedItem
+        {
+            get { return _OutputFileNameSpacing_SelectedItem; }
+            set
+            {
+                if (_OutputFileNameSpacing_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _OutputFileNameSpacing_SelectedItem = value;
+                OnPropertyChanged("OutputFileNameSpacing_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _OutputFileNameSpacing_IsEnabled = true;
+        public bool OutputFileNameSpacing_IsEnabled
+        {
+            get { return _OutputFileNameSpacing_IsEnabled; }
+            set
+            {
+                if (_OutputFileNameSpacing_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _OutputFileNameSpacing_IsEnabled = value;
+                OnPropertyChanged("OutputFileNameSpacing_IsEnabled");
+            }
+        }
+
 
         // --------------------------------------------------
         // Output File Overwrite
