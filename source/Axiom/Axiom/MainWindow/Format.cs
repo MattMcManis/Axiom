@@ -94,7 +94,15 @@ namespace Axiom
             // -------------------------
             // Update Ouput Textbox with current Format extension
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay(); 
+            if (!string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
+                VM.MainView.Batch_IsChecked == false &&
+                IsValidPath(VM.MainView.Output_Text) == true)
+            {
+                string outputDir = Path.GetDirectoryName(VM.MainView.Output_Text);
+                string outputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
+                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+            }
 
             // -------------------------
             // Force MediaTypeControls ComboBox to fire SelectionChanged Event
