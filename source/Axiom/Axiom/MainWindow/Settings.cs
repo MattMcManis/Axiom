@@ -825,6 +825,14 @@ namespace Axiom
         }
 
         /// <summary>
+        /// Input Filename Tokens - ComboBox
+        /// </summary>
+        private void cboInputFileNameTokens_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
         /// Shell - ComboBox
         /// </summary>
         private void cboShell_SelectionChanged(object sender, SelectionChangedEventArgs e)
