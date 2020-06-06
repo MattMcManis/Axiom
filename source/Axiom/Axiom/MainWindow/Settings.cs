@@ -293,6 +293,10 @@ namespace Axiom
         /// </summary>
         private void btnCustomPresetsAuto_Click(object sender, RoutedEventArgs e)
         {
+            CustomPresetsAuto();
+        }
+        public static void CustomPresetsAuto()
+        {
             // -------------------------
             // Display Folder Path in Textbox
             // -------------------------
@@ -862,6 +866,14 @@ namespace Axiom
         }
 
         /// <summary>
+        /// Shell
+        /// </summary>
+        private void btnShellDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.Shell_SelectedItem = "CMD";
+        }
+
+        /// <summary>
         /// Shell Title - ComboBox
         /// </summary>
         private void cboShellTitle_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -870,31 +882,26 @@ namespace Axiom
         }
 
         /// <summary>
+        /// Shell Title Default
+        /// </summary>
+        private void btnShellTitleDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.ShellTitle_SelectedItem = "Disabled";
+        }
+
+        /// <summary>
+        /// Process Priority Default
+        /// </summary>
+        private void btnProcessPriorityDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.ProcessPriority_SelectedItem = "Default";
+        }
+
+        /// <summary>
         /// Threads - ComboBox
         /// </summary>
         private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Custom ComboBox Editable
-            //if (VM.ConfigureView.Threads_SelectedItem == "Custom" || cboThreads.SelectedValue == null)
-            //{
-            //    cboThreads.IsEditable = true;
-            //}
-
-            // Other Items Disable Editable
-            //if (VM.ConfigureView.Threads_SelectedItem != "Custom" && cboThreads.SelectedValue != null)
-            //{
-            //    cboThreads.IsEditable = false;
-            //}
-
-            // Maintain Editable Combobox while typing
-            //if (cboThreads.IsEditable == true)
-            //{
-            //    cboThreads.IsEditable = true;
-
-            //    // Clear Custom Text
-            //    cboThreads.SelectedIndex = -1;
-            //}
-
             // Set the threads to pass to MainWindow
             Controls.Configure.threads = VM.ConfigureView.Threads_SelectedItem;
         }
@@ -906,6 +913,13 @@ namespace Axiom
             Allow_Only_Number_Keys(e);
         }
 
+        /// <summary>
+        /// Threads Default
+        /// </summary>
+        private void btnThreadsDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.Threads_SelectedItem = "Optimal";
+        }
 
         /// <summary>
         /// Output Naming ListView
@@ -954,7 +968,7 @@ namespace Axiom
             // -------------------------
             // Update Ouput Textbox with Name Settings
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
         /// <summary>
@@ -1025,6 +1039,10 @@ namespace Axiom
             // Deselect All
             lstvOutputNaming.SelectedIndex = -1;
 
+            OutputNamignDefaults();
+        }
+        public static void OutputNamignDefaults()
+        {
             // Clear Selected Items
             if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
             {
@@ -1034,99 +1052,6 @@ namespace Axiom
 
             // Load Defaults
             VM.ConfigureView.OutputNaming_ListView_Items = ViewModel.Configure.OutputNaming_LoadDefaults();
-        }
-
-
-        /// <summary>
-        /// Theme Select - ComboBox
-        /// </summary>
-        private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Controls.Configure.theme = VM.ConfigureView.Theme_SelectedItem;
-
-            // Change Theme Resource
-            App.Current.Resources.MergedDictionaries.Clear();
-            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("Themes/" + "Theme" + Controls.Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-            });
-        }
-
-
-        /// <summary>
-        /// Updates Auto Check - Checked
-        /// </summary>
-        private void tglUpdateAutoCheck_Checked(object sender, RoutedEventArgs e)
-        {
-            // Update Toggle Text
-            VM.ConfigureView.UpdateAutoCheck_Text = "On";
-        }
-        /// <summary>
-        /// Updates Auto Check - Unchecked
-        /// </summary>
-        private void tglUpdateAutoCheck_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Update Toggle Text
-            VM.ConfigureView.UpdateAutoCheck_Text = "Off";
-        }
-
-
-        // --------------------------------------------------
-        // Reset Saved Settings - Button
-        // --------------------------------------------------
-        private void btnResetConfig_Click(object sender, RoutedEventArgs e)
-        {
-            // Check if Directory Exists
-            if (File.Exists(Controls.Configure.configFile))
-            {
-                // Show Yes No Window
-                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
-                                                                "Delete " + Controls.Configure.configFile,
-                                                                "Delete Directory Confirm",
-                                                                System.Windows.Forms.MessageBoxButtons.YesNo);
-
-                // Yes
-                if (dialogResult == System.Windows.Forms.DialogResult.Yes)
-                {
-                    try
-                    {
-                        if (File.Exists(Controls.Configure.configFile))
-                        {
-                            File.Delete(Controls.Configure.configFile);
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-
-                    // Load Defaults
-                    VM.ConfigureView.LoadConfigDefaults();
-                    VM.MainView.LoadControlsDefaults();
-                    VM.FormatView.LoadControlsDefaults();
-                    VM.VideoView.LoadControlsDefaults();
-                    VM.SubtitleView.LoadControlsDefaults();
-                    VM.AudioView.LoadControlsDefaults();
-
-                    // Restart Program
-                    Process.Start(Application.ResourceAssembly.Location);
-                    Application.Current.Shutdown();
-                }
-                // No
-                else if (dialogResult == System.Windows.Forms.DialogResult.No)
-                {
-                    //do nothing
-                }
-            }
-
-            // If Axiom Folder Not Found
-            else
-            {
-                MessageBox.Show("Config file " + Controls.Configure.configFile + " not Found.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-            }
         }
 
 
@@ -1188,39 +1113,155 @@ namespace Axiom
         }
 
 
-        private void btnShellDefault_Click(object sender, RoutedEventArgs e)
-        {
-            VM.ConfigureView.Shell_SelectedItem = "CMD";
-        }
-
-        private void btnShellTitleDefault_Click(object sender, RoutedEventArgs e)
-        {
-            VM.ConfigureView.ShellTitle_SelectedItem = "Disabled";
-        }
-
-        private void btnProcessPriorityDefault_Click(object sender, RoutedEventArgs e)
-        {
-            VM.ConfigureView.ProcessPriority_SelectedItem = "Default";
-        }
-
-        private void btnThreadsDefault_Click(object sender, RoutedEventArgs e)
-        {
-            VM.ConfigureView.Threads_SelectedItem = "Optimal";
-        }
-
+        /// <summary>
+        /// Input FileName Tokens Default
+        /// </summary>
         private void btnInputFileNameTokensDefault_Click(object sender, RoutedEventArgs e)
         {
             VM.ConfigureView.InputFileNameTokens_SelectedItem = "Keep";
         }
 
+
+        /// <summary>
+        /// Output Overwrite Default
+        /// </summary>
         private void btnOutputOverwriteDefault_Click(object sender, RoutedEventArgs e)
         {
             VM.ConfigureView.OutputOverwrite_SelectedItem = "Always";
         }
 
-        private void btnOutputFileNameSpacing_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Output FileName Spacing
+        /// </summary>
+        private void btnOutputFileNameSpacingDefault_Click(object sender, RoutedEventArgs e)
         {
             VM.ConfigureView.OutputFileNameSpacing_SelectedItem = "Original";
+        }
+
+
+        /// <summary>
+        /// Theme Select - ComboBox
+        /// </summary>
+        private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Controls.Configure.theme = VM.ConfigureView.Theme_SelectedItem;
+
+            // Change Theme Resource
+            App.Current.Resources.MergedDictionaries.Clear();
+            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("Themes/" + "Theme" + Controls.Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+            });
+        }
+
+
+        /// <summary>
+        /// Updates Auto Check - Checked
+        /// </summary>
+        private void tglUpdateAutoCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            // Update Toggle Text
+            VM.ConfigureView.UpdateAutoCheck_Text = "On";
+        }
+        /// <summary>
+        /// Updates Auto Check - Unchecked
+        /// </summary>
+        private void tglUpdateAutoCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Update Toggle Text
+            VM.ConfigureView.UpdateAutoCheck_Text = "Off";
+        }
+
+
+        /// <summary>
+        /// Settings Default
+        /// </summary>
+        /// <remarks>
+        /// Set all settings to their defaults.
+        /// </remarks>
+        private void btnSettingsDefault_Click(object sender, RoutedEventArgs e)
+        {
+            // Config
+            CustomPresetsAuto();
+            VM.ConfigureView.FFmpegPath_Text = "<auto>";
+            VM.ConfigureView.FFprobePath_Text = "<auto>";
+            VM.ConfigureView.FFplayPath_Text = "<auto>";
+            VM.ConfigureView.youtubedlPath_Text = "<auto>";
+            VM.ConfigureView.LogCheckBox_IsChecked = false;
+            VM.ConfigureView.LogPath_Text = Log.logDir;
+
+            // Process
+            VM.ConfigureView.Shell_SelectedItem = "CMD";
+            VM.ConfigureView.ShellTitle_SelectedItem = "Disabled";
+            VM.ConfigureView.ProcessPriority_SelectedItem = "Default";
+            VM.ConfigureView.Threads_SelectedItem = "Optimal";
+
+            // Input
+            VM.ConfigureView.InputFileNameTokens_SelectedItem = "Keep";
+
+            // Output
+            VM.ConfigureView.OutputOverwrite_SelectedItem = "Always";
+            VM.ConfigureView.OutputFileNameSpacing_SelectedItem = "Original";
+            lstvOutputNaming.SelectedIndex = -1;
+            OutputNamignDefaults();
+        }
+
+        /// <summary>
+        /// Reset Settings Button
+        /// </summary>
+        private void btnResetConfig_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if Directory Exists
+            if (File.Exists(Controls.Configure.configFile))
+            {
+                // Show Yes No Window
+                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
+                                                                "Delete " + Controls.Configure.configFile,
+                                                                "Delete Directory Confirm",
+                                                                System.Windows.Forms.MessageBoxButtons.YesNo);
+
+                // Yes
+                if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        if (File.Exists(Controls.Configure.configFile))
+                        {
+                            File.Delete(Controls.Configure.configFile);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    // Load Defaults
+                    VM.ConfigureView.LoadConfigDefaults();
+                    VM.MainView.LoadControlsDefaults();
+                    VM.FormatView.LoadControlsDefaults();
+                    VM.VideoView.LoadControlsDefaults();
+                    VM.SubtitleView.LoadControlsDefaults();
+                    VM.AudioView.LoadControlsDefaults();
+
+                    // Restart Program
+                    Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
+                }
+                // No
+                else if (dialogResult == System.Windows.Forms.DialogResult.No)
+                {
+                    //do nothing
+                }
+            }
+
+            // If Axiom Folder Not Found
+            else
+            {
+                MessageBox.Show("Config file " + Controls.Configure.configFile + " not Found.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
         }
     }
 }
