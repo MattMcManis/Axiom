@@ -216,7 +216,10 @@ namespace Axiom
                             //}
 
                             // Update Output TextBox Display
-                            VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                            if (!string.IsNullOrEmpty(outputDir))
+                            {
+                                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                            }
 
                             // Save Previous Path
                             if (File.Exists(Controls.Configure.configFile))
@@ -396,12 +399,12 @@ namespace Axiom
                     // Default
                     if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                     {
-                        output = Path.Combine(outputDir, outputFileName + outputExt);
+                        output = Path.Combine(outputDir, OutputFileNameSpacing(outputFileName) + outputExt);
                     }
                     // Output Name Tokens
                     else
                     {
-                        output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
+                        output = Path.Combine(outputDir, OutputFileNameSpacing(outputFileName_Tokens) + outputExt);
                     }
                     break;
 
@@ -1309,18 +1312,8 @@ namespace Axiom
         public static String TagRemover(string filename)
         {
             // Remove
-            if (VM.ConfigureView.Tags_SelectedItem == "Remove")
+            if (VM.ConfigureView.InputFileNameTokens_SelectedItem == "Remove")
             {
-                // Spacing
-                // Remove period spacing
-                filename = Regex.Replace(filename, @"(?<!\.)\.(?!\.)", " ");
-                // Remove dash spacing, preserve hyphens
-                filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
-                // Multiple dashes to single dash
-                filename = Regex.Replace(filename, "[-]{2,}", "");
-                // Underscore Spacing
-                filename = Regex.Replace(filename, "_", " ");
-
                 // Containers
                 List<string> formatsList = Generate.Format.VideoFormats
                                            .Concat(Generate.Format.AudioFormats)
@@ -1407,14 +1400,15 @@ namespace Axiom
                                 @")\b";
 
                 // FPS
-                string fps = @"\b\s?(" + string.Join("|", VM.VideoView.Video_FPS_Items
-                                                             .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
-                                                             .Where(s => !s.Equals("auto"))
-                                                             .Where(s => !s.Equals("Custom"))
-                                                             .OrderByDescending(x => x)
-                                                             .ToList()
-                                                        ) +
-                                @")\b";
+                string fps = @"\b\s?(\d+.?\d+?\s?fps)\b";
+                //string fps = @"\b\s?(" + string.Join("|", VM.VideoView.Video_FPS_Items
+                //                                             .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
+                //                                             .Where(s => !s.Equals("auto"))
+                //                                             .Where(s => !s.Equals("Custom"))
+                //                                             .OrderByDescending(x => x)
+                //                                             .ToList()
+                //                                        ) +
+                //                @")fps?\b";
 
                 // Subtitles
                 string subtitles1 = @"\b\s?((English|Eng|Arabic|Ara|Bengali|Ben|Chinese|Chn|Chi|Dutch|Dut|Finnish|Fin|French|Fre|German|Ger|De|Hindi|Hin|Italian|Ita|Japanese|Jap|Korean|Kor|Portuguese|Por|Russian|Rus|Spanish|Spa|Swedish|Swe|Vietnamese|Vie)[\-\s]?(Subtitles|Subtitle|Subs|Sub))\b";
@@ -1479,6 +1473,18 @@ namespace Axiom
                     RegexOptions.IgnoreCase
                 );
 
+                // Spacing
+                // Remove period spacing
+                //filename = Regex.Replace(filename, @"(?<!\.)\.(?!\.)", " "); //problem with decimals
+                // Remove multiple periods
+                filename = Regex.Replace(filename, "[.]{2,}", "");
+                // Remove dash spacing, preserve hyphens
+                filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
+                // Multiple dashes to single dash
+                filename = Regex.Replace(filename, "[-]{2,}", "-");
+                // Remove Underscore Spacing
+                filename = Regex.Replace(filename, "_", " ");
+
                 //// Log Console Message /////////
                 //Log.WriteAction = () =>
                 //{
@@ -1495,6 +1501,31 @@ namespace Axiom
             else
             {
                 return filename;
+            }
+        }
+
+
+        /// <summary>
+        /// Output Filename Spacing (Method)
+        /// </summary>
+        public static String OutputFileNameSpacing(string filename)
+        {
+            switch (VM.ConfigureView.OutputFileNameSpacing_SelectedItem)
+            {
+                case "Original":
+                    return filename;
+
+                case "Periods":
+                    return Regex.Replace(filename, " ", ".");
+
+                case "Dashes":
+                    return Regex.Replace(filename, " ", "-");
+
+                case "Underscores":
+                    return Regex.Replace(filename, " ", "_");
+
+                default:
+                    return filename;
             }
         }
 
