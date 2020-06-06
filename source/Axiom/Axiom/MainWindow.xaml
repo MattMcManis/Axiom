@@ -5931,23 +5931,23 @@
                                        Height="26"
                                        Grid.Column="1" />
 
-                                <!-- Tags -->
+                                <!-- Input Filename Tokens -->
                                 <Label Style="{DynamicResource LabelStyle}"
-                                       Content="Tags"
+                                       Content="Tokens"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Height="26"
                                        ToolTipService.InitialShowDelay="500"
                                        ToolTipService.ShowOnDisabled="True"
-                                       ToolTip="Keep or Remove Input Filename Tags (e.g. 1080p x264 DD7.1)"
+                                       ToolTip="Keep or Remove Input Filename Tokens (e.g. 1080p x264 DD7.1)"
                                        Grid.Row="1"
                                        Grid.Column="1"
                                        Width="56" />
-                                <ComboBox x:Name="cboTags"
-                                          ItemsSource="{Binding Tags_Items}"
-                                          SelectedIndex="{Binding Tags_SelectedIndex}"
-                                          SelectedItem="{Binding Tags_SelectedItem}"
-                                          IsEnabled="{Binding Tags_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                <ComboBox x:Name="cboInputFileNameTokens"
+                                          ItemsSource="{Binding InputFileNameTokens_Items}"
+                                          SelectedIndex="{Binding InputFileNameTokens_SelectedIndex}"
+                                          SelectedItem="{Binding InputFileNameTokens_SelectedItem}"
+                                          IsEnabled="{Binding InputFileNameTokens_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Style="{DynamicResource ComboBoxStyle}"
                                           ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                           HorizontalAlignment="Left"
@@ -5957,7 +5957,7 @@
                                           Grid.Column="2"
                                           Grid.Row="1"
                                           Margin="10,2,0,0"
-                                          SelectionChanged="cboTags_SelectionChanged" />
+                                          SelectionChanged="cboInputFileNameTokens_SelectionChanged" />
                                 
                             </Grid>
 
@@ -5974,8 +5974,9 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="33" />
-                                    <RowDefinition Height="215" />
                                     <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="215" />
                                     <RowDefinition Height="22" />
                                 </Grid.RowDefinitions>
 
@@ -5999,7 +6000,7 @@
                                        ToolTipService.InitialShowDelay="500"
                                        ToolTipService.ShowOnDisabled="True"
                                        ToolTip="Add these settings to the output filename."
-                                       Grid.Row="1"
+                                       Grid.Row="3"
                                        Grid.Column="1"
                                        Width="54" />
                                 <!-- Tokens List -->
@@ -6017,7 +6018,7 @@
                                           SelectionChanged="lstvOutputNaming_SelectionChanged"
                                           ToolTipService.InitialShowDelay="500"
                                           ToolTipService.ShowOnDisabled="True"
-                                          Grid.Row="1"
+                                          Grid.Row="3"
                                           Grid.Column="1"
                                           Grid.ColumnSpan="2">
 
@@ -6058,7 +6059,7 @@
                                         HorizontalAlignment="Left"
                                         Width="22"
                                         Grid.Column="2"
-                                        Grid.Row="1">
+                                        Grid.Row="3">
                                     <TextBlock Text="▴"
                                                Margin="0,-2,0,0" />
                                 </Button>
@@ -6074,7 +6075,7 @@
                                         Click="btnOutputNaming_SortDown_Click"
                                         Margin="120,58,0,0"
                                         Grid.Column="2"
-                                        Grid.Row="1">
+                                        Grid.Row="3">
                                     <TextBlock Text="▾"
                                                Margin="0,0,0,0" />
                                 </Button>
@@ -6090,7 +6091,7 @@
                                         Click="btnOutputNaming_SelectAll_Click"
                                         Margin="120,85,0,0"
                                         Grid.Column="2"
-                                        Grid.Row="1"
+                                        Grid.Row="3"
                                         ToolTipService.InitialShowDelay="500"
                                         ToolTipService.ShowOnDisabled="True"
                                         ToolTip="Select All">
@@ -6110,7 +6111,7 @@
                                         Click="btnOutputNaming_DeselectAll_Click"
                                         Margin="120,112,0,0"
                                         Grid.Column="2"
-                                        Grid.Row="1"
+                                        Grid.Row="3"
                                         ToolTipService.InitialShowDelay="500"
                                         ToolTipService.ShowOnDisabled="True"
                                         ToolTip="Deselect All">
@@ -6128,7 +6129,7 @@
                                         Click="btnOutputNamingDefaults_Click"
                                         Style="{DynamicResource ButtonNavigationStyle}"
                                         Grid.Column="2"
-                                        Grid.Row="1"
+                                        Grid.Row="3"
                                         ToolTipService.InitialShowDelay="200"
                                         ToolTipService.ShowOnDisabled="True"
                                         ToolTip="Load Default Positions and Selections">
@@ -6141,6 +6142,33 @@
                                            Style="{DynamicResource ButtonRevertArrow}" />
                                 </Button>
 
+                                <!-- Spacing -->
+                                <Label Style="{DynamicResource LabelStyle}"
+                                       Content="Spacing"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Height="26"
+                                       ToolTipService.InitialShowDelay="500"
+                                       ToolTipService.ShowOnDisabled="True"
+                                       ToolTip="Output filename spacing (e.g. My.File.x264.mp4)"
+                                       Grid.Row="2"
+                                       Grid.Column="1"
+                                       Width="68" />
+                                <ComboBox x:Name="cboOutputFileNameSpacing"
+                                          ItemsSource="{Binding OutputFileNameSpacing_Items}"
+                                          SelectedIndex="{Binding OutputFileNameSpacing_SelectedIndex}"
+                                          SelectedItem="{Binding OutputFileNameSpacing_SelectedItem}"
+                                          IsEnabled="{Binding OutputFileNameSpacing_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Style="{DynamicResource ComboBoxStyle}"
+                                          ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          Width="105"
+                                          IsTextSearchEnabled="False"
+                                          Grid.Column="2"
+                                          Grid.Row="2"
+                                          Margin="10,2,0,0" />
+                                
                                 <!-- Overwrite -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Overwrite"
@@ -6150,7 +6178,7 @@
                                        ToolTipService.InitialShowDelay="500"
                                        ToolTipService.ShowOnDisabled="True"
                                        ToolTip="Overwrite output file if it already exists."
-                                       Grid.Row="2"
+                                       Grid.Row="1"
                                        Grid.Column="1"
                                        Width="68" />
                                 <ComboBox x:Name="cboOutputOverwrite"
@@ -6165,7 +6193,7 @@
                                           Width="105"
                                           IsTextSearchEnabled="False"
                                           Grid.Column="2"
-                                          Grid.Row="2"
+                                          Grid.Row="1"
                                           Margin="10,2,0,0" />
                             </Grid>
 
