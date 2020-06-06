@@ -28,7 +28,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * Images
 ---------------------------------- */
 
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -116,7 +115,6 @@ namespace Generate
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
                 }
-
 
                 return frame;
             }
