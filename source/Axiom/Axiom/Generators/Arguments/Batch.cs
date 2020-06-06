@@ -231,7 +231,7 @@ namespace Generate
                                 "\r\n" + 
                                 "$inputName = $f.Name" + ";", // capture name + extension to variable
                                 "\r\n" +
-                                "$outputName = (Get-Item $inputName).Basename" + ";", // capture name only, remove extension
+                                "$outputName = (Get-Item $fullName).Basename" + ";", // capture name only, remove extension
                                 "\r\n" +
                                 vBitRateBatch, // capture video bitrate to variable
                                 "\r\n" +
