@@ -1187,5 +1187,40 @@ namespace Axiom
             return Controls.Configure.threads;
         }
 
+
+        private void btnShellDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.Shell_SelectedItem = "CMD";
+        }
+
+        private void btnShellTitleDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.ShellTitle_SelectedItem = "Disabled";
+        }
+
+        private void btnProcessPriorityDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.ProcessPriority_SelectedItem = "Default";
+        }
+
+        private void btnThreadsDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.Threads_SelectedItem = "Optimal";
+        }
+
+        private void btnInputFileNameTokensDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.InputFileNameTokens_SelectedItem = "Keep";
+        }
+
+        private void btnOutputOverwriteDefault_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.OutputOverwrite_SelectedItem = "Always";
+        }
+
+        private void btnOutputFileNameSpacing_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ConfigureView.OutputFileNameSpacing_SelectedItem = "Original";
+        }
     }
 }
