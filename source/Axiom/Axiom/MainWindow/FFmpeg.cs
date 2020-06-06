@@ -44,63 +44,65 @@ namespace Axiom
             int count = 0;
             await Task.Factory.StartNew(() =>
             {
-                // -------------------------
-                // Local File
-                // -------------------------
-                if (IsWebURL(VM.MainView.Input_Text) == false)
+                switch (VM.MainView.Batch_IsChecked)
                 {
                     // -------------------------
                     // Single
                     // -------------------------
-                    if (VM.MainView.Batch_IsChecked == false)
-                    {
-                        // -------------------------
-                        // FFprobe Detect Metadata
-                        // -------------------------
-                        Analyze.FFprobe.Metadata();
+                    case false:
+                        switch (IsWebURL(VM.MainView.Input_Text))
+                        {
+                            // -------------------------
+                            // Local File
+                            // -------------------------
+                            case false:
+                                // FFprobe Detect Metadata
+                                Analyze.FFprobe.Metadata();
 
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Single)
-                        // -------------------------
-                        // disabled if batch
-                        Generate.FFmpeg.Generate_SingleArgs();
-                    }
+                                // Generate Single File FFmpeg Arguments
+                                Generate.FFmpeg.Generate_SingleArgs();
+                                break;
+
+                            // -------------------------
+                            // Web URL
+                            // -------------------------
+                            case true:
+                                // Generate YouTube-DL Arguments
+                                // Do not use FFprobe Metadata Parsing
+                                // Video/Audio Auto Quality will add BitRate
+                                Generate.FFmpeg.YouTubeDL.Generate_FFmpegArgs();
+                                break;
+                        }
+                        break;
 
                     // -------------------------
                     // Batch
                     // -------------------------
-                    else if (VM.MainView.Batch_IsChecked == true)
-                    {
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        Analyze.FFprobe.VideoEntryType();
+                    case true:
+                        switch (IsWebURL(VM.MainView.Input_Text))
+                        {
+                            // -------------------------
+                            // Local File
+                            // -------------------------
+                            case false:
+                                // FFprobe Video Entry Type Containers
+                                Analyze.FFprobe.VideoEntryType();
 
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        Analyze.FFprobe.AudioEntryType();
+                                // FFprobe Video Entry Type Containers
+                                Analyze.FFprobe.AudioEntryType();
 
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Batch)
-                        // -------------------------
-                        //disabled if single file
-                        Generate.FFmpeg.Batch.Generate_FFmpegArgs();
-                    }
-                }
+                                // Generate Batch FFmpeg Arguments
+                                Generate.FFmpeg.Batch.Generate_FFmpegArgs();
+                                break;
 
-                // -------------------------
-                // YouTube Download
-                // -------------------------
-                else if (IsWebURL(VM.MainView.Input_Text) == true)
-                {
-                    // -------------------------
-                    // Generate Arguments
-                    // -------------------------
-                    // Do not use FFprobe Metadata Parsing
-                    // Video/Audio Auto Quality will add BitRate
-                    //Generate.FFmpeg.YouTubeDownloadGenerateArgs();
-                    Generate.FFmpeg.YouTubeDL.Generate_FFmpegArgs();
+                            // -------------------------
+                            // Web URL
+                            // -------------------------
+                            case true:
+                                // Does not apply
+                                break;
+                        }
+                        break;
                 }
             });
 
@@ -170,19 +172,17 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("..............................................."))
+                    { Foreground = Log.ConsoleAction });
 
-                    // Log Console Message /////////
                     DateTime localDate = DateTime.Now;
-
-                    // Log Console Message /////////
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Starting Conversion...")) { Foreground = Log.ConsoleTitle });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Initializing...")) { Foreground = Log.ConsoleTitle });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -228,22 +228,21 @@ namespace Axiom
             // -------------------------
             // Update Output TextBox
             // -------------------------
-            // Single file
-            if (VM.MainView.Batch_IsChecked == false)
+            switch (VM.MainView.Batch_IsChecked)
             {
-                if (!string.IsNullOrWhiteSpace(outputDir))
-                {
-                    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
-                }
-            }
+                // Single file
+                case false:
+                    if (!string.IsNullOrWhiteSpace(outputDir))
+                    {
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+                    }
+                    break;
 
-            // Batch
-            if (VM.MainView.Batch_IsChecked == true)
-            {
-                VM.MainView.Output_Text = outputDir;
+                // Batch
+                case true:
+                    VM.MainView.Output_Text = outputDir;
+                    break;
             }
-
-            //VM.MainView.Output_Text = output;
         }
 
 
