@@ -45,7 +45,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
 
             // -------------------------
             // Convert Button Text Change
@@ -230,7 +230,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
         private void cboVideo_Pass_DropDownClosed(object sender, EventArgs e)
         {
@@ -296,7 +296,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
 
             // -------------------------
             // Set Audio Codec Combobox to "Copy" if 
@@ -329,7 +329,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
 
         }
         // TextBox Key Down
@@ -436,7 +436,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
@@ -477,7 +477,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
         // Speed Custom KeyDown
@@ -866,7 +866,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
@@ -1344,7 +1344,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
