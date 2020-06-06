@@ -510,6 +510,21 @@ namespace Axiom
                     {
                         // Set Output Directory to be same as Input Directory
                         outputDir = inputDir.TrimEnd('\\') + @"\";
+
+                        switch (VM.ConfigureView.Shell_SelectedItem)
+                        {
+                            case "CMD":
+                                outputFileName = "%~nf";
+                                break;
+
+                            case "PowerShell":
+                                outputFileName = "$outputName";
+                                break;
+
+                            default:
+                                outputFileName = "%~nf";
+                                break;
+                        }
                     }
 
                     // Output TextBox has Text
@@ -517,6 +532,21 @@ namespace Axiom
                     {
                         // e.g. C:\Output\Path\
                         outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+
+                        switch (VM.ConfigureView.Shell_SelectedItem)
+                        {
+                            case "CMD":
+                                outputFileName = "%~nf";
+                                break;
+
+                            case "PowerShell":
+                                outputFileName = "$outputName";
+                                break;
+
+                            default:
+                                outputFileName = "%~nf";
+                                break;
+                        }
                     }
                     break;
 
@@ -531,12 +561,13 @@ namespace Axiom
                                     "Notice",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
-                    break;
+                    return;
             }
 
             // Output
             // eg. C:\Users\Example\Videos\
-            output = outputDir;
+            //output = outputDir;
+            output = Path.Combine(outputDir, outputFileName + outputExt);
         }
 
 
