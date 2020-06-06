@@ -385,23 +385,30 @@ namespace Controls
                 }
             }
 
-            // Tags
-            string tags_SelectedItem = conf.Read("Settings", "Tags_SelectedItem");
-            if (!string.IsNullOrWhiteSpace(tags_SelectedItem))
+            // Input Filename Tokens
+            string inputFileNameTokens_SelectedItem = conf.Read("Settings", "InputFileNameTokens_SelectedItem");
+            if (!string.IsNullOrWhiteSpace(inputFileNameTokens_SelectedItem))
             {
                 // Legacy Values Fix
-                switch (tags_SelectedItem)
+                switch (inputFileNameTokens_SelectedItem)
                 {
                     case "Job":
-                        VM.ConfigureView.Tags_SelectedItem = "Filename";
+                        VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename";
                         break;
                     case "Job+Tokens":
-                        VM.ConfigureView.Tags_SelectedItem = "Filename+Tokens";
+                        VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename+Tokens";
                         break;
                     default:
-                        VM.ConfigureView.Tags_SelectedItem = tags_SelectedItem;
+                        VM.ConfigureView.InputFileNameTokens_SelectedItem = inputFileNameTokens_SelectedItem;
                         break;
                 }
+            }
+
+            // Spacing
+            string outputFileNameSpacing_SelectedItem = conf.Read("Settings", "OutputFileNameSpacing_SelectedItem");
+            if (!string.IsNullOrWhiteSpace(outputFileNameSpacing_SelectedItem))
+            {
+                VM.ConfigureView.OutputFileNameSpacing_SelectedItem = outputFileNameSpacing_SelectedItem;
             }
 
             // Output File Overwrite
@@ -571,7 +578,10 @@ namespace Controls
                     conf.Write("Settings", "OutputNaming_SelectedItems", outputNaming_SelectedItems);
 
                     // Tags
-                    conf.Write("Settings", "Tags_SelectedItem", VM.ConfigureView.Tags_SelectedItem);
+                    conf.Write("Settings", "InputFileNameTokens_SelectedItem", VM.ConfigureView.InputFileNameTokens_SelectedItem);
+
+                    // Spacing
+                    conf.Write("Settings", "OutputFileNameSpacing_SelectedItem", VM.ConfigureView.OutputFileNameSpacing_SelectedItem);
 
                     // Output File Overwrite
                     conf.Write("Settings", "OutputOverwrite_SelectedItem", VM.ConfigureView.OutputOverwrite_SelectedItem);
