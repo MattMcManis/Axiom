@@ -123,7 +123,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
@@ -135,7 +135,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
@@ -177,7 +177,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
 
             // -------------------------
             // Set Video and AudioCodec Combobox to "Copy" if 
@@ -195,7 +195,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
         // Unchecked
         private void tglAudio_VBR_Unchecked(object sender, RoutedEventArgs e)
@@ -296,7 +296,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
@@ -313,7 +313,7 @@ namespace Axiom
             // -------------------------
             // Output Path Update Display
             // -------------------------
-            OutputPath_UpdateDisplay();
+            //OutputPath_UpdateDisplay();
         }
 
 
