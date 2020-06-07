@@ -142,7 +142,7 @@ namespace Axiom
                         {
                             // Set Output to same as Input
                             saveFile.InitialDirectory = inputDir;
-                            saveFile.FileName = TagRemover(
+                            saveFile.FileName = TokenRemover(
                                                         FileRenamer(inputDir, // comparision
                                                             inputDir,      // comparision
                                                             inputFileName, // comparision
@@ -193,7 +193,7 @@ namespace Axiom
                         {
                             // Set Output to Dialog Window entered
                             outputDir = Path.GetDirectoryName(Path.Combine(saveFile.InitialDirectory, saveFile.FileName + outputExt));
-                            outputFileName_Original = TagRemover(Path.GetFileNameWithoutExtension(saveFile.FileName));
+                            outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(saveFile.FileName));
 
                             // -------------------------
                             // Update Output TextBox
@@ -204,7 +204,7 @@ namespace Axiom
                             //{
                             //    // Display Path+File+Ext in Output Textbox
                             //    outputFileName = outputFileName_Original;
-                            //    //outputFileName = TagRemover(Path.GetFileNameWithoutExtension(outputFileName_Original));
+                            //    //outputFileName = TokenRemover(Path.GetFileNameWithoutExtension(outputFileName_Original));
                             //}
                             //// Output Name Tokens
                             //else
@@ -212,7 +212,7 @@ namespace Axiom
                             //    // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
                             //    // Use Token Remover to remove tokens on Input files that already have Tokens
                             //    // To prevent Tokens from doubling up
-                            //    outputFileName_Tokens = FileNameAddTokens(TagRemover(outputFileName_Original));
+                            //    outputFileName_Tokens = FileNameAddTokens(TokenRemover(outputFileName_Original));
                             //}
 
                             // Update Output TextBox Display
@@ -332,7 +332,7 @@ namespace Axiom
                         outputDir = inputDir;
 
                         // Original File Name
-                        outputFileName_Original = TagRemover(inputFileName);
+                        outputFileName_Original = TokenRemover(inputFileName);
 
                         // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
                         // Use Token Remover to remove tokens on Input files that already have Tokens
@@ -366,7 +366,7 @@ namespace Axiom
                         // To prevent Tokens from doubling up
                         if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                         {
-                            outputFileName_Tokens = FileNameAddTokens(TagRemover(outputFileName_Original));
+                            outputFileName_Tokens = FileNameAddTokens(TokenRemover(outputFileName_Original));
                             outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                                 outputDir,     // comparision
                                                                 inputFileName, // comparision
@@ -378,7 +378,7 @@ namespace Axiom
                         outputFileName = FileRenamer(inputDir,      // comparision
                                                      outputDir,     // comparision
                                                      inputFileName, // comparision
-                                                     TagRemover(outputFileName_Original) // comparison / name to change
+                                                     TokenRemover(outputFileName_Original) // comparison / name to change
                                                     );
                     }
 
@@ -444,7 +444,7 @@ namespace Axiom
                         // e.g. C:\Output\Path\
                         outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
                         // e.g. C:\Output\Path\MyFile.mp4
-                        outputFileName = TagRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+                        outputFileName = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
                         // Set Original Name
                         outputFileName_Original = outputFileName;
                         // Disable Tokens
@@ -606,7 +606,7 @@ namespace Axiom
         /// </summary>
         private void tbxOutput_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            outputFileName_Original = TagRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+            outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
 
             //// Output Name Token Remover
             //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() &&
@@ -633,7 +633,7 @@ namespace Axiom
             var text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
 
             // Save Output File Name
-            outputFileName_Original = TagRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+            outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
         }
 
         /// <summary>
@@ -651,7 +651,7 @@ namespace Axiom
             VM.MainView.Output_Text = buffer.First();
 
             // Save Output File Name
-            outputFileName_Original = TagRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+            outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
         }
 
 
@@ -1176,7 +1176,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Output Path Update Display (Method)
+        /// Output Naming Defaults
         /// </summary>
         public static List<string> outputNaming_Defaults = new List<string>()
         {
@@ -1205,6 +1205,10 @@ namespace Axiom
             "Sample Rate",
             "Bit Depth"
         };
+
+        /// <summary>
+        /// Output Path Update Display (Method)
+        /// </summary>
         public static void OutputPath_UpdateDisplay()
         {
             // -------------------------
@@ -1258,7 +1262,7 @@ namespace Axiom
                     outputFileName = FileRenamer(inputDir,      // comparision
                                                  outputDir,     // comparision
                                                  inputFileName, // comparision
-                                                 TagRemover(outputFileName) // comparison / name to change
+                                                 TokenRemover(outputFileName) // comparison / name to change
                                                 );
                 }
 
@@ -1272,7 +1276,7 @@ namespace Axiom
                         outputFileName = FileRenamer(inputDir,               // comparision
                                                      outputDir,              // comparision
                                                      inputFileName,          // comparision
-                                                     TagRemover(outputFileName_Original) // comparison / name to change
+                                                     TokenRemover(outputFileName_Original) // comparison / name to change
                                                     );
                     }
                     // Web URL
@@ -1309,7 +1313,7 @@ namespace Axiom
                 {
                     // Use Token Remover to remove tokens on Input files that already have Tokens
                     // To prevent Tokens from doubling up
-                    outputFileName_Tokens = FileNameAddTokens(TagRemover(inputFileName));
+                    outputFileName_Tokens = FileNameAddTokens(TokenRemover(inputFileName));
                     outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                         outputDir,     // comparision
                                                         inputFileName, // comparision
@@ -1323,7 +1327,7 @@ namespace Axiom
                 {
                     // Use Token Remover to remove tokens on Input files that already have Tokens
                     // To prevent Tokens from doubling up
-                    outputFileName_Tokens = FileNameAddTokens(TagRemover(TagRemover(outputFileName_Original)));
+                    outputFileName_Tokens = FileNameAddTokens(TokenRemover(TokenRemover(outputFileName_Original)));
                     outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                         outputDir,     // comparision
                                                         inputFileName, // comparision
@@ -1342,9 +1346,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Tag Remover (Method)
+        /// Token Remover (Method)
         /// </summary>
-        public static String TagRemover(string filename)
+        public static String TokenRemover(string filename)
         {
             // Remove
             if (VM.ConfigureView.InputFileNameTokens_SelectedItem == "Remove")
@@ -1436,33 +1440,47 @@ namespace Axiom
 
                 // FPS
                 string fps = @"\b\s?(\d+.?\d+?\s?fps)\b";
-                //string fps = @"\b\s?(" + string.Join("|", VM.VideoView.Video_FPS_Items
-                //                                             .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
-                //                                             .Where(s => !s.Equals("auto"))
-                //                                             .Where(s => !s.Equals("Custom"))
-                //                                             .OrderByDescending(x => x)
-                //                                             .ToList()
-                //                                        ) +
-                //                @")fps?\b";
 
                 // Subtitles
                 string subtitles1 = @"\b\s?((English|Eng|Arabic|Ara|Bengali|Ben|Chinese|Chn|Chi|Dutch|Dut|Finnish|Fin|French|Fre|German|Ger|De|Hindi|Hin|Italian|Ita|Japanese|Jap|Korean|Kor|Portuguese|Por|Russian|Rus|Spanish|Spa|Swedish|Swe|Vietnamese|Vie)[\-\s]?(Subtitles|Subtitle|Subs|Sub))\b";
-                string subtitles2 = @"\b\s?((Subtitles|Subtitle|Subs|Sub)[\-\s]?(English|Eng|Arabic|Ara|Bengali|Ben|Chinese|Chn|Chi|Dutch|Dut|Finnish|Fin|French|Fre|German|Ger|De|Hindi|Hin|Italian|Ita|Japanese|Jap|Korean|Kor|Portuguese|Por|Russian|Rus|Spanish|Spa|Swedish|Swe|Vietnamese|Vie))\b";
+                string subtitles2 = @"|\b\s?((Subtitles|Subtitle|Subs|Sub)[\-\s]?(English|Eng|Arabic|Ara|Bengali|Ben|Chinese|Chn|Chi|Dutch|Dut|Finnish|Fin|French|Fre|German|Ger|De|Hindi|Hin|Italian|Ita|Japanese|Jap|Korean|Kor|Portuguese|Por|Russian|Rus|Spanish|Spa|Swedish|Swe|Vietnamese|Vie))\b";
+                string subtitles3 = @"|\b\s?(Eng|Ara|Ben|Chn|Chi|Dut|Fin|Fre|Ger|De|Hin|Ita|Jap|Kor|Por|Rus|Spa|Swe|Vie)\b";
+                string subtitles = subtitles1 +
+                                   subtitles2 +
+                                   subtitles3;
 
                 // Channel
                 string channel1 = @"\b\s?(\d\.?\d?CH)\b";
-                string channel2 = @"\b\s?(\d\.?\d?CH|Dolby\s(Pro\sLogic\sII|Pro\sLogic|Pro|Digital|TrueHD|Surround)?\s?(\d?.\d?)?\s?)\b";
-                string channel3 = @"\b\s?((\d.\d)\s?Dolby\s(Pro\sLogic\sII|Pro\sLogic|Pro|Digital|TrueHD|Surround)?\s?)\b";
+                string channel2 = @"|\b\s?(\d\.?\d?\s?)?(CH|Dolby\s?((Pro)\s?(Logic)?\s?(II)?|Digital|Atmos|TrueHD|Surround|Vision)?\s?\-?(\d?.\d?)?|DTS\d+\.\d+|DDP(\s?\d+?\s?\.?\d+?)?|DD(\+?\s?\d?\.?\d?)?)\b";
+                //string channel3 = @"|\b\s?((\d.\d)\s?Dolby\s?((Pro)\s?(Logic)?\s?(II)?|Digital|Atmos|TrueHD|Surround|Vision)?\s?\-?(\d?.\d?)?)\b";
+                string channel4 = @"|\b\s?(DTS\d+\.\d+|DDP(\s?\d+?\s?\.?\d+?)?|DD(\+?\s?\d?\.?\d?)?)\b";
+                string channel = channel1 +
+                                 channel2 +
+                                 //channel3 +
+                                 channel4;
 
                 // Bit Depth
                 string bitDepth = @"\b\s?(\d+[\-\s]?bit)\b";
 
                 // Tags
-                string tags = tags = @"\s?(\[.*?\])|\b\s?(DVD[\-\s]?Rip|DVD|BD[\-\s]?Rip|BRD|BD|Blu[\-\s]?Ray|Br[\-\s]?Rip|HDTV|Web[\-\s]?Rip|Web[\-\s]?DL|RAW|HEVC|Dual[\-\s]?Audio|Multi[\-\s]?Audio|Multi[\-\s]?Sub|English[\-\s]?Dub|DTS\d+\.\d+|DD\d+\.\d+|8[\-\s]?bit|10[\-\s]?bit|12[\-\s]?bit)\b";
+                string tagsTags = @"\s?(\[.*?\])";
+                string tagsFormats = @"|\b\s?(DVD[\-\s]?Rip|DVD|BD[\-\s]?Rip|BRD|BD|Blu[\-\s]?Ray|Br[\-\s]?Rip|HDR|SDR|HDTV|HD|SD|Web[\-\s]?Rip|Web[\-\s]?DL)\b";
+                string tagsLabels = @"|\b\s?(Amazon|AMZN|iTunes|Repack)\b";
+                string tagsCodecs = @"|\b\s?(RAW|HEVC|H\.265|H\.264|AC\s3|x265-QOQ|x264-QOQ)\b";
+                string tagsVideo = @"|\b\s?(UHD|8[\-\s]?bit|10[\-\s]?bit|12[\-\s]?bit)\b";
+                string tagsAudio = @"|\b\s?(Dual[\-\s]?Audio|Multi[\-\s]?Audio|English[\-\s]?Dub)\b";
+                string tagsSubs = @"|\b\s?(Multi[\-\s]?Sub|English[\-\s]?Dub)\b";
+                string tags = tagsTags +
+                              tagsFormats +
+                              tagsLabels +
+                              tagsCodecs +
+                              tagsVideo +
+                              tagsAudio +
+                              tagsSubs;
 
                 // Symbols
                 // Stray Parentheses
-                string symbols = @"\(\)";
+                string symbols = @"\(\)|\(\s+\)";
 
 
                 // build regex rules
@@ -1485,18 +1503,15 @@ namespace Axiom
                     @"\b\s?(sz-source)\b",
                     scaling,
                     fps,
-                    subtitles1,
-                    subtitles2,
+                    subtitles,
                     @"\b\s?(ca-copy)\b",
-                    channel1,
-                    channel2,
-                    channel3,
+                    channel,
                     bitDepth,
                     symbols
                 };
 
                 regexTags = string.Join("|", regexTagsList
-                                             //.OrderByDescending(x => x)
+                                             // don't re-order
                                              .Distinct()
                                        );
 
@@ -1509,22 +1524,10 @@ namespace Axiom
                 );
 
                 // Fix Multiple Spaces, Periods, Dashes, Underscores
-                filename = Regex.Replace(filename, @"\s{2,}", "");
-                filename = Regex.Replace(filename, @"[.]{2,}", "");
-                filename = Regex.Replace(filename, @"[-]{2,}", "");
-                filename = Regex.Replace(filename, @"[_]{2,}", "");
-
-                // Spacing
-                // Remove period spacing
-                //filename = Regex.Replace(filename, @"(?<!\.)\.(?!\.)", " "); //problem with decimals
-                //// Remove multiple periods
-                //filename = Regex.Replace(filename, "[.]{2,}", "");
-                //// Remove dash spacing, preserve hyphens
-                //filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
-                //// Multiple dashes to single dash
-                //filename = Regex.Replace(filename, "[-]{2,}", "-");
-                //// Remove Underscore Spacing
-                //filename = Regex.Replace(filename, "_", " ");
+                filename = Regex.Replace(filename, @"\s{2,}", " ");
+                filename = Regex.Replace(filename, @"[.]{2,}", ".");
+                filename = Regex.Replace(filename, @"[-]{2,}", "-");
+                filename = Regex.Replace(filename, @"[_]{2,}", "_");
 
                 //// Log Console Message /////////
                 //Log.WriteAction = () =>
