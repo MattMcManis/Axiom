@@ -120,7 +120,7 @@ namespace Sys
                             break;
 
                         case "Tokens":
-                            title = MainWindow.FileNameAddTokens(string.Empty);
+                            title = MainWindow.TokenAppender(string.Empty);
                             break;
 
                         case "Filename+Tokens":
@@ -149,7 +149,7 @@ namespace Sys
                             break;
 
                         case "Tokens":
-                            title = MainWindow.FileNameAddTokens(string.Empty);
+                            title = MainWindow.TokenAppender(string.Empty);
                             break;
 
                         case "Filename+Tokens":
