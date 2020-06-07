@@ -319,6 +319,9 @@ namespace Axiom
             inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
             inputExt = Path.GetExtension(VM.MainView.Input_Text);
 
+            // Clear Output TextBox
+            VM.MainView.Output_Text = string.Empty;
+
             // -------------------------
             // Set Video and AudioCodec Combobox to "Copy" if 
             // Input File Extension is Same as Output File Extension 
