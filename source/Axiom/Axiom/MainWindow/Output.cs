@@ -1421,8 +1421,8 @@ namespace Axiom
                 string profile = @"\b(Hi(\d+)(P|PP))\b";
 
                 // Size
-                // (e.g. 1920x1080, 720x480)
-                string size = @"\b(\d+p|\d\d\d\d?x\d\d\d\d?)\b";
+                // (e.g. 1080p, 4K UHD, 1920x1080, 720x480)
+                string size = @"\b(\d+p|(8|4|2)\s?K(\s?UHD)?|\d\d\d\d?x\d\d\d\d?)\b";
 
                 // Scaling Algorithm
                 string scaling = @"\b(" + string.Join("|", VM.VideoView.Video_ScalingAlgorithm_Items
@@ -1439,24 +1439,21 @@ namespace Axiom
                 string fps = @"\b(\d+.?\d+?\s?fps)\b";
 
                 // Subtitles
-                string subtitles1 = @"\b((English|Eng|E|Arabic|Ara|Bengali|Ben|Chinese|Chn|Chi|Dutch|Dut|Finnish|Fin|French|Fre|German|Ger|De|Hindi|Hin|Italian|Ita|Japanese|Jap|Korean|Kor|Mandarin|Man|Portuguese|Por|Russian|Rus|Spanish|Spa|Swedish|Swe|Telugu|Tel|Vietnamese|Vie)[\-\s]?(Subtitles|Subtitle|Subs|Sub))\b";
-                string subtitles2 = @"|\b((Subtitles|Subtitle|Subs|Sub)[\-\s]?(English|Eng|Arabic|Ara|Bengali|Ben|Chinese|Chn|Chi|Dutch|Dut|Finnish|Fin|French|Fre|German|Ger|De|Hindi|Hin|Italian|Ita|Japanese|Jap|Korean|Kor|Portuguese|Por|Russian|Rus|Spanish|Spa|Swedish|Swe|Telugu|Tel|Vietnamese|Vie))\b";
-                string subtitles3 = @"|\b(English|Arabic|Bengali|Chinese|Dutch|Finnish|French|French|German|De|Hindi|Italian|Japanese|Korean|Mandarin|Portuguese|Russian|Spanish|Swedish|Telugu|Vietnamese)\b";
-                string subtitles4 = @"|\b(Eng|Ara|Ben|Chn|Chi|Dut|Fin|Fre|Ger|De|Hin|Ita|Jap|Kor|Por|Rus|Spa|Swe|Tel|Vie)\b";
+                string langs = @"(Eng(lish)?|E|Ara(bic)?|Ben(gali)?|Chi(nese)?|Chn|Dut(ch)?|Fin(nish)?|Fre(nch)?|Ge(rman)?|De|Hin(di)?|Ita(lian)?|Jap(anese)?|Kor(ean)?|Man(darin)?|Por(tuguese)?|Rus(sian)?|Spa(nish)?|Swe(dish)?|Tel(ugu)?|Vie(tnamese)?)";
+                string subs = @"(Subtitle(s|d)?|Sub(s)?)";
+                string subtitles1 = @"\b(" + langs + @"[\-\s]?" + subs + @")\b";
+                string subtitles2 = @"|\b(" + subs + @"[\-\s]?" + langs + @")\b";
+                string subtitles3 = @"|\b" + langs.Replace("|E", "").Replace("|Ben(gali)?", "|Bengali").Replace("Chi(nese)?", "Chinese").Replace("|Man(darin)?", "|Mandarin") + @"\b"; // Fix words like Ben, Chi, Man
+                //string subtitles4 = @"|\b" + subs + @"\b";
                 string subtitles = subtitles1 +
                                    subtitles2 +
-                                   subtitles3 +
-                                   subtitles4;
+                                   subtitles3;// +
+                                   //subtitles4;
 
                 // Channel
-                string channel1 = @"\b(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)"; //optimized 1 working
-                //string channel1 = @"\b\s?(\d\.?\d?CH)\b";
-                //string channel1 = @"\b(\d[.]?\d?\s?)?\s?(CH|Dolby\s?((Pro)\s?(Logic)?\s?(II)?|Digital|Atmos|TrueHD|Surround|Vision)?\s?\-?(\d[.]?\d?)?)\b"; //works old
+                string channel1 = @"\b(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
                 string channel2 = @"|\b(\d+(?:\.\d+)?[.-_\s]?)?(Dolby[.\-_\s]?(?:Digital|Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision|))\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
-                //string channel2 = @"|\b\s?(\d[.]?\d?\s?)?(DTS|DDP|DD\+?\s?)([. ]?\s?\d[.]?\d?)?\b"; //works old
-                //string channel2 = @"\b(?:DDP|DD\+?)\s?\d+(?:\.\d+)?|\d+(?:\.\d+)?\s?(?:DDP|DD\+?)\b"; //optimized 1
-                string channel3 = @"|\b(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))[.\-_\s]?(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?\b)"; //optimized 2 working
-                //string channel3 = @"|\b(?:DTS|DDP|DD\+?)[.\-_\s]?\d+(?:\.\d+)?|\d+(?:\.\d+)?[.\-_\s]?(?:DDP|DD\+?)"; // optimized 3
+                string channel3 = @"|\b(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))[.\-_\s]?(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?\b)";
                 string channel4 = @"|\b(2\.0|2\.1|3\.1|5\.1|7\.1|7\.1\.2|7\.2|9\.1|9\.1\.2)\b"; // standalone
                 string channel = channel1 +
                                  channel2 +
@@ -1467,30 +1464,32 @@ namespace Axiom
                 string bitDepth = @"\b\s?(\d+[\-\s]?bit)\b";
 
                 // Tags
-                string tagsTags = @"(\[.*?\])";
-                //string tagsFormats = @"|\b(DVD[\-\s]?Rip|DVD|BD[\-\s]?Rip|BRD|BD|Blu[\-\s]?Ray|Br[\-\s]?Rip|HD[\-\s]?Rip|Web[\-\s]?Rip|Web[\-\s]?DL|HDR|SDR|HDTV|HD|SD|HC|WEB)\b";
-                string tagsFormats = @"|\b(DVD[\-\s]?Rip?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)\b";
-                string tagsLabels = @"|\b(Amazon|AMZN|iTunes|Spotify|Repack|Complete)\b";
-                string tagsCodecs = @"|\b(RAW|Lossless|HEVC|H\.265|H\.264|x265-QOQ|x264-QOQ|NF|FP)\b";
-                string tagsVideo = @"|\b(UHD|\d+[\-\s]?bit)\b";
-                string tagsAudio = @"|\b(Dual[\-\s]?Audio|Multi[\-\s]?Audio|English[\-\s]?Dub|(Org|Original)[\-\s]?(Audio|Aud)|Original|(Non[\-\s])?English[\-\s]?Translated)\b";
-                string tagsSubs = @"|\b(Multi[\-\s]?Sub)\b";
-                string tagsFile = @"|\b(\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB))\b";
+                string tagsTags = @"(\[.*?\])"; // removes "[tag]" must be here without \b
+                string tagsStart = @"|\b(";
+                string tagsFormats = @"DVD[\-\s]?Rip?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist";
+                string tagsLabels = @"|Amazon|AMZN|iTunes|Spotify|Repack|Complete";
+                string tagsCodecs = @"|RAW|Lossless|HEVC|H\.265|H\.264|x265-QOQ|x264-QOQ|NF|FP";
+                string tagsVideo = @"|UHD|\d+[\-\s]?bit";
+                string tagsAudio = @"|Dual[\-\s]?Audio|Multi[\-\s]?Audio|English[\-\s]?Dub|(Org|Original)[\-\s]?(Audio|Aud)|Original|(Non[\-\s])?English[\-\s]?Translated|Dub(bed)?";
+                string tagsSubs = @"|Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?";
+                string tagsFile = @"|\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB)";
+                string tagsClose = @")\b";
                 string tags = tagsTags +
+                              tagsStart +
                               tagsFormats +
                               tagsLabels +
                               tagsCodecs +
                               tagsVideo +
                               tagsAudio +
                               tagsSubs +
-                              tagsFile;
+                              tagsFile +
+                              tagsClose;
 
                 // Remove Formats that are also Codecs
                 // These are usually for raw files
                 // This will prevent regex from running into duplicates in other categories
                 formatsList = formatsList.Except(Types.Codecs.CodecTypes, StringComparer.OrdinalIgnoreCase).ToList();
                 string containers = @"\b(" + string.Join("|", formatsList) + @")\b";
-                //string containers = @"(?<![.])(\b\s?(" + string.Join("|", formatsList) + @")\b)";
 
                 // Codecs
                 string codecs = @"\b(" + string.Join("|", Types.Codecs.CodecTypes) + @")\b";
