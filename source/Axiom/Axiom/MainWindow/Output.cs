@@ -1355,14 +1355,6 @@ namespace Axiom
             // Remove
             if (VM.ConfigureView.InputFileNameTokens_SelectedItem == "Remove")
             {
-                // Containers
-                List<string> formatsList = Generate.Format.VideoFormats
-                                           .Concat(Generate.Format.AudioFormats)
-                                           .Concat(Generate.Format.ImageFormats)
-                                           .Distinct()
-                                           .OrderByDescending(x => x)
-                                           .ToList();
-
                 // HW Accel Transcode
                 string hwAccelTranscode = @"\b(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
                                                                        .Where(s => !string.IsNullOrWhiteSpace(s))
@@ -1384,11 +1376,6 @@ namespace Axiom
                 // Sample Rate
                 string sampleRate = @"\b(\d+\.?\d?kHz)\b";
 
-                // Audio Bit Rate VBR
-                //string aBitRate = @"\b\s?(\d+\.?\d+?kVBR)\b";
-
-                // Audio & Video Bit Rate
-                //string vBitRate = @"\b\s?(\d+\.?\d+?(k|m)|CRF\d+)\b"; //vBitRate and aBitRate k are here
                 // Bit Rate
                 string bitRate = @"\b(CRF\d+|\d+\.?\d+?(kVBR|kbps|k|m))\b";
 
@@ -1445,15 +1432,16 @@ namespace Axiom
                 string subtitles2 = @"|\b(" + subs + @"[\-\s]?" + langs + @")\b";
                 string subtitles3 = @"|\b" + langs.Replace("|E", "").Replace("|Ben(gali)?", "|Bengali").Replace("Chi(nese)?", "Chinese").Replace("|Man(darin)?", "|Mandarin") + @"\b"; // Fix words like Ben, Chi, Man
                 //string subtitles4 = @"|\b" + subs + @"\b";
+                string subtitles4 = @"|\b(Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?)\b";
                 string subtitles = subtitles1 +
                                    subtitles2 +
-                                   subtitles3;// +
-                                   //subtitles4;
+                                   subtitles3 +
+                                   subtitles4;
 
                 // Channel
                 string channel1 = @"\b(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
-                string channel2 = @"|\b(\d+(?:\.\d+)?[.-_\s]?)?(Dolby[.\-_\s]?(?:Digital|Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision|))\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
-                string channel3 = @"|\b(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))[.\-_\s]?(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?\b)";
+                string channel2 = @"|\b(\d+(?:\.\d+)?[.-_\s]?)?((Dolby[.\-_\s]?(Digital)?)[.\-_\s]?(?:Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision)?)[.\-_\s]?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
+                string channel3 = @"|\b(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?\b)";
                 string channel4 = @"|\b(2\.0|2\.1|3\.1|5\.1|7\.1|7\.1\.2|7\.2|9\.1|9\.1\.2)\b"; // standalone
                 string channel = channel1 +
                                  channel2 +
@@ -1461,54 +1449,65 @@ namespace Axiom
                                  channel4;
 
                 // Bit Depth
-                string bitDepth = @"\b\s?(\d+[\-\s]?bit)\b";
+                string bitDepth = @"\b(\d+[\-\s]?bit)\b";
 
                 // Tags
-                string tagsTags = @"(\[.*?\])"; // removes "[tag]" must be here without \b
-                string tagsStart = @"|\b(";
-                string tagsFormats = @"DVD[\-\s]?Rip?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist";
-                string tagsLabels = @"|Amazon|AMZN|iTunes|Spotify|Repack|Complete";
-                string tagsCodecs = @"|RAW|Lossless|HEVC|H\.265|H\.264|x265-QOQ|x264-QOQ|NF|FP";
-                string tagsVideo = @"|UHD|\d+[\-\s]?bit";
-                string tagsAudio = @"|Dual[\-\s]?Audio|Multi[\-\s]?Audio|English[\-\s]?Dub|(Org|Original)[\-\s]?(Audio|Aud)|Original|(Non[\-\s])?English[\-\s]?Translated|Dub(bed)?";
-                string tagsSubs = @"|Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?";
-                string tagsFile = @"|\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB)";
-                string tagsClose = @")\b";
-                string tags = tagsTags +
-                              tagsStart +
-                              tagsFormats +
-                              tagsLabels +
-                              tagsCodecs +
-                              tagsVideo +
-                              tagsAudio +
-                              tagsSubs +
-                              tagsFile +
-                              tagsClose;
+                string tags = @"(\[.*?\])"; // [tag] // do not wrap with \b
+
+                // Formats
+                string formats = @"\b(DVD[\-\s]?Rip?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)\b";
+
+                // Containers
+                List<string> containersList = Generate.Format.VideoFormats
+                                           .Concat(Generate.Format.AudioFormats)
+                                           .Concat(Generate.Format.ImageFormats)
+                                           .Distinct()
+                                           .OrderByDescending(x => x)
+                                           .ToList();
 
                 // Remove Formats that are also Codecs
                 // These are usually for raw files
                 // This will prevent regex from running into duplicates in other categories
-                formatsList = formatsList.Except(Types.Codecs.CodecTypes, StringComparer.OrdinalIgnoreCase).ToList();
-                string containers = @"\b(" + string.Join("|", formatsList) + @")\b";
+                containersList = containersList.Except(Types.Codecs.CodecTypes, StringComparer.OrdinalIgnoreCase).ToList();
+                string containers = @"\b(" + string.Join("|", containersList) + @")\b";
 
                 // Codecs
-                string codecs = @"\b(" + string.Join("|", Types.Codecs.CodecTypes) + @")\b";
+                string codecsOther = @"RAW|Lossless|HEVC|H\.265|H\.264|x265-QOQ|x264-QOQ|NF|FP|";
+                string codecs = @"\b(" + codecsOther + string.Join("|", Types.Codecs.CodecTypes) + @")\b";
+
+                // Video
+                string video = @"\b(UHD|\d+[\-\s]?bit)\b";
+
+                // Audio
+                string audio = @"\b(Dual[\-\s]?Audio|Multi[\-\s]?Audio|English[\-\s]?Dub|(Org|Original)[\-\s]?(Audio|Aud)|Original|(Non[\-\s])?English[\-\s]?Translated|Dub(bed)?)\b";
+
+                // File
+                string file = @"\b(\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB))\b";
+
+                string labels = @"\b(Amazon|AMZN|iTunes|Spotify|Repack|Complete)\b";
 
                 // Symbols
                 // Stray Parentheses
-                string symbols = @"\(\)|\(\s+\)";
+                string symbols = @"\(\)|\(\s+\)"; // do not wrap with \b
 
 
-                // build regex rules
-                // order is important
+                // Build regex rules
+                // Order is important
                 IEnumerable<string> regexTagsList = new List<string>()
                 {
                     tags,
                     hwAccelTranscode,
+                    sampleRate,
+                    bitRate,    
+                    channel,
+                    formats,
+                    containers,
+                    codecs,
+                    @"\b(cv-copy)\b",
+                    @"\b(ca-copy)\b",
+                    video,
                     pass,
                     presets,
-                    sampleRate,
-                    bitRate,
                     pixelFormat,
                     profile,
                     size,
@@ -1516,12 +1515,10 @@ namespace Axiom
                     scaling,
                     fps,
                     subtitles,
-                    @"\b(ca-copy)\b",
-                    channel,
+                    audio,
                     bitDepth,
-                    containers,
-                    codecs,
-                    @"\b(cv-copy)\b",
+                    file,
+                    labels,
                     symbols
                 };
 
