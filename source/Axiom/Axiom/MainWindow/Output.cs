@@ -1377,7 +1377,7 @@ namespace Axiom
                 string sampleRate = @"\b(\d+\.?\d?kHz)\b";
 
                 // Bit Rate
-                string bitRate = @"\b(CRF\d+|\d+\.?\d+?(kVBR|kbps|k|m))\b";
+                string bitRate = @"\b(CRF\d+|\d+(\.?\d+)?(kVBR|kbps|k|m))\b";
 
                 // Pixel Format
                 string pixelFormat = @"\b(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
@@ -1455,7 +1455,7 @@ namespace Axiom
                 string tags = @"(\[.*?\])"; // [tag] // do not wrap with \b
 
                 // Formats
-                string formats = @"\b(DVD[\-\s]?Rip?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)\b";
+                string formats = @"\b(DVD([\-\s]?Rip)?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)\b";
 
                 // Containers
                 List<string> containersList = Generate.Format.VideoFormats
