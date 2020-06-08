@@ -1026,7 +1026,12 @@ namespace Axiom
                     // Quality ComboBox
                     if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
                     {
-                        audio_BitRate = SettingsCheck(VM.AudioView.Audio_Quality_SelectedItem) + "k";
+                        audio_BitRate = SettingsCheck(VM.AudioView.Audio_Quality_SelectedItem);
+
+                        if (VM.AudioView.Audio_Quality_SelectedItem != "Lossless")
+                        {
+                            audio_BitRate += "k";
+                        }
                     }
                 }
 
@@ -1356,135 +1361,208 @@ namespace Axiom
             if (VM.ConfigureView.InputFileNameTokens_SelectedItem == "Remove")
             {
                 // HW Accel Transcode
-                string hwAccelTranscode = @"\b(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
-                                                                       .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                                       .Where(s => !s.Equals("none"))
-                                                                       .Where(s => !s.Equals("off"))
-                                                                       .Where(s => !s.Equals("auto"))
-                                                                       .Distinct()
-                                                                       .OrderByDescending(x => x)
-                                                                       .ToList()
-                                                            ) +   
-                                          @")\b";
-
-                // Presets
-                string presets = @"\b(p\-(placebo|very-slow|slower|slow|medium|fast|faster|very-fast|super-fast|ultra-fast))\b";
-
-                // Pass
-                string pass = @"\b((1|2)\-?\s?Pass)\b";
-
-                // Sample Rate
-                string sampleRate = @"\b(\d+\.?\d?kHz)\b";
-
-                // Bit Rate
-                string bitRate = @"\b(CRF\d+|\d+(\.?\d+)?(kVBR|kbps|k|m))\b";
-
-                // Pixel Format
-                string pixelFormat = @"\b(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
-                                                                  .Concat(Controls.Video.Codec.FFV1.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.Theora.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.VP8.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.VP9.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.x264.pixelFormat)
-                                                                  .Concat(Controls.Video.Codec.x265.pixelFormat)
-                                                                  .Concat(Controls.Image.Codec.JPEG.pixelFormat)
-                                                                  .Concat(Controls.Image.Codec.PNG.pixelFormat)
-                                                                  .Concat(Controls.Image.Codec.WebP.pixelFormat)
+                string hwAccelTranscode = @"(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
                                                                   .Where(s => !string.IsNullOrWhiteSpace(s))
                                                                   .Where(s => !s.Equals("none"))
+                                                                  .Where(s => !s.Equals("off"))
                                                                   .Where(s => !s.Equals("auto"))
                                                                   .Distinct()
                                                                   .OrderByDescending(x => x)
                                                                   .ToList()
+                                                            ) +   
+                                          @")";
+
+                // Presets
+                //string presets = @"(p\-(placebo|very-slow|slower|slow|medium|fast|faster|very-fast|super-fast|ultra-fast))";
+                IEnumerable<string> presetsList = new List<string>()
+                {
+                    "placebo",
+                    "very-slow",
+                    "slower",
+                    "slow",
+                    "medium",
+                    "fast",
+                    "faster",
+                    "very-fast",
+                    "super-fast",
+                    "ultra-fast"
+                };
+                string presets = @"(p\-(" + string.Join("|", presetsList) + @"))";
+
+                // Pass
+                string pass = @"((1|2)\-?\s?Pass)";
+
+                // Sample Rate
+                string sampleRate = @"(\d+\.?\d?kHz)";
+
+                // Bit Rate
+                //string bitRate = @"(CRF\d+|\d+(\.?\d+)?(kVBR|kbps|k|m))";
+                IEnumerable<string> bitRateList = new List<string>()
+                {
+                    @"CRF\d+",
+                    @"\d+(\.?\d+)?(kVBR|kbps|k|m)",
+                };
+                string bitRate = @"(" + string.Join("|", bitRateList) + @")";
+
+                // Pixel Format
+                string pixelFormat = @"(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
+                                                               .Concat(Controls.Video.Codec.FFV1.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.Theora.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.VP8.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.VP9.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.x264.pixelFormat)
+                                                               .Concat(Controls.Video.Codec.x265.pixelFormat)
+                                                               .Concat(Controls.Image.Codec.JPEG.pixelFormat)
+                                                               .Concat(Controls.Image.Codec.PNG.pixelFormat)
+                                                               .Concat(Controls.Image.Codec.WebP.pixelFormat)
+                                                               .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                               .Where(s => !s.Equals("none"))
+                                                               .Where(s => !s.Equals("auto"))
+                                                               .Distinct()
+                                                               .OrderByDescending(x => x)
+                                                               .ToList()
                                                     ) +
-                                    @")\b";
+                                    @")";
 
                 // Profile
                 // (e.g. Hi444PP, Hi10P)
-                string profile = @"\b(Hi(\d+)(P|PP))\b";
+                string profile = @"(Hi(\d+)(P|PP))";
 
                 // Size
-                // (e.g. 1080p, 4K UHD, 1920x1080, 720x480)
-                string size = @"\b(\d+p|(8|4|2)\s?K(\s?UHD)?|\d\d\d\d?x\d\d\d\d?)\b";
+                //string size = @"(\d+p|(8|4|2)\s?K(\s?UHD)?|\d\d\d\d?x\d\d\d\d?)";
+                IEnumerable<string> sizeList = new List<string>()
+                {
+                    @"\d+p", //1080p
+                    @"(8|4|2)\s?K(\s?UHD)?", //4K UHD
+                    @"\d\d\d\d?x\d\d\d\d?", //1920x1080, 720x480
+                };
+                string size = @"(" + string.Join("|", sizeList) + @")";
 
                 // Scaling Algorithm
-                string scaling = @"\b(" + string.Join("|", VM.VideoView.Video_ScalingAlgorithm_Items
-                                                              .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
-                                                              .Where(s => !s.Equals("none"))
-                                                              .Where(s => !s.Equals("auto"))
-                                                              .OrderByDescending(x => x)
-                                                              .ToList()
-                                                            ) +
-                                @")\b";
+                string scaling = @"(" + string.Join("|", VM.VideoView.Video_ScalingAlgorithm_Items
+                                                           .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
+                                                           .Where(s => !s.Equals("none"))
+                                                           .Where(s => !s.Equals("auto"))
+                                                           .OrderByDescending(x => x)
+                                                           .ToList()
+                                                        ) +
+                                @")";
 
                 // FPS
                 // (e.g. 23.976fps, 60fps)
-                string fps = @"\b(\d+.?\d+?\s?fps)\b";
+                string fps = @"(\d+.?\d+?\s?fps)";
 
                 // Subtitles
-                string langs = @"(Eng(lish)?|E|Ara(bic)?|Ben(gali)?|Chi(nese)?|Chn|Dut(ch)?|Fin(nish)?|Fre(nch)?|Ge(rman)?|De|Hin(di)?|Ita(lian)?|Jap(anese)?|Kor(ean)?|Man(darin)?|Por(tuguese)?|Rus(sian)?|Spa(nish)?|Swe(dish)?|Tel(ugu)?|Vie(tnamese)?)";
+                string langs = @"(Eng(lish)?|E|Ara(bic)?|Ben(gali)?|Chi(nese)?|Chn|Dut(ch)?|Fin(nish)?|Fre(nch)?|Ger(man)?|De|Hin(di)?|Ita(lian)?|Jap(anese)?|Kor(ean)?|Man(darin)?|Por(tuguese)?|Rus(sian)?|Spa(nish)?|Swe(dish)?|Tel(ugu)?|Vie(tnamese)?)";
                 string subs = @"(Subtitle(s|d)?|Sub(s)?)";
-                string subtitles1 = @"\b(" + langs + @"[\-\s]?" + subs + @")\b";
-                string subtitles2 = @"|\b(" + subs + @"[\-\s]?" + langs + @")\b";
-                string subtitles3 = @"|\b" + langs.Replace("|E", "").Replace("|Ben(gali)?", "|Bengali").Replace("Chi(nese)?", "Chinese").Replace("|Man(darin)?", "|Mandarin") + @"\b"; // Fix words like Ben, Chi, Man
+                string subtitles1 = @"(" + langs + @"[\-\s]?" + subs + @")";
+                string subtitles2 = @"|(" + subs + @"[\-\s]?" + langs + @")";
+                string subtitles3 = @"|(" + langs.Replace("|E", "").Replace("|Ben(gali)?", "|Bengali").Replace("Chi(nese)?", "Chinese").Replace("|Man(darin)?", "|Mandarin") + ")"; // Fix words like Ben, Chi, Man
                 //string subtitles4 = @"|\b" + subs + @"\b";
-                string subtitles4 = @"|\b(Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?)\b";
+                string subtitles4 = @"|(Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?)";
                 string subtitles = subtitles1 +
                                    subtitles2 +
                                    subtitles3 +
                                    subtitles4;
 
                 // Channel
-                string channel1 = @"\b(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
-                string channel2 = @"|\b(\d+(?:\.\d+)?[.-_\s]?)?((Dolby[.\-_\s]?(Digital)?)[.\-_\s]?(?:Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision)?)[.\-_\s]?(?(1)|([.\s]?\d+(?:\.\d+)?)?\b)";
-                string channel3 = @"|\b(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?\b)";
-                string channel4 = @"|\b(2\.0|2\.1|3\.1|5\.1|7\.1|7\.1\.2|7\.2|9\.1|9\.1\.2)\b"; // standalone
+                string channel1 = @"(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?)";
+                string channel2 = @"|(\d+(?:\.\d+)?[.-_\s]?)?((Dolby[.\-_\s]?(Digital)?)[.\-_\s]?(?:Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision)?)[.\-_\s]?(?(1)|([.\s]?\d+(?:\.\d+)?)?)";
+                string channel3 = @"|(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?)";
+                string channel4 = @"|(2\.0|2\.1|3\.1|5\.1|7\.1|7\.1\.2|7\.2|9\.1|9\.1\.2)"; // standalone
                 string channel = channel1 +
                                  channel2 +
                                  channel3 +
                                  channel4;
 
                 // Bit Depth
-                string bitDepth = @"\b(\d+[\-\s]?bit)\b";
+                string bitDepth = @"(\d+[\-\s]?bit)";
 
                 // Tags
                 string tags = @"(\[.*?\])"; // [tag] // do not wrap with \b
 
                 // Formats
-                string formats = @"\b(DVD([\-\s]?Rip)?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)\b";
+                //string formats = @"(DVD([\-\s]?Rip)?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)";
+                IEnumerable<string> formatsList = new List<string>()
+                {
+                    @"(DVD|BRD|BD|Br|HD|SD|Web)[\-\s]?(Rip|DL)?",
+                    @"(HD|SD)(TV|R|C)?",
+                    @"Blu[\-\s]?Ray",
+                    //@"Web[\-\s]?DL",
+                    @"Rip",
+                    @"(\d+)?CD",
+                    @"Playlist",
+                };
+                string formats = @"(" + string.Join("|", formatsList) + @")";
 
                 // Containers
-                List<string> containersList = Generate.Format.VideoFormats
-                                           .Concat(Generate.Format.AudioFormats)
-                                           .Concat(Generate.Format.ImageFormats)
-                                           .Distinct()
-                                           .OrderByDescending(x => x)
-                                           .ToList();
+                IEnumerable<string> containersList = Generate.Format.VideoFormats
+                                                     .Concat(Generate.Format.AudioFormats)
+                                                     .Concat(Generate.Format.ImageFormats)
+                                                     .Distinct()
+                                                     .OrderByDescending(x => x)
+                                                     .ToList();
 
                 // Remove Formats that are also Codecs
                 // These are usually for raw files
                 // This will prevent regex from running into duplicates in other categories
                 containersList = containersList.Except(Types.Codecs.CodecTypes, StringComparer.OrdinalIgnoreCase).ToList();
-                string containers = @"\b(" + string.Join("|", containersList) + @")\b";
+                string containers = @"(" + string.Join("|", containersList) + @")";
 
                 // Codecs
-                string codecsOther = @"RAW|Lossless|HEVC|H\.265|H\.264|x265-QOQ|x264-QOQ|NF|FP|";
-                string codecs = @"\b(" + codecsOther + string.Join("|", Types.Codecs.CodecTypes) + @")\b";
+                List<string> codecsList = new List<string>()
+                {
+                    "RAW",
+                    "Lossless",
+                    "HEVC",
+                    @"H[.\-]?(264|265)",
+                    @"(x264|x265)[.\-\s]?QOQ",
+                    "QOQ",
+                    "NF",
+                    "FP",
+                };
+                codecsList.AddRange(Types.Codecs.CodecTypes);
+                string codecs = @"(" + string.Join("|", codecsList) + @")";
 
                 // Video
-                string video = @"\b(UHD|\d+[\-\s]?bit)\b";
+                //string video = @"(UHD|\d+[\-\s]?bit)";
+                IEnumerable<string> videoList = new List<string>()
+                {
+                    "UHD",
+                    "HD",
+                    "SD",
+                    @"\d+[\-\s]?bit",
+                };
+                string video = @"(" + string.Join("|", videoList) + @")";
 
                 // Audio
-                string audio = @"\b(Dual[\-\s]?Audio|Multi[\-\s]?Audio|English[\-\s]?Dub|(Org|Original)[\-\s]?(Audio|Aud)|Original|(Non[\-\s])?English[\-\s]?Translated|Dub(bed)?)\b";
+                IEnumerable<string> audioList = new List<string>()
+                {
+                    @"(Dual|Multi|Original|Org)[\-\s]?(Audio|Aud)",
+                    langs + @"[\-\s]?Dub",
+                    @"(Non[\-\s])?English[\-\s]?Translated",
+                    @"Dub(bed)?",
+                };
+                string audio = @"(" + string.Join("|", audioList) + @")";
 
                 // File
-                string file = @"\b(\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB))\b";
+                string file = @"(\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB))"; //100.5MB, 100GB, 100TB
 
-                string labels = @"\b(Amazon|AMZN|iTunes|Spotify|Repack|Complete)\b";
+                // Labels
+                IEnumerable<string> labelsList = new List<string>()
+                {
+                    "Amazon",
+                    "AMZN",
+                    "iTunes",
+                    "Spotify",
+                    "Repack",
+                    "Complete",
+                };
+                string labels = @"(" + string.Join("|", labelsList) + @")";
 
                 // Symbols
                 // Stray Parentheses
@@ -1496,22 +1574,23 @@ namespace Axiom
                 IEnumerable<string> regexTagsList = new List<string>()
                 {
                     tags,
+                    @"((?<=_)|\b)(", // opening
                     hwAccelTranscode,
                     sampleRate,
                     bitRate,    
                     channel,
+                    pixelFormat,
                     formats,
                     containers,
                     codecs,
-                    @"\b(cv-copy)\b",
-                    @"\b(ca-copy)\b",
+                    @"(cv-copy)",
+                    @"(ca-copy)",
                     video,
                     pass,
                     presets,
-                    pixelFormat,
                     profile,
                     size,
-                    @"\b(sz-source)\b",
+                    @"(sz-source)",
                     scaling,
                     fps,
                     subtitles,
@@ -1519,13 +1598,17 @@ namespace Axiom
                     bitDepth,
                     file,
                     labels,
-                    symbols
+                    @")((?=_)|\b)", //closing
+                    symbols,
                 };
 
                 string regexTags = string.Join("|", regexTagsList
                                              // don't re-order
                                              .Distinct()
-                                       );
+                                       )
+                                       // Remove invalid rules caused by adding "((?<=_)|\b)(" to the list
+                                       .Replace("(|", "(")
+                                       .Replace("|)", ")");
 
                 // Remove Tags and Tokens
                 filename = Regex.Replace(
@@ -1543,14 +1626,14 @@ namespace Axiom
 
                 //MessageBox.Show(filename); //debug
 
-                //// Log Console Message /////////
-                //Log.WriteAction = () =>
-                //{
-                //    Log.logParagraph.Inlines.Add(new LineBreak());
-                //    Log.logParagraph.Inlines.Add(new Bold(new Run("Tag Remover Regex:\r\n")) { Foreground = Log.ConsoleDefault });
-                //    Log.logParagraph.Inlines.Add(new Run(regexTags) { Foreground = Log.ConsoleDefault });
-                //};
-                //Log.LogActions.Add(Log.WriteAction);
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Tag Remover Regex:\r\n")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(regexTags) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
                 return filename
                        .Trim()
@@ -1583,7 +1666,7 @@ namespace Axiom
                     //var m_pat = @"\bCRF\d+|[A-Za-z]+(?:\d+(?:\.\d+)?)?|\d+(?:\.\d+)?[a-zA-Z]*";
                     //filename = string.Join(" ", Regex.Matches(filename, m_pat).Cast<Match>().Select(x => x.Value))
                     // dashes
-                    filename = Regex.Replace(filename, @"\b(-+)\b|-", "$1");
+                    filename = Regex.Replace(filename, @"(-+)|-", "$1");
                     // underscores
                     filename = Regex.Replace(filename, "_", " ");
                     return filename;
