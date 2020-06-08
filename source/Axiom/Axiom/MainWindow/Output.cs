@@ -1373,7 +1373,6 @@ namespace Axiom
                                           @")";
 
                 // Presets
-                //string presets = @"(p\-(placebo|very-slow|slower|slow|medium|fast|faster|very-fast|super-fast|ultra-fast))";
                 IEnumerable<string> presetsList = new List<string>()
                 {
                     "placebo",
@@ -1396,7 +1395,6 @@ namespace Axiom
                 string sampleRate = @"(\d+\.?\d?kHz)";
 
                 // Bit Rate
-                //string bitRate = @"(CRF\d+|\d+(\.?\d+)?(kVBR|kbps|k|m))";
                 IEnumerable<string> bitRateList = new List<string>()
                 {
                     @"CRF\d+",
@@ -1433,7 +1431,6 @@ namespace Axiom
                 string profile = @"(Hi(\d+)(P|PP))";
 
                 // Size
-                //string size = @"(\d+p|(8|4|2)\s?K(\s?UHD)?|\d\d\d\d?x\d\d\d\d?)";
                 IEnumerable<string> sizeList = new List<string>()
                 {
                     @"\d+p", //1080p
@@ -1486,7 +1483,6 @@ namespace Axiom
                 string tags = @"(\[.*?\])"; // [tag] // do not wrap with \b
 
                 // Formats
-                //string formats = @"(DVD([\-\s]?Rip)?|Blu[\-\s]?Ray|BRD[\-\s]?Rip?|BD[\-\s]?Rip?|Br[\-\s]?Rip?|HD[\-\s]?Rip?|HD(TV|R|C)?|SD[\-\s]?Rip?|SD(TV|R|C)?|Web[\-\s]?(Rip|DL)?|RIP|(\d+)?CD|Playlist)";
                 IEnumerable<string> formatsList = new List<string>()
                 {
                     @"(DVD|BRD|BD|Br|HD|SD|Web)[\-\s]?(Rip|DL)?",
@@ -1626,14 +1622,14 @@ namespace Axiom
 
                 //MessageBox.Show(filename); //debug
 
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Tag Remover Regex:\r\n")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(regexTags) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                //// Log Console Message /////////
+                //Log.WriteAction = () =>
+                //{
+                //    Log.logParagraph.Inlines.Add(new LineBreak());
+                //    Log.logParagraph.Inlines.Add(new Bold(new Run("Tag Remover Regex:\r\n")) { Foreground = Log.ConsoleDefault });
+                //    Log.logParagraph.Inlines.Add(new Run(regexTags) { Foreground = Log.ConsoleDefault });
+                //};
+                //Log.LogActions.Add(Log.WriteAction);
 
                 return filename
                        .Trim()
