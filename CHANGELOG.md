@@ -4,6 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.2.0] - June 8, 2020
+### Added
+- Settings Revert to Default Buttons
+- Settings Default All Button
+
+### Changed
+- Improved Output Filename Token Remover Regex
+
+
 ## [1.9.1.4] - June 4, 2020
 ### Added
 - Shell Title Menu
