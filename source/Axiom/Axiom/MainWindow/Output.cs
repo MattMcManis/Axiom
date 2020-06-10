@@ -332,18 +332,24 @@ namespace Axiom
                         outputDir = inputDir;
 
                         // Original File Name
-                        outputFileName_Original = TokenRemover(inputFileName);
+                        //outputFileName_Original = TokenRemover(inputFileName);
+                        outputFileName_Original = FileRenamer(inputDir,      // comparision
+                                                              outputDir,     // comparision
+                                                              inputFileName, // comparision
+                                                              TokenRemover(inputFileName)
+                                                              );
 
                         // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
                         // Use Token Remover to remove tokens on Input files that already have Tokens
                         // To prevent Tokens from doubling up
                         if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                         {
-                            outputFileName_Tokens = TokenAppender(outputFileName_Original);
+                            //outputFileName_Tokens = TokenAppender(outputFileName_Original);
                             outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                                 outputDir,     // comparision
                                                                 inputFileName, // comparision
-                                                                outputFileName_Tokens // comparison / name to change
+                                                                TokenAppender(outputFileName_Original)
+                                                                //outputFileName_Tokens // comparison / name to change
                                                                );
                         }
 
@@ -366,11 +372,12 @@ namespace Axiom
                         // To prevent Tokens from doubling up
                         if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                         {
-                            outputFileName_Tokens = TokenAppender(TokenRemover(outputFileName_Original));
+                            //outputFileName_Tokens = TokenAppender(TokenRemover(outputFileName_Original));
                             outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                                 outputDir,     // comparision
                                                                 inputFileName, // comparision
-                                                                outputFileName_Tokens // comparison / name to change
+                                                                TokenAppender(TokenRemover(outputFileName_Original))
+                                                                //outputFileName_Tokens // comparison / name to change
                                                                );
                         }
 
@@ -582,22 +589,34 @@ namespace Axiom
                 VM.MainView.Output_Text = string.Empty;
             }
 
-            // Enable / Disable "Open Output Location" Buttion
-            if (//!string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-                IsValidPath(VM.MainView.Output_Text) && // Detect Invalid Characters
-                Path.IsPathRooted(VM.MainView.Output_Text) == true
+            // -------------------------
+            // Enable / Disable "Open Output Location" Button
+            // -------------------------
+            if (//!string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
+                IsValidPath(VM.MainView.Output_Text) == true && // Detect Invalid Characters
+
+                Path.IsPathRooted(VM.MainView.Output_Text) == true // TrimEnd('\\') + @"\" is adding a backslash to 
+                                                                  // Iput text 'http' until it is detected as Web URL
                 )
             {
                 bool exists = Directory.Exists(Path.GetDirectoryName(VM.MainView.Output_Text));
 
+                // Path exists
                 if (exists)
                 {
                     VM.MainView.Output_Location_IsEnabled = true;
                 }
+                // Path does not exist
                 else
                 {
                     VM.MainView.Output_Location_IsEnabled = false;
                 }
+            }
+
+            // Disable Button for Web URL
+            else
+            {
+                VM.MainView.Output_Location_IsEnabled = false;
             }
         }
 
@@ -654,9 +673,16 @@ namespace Axiom
             outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
         }
 
+        /// <summary>
+        /// Output TetBox Clear - Button
+        /// </summary>
+        private void btnOutputClear_Click(object sender, RoutedEventArgs e)
+        {
+            VM.MainView.Output_Text = string.Empty;
+        }
 
         /// <summary>
-        /// Open Output Folder Button
+        /// Open Output Folder - Button
         /// </summary>
         private void openLocationOutput_Click(object sender, RoutedEventArgs e)
         {
