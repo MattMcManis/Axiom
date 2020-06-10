@@ -378,7 +378,7 @@
                      Style="{DynamicResource TextBoxBrowseStyle}"
                      Height="22"
                      Margin="75,0,-14,0"
-                     Padding="2, 1, 25, 0"
+                     Padding="2, 1, 50, 0"
                      TextWrapping="NoWrap"
                      MaxLines="1"
                      VerticalAlignment="Top"
@@ -388,6 +388,29 @@
                      PreviewDragEnter="tbxInput_PreviewDragOver"
                      PreviewDrop="tbxInput_PreviewDrop" />
 
+            <!-- Input Clear Button -->
+            <Button x:Name="btnInputClear"
+                    Style="{DynamicResource ButtonFolderStyle}"
+                    IsEnabled="{Binding MainView.Input_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,1,12,0"
+                    Cursor="Hand"
+                    Click="btnInputClear_Click"
+                    ToolTipService.InitialShowDelay="500"
+                    ToolTipService.ShowOnDisabled="True"
+                    ToolTip="Clear"
+                    HorizontalAlignment="Right"
+                    Width="22"
+                    Height="20"
+                    VerticalAlignment="Top">
+                <Image Width="10"
+                       Height="7"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="1,0,0,0"
+                       Style="{DynamicResource ButtonClear}" />
+            </Button>
+            
             <!-- Input Location Button -->
             <Button x:Name="openLocationInput"
                     Style="{DynamicResource ButtonFolderStyle}"
@@ -441,6 +464,28 @@
                      PreviewDragEnter="tbxOutput_PreviewDragOver"
                      PreviewDrop="tbxOutput_PreviewDrop" />
 
+            <!-- Output Clear Button -->
+            <Button x:Name="btnOutputClear"
+                    Style="{DynamicResource ButtonFolderStyle}"
+                    IsEnabled="{Binding MainView.Output_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,30,12,0"
+                    Cursor="Hand"
+                    Click="btnOutputClear_Click"
+                    ToolTipService.InitialShowDelay="500"
+                    ToolTipService.ShowOnDisabled="True"
+                    ToolTip="Clear"
+                    HorizontalAlignment="Right"
+                    Width="22"
+                    Height="20"
+                    VerticalAlignment="Top">
+                <Image Width="10"
+                       Height="7"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="1,0,0,0"
+                       Style="{DynamicResource ButtonClear}" />
+            </Button>
             <!-- Output Location Button -->
             <Button x:Name="openLocationOutput"
                     Style="{DynamicResource ButtonFolderStyle}"
