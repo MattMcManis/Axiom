@@ -333,7 +333,15 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Open Input Folder Button
+        /// Input TextBox Clear - Button
+        /// </summary>
+        private void btnInputClear_Click(object sender, RoutedEventArgs e)
+        {
+            VM.MainView.Input_Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Open Input Folder - Button
         /// </summary>
         private void openLocationInput_Click(object sender, RoutedEventArgs e)
         {
