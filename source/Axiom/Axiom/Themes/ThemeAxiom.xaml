@@ -5361,6 +5361,15 @@
                 Value="../Resources/Images/Buttons/White/autoplay.png" />
     </Style>
 
+    <!-- Clear Button -->
+    <Style x:Key="ButtonClear"
+           TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection"
+                Value="LeftToRight" />
+        <Setter Property="Source"
+                Value="../Resources/Images/Buttons/White/clear.png" />
+    </Style>
+    
     <!-- Folder Button -->
     <Style x:Key="ButtonQuickFolder"
            TargetType="{x:Type Image}">
