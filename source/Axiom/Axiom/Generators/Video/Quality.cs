@@ -1174,6 +1174,8 @@ namespace Generate
                 // Option
                 pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
 
+                //MessageBox.Show(pixelFormat_SelectedItem); //debug
+
                 return pix_fmt;
             }
 
