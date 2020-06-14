@@ -4,6 +4,18 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.2.2] - June 14, 2020
+### Added
+- Settings Input Tokens Custom TextBox
+- Encoding Pass `none` Option
+- `x265` Tune `animation` Option
+
+### Changed
+- Optimized Image Encoding Pass
+- Improved Video Encoding Pass
+- Improved Pixel Format Controls
+
+
 ## [1.9.2.0] - June 8, 2020
 ### Added
 - Settings Revert to Default Buttons
