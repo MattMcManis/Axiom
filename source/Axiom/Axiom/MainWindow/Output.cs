@@ -163,22 +163,6 @@ namespace Axiom
                         saveFile.InitialDirectory = Path.GetDirectoryName(VM.MainView.Output_Text);
 
                         saveFile.FileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-
-                        //// Default
-                        //if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-                        //{
-                        //    // Set Output to it's original text
-                        //    saveFile.FileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-                        //}
-                        //// Output Name Tokens
-                        //else
-                        //{
-                        //    // Display Path+File+Ext in Output Textbox
-                        //    //saveFile.FileName = Path.GetFileNameWithoutExtension(
-                        //    //                            OutputFile_Token_Remover(VM.MainView.Output_Text)
-                        //    //                        );
-                        //    saveFile.FileName = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-                        //}
                     }
 
                     // -------------------------
@@ -199,21 +183,6 @@ namespace Axiom
                             // Update Output TextBox
                             // -------------------------
                             outputFileName = outputFileName_Original;
-                            //// Default
-                            //if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-                            //{
-                            //    // Display Path+File+Ext in Output Textbox
-                            //    outputFileName = outputFileName_Original;
-                            //    //outputFileName = TokenRemover(Path.GetFileNameWithoutExtension(outputFileName_Original));
-                            //}
-                            //// Output Name Tokens
-                            //else
-                            //{
-                            //    // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
-                            //    // Use Token Remover to remove tokens on Input files that already have Tokens
-                            //    // To prevent Tokens from doubling up
-                            //    outputFileName_Tokens = TokenAppender(TokenRemover(outputFileName_Original));
-                            //}
 
                             // Update Output TextBox Display
                             if (!string.IsNullOrEmpty(outputDir))
@@ -336,7 +305,7 @@ namespace Axiom
                         outputFileName_Original = FileRenamer(inputDir,      // comparision
                                                               outputDir,     // comparision
                                                               inputFileName, // comparision
-                                                              TokenRemover(inputFileName)
+                                                              TokenRemover(inputFileName) // comparison / name to change
                                                               );
 
                         // Add Settings Tokens to File Name e.g. MyFile x265 CRF25 1080p AAC 320k
@@ -344,12 +313,10 @@ namespace Axiom
                         // To prevent Tokens from doubling up
                         if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                         {
-                            //outputFileName_Tokens = TokenAppender(outputFileName_Original);
                             outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                                 outputDir,     // comparision
                                                                 inputFileName, // comparision
-                                                                TokenAppender(outputFileName_Original)
-                                                                //outputFileName_Tokens // comparison / name to change
+                                                                TokenAppender(outputFileName_Original) // comparison / name to change
                                                                );
                         }
 
@@ -372,12 +339,10 @@ namespace Axiom
                         // To prevent Tokens from doubling up
                         if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
                         {
-                            //outputFileName_Tokens = TokenAppender(TokenRemover(outputFileName_Original));
                             outputFileName_Tokens = FileRenamer(inputDir,      // comparision
                                                                 outputDir,     // comparision
                                                                 inputFileName, // comparision
-                                                                TokenAppender(TokenRemover(outputFileName_Original))
-                                                                //outputFileName_Tokens // comparison / name to change
+                                                                TokenAppender(TokenRemover(outputFileName_Original)) // comparison / name to change
                                                                );
                         }
 
@@ -465,24 +430,6 @@ namespace Axiom
                     output = outputFileName_Original;
                     break;
             }
-
-            //// -------------------------
-            //// Combine Output
-            //// -------------------------
-            //// eg. C:\Users\Example\Videos\MyFile.webm
-
-            ////MessageBox.Show(outputDir + " " + outputFileName + " " + outputExt); //debug
-
-            //// Default
-            //if (!VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any())
-            //{
-            //    output = Path.Combine(outputDir, outputFileName + outputExt);
-            //}
-            //// Output Name Tokens
-            //else
-            //{
-            //    output = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-            //}
         }
 
 
@@ -596,7 +543,7 @@ namespace Axiom
                 IsValidPath(VM.MainView.Output_Text) == true && // Detect Invalid Characters
 
                 Path.IsPathRooted(VM.MainView.Output_Text) == true // TrimEnd('\\') + @"\" is adding a backslash to 
-                                                                  // Iput text 'http' until it is detected as Web URL
+                                                                   // Iput text 'http' until it is detected as Web URL
                 )
             {
                 bool exists = Directory.Exists(Path.GetDirectoryName(VM.MainView.Output_Text));
@@ -626,19 +573,6 @@ namespace Axiom
         private void tbxOutput_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
-
-            //// Output Name Token Remover
-            //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() &&
-            //    !string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
-            //{
-            //    //outputFileName_Original = OutputFile_Token_Remover(outputFileName_Tokens);
-            //    outputFileName_Original = OutputFile_Token_Remover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
-            //}
-            //// Normal Output Name
-            //else
-            //{
-            //    outputFileName_Original = Path.GetFileNameWithoutExtension(VM.MainView.Output_Text);
-            //}
         }
 
         /// <summary>
@@ -1239,144 +1173,6 @@ namespace Axiom
             "Bit Depth"
         };
 
-        /// <summary>
-        /// Output Path Update Display (Method)
-        /// </summary>
-        //public static void OutputPath_UpdateDisplay()
-        //{
-        //    // -------------------------
-        //    // Halts
-        //    // -------------------------         
-        //    if (// Halt if Input is Empty
-        //        string.IsNullOrWhiteSpace(VM.MainView.Input_Text) ||
-        //        // Halt if Input Extension is Empty
-        //        // Path Combine with null file extension causes error
-        //        string.IsNullOrWhiteSpace(inputExt) ||
-        //        // Halt if Output is Empty
-        //        string.IsNullOrWhiteSpace(VM.MainView.Output_Text) ||
-        //        // Halt if Output Directory is Empty
-        //        // Prevents a crash when changing containers if input and output paths are not empty
-        //        string.IsNullOrWhiteSpace(outputDir) ||
-        //        // Halt if Output Filename is Empty
-        //        string.IsNullOrWhiteSpace(outputFileName) ||
-        //        // Halt if Batch
-        //        VM.MainView.Batch_IsChecked == true
-        //        )
-        //    {
-        //        return;
-        //    }
-
-        //    // Halt if Output Naming is Empty
-        //    // Don't use
-        //    //if (VM.ConfigureView.OutputNaming_ListView_SelectedItems == null ||
-        //    //    VM.ConfigureView.OutputNaming_ListView_SelectedItems.Count == 0)
-        //    //{
-        //    //    return;
-        //    //}
-
-        //    // -------------------------
-        //    // Update Ouput Textbox with current Format extension
-        //    // -------------------------
-        //    // -------------------------
-        //    // Default
-        //    // -------------------------
-        //    if (// Tokens are not selected
-        //        !VM.ConfigureView.OutputNaming_ListView_SelectedItems.Any() ||
-        //        // Is Web URL
-        //        IsWebURL(VM.MainView.Input_Text) == true)
-        //    {
-        //        // Input Not Empty
-        //        // Output Empty
-        //        // Default Output to be same as Input Directory
-        //        if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-        //            string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-        //            )
-        //        {
-        //            outputFileName = FileRenamer(inputDir,      // comparision
-        //                                         outputDir,     // comparision
-        //                                         inputFileName, // comparision
-        //                                         TokenRemover(outputFileName) // comparison / name to change
-        //                                        );
-        //        }
-
-        //        // Input Not Empty
-        //        // Output Not Empty
-        //        else
-        //        {
-        //            // Local File
-        //            if (IsWebURL(VM.MainView.Input_Text) == false)
-        //            {
-        //                outputFileName = FileRenamer(inputDir,               // comparision
-        //                                             outputDir,              // comparision
-        //                                             inputFileName,          // comparision
-        //                                             TokenRemover(outputFileName_Original) // comparison / name to change
-        //                                            );
-        //            }
-        //            // Web URL
-        //            else
-        //            {
-        //                outputFileName = outputFileName_Original;
-        //                //outputFileName = FileRenamer(inputDir,      // comparision
-        //                //                             outputDir,     // comparision
-        //                //                             inputFileName, // comparision
-        //                //                             outputFileName // comparison / name to change
-        //                //                            );
-        //            }
-        //        }
-
-        //        // Display
-        //        // Updates the output Extension display 
-        //        //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-        //        //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-
-        //        //MessageBox.Show("Default"); //debug
-        //    }
-
-        //    // -------------------------
-        //    // Output File Name Settings Tokens
-        //    // -------------------------
-        //    else
-        //    {
-        //        // Input Not Empty
-        //        // Output Empty
-        //        // Default Output to be same as Input Directory
-        //        if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-        //            string.IsNullOrWhiteSpace(VM.MainView.Output_Text)
-        //            )
-        //        {
-        //            // Use Token Remover to remove tokens on Input files that already have Tokens
-        //            // To prevent Tokens from doubling up
-        //            outputFileName_Tokens = TokenAppender(TokenRemover(inputFileName));
-        //            outputFileName_Tokens = FileRenamer(inputDir,      // comparision
-        //                                                outputDir,     // comparision
-        //                                                inputFileName, // comparision
-        //                                                outputFileName_Tokens // comparison / name to change
-        //                                               );
-        //        }
-
-        //        // Input Not Empty
-        //        // Output Not Empty
-        //        else
-        //        {
-        //            // Use Token Remover to remove tokens on Input files that already have Tokens
-        //            // To prevent Tokens from doubling up
-        //            outputFileName_Tokens = TokenAppender(TokenRemover(TokenRemover(outputFileName_Original)));
-        //            outputFileName_Tokens = FileRenamer(inputDir,      // comparision
-        //                                                outputDir,     // comparision
-        //                                                inputFileName, // comparision
-        //                                                outputFileName_Tokens // comparison / name to change
-        //                                               );
-
-        //            //MessageBox.Show("debug");
-        //        }
-
-        //        // Display
-        //        // Updates the output Extension display 
-        //        //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Tokens + outputExt);
-        //        //VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
-        //    }
-        //}
-
 
         /// <summary>
         /// Token Remover (Method)
@@ -1387,7 +1183,7 @@ namespace Axiom
             if (VM.ConfigureView.InputFileNameTokens_SelectedItem == "Remove")
             {
                 // HW Accel Transcode
-                string hwAccelTranscode = @"(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
+                string hwAccelTranscode = "(" + string.Join("|", VM.VideoView.Video_HWAccel_Transcode_Items
                                                                   .Where(s => !string.IsNullOrWhiteSpace(s))
                                                                   .Where(s => !s.Equals("none"))
                                                                   .Where(s => !s.Equals("off"))
@@ -1396,7 +1192,7 @@ namespace Axiom
                                                                   .OrderByDescending(x => x)
                                                                   .ToList()
                                                             ) +   
-                                          @")";
+                                          ")";
 
                 // Presets
                 IEnumerable<string> presetsList = new List<string>()
@@ -1426,10 +1222,10 @@ namespace Axiom
                     @"CRF\d+",
                     @"\d+(\.?\d+)?(kVBR|kbps|k|m)",
                 };
-                string bitRate = @"(" + string.Join("|", bitRateList) + @")";
+                string bitRate = "(" + string.Join("|", bitRateList) + ")";
 
                 // Pixel Format
-                string pixelFormat = @"(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
+                string pixelFormat = "(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
                                                                .Concat(Controls.Video.Codec.FFV1.pixelFormat)
                                                                .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
                                                                .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
@@ -1450,7 +1246,7 @@ namespace Axiom
                                                                .OrderByDescending(x => x)
                                                                .ToList()
                                                     ) +
-                                    @")";
+                                    ")";
 
                 // Profile
                 // (e.g. Hi444PP, Hi10P)
@@ -1463,17 +1259,17 @@ namespace Axiom
                     @"(8|4|2)\s?K(\s?UHD)?", //4K UHD
                     @"\d\d\d\d?x\d\d\d\d?", //1920x1080, 720x480
                 };
-                string size = @"(" + string.Join("|", sizeList) + @")";
+                string size = "(" + string.Join("|", sizeList) + ")";
 
                 // Scaling Algorithm
-                string scaling = @"(" + string.Join("|", VM.VideoView.Video_ScalingAlgorithm_Items
-                                                           .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
-                                                           .Where(s => !s.Equals("none"))
-                                                           .Where(s => !s.Equals("auto"))
-                                                           .OrderByDescending(x => x)
-                                                           .ToList()
-                                                        ) +
-                                @")";
+                string scaling = "(" + string.Join("|", VM.VideoView.Video_ScalingAlgorithm_Items
+                                                        .Where(s => !string.IsNullOrWhiteSpace(s.ToString()))
+                                                        .Where(s => !s.Equals("none"))
+                                                        .Where(s => !s.Equals("auto"))
+                                                        .OrderByDescending(x => x)
+                                                        .ToList()
+                                                    ) +
+                                ")";
 
                 // FPS
                 // (e.g. 23.976fps, 60fps)
@@ -1482,25 +1278,27 @@ namespace Axiom
                 // Subtitles
                 string langs = @"(Eng(lish)?|E|Ara(bic)?|Ben(gali)?|Chi(nese)?|Chn|Dut(ch)?|Fin(nish)?|Fre(nch)?|Ger(man)?|De|Hin(di)?|Ita(lian)?|Jap(anese)?|Kor(ean)?|Man(darin)?|Por(tuguese)?|Rus(sian)?|Spa(nish)?|Swe(dish)?|Tel(ugu)?|Vie(tnamese)?)";
                 string subs = @"(Subtitle(s|d)?|Sub(s)?)";
-                string subtitles1 = @"(" + langs + @"[\-\s]?" + subs + @")";
-                string subtitles2 = @"|(" + subs + @"[\-\s]?" + langs + @")";
-                string subtitles3 = @"|(" + langs.Replace("|E", "").Replace("|Ben(gali)?", "|Bengali").Replace("Chi(nese)?", "Chinese").Replace("|Man(darin)?", "|Mandarin") + ")"; // Fix words like Ben, Chi, Man
-                //string subtitles4 = @"|\b" + subs + @"\b";
-                string subtitles4 = @"|(Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?)";
-                string subtitles = subtitles1 +
-                                   subtitles2 +
-                                   subtitles3 +
-                                   subtitles4;
+                IEnumerable<string> subtitlesList = new List<string>()
+                {
+                    langs + @"[\-\s]?" + subs,
+                    subs + @"[\-\s]?" + langs,
+                    langs.Replace("|E", "") // Fix words like Ben, Chi, Man
+                         .Replace("Ben(gali)?", "Bengali")
+                         .Replace("Chi(nese)?", "Chinese")
+                         .Replace("Man(darin)?", "Mandarin"),
+                    @"(Multi[\-\s]?Sub(s)?|Subtitle(s|d)?|Sub(s|bed)?)"
+                };
+                string subtitles = string.Join("|", subtitlesList);
 
                 // Channel
-                string channel1 = @"(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?)";
-                string channel2 = @"|(\d+(?:\.\d+)?[.-_\s]?)?((Dolby[.\-_\s]?(Digital)?)[.\-_\s]?(?:Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision)?)[.\-_\s]?(?(1)|([.\s]?\d+(?:\.\d+)?)?)";
-                string channel3 = @"|(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?)";
-                string channel4 = @"|(2\.0|2\.1|3\.1|5\.1|7\.1|7\.1\.2|7\.2|9\.1|9\.1\.2)"; // standalone
-                string channel = channel1 +
-                                 channel2 +
-                                 channel3 +
-                                 channel4;
+                IEnumerable<string> channelList = new List<string>()
+                {
+                    @"(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?)", 
+                    @"(\d+(?:\.\d+)?[.-_\s]?)?((Dolby[.\-_\s]?(Digital)?)[.\-_\s]?(?:Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision)?)[.\-_\s]?(?(1)|([.\s]?\d+(?:\.\d+)?)?)",
+                    @"(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?)",
+                    @"([235679][.][0-2]([.][2])?)" //standalone 2.0, 2.1, 3.1, 5.1, 5.2, 6.1, 6.2, 7.1, 7.1.2, 9.1, 9.1.2
+                };
+                string channel = string.Join("|", channelList);
 
                 // Bit Depth
                 string bitDepth = @"(\d+[\-\s]?bit)";
@@ -1514,12 +1312,11 @@ namespace Axiom
                     @"(DVD|BRD|BD|Br|HD|SD|Web)[\-\s]?(Rip|DL)?",
                     @"(HD|SD)(TV|R|C)?",
                     @"Blu[\-\s]?Ray",
-                    //@"Web[\-\s]?DL",
                     @"Rip",
                     @"(\d+)?CD",
                     @"Playlist",
                 };
-                string formats = @"(" + string.Join("|", formatsList) + @")";
+                string formats = "(" + string.Join("|", formatsList) + ")";
 
                 // Containers
                 IEnumerable<string> containersList = Generate.Format.VideoFormats
@@ -1533,7 +1330,7 @@ namespace Axiom
                 // These are usually for raw files
                 // This will prevent regex from running into duplicates in other categories
                 containersList = containersList.Except(Types.Codecs.CodecTypes, StringComparer.OrdinalIgnoreCase).ToList();
-                string containers = @"(" + string.Join("|", containersList) + @")";
+                string containers = "(" + string.Join("|", containersList) + ")";
 
                 // Codecs
                 List<string> codecsList = new List<string>()
@@ -1541,38 +1338,34 @@ namespace Axiom
                     "RAW",
                     "Lossless",
                     "HEVC",
-                    @"H[.\-]?(264|265)",
-                    @"(x264|x265)[.\-\s]?QOQ",
+                    @"(H[.\-]?)?(x)?26(4|5)[.\-\s]?(QOQ)?", // H.264, x264, x264-QOQ
                     "QOQ",
                     "NF",
                     "FP",
                 };
                 codecsList.AddRange(Types.Codecs.CodecTypes);
-                string codecs = @"(" + string.Join("|", codecsList) + @")";
+                string codecs = "(" + string.Join("|", codecsList) + ")";
 
                 // Video
-                //string video = @"(UHD|\d+[\-\s]?bit)";
                 IEnumerable<string> videoList = new List<string>()
                 {
-                    "UHD",
-                    "HD",
-                    "SD",
+                    "((UH|H|S)D)", // UHD, HD, SD
                     @"\d+[\-\s]?bit",
                 };
-                string video = @"(" + string.Join("|", videoList) + @")";
+                string video = "(" + string.Join("|", videoList) + ")";
 
                 // Audio
                 IEnumerable<string> audioList = new List<string>()
                 {
-                    @"(Dual|Multi|Original|Org)[\-\s]?(Audio|Aud)",
+                    @"(Dual|Multi|Original|Orig|Org)[\-\s]?(Audio|Aud)",
                     langs + @"[\-\s]?Dub",
                     @"(Non[\-\s])?English[\-\s]?Translated",
                     @"Dub(bed)?",
                 };
-                string audio = @"(" + string.Join("|", audioList) + @")";
+                string audio = "(" + string.Join("|", audioList) + ")";
 
                 // File
-                string file = @"(\d+([.]?\d+?)?[.\-_\s]?(MB|GB|TB))"; //100.5MB, 100GB, 100TB
+                string file = @"(\d+([.]?\d+?)?[.\-_\s]?((M|G|T)B))"; //100.5MB, 100GB, 100TB
 
                 // Labels
                 IEnumerable<string> labelsList = new List<string>()
@@ -1584,7 +1377,33 @@ namespace Axiom
                     "Repack",
                     "Complete",
                 };
-                string labels = @"(" + string.Join("|", labelsList) + @")";
+                string labels = "(" + string.Join("|", labelsList) + ")";
+
+                // Custom
+                string custom = string.Empty;
+                if (!string.IsNullOrWhiteSpace(VM.ConfigureView.InputFileNameTokensCustom_Text))
+                {
+                    string[] arrInputFileNameTokensCustom_Items = VM.ConfigureView.InputFileNameTokensCustom_Text
+                                                                  .Split(',');
+
+                    List<string> listInputFileNameTokensCustom_Items = new List<string>(); // Regex Escaped
+                    for (var i = 0; i < arrInputFileNameTokensCustom_Items.Length; i++)
+                    {
+                        // Add item to list
+                        // Replace invalid filename characters
+                        // Escape for Regex rules
+                        listInputFileNameTokensCustom_Items.Add(Regex.Escape(Regex.Replace(arrInputFileNameTokensCustom_Items[i].Trim(), "[\\/:*?\"<>|]", "")));
+                    }
+
+                    listInputFileNameTokensCustom_Items = listInputFileNameTokensCustom_Items // Clean up and remove empty strings from list
+                                                          .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                          .Distinct()
+                                                          .ToList();
+
+                    custom = "(" + string.Join("|", listInputFileNameTokensCustom_Items) + ")";
+                }
+                
+                //MessageBox.Show(custom); //debug
 
                 // Symbols
                 // Stray Parentheses
@@ -1620,6 +1439,7 @@ namespace Axiom
                     bitDepth,
                     file,
                     labels,
+                    custom,
                     @")((?=_)|\b)", //closing
                     symbols,
                 };
@@ -1685,8 +1505,6 @@ namespace Axiom
                 case "Spaces":
                     // periods
                     filename = Regex.Replace(filename, @"(?<!CRF\d*)(\d[.]\d)|[.]", m => m.Groups[1].Success ? m.Groups[1].Value : " ");
-                    //var m_pat = @"\bCRF\d+|[A-Za-z]+(?:\d+(?:\.\d+)?)?|\d+(?:\.\d+)?[a-zA-Z]*";
-                    //filename = string.Join(" ", Regex.Matches(filename, m_pat).Cast<Match>().Select(x => x.Value))
                     // dashes
                     filename = Regex.Replace(filename, @"(-+)|-", "$1");
                     // underscores
