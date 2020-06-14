@@ -119,10 +119,6 @@ namespace Controls
                     // -------------------------
                     switch (VM.VideoView.Video_Quality_SelectedItem)
                     {
-                        // Auto
-                        //case "Auto":
-                        //    Don't Use
-
                         // Lossless
                         case "Lossless":
                             VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
@@ -131,19 +127,8 @@ namespace Controls
                             };
 
                             VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
-                            VM.VideoView.Video_Pass_IsEnabled = true;
+                            VM.VideoView.Video_Pass_IsEnabled = false;
                             VM.VideoView.Video_CRF_IsEnabled = false;
-                            break;
-
-                        // Custom
-                        case "Custom":
-                            VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
-                            {
-                                "1 Pass",
-                            };
-
-                            VM.VideoView.Video_Pass_IsEnabled = true;
-                            VM.VideoView.Video_CRF_IsEnabled = true;
                             break;
 
                         // None
@@ -153,6 +138,7 @@ namespace Controls
                                 "auto"
                             };
 
+                            VM.VideoView.Video_Pass_SelectedItem = "auto";
                             VM.VideoView.Video_Pass_IsEnabled = false;
                             VM.VideoView.Video_CRF_IsEnabled = false;
                             break;
@@ -164,18 +150,11 @@ namespace Controls
                                 "1 Pass",
                             };
 
-                            VM.VideoView.Video_Pass_IsEnabled = true;
+                            VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
+                            VM.VideoView.Video_Pass_IsEnabled = false;
                             VM.VideoView.Video_CRF_IsEnabled = false;
-
-                            // Default to CRF
-                            if (Controls.passUserSelected == false)
-                            {
-                                VM.VideoView.Video_Pass_SelectedItem = "1 Pass";
-                                Controls.passUserSelected = true;
-                            }
                             break;
                     }
-
 
                     // Clear TextBoxes
                     if (VM.VideoView.Video_Quality_SelectedItem == "Auto" ||
