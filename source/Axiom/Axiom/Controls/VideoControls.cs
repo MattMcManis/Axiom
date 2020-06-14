@@ -864,174 +864,174 @@ namespace Controls
             /// <summary>
             /// Pixel Format Controls
             /// </summary>
-            public static void PixelFormatControls(string mediaType_SelectedItem,
-                                                   string codec_SelectedItem,
-                                                   string quality_SelectedItem
-                                                   )
-            {
-                // -------------------------
-                // MediaTypeControls
-                // ------------------------- 
-                if (mediaType_SelectedItem == "Video" ||
-                    mediaType_SelectedItem == "Image" ||
-                    mediaType_SelectedItem == "Sequence")
-                {
-                    switch (codec_SelectedItem)
-                    {
-                        // -------------------------
-                        // VP8
-                        // -------------------------
-                        case "VP8":
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            break;
+            //public static void PixelFormatControls(string mediaType_SelectedItem,
+            //                                       string codec_SelectedItem,
+            //                                       string quality_SelectedItem
+            //                                       )
+            //{
+            //    // -------------------------
+            //    // MediaTypeControls
+            //    // ------------------------- 
+            //    if (mediaType_SelectedItem == "Video" ||
+            //        mediaType_SelectedItem == "Image" ||
+            //        mediaType_SelectedItem == "Sequence")
+            //    {
+            //        switch (codec_SelectedItem)
+            //        {
+            //            // -------------------------
+            //            // VP8
+            //            // -------------------------
+            //            case "VP8":
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                break;
 
-                        // -------------------------
-                        // VP9
-                        // -------------------------
-                        case "VP9":
-                            // Lossless
-                            if (quality_SelectedItem == "Lossless")
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                            }
-                            // All Other Quality
-                            else
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            }
-                            break;
+            //            // -------------------------
+            //            // VP9
+            //            // -------------------------
+            //            case "VP9":
+            //                // Lossless
+            //                if (quality_SelectedItem == "Lossless")
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+            //                }
+            //                // All Other Quality
+            //                else
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                }
+            //                break;
 
-                        // -------------------------
-                        // x264
-                        // -------------------------
-                        case "x264":
-                            // Lossless
-                            if (quality_SelectedItem == "Lossless")
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                            }
-                            // All Other Quality
-                            else
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            }
-                            break;
+            //            // -------------------------
+            //            // x264
+            //            // -------------------------
+            //            case "x264":
+            //                // Lossless
+            //                if (quality_SelectedItem == "Lossless")
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+            //                }
+            //                // All Other Quality
+            //                else
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                }
+            //                break;
 
-                        // -------------------------
-                        // x265
-                        // -------------------------
-                        case "x265":
-                            // Lossless
-                            if (quality_SelectedItem == "Lossless")
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                            }
-                            // All Other Quality
-                            else
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            }
-                            break;
+            //            // -------------------------
+            //            // x265
+            //            // -------------------------
+            //            case "x265":
+            //                // Lossless
+            //                if (quality_SelectedItem == "Lossless")
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+            //                }
+            //                // All Other Quality
+            //                else
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                }
+            //                break;
 
-                        // -------------------------
-                        // AV1
-                        // -------------------------
-                        case "AV1":
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            break;
+            //            // -------------------------
+            //            // AV1
+            //            // -------------------------
+            //            case "AV1":
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                break;
 
-                        // -------------------------
-                        // FFV1
-                        // -------------------------
-                        case "FFV1":
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p10le";
-                            break;
+            //            // -------------------------
+            //            // FFV1
+            //            // -------------------------
+            //            case "FFV1":
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p10le";
+            //                break;
 
-                        // -------------------------
-                        // MagicYUV
-                        // -------------------------
-                        case "MagicYUV":
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                            break;
+            //            // -------------------------
+            //            // MagicYUV
+            //            // -------------------------
+            //            case "MagicYUV":
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+            //                break;
 
-                        // -------------------------
-                        // HuffYUV
-                        // -------------------------
-                        case "HuffYUV":
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                            break;
+            //            // -------------------------
+            //            // HuffYUV
+            //            // -------------------------
+            //            case "HuffYUV":
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+            //                break;
 
-                        // -------------------------
-                        // MPEG-2
-                        // -------------------------
-                        case "MPEG-2":
-                            // Lossless can't be yuv444p
-                            // All Pixel Formats must be yuv420p
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            break;
+            //            // -------------------------
+            //            // MPEG-2
+            //            // -------------------------
+            //            case "MPEG-2":
+            //                // Lossless can't be yuv444p
+            //                // All Pixel Formats must be yuv420p
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                break;
 
-                        // -------------------------
-                        // MPEG-4
-                        // -------------------------
-                        case "MPEG-4":
-                            // Lossless can't be yuv444p
-                            // All Pixel Formats must be yuv420p
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            break;
+            //            // -------------------------
+            //            // MPEG-4
+            //            // -------------------------
+            //            case "MPEG-4":
+            //                // Lossless can't be yuv444p
+            //                // All Pixel Formats must be yuv420p
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                break;
 
-                        // -------------------------
-                        // JPEG
-                        // -------------------------
-                        case "JPEG":
-                            VM.VideoView.Video_PixelFormat_SelectedItem = "yuvj420p";
-                            break;
+            //            // -------------------------
+            //            // JPEG
+            //            // -------------------------
+            //            case "JPEG":
+            //                VM.VideoView.Video_PixelFormat_SelectedItem = "yuvj420p";
+            //                break;
 
-                        // -------------------------
-                        // PNG
-                        // -------------------------
-                        case "PNG":
-                            // Lossless
-                            if (quality_SelectedItem == "Lossless")
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "bgra";
-                            }
-                            // All Other Quality
-                            else
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuva420p";
-                            }
-                            break;
+            //            // -------------------------
+            //            // PNG
+            //            // -------------------------
+            //            case "PNG":
+            //                // Lossless
+            //                if (quality_SelectedItem == "Lossless")
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
+            //                }
+            //                // All Other Quality
+            //                else
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuva420p";
+            //                }
+            //                break;
 
-                        // -------------------------
-                        // WebP
-                        // -------------------------
-                        case "WebP":
-                            // Lossless
-                            if (quality_SelectedItem == "Lossless")
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
-                            }
-                            // All Other Quality
-                            else
-                            {
-                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                            }
-                            break;
+            //            // -------------------------
+            //            // WebP
+            //            // -------------------------
+            //            case "WebP":
+            //                // Lossless
+            //                if (quality_SelectedItem == "Lossless")
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
+            //                }
+            //                // All Other Quality
+            //                else
+            //                {
+            //                    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+            //                }
+            //                break;
 
-                        // -------------------------
-                        // Copy
-                        // -------------------------
-                        case "Copy":
-                            // Excluded
-                            break;
-                    }
-                }
+            //            // -------------------------
+            //            // Copy
+            //            // -------------------------
+            //            case "Copy":
+            //                // Excluded
+            //                break;
+            //        }
+            //    }
 
-                // -------------------------
-                // Excluded Media Types
-                // -------------------------
-                // Audio
-            }
+            //    // -------------------------
+            //    // Excluded Media Types
+            //    // -------------------------
+            //    // Audio
+            //}
 
 
 
@@ -1098,11 +1098,14 @@ namespace Controls
                 // Select Controls
                 // -------------------------
                 // Tune
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = VM.VideoView.Video_Optimize_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Tune;
+                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = VM.VideoView.Video_Optimize_Items
+                                                                      .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Tune;
                 // Profile
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = VM.VideoView.Video_Optimize_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Profile;
+                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = VM.VideoView.Video_Optimize_Items
+                                                                         .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Profile;
                 // Level
-                VM.VideoView.Video_Optimize_Level_SelectedItem = VM.VideoView.Video_Optimize_Items.FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Level;
+                VM.VideoView.Video_Optimize_Level_SelectedItem = VM.VideoView.Video_Optimize_Items
+                                                                 .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Level;
 
             }
 
@@ -1237,6 +1240,7 @@ namespace Controls
                     // Enable
                     else if (VM.VideoView.Video_Pass_SelectedItem == "1 Pass" ||
                              VM.VideoView.Video_Pass_SelectedItem == "2 Pass" ||
+                             VM.VideoView.Video_Pass_SelectedItem == "none" ||
                              VM.VideoView.Video_Pass_SelectedItem == "auto")
                     {
                         VM.VideoView.Video_CRF_IsEnabled = false;
