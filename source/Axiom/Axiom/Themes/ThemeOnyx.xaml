@@ -1492,6 +1492,116 @@
     </Style>
 
 
+    <!--/////////////////////////////////////
+          TextBox Settings Custom
+        /////////////////////////////////////-->
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Foreground"
+                     Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Background"
+                     Color="#FF555555" />
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Border"
+                     Color="Transparent" />
+
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.Disabled.Background"
+                     Color="#FF555555" />
+
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.MouseOver.Border"
+                     Color="#FF7EB4EA" />
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.Focus.Border"
+                     Color="#FF569DE5" />
+
+    <Style x:Key="TextBoxSettingsStyle"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="Background"
+                Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource TextBoxSettingsStyle.Static.Border}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="CaretBrush"
+                Value="{DynamicResource TextBoxSettingsStyle.Static.Foreground}" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="KeyboardNavigation.TabNavigation"
+                Value="None" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="AllowDrop"
+                Value="true" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="VerticalFirst" />
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="false"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden" />
+                    </Border>
+                    <!-- TextBox Triggers -->
+                    <ControlTemplate.Triggers>
+                        <!-- Enabled / Disabled TextBox Colors & Opacity -->
+                        <Trigger Property="IsEnabled"
+                                 Value="true">
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource TextBoxSettingsStyle.Static.Foreground}" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource TextBoxSettingsStyle.Static.Background}" />
+                            <Setter Property="BorderBrush"
+                                    Value="{StaticResource TextBoxSettingsStyle.Static.Border}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Background"
+                                    Value="{StaticResource TextBoxSettingsStyle.Disabled.Background}" />
+                            <Setter Property="Opacity"
+                                    TargetName="border"
+                                    Value="0.6" />
+                            <Setter Property="Foreground"
+                                    Value="#FFFFFFFF" />
+                            <Setter Property="BorderBrush"
+                                    Value="{StaticResource TextBoxSettingsStyle.Static.Border}" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{StaticResource TextBoxSettingsStyle.MouseOver.Border}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused"
+                                 Value="true">
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{StaticResource TextBoxSettingsStyle.Focus.Border}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled"
+                               Value="true" />
+                    <Condition Property="IsSelectionActive"
+                               Value="false" />
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush"
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    
 
     <!--/////////////////////////////////////
      ComboBox Glyph Custom
