@@ -143,7 +143,6 @@ namespace Controls
                             VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
                             VM.VideoView.Video_Pass_IsEnabled = false;
                             Controls.passUserSelected = false;
-
                             VM.VideoView.Video_CRF_IsEnabled = false;
                             break;
 
@@ -217,7 +216,6 @@ namespace Controls
                         VM.VideoView.Video_MaxRate_Text = string.Empty;
                         VM.VideoView.Video_BufSize_Text = string.Empty;
                     }
-
                 }
 
 
