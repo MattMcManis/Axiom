@@ -634,7 +634,9 @@
         <Setter Property="FlowDirection"
                 Value="LeftToRight" />
         <Setter Property="Source"
-                Value="../Resources/Images/Buttons/White/clear.png" />
+                Value="../Resources/Images/Buttons/Black/clear.png" />
+        <Setter Property="Opacity"
+                Value="0.8" />
     </Style>
     
     <!-- Folder Button -->
