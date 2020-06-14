@@ -87,6 +87,7 @@ namespace ViewModel
             Threads_SelectedItem = "Optimal";
             OutputNaming_ListView_SelectedIndex = -1;
             InputFileNameTokens_SelectedItem = "Keep";
+            InputFileNameTokensCustom_Text = string.Empty;
             OutputFileNameSpacing_SelectedItem = "Original";
             OutputOverwrite_SelectedItem = "Always";
             Theme_SelectedItem = "Axiom";
@@ -913,6 +914,58 @@ namespace ViewModel
 
                 _InputFileNameTokens_SelectedItem = value;
                 OnPropertyChanged("InputFileNameTokens_SelectedItem");
+            }
+        }
+        // Enabled
+        private bool _InputFileNameTokens_IsEnabled = true;
+        public bool InputFileNameTokens_IsEnabled
+        {
+            get { return _InputFileNameTokens_IsEnabled; }
+            set
+            {
+                if (_InputFileNameTokens_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _InputFileNameTokens_IsEnabled = value;
+                OnPropertyChanged("InputFileNameTokens_IsEnabled");
+            }
+        }
+
+        // -------------------------
+        // Input FileName Tokens Custom
+        // -------------------------
+        // Text
+        private string _InputFileNameTokensCustom_Text;
+        public string InputFileNameTokensCustom_Text
+        {
+            get { return _InputFileNameTokensCustom_Text; }
+            set
+            {
+                if (_InputFileNameTokensCustom_Text == value)
+                {
+                    return;
+                }
+
+                _InputFileNameTokensCustom_Text = value;
+                OnPropertyChanged("InputFileNameTokensCustom_Text");
+            }
+        }
+        // Enabled
+        private bool _InputFileNameTokensCustom_IsEnabled = true;
+        public bool InputFileNameTokensCustom_IsEnabled
+        {
+            get { return _InputFileNameTokensCustom_IsEnabled; }
+            set
+            {
+                if (_InputFileNameTokensCustom_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _InputFileNameTokensCustom_IsEnabled = value;
+                OnPropertyChanged("InputFileNameTokensCustom_IsEnabled");
             }
         }
 
