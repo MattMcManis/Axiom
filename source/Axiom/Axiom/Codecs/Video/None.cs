@@ -81,10 +81,11 @@ namespace Controls
                     // Items Source
                     VM.VideoView.Video_Pass_Items = new ObservableCollection<string>()
                     {
-                        "auto"
+                        "none",
+                        "auto" // don't use, leave for legacy
                     };
 
-                    VM.VideoView.Video_Pass_SelectedItem = "auto";
+                    VM.VideoView.Video_Pass_SelectedItem = "none";
                     VM.VideoView.Video_Pass_IsEnabled = false;
                     Controls.passUserSelected = false;
 
