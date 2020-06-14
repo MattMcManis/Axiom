@@ -50,8 +50,9 @@ namespace Generate
                 // -------------------------
                 if (VM.VideoView.Video_Pass_SelectedItem == "1 Pass" ||
                     VM.VideoView.Video_Pass_SelectedItem == "CRF" ||
-                    VM.VideoView.Video_Pass_SelectedItem == "auto" ||
-                    VM.FormatView.Format_Container_SelectedItem == "ogv" //ogv (special rule)
+                    VM.VideoView.Video_Pass_SelectedItem == "none" ||
+                    VM.VideoView.Video_Pass_SelectedItem == "auto" //||
+                    //VM.FormatView.Format_Container_SelectedItem == "ogv" //ogv (special rule)
                     )
                 {
                     // -------------------------
@@ -170,6 +171,8 @@ namespace Generate
                         Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
                     };
                     Log.LogActions.Add(Log.WriteAction);
+
+                    //System.Windows.MessageBox.Show(string.Join("\n",VM.VideoView.Video_PixelFormat_Items)); //debug
 
                     IEnumerable<string> videoList = new List<string>();
 
