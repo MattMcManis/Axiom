@@ -410,7 +410,7 @@
                        Margin="1,0,0,0"
                        Style="{DynamicResource ButtonClear}" />
             </Button>
-            
+
             <!-- Input Location Button -->
             <Button x:Name="openLocationInput"
                     Style="{DynamicResource ButtonFolderStyle}"
@@ -5891,7 +5891,7 @@
                                            Margin="1,0,0,0"
                                            Style="{DynamicResource ButtonRevertArrow}" />
                                 </Button>
-                                
+
                                 <!-- Shell Title -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Title"
@@ -5942,7 +5942,7 @@
                                            Margin="1,0,0,0"
                                            Style="{DynamicResource ButtonRevertArrow}" />
                                 </Button>
-                                
+
                                 <!-- Priority -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Priority"
@@ -6060,6 +6060,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="33" />
                                     <RowDefinition Height="33" />
+                                    <RowDefinition Height="80" />
                                     <RowDefinition Height="22" />
                                 </Grid.RowDefinitions>
 
@@ -6124,6 +6125,28 @@
                                            Margin="1,0,0,0"
                                            Style="{DynamicResource ButtonRevertArrow}" />
                                 </Button>
+
+                                <!-- Input Tokens Custom -->
+                                <TextBox x:Name="tbxInputFileNameTokensCustom"
+                                         Text="{Binding InputFileNameTokensCustom_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         IsEnabled="{Binding InputFileNameTokensCustom_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{DynamicResource TextBoxSettingsStyle}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Margin="5,2,0,0"
+                                         Padding="5"
+                                         MaxLines="1"
+                                         TextWrapping="Wrap"
+                                         RenderOptions.ClearTypeHint="Enabled"
+                                         VerticalScrollBarVisibility="Auto"
+                                         Width="204"
+                                         Height="75"
+                                         ToolTipService.InitialShowDelay="200"
+                                         ToolTipService.ShowOnDisabled="True"
+                                         ToolTip="Add additional custom Input Filename Tokens to be removed, separated by commas."
+                                         Grid.Column="1"
+                                         Grid.Row="2"
+                                         Grid.ColumnSpan="2" />
                             </Grid>
 
                             <!-- Output Group -->
@@ -6356,7 +6379,7 @@
                                            Margin="1,0,0,0"
                                            Style="{DynamicResource ButtonRevertArrow}" />
                                 </Button>
-                                
+
                                 <!-- Overwrite -->
                                 <Label Style="{DynamicResource LabelStyle}"
                                        Content="Overwrite"
