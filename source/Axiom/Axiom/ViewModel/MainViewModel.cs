@@ -68,6 +68,8 @@ namespace ViewModel
             // -------------------------
             // Main
             // -------------------------
+            Window_Width = 824;
+            Window_Height = 464;
             Preset_IsEnabled = true;
             Preset_SelectedItem = "Preset";
             Input_Location_IsEnabled = false;
@@ -83,6 +85,43 @@ namespace ViewModel
         /// Main
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
+
+        //// --------------------------------------------------
+        //// Window
+        //// --------------------------------------------------
+        //// Width
+        //private double _Width { get; set; }
+        //public double Width
+        //{
+        //    get { return _Width; }
+        //    set
+        //    {
+        //        if (_Width == value)
+        //        {
+        //            return;
+        //        }
+
+        //        _Width = value;
+        //        OnPropertyChanged("Width");
+        //    }
+        //}
+
+        //// Height
+        //private double _Height { get; set; }
+        //public double Height
+        //{
+        //    get { return _Height; }
+        //    set
+        //    {
+        //        if (_Height == value)
+        //        {
+        //            return;
+        //        }
+
+        //        _Height = value;
+        //        OnPropertyChanged("Height");
+        //    }
+        //}
 
         // --------------------------------------------------
         // Info
@@ -292,7 +331,7 @@ namespace ViewModel
         // Window Width
         // -------------------------
         // Value
-        private double _Window_Width = 0;
+        private double _Window_Width;
         public double Window_Width
         {
             get { return _Window_Width; }
@@ -312,7 +351,7 @@ namespace ViewModel
         // Window Height
         // -------------------------
         // Value
-        private double _Window_Height = 0;
+        private double _Window_Height;
         public double Window_Height
         {
             get { return _Window_Height; }
