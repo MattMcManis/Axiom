@@ -194,12 +194,12 @@ namespace Controls
             // Main Window
             // -------------------------
             // Window Position Top
-            double top;
+            double top = 0;
             double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
             mainwindow.Top = top;
 
             // Window Position Left
-            double left;
+            double left = 0;
             double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
             mainwindow.Left = left;
 
@@ -225,12 +225,14 @@ namespace Controls
             }
 
             // Window Width
-            double width = MainWindow.minWidth;
+            //double width = MainWindow.minWidth;
+            double width = VM.MainView.Window_Width;
             double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
             mainwindow.Width = width;
 
             // Window Height
-            double height = MainWindow.minHeight;
+            //double height = MainWindow.minHeight;
+            double height = VM.MainView.Window_Height;
             double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
             mainwindow.Height = height;
 
@@ -404,6 +406,15 @@ namespace Controls
                 }
             }
 
+            // Input Filename Tokens Custom
+            string inputFileNameTokensCustom_Text = conf.Read("Settings", "InputFileNameTokensCustom_Text");
+            if (!string.IsNullOrWhiteSpace(inputFileNameTokensCustom_Text))
+            {
+                VM.ConfigureView.InputFileNameTokensCustom_Text = inputFileNameTokensCustom_Text;
+                                                                 //.Trim() // remove spaces
+                                                                 //.Replace(",", ", "); // add spaces after every comma
+            }
+
             // Spacing
             string outputFileNameSpacing_SelectedItem = conf.Read("Settings", "OutputFileNameSpacing_SelectedItem");
             if (!string.IsNullOrWhiteSpace(outputFileNameSpacing_SelectedItem))
@@ -565,6 +576,22 @@ namespace Controls
                     conf.Write("Settings", "Threads_SelectedItem", VM.ConfigureView.Threads_SelectedItem);
 
                     // -------------------------
+                    // Input
+                    // -------------------------
+
+                    // Input Filename Tokens
+                    conf.Write("Settings", "InputFileNameTokens_SelectedItem", VM.ConfigureView.InputFileNameTokens_SelectedItem);
+
+                    // Input Filename Tokens Custom
+                    conf.Write("Settings", "InputFileNameTokensCustom_Text", 
+                                            MainWindow.RemoveLineBreaks(
+                                                VM.ConfigureView.InputFileNameTokensCustom_Text
+                                                //.Replace(" ", "")
+                                            )
+                                                
+                            );
+
+                    // -------------------------
                     // Output
                     // -------------------------
                     // Order
@@ -576,9 +603,6 @@ namespace Controls
                     string outputNaming_SelectedItems = string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
                                                                          .Where(s => !string.IsNullOrEmpty(s)));
                     conf.Write("Settings", "OutputNaming_SelectedItems", outputNaming_SelectedItems);
-
-                    // Tags
-                    conf.Write("Settings", "InputFileNameTokens_SelectedItem", VM.ConfigureView.InputFileNameTokens_SelectedItem);
 
                     // Spacing
                     conf.Write("Settings", "OutputFileNameSpacing_SelectedItem", VM.ConfigureView.OutputFileNameSpacing_SelectedItem);
