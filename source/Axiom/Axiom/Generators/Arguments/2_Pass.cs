@@ -48,12 +48,10 @@ namespace Generate
                 // -------------------------
                 //  2-Pass / Auto Quality
                 // -------------------------
-                // Enabled 
-                //
-                if (VM.VideoView.Video_Pass_SelectedItem == "2 Pass" &&
-                    VM.FormatView.Format_MediaType_SelectedItem == "Video" && // video only
+                if (VM.FormatView.Format_MediaType_SelectedItem == "Video" && // 2-Pass is for video only
                     VM.VideoView.Video_Codec_SelectedItem != "Copy" &&  // exclude copy
-                    VM.FormatView.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
+                    VM.VideoView.Video_Pass_SelectedItem == "2 Pass"
+                    //VM.FormatView.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
                     )
                 {
                     // --------------------------------------------------
