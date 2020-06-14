@@ -833,7 +833,16 @@ namespace Axiom
         /// </summary>
         private void cboInputFileNameTokens_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            switch (VM.ConfigureView.InputFileNameTokens_SelectedItem)
+            {
+                case "Keep":
+                    VM.ConfigureView.InputFileNameTokensCustom_IsEnabled = false;
+                    break;
 
+                case "Remove":
+                    VM.ConfigureView.InputFileNameTokensCustom_IsEnabled = true;
+                    break;
+            }
         }
 
         /// <summary>
