@@ -148,8 +148,8 @@ namespace Axiom
             // Pixel Format
             // -------------------------
             //Controls.Video.Controls.PixelFormatControls(VM.FormatView.Format_MediaType_SelectedItem,
-            //                                                 VM.VideoView.Video_Codec_SelectedItem,
-            //                                                 VM.VideoView.Video_Quality_SelectedItem);
+            //                                            VM.VideoView.Video_Codec_SelectedItem,
+            //                                            VM.VideoView.Video_Quality_SelectedItem);
 
             // -------------------------
             // Optimize Controls
@@ -289,9 +289,9 @@ namespace Axiom
             // -------------------------
             // Pixel Format
             // -------------------------
-            //Controls.Video.Controls.PixelFormatControls(VM.FormatView.Format_MediaType_SelectedItem,
-            //                                           VM.VideoView.Video_Codec_SelectedItem,
-            //                                           VM.VideoView.Video_Quality_SelectedItem);
+            Controls.Video.Controls.PixelFormatControls(VM.FormatView.Format_MediaType_SelectedItem,
+                                                        VM.VideoView.Video_Codec_SelectedItem,
+                                                        VM.VideoView.Video_Quality_SelectedItem);
 
             // -------------------------
             // Output Path Update Display
