@@ -1549,13 +1549,13 @@
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Foreground"
                      Color="#FFFFFFFF" />
-    <ImageBrush x:Key="TextBoxSettingsStyle.Static.Background"
+    <!--<ImageBrush x:Key="TextBoxSettingsStyle.Static.Background"
                 ImageSource="../Resources/Images/Themes/Axiom/TextBoxSettingsEnabled.png"
                 Stretch="Fill"
                 AlignmentX="Left"
-                AlignmentY="Top" />
-    <!--<SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Background"
-                     Color="#FF011d45" />-->
+                AlignmentY="Top" />-->
+    <SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Background"
+                     Color="#FF011d45" />
     <SolidColorBrush x:Key="TextBoxSettingsStyle.Static.Border"
                      Color="Transparent" />
 
