@@ -135,7 +135,6 @@ namespace Controls
                             VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
                             VM.VideoView.Video_Pass_IsEnabled = false;
                             Controls.passUserSelected = false;
-
                             VM.VideoView.Video_CRF_IsEnabled = false;
                             break;
 
