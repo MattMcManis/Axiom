@@ -65,8 +65,8 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // MainWindow
-        public static double minWidth = 824;
-        public static double minHeight = 464;
+        //public static double minWidth = 824;
+        //public static double minHeight = 464;
 
         // System
         public static string appRootDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
@@ -171,8 +171,10 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            MinWidth = MainWindow.minWidth;
-            MinHeight = MainWindow.minHeight;
+            //MinWidth = MainWindow.minWidth;
+            //MinHeight = MainWindow.minHeight;
+            MinWidth = VM.MainView.Window_Width;
+            MinHeight = VM.MainView.Window_Height;
 
             // -------------------------
             // Set Current Version to Assembly Version
@@ -924,6 +926,7 @@ namespace Axiom
 
                 // Input
                 VM.ConfigureView.InputFileNameTokens_SelectedItem != conf.Read("Settings", "InputFileNameTokens_SelectedItem") ||
+                VM.ConfigureView.InputFileNameTokensCustom_Text != conf.Read("Settings", "InputFileNameTokensCustom_Text") ||
 
                 // Output
                 string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
