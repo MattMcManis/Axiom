@@ -485,7 +485,9 @@ namespace Axiom
                     else
                     {
                         // e.g. C:\Output\Path\
-                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+                        outputDir = Path.GetDirectoryName(VM.MainView.Output_Text.TrimEnd('\\') + @"\");
+
+                        //MessageBox.Show(outputDir); //debug
 
                         switch (VM.ConfigureView.Shell_SelectedItem)
                         {
@@ -539,9 +541,7 @@ namespace Axiom
             // -------------------------
             // Enable / Disable "Open Output Location" Button
             // -------------------------
-            if (//!string.IsNullOrWhiteSpace(VM.MainView.Output_Text) &&
-                IsValidPath(VM.MainView.Output_Text) == true && // Detect Invalid Characters
-
+            if (IsValidPath(VM.MainView.Output_Text) == true && // Detect Invalid Characters
                 Path.IsPathRooted(VM.MainView.Output_Text) == true // TrimEnd('\\') + @"\" is adding a backslash to 
                                                                    // Iput text 'http' until it is detected as Web URL
                 )
@@ -559,11 +559,42 @@ namespace Axiom
                     VM.MainView.Output_Location_IsEnabled = false;
                 }
             }
-
             // Disable Button for Web URL
             else
             {
+                //VM.MainView.Output_Clear_IsEnabled = false;
                 VM.MainView.Output_Location_IsEnabled = false;
+            }
+
+            // -------------------------
+            // Enable / Disable "Output Clear" Button
+            // -------------------------
+            // Disable
+            if (string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+            {
+                VM.MainView.Output_Clear_IsEnabled = false;
+            }
+            // Enable
+            else
+            {
+                VM.MainView.Output_Clear_IsEnabled = true;
+            }
+
+            // -------------------------
+            // Set Output
+            // -------------------------
+            if (VM.MainView.BatchExtension_IsEnabled == true)
+            {
+                // e.g. C:\Output\Path\
+                outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+                // e.g. C:\Output\Path\MyFile.mp4
+                //outputFileName = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+                // Set Original Name
+                //outputFileName_Original = outputFileName;
+                // Disable Tokens
+                //outputFileName_Tokens = outputFileName;
+                // Output
+                //output = VM.MainView.Output_Text;
             }
         }
 
@@ -580,13 +611,20 @@ namespace Axiom
         /// </summary>
         private void OnOutputTextBoxPaste(object sender, DataObjectPastingEventArgs e)
         {
-            var isText = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
-            if (!isText) return;
+            try
+            {
+                var isText = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
+                if (!isText) return;
 
-            var text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
+                var text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
 
-            // Save Output File Name
-            outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+                // Save Output File Name
+                outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -594,17 +632,31 @@ namespace Axiom
         /// </summary>
         private void tbxOutput_PreviewDragOver(object sender, DragEventArgs e)
         {
-            e.Handled = true;
-            e.Effects = DragDropEffects.Copy;
+            try
+            {
+                e.Handled = true;
+                e.Effects = DragDropEffects.Copy;
+            }
+            catch
+            {
+
+            }
         }
 
         private void tbxOutput_PreviewDrop(object sender, DragEventArgs e)
         {
-            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            VM.MainView.Output_Text = buffer.First();
+            try
+            {
+                var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+                VM.MainView.Output_Text = buffer.First();
 
-            // Save Output File Name
-            outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+                // Save Output File Name
+                outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -613,6 +665,13 @@ namespace Axiom
         private void btnOutputClear_Click(object sender, RoutedEventArgs e)
         {
             VM.MainView.Output_Text = string.Empty;
+
+            outputDir = string.Empty;
+            outputFileName_Original = string.Empty;
+            outputFileName_Tokens = string.Empty;
+            outputFileName = string.Empty;
+            outputExt = string.Empty;
+            output = string.Empty;
         }
 
         /// <summary>
