@@ -638,7 +638,7 @@
         <Setter Property="Opacity"
                 Value="0.8" />
     </Style>
-    
+
     <!-- Folder Button -->
     <Style x:Key="ButtonQuickFolder"
            TargetType="{x:Type Image}">

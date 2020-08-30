@@ -1619,7 +1619,7 @@
         </Style.Triggers>
     </Style>
 
-    
+
     <!--/////////////////////////////////////
      ComboBox Glyph Custom
     /////////////////////////////////////-->
@@ -5442,7 +5442,7 @@
         <Setter Property="Source"
                 Value="../Resources/Images/Buttons/White/clear.png" />
     </Style>
-    
+
     <!-- Folder Button -->
     <Style x:Key="ButtonQuickFolder"
            TargetType="{x:Type Image}">

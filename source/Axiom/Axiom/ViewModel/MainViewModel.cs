@@ -65,15 +65,18 @@ namespace ViewModel
         /// </summary>
         public void LoadControlsDefaults()
         {
-            // -------------------------
-            // Main
-            // -------------------------
             Window_Width = 824;
             Window_Height = 464;
+
             Preset_IsEnabled = true;
             Preset_SelectedItem = "Preset";
+
             Input_Location_IsEnabled = false;
             Output_Location_IsEnabled = false;
+
+            Input_Clear_IsEnabled = false;
+            Output_Clear_IsEnabled = false;
+
             BatchExtension_IsEnabled = false;
             CMDWindowKeep_IsChecked = true;
             AutoSortScript_IsChecked = true;
@@ -85,43 +88,6 @@ namespace ViewModel
         /// Main
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
-
-        //// --------------------------------------------------
-        //// Window
-        //// --------------------------------------------------
-        //// Width
-        //private double _Width { get; set; }
-        //public double Width
-        //{
-        //    get { return _Width; }
-        //    set
-        //    {
-        //        if (_Width == value)
-        //        {
-        //            return;
-        //        }
-
-        //        _Width = value;
-        //        OnPropertyChanged("Width");
-        //    }
-        //}
-
-        //// Height
-        //private double _Height { get; set; }
-        //public double Height
-        //{
-        //    get { return _Height; }
-        //    set
-        //    {
-        //        if (_Height == value)
-        //        {
-        //            return;
-        //        }
-
-        //        _Height = value;
-        //        OnPropertyChanged("Height");
-        //    }
-        //}
 
         // --------------------------------------------------
         // Info
@@ -517,6 +483,27 @@ namespace ViewModel
 
 
         // --------------------------------------------------
+        // Input Clear - Button
+        // --------------------------------------------------
+        // Controls Enable
+        private bool _Input_Clear_IsEnabled { get; set; }
+        public bool Input_Clear_IsEnabled
+        {
+            get { return _Input_Clear_IsEnabled; }
+            set
+            {
+                if (_Input_Clear_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Input_Clear_IsEnabled = value;
+                OnPropertyChanged("Input_Clear_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
         // Batch - Toggle
         // --------------------------------------------------
         // Checked
@@ -615,6 +602,26 @@ namespace ViewModel
 
                 _Output_Location_IsEnabled = value;
                 OnPropertyChanged("Output_Location_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Output Clear - Button
+        // --------------------------------------------------
+        // Controls Enable
+        private bool _Output_Clear_IsEnabled { get; set; }
+        public bool Output_Clear_IsEnabled
+        {
+            get { return _Output_Clear_IsEnabled; }
+            set
+            {
+                if (_Output_Clear_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Output_Clear_IsEnabled = value;
+                OnPropertyChanged("Output_Clear_IsEnabled");
             }
         }
 

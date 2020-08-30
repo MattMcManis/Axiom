@@ -356,7 +356,7 @@
         <!-- Input / Output Grid -->
         <Grid Height="56"
               VerticalAlignment="Top"
-              Margin="10,10,295,0">
+              Margin="10,10,280,0">
 
             <!-- Browse Button -->
             <Button x:Name="btnInput"
@@ -377,7 +377,7 @@
                      Text="{Binding MainView.Input_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{DynamicResource TextBoxBrowseStyle}"
                      Height="22"
-                     Margin="75,0,-14,0"
+                     Margin="75,0,0,0"
                      Padding="2, 1, 50, 0"
                      TextWrapping="NoWrap"
                      MaxLines="1"
@@ -391,8 +391,8 @@
             <!-- Input Clear Button -->
             <Button x:Name="btnInputClear"
                     Style="{DynamicResource ButtonFolderStyle}"
-                    IsEnabled="{Binding MainView.Input_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,1,12,0"
+                    IsEnabled="{Binding MainView.Input_Clear_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,1,24,0"
                     Cursor="Hand"
                     Click="btnInputClear_Click"
                     ToolTipService.InitialShowDelay="500"
@@ -415,7 +415,7 @@
             <Button x:Name="openLocationInput"
                     Style="{DynamicResource ButtonFolderStyle}"
                     IsEnabled="{Binding MainView.Input_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,1,-11,0"
+                    Margin="0,1,1,0"
                     Cursor="Hand"
                     Click="openLocationInput_Click"
                     ToolTipService.InitialShowDelay="500"
@@ -452,7 +452,7 @@
                      Text="{Binding MainView.Output_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{DynamicResource TextBoxBrowseStyle}"
                      Height="22"
-                     Margin="75,29,-14,0"
+                     Margin="75,29,0,0"
                      Padding="2, 1, 25, 0"
                      TextWrapping="NoWrap"
                      MaxLines="1"
@@ -467,8 +467,8 @@
             <!-- Output Clear Button -->
             <Button x:Name="btnOutputClear"
                     Style="{DynamicResource ButtonFolderStyle}"
-                    IsEnabled="{Binding MainView.Output_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,30,12,0"
+                    IsEnabled="{Binding MainView.Output_Clear_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,30,24,0"
                     Cursor="Hand"
                     Click="btnOutputClear_Click"
                     ToolTipService.InitialShowDelay="500"
@@ -499,7 +499,7 @@
                     Width="22"
                     Height="20"
                     VerticalAlignment="Top"
-                    Margin="0,30,-11,0">
+                    Margin="0,30,1,0">
                 <Image Width="11"
                        Height="7"
                        Stretch="Uniform"

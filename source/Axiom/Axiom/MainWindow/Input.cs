@@ -225,13 +225,10 @@ namespace Axiom
                     }
                 }
 
-
                 // -------------------------
                 // Enable / Disable "Open Input Location" Button
                 // -------------------------
-                if (//!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                    IsValidPath(VM.MainView.Input_Text) == true && // Detect Invalid Characters
-
+                if (IsValidPath(VM.MainView.Input_Text) == true && // Detect Invalid Characters
                     Path.IsPathRooted(VM.MainView.Input_Text) == true // TrimEnd('\\') + @"\" is adding a backslash to 
                                                                       // Iput text 'http' until it is detected as Web URL
                     )
@@ -241,45 +238,46 @@ namespace Axiom
                     // Path exists
                     if (exists)
                     {
+                        //VM.MainView.Input_Clear_IsEnabled = true;
                         VM.MainView.Input_Location_IsEnabled = true;
                     }
                     // Path does not exist
                     else
                     {
+                        //VM.MainView.Input_Clear_IsEnabled = false;
                         VM.MainView.Input_Location_IsEnabled = false;
                     }
                 }
-
-                // Disable Button for Web URL
+                // Disable for Web URL
                 else
                 {
+                    //VM.MainView.Input_Clear_IsEnabled = false;
                     VM.MainView.Input_Location_IsEnabled = false;
                 }
 
+                //// -------------------------
+                //// Set Video & Audio Codec Combobox to "Copy" 
+                //// if Input Extension is Same as Output Extension and Video Quality is Auto
+                //// -------------------------
+                //if (IsWebURL(VM.MainView.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
+                //{
+                //    if (Path.HasExtension(VM.MainView.Input_Text) == true && // Check if Input has file extension after it has passed URL check
+                //                                                             // to prevent path forward slash error in Path.HasExtension()
 
-                // -------------------------
-                // Set Video & Audio Codec Combobox to "Copy" 
-                // if Input Extension is Same as Output Extension and Video Quality is Auto
-                // -------------------------
-                if (IsWebURL(VM.MainView.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
-                {
-                    if (Path.HasExtension(VM.MainView.Input_Text) == true && // Check if Input has file extension after it has passed URL check
-                                                                             // to prevent path forward slash error in Path.HasExtension()
+                //        !VM.MainView.Input_Text.Contains("youtube"))         // Input text does not contain "youtube", 
+                //                                                             // Path.HasExtension() detects .c, .co, .com as extension
 
-                        !VM.MainView.Input_Text.Contains("youtube"))         // Input text does not contain "youtube", 
-                                                                             // Path.HasExtension() detects .c, .co, .com as extension
-
-                    {
-                        // -------------------------
-                        // Set Video and AudioCodec Combobox to "Copy" if 
-                        // Input File Extension is Same as Output File Extension 
-                        // and Quality is Auto
-                        // -------------------------
-                        //VideoControls.AutoCopyVideoCodec("input");
-                        //SubtitleControls.AutoCopySubtitleCodec("input");
-                        //AudioControls.AutoCopyAudioCodec("input");
-                    }
-                }
+                //    {
+                //        // -------------------------
+                //        // Set Video and AudioCodec Combobox to "Copy" if 
+                //        // Input File Extension is Same as Output File Extension 
+                //        // and Quality is Auto
+                //        // -------------------------
+                //        //VideoControls.AutoCopyVideoCodec("input");
+                //        //SubtitleControls.AutoCopySubtitleCodec("input");
+                //        //AudioControls.AutoCopyAudioCodec("input");
+                //    }
+                //}
             }
 
             // -------------------------
@@ -292,6 +290,19 @@ namespace Axiom
                 VM.MainView.Input_Location_IsEnabled = false;
             }
 
+            // -------------------------
+            // Enable / Disable "Input Clear" Button
+            // -------------------------
+            // Disable
+            if (string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+            {
+                VM.MainView.Input_Clear_IsEnabled = false;
+            }
+            // Enable
+            else
+            {
+                VM.MainView.Input_Clear_IsEnabled = true;
+            }
 
             // -------------------------
             // Convert Button Text Change
@@ -305,31 +316,45 @@ namespace Axiom
         /// </summary>
         private void tbxInput_PreviewDragOver(object sender, DragEventArgs e)
         {
-            e.Handled = true;
-            e.Effects = DragDropEffects.Copy;
+            try
+            {
+                e.Handled = true;
+                e.Effects = DragDropEffects.Copy;
+            }
+            catch
+            {
+
+            }
         }
 
         private void tbxInput_PreviewDrop(object sender, DragEventArgs e)
         {
-            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            VM.MainView.Input_Text = buffer.First();
+            try
+            {
+                var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+                VM.MainView.Input_Text = buffer.First();
 
-            // Set Input Dir, Name, Ext
-            inputDir = Path.GetDirectoryName(VM.MainView.Input_Text).TrimEnd('\\') + @"\";
-            inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
-            inputExt = Path.GetExtension(VM.MainView.Input_Text);
+                // Set Input Dir, Name, Ext
+                inputDir = Path.GetDirectoryName(VM.MainView.Input_Text).TrimEnd('\\') + @"\";
+                inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
+                inputExt = Path.GetExtension(VM.MainView.Input_Text);
 
-            // Clear Output TextBox
-            VM.MainView.Output_Text = string.Empty;
+                // Clear Output TextBox
+                VM.MainView.Output_Text = string.Empty;
 
-            // -------------------------
-            // Set Video and AudioCodec Combobox to "Copy" if 
-            // Input File Extension is Same as Output File Extension 
-            // and Quality is Auto
-            // -------------------------
-            //VideoControls.AutoCopyVideoCodec("input");
-            //SubtitleControls.AutoCopySubtitleCodec("input");
-            //AudioControls.AutoCopyAudioCodec("input");
+                // -------------------------
+                // Set Video and AudioCodec Combobox to "Copy" if 
+                // Input File Extension is Same as Output File Extension 
+                // and Quality is Auto
+                // -------------------------
+                //VideoControls.AutoCopyVideoCodec("input");
+                //SubtitleControls.AutoCopySubtitleCodec("input");
+                //AudioControls.AutoCopyAudioCodec("input");
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -338,6 +363,11 @@ namespace Axiom
         private void btnInputClear_Click(object sender, RoutedEventArgs e)
         {
             VM.MainView.Input_Text = string.Empty;
+
+            inputDir = string.Empty;
+            inputFileName = string.Empty;
+            inputExt = string.Empty;
+            input = string.Empty;
         }
 
         /// <summary>

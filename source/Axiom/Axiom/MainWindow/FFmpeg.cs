@@ -240,7 +240,7 @@ namespace Axiom
 
                 // Batch
                 case true:
-                    VM.MainView.Output_Text = outputDir;
+                    VM.MainView.Output_Text = outputDir/*.TrimEnd('\\') + @"\"*/;
                     break;
             }
         }
