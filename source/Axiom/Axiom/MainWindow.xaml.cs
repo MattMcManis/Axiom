@@ -87,6 +87,14 @@ namespace Axiom
         public static string videosDir = userProfile + @"Videos\"; // C:\Users\Example\Videos\
         public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
 
+        public static string confAppRootPath = appRootDir + "axiom.conf";
+        public static string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
+        public static string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
+
+        public static string logAppRootPath = appRootDir + "axiom.log";
+        public static string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
+        public static string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
+
         // Programs
         public static string youtubedl { get; set; } // youtube-dl.exe
 
@@ -563,29 +571,22 @@ namespace Axiom
         /// <summary>
         /// On Closed
         /// </summary>
-        protected override void OnClosed(EventArgs e)
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             // Force Exit All Executables
-            base.OnClosed(e);
-            System.Windows.Forms.Application.ExitThread();
+            //base.OnClosed(e);
+            //System.Windows.Forms.Application.ExitThread();
             Application.Current.Shutdown();
         }
 
         /// <summary>
         /// Window Closing
         /// </summary>
-        void Window_Closing(object sender, CancelEventArgs e)
+        public void Window_Closing(object sender, CancelEventArgs e)
         {
             // -------------------------
             // Export axiom.conf
             // -------------------------
-            string confAppRootPath = appRootDir + "axiom.conf";
-            string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
-            string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
-            string logAppRootPath = appRootDir + "axiom.log";
-            string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
-            string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
-
             switch (VM.ConfigureView.ConfigPath_SelectedItem)
             {
                 // -------------------------
@@ -853,11 +854,10 @@ namespace Axiom
                     break;
             }
             
-
             // Exit
-            e.Cancel = true;
-            System.Windows.Forms.Application.ExitThread();
-            Environment.Exit(0);
+            //e.Cancel = true;
+            //System.Windows.Forms.Application.ExitThread();
+            //Environment.Exit(0);
         }
 
 
@@ -866,7 +866,7 @@ namespace Axiom
         /// </summary>
         public void ExportWriteConfig(string path)
         {
-            Controls.Configure.INIFile conf = new Controls.Configure.INIFile(path/*Configure.configFile*/);
+            Controls.Configure.INIFile conf = new Controls.Configure.INIFile(path.TrimEnd('\\') + @"\" + "axiom.conf");
 
             // Window
             double top;
@@ -906,7 +906,7 @@ namespace Axiom
                 this.Left != left ||
                 this.Width != width ||
                 this.Height != height ||
-                //this.WindowState != windowState ||
+                ////this.WindowState != windowState ||
                 VM.MainView.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
                 VM.MainView.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
 
@@ -920,7 +920,7 @@ namespace Axiom
 
                 // Process
                 VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
-                VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "ShellTitle_SelectedItem") ||
+                VM.ConfigureView.ShellTitle_SelectedItem != conf.Read("Settings", "ShellTitle_SelectedItem") ||
                 VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
                 VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
 
@@ -945,6 +945,15 @@ namespace Axiom
             {
                 // Save Config
                 Controls.Configure.ExportConfig(this, path);
+
+                //debug
+                //MessageBox.Show("changes made " +
+                //                path + " " +
+                //                VM.ConfigureView.ShellTitle_SelectedItem + " " +
+                //                top.ToString() + " " +
+                //                left.ToString() + " " +
+                //                width.ToString() + " " +
+                //                height.ToString() + " ");
             }
         }
 
