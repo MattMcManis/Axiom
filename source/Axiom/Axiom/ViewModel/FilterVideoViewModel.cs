@@ -147,11 +147,11 @@ namespace ViewModel
         public ObservableCollection<string> _FilterVideo_DropFrames_Items = new ObservableCollection<string>()
         {
             "disabled",
-            "default",
-            "max",
-            "hi",
-            "lo",
-            "frac"
+            "enabled",
+            //"max",
+            //"hi",
+            //"lo",
+            //"frac"
         };
         public ObservableCollection<string> FilterVideo_DropFrames_Items
         {
