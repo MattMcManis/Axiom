@@ -36,6 +36,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using Axiom;
+using System.Globalization;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -243,7 +244,7 @@ namespace Generate
 
                 val = (100 / (val * 0.01)) * 0.01;
 
-                string speed = "setpts=" + val.ToString("#.#####") + "*PTS";
+                string speed = "setpts=" + val.ToString("0.#####", CultureInfo.GetCultureInfo("en-US")) + "*PTS";
 
                 Filters.Video.vFiltersList.Add(speed);
             }
