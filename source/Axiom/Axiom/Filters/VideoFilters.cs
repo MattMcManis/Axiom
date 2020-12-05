@@ -282,6 +282,10 @@ namespace Filters
         /// <summary>
         public static void VideoFilters_ControlsSelectDefaults()
         {
+            // Display
+            // Drop Frames
+            VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem = "disabled";
+
             // Fix
             // Deband
             VM.FilterVideoView.FilterVideo_Deband_SelectedItem = "disabled";
@@ -295,7 +299,6 @@ namespace Filters
             VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = "disabled";
             // Deinterlace
             VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = "disabled";
-
 
             // Transpose
             // Flip
@@ -703,6 +706,58 @@ namespace Filters
                 // Add Filter to List
                 // -------------------------
                 vFiltersList.Add(deinterlace);
+            }
+        }
+
+
+        /// <summary>
+        /// Drop Frames (Method)
+        /// </summary>
+        public static void DropFrames_Filter()
+        {
+            if (VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem != "disabled")
+            {
+                string dropframes = string.Empty;
+
+                switch (VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem)
+                {
+                    // -------------------------
+                    // Default
+                    // -------------------------
+                    case "default":
+                        dropframes = "mpdecimate";
+                        break;
+
+                    // -------------------------
+                    // Max
+                    // -------------------------
+                    case "max":
+                        dropframes = "mpdecimate=max";
+                        break;
+
+                    // -------------------------
+                    // hi
+                    // -------------------------
+                    case "hi":
+                        dropframes = "mpdecimate=hi";
+                        break;
+
+                    // -------------------------
+                    // lo
+                    // -------------------------
+                    case "lo":
+                        dropframes = "mpdecimate=lo";
+                        break;
+
+                    // -------------------------
+                    // Heavy
+                    // -------------------------
+                    case "frac":
+                        dropframes = "mpdecimate=frac";
+                        break;
+                }
+
+                vFiltersList.Add(dropframes);
             }
         }
 
@@ -1268,8 +1323,7 @@ namespace Filters
             }
 
             return gamma;
-        }
-
+        }    
 
 
         /// <summary>
@@ -1369,6 +1423,17 @@ namespace Filters
                 // -------------------------
                 SubtitlesBurn_Filter();
 
+                // --------------------------------------------------
+                //  Display
+                // --------------------------------------------------
+                // -------------------------
+                //  Drop Frames
+                // -------------------------
+                DropFrames_Filter();
+
+                // --------------------------------------------------
+                //  Fix
+                // --------------------------------------------------
                 // -------------------------
                 //  Deband
                 // -------------------------
@@ -1399,7 +1464,9 @@ namespace Filters
                 // -------------------------
                 Deinterlace_Filter();
 
-
+                // --------------------------------------------------
+                //  Transpose
+                // --------------------------------------------------
                 // -------------------------
                 //  Flip
                 // -------------------------
@@ -1411,6 +1478,9 @@ namespace Filters
                 Rotate_Filter();
 
 
+                // --------------------------------------------------
+                //  Color
+                // --------------------------------------------------
                 // -------------------------
                 //  EQ - Brightness, Contrast, Saturation, Gamma
                 // -------------------------
@@ -1420,6 +1490,7 @@ namespace Filters
                 //  Selective SelectiveColorPreview
                 // -------------------------
                 SelectiveColor_Filter();
+
 
                 // -------------------------
                 // Empty Halt
