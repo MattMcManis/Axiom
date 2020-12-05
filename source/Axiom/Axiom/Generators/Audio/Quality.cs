@@ -43,6 +43,7 @@ using System.Windows.Documents;
 using ViewModel;
 using Axiom;
 using System.Collections.ObjectModel;
+using System.Globalization;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -403,14 +404,14 @@ namespace Generate
                             // -------------------------
                             case "Auto":
                                 QualityAuto(input_Text,
-                                        batch_IsChecked,
-                                        mediaType_SelectedItem,
-                                        stream_SelectedItem,
-                                        codec_SelectedItem,
-                                        quality_Items,
-                                        quality_SelectedItem,
-                                        vbr_IsChecked
-                                        );
+                                            batch_IsChecked,
+                                            mediaType_SelectedItem,
+                                            stream_SelectedItem,
+                                            codec_SelectedItem,
+                                            quality_Items,
+                                            quality_SelectedItem,
+                                            vbr_IsChecked
+                                            );
                                 break;
 
                             // -------------------------
@@ -425,10 +426,10 @@ namespace Generate
                             // -------------------------
                             case "Custom":
                                 QualityCustom(vbr_IsChecked,
-                                          codec_SelectedItem,
-                                          quality_Items,
-                                          quality_SelectedItem,
-                                          bitrate_Text);
+                                              codec_SelectedItem,
+                                              quality_Items,
+                                              quality_SelectedItem,
+                                              bitrate_Text);
                                 break;
 
                             // -------------------------
@@ -473,7 +474,7 @@ namespace Generate
                         // --------------------------------------------------
                         // Format European English comma to US English peroid - 1,234 to 1.234
                         // --------------------------------------------------
-                        aQuality = string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", aQuality);
+                        aQuality = string.Format(CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", aQuality);
                     }
 
                 }
@@ -786,7 +787,8 @@ namespace Generate
                     // -------------------------
                     // Limit to 5 Decimal Places
                     // -------------------------
-                    aBitRate = string.Format("{0:0.#####}", Convert.ToDouble(aBitRate));
+                    //aBitRate = string.Format("{0:0.#####}", Convert.ToDouble(aBitRate));
+                    aBitRate = Convert.ToDouble(aBitRate).ToString("0.#####", CultureInfo.GetCultureInfo("en-US"));
                 }
 
                 //MessageBox.Show(aBitRate); //debug
