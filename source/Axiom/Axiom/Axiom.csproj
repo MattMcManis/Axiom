@@ -87,6 +87,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Codecs\Video\MagicYUV.cs" />
+    <Compile Include="Codecs\Video\HEVC_NVENC.cs" />
+    <Compile Include="Codecs\Video\H264_NVENC.cs" />
+    <Compile Include="Codecs\Video\H264_AMF.cs" />
+    <Compile Include="Codecs\Video\HEVC_AMF.cs" />
+    <Compile Include="Codecs\Video\H264_QSV.cs" />
+    <Compile Include="Codecs\Video\HEVC_QSV.cs" />
     <Compile Include="FailedImportWindow.xaml.cs">
       <DependentUpon>FailedImportWindow.xaml</DependentUpon>
     </Compile>
