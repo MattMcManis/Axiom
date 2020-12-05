@@ -1124,11 +1124,20 @@
                                          Width="74"
                                          Style="{DynamicResource TabItemStyle}"
                                          Margin="6,-2,-6,0">
+                                    
                                     <Grid Background="Transparent">
 
-                                        <!-- Grid -->
-                                        <Grid Margin="0,20,0,0"
-                                              VerticalAlignment="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Encoding Group -->
+                                        <Grid Margin="0,15,0,0"
+                                              VerticalAlignment="Top"
+                                              Grid.Row="0">
 
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="15" />
@@ -1140,25 +1149,6 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="22" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="22" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="22"/>
-                                                <RowDefinition Height="33" />
-                                                <RowDefinition Height="auto" />
-                                                <RowDefinition Height="33" />
                                             </Grid.RowDefinitions>
 
                                             <!-- Video Codec -->
@@ -1236,6 +1226,25 @@
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
 
+                                        </Grid>
+
+                                        <!-- HW Accel Group -->
+                                        <Grid Margin="0"
+                                              VerticalAlignment="Top"
+                                              Grid.Row="1">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15" />
+                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="22" />
+                                            </Grid.RowDefinitions>
 
                                             <!-- HW Acceleration -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1248,7 +1257,7 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Hardware Acceleration"
-                                                   Grid.Row="3"
+                                                   Grid.Row="0"
                                                    Grid.Column="1" />
                                             <ComboBox x:Name="cboHWAccel"
                                                       DataContext="{Binding VideoView}"
@@ -1265,7 +1274,7 @@
                                                       Height="22"
                                                       SelectionChanged="cboHWAccel_SelectionChanged"
                                                       ToolTip="Hardware Acceleration"
-                                                      Grid.Row="3"
+                                                      Grid.Row="0"
                                                       Grid.Column="2"
                                                       Margin="0,2,0,0" />
                                             <!-- HW Decode -->
@@ -1279,7 +1288,7 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Hardware Acceleration Decode"
-                                                   Grid.Row="4"
+                                                   Grid.Row="1"
                                                    Grid.Column="1" />
                                             <ComboBox x:Name="cboHWAccelDecode"
                                                       DataContext="{Binding VideoView}"
@@ -1296,7 +1305,7 @@
                                                       ToolTipService.InitialShowDelay="500"
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Hardware Acceleration Decode"
-                                                      Grid.Row="4"
+                                                      Grid.Row="1"
                                                       Grid.Column="2"
                                                       Height="22"
                                                       Margin="0,2,0,0" />
@@ -1311,7 +1320,7 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Hardware Acceleration Transcode"
-                                                   Grid.Row="5"
+                                                   Grid.Row="2"
                                                    Grid.Column="1" />
                                             <ComboBox x:Name="cboHWAccelTranscode"
                                                       DataContext="{Binding VideoView}"
@@ -1328,11 +1337,38 @@
                                                       ToolTipService.InitialShowDelay="500"
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Hardware Acceleration Transcode"
-                                                      Grid.Row="5"
+                                                      Grid.Row="2"
                                                       Grid.Column="2"
                                                       Height="22"
                                                       SelectionChanged="cboHWAccelTranscode_SelectionChanged" />
 
+                                        </Grid>
+
+                                        <!-- Quality Group -->
+                                        <Grid Margin="0"
+                                              VerticalAlignment="Top"
+                                              Grid.Row="2">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15" />
+                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="22" />
+                                            </Grid.RowDefinitions>
 
                                             <!-- Video Quality -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1341,7 +1377,7 @@
                                                    Width="56"
                                                    FontFamily="Segoe UI Semilight"
                                                    Margin="0,0,0,4"
-                                                   Grid.Row="7"
+                                                   Grid.Row="0"
                                                    Grid.Column="1" />
                                             <ComboBox x:Name="cboVideo_Quality"
                                                       DataContext="{Binding VideoView}"
@@ -1359,7 +1395,7 @@
                                                       Height="22"
                                                       SelectionChanged="cboVideo_Quality_SelectionChanged"
                                                       Grid.Column="2"
-                                                      Grid.Row="7"
+                                                      Grid.Row="0"
                                                       Margin="0,2,0,0">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1382,8 +1418,9 @@
                                                    Width="56"
                                                    ToolTip="Encoding Pass Method"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="8"
-                                                   Grid.Column="1" Height="26" />
+                                                   Grid.Row="1"
+                                                   Grid.Column="1" 
+                                                   Height="26" />
                                             <ComboBox x:Name="cboVideo_Pass"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_Pass_Items}"
@@ -1400,9 +1437,10 @@
                                                       ToolTip="Encoding Pass Method"
                                                       SelectionChanged="cboVideo_Pass_SelectionChanged"
                                                       DropDownClosed="cboVideo_Pass_DropDownClosed"
-                                                      Grid.Row="8"
+                                                      Grid.Row="1"
                                                       Grid.Column="2"
-                                                      Margin="0,2,0,0" Height="22" />
+                                                      Margin="0,2,0,0" 
+                                                      Height="22" />
 
                                             <!-- CRF -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1411,7 +1449,7 @@
                                                    VerticalAlignment="Top"
                                                    Width="56"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="9"
+                                                   Grid.Row="2"
                                                    Grid.Column="1"
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
@@ -1431,7 +1469,7 @@
                                                     Maximum="51"
                                                     Value="{Binding Video_CRF_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Grid.Column="1"
-                                                    Grid.Row="9"
+                                                    Grid.Row="2"
                                                     Height="18"
                                                     ToolTipService.InitialShowDelay="500"
                                                     ToolTipService.ShowOnDisabled="True"
@@ -1455,7 +1493,7 @@
                                                      ToolTipService.InitialShowDelay="500"
                                                      ToolTipService.ShowOnDisabled="True"
                                                      ToolTip="Constant Rate Factor. Lower value is higher quality."
-                                                     Grid.Row="9"
+                                                     Grid.Row="2"
                                                      Grid.Column="2"
                                                      Margin="75,2,0,0"
                                                      TextChanged="tbxVideo_CRF_TextChanged" />
@@ -1470,8 +1508,9 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Video Bit Rate (e.g. 1000K or 1M)"
-                                                   Grid.Row="10"
-                                                   Grid.Column="1" Height="26" />
+                                                   Grid.Row="3"
+                                                   Grid.Column="1" 
+                                                   Height="26" />
                                             <TextBox x:Name="tbxVideo_BitRate"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_BitRate_Text, Mode=TwoWay}"
@@ -1488,7 +1527,7 @@
                                                      ToolTipService.InitialShowDelay="500"
                                                      ToolTipService.ShowOnDisabled="True"
                                                      ToolTip="Video Bit Rate (e.g. 1000K or 1M)"
-                                                     Grid.Row="10"
+                                                     Grid.Row="3"
                                                      Grid.Column="2"
                                                      Margin="0,2,0,0" />
 
@@ -1510,7 +1549,7 @@
                                                           Height="23"
                                                           Checked="tglVideo_VBR_Checked"
                                                           Unchecked="tglVideo_VBR_Unchecked"
-                                                          Grid.Row="10"
+                                                          Grid.Row="3"
                                                           Grid.Column="2" />
 
                                             <!-- Video Min Rate -->
@@ -1523,8 +1562,9 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)"
-                                                   Grid.Row="11"
-                                                   Grid.Column="1" Height="26" />
+                                                   Grid.Row="4"
+                                                   Grid.Column="1" 
+                                                   Height="26" />
                                             <TextBox x:Name="tbxVideo_MinRate"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_MinRate_Text, Mode=TwoWay}"
@@ -1541,7 +1581,7 @@
                                                      ToolTipService.InitialShowDelay="500"
                                                      ToolTipService.ShowOnDisabled="True"
                                                      ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)"
-                                                     Grid.Row="11"
+                                                     Grid.Row="4"
                                                      Grid.Column="2"
                                                      Margin="0,2,0,0" />
 
@@ -1555,7 +1595,7 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)"
-                                                   Grid.Row="12"
+                                                   Grid.Row="5"
                                                    Grid.Column="1" Height="26" />
                                             <TextBox x:Name="tbxVideo_MaxRate"
                                                      DataContext="{Binding VideoView}"
@@ -1573,7 +1613,7 @@
                                                      ToolTipService.InitialShowDelay="500"
                                                      ToolTipService.ShowOnDisabled="True"
                                                      ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)"
-                                                     Grid.Row="12"
+                                                     Grid.Row="5"
                                                      Grid.Column="2"
                                                      Margin="0,2,0,0" />
 
@@ -1587,7 +1627,7 @@
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Rate Control Buffer (e.g. 1000K or 1M)"
-                                                   Grid.Row="13"
+                                                   Grid.Row="6"
                                                    Grid.Column="1" Height="26" />
                                             <TextBox x:Name="tbxVideo_BufSize"
                                                      DataContext="{Binding VideoView}"
@@ -1605,7 +1645,7 @@
                                                      ToolTipService.InitialShowDelay="500"
                                                      ToolTipService.ShowOnDisabled="True"
                                                      ToolTip="Rate Control Buffer (e.g. 1000K or 1M)"
-                                                     Grid.Row="13"
+                                                     Grid.Row="6"
                                                      Grid.Column="2"
                                                      Margin="0,2,0,0" />
 
@@ -1616,8 +1656,9 @@
                                                    VerticalAlignment="Top"
                                                    Width="80"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="14"
-                                                   Grid.Column="1" Height="26" />
+                                                   Grid.Row="7"
+                                                   Grid.Column="1" 
+                                                   Height="26" />
                                             <ComboBox x:Name="cboVideo_PixelFormat"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_PixelFormat_Items}"
@@ -1631,7 +1672,7 @@
                                                       VerticalAlignment="Top"
                                                       Width="105"
                                                       IsTextSearchEnabled="False"
-                                                      Grid.Row="14"
+                                                      Grid.Row="7"
                                                       Grid.Column="2"
                                                       Margin="0,2,0,0"
                                                       SelectionChanged="cboVideo_PixelFormat_SelectionChanged" Height="22" />
@@ -1646,8 +1687,9 @@
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Frames Per Second"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="15"
-                                                   Grid.Column="1" Height="26" />
+                                                   Grid.Row="8"
+                                                   Grid.Column="1" 
+                                                   Height="26" />
                                             <ComboBox x:Name="cboVideo_FrameRate"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_FPS_Items}"
@@ -1667,9 +1709,10 @@
                                                       SelectionChanged="cboVideo_FPS_SelectionChanged"
                                                       TextBoxBase.KeyDown="cboVideo_FrameRate_KeyDown"
                                                       IsTextSearchEnabled="False"
-                                                      Grid.Row="15"
+                                                      Grid.Row="8"
                                                       Grid.Column="2"
-                                                      Margin="0,2,0,0" Height="22" />
+                                                      Margin="0,2,0,0"
+                                                      Height="22" />
 
                                             <!-- Speed -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1681,8 +1724,9 @@
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Speed Up / Slow Down Video"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="16"
-                                                   Grid.Column="1" Height="26" />
+                                                   Grid.Row="9"
+                                                   Grid.Column="1" 
+                                                   Height="26" />
                                             <ComboBox x:Name="cboVideo_Speed"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_Speed_Items}"
@@ -1702,9 +1746,10 @@
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Speed Up / Slow Down Video"
                                                       IsTextSearchEnabled="False"
-                                                      Grid.Row="16"
+                                                      Grid.Row="9"
                                                       Grid.Column="2"
-                                                      Margin="0,2,0,0" Height="22" />
+                                                      Margin="0,2,0,0" 
+                                                      Height="22" />
 
                                             <!-- Vsync -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1713,7 +1758,7 @@
                                                        VerticalAlignment="Top"
                                                        Width="85"
                                                        FontFamily="Segoe UI Semilight"
-                                                       Grid.Row="17"
+                                                       Grid.Row="10"
                                                        Height="26"
                                                        Grid.Column="1">
                                                 <Label.ToolTip>
@@ -1741,11 +1786,32 @@
                                                       Margin="0,2,0,0"
                                                       VerticalAlignment="Top"
                                                       Width="105"
-                                                      Grid.Row="17"
+                                                      Grid.Row="10"
                                                       Grid.Column="2"
                                                       Height="22"
                                                       SelectionChanged="cboVideo_Vsync_SelectionChanged">
                                             </ComboBox>
+
+
+                                        </Grid>
+
+                                        <!-- Optimize Group -->
+                                        <Grid Margin="0"
+                                              Height="auto"
+                                              VerticalAlignment="Top"
+                                              Grid.Row="3">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15" />
+                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="22" />
+                                            </Grid.RowDefinitions>
 
                                             <!-- Optimize -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1754,7 +1820,7 @@
                                                    VerticalAlignment="Top"
                                                    Width="75"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="19"
+                                                   Grid.Row="0"
                                                    Height="26"
                                                    Grid.Column="1"
                                                    Panel.ZIndex="1" />
@@ -1774,7 +1840,7 @@
                                                       Height="22"
                                                       SelectionChanged="cboVideo_Optimize_SelectionChanged"
                                                       Grid.Column="2"
-                                                      Grid.Row="19"
+                                                      Grid.Row="0"
                                                       ToolTipService.InitialShowDelay="500"
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Optimize file for device type."
@@ -1795,9 +1861,10 @@
 
                                             <!-- Expander -->
                                             <Grid Margin="0,0,10,0"
-                                                  Grid.Row="21"
+                                                  Grid.Row="1"
                                                   Grid.Column="1"
                                                   Grid.ColumnSpan="2">
+                                                
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
@@ -1808,6 +1875,8 @@
                                                           IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                           Margin="0,0,0,0"
                                                           Panel.ZIndex="0"
+                                                          Grid.Row="1"
+                                                          Grid.Column="1"
                                                           Style="{DynamicResource GroupBoxExpanderStyle}">
 
                                                     <Expander.Header>
@@ -1904,7 +1973,7 @@
 
                                                 </Expander>
 
-                                            </Grid>
+                                           </Grid>
 
                                         </Grid>
 
@@ -1917,6 +1986,7 @@
                                          Width="74"
                                          Style="{DynamicResource TabItemStyle}"
                                          Margin="6,-2,-6,0">
+                                    
                                     <Grid Background="Transparent">
 
                                         <Grid.RowDefinitions>
@@ -4788,7 +4858,17 @@
                                                        Height="26"
                                                        Grid.Column="1" 
                                                        ToolTipService.InitialShowDelay="500"
-                                                       ToolTipService.ShowOnDisabled="True">
+                                                       ToolTipService.ShowOnDisabled="True"
+                                                       >
+                                                    <Label.ToolTip>
+                                                        <TextBlock>
+		                                                    Drop frames that do not differ greatly from the previous frame in order to reduce
+                                                            <LineBreak />
+                                                            frame rate. The main use of this filter is for very-low-bitrate encoding, but it
+                                                            <LineBreak /> 
+                                                            could in theory be used for fixing movies that were inverse-telecined incorrectly.
+                                                        </TextBlock>
+                                                    </Label.ToolTip>
                                                 </Label>
                                                 <ComboBox x:Name="cboFilterVideo_DropFrames"
                                                           ItemsSource="{Binding FilterVideo_DropFrames_Items}"
