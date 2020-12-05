@@ -265,7 +265,6 @@ namespace Controls
                 // -------------------------
                 public static void Controls_Selected()
                 {
-
                     // Pixel Format
                     VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
 
