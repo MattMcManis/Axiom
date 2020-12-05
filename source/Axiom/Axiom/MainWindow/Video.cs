@@ -333,40 +333,42 @@ namespace Axiom
                 switch (VM.FormatView.Format_Container_SelectedItem)
                 {
                     case "mp4":
-                        VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
-                        {
-                            "x264",
-                            "H264 AMF",
-                            "H264 NVENC",
-                            "H264 QSV",
-                            "x265",
-                            "HEVC AMF",
-                            "HEVC NVENC",
-                            "HEVC QSV",
-                            "Copy"
-                        };
+                        VM.VideoView.Video_Codec_Items = Controls.Containers.MP4.video_HWAccel;
+                        //VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
+                        //{
+                        //    "x264",
+                        //    "H264 AMF",
+                        //    "H264 NVENC",
+                        //    "H264 QSV",
+                        //    "x265",
+                        //    "HEVC AMF",
+                        //    "HEVC NVENC",
+                        //    "HEVC QSV",
+                        //    "Copy"
+                        //};
                         break;
 
                     case "mkv":
-                        VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
-                        {
-                            "x264",
-                            "H264 AMF",
-                            "H264 NVENC",
-                            "H264 QSV",
-                            "x265",
-                            "HEVC AMF",
-                            "HEVC NVENC",
-                            "HEVC QSV",
-                            "VP8",
-                            "VP9",
-                            "AV1",
-                            "FFV1",
-                            "MagicYUV",
-                            "HuffYUV",
-                            "Theora",
-                            "Copy"
-                        };
+                        VM.VideoView.Video_Codec_Items = Controls.Containers.MKV.video_HWAccel;
+                        //VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
+                        //{
+                        //    "x264",
+                        //    "H264 AMF",
+                        //    "H264 NVENC",
+                        //    "H264 QSV",
+                        //    "x265",
+                        //    "HEVC AMF",
+                        //    "HEVC NVENC",
+                        //    "HEVC QSV",
+                        //    "VP8",
+                        //    "VP9",
+                        //    "AV1",
+                        //    "FFV1",
+                        //    "MagicYUV",
+                        //    "HuffYUV",
+                        //    "Theora",
+                        //    "Copy"
+                        //};
                         break;
                 }
             }
