@@ -74,6 +74,12 @@ namespace Generate
                 }
                 else if (codec_SelectedItem == "x264" ||
                          codec_SelectedItem == "x265" ||
+                         codec_SelectedItem == "H264 AMF" ||
+                         codec_SelectedItem == "HEVC AMF" ||
+                         codec_SelectedItem == "H264 NVENC" ||
+                         codec_SelectedItem == "HEVC NVENC" ||
+                         codec_SelectedItem == "H264 QSV" ||
+                         codec_SelectedItem == "HEVC QSV" ||
                          codec_SelectedItem == "MPEG-2" ||
                          codec_SelectedItem == "MPEG-4")
                 {
@@ -103,6 +109,12 @@ namespace Generate
                 }
                 else if (codec_SelectedItem == "x264" ||
                          codec_SelectedItem == "x265" ||
+                         codec_SelectedItem == "H264 AMF" ||
+                         codec_SelectedItem == "HEVC AMF" ||
+                         codec_SelectedItem == "H264 NVENC" ||
+                         codec_SelectedItem == "HEVC NVENC" ||
+                         codec_SelectedItem == "H264 QSV" ||
+                         codec_SelectedItem == "HEVC QSV" ||
                          codec_SelectedItem == "MPEG-2" ||
                          codec_SelectedItem == "MPEG-4")
                 {
@@ -136,6 +148,12 @@ namespace Generate
                     // MP4/MKV Width/Height Fix
                     if (codec_SelectedItem == "x264" ||
                         codec_SelectedItem == "x265" ||
+                        codec_SelectedItem == "H264 AMF" ||
+                        codec_SelectedItem == "HEVC AMF" ||
+                        codec_SelectedItem == "H264 NVENC" ||
+                        codec_SelectedItem == "HEVC NVENC" ||
+                        codec_SelectedItem == "H264 QSV" ||
+                        codec_SelectedItem == "HEVC QSV" ||
                         codec_SelectedItem == "MPEG-2" ||
                         codec_SelectedItem == "MPEG-4")
                     {
@@ -246,6 +264,12 @@ namespace Generate
                         //
                         else if (codec_SelectedItem == "x264" ||
                                  codec_SelectedItem == "x265" ||
+                                 codec_SelectedItem == "H264 AMF" ||
+                                 codec_SelectedItem == "HEVC AMF" ||
+                                 codec_SelectedItem == "H264 NVENC" ||
+                                 codec_SelectedItem == "HEVC NVENC" ||
+                                 codec_SelectedItem == "H264 QSV" ||
+                                 codec_SelectedItem == "HEVC QSV" ||
                                  codec_SelectedItem == "MPEG-2" ||
                                  codec_SelectedItem == "MPEG-4")
                         {
@@ -583,6 +607,12 @@ namespace Generate
                 // CropClearButton is used as an Identifier, Divisible Crop does not leave "Clear*"
                 if (VM.VideoView.Video_Codec_SelectedItem != "x264" &&
                     VM.VideoView.Video_Codec_SelectedItem != "x265" &&
+                    VM.VideoView.Video_Codec_SelectedItem != "H264 AMF" &&
+                    VM.VideoView.Video_Codec_SelectedItem != "HEVC AMF" &&
+                    VM.VideoView.Video_Codec_SelectedItem != "H264 NVENC" &&
+                    VM.VideoView.Video_Codec_SelectedItem != "HEVC NVENC" &&
+                    VM.VideoView.Video_Codec_SelectedItem != "H264 QSV" &&
+                    VM.VideoView.Video_Codec_SelectedItem != "HEVC QSV" &&
                     VM.VideoView.Video_Codec_SelectedItem != "MPEG-2" &&
                     VM.VideoView.Video_Codec_SelectedItem != "MPEG-4" &&
                     VM.VideoView.Video_CropClear_Text == "Clear"
