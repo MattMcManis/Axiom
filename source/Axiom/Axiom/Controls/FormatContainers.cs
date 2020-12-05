@@ -40,20 +40,20 @@ namespace Controls
         public class WebM
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "VP8",
                 "VP9",
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "Vorbis",
                 "Opus",
@@ -61,7 +61,7 @@ namespace Controls
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "Burn"
@@ -76,20 +76,33 @@ namespace Controls
         public class MP4
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "x264",
                 "x265",
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video_HWAccel = new ObservableCollection<string>()
+            {
+                "x264",
+                "H264 AMF",
+                "H264 NVENC",
+                "H264 QSV",
+                "x265",
+                "HEVC AMF",
+                "HEVC NVENC",
+                "HEVC QSV",
+                "Copy"
+            };
+
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "AC3",
                 "AAC",
@@ -98,7 +111,7 @@ namespace Controls
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "MOV Text",
@@ -115,13 +128,13 @@ namespace Controls
         public class MKV
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "x264",
                 "x265",
@@ -135,7 +148,27 @@ namespace Controls
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video_HWAccel = new ObservableCollection<string>()
+            {
+                "x264",
+                "H264 AMF",
+                "H264 NVENC",
+                "H264 QSV",
+                "x265",
+                "HEVC AMF",
+                "HEVC NVENC",
+                "HEVC QSV",
+                "VP8",
+                "VP9",
+                "AV1",
+                "FFV1",
+                "MagicYUV",
+                "HuffYUV",
+                "Theora",
+                "Copy"
+            };
+
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "AC3",
                 "AAC",
@@ -149,7 +182,7 @@ namespace Controls
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "MOV Text",
@@ -168,24 +201,24 @@ namespace Controls
         public class M2V
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "MPEG-2",
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None"
             };
@@ -199,20 +232,20 @@ namespace Controls
         public class MPG
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "MPEG-2",
                 "MPEG-4",
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "MP2",
                 "AC3",
@@ -224,7 +257,7 @@ namespace Controls
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "SRT",
@@ -241,20 +274,20 @@ namespace Controls
         public class AVI
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "MPEG-2",
                 "MPEG-4",
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "MP2",
                 "AC3",
@@ -266,7 +299,7 @@ namespace Controls
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "SRT",
@@ -283,26 +316,26 @@ namespace Controls
         public class OGV
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Video"
 
             };
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "Theora",
                 "Copy"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "Vorbis",
                 "Copy",
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "Copy"
@@ -317,24 +350,24 @@ namespace Controls
         public class LAME
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Audio"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "LAME",
                 "Copy"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None"
             };
@@ -348,25 +381,25 @@ namespace Controls
         public class M4A
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Audio"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "AAC",
                 "ALAC",
                 "Copy"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None"
             };
@@ -380,25 +413,25 @@ namespace Controls
         public class OGG
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Audio"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "Opus",
                 "Vorbis",
                 "Copy"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None"
             };
@@ -412,24 +445,24 @@ namespace Controls
         public class FLAC
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Audio"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "FLAC",
                 "Copy"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None"
             };
@@ -443,24 +476,24 @@ namespace Controls
         public class WAV
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Audio"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "PCM",
                 "Copy"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None"
             };
@@ -474,24 +507,24 @@ namespace Controls
         public class JPG
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Image",
                 "Sequence"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "JPEG"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "Burn"
@@ -506,24 +539,24 @@ namespace Controls
         public class PNG
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Image",
                 "Sequence"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "PNG"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "Burn"
@@ -538,24 +571,24 @@ namespace Controls
         public class WebP
         {
             // Media Type
-            public static ObservableCollection<string> media = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> media = new ObservableCollection<string>()
             {
                 "Image",
                 "Sequence"
             };
 
             // Codecs
-            public static ObservableCollection<string> video = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> video = new ObservableCollection<string>()
             {
                 "WebP"
             };
 
-            public static ObservableCollection<string> audio = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "None"
             };
 
-            public static ObservableCollection<string> subtitle = new ObservableCollection<string>()
+            public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
                 "None",
                 "Burn"
