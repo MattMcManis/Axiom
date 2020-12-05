@@ -38,6 +38,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using ViewModel;
 using Axiom;
+using System.Globalization;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -160,7 +161,7 @@ namespace Filters
                         // If user enters value, turn on Filter
                         double volumeDecimal = Convert.ToDouble(VM.AudioView.Audio_Volume_Text.Trim()) * 0.01;
 
-                        aVolume = "volume=" + volumeDecimal;
+                        aVolume = "volume=" + volumeDecimal.ToString("0.##", CultureInfo.GetCultureInfo("en-US"));
 
                         // Audio Filter Add
                         aFiltersList.Add(aVolume);
@@ -201,7 +202,6 @@ namespace Filters
             if (VM.AudioView.Audio_HardLimiter_IsEnabled == true &&
                 value != 0)
             {
-
                 try
                 {
                     string limit = string.Empty;
@@ -214,7 +214,7 @@ namespace Filters
                         double normMin = 0.7;
                         double normMax = 0.99;
 
-                        limit = Convert.ToString(
+                        limit = //Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
                                                             value,    // input
@@ -226,8 +226,8 @@ namespace Filters
                                                         )
 
                                                     , 4 // max decimal places
-                                                )
-                                            );
+                                                ).ToString("0.####", CultureInfo.GetCultureInfo("en-US"));
+                                            //);
                     }
 
                     // -4 to -7dB
@@ -238,7 +238,7 @@ namespace Filters
                         double normMin = 0.45;
                         double normMax = 0.65;
 
-                        limit = Convert.ToString(
+                        limit = //Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
                                                             value,    // input
@@ -250,8 +250,8 @@ namespace Filters
                                                         )
 
                                                     , 4 // max decimal places
-                                                )
-                                            );
+                                                ).ToString("0.####", CultureInfo.GetCultureInfo("en-US"));
+                                            //);
                     }
 
                     // -8 to -10dB
@@ -262,7 +262,7 @@ namespace Filters
                         double normMin = 0.3;
                         double normMax = 0.4;
 
-                        limit = Convert.ToString(
+                        limit = //Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
                                                             value,    // input
@@ -274,8 +274,8 @@ namespace Filters
                                                         )
 
                                                     , 4 // max decimal places
-                                                )
-                                            );
+                                                ).ToString("0.####", CultureInfo.GetCultureInfo("en-US"));
+                                            //);
                     }
 
                     // -11 to -16dB
@@ -286,7 +286,7 @@ namespace Filters
                         double normMin = 0.15;
                         double normMax = 0.275;
 
-                        limit = Convert.ToString(
+                        limit = //Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
                                                             value,    // input
@@ -298,8 +298,8 @@ namespace Filters
                                                         )
 
                                                     , 4 // max decimal places
-                                                )
-                                            );
+                                                ).ToString("0.####", CultureInfo.GetCultureInfo("en-US"));
+                                            //);
                     }
 
                     // -17 to -19dB
@@ -310,7 +310,7 @@ namespace Filters
                         double normMin = 0.1;
                         double normMax = 0.135;
 
-                        limit = Convert.ToString(
+                        limit = //Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
                                                             value,    // input
@@ -322,8 +322,8 @@ namespace Filters
                                                         )
 
                                                     , 8 // max decimal places
-                                                )
-                                            );
+                                                ).ToString("0.####", CultureInfo.GetCultureInfo("en-US"));
+                                        //);
                     }
 
                     // -20 to -24dB
@@ -334,7 +334,7 @@ namespace Filters
                         double normMin = 0.0625;
                         double normMax = 0.0975;
 
-                        limit = Convert.ToString(
+                        limit = //Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
                                                             value,    // input
@@ -346,8 +346,8 @@ namespace Filters
                                                         )
 
                                                     , 4 // max decimal places
-                                                )
-                                            );
+                                                ).ToString("0.####", CultureInfo.GetCultureInfo("en-US"));
+                                            //);
                     }
 
                     aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + limit + ":attack=7:release=100:level=disabled";
