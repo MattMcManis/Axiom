@@ -69,6 +69,7 @@ namespace ViewModel
             Video_PixelFormat_SelectedItem = "yuv420p";
             Video_FPS_SelectedItem = "auto";
             Video_Speed_SelectedItem = "auto";
+            Video_Vsync_SelectedItem = "off";
             Video_Optimize_SelectedItem = "Web";
             Video_Video_Optimize_Tune_SelectedItem = "none";
             Video_Video_Optimize_Profile_SelectedItem = "none";
@@ -1176,6 +1177,59 @@ namespace ViewModel
 
                 _Video_Speed_IsEnabled = value;
                 OnPropertyChanged("Video_Speed_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Vsync
+        // -------------------------
+        // Items
+        public ObservableCollection<string> _Video_Vsync_Items = new ObservableCollection<string>()
+        {
+            "off",
+            "auto",
+            "passthrough",
+            "cfr",
+            "vfr",
+            "drop"
+        };
+        public ObservableCollection<string> Video_Vsync_Items
+        {
+            get { return _Video_Vsync_Items; }
+            set { _Video_Vsync_Items = value; }
+        }
+
+        // Selected Item
+        private string _Video_Vsync_SelectedItem { get; set; }
+        public string Video_Vsync_SelectedItem
+        {
+            get { return _Video_Vsync_SelectedItem; }
+            set
+            {
+                if (_Video_Vsync_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_Vsync_SelectedItem = value;
+                OnPropertyChanged("Video_Vsync_SelectedItem");
+            }
+        }
+        // Controls Enable
+        private bool _Video_Vsync_IsEnabled = true;
+        public bool Video_Vsync_IsEnabled
+        {
+            get { return _Video_Vsync_IsEnabled; }
+            set
+            {
+                if (_Video_Vsync_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Vsync_IsEnabled = value;
+                OnPropertyChanged("Video_Vsync_IsEnabled");
             }
         }
 
