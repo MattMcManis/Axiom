@@ -55,6 +55,7 @@ namespace Generate
             // --------------------------------------------------------------------------------------------------------
 
             public static string fps { get; set; } // Frames Per Second
+            public static string vsync { get; set; }
             public static string image { get; set; } // JPEG & PNG options
 
 
@@ -125,9 +126,9 @@ namespace Generate
             /// FPS
             /// <summary>
             public static String FPS(string codec_SelectedItem,
-                                        string fps_SelectedItem,
-                                        string fps_Text
-                                        )
+                                     string fps_SelectedItem,
+                                     string fps_Text
+                                     )
             {
                 // Check:
                 // Video Codec Not Copy
@@ -247,6 +248,60 @@ namespace Generate
                 string speed = "setpts=" + val.ToString("0.#####", CultureInfo.GetCultureInfo("en-US")) + "*PTS";
 
                 Filters.Video.vFiltersList.Add(speed);
+            }
+
+
+            /// <summary>
+            /// Vsync (Method)
+            /// </summary>
+            public static String Vsync(string codec_SelectedItem,
+                                       string vsync_SelectedItem
+                )
+            {
+                // Check:
+                // Video Codec Not Copy
+                // FPS Not Empty
+                if (codec_SelectedItem != "Copy" &&
+                    vsync_SelectedItem != "off")
+                {
+                    switch (vsync_SelectedItem)
+                    {
+                        //case "off":
+                        //    vsync = string.Empty;
+                        //    break;
+
+                        case "auto":
+                            vsync = "-vsync -1";
+                            break;
+
+                        case "passthrough":
+                            vsync = "-vsync 0";
+                            break;
+
+                        case "cfr":
+                            vsync = "-vsync 1";
+                            break;
+
+                        case "vfr":
+                            vsync = "-vsync 2";
+                            break;
+
+                        case "drop":
+                            vsync = "-vsync drop";
+                            break;
+                    }
+                }
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Vsync: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(vsync) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+                return vsync;
             }
 
 
