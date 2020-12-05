@@ -59,18 +59,18 @@ namespace Generate
                 {
                     vCodec = codec_Command;
 
-                    // HW Acceleration vCodec Override
-                    if (hwAccel_transcode_SelectedItem == "AMD AMF" || // h264_amf / hevc_amf
-                        hwAccel_transcode_SelectedItem == "NVIDIA NVENC" || // h264_nvenc / hevc_nvenc
-                        hwAccel_transcode_SelectedItem == "Intel QSV" // h264_qsv / hevc_qsv
-                        )
-                    {
-                        vCodec = Encoding.HWAccelerationCodecOverride(hwAccel_transcode_SelectedItem,
-                                                                      codec_SelectedItem
-                                                                     );
+                    //// HW Acceleration vCodec Override
+                    //if (hwAccel_transcode_SelectedItem == "AMD AMF" || // h264_amf / hevc_amf
+                    //    hwAccel_transcode_SelectedItem == "NVIDIA NVENC" || // h264_nvenc / hevc_nvenc
+                    //    hwAccel_transcode_SelectedItem == "Intel QSV" // h264_qsv / hevc_qsv
+                    //    )
+                    //{
+                    //    vCodec = Encoding.HWAccelerationCodecOverride(hwAccel_transcode_SelectedItem,
+                    //                                                  codec_SelectedItem
+                    //                                                 );
 
-                        //MessageBox.Show(vCodec); //debug
-                    }
+                    //    //MessageBox.Show(vCodec); //debug
+                    //}
                 }
 
                 // Log Console Message /////////
