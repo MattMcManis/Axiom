@@ -394,7 +394,13 @@ namespace Generate
                     VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&     // Transcode not off
                     VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&    // Transcode not auto
                     VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" && // Ignore AMD AMF
-                    (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")    // x264 & x265 only
+                    (//codec_SelectedItem == "x264" || 
+                     //codec_SelectedItem == "x265" || 
+                     codec_SelectedItem == "H264 NVENC" || 
+                     codec_SelectedItem == "HEVC NVENC" ||
+                     codec_SelectedItem == "H264 QSV" ||
+                     codec_SelectedItem == "HEVC QSV"
+                    )
                    )
                 {
                     //string crf_hwaccel_val = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel;
@@ -534,7 +540,13 @@ namespace Generate
                             VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "off" &&     // Transcode not off
                             VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "auto" &&    // Transcode not auto
                             VM.VideoView.Video_HWAccel_Transcode_SelectedItem != "AMD AMF" && // Ignore AMD AMF
-                            (codec_SelectedItem == "x264" || codec_SelectedItem == "x265")    // x264 & x265 only
+                            (//codec_SelectedItem == "x264" ||
+                             //codec_SelectedItem == "x265" ||
+                             codec_SelectedItem == "H264 NVENC" ||
+                             codec_SelectedItem == "HEVC NVENC" ||
+                             codec_SelectedItem == "H264 QSV" ||
+                             codec_SelectedItem == "HEVC QSV"
+                            )
                            )
                         {
                             //vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
