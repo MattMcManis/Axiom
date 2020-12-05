@@ -57,6 +57,73 @@ namespace Axiom
             // Output Path Update Display
             // -------------------------
             //OutputPath_UpdateDisplay();
+
+            // -------------------------
+            // Select HW Accel Video Codec
+            // -------------------------
+            SelectHWAccelVideoCodec();
+        }
+
+        /// <summary>
+        /// Set HW Accel Codecs
+        /// </summary>
+        public static void SelectHWAccelVideoCodec()
+        {
+            // -------------------------
+            // Change Codec
+            // -------------------------
+            // x264/h264
+            if (VM.VideoView.Video_Codec_SelectedItem == "x264" ||
+                VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||
+                VM.VideoView.Video_Codec_SelectedItem == "H264 NVENC" ||
+                VM.VideoView.Video_Codec_SelectedItem == "H264 QSV")
+            {
+                switch (VM.VideoView.Video_HWAccel_Transcode_SelectedItem)
+                {
+                    case "AMD AMF":
+                        VM.VideoView.Video_Codec_SelectedItem = "H264 AMF";
+                        break;
+
+                    case "NVIDIA NVENC":
+                        VM.VideoView.Video_Codec_SelectedItem = "H264 NVENC";
+                        break;
+
+                    case "Intel QSV":
+                        VM.VideoView.Video_Codec_SelectedItem = "H264 QSV";
+                        break;
+
+                    default:
+                        VM.VideoView.Video_Codec_SelectedItem = "x264";
+                        //VM.VideoView.Video_Codec_SelectedIndex = 0;
+                        break;
+                }
+            }
+
+            // x265/hevc
+            else if (VM.VideoView.Video_Codec_SelectedItem == "x265" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV")
+            {
+                switch (VM.VideoView.Video_HWAccel_Transcode_SelectedItem)
+                {
+                    case "AMD AMF":
+                        VM.VideoView.Video_Codec_SelectedItem = "HEVC AMF";
+                        break;
+
+                    case "NVIDIA NVENC":
+                        VM.VideoView.Video_Codec_SelectedItem = "HEVC NVENC";
+                        break;
+
+                    case "Intel QSV":
+                        VM.VideoView.Video_Codec_SelectedItem = "HEVC QSV";
+                        break;
+
+                    default:
+                        VM.VideoView.Video_Codec_SelectedItem = "x265";
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -65,6 +132,11 @@ namespace Axiom
         private void cboVideo_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string video_Codec_SelectedItem = (sender as ComboBox).SelectedItem as string;
+
+            // -------------------------
+            // Change HW Accel Transcode
+            // -------------------------
+            ChangeHWAccelTranscode();
 
             // -------------------------
             // Halt if Selected Codec is Null
@@ -167,6 +239,50 @@ namespace Axiom
             ConvertButtonText();
         }
 
+        /// <summary>
+        /// Set HW Accel Codecs Menu List
+        /// </summary>
+        public static void ChangeHWAccelTranscode()
+        {
+            if (VM.VideoView.Video_HWAccel_SelectedItem == "On")
+            {
+                switch (VM.VideoView.Video_Codec_SelectedItem)
+                {
+                    // AMD AMF
+                    case "H264 AMF":
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "AMD AMF";
+                        break;
+
+                    case "HEVC AMF":
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "AMD AMF";
+                        break;
+
+                    // NVIDIA NVENC
+                    case "H264 NVENC":
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "NVIDIA NVENC";
+                        break;
+
+                    case "HEVC NVENC":
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "NVIDIA NVENC";
+                        break;
+
+                    // Intel QSV
+                    case "H264 QSV":
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "Intel QSV";
+                        break;
+
+                    case "HEVC QSV":
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
+                        VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "Intel QSV";
+                        break;
+                }
+            }
+        }
 
         /// <summary>
         /// HW Accel
@@ -203,8 +319,93 @@ namespace Axiom
                     VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "off";
                     break;
             }
+
+            // Add HW Accel Format Container Codecs
+            SetHWAccelVideoCodecs();
         }
 
+        /// <summary>
+        /// Set HW Accel Video Codecs
+        /// </summary>
+        public static void SetHWAccelVideoCodecs()
+        {
+            // Save Previous Selected Codec
+            string codecPreviousItem = VM.VideoView.Video_Codec_SelectedItem;
+
+            // On
+            if (VM.VideoView.Video_HWAccel_SelectedItem == "On")
+            {
+                // Update Codecs List
+                switch (VM.FormatView.Format_Container_SelectedItem)
+                {
+                    case "mp4":
+                        VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
+                        {
+                            "x264",
+                            "H264 AMF",
+                            "H264 NVENC",
+                            "H264 QSV",
+                            "x265",
+                            "HEVC AMF",
+                            "HEVC NVENC",
+                            "HEVC QSV",
+                            "Copy"
+                        };
+                        break;
+
+                    case "mkv":
+                        VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
+                        {
+                            "x264",
+                            "H264 AMF",
+                            "H264 NVENC",
+                            "H264 QSV",
+                            "x265",
+                            "HEVC AMF",
+                            "HEVC NVENC",
+                            "HEVC QSV",
+                            "VP8",
+                            "VP9",
+                            "AV1",
+                            "FFV1",
+                            "MagicYUV",
+                            "HuffYUV",
+                            "Theora",
+                            "Copy"
+                        };
+                        break;
+                }
+            }
+
+            // Off / Auto
+            else if (VM.VideoView.Video_HWAccel_SelectedItem == "Off" ||
+                     VM.VideoView.Video_HWAccel_SelectedItem == "Auto")
+            {
+                // Update Codecs Lists with defaults
+                switch (VM.FormatView.Format_Container_SelectedItem)
+                {
+                    case "mp4":
+                        VM.VideoView.Video_Codec_Items = Controls.Containers.MP4.video;
+                        break;
+
+                    case "mkv":
+                        VM.VideoView.Video_Codec_Items = Controls.Containers.MKV.video;
+                        break;
+                }
+            }
+
+            // -------------------------
+            // Select Default Codec
+            // -------------------------
+            if (codecPreviousItem == "x264")
+            {
+                VM.VideoView.Video_Codec_SelectedItem = "x264";
+            }
+            else if (codecPreviousItem == "x265")
+            {
+                VM.VideoView.Video_Codec_SelectedItem = "x265";
+            }
+        }
 
         /// <summary>
         /// Pass - ComboBox
