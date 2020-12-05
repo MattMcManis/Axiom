@@ -384,6 +384,8 @@ namespace ViewModel
         public ObservableCollection<string> _FilterVideo_Deinterlace_Items = new ObservableCollection<string>()
         {
             "disabled",
+            "default",
+            "yes",
             "frame",
             "field",
             "frame nospatial",
