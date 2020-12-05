@@ -70,6 +70,9 @@ namespace ViewModel
         /// </summary>
         public void LoadFilterVideoDefaults()
         {
+            // Display
+            FilterVideo_DropFrames_SelectedItem = "disabled";
+
             // Fix
             FilterVideo_Deband_SelectedItem = "disabled";
             FilterVideo_Deshake_SelectedItem = "disabled";
@@ -136,6 +139,59 @@ namespace ViewModel
         /// Filter Video
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
+
+        // -------------------------
+        // Drop Frames
+        // -------------------------
+        // Items
+        public ObservableCollection<string> _FilterVideo_DropFrames_Items = new ObservableCollection<string>()
+        {
+            "disabled",
+            "default",
+            "max",
+            "hi",
+            "lo",
+            "frac"
+        };
+        public ObservableCollection<string> FilterVideo_DropFrames_Items
+        {
+            get { return _FilterVideo_DropFrames_Items; }
+            set { _FilterVideo_DropFrames_Items = value; }
+        }
+
+        // Selected Item
+        private string _FilterVideo_DropFrames_SelectedItem { get; set; }
+        public string FilterVideo_DropFrames_SelectedItem
+        {
+            get { return _FilterVideo_DropFrames_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_DropFrames_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_DropFrames_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_DropFrames_SelectedItem");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_DropFrames_IsEnabled = true;
+        public bool FilterVideo_DropFrames_IsEnabled
+        {
+            get { return _FilterVideo_DropFrames_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_DropFrames_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_DropFrames_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_DropFrames_IsEnabled");
+            }
+        }
+
 
         // -------------------------
         // Deband
