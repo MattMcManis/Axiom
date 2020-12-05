@@ -69,31 +69,31 @@ namespace Axiom
         //public static double minHeight = 464;
 
         // System
-        public static string appRootDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
+        public readonly static string appRootDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
 
-        public static string commonProgramFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles).TrimEnd('\\') + @"\";
-        public static string commonProgramFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86).TrimEnd('\\') + @"\";
-        public static string programFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles).TrimEnd('\\') + @"\";
-        public static string programFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86).TrimEnd('\\') + @"\";
-        public static string programFilesX64Dir = @"C:\Program Files\";
+        public readonly static string commonProgramFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles).TrimEnd('\\') + @"\";
+        public readonly static string commonProgramFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86).TrimEnd('\\') + @"\";
+        public readonly static string programFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles).TrimEnd('\\') + @"\";
+        public readonly static string programFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86).TrimEnd('\\') + @"\";
+        public readonly static string programFilesX64Dir = @"C:\Program Files\";
 
-        public static string programDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData).TrimEnd('\\') + @"\";
-        public static string appDataLocalDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\') + @"\";
-        public static string appDataRoamingDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).TrimEnd('\\') + @"\";
-        public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
+        public readonly static string programDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData).TrimEnd('\\') + @"\";
+        public readonly static string appDataLocalDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\') + @"\";
+        public readonly static string appDataRoamingDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).TrimEnd('\\') + @"\";
+        public readonly static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
 
-        public static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).TrimEnd('\\') + @"\";
-        public static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
-        public static string videosDir = userProfile + @"Videos\"; // C:\Users\Example\Videos\
-        public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
+        public readonly static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).TrimEnd('\\') + @"\";
+        public readonly static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
+        public readonly static string videosDir = userProfile + @"Videos\"; // C:\Users\Example\Videos\
+        public readonly static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
 
-        public static string confAppRootPath = appRootDir + "axiom.conf";
-        public static string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
-        public static string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
+        public readonly static string confAppRootPath = appRootDir + "axiom.conf";
+        public readonly static string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
+        public readonly static string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
 
-        public static string logAppRootPath = appRootDir + "axiom.log";
-        public static string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
-        public static string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
+        public readonly static string logAppRootPath = appRootDir + "axiom.log";
+        public readonly static string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
+        public readonly static string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
 
         // Programs
         public static string youtubedl { get; set; } // youtube-dl.exe
@@ -1090,6 +1090,7 @@ namespace Axiom
             Generate.Video.Size.vAspectRatio = string.Empty;
             Generate.Video.Size.vScalingAlgorithm = string.Empty;
             Generate.Video.Video.fps = string.Empty;
+            Generate.Video.Video.vsync = string.Empty;
             Generate.Video.Quality.optTune = string.Empty;
             Generate.Video.Quality.optProfile = string.Empty;
             Generate.Video.Quality.optLevel = string.Empty;
@@ -2856,5 +2857,14 @@ namespace Axiom
             }
         }
 
+        private void cboVideo_Vsync_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cboFilterVideo_DropFrames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
