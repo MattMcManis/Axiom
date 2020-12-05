@@ -193,6 +193,174 @@ namespace Controls
                         break;
 
                     // -------------------------
+                    // H264_AMF
+                    // -------------------------
+                    case "H264 AMF":
+                        // Codec
+                        Codec.H264_AMF.Codec_Set();
+
+                        // Items Source
+                        Codec.H264_AMF.Controls_ItemsSource();
+                        // Selected Items
+                        Codec.H264_AMF.Controls_Selected();
+
+                        // Expanded
+                        Codec.H264_AMF.Controls_Expanded();
+                        // Collapsed
+                        Codec.H264_AMF.Controls_Collapsed();
+
+                        // Checked
+                        Codec.H264_AMF.Controls_Checked();
+                        // Unhecked
+                        Codec.H264_AMF.Controls_Unhecked();
+
+                        // Enabled
+                        Codec.H264_AMF.Controls_Enable();
+                        // Disabled
+                        Codec.H264_AMF.Controls_Disable();
+                        break;
+
+                    // -------------------------
+                    // HEVC AMF
+                    // -------------------------
+                    case "HEVC AMF":
+                        // Codec
+                        Codec.HEVC_AMF.Codec_Set();
+
+                        // Items Source
+                        Codec.HEVC_AMF.Controls_ItemsSource();
+                        // Selected Items
+                        Codec.HEVC_AMF.Controls_Selected();
+
+                        // Expanded
+                        Codec.HEVC_AMF.Controls_Expanded();
+                        // Collapsed
+                        Codec.HEVC_AMF.Controls_Collapsed();
+
+                        // Checked
+                        Codec.HEVC_AMF.Controls_Checked();
+                        // Unhecked
+                        Codec.HEVC_AMF.Controls_Unhecked();
+
+                        // Enabled
+                        Codec.HEVC_AMF.Controls_Enable();
+                        // Disabled
+                        Codec.HEVC_AMF.Controls_Disable();
+                        break;
+
+                    // -------------------------
+                    // H264 NVENC
+                    // -------------------------
+                    case "H264 NVENC":
+                        // Codec
+                        Codec.H264_NVENC.Codec_Set();
+
+                        // Items Source
+                        Codec.H264_NVENC.Controls_ItemsSource();
+                        // Selected Items
+                        Codec.H264_NVENC.Controls_Selected();
+
+                        // Expanded
+                        Codec.H264_NVENC.Controls_Expanded();
+                        // Collapsed
+                        Codec.H264_NVENC.Controls_Collapsed();
+
+                        // Checked
+                        Codec.H264_NVENC.Controls_Checked();
+                        // Unhecked
+                        Codec.H264_NVENC.Controls_Unhecked();
+
+                        // Enabled
+                        Codec.H264_NVENC.Controls_Enable();
+                        // Disabled
+                        Codec.H264_NVENC.Controls_Disable();
+                        break;
+
+                    // -------------------------
+                    // HEVC NVENC
+                    // -------------------------
+                    case "HEVC NVENC":
+                        // Codec
+                        Codec.HEVC_NVENC.Codec_Set();
+
+                        // Items Source
+                        Codec.HEVC_NVENC.Controls_ItemsSource();
+                        // Selected Items
+                        Codec.HEVC_NVENC.Controls_Selected();
+
+                        // Expanded
+                        Codec.HEVC_NVENC.Controls_Expanded();
+                        // Collapsed
+                        Codec.HEVC_NVENC.Controls_Collapsed();
+
+                        // Checked
+                        Codec.HEVC_NVENC.Controls_Checked();
+                        // Unhecked
+                        Codec.HEVC_NVENC.Controls_Unhecked();
+
+                        // Enabled
+                        Codec.HEVC_NVENC.Controls_Enable();
+                        // Disabled
+                        Codec.HEVC_NVENC.Controls_Disable();
+                        break;
+
+                    // -------------------------
+                    // H264 QSV
+                    // -------------------------
+                    case "H264 QSV":
+                        // Codec
+                        Codec.H264_QSV.Codec_Set();
+
+                        // Items Source
+                        Codec.H264_QSV.Controls_ItemsSource();
+                        // Selected Items
+                        Codec.H264_QSV.Controls_Selected();
+
+                        // Expanded
+                        Codec.H264_QSV.Controls_Expanded();
+                        // Collapsed
+                        Codec.H264_QSV.Controls_Collapsed();
+
+                        // Checked
+                        Codec.H264_QSV.Controls_Checked();
+                        // Unhecked
+                        Codec.H264_QSV.Controls_Unhecked();
+
+                        // Enabled
+                        Codec.H264_QSV.Controls_Enable();
+                        // Disabled
+                        Codec.H264_QSV.Controls_Disable();
+                        break;
+
+                    // -------------------------
+                    // HEVC QSV
+                    // -------------------------
+                    case "HEVC QSV":
+                        // Codec
+                        Codec.HEVC_QSV.Codec_Set();
+
+                        // Items Source
+                        Codec.HEVC_QSV.Controls_ItemsSource();
+                        // Selected Items
+                        Codec.HEVC_QSV.Controls_Selected();
+
+                        // Expanded
+                        Codec.HEVC_QSV.Controls_Expanded();
+                        // Collapsed
+                        Codec.HEVC_QSV.Controls_Collapsed();
+
+                        // Checked
+                        Codec.HEVC_QSV.Controls_Checked();
+                        // Unhecked
+                        Codec.HEVC_QSV.Controls_Unhecked();
+
+                        // Enabled
+                        Codec.HEVC_QSV.Controls_Enable();
+                        // Disabled
+                        Codec.HEVC_QSV.Controls_Disable();
+                        break;
+
+                    // -------------------------
                     // AV1
                     // -------------------------
                     case "AV1":
@@ -828,7 +996,10 @@ namespace Controls
                         // VBR
                         if (VM.VideoView.Video_Codec_SelectedItem == "VP8" || // special rules
                             VM.VideoView.Video_Codec_SelectedItem == "x264" ||
+                            //VM.VideoView.Video_Codec_SelectedItem == "x265" || // n/a
                             VM.VideoView.Video_Codec_SelectedItem == "JPEG" ||
+                            //VM.VideoView.Video_Codec_SelectedItem != "PNG" || // n/a
+                            //VM.VideoView.Video_Codec_SelectedItem != "WebP" || // n/a
                             VM.VideoView.Video_Codec_SelectedItem == "AV1" ||
                             VM.VideoView.Video_Codec_SelectedItem == "FFV1" ||
                             VM.VideoView.Video_Codec_SelectedItem == "MagicYUV" ||
@@ -931,6 +1102,102 @@ namespace Controls
                             else
                             {
                                 VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                            }
+                            break;
+
+                        // -------------------------
+                        // H264 AMF
+                        // -------------------------
+                        case "H264 AMF":
+                            // Lossless
+                            if (quality_SelectedItem == "Lossless")
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
+                            }
+                            // All Other Quality
+                            else
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                            }
+                            break;
+
+                        // -------------------------
+                        // HEVC AMF
+                        // -------------------------
+                        case "HEVC AMF":
+                            // Lossless
+                            if (quality_SelectedItem == "Lossless")
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
+                            }
+                            // All Other Quality
+                            else
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                            }
+                            break;
+
+                        // -------------------------
+                        // H264_NVENC
+                        // -------------------------
+                        case "H264 NVENC":
+                            // Lossless
+                            if (quality_SelectedItem == "Lossless")
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p16le";
+                            }
+                            // All Other Quality
+                            else
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
+                            }
+                            break;
+
+                        // -------------------------
+                        // HEVC NVENC
+                        // -------------------------
+                        case "HEVC NVENC":
+                            // Lossless
+                            if (quality_SelectedItem == "Lossless")
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p16le";
+                            }
+                            // All Other Quality
+                            else
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
+                            }
+                            break;
+
+                        // -------------------------
+                        // H264 QSV
+                        // -------------------------
+                        case "H264 QSV":
+                            // Lossless
+                            if (quality_SelectedItem == "Lossless")
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
+                            }
+                            // All Other Quality
+                            else
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
+                            }
+                            break;
+
+                        // -------------------------
+                        // HEVC QSV
+                        // -------------------------
+                        case "HEVC QSV":
+                            // Lossless
+                            if (quality_SelectedItem == "Lossless")
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
+                            }
+                            // All Other Quality
+                            else
+                            {
+                                VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
                             }
                             break;
 
@@ -1213,7 +1480,13 @@ namespace Controls
                 // Only for x264 & x265 Video Codecs
                 // -------------------------
                 if (VM.VideoView.Video_Codec_SelectedItem == "x264" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "x265")
+                    VM.VideoView.Video_Codec_SelectedItem == "x265" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "H264 NVENC" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "H264 QSV" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV")
                 {
                     // -------------------------
                     // Enable - Tune, Profile, Level
@@ -1248,7 +1521,7 @@ namespace Controls
                 }
 
                 // -------------------------
-                // Disable Tune, Profile, Level if Codec not x264/x265
+                // Disable Tune, Profile, Level if Codec not x264/x265/hevc_nvenc
                 // -------------------------
                 else
                 {
@@ -1312,6 +1585,42 @@ namespace Controls
                     // -------------------------
                     case "x265":
                         Codec.x265.EncodingPass();
+                        break;
+                    // -------------------------
+                    // H264 AMF
+                    // -------------------------
+                    case "H264 AMF":
+                        Codec.H264_AMF.EncodingPass();
+                        break;
+                    // -------------------------
+                    // HEVC AMF
+                    // -------------------------
+                    case "HEVC AMF":
+                        Codec.HEVC_AMF.EncodingPass();
+                        break;
+                    // -------------------------
+                    // H264 NVENC
+                    // -------------------------
+                    case "H264 NVENC":
+                        Codec.H264_NVENC.EncodingPass();
+                        break;
+                    // -------------------------
+                    // HEVC NVENC
+                    // -------------------------
+                    case "HEVC NVENC":
+                        Codec.HEVC_NVENC.EncodingPass();
+                        break;
+                    // -------------------------
+                    // H264 QSV
+                    // -------------------------
+                    case "H264 QSV":
+                        Codec.H264_QSV.EncodingPass();
+                        break;
+                    // -------------------------
+                    // HEVC QSV
+                    // -------------------------
+                    case "HEVC QSV":
+                        Codec.HEVC_QSV.EncodingPass();
                         break;
                     // -------------------------
                     // AV1
