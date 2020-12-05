@@ -72,17 +72,30 @@ namespace Controls
                 // -------------------------
                 public static ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
                 {
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "none",       Command = ""},
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Placebo",    Command = "-preset placebo" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Very Slow",  Command = "-preset veryslow" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Slower",     Command = "-preset slower" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Slow",       Command = "-preset slow" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Medium",     Command = "-preset medium" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Fast",       Command = "-preset fast" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Faster",     Command = "-preset faster" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Very Fast",  Command = "-preset veryfast" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Super Fast", Command = "-preset superfast" },
-                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Ultra Fast", Command = "-preset ultrafast" }
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "none",            Command = ""},
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Default",         Command = "-preset default" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Lossless",        Command = "-preset lossless" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Lossless HP",     Command = "-preset losslesshp" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Slow",            Command = "-preset slow" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Medium",          Command = "-preset medium" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Fast",            Command = "-preset fast" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "HP",              Command = "-preset hp" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "HQ",              Command = "-preset hq" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "BD",              Command = "-preset hq" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Low Latency",     Command = "-preset ll" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Low Latency HP",  Command = "-preset llhp" },
+                     new ViewModel.Video.VideoEncodeSpeed() { Name = "Low Latency HQ",  Command = "-preset llhq" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "none",       Command = ""},
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Placebo",    Command = "-preset placebo" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Very Slow",  Command = "-preset veryslow" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Slower",     Command = "-preset slower" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Slow",       Command = "-preset slow" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Medium",     Command = "-preset medium" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Fast",       Command = "-preset fast" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Faster",     Command = "-preset faster" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Very Fast",  Command = "-preset veryfast" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Super Fast", Command = "-preset superfast" },
+                     //new ViewModel.Video.VideoEncodeSpeed() { Name = "Ultra Fast", Command = "-preset ultrafast" }
                 };
 
                 // -------------------------
@@ -113,10 +126,10 @@ namespace Controls
                 {
                      new ViewModel.Video.VideoQuality() { Name = "Auto",      CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
                      new ViewModel.Video.VideoQuality() { Name = "Lossless",  CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "" },
-                     new ViewModel.Video.VideoQuality() { Name = "Ultra",     CRF = "16", CRF_HWAccel_Intel_QSV = "18", CRF_HWAccel_NVIDIA_NVENC = "19", CBR_BitMode = "-b:v", CBR = "5000K", VBR_BitMode = "-q:v", VBR = "5000K", MinRate = "", MaxRate = "", BufSize ="" },
-                     new ViewModel.Video.VideoQuality() { Name = "High",      CRF = "20", CRF_HWAccel_Intel_QSV = "22", CRF_HWAccel_NVIDIA_NVENC = "23", CBR_BitMode = "-b:v", CBR = "2500K", VBR_BitMode = "-q:v", VBR = "2500K", MinRate = "", MaxRate = "", BufSize ="" },
-                     new ViewModel.Video.VideoQuality() { Name = "Medium",    CRF = "25", CRF_HWAccel_Intel_QSV = "27", CRF_HWAccel_NVIDIA_NVENC = "28", CBR_BitMode = "-b:v", CBR = "1300K", VBR_BitMode = "-q:v", VBR = "1300K", MinRate = "", MaxRate = "", BufSize ="" },
-                     new ViewModel.Video.VideoQuality() { Name = "Low",       CRF = "35", CRF_HWAccel_Intel_QSV = "37", CRF_HWAccel_NVIDIA_NVENC = "38", CBR_BitMode = "-b:v", CBR = "600K",  VBR_BitMode = "-q:v", VBR = "600K",  MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Ultra",     CRF = "16", CRF_HWAccel_Intel_QSV = "18", CRF_HWAccel_NVIDIA_NVENC = "18", CBR_BitMode = "-b:v", CBR = "5000K", VBR_BitMode = "-q:v", VBR = "5000K", MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "High",      CRF = "20", CRF_HWAccel_Intel_QSV = "22", CRF_HWAccel_NVIDIA_NVENC = "22", CBR_BitMode = "-b:v", CBR = "2800K", VBR_BitMode = "-q:v", VBR = "2800K", MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Medium",    CRF = "25", CRF_HWAccel_Intel_QSV = "27", CRF_HWAccel_NVIDIA_NVENC = "27", CBR_BitMode = "-b:v", CBR = "1500K", VBR_BitMode = "-q:v", VBR = "1500K", MinRate = "", MaxRate = "", BufSize ="" },
+                     new ViewModel.Video.VideoQuality() { Name = "Low",       CRF = "35", CRF_HWAccel_Intel_QSV = "37", CRF_HWAccel_NVIDIA_NVENC = "36", CBR_BitMode = "-b:v", CBR = "600K",  VBR_BitMode = "-q:v", VBR = "600K",  MinRate = "", MaxRate = "", BufSize ="" },
                      new ViewModel.Video.VideoQuality() { Name = "Sub",       CRF = "45", CRF_HWAccel_Intel_QSV = "47", CRF_HWAccel_NVIDIA_NVENC = "48", CBR_BitMode = "-b:v", CBR = "250K",  VBR_BitMode = "-q:v", VBR = "250K",  MinRate = "", MaxRate = "", BufSize ="" },
                      new ViewModel.Video.VideoQuality() { Name = "Custom",    CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="" }
                 };
@@ -321,7 +334,6 @@ namespace Controls
                 // -------------------------
                 public static void Controls_Selected()
                 {
-
                     // Pixel Format
                     VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
 
