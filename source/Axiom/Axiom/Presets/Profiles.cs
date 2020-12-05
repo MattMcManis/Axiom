@@ -368,6 +368,14 @@ namespace Profiles
                     VM.VideoView.Video_Speed_Text = inif.Read("Video", "Speed_Text");
                 }
 
+                // Vsync
+                string videoVsync = inif.Read("Video", "Vsync_SelectedItem");
+
+                if (VM.VideoView.Video_Vsync_Items.Contains(videoVsync))
+                    VM.VideoView.Video_Vsync_SelectedItem = videoVsync;
+                else
+                    listFailedImports.Add("Video: Vsync");
+
                 // Optimize
                 string videoOptimize = inif.Read("Video", "Optimize_SelectedItem");
                 List<string> videoOptimizeNames = VM.VideoView.Video_Optimize_Items.Select(item => item.Name).ToList();
@@ -609,6 +617,15 @@ namespace Profiles
                     VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = filterVideoDeinterlace;
                 else
                     listFailedImports.Add("Filter Video: Deinterlace");
+
+                // Display
+                // Drop Frames
+                string filterVideoDropFrames = inif.Read("Filter Video", "DropFrames_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_DropFrames_Items.Contains(filterVideoDropFrames))
+                    VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem = filterVideoDropFrames;
+                else
+                    listFailedImports.Add("Filter Video: DropFrames");
 
                 // Transpose
                 // Flip
@@ -979,6 +996,9 @@ namespace Profiles
                     inif.Write("Video", "Speed_Text", VM.VideoView.Video_Speed_Text);
                 }
 
+                // Vsync
+                inif.Write("Video", "Vsync_SelectedItem", VM.VideoView.Video_Vsync_SelectedItem);
+
                 // Optimize
                 inif.Write("Video", "Optimize_SelectedItem", VM.VideoView.Video_Optimize_SelectedItem);
                 inif.Write("Video", "Video_Optimize_Tune_SelectedItem", VM.VideoView.Video_Video_Optimize_Tune_SelectedItem);
@@ -1039,6 +1059,9 @@ namespace Profiles
                 // --------------------------------------------------
                 // Filter Video
                 // --------------------------------------------------
+                // Display
+                inif.Write("Filter Video", "DropFrames_SelectedItem", VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem);
+
                 // Fix
                 inif.Write("Filter Video", "Deband_SelectedItem", VM.FilterVideoView.FilterVideo_Deband_SelectedItem);
                 inif.Write("Filter Video", "Deshake_SelectedItem", VM.FilterVideoView.FilterVideo_Deshake_SelectedItem);
