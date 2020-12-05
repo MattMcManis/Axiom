@@ -182,7 +182,13 @@ namespace Axiom
                 // Make x264 & x265 Width/Height Divisible by 2
                 //
                 if (VM.VideoView.Video_Codec_SelectedItem == "x264" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "x265")
+                    VM.VideoView.Video_Codec_SelectedItem == "x265" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "H264 NVENC" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "H264 QSV" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV")
                 {
                     try // will error if wrong characters input
                     {
