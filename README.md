@@ -13,7 +13,7 @@ An FFmpeg GUI for Windows
 &nbsp;
 
 ## Overview
-Axiom generates command scripts to be processed by multimedia encoder, [FFmpeg](https://www.ffmpeg.org), and streams analyzer, [FFprobe](https://ffmpeg.org/ffprobe.html).
+Axiom generates command scripts to be processed by the multimedia encoder, [FFmpeg](https://www.ffmpeg.org), and streams analyzer, [FFprobe](https://ffmpeg.org/ffprobe.html).
 
 Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav`, `png`, `jpg`, `webp` and more.
 
@@ -71,7 +71,7 @@ Axiom is portable and can be run from any location on the computer.
 2. Go to Control Panel → System and Security → System → Advanced system settings
 3. Advanced Tab → Environment Variables → System variables → Path
 4. Add `C:\Program Files\ffmpeg\bin\`
-5. Separate multiple paths with semicolon `;` (Windows 7, 8, 8.1)
+5. Separate multiple paths with a semicolon `;` (Windows 7, 8, 8.1)
 6. Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
 
 <a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/docs/Windows%20Environment%20Variables/Environment-Variables.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/docs/Windows%20Environment%20Variables/Environment-Variables.png" width="500"/></a> 
