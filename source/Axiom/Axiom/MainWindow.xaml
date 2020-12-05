@@ -1154,7 +1154,8 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
-                                                <RowDefinition Height="22" />
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="22"/>
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="auto" />
                                                 <RowDefinition Height="33" />
@@ -1382,7 +1383,7 @@
                                                    ToolTip="Encoding Pass Method"
                                                    FontFamily="Segoe UI Semilight"
                                                    Grid.Row="8"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <ComboBox x:Name="cboVideo_Pass"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_Pass_Items}"
@@ -1401,7 +1402,7 @@
                                                       DropDownClosed="cboVideo_Pass_DropDownClosed"
                                                       Grid.Row="8"
                                                       Grid.Column="2"
-                                                      Margin="0,2,0,0" />
+                                                      Margin="0,2,0,0" Height="22" />
 
                                             <!-- CRF -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1414,7 +1415,7 @@
                                                    Grid.Column="1"
                                                    ToolTipService.InitialShowDelay="500"
                                                    ToolTipService.ShowOnDisabled="True"
-                                                   ToolTip="Constant Rate Factor. Lower value is higher quality." />
+                                                   ToolTip="Constant Rate Factor. Lower value is higher quality." Height="26" />
                                             <Slider x:Name="slVideo_CRF"
                                                     DataContext="{Binding VideoView}"
                                                     Style="{DynamicResource SliderStyle}"
@@ -1429,14 +1430,14 @@
                                                     Minimum="0"
                                                     Maximum="51"
                                                     Value="{Binding Video_CRF_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Grid.Column="2"
+                                                    Grid.Column="1"
                                                     Grid.Row="9"
                                                     Height="18"
                                                     ToolTipService.InitialShowDelay="500"
                                                     ToolTipService.ShowOnDisabled="True"
                                                     ToolTip="Constant Rate Factor. Lower value is higher quality."
                                                     MouseDoubleClick="slVideo_CRF_MouseDoubleClick"
-                                                    ValueChanged="slVideo_CRF_ValueChanged" />
+                                                    ValueChanged="slVideo_CRF_ValueChanged" Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxVideo_CRF"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_CRF_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -1470,7 +1471,7 @@
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Video Bit Rate (e.g. 1000K or 1M)"
                                                    Grid.Row="10"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <TextBox x:Name="tbxVideo_BitRate"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_BitRate_Text, Mode=TwoWay}"
@@ -1523,7 +1524,7 @@
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)"
                                                    Grid.Row="11"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <TextBox x:Name="tbxVideo_MinRate"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_MinRate_Text, Mode=TwoWay}"
@@ -1555,7 +1556,7 @@
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)"
                                                    Grid.Row="12"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <TextBox x:Name="tbxVideo_MaxRate"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_MaxRate_Text, Mode=TwoWay}"
@@ -1587,7 +1588,7 @@
                                                    ToolTipService.ShowOnDisabled="True"
                                                    ToolTip="Rate Control Buffer (e.g. 1000K or 1M)"
                                                    Grid.Row="13"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <TextBox x:Name="tbxVideo_BufSize"
                                                      DataContext="{Binding VideoView}"
                                                      Text="{Binding Video_BufSize_Text, Mode=TwoWay}"
@@ -1616,7 +1617,7 @@
                                                    Width="80"
                                                    FontFamily="Segoe UI Semilight"
                                                    Grid.Row="14"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <ComboBox x:Name="cboVideo_PixelFormat"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_PixelFormat_Items}"
@@ -1633,7 +1634,7 @@
                                                       Grid.Row="14"
                                                       Grid.Column="2"
                                                       Margin="0,2,0,0"
-                                                      SelectionChanged="cboVideo_PixelFormat_SelectionChanged" />
+                                                      SelectionChanged="cboVideo_PixelFormat_SelectionChanged" Height="22" />
 
                                             <!-- Framerate -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1646,7 +1647,7 @@
                                                    ToolTip="Frames Per Second"
                                                    FontFamily="Segoe UI Semilight"
                                                    Grid.Row="15"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <ComboBox x:Name="cboVideo_FrameRate"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_FPS_Items}"
@@ -1668,7 +1669,7 @@
                                                       IsTextSearchEnabled="False"
                                                       Grid.Row="15"
                                                       Grid.Column="2"
-                                                      Margin="0,2,0,0" />
+                                                      Margin="0,2,0,0" Height="22" />
 
                                             <!-- Speed -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1681,7 +1682,7 @@
                                                    ToolTip="Speed Up / Slow Down Video"
                                                    FontFamily="Segoe UI Semilight"
                                                    Grid.Row="16"
-                                                   Grid.Column="1" />
+                                                   Grid.Column="1" Height="26" />
                                             <ComboBox x:Name="cboVideo_Speed"
                                                       DataContext="{Binding VideoView}"
                                                       ItemsSource="{Binding Video_Speed_Items}"
@@ -1703,7 +1704,48 @@
                                                       IsTextSearchEnabled="False"
                                                       Grid.Row="16"
                                                       Grid.Column="2"
-                                                      Margin="0,2,0,0" />
+                                                      Margin="0,2,0,0" Height="22" />
+
+                                            <!-- Vsync -->
+                                            <Label Style="{DynamicResource LabelStyle}"
+                                                       Content="Vsync"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Width="85"
+                                                       FontFamily="Segoe UI Semilight"
+                                                       Grid.Row="17"
+                                                       Height="26"
+                                                       Grid.Column="1">
+                                                <Label.ToolTip>
+                                                    <TextBlock>
+		                                                    auto: Chooses between 1 and 2 depending on muxer capabilities. This is the default method.
+		                                                    <LineBreak /> 
+		                                                    passthrough: Each frame is passed with its timestamp from the demuxer to the muxer.
+		                                                    <LineBreak /> 
+		                                                    cfr: Frames will be duplicated and dropped to achieve exactly the requested constant frame rate.
+		                                                    <LineBreak /> 
+		                                                    vfr: Frames are passed through with their timestamp or dropped so as to prevent 2 frames from having the same timestamp.
+		                                                    <LineBreak /> 
+		                                                    drop: As passthrough but destroys all timestamps, making the muxer generate fresh timestamps based on frame-rate.
+                                                    </TextBlock>
+                                                </Label.ToolTip>
+                                            </Label>
+                                            <ComboBox x:Name="cboVideo_Vsync"
+                                                      DataContext="{Binding VideoView}"
+                                                      ItemsSource="{Binding Video_Vsync_Items}"
+                                                      SelectedItem="{Binding Video_Vsync_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Vsync_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left"
+                                                      Margin="0,2,0,0"
+                                                      VerticalAlignment="Top"
+                                                      Width="105"
+                                                      Grid.Row="17"
+                                                      Grid.Column="2"
+                                                      Height="22"
+                                                      SelectionChanged="cboVideo_Vsync_SelectionChanged">
+                                            </ComboBox>
 
                                             <!-- Optimize -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1712,7 +1754,7 @@
                                                    VerticalAlignment="Top"
                                                    Width="75"
                                                    FontFamily="Segoe UI Semilight"
-                                                   Grid.Row="18"
+                                                   Grid.Row="19"
                                                    Height="26"
                                                    Grid.Column="1"
                                                    Panel.ZIndex="1" />
@@ -1732,7 +1774,7 @@
                                                       Height="22"
                                                       SelectionChanged="cboVideo_Optimize_SelectionChanged"
                                                       Grid.Column="2"
-                                                      Grid.Row="18"
+                                                      Grid.Row="19"
                                                       ToolTipService.InitialShowDelay="500"
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Optimize file for device type."
@@ -1753,9 +1795,8 @@
 
                                             <!-- Expander -->
                                             <Grid Margin="0,0,10,0"
-                                                  Grid.Row="19"
+                                                  Grid.Row="21"
                                                   Grid.Column="1"
-                                                  Grid.RowSpan="2"
                                                   Grid.ColumnSpan="2">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
@@ -4705,12 +4746,71 @@
                                                 <RowDefinition Height="auto" />
                                                 <RowDefinition Height="auto" />
                                                 <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
                                             </Grid.RowDefinitions>
+
+                                            <!-- Display Group -->
+                                            <Grid Margin="0"
+                                                  VerticalAlignment="Top"
+                                                  Grid.Row="0">
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="15" />
+                                                    <ColumnDefinition Width="96" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="33" />
+                                                    <RowDefinition Height="33" />
+                                                    <RowDefinition Height="22" />
+                                                </Grid.RowDefinitions>
+
+                                                <!-- Display -->
+                                                <Label Style="{DynamicResource LabelStyle}"
+                                                       Content="Display"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Width="95"
+                                                       FontFamily="Segoe UI Semibold"
+                                                       Grid.Row="0"
+                                                       Height="26"
+                                                       Grid.Column="1" />
+
+                                                <!-- Drop Frames -->
+                                                <Label Style="{DynamicResource LabelStyle}"
+                                                       Content="Drop Frames"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Width="85"
+                                                       FontFamily="Segoe UI Semilight"
+                                                       Grid.Row="1"
+                                                       Height="26"
+                                                       Grid.Column="1" 
+                                                       ToolTipService.InitialShowDelay="500"
+                                                       ToolTipService.ShowOnDisabled="True">
+                                                </Label>
+                                                <ComboBox x:Name="cboFilterVideo_DropFrames"
+                                                          ItemsSource="{Binding FilterVideo_DropFrames_Items}"
+                                                          SelectedItem="{Binding FilterVideo_DropFrames_SelectedItem, Mode=TwoWay}"
+                                                          IsEnabled="{Binding FilterVideo_DropFrames_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                          Style="{DynamicResource ComboBoxStyle}"
+                                                          ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="0,2,0,0"
+                                                          VerticalAlignment="Top"
+                                                          Width="105"
+                                                          Grid.Row="1"
+                                                          Grid.Column="2"
+                                                          Height="22"
+                                                          SelectionChanged="cboFilterVideo_DropFrames_SelectionChanged">
+                                                </ComboBox>
+                                            </Grid>
 
                                             <!-- Fix Group -->
                                             <Grid Margin="0"
                                                   VerticalAlignment="Top"
-                                                  Grid.Row="0">
+                                                  Grid.Row="1">
 
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="15" />
@@ -4903,7 +5003,7 @@
                                             <!-- Transpose Group -->
                                             <Grid Margin="0"
                                                   VerticalAlignment="Top"
-                                                  Grid.Row="1">
+                                                  Grid.Row="2">
 
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="15" />
