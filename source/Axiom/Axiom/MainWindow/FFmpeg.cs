@@ -226,23 +226,9 @@ namespace Axiom
             }
 
             // -------------------------
-            // Update Output TextBox
+            // Update Output TextBox Text
             // -------------------------
-            switch (VM.MainView.Batch_IsChecked)
-            {
-                // Single file
-                case false:
-                    if (!string.IsNullOrWhiteSpace(outputDir))
-                    {
-                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
-                    }
-                    break;
-
-                // Batch
-                case true:
-                    VM.MainView.Output_Text = outputDir/*.TrimEnd('\\') + @"\"*/;
-                    break;
-            }
+            UpdateOutputTextBoxText();
         }
 
 
