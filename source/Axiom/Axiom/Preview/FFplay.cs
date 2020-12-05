@@ -91,13 +91,13 @@ namespace Preview
                     //Audio.AudioCodec(),
                     //Audio.AudioQuality(),
                     Generate.Audio.Quality.SampleRate(VM.AudioView.Audio_Codec_SelectedItem,
-                                                     VM.AudioView.Audio_SampleRate_Items,
-                                                     VM.AudioView.Audio_SampleRate_SelectedItem
+                                                      VM.AudioView.Audio_SampleRate_Items,
+                                                      VM.AudioView.Audio_SampleRate_SelectedItem
                                                      ),
 
                     Generate.Audio.Quality.BitDepth(VM.AudioView.Audio_Codec_SelectedItem,
-                                                   VM.AudioView.Audio_BitDepth_Items,
-                                                   VM.AudioView.Audio_BitDepth_SelectedItem
+                                                    VM.AudioView.Audio_BitDepth_Items,
+                                                    VM.AudioView.Audio_BitDepth_SelectedItem
                                                    ),
 
                     Generate.Audio.Channels.Channel(VM.AudioView.Audio_Codec_SelectedItem,
