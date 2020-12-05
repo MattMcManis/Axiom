@@ -422,7 +422,8 @@ namespace Controls
                                                    )
             {
                 // Condition Check
-                if (!string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
+                if (//VM.AudioView.Audio_BitRate_IsEnabled == false &&
+                    !string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
                     VM.AudioView.Audio_Quality_SelectedItem != "None" &&
                     VM.AudioView.Audio_Quality_SelectedItem != "Auto" &&
                     VM.AudioView.Audio_Quality_SelectedItem != "Lossless" &&
