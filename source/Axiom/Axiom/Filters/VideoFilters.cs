@@ -721,40 +721,42 @@ namespace Filters
 
                 switch (VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem)
                 {
+                    // example: mpdecimate=max4=hi=64*12:lo=64*8:frac=0.33
+
                     // -------------------------
-                    // Default
+                    // Enabled
                     // -------------------------
-                    case "default":
+                    case "enabled":
                         dropframes = "mpdecimate";
                         break;
 
-                    // -------------------------
-                    // Max
-                    // -------------------------
-                    case "max":
-                        dropframes = "mpdecimate=max";
-                        break;
+                    //// -------------------------
+                    //// Max
+                    //// -------------------------
+                    //case "max":
+                    //    dropframes = "mpdecimate=max";
+                    //    break;
 
-                    // -------------------------
-                    // hi
-                    // -------------------------
-                    case "hi":
-                        dropframes = "mpdecimate=hi";
-                        break;
+                    //// -------------------------
+                    //// hi
+                    //// -------------------------
+                    //case "hi":
+                    //    dropframes = "mpdecimate=hi";
+                    //    break;
 
-                    // -------------------------
-                    // lo
-                    // -------------------------
-                    case "lo":
-                        dropframes = "mpdecimate=lo";
-                        break;
+                    //// -------------------------
+                    //// lo
+                    //// -------------------------
+                    //case "lo":
+                    //    dropframes = "mpdecimate=lo";
+                    //    break;
 
-                    // -------------------------
-                    // Heavy
-                    // -------------------------
-                    case "frac":
-                        dropframes = "mpdecimate=frac";
-                        break;
+                    //// -------------------------
+                    //// frac
+                    //// -------------------------
+                    //case "frac":
+                    //    dropframes = "mpdecimate=frac";
+                    //    break;
                 }
 
                 vFiltersList.Add(dropframes);
