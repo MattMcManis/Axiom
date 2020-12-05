@@ -620,6 +620,17 @@ namespace Filters
                     // -------------------------
                     // Send Frame
                     // -------------------------
+                    case "default":
+                        deinterlace = "yadif";
+                        break;
+
+                    case "yes":
+                        deinterlace = "yadif=1";
+                        break;
+
+                    // -------------------------
+                    // Send Frame
+                    // -------------------------
                     case "frame":
                         deinterlace = "yadif=0:-1:0";
                         break;
@@ -1295,13 +1306,19 @@ namespace Filters
                 //  Scale is Custom width & height
                 // -------------------------
                 if ((VM.VideoView.Video_Codec_SelectedItem == "x264" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "x265" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "MPEG-2" ||
-                    VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
-                    &&
-                    !string.Equals(VM.VideoView.Video_Width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
-                    !string.Equals(VM.VideoView.Video_Height_Text, "auto", StringComparison.OrdinalIgnoreCase)// && 
-                    //VM.VideoView.Video_CropClear_Text == "Clear"
+                     VM.VideoView.Video_Codec_SelectedItem == "x265" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "H264 NVENC" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "H264 QSV" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "MPEG-2" ||
+                     VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
+                     &&
+                     !string.Equals(VM.VideoView.Video_Width_Text, "auto", StringComparison.OrdinalIgnoreCase) &&
+                     !string.Equals(VM.VideoView.Video_Height_Text, "auto", StringComparison.OrdinalIgnoreCase)// && 
+                     //VM.VideoView.Video_CropClear_Text == "Clear"
                     )
                 {
                     // -------------------------
