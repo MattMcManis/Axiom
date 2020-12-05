@@ -256,22 +256,26 @@ namespace Axiom
             }
 
             // -------------------------
-            // Update Output TextBox
+            // Update Output TextBox Text
             // -------------------------
+            UpdateOutputTextBoxText();
             // Single file
-            if (VM.MainView.Batch_IsChecked == false)
-            {
-                if (!string.IsNullOrWhiteSpace(outputDir))
-                {
-                    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
-                }
-            }
+            //if (VM.MainView.Batch_IsChecked == false)
+            //{
+            //    if (!string.IsNullOrWhiteSpace(outputDir))
+            //    {
+            //        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+            //    }
+            //}
 
-            // Batch
-            if (VM.MainView.Batch_IsChecked == true)
-            {
-                VM.MainView.Output_Text = outputDir;
-            }
+            //// Batch
+            //if (VM.MainView.Batch_IsChecked == true)
+            //{
+            //    if (!string.IsNullOrWhiteSpace(outputDir))
+            //    {
+            //        VM.MainView.Output_Text = outputDir.TrimEnd('\\') + @"\";
+            //    }
+            //}
 
             //if (!string.IsNullOrWhiteSpace(outputDir))
             //{
