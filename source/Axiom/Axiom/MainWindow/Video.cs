@@ -250,34 +250,28 @@ namespace Axiom
                 {
                     // AMD AMF
                     case "H264 AMF":
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
                         VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "AMD AMF";
                         break;
 
                     case "HEVC AMF":
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
                         VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "AMD AMF";
                         break;
 
                     // NVIDIA NVENC
                     case "H264 NVENC":
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
                         VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "NVIDIA NVENC";
                         break;
 
                     case "HEVC NVENC":
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
                         VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "NVIDIA NVENC";
                         break;
 
                     // Intel QSV
                     case "H264 QSV":
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
                         VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "Intel QSV";
                         break;
 
                     case "HEVC QSV":
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "On";
                         VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "Intel QSV";
                         break;
                 }
