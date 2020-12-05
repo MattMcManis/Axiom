@@ -222,13 +222,23 @@ namespace Axiom
                     // Process Dialog Window
                     if (resultBatch == System.Windows.Forms.DialogResult.OK)
                     {
-                        if (IsValidPath(outputFolder.SelectedPath.TrimEnd('\\') + @"\"))
+                        try
                         {
-                            // Set Output Path
-                            outputDir = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+                            if (!string.IsNullOrWhiteSpace(outputFolder.SelectedPath)) // empty check
+                            {
+                                if (IsValidPath(outputFolder.SelectedPath.TrimEnd('\\') + @"\"))
+                                {
+                                    // Set Output Path
+                                    outputDir = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
-                            // Update Output TextBox Display
-                            VM.MainView.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+                                    // Update Output TextBox Display
+                                    VM.MainView.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+                                }
+                            }
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.ToString());
                         }
                     }
                     break;
@@ -485,6 +495,7 @@ namespace Axiom
                     else
                     {
                         // e.g. C:\Output\Path\
+                        //outputDir = Path.GetDirectoryName(VM.MainView.Output_Text.TrimEnd('\\') + @"\");
                         outputDir = Path.GetDirectoryName(VM.MainView.Output_Text.TrimEnd('\\') + @"\");
 
                         //MessageBox.Show(outputDir); //debug
@@ -541,7 +552,8 @@ namespace Axiom
             // -------------------------
             // Enable / Disable "Open Output Location" Button
             // -------------------------
-            if (IsValidPath(VM.MainView.Output_Text) == true && // Detect Invalid Characters
+            if (!string.IsNullOrWhiteSpace(VM.MainView.Output_Text) && // null check
+                IsValidPath(VM.MainView.Output_Text) == true && // Detect Invalid Characters
                 Path.IsPathRooted(VM.MainView.Output_Text) == true // TrimEnd('\\') + @"\" is adding a backslash to 
                                                                    // Iput text 'http' until it is detected as Web URL
                 )
@@ -586,7 +598,19 @@ namespace Axiom
             if (VM.MainView.BatchExtension_IsEnabled == true)
             {
                 // e.g. C:\Output\Path\
-                outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\";
+                if (IsValidPath(VM.MainView.Output_Text) == true)
+                {
+                    outputDir = Path.GetDirectoryName(VM.MainView.Output_Text);
+                    if (!string.IsNullOrWhiteSpace(outputDir))
+                    {
+                        outputDir = outputDir.TrimEnd('\\') + @"\";
+                    }
+                }
+                else
+                {
+                    outputDir = string.Empty;
+                }
+
                 // e.g. C:\Output\Path\MyFile.mp4
                 //outputFileName = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
                 // Set Original Name
@@ -656,6 +680,28 @@ namespace Axiom
             catch
             {
 
+            }
+        }
+
+        /// <summary>
+        /// Update Output TextBox Text
+        /// </summary>
+        public void UpdateOutputTextBoxText()
+        {
+            if (!string.IsNullOrWhiteSpace(outputDir))
+            {
+                switch (VM.MainView.Batch_IsChecked)
+                {
+                    // Single file
+                    case false:
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName_Original + outputExt);
+                        break;
+
+                    // Batch
+                    case true:
+                        VM.MainView.Output_Text = outputDir.TrimEnd('\\') + @"\";
+                        break;
+                }
             }
         }
 
