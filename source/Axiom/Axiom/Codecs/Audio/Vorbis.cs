@@ -173,7 +173,7 @@ namespace Controls
                 public static void Controls_Checked()
                 {
                     // BitRate Mode
-                    VM.AudioView.Audio_VBR_IsChecked = true;
+                    //VM.AudioView.Audio_VBR_IsChecked = true; // keep disabled
                 }
 
                 // -------------------------
