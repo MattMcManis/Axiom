@@ -231,74 +231,77 @@ namespace Generate
             /// https://trac.ffmpeg.org/wiki/HWAccelIntro
             /// https://trac.ffmpeg.org/wiki/Hardware/QuickSync
             /// </remarks>
-            public static String HWAccelerationCodecOverride(string hwaccel_transcode_SelectedItem,
-                                                             string codec_SelectedItem
-                                                             )
-            {
-                switch (hwaccel_transcode_SelectedItem)
-                {
-                    // -------------------------
-                    // AMD AMF
-                    // -------------------------
-                    case "AMD AMF":
-                        // x264
-                        if (codec_SelectedItem == "x264")
-                        {
-                            Codec.vCodec = "-c:v h264_amf";
-                        }
-                        // x265
-                        else if (codec_SelectedItem == "x265")
-                        {
-                            Codec.vCodec = "-c:v hevc_amf";
-                        }
-                        break;
+            //public static String HWAccelerationCodecOverride(string hwaccel_transcode_SelectedItem,
+            //                                                 string codec_SelectedItem
+            //                                                 )
+            //{
+            //    switch (hwaccel_transcode_SelectedItem)
+            //    {
+            //        // -------------------------
+            //        // AMD AMF
+            //        // -------------------------
+            //        case "AMD AMF":
+            //            // x264
+            //            if (codec_SelectedItem == "x264")
+            //            {
+            //                Codec.vCodec = "-c:v h264_amf";
+            //            }
+            //            // x265
+            //            else if (codec_SelectedItem == "x265" ||
+            //                     codec_SelectedItem == "HEVC_NVENC")
+            //            {
+            //                Codec.vCodec = "-c:v hevc_amf";
+            //            }
+            //            break;
 
-                    // -------------------------
-                    // NVIDIA NVENC
-                    // -------------------------
-                    case "NVIDIA NVENC":
-                        // Only x264/ x265
-                        // e.g. ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
+            //        // -------------------------
+            //        // NVIDIA NVENC
+            //        // -------------------------
+            //        case "NVIDIA NVENC":
+            //            // Only x264/ x265
+            //            // e.g. ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
 
-                        // Override Codecs
-                        if (codec_SelectedItem == "x264")
-                        {
-                            Codec.vCodec = "-c:v h264_nvenc";
-                        }
-                        else if (codec_SelectedItem == "x265")
-                        {
-                            Codec.vCodec = "-c:v hevc_nvenc";
-                        }
-                        break;
+            //            // Override Codecs
+            //            if (codec_SelectedItem == "x264")
+            //            {
+            //                Codec.vCodec = "-c:v h264_nvenc";
+            //            }
+            //            else if (codec_SelectedItem == "x265" ||
+            //                     codec_SelectedItem == "HEVC_NVENC")
+            //            {
+            //                Codec.vCodec = "-c:v hevc_nvenc";
+            //            }
+            //            break;
 
-                    // -------------------------
-                    // Intel QSV
-                    // -------------------------
-                    case "Intel QSV":
-                        // x264
-                        if (codec_SelectedItem == "x264")
-                        {
-                            Codec.vCodec = "-c:v h264_qsv";
-                        }
-                        // x265
-                        else if (codec_SelectedItem == "x265")
-                        {
-                            Codec.vCodec = "-c:v hevc_qsv";
-                        }
-                        break;
-                }
+            //        // -------------------------
+            //        // Intel QSV
+            //        // -------------------------
+            //        case "Intel QSV":
+            //            // x264
+            //            if (codec_SelectedItem == "x264")
+            //            {
+            //                Codec.vCodec = "-c:v h264_qsv";
+            //            }
+            //            // x265
+            //            else if (codec_SelectedItem == "x265" ||
+            //                     codec_SelectedItem == "HEVC_NVENC")
+            //            {
+            //                Codec.vCodec = "-c:v hevc_qsv";
+            //            }
+            //            break;
+            //    }
 
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec Override: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Codec.vCodec) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+            //    // Log Console Message /////////
+            //    Log.WriteAction = () =>
+            //    {
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new Bold(new Run("Codec Override: ")) { Foreground = Log.ConsoleDefault });
+            //        Log.logParagraph.Inlines.Add(new Run(Codec.vCodec) { Foreground = Log.ConsoleDefault });
+            //    };
+            //    Log.LogActions.Add(Log.WriteAction);
 
-                return Codec.vCodec;
-            }
+            //    return Codec.vCodec;
+            //}
 
 
             /// <summary>
