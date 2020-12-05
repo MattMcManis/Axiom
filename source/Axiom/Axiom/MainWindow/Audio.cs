@@ -207,14 +207,14 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            Controls.Audio.Controls.QualityControls();
+            //Controls.Audio.Controls.QualityControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Audio.Controls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
-                                              VM.AudioView.Audio_Quality_SelectedItem
-                                              );
+                                                        VM.AudioView.Audio_Quality_SelectedItem
+                                                       );
 
             // -------------------------
             // Output Path Update Display
@@ -227,14 +227,14 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            Controls.Audio.Controls.QualityControls();
+            //Controls.Audio.Controls.QualityControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Audio.Controls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
-                                              VM.AudioView.Audio_Quality_SelectedItem
-                                              );
+                                                        VM.AudioView.Audio_Quality_SelectedItem
+                                                       );
         }
 
 
