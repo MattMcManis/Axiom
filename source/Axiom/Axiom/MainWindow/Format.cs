@@ -48,6 +48,13 @@ namespace Axiom
             Controls.Format.Controls.SetControls(VM.FormatView.Format_Container_SelectedItem);
 
             // -------------------------
+            // Set HW Accel Codec
+            // -------------------------
+            SetHWAccelVideoCodecs();
+            SelectHWAccelVideoCodec();
+            ChangeHWAccelTranscode();
+
+            // -------------------------
             // Get Output Extension
             // -------------------------
             Controls.Format.Controls.OutputFormatExt();
