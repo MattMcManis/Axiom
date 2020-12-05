@@ -179,7 +179,7 @@ namespace Controls
                 public static void Controls_Unhecked()
                 {
                     // BitRate Mode
-                    VM.AudioView.Audio_VBR_IsChecked = false;
+                    //VM.AudioView.Audio_VBR_IsChecked = false; // keep disabled
                 }
 
                 // -------------------------
