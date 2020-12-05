@@ -42,6 +42,7 @@ using System.Windows.Documents;
 using ViewModel;
 using Axiom;
 using System.Collections.ObjectModel;
+using System.Globalization;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -736,7 +737,7 @@ namespace Generate
                             vBitMode,
                             //vBitRate,
                             // Format European English comma to US English peroid - 1,234 to 1.234
-                            string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
+                            string.Format(CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
                             vMinRate,
                             vMaxRate,
                             vBufSize,
@@ -759,7 +760,7 @@ namespace Generate
                             vBitMode,
                             //vBitRate,
                             // Format European English comma to US English peroid - 1,234 to 1.234
-                            string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
+                            string.Format(CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vBitRate),
                             vMinRate,
                             vMaxRate,
                             vBufSize,
