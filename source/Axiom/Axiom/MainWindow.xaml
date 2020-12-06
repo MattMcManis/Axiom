@@ -1135,7 +1135,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Encoding Group -->
-                                        <Grid Margin="0,15,0,0"
+                                        <Grid Margin="0,20,0,0"
                                               VerticalAlignment="Top"
                                               Grid.Row="0">
 
