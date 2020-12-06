@@ -33,9 +33,17 @@ namespace Axiom
 {
     public partial class MainWindow : Window
     {
-        ///// <summary>
-        ///// Filter - Selective SelectiveColorPreview - ComboBox
-        ///// </summary>
+        /// <summary>
+        /// Filter Video - Drop Frames
+        /// </summary>
+        private void cboFilterVideo_DropFrames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Filter Video - Selective SelectiveColorPreview - ComboBox
+        /// </summary>
         //public static List<Filters.Video.FilterVideoSelectiveColor> cboSelectiveColor_Items = new List<Filters.Video.FilterVideoSelectiveColor>()
         //{
         //    new Filters.Video.FilterVideoSelectiveColor("Reds", Colors.Red),
