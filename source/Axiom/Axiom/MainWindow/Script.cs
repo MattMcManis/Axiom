@@ -64,7 +64,7 @@ namespace Axiom
                 else if (Controls.ScriptView.sort == false &&
                          RemoveLineBreaks(VM.MainView.ScriptView_Text) != Generate.FFmpeg.ffmpegArgs)
                 {
-                    MessageBox.Show("Cannot sort edited text.",
+                    MessageBox.Show("Cannot sort custom or edited text.",
                                     "Notice",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Exclamation);
@@ -303,7 +303,10 @@ namespace Axiom
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(),
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
             }
         }
@@ -352,7 +355,10 @@ namespace Axiom
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(),
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
             }
         }
