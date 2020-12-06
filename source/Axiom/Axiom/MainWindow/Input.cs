@@ -330,9 +330,12 @@ namespace Axiom
                 e.Handled = true;
                 e.Effects = DragDropEffects.Copy;
             }
-            catch
+            catch (IOException ex)
             {
-
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
@@ -360,9 +363,12 @@ namespace Axiom
                 //SubtitleControls.AutoCopySubtitleCodec("input");
                 //AudioControls.AutoCopyAudioCodec("input");
             }
-            catch
+            catch (IOException ex)
             {
-
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
