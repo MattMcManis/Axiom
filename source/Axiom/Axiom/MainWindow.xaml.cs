@@ -571,13 +571,13 @@ namespace Axiom
         /// <summary>
         /// On Closed
         /// </summary>
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            // Force Exit All Executables
-            //base.OnClosed(e);
-            //System.Windows.Forms.Application.ExitThread();
-            Application.Current.Shutdown();
-        }
+        //protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        //{
+        //    // Force Exit All Executables
+        //    base.OnClosed(e);
+        //    System.Windows.Forms.Application.ExitThread();
+        //    Application.Current.Shutdown();
+        //}
 
         /// <summary>
         /// Window Closing
@@ -858,6 +858,10 @@ namespace Axiom
             //e.Cancel = true;
             //System.Windows.Forms.Application.ExitThread();
             //Environment.Exit(0);
+
+            base.OnClosed(e);
+            System.Windows.Forms.Application.ExitThread();
+            Application.Current.Shutdown();
         }
 
 
@@ -914,6 +918,7 @@ namespace Axiom
                 VM.ConfigureView.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
                 VM.ConfigureView.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
                 VM.ConfigureView.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
+                VM.ConfigureView.youtubedlPath_Text != conf.Read("Settings", "youtubedlPath_Text") ||
                 VM.ConfigureView.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
                 VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
                 VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
@@ -2866,5 +2871,6 @@ namespace Axiom
         {
 
         }
+
     }
 }
