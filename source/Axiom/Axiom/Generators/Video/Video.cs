@@ -271,19 +271,19 @@ namespace Generate
                         //    break;
 
                         case "auto":
-                            vsync = "-vsync -1";
+                            vsync = "-vsync auto";
                             break;
 
                         case "passthrough":
-                            vsync = "-vsync 0";
+                            vsync = "-vsync passthrough";
                             break;
 
                         case "cfr":
-                            vsync = "-vsync 1";
+                            vsync = "-vsync cfr";
                             break;
 
                         case "vfr":
-                            vsync = "-vsync 2";
+                            vsync = "-vsync vfr";
                             break;
 
                         case "drop":
