@@ -26,6 +26,7 @@ Axiom FFmpeg UI
 - Settings youtube-dl path
 - Config Saving
 
+
 ## [1.9.3.0] - Dec 5, 2020
 ### Added
 - x264/x265 HW Accel Codecs
@@ -35,6 +36,10 @@ Axiom FFmpeg UI
 - Batch Update Output TextBox crash
 - Audio VBR TextBox Display
 - Exit Application delay
+
+## [1.9.2.3] - Aug 30, 2020
+### Fixed
+- Batch Output Path TextBox TextChanged
 
 
 ## [1.9.2.2] - June 14, 2020
