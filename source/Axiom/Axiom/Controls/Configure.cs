@@ -282,6 +282,12 @@ namespace Controls
             {
                 VM.ConfigureView.FFplayPath_Text = ffplayPath_Text;
             }
+            // youtube-dl
+            string youtubedlPath_Text = conf.Read("Settings", "youtubedlPath_Text");
+            if (!string.IsNullOrWhiteSpace(youtubedlPath_Text))
+            {
+                VM.ConfigureView.youtubedlPath_Text = youtubedlPath_Text;
+            }
 
             // Log CheckBox
             bool logCheckBox_IsChecked;
@@ -555,6 +561,7 @@ namespace Controls
                     conf.Write("Settings", "FFmpegPath_Text", VM.ConfigureView.FFmpegPath_Text);
                     conf.Write("Settings", "FFprobePath_Text", VM.ConfigureView.FFprobePath_Text);
                     conf.Write("Settings", "FFplayPath_Text", VM.ConfigureView.FFplayPath_Text);
+                    conf.Write("Settings", "youtubedlPath_Text", VM.ConfigureView.youtubedlPath_Text);
 
                     // Log
                     conf.Write("Settings", "LogCheckBox_IsChecked", VM.ConfigureView.LogCheckBox_IsChecked.ToString().ToLower());
@@ -693,20 +700,50 @@ namespace Controls
             }
         }
 
+
         /// <summary>
         /// FFmpeg Folder Browser Dialog
         /// </summary>
         public static void FFmpegFolderBrowser() 
         {
-            var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
-
-            // Popup Folder Browse Window
-            if (result == System.Windows.Forms.DialogResult.OK)
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                // Display Folder Path in Textbox
-                VM.ConfigureView.FFmpegPath_Text = OpenFileDialog.FileName;
+                //InitialDirectory = @"C:\",
+                Title = "Browse for ffmpeg.exe",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "exe",
+                Filter = "Executable (*.exe)|*.exe",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    VM.ConfigureView.FFmpegPath_Text = openFileDialog.FileName;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
+
+            //var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            //System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+
+            //// Popup Folder Browse Window
+            //if (result == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    // Display Folder Path in Textbox
+            //    VM.ConfigureView.FFmpegPath_Text = OpenFileDialog.FileName;
+            //}
         }
 
         /// <summary>
@@ -714,15 +751,44 @@ namespace Controls
         /// </summary>
         public static void FFprobeFolderBrowser()
         {
-            var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
-
-            // Popup Folder Browse Window
-            if (result == System.Windows.Forms.DialogResult.OK)
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                // Display Folder Path in Textbox
-                VM.ConfigureView.FFprobePath_Text = OpenFileDialog.FileName;
+                //InitialDirectory = @"C:\",
+                Title = "Browse for ffprobe.exe",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "exe",
+                Filter = "Executable (*.exe)|*.exe",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    VM.ConfigureView.FFprobePath_Text = openFileDialog.FileName;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
+
+            //var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            //System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+
+            //// Popup Folder Browse Window
+            //if (result == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    // Display Folder Path in Textbox
+            //    VM.ConfigureView.FFprobePath_Text = OpenFileDialog.FileName;
+            //}
         }
 
         /// <summary>
@@ -730,15 +796,44 @@ namespace Controls
         /// </summary>
         public static void FFplayFolderBrowser()
         {
-            var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
-
-            // Popup Folder Browse Window
-            if (result == System.Windows.Forms.DialogResult.OK)
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                // Display Folder Path in Textbox
-                VM.ConfigureView.FFplayPath_Text = OpenFileDialog.FileName;
+                //InitialDirectory = @"C:\",
+                Title = "Browse for ffplay.exe",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "exe",
+                Filter = "Executable (*.exe)|*.exe",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    VM.ConfigureView.FFplayPath_Text = openFileDialog.FileName;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
+
+            //var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            //System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+
+            //// Popup Folder Browse Window
+            //if (result == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    // Display Folder Path in Textbox
+            //    VM.ConfigureView.FFplayPath_Text = OpenFileDialog.FileName;
+            //}
         }
 
         /// <summary>
@@ -746,15 +841,44 @@ namespace Controls
         /// </summary>
         public static void youtubedlFolderBrowser()
         {
-            var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
-
-            // Popup Folder Browse Window
-            if (result == System.Windows.Forms.DialogResult.OK)
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                // Display Folder Path in Textbox
-                VM.ConfigureView.youtubedlPath_Text = OpenFileDialog.FileName;
+                //InitialDirectory = @"C:\",
+                Title = "Browse for youtube-dl.exe",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "exe",
+                Filter = "Executable (*.exe)|*.exe",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    VM.ConfigureView.youtubedlPath_Text = openFileDialog.FileName;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
+
+            //var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            //System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+
+            //// Popup Folder Browse Window
+            //if (result == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    // Display Folder Path in Textbox
+            //    VM.ConfigureView.youtubedlPath_Text = OpenFileDialog.FileName;
+            //}
         }
 
         /// <summary>
