@@ -273,30 +273,87 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        /// Load Script Button
+        /// </summary>
+        private void btnScriptLoad_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                //InitialDirectory = @"C:\",
+                Title = "Browse Script Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "txt",
+                Filter = "txt files (*.txt)|*.txt",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    VM.MainView.ScriptView_Text = File.ReadAllText(openFileDialog.FileName);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
+
 
         /// <summary>
-        /// Save Script
+        /// Save Script Button
         /// </summary>
         private void btnScriptSave_Click(object sender, RoutedEventArgs e)
         {
             // Open 'Save File'
-            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+            //Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
-            //saveFile.InitialDirectory = inputDir;
-            saveFile.RestoreDirectory = true;
-            saveFile.Filter = "Text file (*.txt)|*.txt";
-            saveFile.DefaultExt = ".txt";
-            saveFile.FileName = "Script";
+            ////saveFile.InitialDirectory = inputDir;
+            //saveFile.RestoreDirectory = true;
+            //saveFile.Filter = "Text file (*.txt)|*.txt";
+            //saveFile.DefaultExt = ".txt";
+            //saveFile.FileName = "Script";
+
+            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog
+            {
+                //InitialDirectory = @"C:\",
+                Title = "Save Script Text File",
+
+                RestoreDirectory = true,
+
+                DefaultExt = "txt",
+                Filter = "Text file (*.txt)|*.txt",
+                FilterIndex = 2,
+
+                FileName = "Script"
+            };
 
             // Show save file dialog box
-            Nullable<bool> result = saveFile.ShowDialog();
+            //Nullable<bool> result = saveFile.ShowDialog();
 
             // Process dialog box
-            if (result == true)
+            //if (result == true)
+            if (saveFile.ShowDialog() == true)
             {
                 // Save document
                 //File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
-                File.WriteAllText(saveFile.FileName, VM.MainView.ScriptView_Text, Encoding.Unicode);
+                try
+                {
+                    File.WriteAllText(saveFile.FileName, VM.MainView.ScriptView_Text, Encoding.Unicode);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
         }
 
