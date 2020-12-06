@@ -47,7 +47,15 @@ namespace Axiom
                 // -------------------------
                 case false:
                     // Open Select File Window
-                    Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
+                    //Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
+                    Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog
+                    {
+                        CheckFileExists = true,
+                        CheckPathExists = true,
+                        //RestoreDirectory = true,
+                        //ReadOnlyChecked = true,
+                        //ShowReadOnly = true
+                    };
 
                     //// Remember Last Dir
                     ////
@@ -74,10 +82,11 @@ namespace Axiom
                     //}
 
                     // Show Dialog Box
-                    Nullable<bool> result = selectFile.ShowDialog();
+                    //Nullable<bool> result = selectFile.ShowDialog();
 
                     // Process Dialog Box
-                    if (result == true)
+                    //if (result == true)
+                    if (selectFile.ShowDialog() == true)
                     {
                         // Display path and file in Output Textbox
                         VM.MainView.Input_Text = selectFile.FileName;
