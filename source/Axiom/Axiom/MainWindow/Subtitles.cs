@@ -113,15 +113,24 @@ namespace Axiom
         private void btnSubtitle_Add_Click(object sender, RoutedEventArgs e)
         {
             // Open Select File Window
-            Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
+            //Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                //RestoreDirectory = true,
+                //ReadOnlyChecked = true,
+                //ShowReadOnly = true
+            };
 
             // Defaults
             selectFiles.Multiselect = true;
             selectFiles.Filter = "All files (*.*)|*.*|SRT (*.srt)|*.srt|SUB (*.sub)|*.sub|SBV (*.sbv)|*.sbv|ASS (*.ass)|*.ass|SSA (*.ssa)|*.ssa|MPSUB (*.mpsub)|*.mpsub|LRC (*.lrc)|*.lrc|CAP (*.cap)|*.cap";
 
             // Process Dialog Box
-            Nullable<bool> result = selectFiles.ShowDialog();
-            if (result == true)
+            //Nullable<bool> result = selectFiles.ShowDialog();
+            //if (result == true)
+            if (selectFiles.ShowDialog() == true)
             {
                 // Reset
                 //SubtitlesClear();
