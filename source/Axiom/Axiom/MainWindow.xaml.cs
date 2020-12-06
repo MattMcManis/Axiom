@@ -178,6 +178,8 @@ namespace Axiom
             /// Window & Components
             /// </summary>
             // -----------------------------------------------------------------
+            //base.Closing += this.Window_Closing;
+
             // Set Min/Max Width/Height to prevent Tablets maximizing
             //MinWidth = MainWindow.minWidth;
             //MinHeight = MainWindow.minHeight;
@@ -665,7 +667,10 @@ namespace Axiom
                     }
                     catch (IOException ex)
                     {
-                        MessageBox.Show(ex.ToString());
+                        MessageBox.Show(ex.ToString(),
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                     }
                     break;
 
@@ -745,7 +750,10 @@ namespace Axiom
                     }
                     catch (IOException ex)
                     {
-                        MessageBox.Show(ex.ToString());
+                        MessageBox.Show(ex.ToString(),
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                     }
                     break;
 
@@ -833,7 +841,10 @@ namespace Axiom
                         }
                         catch (IOException ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show(ex.ToString(),
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
                         }
                     }
 
@@ -859,8 +870,8 @@ namespace Axiom
             //System.Windows.Forms.Application.ExitThread();
             //Environment.Exit(0);
 
-            base.OnClosed(e);
-            System.Windows.Forms.Application.ExitThread();
+            //base.OnClosed(e);
+            //System.Windows.Forms.Application.ExitThread();
             Application.Current.Shutdown();
         }
 
@@ -2862,14 +2873,40 @@ namespace Axiom
             }
         }
 
-        private void cboVideo_Vsync_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+        /// <summary>
+        /// Script View Drag and Drop
+        /// </summary>
+        private void tbxScriptView_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+                e.Effects = DragDropEffects.Copy;
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
         }
 
-        private void cboFilterVideo_DropFrames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void tbxScriptView_PreviewDrop(object sender, DragEventArgs e)
         {
-
+            try
+            {
+                var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+                VM.MainView.ScriptView_Text = File.ReadAllText(buffer.First());
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
         }
 
     }
