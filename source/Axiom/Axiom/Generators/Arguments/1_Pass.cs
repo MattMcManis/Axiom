@@ -235,25 +235,6 @@ namespace Generate
                             Video.Color.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem),
 
                             "\r\n" +
-                            Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
-                                            VM.VideoView.Video_FPS_SelectedItem,
-                                            VM.VideoView.Video_FPS_Text
-                                           ),
-
-                            "\r\n" +
-                            Video.Video.Vsync(VM.VideoView.Video_Codec_SelectedItem,
-                                              VM.VideoView.Video_Vsync_SelectedItem
-                                             ),
-
-                            "\r\n" +
-                            Filters.Video.VideoFilter(),
-                            "\r\n" +
-                            Video.Size.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem),
-                            "\r\n" +
-                            Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
-                                               VM.VideoView.Video_Codec_SelectedItem
-                                              ),
-                            "\r\n" +
                             Video.Quality.Optimize(VM.VideoView.Video_Codec_SelectedItem,
                                                    VM.VideoView.Video_Optimize_Items,
                                                    VM.VideoView.Video_Optimize_SelectedItem,
@@ -261,6 +242,28 @@ namespace Generate
                                                    VM.VideoView.Video_Video_Optimize_Profile_SelectedItem,
                                                    VM.VideoView.Video_Optimize_Level_SelectedItem
                                                    ),
+
+                            "\r\n" +
+                            Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
+                                            VM.VideoView.Video_FPS_SelectedItem,
+                                            VM.VideoView.Video_FPS_Text
+                                           ),
+
+                            "\r\n" +
+                            Filters.Video.VideoFilter(),
+
+                            "\r\n" +
+                            Video.Video.Vsync(VM.VideoView.Video_Codec_SelectedItem, // vsync after filters
+                                              VM.VideoView.Video_Vsync_SelectedItem
+                                             ),
+
+                            "\r\n" +
+                            Video.Size.AspectRatio(VM.VideoView.Video_AspectRatio_SelectedItem),
+
+                            "\r\n" +
+                            Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                                               VM.VideoView.Video_Codec_SelectedItem
+                                              ),
                             "\r\n" +
                             Streams.VideoStreamMaps(),
                         };
