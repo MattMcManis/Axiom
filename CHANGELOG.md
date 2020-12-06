@@ -4,6 +4,39 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.3.2] - Dec 6, 2020
+### Added
+- Drag and Drop Load Script text file
+
+### Changed
+- Optimized Video Scale Controls
+- Video Optimize Script priority
+
+
+## [1.9.3.1] - Dec 5, 2020
+### Added
+- Load Script button
+- Video Filter Drop Frames
+- Video Vsync option
+
+### Changed
+- Improved OpenFileDialog
+
+### Fixed
+- Settings youtube-dl path
+- Config Saving
+
+## [1.9.3.0] - Dec 5, 2020
+### Added
+- x264/x265 HW Accel Codecs
+
+### Fixed
+- Codec Pixel Formats, Profiles, Levels
+- Batch Update Output TextBox crash
+- Audio VBR TextBox Display
+- Exit Application delay
+
+
 ## [1.9.2.2] - June 14, 2020
 ### Added
 - Settings Input Tokens Custom TextBox
