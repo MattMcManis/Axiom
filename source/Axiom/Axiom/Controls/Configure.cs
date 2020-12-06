@@ -731,7 +731,10 @@ namespace Controls
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(),
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
             }
 
@@ -776,7 +779,10 @@ namespace Controls
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(),
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
             }
 
@@ -821,7 +827,10 @@ namespace Controls
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(),
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
             }
 
@@ -866,7 +875,10 @@ namespace Controls
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(),
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
             }
 
