@@ -970,9 +970,16 @@ namespace Axiom
 
         }
 
+        /// <summary>
+        /// Vsync ComboBox
+        /// </summary>
+        private void cboVideo_Vsync_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
 
         /// <summary>
-        /// Video Optimize Combobox
+        /// Video Optimize ComboBox
         /// </summary>
         private void cboVideo_Optimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1097,331 +1104,361 @@ namespace Axiom
                 // 8K
                 // -------------------------
                 case "8K":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "8192";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(8192,  // width
+                                   4320); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "8192";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "4320";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "4320";
+                    //}
                     break;
 
                 // -------------------------
                 // 8K UHD
                 // -------------------------
                 case "8K UHD":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "7680";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(7680,  // width
+                                   4320); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "7680";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "4320";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "4320";
+                    //}
                     break;
 
                 // -------------------------
                 // 4K
                 // -------------------------
                 case "4K":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "4096";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(4096,  // width
+                                   2160); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "4096";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "2160";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "2160";
+                    //}
                     break;
 
                 // -------------------------
                 // 4K UHD
                 // -------------------------
                 case "4K UHD":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "3840";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(3840,  // width
+                                   2160); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "3840";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "2160";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "2160";
+                    //}
                     break;
 
                 // -------------------------
                 // 2K
                 // -------------------------
                 case "2K":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "2048";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(2048,  // width
+                                   1556); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "2048";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "1556";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "1556";
+                    //}
                     break;
 
                 // -------------------------
                 // 1600p
                 // -------------------------
                 case "1600p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
+                    VideoScaleVals(2560,  // width
+                                   1600); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
 
-                        VM.VideoView.Video_Width_Text = "2560";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    //    VM.VideoView.Video_Width_Text = "2560";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "1600";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "1600";
+                    //}
                     break;
 
                 // -------------------------
                 // 1440p
                 // -------------------------
                 case "1440p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
+                    VideoScaleVals(2560,  // width
+                                   1440); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
 
-                        VM.VideoView.Video_Width_Text = "2560";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    //    VM.VideoView.Video_Width_Text = "2560";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "1440";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "1440";
+                    //}
                     break;
 
                 // -------------------------
                 // 1200p
                 // -------------------------
                 case "1200p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "1920";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(1920,  // width
+                                   1200); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "1920";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "1200";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "1200";
+                    //}
                     break;
 
                 // -------------------------
                 // 1080p
                 // -------------------------
                 case "1080p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "1920";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(1920,  // width
+                                   1080); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "1920";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "1080";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "1080";
+                    //}
                     break;
 
                 // -------------------------
                 // 900p
                 // -------------------------
                 case "900p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "1600";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(1600, // width
+                                   900); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "1600";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "900";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "900";
+                    //}
                     break;
 
                 // -------------------------
                 // 720p
                 // -------------------------
                 case "720p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "1280";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(1280, // width
+                                   720); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "1280";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "720";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "720";
+                    //}
                     break;
 
                 // -------------------------
                 // 576p
                 // -------------------------
                 case "576p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "1024";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(1024, // width
+                                   576); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "1024";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "576";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "576";
+                    //}
                     break;
 
                 // -------------------------
                 // 480p
                 // -------------------------
                 case "480p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "720";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(720, // width
+                                   480); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "720";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "480";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "480";
+                    //}
                     break;
 
                 // -------------------------
                 // 320p
                 // -------------------------
                 case "320p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "480";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(480, // width
+                                   320); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "480";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "320";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "320";
+                    //}
                     break;
 
                 // -------------------------
                 // 240p
                 // -------------------------
                 case "240p":
-                    // Widescreen
-                    if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                        VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                        )
-                    {
-                        VM.VideoView.Video_Width_Text = "320";
-                        VM.VideoView.Video_Height_Text = "auto";
-                    }
+                    VideoScaleVals(320, // width
+                                   240); // height
+                    //// Widescreen
+                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    //    )
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "320";
+                    //    VM.VideoView.Video_Height_Text = "auto";
+                    //}
 
-                    // Full Screen
-                    else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    {
-                        VM.VideoView.Video_Width_Text = "auto";
-                        VM.VideoView.Video_Height_Text = "240";
-                    }
+                    //// Full Screen
+                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                    //{
+                    //    VM.VideoView.Video_Width_Text = "auto";
+                    //    VM.VideoView.Video_Height_Text = "240";
+                    //}
                     break;
 
                 // -------------------------
@@ -1434,6 +1471,28 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        /// Video Scale Values (Method)
+        /// </summary>
+        public static void VideoScaleVals(int width, int height)
+        {
+            // Widescreen
+            if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                )
+            {
+                VM.VideoView.Video_Width_Text = width.ToString();
+                VM.VideoView.Video_Height_Text = "auto";
+            }
+
+            // Full Screen
+            else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+            {
+                VM.VideoView.Video_Width_Text = "auto";
+                VM.VideoView.Video_Height_Text = height.ToString();
+            }
+        }
 
         /// <summary>
         /// Is Aspect Ratio Widescreen
