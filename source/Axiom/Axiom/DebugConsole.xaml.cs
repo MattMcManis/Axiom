@@ -539,10 +539,13 @@ namespace Axiom
                     DebugControlRandomizer();
                     DebugTest();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
             //}
         }
 
