@@ -239,7 +239,7 @@
         <!-- Save Button -->
         <Button x:Name="btnScriptSave"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="21,0,0,66"
+                Margin="89,0,0,66"
                 Cursor="Hand"
                 MaxWidth="60"
                 MaxHeight="22"
@@ -254,10 +254,28 @@
                        Margin="0,-2,0,0" />
         </Button>
 
+        <!-- Load Button -->
+        <Button x:Name="btnScriptLoad"
+                Style="{DynamicResource ButtonStyle}"
+                Margin="21,0,0,66"
+                Cursor="Hand"
+                MaxWidth="60"
+                MaxHeight="22"
+                MinWidth="60"
+                MinHeight="22"
+                Height="22"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Width="56"
+                Click="btnScriptLoad_Click">
+            <TextBlock Text="Load"
+                       Margin="0,-2,0,0" />
+        </Button>
+
         <!-- Copy Button -->
         <Button x:Name="btnScriptCopy"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="89,0,0,66"
+                Margin="157,0,0,66"
                 Cursor="Hand"
                 MaxWidth="60"
                 MaxHeight="22"
@@ -275,7 +293,7 @@
         <!-- Sort Button -->
         <Button x:Name="btnScriptSort"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="157,0,0,66"
+                Margin="225,0,0,66"
                 Cursor="Hand"
                 MaxWidth="60"
                 MaxHeight="22"
@@ -296,7 +314,7 @@
         <!-- Clear Button -->
         <Button x:Name="btnScriptClear"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="225,0,0,66"
+                Margin="293,0,0,66"
                 Cursor="Hand"
                 MaxWidth="60"
                 MaxHeight="22"
@@ -318,9 +336,9 @@
         <Button x:Name="btnScript"
                 Style="{DynamicResource ButtonStyle}"
                 HorizontalAlignment="Left"
-                Margin="293,0,0,66"
+                Margin="361,0,0,66"
                 VerticalAlignment="Bottom"
-                Width="60"
+                Width="75"
                 Height="22"
                 Cursor="Hand"
                 ToolTipService.InitialShowDelay="500"
@@ -334,15 +352,11 @@
         <!-- Run Button -->
         <Button x:Name="btnScriptRun"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="361,0,0,66"
+                Margin="444,0,0,66"
                 Cursor="Hand"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                MaxWidth="60"
-                MaxHeight="22"
-                MinWidth="60"
-                MinHeight="22"
-                Width="54"
+                Width="75"
                 Height="22"
                 ToolTipService.InitialShowDelay="500"
                 ToolTipService.ShowOnDisabled="True"
@@ -1124,7 +1138,7 @@
                                          Width="74"
                                          Style="{DynamicResource TabItemStyle}"
                                          Margin="6,-2,-6,0">
-                                    
+
                                     <Grid Background="Transparent">
 
                                         <Grid.RowDefinitions>
@@ -1864,7 +1878,7 @@
                                                   Grid.Row="1"
                                                   Grid.Column="1"
                                                   Grid.ColumnSpan="2">
-                                                
+
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
@@ -1973,7 +1987,7 @@
 
                                                 </Expander>
 
-                                           </Grid>
+                                            </Grid>
 
                                         </Grid>
 
@@ -1986,7 +2000,7 @@
                                          Width="74"
                                          Style="{DynamicResource TabItemStyle}"
                                          Margin="6,-2,-6,0">
-                                    
+
                                     <Grid Background="Transparent">
 
                                         <Grid.RowDefinitions>
