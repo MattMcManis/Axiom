@@ -168,10 +168,11 @@ namespace Axiom
                     // -------------------------
                     // Show 'Save File' Dialog Window
                     // -------------------------
-                    Nullable<bool> result = saveFile.ShowDialog();
+                    //Nullable<bool> result = saveFile.ShowDialog();
 
                     // Process Dialog Window
-                    if (result == true)
+                    //if (result == true)
+                    if (saveFile.ShowDialog() == true)
                     {
                         if (IsValidPath(saveFile.FileName))
                         {
