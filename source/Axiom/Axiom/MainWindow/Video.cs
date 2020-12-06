@@ -902,7 +902,7 @@ namespace Axiom
             saveFile.FileName = "Custom Preset.ini";
 
             // Show save file dialog box
-            Nullable<bool> result = saveFile.ShowDialog();
+            //Nullable<bool> result = saveFile.ShowDialog();
 
             // Set Preset Dir, Name, Ext
             string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
@@ -912,7 +912,8 @@ namespace Axiom
             //string presets = Path.Combine(presetsDir, presetsFileName);
 
             // Process dialog box
-            if (result == true)
+            //if (result == true)
+            if (saveFile.ShowDialog() == true)
             {
                 //// Set Preset Dir, Name, Ext
                 //string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
