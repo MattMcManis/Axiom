@@ -233,22 +233,22 @@
                  TextWrapping="Wrap"
                  Margin="11,71,280,56"
                  Padding="10,10,10,48"
-                 Grid.ColumnSpan="1">
+                 Grid.ColumnSpan="1"
+                 AllowDrop="True"
+                 PreviewDragOver="tbxScriptView_PreviewDragOver"
+                 PreviewDrop="tbxScriptView_PreviewDrop"
+                 >
         </TextBox>
 
         <!-- Save Button -->
         <Button x:Name="btnScriptSave"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="89,0,0,66"
+                Margin="86,0,0,66"
                 Cursor="Hand"
-                MaxWidth="60"
-                MaxHeight="22"
-                MinWidth="60"
-                MinHeight="22"
+                Width="59"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="56"
                 Click="btnScriptSave_Click">
             <TextBlock Text="Save"
                        Margin="0,-2,0,0" />
@@ -257,16 +257,12 @@
         <!-- Load Button -->
         <Button x:Name="btnScriptLoad"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="21,0,0,66"
+                Margin="20,0,0,66"
                 Cursor="Hand"
-                MaxWidth="60"
-                MaxHeight="22"
-                MinWidth="60"
-                MinHeight="22"
+                Width="59"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="56"
                 Click="btnScriptLoad_Click">
             <TextBlock Text="Load"
                        Margin="0,-2,0,0" />
@@ -275,16 +271,12 @@
         <!-- Copy Button -->
         <Button x:Name="btnScriptCopy"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="157,0,0,66"
+                Margin="152,0,0,66"
                 Cursor="Hand"
-                MaxWidth="60"
-                MaxHeight="22"
-                MinWidth="60"
-                MinHeight="22"
+                Width="59"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="54"
                 Click="btnScriptCopy_Click">
             <TextBlock Text="Copy"
                        Margin="0,-2,0,0" />
@@ -293,16 +285,12 @@
         <!-- Sort Button -->
         <Button x:Name="btnScriptSort"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="225,0,0,66"
+                Margin="284,0,0,66"
                 Cursor="Hand"
-                MaxWidth="60"
-                MaxHeight="22"
-                MinWidth="60"
-                MinHeight="22"
+                Width="59"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="53"
                 Click="btnScriptSort_Click">
             <TextBlock x:Name="txblScriptSort"
                        Text="Sort"
@@ -314,16 +302,12 @@
         <!-- Clear Button -->
         <Button x:Name="btnScriptClear"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="293,0,0,66"
+                Margin="218,0,0,66"
                 Cursor="Hand"
-                MaxWidth="60"
-                MaxHeight="22"
-                MinWidth="60"
-                MinHeight="22"
+                Width="59"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="53"
                 Click="btnScriptClear_Click">
             <TextBlock x:Name="txblScriptClear"
                        Text="Clear"
@@ -336,7 +320,7 @@
         <Button x:Name="btnScript"
                 Style="{DynamicResource ButtonStyle}"
                 HorizontalAlignment="Left"
-                Margin="361,0,0,66"
+                Margin="350,0,0,66"
                 VerticalAlignment="Bottom"
                 Width="75"
                 Height="22"
@@ -352,11 +336,11 @@
         <!-- Run Button -->
         <Button x:Name="btnScriptRun"
                 Style="{DynamicResource ButtonStyle}"
-                Margin="444,0,0,66"
+                Margin="432,0,0,66"
                 Cursor="Hand"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="75"
+                Width="72"
                 Height="22"
                 ToolTipService.InitialShowDelay="500"
                 ToolTipService.ShowOnDisabled="True"
@@ -399,7 +383,6 @@
                      TextChanged="tbxInput_TextChanged"
                      AllowDrop="True"
                      PreviewDragOver="tbxInput_PreviewDragOver"
-                     PreviewDragEnter="tbxInput_PreviewDragOver"
                      PreviewDrop="tbxInput_PreviewDrop" />
 
             <!-- Input Clear Button -->
@@ -475,7 +458,6 @@
                      PreviewKeyUp="tbxOutput_PreviewKeyUp"
                      AllowDrop="True"
                      PreviewDragOver="tbxOutput_PreviewDragOver"
-                     PreviewDragEnter="tbxOutput_PreviewDragOver"
                      PreviewDrop="tbxOutput_PreviewDrop" />
 
             <!-- Output Clear Button -->
