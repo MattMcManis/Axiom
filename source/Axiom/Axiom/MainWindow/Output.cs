@@ -239,7 +239,10 @@ namespace Axiom
                         }
                         catch (IOException ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show(ex.ToString(),
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
                         }
                     }
                     break;
@@ -646,9 +649,12 @@ namespace Axiom
                 // Save Output File Name
                 outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
             }
-            catch
+            catch (IOException ex)
             {
-
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
@@ -662,9 +668,12 @@ namespace Axiom
                 e.Handled = true;
                 e.Effects = DragDropEffects.Copy;
             }
-            catch
+            catch (IOException ex)
             {
-
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
@@ -678,9 +687,12 @@ namespace Axiom
                 // Save Output File Name
                 outputFileName_Original = TokenRemover(Path.GetFileNameWithoutExtension(VM.MainView.Output_Text));
             }
-            catch
+            catch (IOException ex)
             {
-
+                MessageBox.Show(ex.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
@@ -1312,7 +1324,21 @@ namespace Axiom
                     "faster",
                     "very-fast",
                     "super-fast",
-                    "ultra-fast"
+                    "ultra-fast",
+
+                    "quality",
+                    "balanced",
+                    "apeed",
+
+                    "default",
+                    "lossless",
+                    "lossless-hp",
+                    "hp",
+                    "hq",
+                    "bd",
+                    "low-Latency",
+                    "low-Latency-hp",
+                    "low-Latency-hq",
                 };
                 string presets = @"(p\-(" + string.Join("|", presetsList) + @"))";
 
@@ -1332,25 +1358,25 @@ namespace Axiom
 
                 // Pixel Format
                 string pixelFormat = "(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
-                                                               .Concat(Controls.Video.Codec.FFV1.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.Theora.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.VP8.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.VP9.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.x264.pixelFormat)
-                                                               .Concat(Controls.Video.Codec.x265.pixelFormat)
-                                                               .Concat(Controls.Image.Codec.JPEG.pixelFormat)
-                                                               .Concat(Controls.Image.Codec.PNG.pixelFormat)
-                                                               .Concat(Controls.Image.Codec.WebP.pixelFormat)
-                                                               .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                               .Where(s => !s.Equals("none"))
-                                                               .Where(s => !s.Equals("auto"))
-                                                               .Distinct()
-                                                               .OrderByDescending(x => x)
-                                                               .ToList()
+                                                            .Concat(Controls.Video.Codec.FFV1.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.Theora.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.VP8.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.VP9.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.x264.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.x265.pixelFormat)
+                                                            .Concat(Controls.Image.Codec.JPEG.pixelFormat)
+                                                            .Concat(Controls.Image.Codec.PNG.pixelFormat)
+                                                            .Concat(Controls.Image.Codec.WebP.pixelFormat)
+                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                            .Where(s => !s.Equals("none"))
+                                                            .Where(s => !s.Equals("auto"))
+                                                            .Distinct()
+                                                            .OrderByDescending(x => x)
+                                                            .ToList()
                                                     ) +
                                     ")";
 
