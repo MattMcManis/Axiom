@@ -4,6 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.3.3] - Dec 7, 2020
+### Changed
+ Optimized Codec Controls
+
+### Fixed
+- Video Vsync ComboBox Controls
+- Video Filter DropFrames ComboBox Controls
+
+
 ## [1.9.3.2] - Dec 6, 2020
 ### Added
 - Drag and Drop Load Script text file
