@@ -60,6 +60,61 @@ namespace Controls
             //
             // ----------------------------------------------------------------------------------------------------
 
+            private static Dictionary<string, IVideoCodec> _codec_v;
+
+            private static void InitializeCodecs()
+            {
+                _codec_v = new Dictionary<string, IVideoCodec> {
+                    { "VP8",        new Codec.VP8() },
+                    { "VP9",        new Codec.VP9() },
+                    { "x264",       new Codec.x264() },
+                    { "x265",       new Codec.x265() },
+                    { "H264 AMF",   new Codec.H264_AMF() },
+                    { "HEVC AMF",   new Codec.HEVC_AMF() },
+                    { "H264 NVENC", new Codec.H264_NVENC() },
+                    { "HEVC NVENC", new Codec.HEVC_NVENC() },
+                    { "H264 QSV",   new Codec.H264_QSV() },
+                    { "HEVC QSV",   new Codec.HEVC_QSV() },
+                    { "AV1",        new Codec.AV1() },
+                    { "FFV1",       new Codec.FFV1() },
+                    { "MagicYUV",   new Codec.MagicYUV() },
+                    { "HuffYUV",    new Codec.HuffYUV() },
+                    { "Theora",     new Codec.Theora() },
+                    { "MPEG-2",     new Codec.MPEG_2() },
+                    { "MPEG-4",     new Codec.MPEG_4() },
+                    { "JPEG",       new Image.Codec.JPEG() },
+                    { "PNG",        new Image.Codec.PNG() },
+                    { "WebP",       new Image.Codec.WebP() },
+                    { "Copy",       new Codec.Copy() },
+                    { "None",       new Codec.None() }
+                };
+            }
+
+            public interface IVideoCodec
+            {
+                // Codec
+                void Codec_Set();
+
+                // Items Source
+                void Controls_ItemsSource();
+                // Selected Items
+                void Controls_Selected();
+
+                // Expanded
+                void Controls_Expanded();
+                // Collapsed
+                void Controls_Collapsed();
+
+                // Checked
+                void Controls_Checked();
+                // Unhecked
+                void Controls_Unhecked();
+
+                // Enabled
+                void Controls_Enable();
+                // Disabled
+                void Controls_Disable();
+            }
 
             /// <summary>
             /// Controls
@@ -75,631 +130,659 @@ namespace Controls
                 // Codec
                 // --------------------------------------------------
 
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
-                switch (codec_SelectedItem)
+                if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    case "VP8":
-                        // Codec
-                        Codec.VP8.Codec_Set();
-
-                        // Items Source
-                        Codec.VP8.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.VP8.Controls_Selected();
-
-                        // Expanded
-                        Codec.VP8.Controls_Expanded();
-                        // Collapsed
-                        Codec.VP8.Controls_Collapsed();
-
-                        // Checked
-                        Codec.VP8.Controls_Checked();
-                        // Unhecked
-                        Codec.VP8.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.VP8.Controls_Enable();
-                        // Disabled
-                        Codec.VP8.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    case "VP9":
-                        // Codec
-                        Codec.VP9.Codec_Set();
-
-                        // Items Source
-                        Codec.VP9.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.VP9.Controls_Selected();
-
-                        // Expanded
-                        Codec.VP9.Controls_Expanded();
-                        // Collapsed
-                        Codec.VP9.Controls_Collapsed();
-
-                        // Checked
-                        Codec.VP9.Controls_Checked();
-                        // Unhecked
-                        Codec.VP9.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.VP9.Controls_Enable();
-                        // Disabled
-                        Codec.VP9.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    case "x264":
-                        // Codec
-                        Codec.x264.Codec_Set();
-
-                        // Items Source
-                        Codec.x264.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.x264.Controls_Selected();
-
-                        // Expanded
-                        Codec.x264.Controls_Expanded();
-                        // Collapsed
-                        Codec.x264.Controls_Collapsed();
-
-                        // Checked
-                        Codec.x264.Controls_Checked();
-                        // Unhecked
-                        Codec.x264.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.x264.Controls_Enable();
-                        // Disabled
-                        Codec.x264.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    case "x265":
-                        // Codec
-                        Codec.x265.Codec_Set();
-
-                        // Items Source
-                        Codec.x265.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.x265.Controls_Selected();
-
-                        // Expanded
-                        Codec.x265.Controls_Expanded();
-                        // Collapsed
-                        Codec.x265.Controls_Collapsed();
-
-                        // Checked
-                        Codec.x265.Controls_Checked();
-                        // Unhecked
-                        Codec.x265.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.x265.Controls_Enable();
-                        // Disabled
-                        Codec.x265.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // H264_AMF
-                    // -------------------------
-                    case "H264 AMF":
-                        // Codec
-                        Codec.H264_AMF.Codec_Set();
-
-                        // Items Source
-                        Codec.H264_AMF.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.H264_AMF.Controls_Selected();
-
-                        // Expanded
-                        Codec.H264_AMF.Controls_Expanded();
-                        // Collapsed
-                        Codec.H264_AMF.Controls_Collapsed();
-
-                        // Checked
-                        Codec.H264_AMF.Controls_Checked();
-                        // Unhecked
-                        Codec.H264_AMF.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.H264_AMF.Controls_Enable();
-                        // Disabled
-                        Codec.H264_AMF.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // HEVC AMF
-                    // -------------------------
-                    case "HEVC AMF":
-                        // Codec
-                        Codec.HEVC_AMF.Codec_Set();
-
-                        // Items Source
-                        Codec.HEVC_AMF.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.HEVC_AMF.Controls_Selected();
-
-                        // Expanded
-                        Codec.HEVC_AMF.Controls_Expanded();
-                        // Collapsed
-                        Codec.HEVC_AMF.Controls_Collapsed();
-
-                        // Checked
-                        Codec.HEVC_AMF.Controls_Checked();
-                        // Unhecked
-                        Codec.HEVC_AMF.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.HEVC_AMF.Controls_Enable();
-                        // Disabled
-                        Codec.HEVC_AMF.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // H264 NVENC
-                    // -------------------------
-                    case "H264 NVENC":
-                        // Codec
-                        Codec.H264_NVENC.Codec_Set();
-
-                        // Items Source
-                        Codec.H264_NVENC.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.H264_NVENC.Controls_Selected();
-
-                        // Expanded
-                        Codec.H264_NVENC.Controls_Expanded();
-                        // Collapsed
-                        Codec.H264_NVENC.Controls_Collapsed();
-
-                        // Checked
-                        Codec.H264_NVENC.Controls_Checked();
-                        // Unhecked
-                        Codec.H264_NVENC.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.H264_NVENC.Controls_Enable();
-                        // Disabled
-                        Codec.H264_NVENC.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // HEVC NVENC
-                    // -------------------------
-                    case "HEVC NVENC":
-                        // Codec
-                        Codec.HEVC_NVENC.Codec_Set();
-
-                        // Items Source
-                        Codec.HEVC_NVENC.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.HEVC_NVENC.Controls_Selected();
-
-                        // Expanded
-                        Codec.HEVC_NVENC.Controls_Expanded();
-                        // Collapsed
-                        Codec.HEVC_NVENC.Controls_Collapsed();
-
-                        // Checked
-                        Codec.HEVC_NVENC.Controls_Checked();
-                        // Unhecked
-                        Codec.HEVC_NVENC.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.HEVC_NVENC.Controls_Enable();
-                        // Disabled
-                        Codec.HEVC_NVENC.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // H264 QSV
-                    // -------------------------
-                    case "H264 QSV":
-                        // Codec
-                        Codec.H264_QSV.Codec_Set();
-
-                        // Items Source
-                        Codec.H264_QSV.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.H264_QSV.Controls_Selected();
-
-                        // Expanded
-                        Codec.H264_QSV.Controls_Expanded();
-                        // Collapsed
-                        Codec.H264_QSV.Controls_Collapsed();
-
-                        // Checked
-                        Codec.H264_QSV.Controls_Checked();
-                        // Unhecked
-                        Codec.H264_QSV.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.H264_QSV.Controls_Enable();
-                        // Disabled
-                        Codec.H264_QSV.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // HEVC QSV
-                    // -------------------------
-                    case "HEVC QSV":
-                        // Codec
-                        Codec.HEVC_QSV.Codec_Set();
-
-                        // Items Source
-                        Codec.HEVC_QSV.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.HEVC_QSV.Controls_Selected();
-
-                        // Expanded
-                        Codec.HEVC_QSV.Controls_Expanded();
-                        // Collapsed
-                        Codec.HEVC_QSV.Controls_Collapsed();
-
-                        // Checked
-                        Codec.HEVC_QSV.Controls_Checked();
-                        // Unhecked
-                        Codec.HEVC_QSV.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.HEVC_QSV.Controls_Enable();
-                        // Disabled
-                        Codec.HEVC_QSV.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    case "AV1":
-                        // Codec
-                        Codec.AV1.Codec_Set();
-
-                        // Items Source
-                        Codec.AV1.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.AV1.Controls_Selected();
-
-                        // Expanded
-                        Codec.AV1.Controls_Expanded();
-                        // Collapsed
-                        Codec.AV1.Controls_Collapsed();
-
-                        // Checked
-                        Codec.AV1.Controls_Checked();
-                        // Unhecked
-                        Codec.AV1.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.AV1.Controls_Enable();
-                        // Disabled
-                        Codec.AV1.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // FFV1
-                    // -------------------------
-                    case "FFV1":
-                        // Codec
-                        Codec.FFV1.Codec_Set();
-
-                        // Items Source
-                        Codec.FFV1.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.FFV1.Controls_Selected();
-
-                        // Expanded
-                        Codec.FFV1.Controls_Expanded();
-                        // Collapsed
-                        Codec.FFV1.Controls_Collapsed();
-
-                        // Checked
-                        Codec.FFV1.Controls_Checked();
-                        // Unhecked
-                        Codec.FFV1.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.FFV1.Controls_Enable();
-                        // Disabled
-                        Codec.FFV1.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // MagicYUV
-                    // -------------------------
-                    case "MagicYUV":
-                        // Codec
-                        Codec.MagicYUV.Codec_Set();
-
-                        // Items Source
-                        Codec.MagicYUV.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.MagicYUV.Controls_Selected();
-
-                        // Expanded
-                        Codec.MagicYUV.Controls_Expanded();
-                        // Collapsed
-                        Codec.MagicYUV.Controls_Collapsed();
-
-                        // Checked
-                        Codec.MagicYUV.Controls_Checked();
-                        // Unhecked
-                        Codec.MagicYUV.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.MagicYUV.Controls_Enable();
-                        // Disabled
-                        Codec.MagicYUV.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // HuffYUV
-                    // -------------------------
-                    case "HuffYUV":
-                        // Codec
-                        Codec.HuffYUV.Codec_Set();
-
-                        // Items Source
-                        Codec.HuffYUV.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.HuffYUV.Controls_Selected();
-
-                        // Expanded
-                        Codec.HuffYUV.Controls_Expanded();
-                        // Collapsed
-                        Codec.HuffYUV.Controls_Collapsed();
-
-                        // Checked
-                        Codec.HuffYUV.Controls_Checked();
-                        // Unhecked
-                        Codec.HuffYUV.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.HuffYUV.Controls_Enable();
-                        // Disabled
-                        Codec.HuffYUV.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // Theora
-                    // -------------------------
-                    case "Theora":
-                        // Codec
-                        Codec.Theora.Codec_Set();
-
-                        // Items Source
-                        Codec.Theora.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Theora.Controls_Selected();
-
-                        // Expanded
-                        Codec.Theora.Controls_Expanded();
-                        // Collapsed
-                        Codec.Theora.Controls_Collapsed();
-
-                        // Checked
-                        Codec.Theora.Controls_Checked();
-                        // Unhecked
-                        Codec.Theora.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.Theora.Controls_Enable();
-                        // Disabled
-                        Codec.Theora.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // MPEG-2
-                    // -------------------------
-                    case "MPEG-2":
-                        // Codec
-                        Codec.MPEG_2.Codec_Set();
-
-                        // Items Source
-                        Codec.MPEG_2.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.MPEG_2.Controls_Selected();
-
-                        // Expanded
-                        Codec.MPEG_2.Controls_Expanded();
-                        // Collapsed
-                        Codec.MPEG_2.Controls_Collapsed();
-
-                        // Checked
-                        Codec.MPEG_2.Controls_Checked();
-                        // Unhecked
-                        Codec.MPEG_2.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.MPEG_2.Controls_Enable();
-                        // Disabled
-                        Codec.MPEG_2.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // MPEG-4
-                    // -------------------------
-                    case "MPEG-4":
-                        // Codec
-                        Codec.MPEG_4.Codec_Set();
-
-                        // Items Source
-                        Codec.MPEG_4.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.MPEG_4.Controls_Selected();
-
-                        // Expanded
-                        Codec.MPEG_4.Controls_Expanded();
-                        // Collapsed
-                        Codec.MPEG_4.Controls_Collapsed();
-
-                        // Checked
-                        Codec.MPEG_4.Controls_Checked();
-                        // Unhecked
-                        Codec.MPEG_4.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.MPEG_4.Controls_Enable();
-                        // Disabled
-                        Codec.MPEG_4.Controls_Disable();
-                        break;
-
-
-                    // --------------------------------------------------
-                    // Image
-                    // --------------------------------------------------
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    case "JPEG":
-                        // Codec
-                        Image.Codec.JPEG.Codec_Set();
-
-                        // Items Source
-                        Image.Codec.JPEG.Controls_ItemsSource();
-                        // Selected Items
-                        Image.Codec.JPEG.Controls_Selected();
-
-                        // Expanded
-                        Image.Codec.JPEG.Controls_Expanded();
-                        // Collapsed
-                        Image.Codec.JPEG.Controls_Collapsed();
-
-                        // Checked
-                        Image.Codec.JPEG.Controls_Checked();
-                        // Unhecked
-                        Image.Codec.JPEG.Controls_Unhecked();
-
-                        // Enabled
-                        Image.Codec.JPEG.Controls_Enable();
-                        // Disabled
-                        Image.Codec.JPEG.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // PNG
-                    // -------------------------
-                    case "PNG":
-                        // Codec
-                        Image.Codec.PNG.Codec_Set();
-
-                        // Items Source
-                        Image.Codec.PNG.Controls_ItemsSource();
-                        // Selected Items
-                        Image.Codec.PNG.Controls_Selected();
-
-                        // Expanded
-                        Image.Codec.PNG.Controls_Expanded();
-                        // Collapsed
-                        Image.Codec.PNG.Controls_Collapsed();
-
-                        // Checked
-                        Image.Codec.PNG.Controls_Checked();
-                        // Unhecked
-                        Image.Codec.PNG.Controls_Unhecked();
-
-                        // Enabled
-                        Image.Codec.PNG.Controls_Enable();
-                        // Disabled
-                        Image.Codec.PNG.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    case "WebP":
-                        // Codec
-                        Image.Codec.WebP.Codec_Set();
-
-                        // Items Source
-                        Image.Codec.WebP.Controls_ItemsSource();
-                        // Selected Items
-                        Image.Codec.WebP.Controls_Selected();
-
-                        // Expanded
-                        Image.Codec.WebP.Controls_Expanded();
-                        // Collapsed
-                        Image.Codec.WebP.Controls_Collapsed();
-
-                        // Checked
-                        Image.Codec.WebP.Controls_Checked();
-                        // Unhecked
-                        Image.Codec.WebP.Controls_Unhecked();
-
-                        // Enabled
-                        Image.Codec.WebP.Controls_Enable();
-                        // Disabled
-                        Image.Codec.WebP.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // Copy
-                    // -------------------------
-                    case "Copy":
-                        // Codec
-                        Codec.Copy.Codec_Set();
-
-                        // Items Source
-                        Codec.Copy.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Copy.Controls_Selected();
-
-                        // Expanded
-                        Codec.Copy.Controls_Expanded();
-                        // Collapsed
-                        Codec.Copy.Controls_Collapsed();
-
-                        // Checked
-                        Codec.Copy.Controls_Checked();
-                        // Unhecked
-                        Codec.Copy.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.Copy.Controls_Enable();
-                        // Disabled
-                        Codec.Copy.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // None
-                    // -------------------------
-                    case "None":
-                        // Codec
-                        Codec.None.Codec_Set();
-
-                        // Items Source
-                        Codec.None.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.None.Controls_Selected();
-
-                        // Expanded
-                        Codec.None.Controls_Expanded();
-                        // Collapsed
-                        Codec.None.Controls_Collapsed();
-
-                        // Checked
-                        Codec.None.Controls_Checked();
-                        // Unhecked
-                        Codec.None.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.None.Controls_Enable();
-                        // Disabled
-                        Codec.None.Controls_Disable();
-                        break;
+                    InitializeCodecs();
+
+                    // Codec
+                    _codec_v[codec_SelectedItem].Codec_Set();
+
+                    // Items Source
+                    _codec_v[codec_SelectedItem].Controls_ItemsSource();
+                    // Selected Items
+                    _codec_v[codec_SelectedItem].Controls_Selected();
+
+                    // Expanded
+                    _codec_v[codec_SelectedItem].Controls_Expanded();
+                    // Collapsed
+                    _codec_v[codec_SelectedItem].Controls_Collapsed();
+
+                    // Checked
+                    _codec_v[codec_SelectedItem].Controls_Checked();
+                    // Unhecked
+                    _codec_v[codec_SelectedItem].Controls_Unhecked();
+
+                    // Enabled
+                    _codec_v[codec_SelectedItem].Controls_Enable();
+                    // Disabled
+                    _codec_v[codec_SelectedItem].Controls_Disable();
                 }
+
+                //// --------------------------------------------------
+                //// Video
+                //// --------------------------------------------------
+                //switch (codec_SelectedItem)
+                //{
+                //    // -------------------------
+                //    // VP8
+                //    // -------------------------
+                //    case "VP8":
+                //        // Codec
+                //        Codec.VP8.Codec_Set();
+
+                //        // Items Source
+                //        Codec.VP8.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.VP8.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.VP8.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.VP8.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.VP8.Controls_Checked();
+                //        // Unhecked
+                //        Codec.VP8.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.VP8.Controls_Enable();
+                //        // Disabled
+                //        Codec.VP8.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // VP9
+                //    // -------------------------
+                //    case "VP9":
+                //        // Codec
+                //        Codec.VP9.Codec_Set();
+
+                //        // Items Source
+                //        Codec.VP9.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.VP9.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.VP9.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.VP9.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.VP9.Controls_Checked();
+                //        // Unhecked
+                //        Codec.VP9.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.VP9.Controls_Enable();
+                //        // Disabled
+                //        Codec.VP9.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // x264
+                //    // -------------------------
+                //    case "x264":
+                //        // Codec
+                //        Codec.x264.Codec_Set();
+
+                //        // Items Source
+                //        Codec.x264.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.x264.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.x264.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.x264.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.x264.Controls_Checked();
+                //        // Unhecked
+                //        Codec.x264.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.x264.Controls_Enable();
+                //        // Disabled
+                //        Codec.x264.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // x265
+                //    // -------------------------
+                //    case "x265":
+                //        // Codec
+                //        Codec.x265.Codec_Set();
+
+                //        // Items Source
+                //        Codec.x265.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.x265.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.x265.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.x265.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.x265.Controls_Checked();
+                //        // Unhecked
+                //        Codec.x265.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.x265.Controls_Enable();
+                //        // Disabled
+                //        Codec.x265.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // H264_AMF
+                //    // -------------------------
+                //    case "H264 AMF":
+                //        // Codec
+                //        Codec.H264_AMF.Codec_Set();
+
+                //        // Items Source
+                //        Codec.H264_AMF.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.H264_AMF.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.H264_AMF.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.H264_AMF.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.H264_AMF.Controls_Checked();
+                //        // Unhecked
+                //        Codec.H264_AMF.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.H264_AMF.Controls_Enable();
+                //        // Disabled
+                //        Codec.H264_AMF.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // HEVC AMF
+                //    // -------------------------
+                //    case "HEVC AMF":
+                //        // Codec
+                //        Codec.HEVC_AMF.Codec_Set();
+
+                //        // Items Source
+                //        Codec.HEVC_AMF.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.HEVC_AMF.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.HEVC_AMF.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.HEVC_AMF.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.HEVC_AMF.Controls_Checked();
+                //        // Unhecked
+                //        Codec.HEVC_AMF.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.HEVC_AMF.Controls_Enable();
+                //        // Disabled
+                //        Codec.HEVC_AMF.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // H264 NVENC
+                //    // -------------------------
+                //    case "H264 NVENC":
+                //        // Codec
+                //        Codec.H264_NVENC.Codec_Set();
+
+                //        // Items Source
+                //        Codec.H264_NVENC.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.H264_NVENC.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.H264_NVENC.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.H264_NVENC.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.H264_NVENC.Controls_Checked();
+                //        // Unhecked
+                //        Codec.H264_NVENC.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.H264_NVENC.Controls_Enable();
+                //        // Disabled
+                //        Codec.H264_NVENC.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // HEVC NVENC
+                //    // -------------------------
+                //    case "HEVC NVENC":
+                //        // Codec
+                //        Codec.HEVC_NVENC.Codec_Set();
+
+                //        // Items Source
+                //        Codec.HEVC_NVENC.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.HEVC_NVENC.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.HEVC_NVENC.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.HEVC_NVENC.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.HEVC_NVENC.Controls_Checked();
+                //        // Unhecked
+                //        Codec.HEVC_NVENC.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.HEVC_NVENC.Controls_Enable();
+                //        // Disabled
+                //        Codec.HEVC_NVENC.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // H264 QSV
+                //    // -------------------------
+                //    case "H264 QSV":
+                //        // Codec
+                //        Codec.H264_QSV.Codec_Set();
+
+                //        // Items Source
+                //        Codec.H264_QSV.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.H264_QSV.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.H264_QSV.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.H264_QSV.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.H264_QSV.Controls_Checked();
+                //        // Unhecked
+                //        Codec.H264_QSV.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.H264_QSV.Controls_Enable();
+                //        // Disabled
+                //        Codec.H264_QSV.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // HEVC QSV
+                //    // -------------------------
+                //    case "HEVC QSV":
+                //        // Codec
+                //        Codec.HEVC_QSV.Codec_Set();
+
+                //        // Items Source
+                //        Codec.HEVC_QSV.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.HEVC_QSV.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.HEVC_QSV.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.HEVC_QSV.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.HEVC_QSV.Controls_Checked();
+                //        // Unhecked
+                //        Codec.HEVC_QSV.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.HEVC_QSV.Controls_Enable();
+                //        // Disabled
+                //        Codec.HEVC_QSV.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // AV1
+                //    // -------------------------
+                //    case "AV1":
+                //        // Codec
+                //        Codec.AV1.Codec_Set();
+
+                //        // Items Source
+                //        Codec.AV1.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.AV1.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.AV1.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.AV1.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.AV1.Controls_Checked();
+                //        // Unhecked
+                //        Codec.AV1.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.AV1.Controls_Enable();
+                //        // Disabled
+                //        Codec.AV1.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // FFV1
+                //    // -------------------------
+                //    case "FFV1":
+                //        // Codec
+                //        Codec.FFV1.Codec_Set();
+
+                //        // Items Source
+                //        Codec.FFV1.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.FFV1.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.FFV1.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.FFV1.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.FFV1.Controls_Checked();
+                //        // Unhecked
+                //        Codec.FFV1.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.FFV1.Controls_Enable();
+                //        // Disabled
+                //        Codec.FFV1.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // MagicYUV
+                //    // -------------------------
+                //    case "MagicYUV":
+                //        // Codec
+                //        Codec.MagicYUV.Codec_Set();
+
+                //        // Items Source
+                //        Codec.MagicYUV.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.MagicYUV.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.MagicYUV.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.MagicYUV.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.MagicYUV.Controls_Checked();
+                //        // Unhecked
+                //        Codec.MagicYUV.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.MagicYUV.Controls_Enable();
+                //        // Disabled
+                //        Codec.MagicYUV.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // HuffYUV
+                //    // -------------------------
+                //    case "HuffYUV":
+                //        // Codec
+                //        Codec.HuffYUV.Codec_Set();
+
+                //        // Items Source
+                //        Codec.HuffYUV.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.HuffYUV.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.HuffYUV.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.HuffYUV.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.HuffYUV.Controls_Checked();
+                //        // Unhecked
+                //        Codec.HuffYUV.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.HuffYUV.Controls_Enable();
+                //        // Disabled
+                //        Codec.HuffYUV.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // Theora
+                //    // -------------------------
+                //    case "Theora":
+                //        // Codec
+                //        Codec.Theora.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Theora.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Theora.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.Theora.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.Theora.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.Theora.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Theora.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Theora.Controls_Enable();
+                //        // Disabled
+                //        Codec.Theora.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // MPEG-2
+                //    // -------------------------
+                //    case "MPEG-2":
+                //        // Codec
+                //        Codec.MPEG_2.Codec_Set();
+
+                //        // Items Source
+                //        Codec.MPEG_2.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.MPEG_2.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.MPEG_2.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.MPEG_2.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.MPEG_2.Controls_Checked();
+                //        // Unhecked
+                //        Codec.MPEG_2.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.MPEG_2.Controls_Enable();
+                //        // Disabled
+                //        Codec.MPEG_2.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // MPEG-4
+                //    // -------------------------
+                //    case "MPEG-4":
+                //        // Codec
+                //        Codec.MPEG_4.Codec_Set();
+
+                //        // Items Source
+                //        Codec.MPEG_4.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.MPEG_4.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.MPEG_4.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.MPEG_4.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.MPEG_4.Controls_Checked();
+                //        // Unhecked
+                //        Codec.MPEG_4.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.MPEG_4.Controls_Enable();
+                //        // Disabled
+                //        Codec.MPEG_4.Controls_Disable();
+                //        break;
+
+
+                //    // --------------------------------------------------
+                //    // Image
+                //    // --------------------------------------------------
+                //    // -------------------------
+                //    // JPEG
+                //    // -------------------------
+                //    case "JPEG":
+                //        // Codec
+                //        Image.Codec.JPEG.Codec_Set();
+
+                //        // Items Source
+                //        Image.Codec.JPEG.Controls_ItemsSource();
+                //        // Selected Items
+                //        Image.Codec.JPEG.Controls_Selected();
+
+                //        // Expanded
+                //        Image.Codec.JPEG.Controls_Expanded();
+                //        // Collapsed
+                //        Image.Codec.JPEG.Controls_Collapsed();
+
+                //        // Checked
+                //        Image.Codec.JPEG.Controls_Checked();
+                //        // Unhecked
+                //        Image.Codec.JPEG.Controls_Unhecked();
+
+                //        // Enabled
+                //        Image.Codec.JPEG.Controls_Enable();
+                //        // Disabled
+                //        Image.Codec.JPEG.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // PNG
+                //    // -------------------------
+                //    case "PNG":
+                //        // Codec
+                //        Image.Codec.PNG.Codec_Set();
+
+                //        // Items Source
+                //        Image.Codec.PNG.Controls_ItemsSource();
+                //        // Selected Items
+                //        Image.Codec.PNG.Controls_Selected();
+
+                //        // Expanded
+                //        Image.Codec.PNG.Controls_Expanded();
+                //        // Collapsed
+                //        Image.Codec.PNG.Controls_Collapsed();
+
+                //        // Checked
+                //        Image.Codec.PNG.Controls_Checked();
+                //        // Unhecked
+                //        Image.Codec.PNG.Controls_Unhecked();
+
+                //        // Enabled
+                //        Image.Codec.PNG.Controls_Enable();
+                //        // Disabled
+                //        Image.Codec.PNG.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // WebP
+                //    // -------------------------
+                //    case "WebP":
+                //        // Codec
+                //        Image.Codec.WebP.Codec_Set();
+
+                //        // Items Source
+                //        Image.Codec.WebP.Controls_ItemsSource();
+                //        // Selected Items
+                //        Image.Codec.WebP.Controls_Selected();
+
+                //        // Expanded
+                //        Image.Codec.WebP.Controls_Expanded();
+                //        // Collapsed
+                //        Image.Codec.WebP.Controls_Collapsed();
+
+                //        // Checked
+                //        Image.Codec.WebP.Controls_Checked();
+                //        // Unhecked
+                //        Image.Codec.WebP.Controls_Unhecked();
+
+                //        // Enabled
+                //        Image.Codec.WebP.Controls_Enable();
+                //        // Disabled
+                //        Image.Codec.WebP.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // Copy
+                //    // -------------------------
+                //    case "Copy":
+                //        // Codec
+                //        Codec.Copy.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Copy.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Copy.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.Copy.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.Copy.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.Copy.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Copy.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Copy.Controls_Enable();
+                //        // Disabled
+                //        Codec.Copy.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // None
+                //    // -------------------------
+                //    case "None":
+                //        // Codec
+                //        Codec.None.Codec_Set();
+
+                //        // Items Source
+                //        Codec.None.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.None.Controls_Selected();
+
+                //        // Expanded
+                //        Codec.None.Controls_Expanded();
+                //        // Collapsed
+                //        Codec.None.Controls_Collapsed();
+
+                //        // Checked
+                //        Codec.None.Controls_Checked();
+                //        // Unhecked
+                //        Codec.None.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.None.Controls_Enable();
+                //        // Disabled
+                //        Codec.None.Controls_Disable();
+                //        break;
+                //}
 
                 // --------------------------------------------------
                 // Default Selected Item
@@ -1566,6 +1649,8 @@ namespace Controls
                     // VP8
                     // -------------------------
                     case "VP8":
+                        //Codec.VP8 vp8 = new Codec.VP8();
+                        //vp8.EncodingPass();
                         Codec.VP8.EncodingPass();
                         break;
                     // -------------------------

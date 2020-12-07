@@ -46,6 +46,48 @@ namespace Controls
     {
         public class Controls
         {
+            private static Dictionary<string, IAudioCodec> _codec_a;
+
+            private static void InitializeCodecs()
+            {
+                _codec_a = new Dictionary<string, IAudioCodec> {
+                    { "Vorbis", new Codec.Vorbis() },
+                    { "Opus",   new Codec.Opus() },
+                    { "AC3",    new Codec.AC3() },
+                    { "AAC",    new Codec.AAC() },
+                    { "DTS",    new Codec.DTS() },
+                    { "MP2",    new Codec.MP2() },
+                    { "LAME",   new Codec.LAME() },
+                    { "ALAC",   new Codec.ALAC() },
+                    { "FLAC",   new Codec.FLAC() },
+                    { "PCM",    new Codec.PCM() },
+                    { "Copy",   new Codec.Copy() },
+                    { "None",   new Codec.None() }
+                };
+            }
+
+            public interface IAudioCodec
+            {
+                // Codec
+                void Codec_Set();
+
+                // Items Source
+                void Controls_ItemsSource();
+                // Selected Items
+                void Controls_Selected();
+
+                // Checked
+                void Controls_Checked();
+                // Unhecked
+                void Controls_Unhecked();
+
+                // Enabled
+                void Controls_Enable();
+                // Disabled
+                void Controls_Disable();
+            }
+
+
             /// <summary>
             /// Set Controls
             /// </summary>
@@ -55,285 +97,311 @@ namespace Controls
                 // Codec
                 // --------------------------------------------------
 
-                switch (codec_SelectedItem)
+                if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
                 {
-                    // -------------------------
-                    // Vorbis
-                    // -------------------------
-                    case "Vorbis":
-                        // Codec
-                        Codec.Vorbis.Codec_Set();
+                    InitializeCodecs();
 
-                        // Items Source
-                        Codec.Vorbis.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Vorbis.Controls_Selected();
+                    // Codec
+                    _codec_a[codec_SelectedItem].Codec_Set();
 
-                        // Checked
-                        Codec.Vorbis.Controls_Checked();
-                        // Unhecked
-                        Codec.Vorbis.Controls_Unhecked();
+                    // Items Source
+                    _codec_a[codec_SelectedItem].Controls_ItemsSource();
+                    // Selected Items
+                    _codec_a[codec_SelectedItem].Controls_Selected();
 
-                        // Enabled
-                        Codec.Vorbis.Controls_Enable();
-                        // Disabled
-                        Codec.Vorbis.Controls_Disable();
-                        break;
+                    // Checked
+                    _codec_a[codec_SelectedItem].Controls_Checked();
+                    // Unhecked
+                    _codec_a[codec_SelectedItem].Controls_Unhecked();
 
-                    // -------------------------
-                    // Opus
-                    // -------------------------
-                    case "Opus":
-                        // Codec
-                        Codec.Opus.Codec_Set();
-
-                        // Items Source
-                        Codec.Opus.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Opus.Controls_Selected();
-
-                        // Checked
-                        Codec.Opus.Controls_Checked();
-                        // Unhecked
-                        Codec.Opus.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.Opus.Controls_Enable();
-                        // Disabled
-                        Codec.Opus.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // AC3
-                    // -------------------------
-                    case "AC3":
-                        // Codec
-                        Codec.AC3.Codec_Set();
-
-                        // Items Source
-                        Codec.AC3.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.AC3.Controls_Selected();
-
-                        // Checked
-                        Codec.AC3.Controls_Checked();
-                        // Unhecked
-                        Codec.AC3.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.AC3.Controls_Enable();
-                        // Disabled
-                        Codec.AC3.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // AAC
-                    // -------------------------
-                    case "AAC":
-                        // Codec
-                        Codec.AAC.Codec_Set();
-
-                        // Items Source
-                        Codec.AAC.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.AAC.Controls_Selected();
-
-                        // Checked
-                        Codec.AAC.Controls_Checked();
-                        // Unhecked
-                        Codec.AAC.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.AAC.Controls_Enable();
-                        // Disabled
-                        Codec.AAC.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // DTS
-                    // -------------------------
-                    case "DTS":
-                        // Codec
-                        Codec.DTS.Codec_Set();
-
-                        // Items Source
-                        Codec.DTS.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.DTS.Controls_Selected();
-
-                        // Checked
-                        Codec.DTS.Controls_Checked();
-                        // Unhecked
-                        Codec.DTS.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.DTS.Controls_Enable();
-                        // Disabled
-                        Codec.DTS.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // MP2
-                    // -------------------------
-                    case "MP2":
-                        // Codec
-                        Codec.MP2.Codec_Set();
-
-                        // Items Source
-                        Codec.MP2.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.MP2.Controls_Selected();
-
-                        // Checked
-                        Codec.MP2.Controls_Checked();
-                        // Unhecked
-                        Codec.MP2.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.MP2.Controls_Enable();
-                        // Disabled
-                        Codec.MP2.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // LAME
-                    // -------------------------
-                    case "LAME":
-                        // Codec
-                        Codec.LAME.Codec_Set();
-
-                        // Items Source
-                        Codec.LAME.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.LAME.Controls_Selected();
-
-                        // Checked
-                        Codec.LAME.Controls_Checked();
-                        // Unhecked
-                        Codec.LAME.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.LAME.Controls_Enable();
-                        // Disabled
-                        Codec.LAME.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // ALAC
-                    // -------------------------
-                    case "ALAC":
-                        // Codec
-                        Codec.ALAC.Codec_Set();
-
-                        // Items Source
-                        Codec.ALAC.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.ALAC.Controls_Selected();
-
-                        // Checked
-                        Codec.ALAC.Controls_Checked();
-                        // Unhecked
-                        Codec.ALAC.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.ALAC.Controls_Enable();
-                        // Disabled
-                        Codec.ALAC.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // FLAC
-                    // -------------------------
-                    case "FLAC":
-                        // Codec
-                        Codec.FLAC.Codec_Set();
-
-                        // Items Source
-                        Codec.FLAC.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.FLAC.Controls_Selected();
-
-                        // Checked
-                        Codec.FLAC.Controls_Checked();
-                        // Unhecked
-                        Codec.FLAC.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.FLAC.Controls_Enable();
-                        // Disabled
-                        Codec.FLAC.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // PCM
-                    // -------------------------
-                    case "PCM":
-                        // Codec
-                        Codec.PCM.Codec_Set();
-
-                        // Items Source
-                        Codec.PCM.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.PCM.Controls_Selected();
-
-                        // Checked
-                        Codec.PCM.Controls_Checked();
-                        // Unhecked
-                        Codec.PCM.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.PCM.Controls_Enable();
-                        // Disabled
-                        Codec.PCM.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // Copy
-                    // -------------------------
-                    case "Copy":
-                        // Codec
-                        Codec.Copy.Codec_Set();
-
-                        // Items Source
-                        Codec.Copy.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Copy.Controls_Selected();
-
-                        // Checked
-                        Codec.Copy.Controls_Checked();
-                        // Unhecked
-                        Codec.Copy.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.Copy.Controls_Enable();
-                        // Disabled
-                        Codec.Copy.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // None
-                    // -------------------------
-                    case "None":
-                        // Codec
-                        Codec.None.Codec_Set();
-
-                        // Items Source
-                        Codec.None.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.None.Controls_Selected();
-
-                        // Checked
-                        Codec.None.Controls_Checked();
-                        // Unhecked
-                        Codec.None.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.None.Controls_Enable();
-                        // Disabled
-                        Codec.None.Controls_Disable();
-                        break;
-
+                    // Enabled
+                    _codec_a[codec_SelectedItem].Controls_Enable();
+                    // Disabled
+                    _codec_a[codec_SelectedItem].Controls_Disable();
                 }
+
+
+                //switch (codec_SelectedItem)
+                //{
+                //    // -------------------------
+                //    // Vorbis
+                //    // -------------------------
+                //    case "Vorbis":
+                //        // Codec
+                //        Codec.Vorbis.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Vorbis.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Vorbis.Controls_Selected();
+
+                //        // Checked
+                //        Codec.Vorbis.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Vorbis.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Vorbis.Controls_Enable();
+                //        // Disabled
+                //        Codec.Vorbis.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // Opus
+                //    // -------------------------
+                //    case "Opus":
+                //        // Codec
+                //        Codec.Opus.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Opus.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Opus.Controls_Selected();
+
+                //        // Checked
+                //        Codec.Opus.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Opus.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Opus.Controls_Enable();
+                //        // Disabled
+                //        Codec.Opus.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // AC3
+                //    // -------------------------
+                //    case "AC3":
+                //        // Codec
+                //        Codec.AC3.Codec_Set();
+
+                //        // Items Source
+                //        Codec.AC3.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.AC3.Controls_Selected();
+
+                //        // Checked
+                //        Codec.AC3.Controls_Checked();
+                //        // Unhecked
+                //        Codec.AC3.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.AC3.Controls_Enable();
+                //        // Disabled
+                //        Codec.AC3.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // AAC
+                //    // -------------------------
+                //    case "AAC":
+                //        // Codec
+                //        Codec.AAC.Codec_Set();
+
+                //        // Items Source
+                //        Codec.AAC.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.AAC.Controls_Selected();
+
+                //        // Checked
+                //        Codec.AAC.Controls_Checked();
+                //        // Unhecked
+                //        Codec.AAC.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.AAC.Controls_Enable();
+                //        // Disabled
+                //        Codec.AAC.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // DTS
+                //    // -------------------------
+                //    case "DTS":
+                //        // Codec
+                //        Codec.DTS.Codec_Set();
+
+                //        // Items Source
+                //        Codec.DTS.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.DTS.Controls_Selected();
+
+                //        // Checked
+                //        Codec.DTS.Controls_Checked();
+                //        // Unhecked
+                //        Codec.DTS.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.DTS.Controls_Enable();
+                //        // Disabled
+                //        Codec.DTS.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // MP2
+                //    // -------------------------
+                //    case "MP2":
+                //        // Codec
+                //        Codec.MP2.Codec_Set();
+
+                //        // Items Source
+                //        Codec.MP2.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.MP2.Controls_Selected();
+
+                //        // Checked
+                //        Codec.MP2.Controls_Checked();
+                //        // Unhecked
+                //        Codec.MP2.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.MP2.Controls_Enable();
+                //        // Disabled
+                //        Codec.MP2.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // LAME
+                //    // -------------------------
+                //    case "LAME":
+                //        // Codec
+                //        Codec.LAME.Codec_Set();
+
+                //        // Items Source
+                //        Codec.LAME.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.LAME.Controls_Selected();
+
+                //        // Checked
+                //        Codec.LAME.Controls_Checked();
+                //        // Unhecked
+                //        Codec.LAME.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.LAME.Controls_Enable();
+                //        // Disabled
+                //        Codec.LAME.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // ALAC
+                //    // -------------------------
+                //    case "ALAC":
+                //        // Codec
+                //        Codec.ALAC.Codec_Set();
+
+                //        // Items Source
+                //        Codec.ALAC.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.ALAC.Controls_Selected();
+
+                //        // Checked
+                //        Codec.ALAC.Controls_Checked();
+                //        // Unhecked
+                //        Codec.ALAC.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.ALAC.Controls_Enable();
+                //        // Disabled
+                //        Codec.ALAC.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // FLAC
+                //    // -------------------------
+                //    case "FLAC":
+                //        // Codec
+                //        Codec.FLAC.Codec_Set();
+
+                //        // Items Source
+                //        Codec.FLAC.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.FLAC.Controls_Selected();
+
+                //        // Checked
+                //        Codec.FLAC.Controls_Checked();
+                //        // Unhecked
+                //        Codec.FLAC.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.FLAC.Controls_Enable();
+                //        // Disabled
+                //        Codec.FLAC.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // PCM
+                //    // -------------------------
+                //    case "PCM":
+                //        // Codec
+                //        Codec.PCM.Codec_Set();
+
+                //        // Items Source
+                //        Codec.PCM.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.PCM.Controls_Selected();
+
+                //        // Checked
+                //        Codec.PCM.Controls_Checked();
+                //        // Unhecked
+                //        Codec.PCM.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.PCM.Controls_Enable();
+                //        // Disabled
+                //        Codec.PCM.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // Copy
+                //    // -------------------------
+                //    case "Copy":
+                //        // Codec
+                //        Codec.Copy.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Copy.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Copy.Controls_Selected();
+
+                //        // Checked
+                //        Codec.Copy.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Copy.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Copy.Controls_Enable();
+                //        // Disabled
+                //        Codec.Copy.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // None
+                //    // -------------------------
+                //    case "None":
+                //        // Codec
+                //        Codec.None.Codec_Set();
+
+                //        // Items Source
+                //        Codec.None.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.None.Controls_Selected();
+
+                //        // Checked
+                //        Codec.None.Controls_Checked();
+                //        // Unhecked
+                //        Codec.None.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.None.Controls_Enable();
+                //        // Disabled
+                //        Codec.None.Controls_Disable();
+                //        break;
+                //}
+
+
+
 
                 // --------------------------------------------------
                 // Default Selected Item

@@ -27,9 +27,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModel;
 
-namespace Controls.Image.Codec
+namespace Controls.Video.Image.Codec
 {
-    public class PNG
+    public class PNG : Controls.IVideoCodec
     {
         // ---------------------------------------------------------------------------
         // Arguments
@@ -47,7 +47,7 @@ namespace Controls.Image.Codec
                 }
         };
 
-        public static void Codec_Set()
+        public /*static*/ void Codec_Set()
         {
             // Combine Codec + Parameters
             List<string> codec = new List<string>()
@@ -69,7 +69,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Encode Speed
         // -------------------------
-        public static ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
+        public /*static*/ ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
         {
                 new ViewModel.Video.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
@@ -95,7 +95,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Quality
         // -------------------------
-        public static ObservableCollection<ViewModel.Video.VideoQuality> quality = new ObservableCollection<ViewModel.Video.VideoQuality>()
+        public /*static*/ ObservableCollection<ViewModel.Video.VideoQuality> quality = new ObservableCollection<ViewModel.Video.VideoQuality>()
         {
                 new ViewModel.Video.VideoQuality() { Name = "Lossless", CRF = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "",  MinRate = "", MaxRate = "", BufSize ="", NA = "" },
         };
@@ -237,7 +237,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Optimize
         // -------------------------
-        public static ObservableCollection<ViewModel.Video.VideoOptimize> optimize = new ObservableCollection<ViewModel.Video.VideoOptimize>()
+        public /*static*/ ObservableCollection<ViewModel.Video.VideoOptimize> optimize = new ObservableCollection<ViewModel.Video.VideoOptimize>()
         {
             new ViewModel.Video.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" },
         };
@@ -245,7 +245,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Tune
         // -------------------------
-        public static ObservableCollection<string> tune = new ObservableCollection<string>()
+        public /*static*/ ObservableCollection<string> tune = new ObservableCollection<string>()
         {
             "none"
         };
@@ -253,7 +253,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Profile
         // -------------------------
-        public static ObservableCollection<string> profile = new ObservableCollection<string>()
+        public /*static*/ ObservableCollection<string> profile = new ObservableCollection<string>()
         {
             "none"
         };
@@ -261,7 +261,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Level
         // -------------------------
-        public static ObservableCollection<string> level = new ObservableCollection<string>()
+        public /*static*/ ObservableCollection<string> level = new ObservableCollection<string>()
         {
             "none"
         };
@@ -275,7 +275,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Items Source
         // -------------------------
-        public static void Controls_ItemsSource()
+        public /*static*/ void Controls_ItemsSource()
         {
             // Encode Speed
             VM.VideoView.Video_EncodeSpeed_Items = encodeSpeed;
@@ -303,7 +303,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void Controls_Selected()
+        public /*static*/ void Controls_Selected()
         {
             // Pixel Format
             VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
@@ -319,7 +319,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Expanded
         // -------------------------
-        public static void Controls_Expanded()
+        public /*static*/ void Controls_Expanded()
         {
             // None
         }
@@ -327,7 +327,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Collapsed
         // -------------------------
-        public static void Controls_Collapsed()
+        public /*static*/ void Controls_Collapsed()
         {
             VM.VideoView.Video_Optimize_IsExpanded = false;
         }
@@ -336,7 +336,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Checked
         // -------------------------
-        public static void Controls_Checked()
+        public /*static*/ void Controls_Checked()
         {
             // None
         }
@@ -344,7 +344,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void Controls_Unhecked()
+        public /*static*/ void Controls_Unhecked()
         {
             // BitRate Mode
             VM.VideoView.Video_VBR_IsChecked = false;
@@ -354,7 +354,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Enabled
         // -------------------------
-        public static void Controls_Enable()
+        public /*static*/ void Controls_Enable()
         {
             // Video Codec
             VM.VideoView.Video_Codec_IsEnabled = true;
@@ -385,7 +385,7 @@ namespace Controls.Image.Codec
         // -------------------------
         // Disabled
         // -------------------------
-        public static void Controls_Disable()
+        public /*static*/ void Controls_Disable()
         {
             // Video Encode Speed
             VM.VideoView.Video_EncodeSpeed_IsEnabled = false;

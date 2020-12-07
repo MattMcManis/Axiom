@@ -1328,7 +1328,7 @@ namespace Axiom
 
                     "quality",
                     "balanced",
-                    "apeed",
+                    "speed",
 
                     "default",
                     "lossless",
@@ -1367,10 +1367,16 @@ namespace Axiom
                                                             .Concat(Controls.Video.Codec.VP8.pixelFormat)
                                                             .Concat(Controls.Video.Codec.VP9.pixelFormat)
                                                             .Concat(Controls.Video.Codec.x264.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.H264_AMF.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.H264_NVENC.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.H264_QSV.pixelFormat)
                                                             .Concat(Controls.Video.Codec.x265.pixelFormat)
-                                                            .Concat(Controls.Image.Codec.JPEG.pixelFormat)
-                                                            .Concat(Controls.Image.Codec.PNG.pixelFormat)
-                                                            .Concat(Controls.Image.Codec.WebP.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.HEVC_AMF.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.HEVC_NVENC.pixelFormat)
+                                                            .Concat(Controls.Video.Codec.HEVC_QSV.pixelFormat)
+                                                            .Concat(Controls.Video.Image.Codec.JPEG.pixelFormat)
+                                                            .Concat(Controls.Video.Image.Codec.PNG.pixelFormat)
+                                                            .Concat(Controls.Video.Image.Codec.WebP.pixelFormat)
                                                             .Where(s => !string.IsNullOrWhiteSpace(s))
                                                             .Where(s => !s.Equals("none"))
                                                             .Where(s => !s.Equals("auto"))

@@ -34,7 +34,7 @@ namespace Controls
     {
         namespace Codec
         {
-            public class x265
+            public class x265 : Controls.IVideoCodec
             {
                 // ---------------------------------------------------------------------------
                 // Codec
@@ -48,7 +48,7 @@ namespace Controls
                      }
                 };
 
-                public static void Codec_Set()
+                public /*static*/ void Codec_Set()
                 {
                     // Combine Codec + Parameters
                     List<string> codec = new List<string>()
@@ -70,7 +70,7 @@ namespace Controls
                 // -------------------------
                 // Encode Speed
                 // -------------------------
-                public static ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
+                public /*static*/ ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
                 {
                      new ViewModel.Video.VideoEncodeSpeed() { Name = "none",            Command = ""},
                      new ViewModel.Video.VideoEncodeSpeed() { Name = "Default",         Command = "-preset default" },
@@ -122,7 +122,7 @@ namespace Controls
                 // -------------------------
                 // Quality
                 // -------------------------
-                public static ObservableCollection<ViewModel.Video.VideoQuality> quality = new ObservableCollection<ViewModel.Video.VideoQuality>()
+                public /*static*/ ObservableCollection<ViewModel.Video.VideoQuality> quality = new ObservableCollection<ViewModel.Video.VideoQuality>()
                 {
                      new ViewModel.Video.VideoQuality() { Name = "Auto",      CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
                      new ViewModel.Video.VideoQuality() { Name = "Lossless",  CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "" },
@@ -227,13 +227,12 @@ namespace Controls
                         VM.VideoView.Video_MaxRate_Text = string.Empty;
                         VM.VideoView.Video_BufSize_Text = string.Empty;
                     }
-
                 }
 
                 // -------------------------
                 // Optimize
                 // -------------------------
-                public static ObservableCollection<ViewModel.Video.VideoOptimize> optimize = new ObservableCollection<ViewModel.Video.VideoOptimize>()
+                public /*static*/ ObservableCollection<ViewModel.Video.VideoOptimize> optimize = new ObservableCollection<ViewModel.Video.VideoOptimize>()
                 {
                     new ViewModel.Video.VideoOptimize() { Name = "None",   Tune = "none", Profile = "none",   Level = "none", Command = "" },
                     new ViewModel.Video.VideoOptimize() { Name = "Custom", Tune = "none", Profile = "none",   Level = "none", Command = "" },
@@ -245,7 +244,7 @@ namespace Controls
                 // -------------------------
                 // Tune
                 // -------------------------
-                public static ObservableCollection<string> tune = new ObservableCollection<string>()
+                public /*static*/ ObservableCollection<string> tune = new ObservableCollection<string>()
                 {
                     "none",
                     "animation",
@@ -259,7 +258,7 @@ namespace Controls
                 // -------------------------
                 // Profile
                 // -------------------------
-                public static ObservableCollection<string> profile = new ObservableCollection<string>()
+                public /*static*/ ObservableCollection<string> profile = new ObservableCollection<string>()
                 {
                     "none",
                     "main",
@@ -277,7 +276,7 @@ namespace Controls
                 // -------------------------
                 // Level
                 // -------------------------
-                public static ObservableCollection<string> level = new ObservableCollection<string>()
+                public /*static*/ ObservableCollection<string> level = new ObservableCollection<string>()
                 {
                     "none",
                     "1",
@@ -304,7 +303,7 @@ namespace Controls
                 // -------------------------
                 // Items Source
                 // -------------------------
-                public static void Controls_ItemsSource()
+                public /*static*/ void Controls_ItemsSource()
                 {
                     // Encode Speed
                     VM.VideoView.Video_EncodeSpeed_Items = encodeSpeed;
@@ -332,7 +331,7 @@ namespace Controls
                 // -------------------------
                 // Selected Items
                 // -------------------------
-                public static void Controls_Selected()
+                public /*static*/ void Controls_Selected()
                 {
                     // Pixel Format
                     VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
@@ -345,7 +344,7 @@ namespace Controls
                 // -------------------------
                 // Expanded
                 // -------------------------
-                public static void Controls_Expanded()
+                public /*static*/ void Controls_Expanded()
                 {
                     VM.VideoView.Video_Optimize_IsExpanded = true;
                 }
@@ -353,7 +352,7 @@ namespace Controls
                 // -------------------------
                 // Collapsed
                 // -------------------------
-                public static void Controls_Collapsed()
+                public /*static*/ void Controls_Collapsed()
                 {
                     // None
                 }
@@ -362,7 +361,7 @@ namespace Controls
                 // -------------------------
                 // Checked
                 // -------------------------
-                public static void Controls_Checked()
+                public /*static*/ void Controls_Checked()
                 {
                     // None
                 }
@@ -370,7 +369,7 @@ namespace Controls
                 // -------------------------
                 // Unchecked
                 // -------------------------
-                public static void Controls_Unhecked()
+                public /*static*/ void Controls_Unhecked()
                 {
                     // BitRate Mode
                     VM.VideoView.Video_VBR_IsChecked = false;
@@ -380,7 +379,7 @@ namespace Controls
                 // -------------------------
                 // Enabled
                 // -------------------------
-                public static void Controls_Enable()
+                public /*static*/ void Controls_Enable()
                 {
                     // Video Encode Speed
                     VM.VideoView.Video_EncodeSpeed_IsEnabled = true;
@@ -405,6 +404,9 @@ namespace Controls
 
                     // Speed
                     VM.VideoView.Video_Speed_IsEnabled = true;
+
+                    // Vsync
+                    VM.VideoView.Video_Vsync_IsEnabled = true;
 
                     // Optimize ComboBox
                     VM.VideoView.Video_Optimize_IsEnabled = true;
@@ -449,7 +451,7 @@ namespace Controls
                 // -------------------------
                 // Disabled
                 // -------------------------
-                public static void Controls_Disable()
+                public /*static*/ void Controls_Disable()
                 {
                     // None
                 }

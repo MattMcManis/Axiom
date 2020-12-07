@@ -307,7 +307,10 @@ namespace Axiom
         {
             if (VM.AudioView.Audio_Codec_SelectedItem == "PCM")
             {
-                Controls.Audio.Codec.PCM.Codec_Set();
+                Controls.Audio.Codec.PCM pcm = new Controls.Audio.Codec.PCM();
+                pcm.Codec_Set();
+
+                //Controls.Audio.Codec.PCM.Codec_Set();
             }
 
             // -------------------------

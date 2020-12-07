@@ -33,12 +33,12 @@ namespace Controls
     {
         namespace Codec
         {
-            public class None
+            public class None : Controls.ISubtitleCodec
             {
                 // ---------------------------------------------------------------------------
                 // Codec
                 // ---------------------------------------------------------------------------
-                public static void Codec_Set()
+                public /*static*/ void Codec_Set()
                 {
                     VM.SubtitleView.Subtitle_Codec = string.Empty;
                 }
@@ -46,7 +46,7 @@ namespace Controls
                 // -------------------------
                 // Stream
                 // -------------------------
-                public static ObservableCollection<string> stream = new ObservableCollection<string>()
+                public /*static*/ ObservableCollection<string> stream = new ObservableCollection<string>()
                 {
                     "none"
                 };
@@ -60,7 +60,7 @@ namespace Controls
                 // -------------------------
                 // Items Source
                 // -------------------------
-                public static void Controls_ItemsSource()
+                public /*static*/ void Controls_ItemsSource()
                 {
                     VM.SubtitleView.Subtitle_Stream_Items = stream;
                 }
@@ -68,7 +68,7 @@ namespace Controls
                 // -------------------------
                 // Selected Items
                 // -------------------------
-                public static void Controls_Selected()
+                public /*static*/ void Controls_Selected()
                 {
                     // Stream
                     VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
@@ -77,7 +77,7 @@ namespace Controls
                 // -------------------------
                 // Checked
                 // -------------------------
-                public static void Controls_Checked()
+                public /*static*/ void Controls_Checked()
                 {
                     // None
                 }
@@ -85,7 +85,7 @@ namespace Controls
                 // -------------------------
                 // Unchecked
                 // -------------------------
-                public static void Controls_Unhecked()
+                public /*static*/ void Controls_Unhecked()
                 {
                     // None
                 }
@@ -93,7 +93,7 @@ namespace Controls
                 // -------------------------
                 // Enabled
                 // -------------------------
-                public static void Controls_Enable()
+                public /*static*/ void Controls_Enable()
                 {
                     // None
                 }
@@ -101,7 +101,7 @@ namespace Controls
                 // -------------------------
                 // Disabled
                 // -------------------------
-                public static void Controls_Disable()
+                public /*static*/ void Controls_Disable()
                 {
                     // None
                 }

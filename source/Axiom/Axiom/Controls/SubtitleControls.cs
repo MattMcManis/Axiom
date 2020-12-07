@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using ViewModel;
 using Axiom;
+using System.Collections.Generic;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -34,155 +35,213 @@ namespace Controls
     {
         public class Controls
         {
+            private static Dictionary<string, ISubtitleCodec> _codec_s;
+
+            private static void InitializeCodecs()
+            {
+                _codec_s = new Dictionary<string, ISubtitleCodec> {
+                    { "MOV Text",   new Codec.MOV_Text() },
+                    { "SSA",        new Codec.SSA() },
+                    { "SRT",        new Codec.SRT() },
+                    { "Burn",       new Codec.Burn() },
+                    { "Copy",       new Codec.Copy() },
+                    { "None",       new Codec.None() }
+                };
+            }
+
+            public interface ISubtitleCodec
+            {
+                // Codec
+                void Codec_Set();
+
+                // Items Source
+                void Controls_ItemsSource();
+                // Selected Items
+                void Controls_Selected();
+
+                // Checked
+                void Controls_Checked();
+                // Unhecked
+                void Controls_Unhecked();
+
+                // Enabled
+                void Controls_Enable();
+                // Disabled
+                void Controls_Disable();
+            }
+
             /// <summary>
             /// Set Controls
             /// </summary>
-            public static void SetControls(string selectedCodec)
+            public static void SetControls(string codec_SelectedItem)
             {
                 // --------------------------------------------------
                 // Codec
                 // --------------------------------------------------
 
-                switch (selectedCodec)
+                if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
                 {
-                    // -------------------------
-                    // MOV_Text
-                    // -------------------------
-                    case "MOV Text":
-                        // Codec
-                        Codec.MOV_Text.Codec_Set();
+                    InitializeCodecs();
 
-                        // Items Source
-                        Codec.MOV_Text.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.MOV_Text.Controls_Selected();
+                    // Codec
+                    _codec_s[codec_SelectedItem].Codec_Set();
 
-                        // Checked
-                        Codec.MOV_Text.Controls_Checked();
-                        // Unhecked
-                        Codec.MOV_Text.Controls_Unhecked();
+                    // Items Source
+                    _codec_s[codec_SelectedItem].Controls_ItemsSource();
+                    // Selected Items
+                    _codec_s[codec_SelectedItem].Controls_Selected();
 
-                        // Enabled
-                        Codec.MOV_Text.Controls_Enable();
-                        // Disabled
-                        Codec.MOV_Text.Controls_Disable();
-                        break;
+                    // Checked
+                    _codec_s[codec_SelectedItem].Controls_Checked();
+                    // Unhecked
+                    _codec_s[codec_SelectedItem].Controls_Unhecked();
 
-                    // -------------------------
-                    // SSA
-                    // -------------------------
-                    case "SSA":
-                        // Codec
-                        Codec.SSA.Codec_Set();
-
-                        // Items Source
-                        Codec.SSA.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.SSA.Controls_Selected();
-
-                        // Checked
-                        Codec.SSA.Controls_Checked();
-                        // Unhecked
-                        Codec.SSA.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.SSA.Controls_Enable();
-                        // Disabled
-                        Codec.SSA.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // SRT
-                    // -------------------------
-                    case "SRT":
-                        // Codec
-                        Codec.SRT.Codec_Set();
-
-                        // Items Source
-                        Codec.SRT.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.SRT.Controls_Selected();
-
-                        // Checked
-                        Codec.SRT.Controls_Checked();
-                        // Unhecked
-                        Codec.SRT.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.SRT.Controls_Enable();
-                        // Disabled
-                        Codec.SRT.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // Burn
-                    // -------------------------
-                    case "Burn":
-                        // Codec
-                        Codec.Burn.Codec_Set();
-
-                        // Items Source
-                        Codec.Burn.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Burn.Controls_Selected();
-
-                        // Checked
-                        Codec.Burn.Controls_Checked();
-                        // Unhecked
-                        Codec.Burn.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.Burn.Controls_Enable();
-                        // Disabled
-                        Codec.Burn.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // Copy
-                    // -------------------------
-                    case "Copy":
-                        // Codec
-                        Codec.Copy.Codec_Set();
-
-                        // Items Source
-                        Codec.Copy.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.Copy.Controls_Selected();
-
-                        // Checked
-                        Codec.Copy.Controls_Checked();
-                        // Unhecked
-                        Codec.Copy.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.Copy.Controls_Enable();
-                        // Disabled
-                        Codec.Copy.Controls_Disable();
-                        break;
-
-                    // -------------------------
-                    // None
-                    // -------------------------
-                    case "None":
-                        // Codec
-                        Codec.None.Codec_Set();
-
-                        // Items Source
-                        Codec.None.Controls_ItemsSource();
-                        // Selected Items
-                        Codec.None.Controls_Selected();
-
-                        // Checked
-                        Codec.None.Controls_Checked();
-                        // Unhecked
-                        Codec.None.Controls_Unhecked();
-
-                        // Enabled
-                        Codec.None.Controls_Enable();
-                        // Disabled
-                        Codec.None.Controls_Disable();
-                        break;
+                    // Enabled
+                    _codec_s[codec_SelectedItem].Controls_Enable();
+                    // Disabled
+                    _codec_s[codec_SelectedItem].Controls_Disable();
                 }
+
+                //switch (selectedCodec)
+                //{
+                //    // -------------------------
+                //    // MOV_Text
+                //    // -------------------------
+                //    case "MOV Text":
+                //        // Codec
+                //        Codec.MOV_Text.Codec_Set();
+
+                //        // Items Source
+                //        Codec.MOV_Text.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.MOV_Text.Controls_Selected();
+
+                //        // Checked
+                //        Codec.MOV_Text.Controls_Checked();
+                //        // Unhecked
+                //        Codec.MOV_Text.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.MOV_Text.Controls_Enable();
+                //        // Disabled
+                //        Codec.MOV_Text.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // SSA
+                //    // -------------------------
+                //    case "SSA":
+                //        // Codec
+                //        Codec.SSA.Codec_Set();
+
+                //        // Items Source
+                //        Codec.SSA.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.SSA.Controls_Selected();
+
+                //        // Checked
+                //        Codec.SSA.Controls_Checked();
+                //        // Unhecked
+                //        Codec.SSA.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.SSA.Controls_Enable();
+                //        // Disabled
+                //        Codec.SSA.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // SRT
+                //    // -------------------------
+                //    case "SRT":
+                //        // Codec
+                //        Codec.SRT.Codec_Set();
+
+                //        // Items Source
+                //        Codec.SRT.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.SRT.Controls_Selected();
+
+                //        // Checked
+                //        Codec.SRT.Controls_Checked();
+                //        // Unhecked
+                //        Codec.SRT.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.SRT.Controls_Enable();
+                //        // Disabled
+                //        Codec.SRT.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // Burn
+                //    // -------------------------
+                //    case "Burn":
+                //        // Codec
+                //        Codec.Burn.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Burn.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Burn.Controls_Selected();
+
+                //        // Checked
+                //        Codec.Burn.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Burn.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Burn.Controls_Enable();
+                //        // Disabled
+                //        Codec.Burn.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // Copy
+                //    // -------------------------
+                //    case "Copy":
+                //        // Codec
+                //        Codec.Copy.Codec_Set();
+
+                //        // Items Source
+                //        Codec.Copy.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.Copy.Controls_Selected();
+
+                //        // Checked
+                //        Codec.Copy.Controls_Checked();
+                //        // Unhecked
+                //        Codec.Copy.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.Copy.Controls_Enable();
+                //        // Disabled
+                //        Codec.Copy.Controls_Disable();
+                //        break;
+
+                //    // -------------------------
+                //    // None
+                //    // -------------------------
+                //    case "None":
+                //        // Codec
+                //        Codec.None.Codec_Set();
+
+                //        // Items Source
+                //        Codec.None.Controls_ItemsSource();
+                //        // Selected Items
+                //        Codec.None.Controls_Selected();
+
+                //        // Checked
+                //        Codec.None.Controls_Checked();
+                //        // Unhecked
+                //        Codec.None.Controls_Unhecked();
+
+                //        // Enabled
+                //        Codec.None.Controls_Enable();
+                //        // Disabled
+                //        Codec.None.Controls_Disable();
+                //        break;
+                //}
 
                 // --------------------------------------------------
                 // Default Selected Item
@@ -196,41 +255,65 @@ namespace Controls
                 // --------------------------------------------------
                 // Selected Items
                 // --------------------------------------------------
-                // -------------------------
-                // None Codec
-                // -------------------------
-                if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "None")
+                switch (VM.SubtitleView.Subtitle_Codec_SelectedItem)
                 {
-                    VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
-                    VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+                    case "None":
+                        VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
+                        VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+                        break;
+
+                    case "Burn":
+                        // Force Select External
+                        // Can't burn All subtitle streams
+                        VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
+                        VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                        break;
+
+                    case "Copy":
+                        VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                        break;
+
+                    // All Other Codecs
+                    default:
+                        VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                        break;
                 }
 
-                // -------------------------
-                // Burn Codec
-                // -------------------------
-                else if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Burn")
-                {
-                    // Force Select External
-                    // Can't burn All subtitle streams
-                    VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
-                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-                }
+                //// -------------------------
+                //// None Codec
+                //// -------------------------
+                //if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "None")
+                //{
+                //    VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
+                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+                //}
 
-                // -------------------------
-                // Copy Codec
-                // -------------------------
-                else if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
-                {
-                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-                }
+                //// -------------------------
+                //// Burn Codec
+                //// -------------------------
+                //else if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Burn")
+                //{
+                //    // Force Select External
+                //    // Can't burn All subtitle streams
+                //    VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
+                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                //}
 
-                // -------------------------
-                // All Other Codecs
-                // -------------------------
-                else
-                {
-                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-                }
+                //// -------------------------
+                //// Copy Codec
+                //// -------------------------
+                //else if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
+                //{
+                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                //}
+
+                //// -------------------------
+                //// All Other Codecs
+                //// -------------------------
+                //else
+                //{
+                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                //}
             }
 
 

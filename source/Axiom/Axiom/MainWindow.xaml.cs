@@ -2898,7 +2898,15 @@ namespace Axiom
             try
             {
                 var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-                VM.MainView.ScriptView_Text = File.ReadAllText(buffer.First());
+
+                string file = buffer.First();
+                string ext = Path.GetExtension(file);
+
+                // Only accept txt files
+                if (ext == ".txt")
+                {
+                    VM.MainView.ScriptView_Text = File.ReadAllText(file/*buffer.First()*/);
+                }
             }
             catch (IOException ex)
             {

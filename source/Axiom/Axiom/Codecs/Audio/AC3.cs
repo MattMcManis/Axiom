@@ -34,7 +34,7 @@ namespace Controls
     {
         namespace Codec
         {
-            public class AC3 //: Controls.Audio.Codec
+            public class AC3 : Controls.IAudioCodec
             {
                 // ---------------------------------------------------------------------------
                 // Codec
@@ -48,7 +48,7 @@ namespace Controls
                     }
                 };
 
-                public static void Codec_Set()
+                public /*static*/ void Codec_Set()
                 {
                     // Combine Codec + Parameters
                     List<string> codec = new List<string>()
@@ -70,7 +70,7 @@ namespace Controls
                 // -------------------------
                 // Channel
                 // -------------------------
-                public static ObservableCollection<string> channel = new ObservableCollection<string>()
+                public /*static*/ ObservableCollection<string> channel = new ObservableCollection<string>()
                 {
                     "Source",
                     "Stereo",
@@ -81,7 +81,7 @@ namespace Controls
                 // -------------------------
                 // Quality
                 // -------------------------
-                public static ObservableCollection<ViewModel.Audio.AudioQuality> quality = new ObservableCollection<ViewModel.Audio.AudioQuality>()
+                public /*static*/ ObservableCollection<ViewModel.Audio.AudioQuality> quality = new ObservableCollection<ViewModel.Audio.AudioQuality>()
                 {
                         new ViewModel.Audio.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = "", NA = "640" },
                         new ViewModel.Audio.AudioQuality() { Name = "640",    CBR_BitMode = "-b:a", CBR = "640", VBR_BitMode = "", VBR = "" },
@@ -100,7 +100,7 @@ namespace Controls
                 // -------------------------
                 // Compression Level
                 // -------------------------
-                public static ObservableCollection<string> compressionLevel = new ObservableCollection<string>()
+                public /*static*/ ObservableCollection<string> compressionLevel = new ObservableCollection<string>()
                 {
                     "auto"
                 };
@@ -108,7 +108,7 @@ namespace Controls
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                public static ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
+                public /*static*/ ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
                 {
                         new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
                         new ViewModel.Audio.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
@@ -128,7 +128,7 @@ namespace Controls
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                public static ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
+                public /*static*/ ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
                 {
                         new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" }
                 };
@@ -142,7 +142,7 @@ namespace Controls
                 // -------------------------
                 // Items Source
                 // -------------------------
-                public static void Controls_ItemsSource()
+                public /*static*/ void Controls_ItemsSource()
                 {
                     // Channel
                     VM.AudioView.Audio_Channel_Items = channel;
@@ -163,7 +163,7 @@ namespace Controls
                 // -------------------------
                 // Selected Items
                 // -------------------------
-                public static void Controls_Selected()
+                public /*static*/ void Controls_Selected()
                 {
                     //VM.AudioView.Audio_Stream_SelectedItem = "all";
 
@@ -174,7 +174,7 @@ namespace Controls
                 // -------------------------
                 // Checked
                 // -------------------------
-                public static void Controls_Checked()
+                public /*static*/ void Controls_Checked()
                 {
                     // None
                 }
@@ -182,7 +182,7 @@ namespace Controls
                 // -------------------------
                 // Unchecked
                 // -------------------------
-                public static void Controls_Unhecked()
+                public /*static*/ void Controls_Unhecked()
                 {
                     // BitRate Mode
                     VM.AudioView.Audio_VBR_IsChecked = false;
@@ -191,7 +191,7 @@ namespace Controls
                 // -------------------------
                 // Enabled
                 // -------------------------
-                public static void Controls_Enable()
+                public /*static*/ void Controls_Enable()
                 {
                     // Audio Codec
                     VM.AudioView.Audio_Codec_IsEnabled = true;
@@ -222,7 +222,7 @@ namespace Controls
                 // -------------------------
                 // Disabled
                 // -------------------------
-                public static void Controls_Disable()
+                public /*static*/ void Controls_Disable()
                 {
                     // VBR Button
                     VM.AudioView.Audio_VBR_IsEnabled = false;

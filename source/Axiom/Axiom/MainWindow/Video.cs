@@ -329,46 +329,15 @@ namespace Axiom
             // On
             if (VM.VideoView.Video_HWAccel_SelectedItem == "On")
             {
-                // Update Codecs List
+                // Add HW Accel Codecs to Menu
                 switch (VM.FormatView.Format_Container_SelectedItem)
                 {
                     case "mp4":
                         VM.VideoView.Video_Codec_Items = Controls.Containers.MP4.video_HWAccel;
-                        //VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
-                        //{
-                        //    "x264",
-                        //    "H264 AMF",
-                        //    "H264 NVENC",
-                        //    "H264 QSV",
-                        //    "x265",
-                        //    "HEVC AMF",
-                        //    "HEVC NVENC",
-                        //    "HEVC QSV",
-                        //    "Copy"
-                        //};
                         break;
 
                     case "mkv":
                         VM.VideoView.Video_Codec_Items = Controls.Containers.MKV.video_HWAccel;
-                        //VM.VideoView.Video_Codec_Items = new ObservableCollection<string>()
-                        //{
-                        //    "x264",
-                        //    "H264 AMF",
-                        //    "H264 NVENC",
-                        //    "H264 QSV",
-                        //    "x265",
-                        //    "HEVC AMF",
-                        //    "HEVC NVENC",
-                        //    "HEVC QSV",
-                        //    "VP8",
-                        //    "VP9",
-                        //    "AV1",
-                        //    "FFV1",
-                        //    "MagicYUV",
-                        //    "HuffYUV",
-                        //    "Theora",
-                        //    "Copy"
-                        //};
                         break;
                 }
             }
@@ -377,7 +346,7 @@ namespace Axiom
             else if (VM.VideoView.Video_HWAccel_SelectedItem == "Off" ||
                      VM.VideoView.Video_HWAccel_SelectedItem == "Auto")
             {
-                // Update Codecs Lists with defaults
+                // Add Default Codecs to Menu
                 switch (VM.FormatView.Format_Container_SelectedItem)
                 {
                     case "mp4":
@@ -393,14 +362,25 @@ namespace Axiom
             // -------------------------
             // Select Default Codec
             // -------------------------
-            if (codecPreviousItem == "x264")
+            // Add HW Accel Codecs to Menu
+            switch (codecPreviousItem)
             {
-                VM.VideoView.Video_Codec_SelectedItem = "x264";
+                case "x264":
+                    VM.VideoView.Video_Codec_SelectedItem = "x264";
+                    break;
+
+                case "x265":
+                    VM.VideoView.Video_Codec_SelectedItem = "x265";
+                    break;
             }
-            else if (codecPreviousItem == "x265")
-            {
-                VM.VideoView.Video_Codec_SelectedItem = "x265";
-            }
+            //if (codecPreviousItem == "x264")
+            //{
+            //    VM.VideoView.Video_Codec_SelectedItem = "x264";
+            //}
+            //else if (codecPreviousItem == "x265")
+            //{
+            //    VM.VideoView.Video_Codec_SelectedItem = "x265";
+            //}
         }
 
         /// <summary>
@@ -460,8 +440,8 @@ namespace Axiom
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Video.Controls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
-                                                       VM.VideoView.Video_Quality_SelectedItem,
-                                                       VM.VideoView.Video_Pass_SelectedItem);
+                                                        VM.VideoView.Video_Quality_SelectedItem,
+                                                        VM.VideoView.Video_Pass_SelectedItem);
 
             // -------------------------
             // Video Encoding Pass
@@ -582,8 +562,8 @@ namespace Axiom
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Video.Controls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
-                                                       VM.VideoView.Video_Quality_SelectedItem,
-                                                       VM.VideoView.Video_Pass_SelectedItem);
+                                                        VM.VideoView.Video_Quality_SelectedItem,
+                                                        VM.VideoView.Video_Pass_SelectedItem);
         }
 
         /// <summary>
@@ -620,8 +600,8 @@ namespace Axiom
             // Display Bit Rate in TextBox
             // -------------------------
             Controls.Video.Controls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
-                                                       VM.VideoView.Video_Quality_SelectedItem,
-                                                       VM.VideoView.Video_Pass_SelectedItem);
+                                                        VM.VideoView.Video_Quality_SelectedItem,
+                                                        VM.VideoView.Video_Pass_SelectedItem);
         }
 
 
@@ -1106,22 +1086,6 @@ namespace Axiom
                 case "8K":
                     VideoScaleVals(8192,  // width
                                    4320); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "8192";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "4320";
-                    //}
                     break;
 
                 // -------------------------
@@ -1130,22 +1094,6 @@ namespace Axiom
                 case "8K UHD":
                     VideoScaleVals(7680,  // width
                                    4320); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "7680";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "4320";
-                    //}
                     break;
 
                 // -------------------------
@@ -1154,22 +1102,6 @@ namespace Axiom
                 case "4K":
                     VideoScaleVals(4096,  // width
                                    2160); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "4096";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "2160";
-                    //}
                     break;
 
                 // -------------------------
@@ -1178,22 +1110,6 @@ namespace Axiom
                 case "4K UHD":
                     VideoScaleVals(3840,  // width
                                    2160); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "3840";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "2160";
-                    //}
                     break;
 
                 // -------------------------
@@ -1202,22 +1118,6 @@ namespace Axiom
                 case "2K":
                     VideoScaleVals(2048,  // width
                                    1556); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "2048";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "1556";
-                    //}
                     break;
 
                 // -------------------------
@@ -1226,23 +1126,6 @@ namespace Axiom
                 case "1600p":
                     VideoScaleVals(2560,  // width
                                    1600); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-
-                    //    VM.VideoView.Video_Width_Text = "2560";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "1600";
-                    //}
                     break;
 
                 // -------------------------
@@ -1251,23 +1134,6 @@ namespace Axiom
                 case "1440p":
                     VideoScaleVals(2560,  // width
                                    1440); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-
-                    //    VM.VideoView.Video_Width_Text = "2560";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "1440";
-                    //}
                     break;
 
                 // -------------------------
@@ -1276,22 +1142,6 @@ namespace Axiom
                 case "1200p":
                     VideoScaleVals(1920,  // width
                                    1200); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "1920";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "1200";
-                    //}
                     break;
 
                 // -------------------------
@@ -1300,22 +1150,6 @@ namespace Axiom
                 case "1080p":
                     VideoScaleVals(1920,  // width
                                    1080); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "1920";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "1080";
-                    //}
                     break;
 
                 // -------------------------
@@ -1324,22 +1158,6 @@ namespace Axiom
                 case "900p":
                     VideoScaleVals(1600, // width
                                    900); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "1600";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "900";
-                    //}
                     break;
 
                 // -------------------------
@@ -1348,22 +1166,6 @@ namespace Axiom
                 case "720p":
                     VideoScaleVals(1280, // width
                                    720); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "1280";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "720";
-                    //}
                     break;
 
                 // -------------------------
@@ -1372,93 +1174,30 @@ namespace Axiom
                 case "576p":
                     VideoScaleVals(1024, // width
                                    576); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "1024";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "576";
-                    //}
                     break;
 
                 // -------------------------
                 // 480p
                 // -------------------------
                 case "480p":
-                    VideoScaleVals(720, // width
+                    VideoScaleVals(720,  // width
                                    480); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "720";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "480";
-                    //}
                     break;
 
                 // -------------------------
                 // 320p
                 // -------------------------
                 case "320p":
-                    VideoScaleVals(480, // width
+                    VideoScaleVals(480,  // width
                                    320); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "480";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "320";
-                    //}
                     break;
 
                 // -------------------------
                 // 240p
                 // -------------------------
                 case "240p":
-                    VideoScaleVals(320, // width
+                    VideoScaleVals(320,  // width
                                    240); // height
-                    //// Widescreen
-                    //if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    //    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
-                    //    )
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "320";
-                    //    VM.VideoView.Video_Height_Text = "auto";
-                    //}
-
-                    //// Full Screen
-                    //else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
-                    //{
-                    //    VM.VideoView.Video_Width_Text = "auto";
-                    //    VM.VideoView.Video_Height_Text = "240";
-                    //}
                     break;
 
                 // -------------------------
