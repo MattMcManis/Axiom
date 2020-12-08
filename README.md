@@ -1,4 +1,4 @@
-![https://github.com/MattMcManis/Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/axiom-logo-128.png)
+﻿![https://github.com/MattMcManis/Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/axiom-logo-128.png)
 
 # Axiom
 An FFmpeg GUI for Windows
@@ -53,7 +53,7 @@ https://github.com/MattMcManis/Axiom/releases
 - youtube-dl [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
 
 #### FFmpeg Builds
-https://www.gyan.dev/ffmpeg/builds/  
+https://www.gyan.dev/ffmpeg/builds  
 https://github.com/BtbN/FFmpeg-Builds/releases
 
 &nbsp;
