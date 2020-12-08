@@ -39,12 +39,12 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 #### Releases
 https://github.com/MattMcManis/Axiom/releases
 
-#### Files
+#### Included Files
 - Axiom UI
 - [FFmpeg](http://www.ffmpeg.org/download.html#build-windows)
 - [youtube-dl](https://github.com/ytdl-org/youtube-dl/releases)
 - Install Instructions
-- User Guide pdf
+- [User Guide pdf](https://github.com/MattMcManis/Axiom/blob/master/docs/User%20Guide.pdf)
 - Troubleshooter
 
 #### Requirements
