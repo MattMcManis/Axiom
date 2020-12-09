@@ -168,7 +168,6 @@ namespace Controls.Video.Codec
                 VM.VideoView.Video_MaxRate_Text = string.Empty;
                 VM.VideoView.Video_BufSize_Text = string.Empty;
             }
-
         }
 
         // -------------------------
@@ -240,6 +239,9 @@ namespace Controls.Video.Codec
         // -------------------------
         // Enabled
         // -------------------------
+        // Missing or Commented Out Control bools are defaulted to false
+        // Possibly use nullable "bool?" if you want to bypass
+        // Commented Out Controls are definded in MediaTypeControls()
         public List<ViewModel.Video.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Video.Enabled>()
         {
             //new ViewModel.Video.Enabled() {  Codec =             true },
