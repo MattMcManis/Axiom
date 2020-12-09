@@ -723,14 +723,6 @@ namespace Controls
                     // Image
                     // --------------------------------------------------
                     case "Image":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
-                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                            VM.VideoView.Video_Codec_SelectedItem == "None")
-                        {
-                            break;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
@@ -888,14 +880,6 @@ namespace Controls
                     // Sequence 
                     // --------------------------------------------------
                     case "Sequence":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
-                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                            VM.VideoView.Video_Codec_SelectedItem == "None")
-                        {
-                            break;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
