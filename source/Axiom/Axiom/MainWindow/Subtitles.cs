@@ -50,7 +50,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Set Controls
+            // Codec Controls
             // -------------------------
             Controls.Subtitles.Controls.CodecControls(subtitle_Codec_SelectedItem);
 
