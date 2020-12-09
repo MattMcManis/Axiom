@@ -134,7 +134,9 @@ namespace Axiom
         /// </summary>
         private void cboFormat_MediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Controls.Format.Controls.MediaTypeControls();
+            Controls.Format.Controls.MediaTypeControls(); // Enabled / Disabled
+
+            Controls.Format.Controls.MediaTypeControls_SelectedItems(); // Selected Items
         }
 
 

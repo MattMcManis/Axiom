@@ -440,8 +440,9 @@ namespace Controls
             /// <remarks>
             /// These values are always set
             /// Overrides Codec Contrtols
+            /// Put in Codec ComboBox SelectionChanged Events
             /// </remarks>
-            public static void MediaTypeControls()
+            public static void MediaTypeControls(/*string sender*/)
             {
                 switch (VM.FormatView.Format_MediaType_SelectedItem)
                 {
@@ -463,70 +464,73 @@ namespace Controls
                         // -------------------------
                         // Cut
                         // Change if coming back from JPEG, PNG, WebP
-                        if (VM.FormatView.Format_CutStart_IsEnabled == true &&
-                            VM.FormatView.Format_CutEnd_IsEnabled == false)
-                        {
-                            VM.FormatView.Format_Cut_SelectedItem = "No";
-                        }
+                        //if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                        //    VM.FormatView.Format_CutEnd_IsEnabled == false)
+                        //{
+                        //    VM.FormatView.Format_Cut_SelectedItem = "No";
+                        //}
 
                         // YouTube
-                        VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+                        //VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
                         // -------------------------
                         // Video
                         // -------------------------
-                        // Codec
-                        VM.VideoView.Video_Codec_IsEnabled = true;
+                        //if (sender == "Video")
+                        //{
+                            // Codec
+                            VM.VideoView.Video_Codec_IsEnabled = true;
 
-                        // Encode Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = true;
+                            // Encode Speed
+                            VM.VideoView.Video_EncodeSpeed_IsEnabled = true;
 
-                        // Hardware Acceleration
-                        VM.VideoView.Video_HWAccel_IsEnabled = true;
+                            // Hardware Acceleration
+                            VM.VideoView.Video_HWAccel_IsEnabled = true;
 
-                        // Quality
-                        // Controled through Codec Class
+                            // Quality
+                            // Controled through Codec Class
 
-                        // VBR
-                        // Controled through Codec Class
+                            // VBR
+                            // Controled through Codec Class
 
-                        // Pixel Format
-                        VM.VideoView.Video_PixelFormat_IsEnabled = true;
+                            // Pixel Format
+                            VM.VideoView.Video_PixelFormat_IsEnabled = true;
 
-                        // Frame rate
-                        VM.VideoView.Video_FPS_IsEnabled = true;
+                            // Frame rate
+                            VM.VideoView.Video_FPS_IsEnabled = true;
 
-                        // Speed
-                        VM.VideoView.Video_Speed_IsEnabled = true;
+                            // Speed
+                            VM.VideoView.Video_Speed_IsEnabled = true;
 
-                        // Vsync
-                        VM.VideoView.Video_Vsync_IsEnabled = true;
+                            // Vsync
+                            VM.VideoView.Video_Vsync_IsEnabled = true;
 
-                        // Optimize
-                        // Controled through Codec Class
+                            // Optimize
+                            // Controled through Codec Class
 
-                        // Size
-                        VM.VideoView.Video_Scale_IsEnabled = true;
+                            // Size
+                            VM.VideoView.Video_Scale_IsEnabled = true;
 
-                        // Scaling
-                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                        //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
+                            // Scaling
+                            //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                            //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
 
-                        // Screen Format
-                        VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+                            // Screen Format
+                            VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
-                        // Aspect Ratio
-                        VM.VideoView.Video_AspectRatio_IsEnabled = true;
+                            // Aspect Ratio
+                            VM.VideoView.Video_AspectRatio_IsEnabled = true;
 
-                        // Crop
-                        VM.VideoView.Video_Crop_IsEnabled = true;
+                            // Crop
+                            VM.VideoView.Video_Crop_IsEnabled = true;
 
-                        // Video Color
-                        VM.VideoView.Video_Color_Range_IsEnabled = true;
-                        VM.VideoView.Video_Color_Space_IsEnabled = true;
-                        VM.VideoView.Video_Color_Primaries_IsEnabled = true;
-                        VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
-                        VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+                            // Video Color
+                            VM.VideoView.Video_Color_Range_IsEnabled = true;
+                            VM.VideoView.Video_Color_Space_IsEnabled = true;
+                            VM.VideoView.Video_Color_Primaries_IsEnabled = true;
+                            VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
+                            VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+                        //}
 
                         // -------------------------
                         // Audio
@@ -586,18 +590,18 @@ namespace Controls
                         // -------------------------
                         // Cut
                         // Change if coming back from JPEG, PNG, WebP
-                        if (VM.FormatView.Format_CutStart_IsEnabled == true &&
-                            VM.FormatView.Format_CutEnd_IsEnabled == false)
-                        {
-                            VM.FormatView.Format_Cut_SelectedItem = "No";
-                        }
+                        //if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                        //    VM.FormatView.Format_CutEnd_IsEnabled == false)
+                        //{
+                        //    VM.FormatView.Format_Cut_SelectedItem = "No";
+                        //}
 
                         // YouTube
-                        VM.FormatView.Format_YouTube_SelectedItem = "Audio Only";
+                        //VM.FormatView.Format_YouTube_SelectedItem = "Audio Only";
 
                         // Frame
                         VM.FormatView.Format_FrameEnd_IsEnabled = false;
-                        VM.FormatView.Format_FrameEnd_Text = "";
+                        //VM.FormatView.Format_FrameEnd_Text = "";
 
                         // -------------------------
                         // Video
@@ -609,7 +613,7 @@ namespace Controls
                         VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
                         // Hardware Acceleration
-                        VM.VideoView.Video_HWAccel_SelectedItem = "off";
+                        //VM.VideoView.Video_HWAccel_SelectedItem = "off";
                         VM.VideoView.Video_HWAccel_IsEnabled = false;
 
                         // Quality
@@ -622,7 +626,7 @@ namespace Controls
                         VM.VideoView.Video_PixelFormat_IsEnabled = false;
 
                         // Frame rate
-                        VM.VideoView.Video_FPS_SelectedItem = "auto";
+                        //VM.VideoView.Video_FPS_SelectedItem = "auto";
                         VM.VideoView.Video_FPS_IsEnabled = false;
 
                         // Speed
@@ -635,11 +639,11 @@ namespace Controls
                         VM.VideoView.Video_Optimize_IsEnabled = false;
 
                         // Size
-                        VM.VideoView.Video_Scale_SelectedItem = "Source";
+                        //VM.VideoView.Video_Scale_SelectedItem = "Source";
                         VM.VideoView.Video_Scale_IsEnabled = false;
 
                         // Scaling
-                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
                         VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
 
                         // Screen Format
@@ -715,7 +719,7 @@ namespace Controls
                         // -------------------------
                         // Cut
                         // Enable Cut Start Time for Frame Selection
-                        VM.FormatView.Format_Cut_SelectedItem = "Yes";
+                        //VM.FormatView.Format_Cut_SelectedItem = "Yes";
                         VM.FormatView.Format_CutStart_IsEnabled = true;
                         //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
                         //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
@@ -735,10 +739,10 @@ namespace Controls
 
                         // Frame
                         VM.FormatView.Format_FrameEnd_IsEnabled = false;
-                        VM.FormatView.Format_FrameEnd_Text = "";
+                        //VM.FormatView.Format_FrameEnd_Text = "";
 
                         // YouTube
-                        VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+                        //VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
 
                         // -------------------------
@@ -763,7 +767,7 @@ namespace Controls
                         VM.VideoView.Video_PixelFormat_IsEnabled = true;
 
                         // Frame rate
-                        VM.VideoView.Video_FPS_SelectedItem = "auto";
+                        //VM.VideoView.Video_FPS_SelectedItem = "auto";
                         VM.VideoView.Video_FPS_IsEnabled = false;
 
                         // Speed
@@ -779,7 +783,7 @@ namespace Controls
                         VM.VideoView.Video_Scale_IsEnabled = true;
 
                         // Scaling
-                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
                         //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
 
                         // Screen Format
@@ -808,23 +812,23 @@ namespace Controls
                         VM.AudioView.Audio_Stream_IsEnabled = false;
 
                         // Channel
-                        VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                        //VM.AudioView.Audio_Channel_SelectedItem = "Source";
                         VM.AudioView.Audio_Channel_IsEnabled = false;
 
                         // Quality
-                        VM.AudioView.Audio_Quality_SelectedItem = "None";
+                        //VM.AudioView.Audio_Quality_SelectedItem = "None";
                         VM.AudioView.Audio_Quality_IsEnabled = false;
 
                         // Compression Level
-                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                        //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                         VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
                         // Sample Rate
-                        VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                        //VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                         VM.AudioView.Audio_SampleRate_IsEnabled = false;
 
                         // Bit Depth
-                        VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                        //VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                         VM.AudioView.Audio_BitDepth_IsEnabled = false;
 
                         // Volume
@@ -863,14 +867,14 @@ namespace Controls
                         // -------------------------
                         // Cut
                         // Change if coming back from Image
-                        if (VM.FormatView.Format_CutStart_IsEnabled == true &&
-                            VM.FormatView.Format_CutEnd_IsEnabled == false)
-                        {
-                            VM.FormatView.Format_Cut_SelectedItem = "No";
-                        }
+                        //if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                        //    VM.FormatView.Format_CutEnd_IsEnabled == false)
+                        //{
+                        //    VM.FormatView.Format_Cut_SelectedItem = "No";
+                        //}
 
                         // YouTube
-                        VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+                        //VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
                         // -------------------------
                         // Video
@@ -909,7 +913,7 @@ namespace Controls
                         VM.VideoView.Video_Scale_IsEnabled = true;
 
                         // Scaling
-                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
                         //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
 
                         // Screen Format
@@ -935,27 +939,26 @@ namespace Controls
                         VM.AudioView.Audio_Codec_IsEnabled = false;
 
                         // Audio Stream
-                        //VM.AudioView.Audio_Stream_SelectedItem = "none";
                         VM.AudioView.Audio_Stream_IsEnabled = false;
 
                         // Channel
-                        VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                        //VM.AudioView.Audio_Channel_SelectedItem = "Source";
                         VM.AudioView.Audio_Channel_IsEnabled = false;
 
                         // Quality
-                        VM.AudioView.Audio_Quality_SelectedItem = "None";
+                        //VM.AudioView.Audio_Quality_SelectedItem = "None";
                         VM.AudioView.Audio_Quality_IsEnabled = false;
 
                         // Compression Level
-                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                        //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                         VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
                         // Sample Rate
-                        VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                        //VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                         VM.AudioView.Audio_SampleRate_IsEnabled = false;
 
                         // Bit Depth
-                        VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                        //VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                         VM.AudioView.Audio_BitDepth_IsEnabled = false;
 
                         // Volume
@@ -977,6 +980,218 @@ namespace Controls
                         break;
                 }
 
+                //// -------------------------
+                //// Reset to 0 if Disabled
+                //// -------------------------
+                //if (VM.FormatView.Format_CutStart_IsEnabled == false &&
+                //    VM.FormatView.Format_CutEnd_IsEnabled == false)
+                //{
+                //    // Start
+                //    VM.FormatView.Format_CutStart_Hours_Text = "00";
+                //    VM.FormatView.Format_CutStart_Minutes_Text = "00";
+                //    VM.FormatView.Format_CutStart_Seconds_Text = "00";
+                //    VM.FormatView.Format_CutStart_Milliseconds_Text = "000";
+                //    // End
+                //    VM.FormatView.Format_CutEnd_Hours_Text = "00";
+                //    VM.FormatView.Format_CutEnd_Minutes_Text = "00";
+                //    VM.FormatView.Format_CutEnd_Seconds_Text = "00";
+                //    VM.FormatView.Format_CutEnd_Milliseconds_Text = "000";
+                //}
+            }
+
+
+            /// <summary>
+            /// MediaType Controls Selected Items
+            /// </summary>
+            /// <remarks>
+            /// These values are always set
+            /// Overrides Codec Contrtols
+            /// Do not put in Codec ComboBox SelectionChanged Events
+            /// </remarks>
+            public static void MediaTypeControls_SelectedItems(/*string sender*/)
+            {
+                switch (VM.FormatView.Format_MediaType_SelectedItem)
+                {
+                    // --------------------------------------------------
+                    // Video
+                    // --------------------------------------------------
+                    // Enable Frame Textbox for Image Screenshot
+                    case "Video":
+                        // Bypass Empty/Copy/None
+                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
+                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
+                            VM.VideoView.Video_Codec_SelectedItem == "None")
+                        {
+                            return;
+                        }
+                        break;
+
+                    // -------------------------
+                    // Audio
+                    // -------------------------
+                    case "Audio":
+                        // Bypass Empty/Copy/None
+                        if (string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) ||
+                            VM.AudioView.Audio_Codec_SelectedItem == "Copy" ||
+                            VM.AudioView.Audio_Codec_SelectedItem == "None")
+                        {
+                            return;
+                        }
+
+                        // -------------------------
+                        // Format
+                        // -------------------------
+                        // Cut
+                        // Change if coming back from JPEG, PNG, WebP
+                        if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                            VM.FormatView.Format_CutEnd_IsEnabled == false)
+                        {
+                            VM.FormatView.Format_Cut_SelectedItem = "No";
+                        }
+
+                        // YouTube
+                        VM.FormatView.Format_YouTube_SelectedItem = "Audio Only";
+
+                        // Frame
+                        VM.FormatView.Format_FrameEnd_Text = "";
+
+                        // -------------------------
+                        // Video
+                        // -------------------------
+                        // Hardware Acceleration
+                        VM.VideoView.Video_HWAccel_SelectedItem = "off";
+
+                        // Frame rate
+                        VM.VideoView.Video_FPS_SelectedItem = "auto";
+
+                        // Size
+                        VM.VideoView.Video_Scale_SelectedItem = "Source";
+
+                        // Scaling
+                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+
+                        // -------------------------
+                        // Audio
+                        // -------------------------
+
+                        // -------------------------
+                        // Subtitle
+                        // -------------------------;
+                        break;
+
+                    // --------------------------------------------------
+                    // Image
+                    // --------------------------------------------------
+                    case "Image":
+                        // Bypass Empty/Copy/None
+                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
+                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
+                            VM.VideoView.Video_Codec_SelectedItem == "None")
+                        {
+                            return;
+                        }
+
+                        // -------------------------
+                        // Format
+                        // -------------------------
+                        // Cut
+                        // Enable Cut Start Time for Frame Selection
+                        VM.FormatView.Format_Cut_SelectedItem = "Yes";
+
+                        // Frame
+                        VM.FormatView.Format_FrameEnd_Text = "";
+
+                        // YouTube
+                        VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+
+                        // -------------------------
+                        // Video
+                        // -------------------------
+                        // Frame rate
+                        VM.VideoView.Video_FPS_SelectedItem = "auto";
+
+                        // Scaling
+                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+
+                        // -------------------------
+                        // Audio
+                        // -------------------------
+                        // Channel
+                        VM.AudioView.Audio_Channel_SelectedItem = "Source";
+
+                        // Quality
+                        VM.AudioView.Audio_Quality_SelectedItem = "None";
+
+                        // Compression Level
+                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+
+                        // Sample Rate
+                        VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+
+                        // Bit Depth
+                        VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+
+                        // -------------------------
+                        // Subtitle
+                        // -------------------------
+                        break;
+
+                    // --------------------------------------------------
+                    // Sequence 
+                    // --------------------------------------------------
+                    case "Sequence":
+                        // Bypass Empty/Copy/None
+                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
+                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
+                            VM.VideoView.Video_Codec_SelectedItem == "None")
+                        {
+                            return;
+                        }
+
+                        // -------------------------
+                        // Format
+                        // -------------------------
+                        // Cut
+                        // Change if coming back from Image
+                        if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                            VM.FormatView.Format_CutEnd_IsEnabled == false)
+                        {
+                            VM.FormatView.Format_Cut_SelectedItem = "No";
+                        }
+
+                        // YouTube
+                        VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+
+                        // -------------------------
+                        // Video
+                        // -------------------------
+                        // Scaling
+                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+
+                        // -------------------------
+                        // Audio
+                        // -------------------------
+                        // Channel
+                        VM.AudioView.Audio_Channel_SelectedItem = "Source";
+
+                        // Quality
+                        VM.AudioView.Audio_Quality_SelectedItem = "None";
+
+                        // Compression Level
+                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+
+                        // Sample Rate
+                        VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+
+                        // Bit Depth
+                        VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+
+                        // -------------------------
+                        // Subtitle
+                        // -------------------------
+                        break;
+                }
+
                 // -------------------------
                 // Reset to 0 if Disabled
                 // -------------------------
@@ -995,7 +1210,6 @@ namespace Controls
                     VM.FormatView.Format_CutEnd_Milliseconds_Text = "000";
                 }
             }
-
 
 
             /// <summary>
