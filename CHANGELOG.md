@@ -4,9 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.4.0] - Dec 8, 2020
+### Changed
+- Improved Video/Subtitle/Audio Codec Controls
+
+### Fixed
+- Audio Quality ComboBox
+
+
 ## [1.9.3.3] - Dec 7, 2020
 ### Changed
- Optimized Codec Controls
+- Optimized Codec Controls
 
 ### Fixed
 - Video Vsync ComboBox Controls
