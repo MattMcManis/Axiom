@@ -117,7 +117,7 @@ namespace Controls.Audio.Codec
         // -------------------------
         // Stream
         // -------------------------
-        public string stream = "all";
+        // Doesn't Change, List Source in ViewModel
 
         // -------------------------
         // Channel
