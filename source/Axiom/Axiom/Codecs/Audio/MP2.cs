@@ -45,6 +45,11 @@ namespace Controls.Audio.Codec
         // ---------------------------------------------------------------------------
 
         // -------------------------
+        // Stream
+        // -------------------------
+        // Doesn't Change, List Source in ViewModel
+
+        // -------------------------
         // Channel
         // -------------------------
         public ObservableCollection<string> channel { get; set; } = new ObservableCollection<string>()
