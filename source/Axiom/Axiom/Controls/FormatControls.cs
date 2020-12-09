@@ -1044,7 +1044,7 @@ namespace Controls
             /// Overrides Codec Contrtols
             /// Do not put in Codec ComboBox SelectionChanged Events
             /// </remarks>
-            public static void MediaTypeControls_SelectedItems(/*string sender*/)
+            public static void MediaTypeControls_SelectedItems()
             {
                 switch (VM.FormatView.Format_MediaType_SelectedItem)
                 {
@@ -1053,27 +1053,25 @@ namespace Controls
                     // --------------------------------------------------
                     // Enable Frame Textbox for Image Screenshot
                     case "Video":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
-                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                            VM.VideoView.Video_Codec_SelectedItem == "None")
+                        // -------------------------
+                        // Format
+                        // -------------------------
+                        // Cut
+                        // Change if coming back from JPEG, PNG, WebP
+                        if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                            VM.FormatView.Format_CutEnd_IsEnabled == false)
                         {
-                            return;
+                            VM.FormatView.Format_Cut_SelectedItem = "No";
                         }
+
+                        // YouTube
+                        VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
                         break;
 
                     // -------------------------
                     // Audio
                     // -------------------------
                     case "Audio":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) ||
-                            VM.AudioView.Audio_Codec_SelectedItem == "Copy" ||
-                            VM.AudioView.Audio_Codec_SelectedItem == "None")
-                        {
-                            return;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
@@ -1119,14 +1117,6 @@ namespace Controls
                     // Image
                     // --------------------------------------------------
                     case "Image":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
-                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                            VM.VideoView.Video_Codec_SelectedItem == "None")
-                        {
-                            return;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
@@ -1176,14 +1166,6 @@ namespace Controls
                     // Sequence 
                     // --------------------------------------------------
                     case "Sequence":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
-                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                            VM.VideoView.Video_Codec_SelectedItem == "None")
-                        {
-                            return;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
