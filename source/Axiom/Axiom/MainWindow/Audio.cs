@@ -85,7 +85,7 @@ namespace Axiom
             //}
 
             // -------------------------
-            // Set Controls
+            // Codec Controls
             // -------------------------
             Controls.Audio.Controls.CodecControls(audio_Codec_SelectedItem);
 
