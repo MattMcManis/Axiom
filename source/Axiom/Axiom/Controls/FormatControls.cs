@@ -442,7 +442,7 @@ namespace Controls
             /// Overrides Codec Contrtols
             /// Put in Codec ComboBox SelectionChanged Events
             /// </remarks>
-            public static void MediaTypeControls(/*string sender*/)
+            public static void MediaTypeControls()
             {
                 switch (VM.FormatView.Format_MediaType_SelectedItem)
                 {
@@ -451,14 +451,6 @@ namespace Controls
                     // --------------------------------------------------
                     // Enable Frame Textbox for Image Screenshot
                     case "Video":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) ||
-                            VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
-                            VM.VideoView.Video_Codec_SelectedItem == "None")
-                        {
-                            return;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
@@ -476,8 +468,11 @@ namespace Controls
                         // -------------------------
                         // Video
                         // -------------------------
-                        //if (sender == "Video")
-                        //{
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) &&
+                            VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
+                            VM.VideoView.Video_Codec_SelectedItem != "None")
+                        {
                             // Codec
                             VM.VideoView.Video_Codec_IsEnabled = true;
 
@@ -530,61 +525,65 @@ namespace Controls
                             VM.VideoView.Video_Color_Primaries_IsEnabled = true;
                             VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
                             VM.VideoView.Video_Color_Matrix_IsEnabled = true;
-                        //}
+                        }
 
                         // -------------------------
                         // Audio
                         // -------------------------
-                        // Codec
-                        VM.AudioView.Audio_Codec_IsEnabled = true;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.AudioView.Audio_Codec_IsEnabled = true;
 
-                        // Stream
-                        VM.AudioView.Audio_Stream_IsEnabled = true;
+                            // Stream
+                            VM.AudioView.Audio_Stream_IsEnabled = true;
 
-                        // Channel
-                        VM.AudioView.Audio_Channel_IsEnabled = true;
+                            // Channel
+                            VM.AudioView.Audio_Channel_IsEnabled = true;
 
-                        // Quality
-                        // Controled through Codec Class
+                            // Quality
+                            // Controled through Codec Class
 
-                        // Compression Level
-                        // Controled through Codec Class
+                            // Compression Level
+                            // Controled through Codec Class
 
-                        // Sample Rate
-                        // Controled through Codec Class
+                            // Sample Rate
+                            // Controled through Codec Class
 
-                        // Bit Depth
-                        // Controled through Codec Class
+                            // Bit Depth
+                            // Controled through Codec Class
 
-                        // Volume
-                        VM.AudioView.Audio_Volume_IsEnabled = true;
+                            // Volume
+                            VM.AudioView.Audio_Volume_IsEnabled = true;
 
-                        // Limiter
-                        VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                            // Limiter
+                            VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                        }
 
                         // -------------------------
                         // Subtitle
                         // -------------------------
-                        // Codec
-                        VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Codec_SelectedItem) &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
 
-                        // Stream
-                        // Controlled through Codec Class
-                        //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                            // Stream
+                            // Controlled through Codec Class
+                            //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                        }
                         break;
 
                     // -------------------------
                     // Audio
                     // -------------------------
                     case "Audio":
-                        // Bypass Empty/Copy/None
-                        if (string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) ||
-                            VM.AudioView.Audio_Codec_SelectedItem == "Copy" ||
-                            VM.AudioView.Audio_Codec_SelectedItem == "None")
-                        {
-                            return;
-                        }
-
                         // -------------------------
                         // Format
                         // -------------------------
@@ -606,100 +605,118 @@ namespace Controls
                         // -------------------------
                         // Video
                         // -------------------------
-                        // Codec
-                        VM.VideoView.Video_Codec_IsEnabled = false;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) &&
+                            VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
+                            VM.VideoView.Video_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.VideoView.Video_Codec_IsEnabled = false;
 
-                        // Encode Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+                            // Encode Speed
+                            VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
-                        // Hardware Acceleration
-                        //VM.VideoView.Video_HWAccel_SelectedItem = "off";
-                        VM.VideoView.Video_HWAccel_IsEnabled = false;
+                            // Hardware Acceleration
+                            //VM.VideoView.Video_HWAccel_SelectedItem = "off";
+                            VM.VideoView.Video_HWAccel_IsEnabled = false;
 
-                        // Quality
-                        VM.VideoView.Video_Quality_IsEnabled = false;
+                            // Quality
+                            VM.VideoView.Video_Quality_IsEnabled = false;
 
-                        // VBR
-                        VM.VideoView.Video_VBR_IsEnabled = false;
+                            // VBR
+                            VM.VideoView.Video_VBR_IsEnabled = false;
 
-                        // Pixel Format
-                        VM.VideoView.Video_PixelFormat_IsEnabled = false;
+                            // Pixel Format
+                            VM.VideoView.Video_PixelFormat_IsEnabled = false;
 
-                        // Frame rate
-                        //VM.VideoView.Video_FPS_SelectedItem = "auto";
-                        VM.VideoView.Video_FPS_IsEnabled = false;
+                            // Frame rate
+                            //VM.VideoView.Video_FPS_SelectedItem = "auto";
+                            VM.VideoView.Video_FPS_IsEnabled = false;
 
-                        // Speed
-                        VM.VideoView.Video_Speed_IsEnabled = false;
+                            // Speed
+                            VM.VideoView.Video_Speed_IsEnabled = false;
 
-                        // Vsync
-                        VM.VideoView.Video_Vsync_IsEnabled = false;
+                            // Vsync
+                            VM.VideoView.Video_Vsync_IsEnabled = false;
 
-                        // Optimize
-                        VM.VideoView.Video_Optimize_IsEnabled = false;
+                            // Optimize
+                            VM.VideoView.Video_Optimize_IsEnabled = false;
 
-                        // Size
-                        //VM.VideoView.Video_Scale_SelectedItem = "Source";
-                        VM.VideoView.Video_Scale_IsEnabled = false;
+                            // Size
+                            //VM.VideoView.Video_Scale_SelectedItem = "Source";
+                            VM.VideoView.Video_Scale_IsEnabled = false;
 
-                        // Scaling
-                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                        VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
+                            // Scaling
+                            //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                            VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
 
-                        // Screen Format
-                        VM.VideoView.Video_ScreenFormat_IsEnabled = false;
+                            // Screen Format
+                            VM.VideoView.Video_ScreenFormat_IsEnabled = false;
 
-                        // Aspect Ratio
-                        VM.VideoView.Video_AspectRatio_IsEnabled = false;
+                            // Aspect Ratio
+                            VM.VideoView.Video_AspectRatio_IsEnabled = false;
 
-                        // Crop
-                        VM.VideoView.Video_Crop_IsEnabled = false;
+                            // Crop
+                            VM.VideoView.Video_Crop_IsEnabled = false;
 
-                        // Video Color
-                        VM.VideoView.Video_Color_Range_IsEnabled = false;
-                        VM.VideoView.Video_Color_Space_IsEnabled = false;
-                        VM.VideoView.Video_Color_Primaries_IsEnabled = false;
-                        VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = false;
-                        VM.VideoView.Video_Color_Matrix_IsEnabled = false;
+                            // Video Color
+                            VM.VideoView.Video_Color_Range_IsEnabled = false;
+                            VM.VideoView.Video_Color_Space_IsEnabled = false;
+                            VM.VideoView.Video_Color_Primaries_IsEnabled = false;
+                            VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = false;
+                            VM.VideoView.Video_Color_Matrix_IsEnabled = false;
+                        }
 
                         // -------------------------
                         // Audio
                         // -------------------------
-                        // Codec
-                        VM.AudioView.Audio_Codec_IsEnabled = true;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.AudioView.Audio_Codec_IsEnabled = true;
 
-                        // Audio Stream
-                        VM.AudioView.Audio_Stream_IsEnabled = true;
+                            // Audio Stream
+                            VM.AudioView.Audio_Stream_IsEnabled = true;
 
-                        // Channel
-                        VM.AudioView.Audio_Channel_IsEnabled = true;
+                            // Channel
+                            VM.AudioView.Audio_Channel_IsEnabled = true;
 
-                        // Quality
-                        // Controled through Codec Class
+                            // Quality
+                            // Controled through Codec Class
 
-                        // Compression Level
-                        // Controled through Codec Class
+                            // Compression Level
+                            // Controled through Codec Class
 
-                        // Sample Rate
-                        // Controled through Codec Class
+                            // Sample Rate
+                            // Controled through Codec Class
 
-                        // Bit Depth
-                        // Controled through Codec Class
+                            // Bit Depth
+                            // Controled through Codec Class
 
-                        // Volume
-                        VM.AudioView.Audio_Volume_IsEnabled = true;
+                            // Volume
+                            VM.AudioView.Audio_Volume_IsEnabled = true;
 
-                        // Hard Limiter
-                        VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                            // Hard Limiter
+                            VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                        }
 
                         // -------------------------
                         // Subtitle
                         // -------------------------
-                        // Codec
-                        VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Codec_SelectedItem) &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
 
-                        // Stream
-                        VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+                            // Stream
+                            VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
+                        }
                         break;
 
                     // --------------------------------------------------
@@ -711,7 +728,7 @@ namespace Controls
                             VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
                             VM.VideoView.Video_Codec_SelectedItem == "None")
                         {
-                            return;
+                            break;
                         }
 
                         // -------------------------
@@ -748,106 +765,123 @@ namespace Controls
                         // -------------------------
                         // Video
                         // -------------------------
-                        // Codec
-                        VM.VideoView.Video_Codec_IsEnabled = true;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) &&
+                            VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
+                            VM.VideoView.Video_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.VideoView.Video_Codec_IsEnabled = true;
 
-                        // Encode Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+                            // Encode Speed
+                            VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
-                        // Hardware Acceleration
-                        VM.VideoView.Video_HWAccel_IsEnabled = true;
+                            // Hardware Acceleration
+                            VM.VideoView.Video_HWAccel_IsEnabled = true;
 
-                        // Quality
-                        // Controled through Codec Class
+                            // Quality
+                            // Controled through Codec Class
 
-                        // VBR
-                        // Controled through Codec Class
+                            // VBR
+                            // Controled through Codec Class
 
-                        // Pixel Format
-                        VM.VideoView.Video_PixelFormat_IsEnabled = true;
+                            // Pixel Format
+                            VM.VideoView.Video_PixelFormat_IsEnabled = true;
 
-                        // Frame rate
-                        //VM.VideoView.Video_FPS_SelectedItem = "auto";
-                        VM.VideoView.Video_FPS_IsEnabled = false;
+                            // Frame rate
+                            //VM.VideoView.Video_FPS_SelectedItem = "auto";
+                            VM.VideoView.Video_FPS_IsEnabled = false;
 
-                        // Speed
-                        VM.VideoView.Video_Speed_IsEnabled = false;
+                            // Speed
+                            VM.VideoView.Video_Speed_IsEnabled = false;
 
-                        // Vsync
-                        VM.VideoView.Video_Vsync_IsEnabled = false;
+                            // Vsync
+                            VM.VideoView.Video_Vsync_IsEnabled = false;
 
-                        // Optimize
-                        // Controled through Codec Class
+                            // Optimize
+                            // Controled through Codec Class
 
-                        // Size
-                        VM.VideoView.Video_Scale_IsEnabled = true;
+                            // Size
+                            VM.VideoView.Video_Scale_IsEnabled = true;
 
-                        // Scaling
-                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                        //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
+                            // Scaling
+                            //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                            //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
 
-                        // Screen Format
-                        VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+                            // Screen Format
+                            VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
-                        // Aspect Ratio
-                        VM.VideoView.Video_AspectRatio_IsEnabled = true;
+                            // Aspect Ratio
+                            VM.VideoView.Video_AspectRatio_IsEnabled = true;
 
-                        // Crop
-                        VM.VideoView.Video_Crop_IsEnabled = true;
+                            // Crop
+                            VM.VideoView.Video_Crop_IsEnabled = true;
 
-                        // Video Color
-                        VM.VideoView.Video_Color_Range_IsEnabled = true;
-                        VM.VideoView.Video_Color_Space_IsEnabled = true;
-                        VM.VideoView.Video_Color_Primaries_IsEnabled = true;
-                        VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
-                        VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+                            // Video Color
+                            VM.VideoView.Video_Color_Range_IsEnabled = true;
+                            VM.VideoView.Video_Color_Space_IsEnabled = true;
+                            VM.VideoView.Video_Color_Primaries_IsEnabled = true;
+                            VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
+                            VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+                        }
 
                         // -------------------------
                         // Audio
                         // -------------------------
-                        // Codec
-                        VM.AudioView.Audio_Codec_IsEnabled = false;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.AudioView.Audio_Codec_IsEnabled = false;
 
-                        // Audio Stream
-                        VM.AudioView.Audio_Stream_IsEnabled = false;
+                            // Audio Stream
+                            VM.AudioView.Audio_Stream_IsEnabled = false;
 
-                        // Channel
-                        //VM.AudioView.Audio_Channel_SelectedItem = "Source";
-                        VM.AudioView.Audio_Channel_IsEnabled = false;
+                            // Channel
+                            //VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                            VM.AudioView.Audio_Channel_IsEnabled = false;
 
-                        // Quality
-                        //VM.AudioView.Audio_Quality_SelectedItem = "None";
-                        VM.AudioView.Audio_Quality_IsEnabled = false;
+                            // Quality
+                            //VM.AudioView.Audio_Quality_SelectedItem = "None";
+                            VM.AudioView.Audio_Quality_IsEnabled = false;
 
-                        // Compression Level
-                        //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                        VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+                            // Compression Level
+                            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
-                        // Sample Rate
-                        //VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
-                        VM.AudioView.Audio_SampleRate_IsEnabled = false;
+                            // Sample Rate
+                            //VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                            VM.AudioView.Audio_SampleRate_IsEnabled = false;
 
-                        // Bit Depth
-                        //VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
-                        VM.AudioView.Audio_BitDepth_IsEnabled = false;
+                            // Bit Depth
+                            //VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                            VM.AudioView.Audio_BitDepth_IsEnabled = false;
 
-                        // Volume
-                        VM.AudioView.Audio_Volume_IsEnabled = false;
+                            // Volume
+                            VM.AudioView.Audio_Volume_IsEnabled = false;
 
-                        // Hard Limiter
-                        VM.AudioView.Audio_HardLimiter_IsEnabled = false;
-                        VM.AudioView.Audio_HardLimiter_Value = 0.0;
-
+                            // Hard Limiter
+                            VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+                            VM.AudioView.Audio_HardLimiter_Value = 0.0;
+                        }
 
                         // -------------------------
                         // Subtitle
                         // -------------------------
-                        // Codec
-                        VM.SubtitleView.Subtitle_Codec_IsEnabled = true; // Enable for Subtitle Burn Screenshots
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Codec_SelectedItem) &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.SubtitleView.Subtitle_Codec_IsEnabled = true; // Enable for Subtitle Burn Screenshots
 
-                        // Stream
-                        // Controlled through Codec Class
-                        //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                            // Stream
+                            // Controlled through Codec Class
+                            //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                        }
                         break;
 
                     // --------------------------------------------------
@@ -859,7 +893,7 @@ namespace Controls
                             VM.VideoView.Video_Codec_SelectedItem == "Copy" ||
                             VM.VideoView.Video_Codec_SelectedItem == "None")
                         {
-                            return;
+                            break;
                         }
 
                         // -------------------------
@@ -879,104 +913,122 @@ namespace Controls
                         // -------------------------
                         // Video
                         // -------------------------
-                        // Codec 
-                        VM.VideoView.Video_Codec_IsEnabled = true;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) &&
+                            VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
+                            VM.VideoView.Video_Codec_SelectedItem != "None")
+                        {
+                            // Codec 
+                            VM.VideoView.Video_Codec_IsEnabled = true;
 
-                        // Encode Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+                            // Encode Speed
+                            VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
-                        // Hardware Acceleration
-                        VM.VideoView.Video_HWAccel_IsEnabled = true;
+                            // Hardware Acceleration
+                            VM.VideoView.Video_HWAccel_IsEnabled = true;
 
-                        // Quality
-                        // Controled through Codec Class
+                            // Quality
+                            // Controled through Codec Class
 
-                        // VBR
-                        // Controled through Codec Class
+                            // VBR
+                            // Controled through Codec Class
 
-                        // Pixel Format
-                        VM.VideoView.Video_PixelFormat_IsEnabled = true;
+                            // Pixel Format
+                            VM.VideoView.Video_PixelFormat_IsEnabled = true;
 
-                        // Frame rate
-                        VM.VideoView.Video_FPS_IsEnabled = true;
+                            // Frame rate
+                            VM.VideoView.Video_FPS_IsEnabled = true;
 
-                        // Speed
-                        VM.VideoView.Video_Speed_IsEnabled = true;
+                            // Speed
+                            VM.VideoView.Video_Speed_IsEnabled = true;
 
-                        // Vsync
-                        VM.VideoView.Video_Vsync_IsEnabled = true;
+                            // Vsync
+                            VM.VideoView.Video_Vsync_IsEnabled = true;
 
-                        // Optimize
-                        // Controled through Codec Class
+                            // Optimize
+                            // Controled through Codec Class
 
-                        // Size
-                        VM.VideoView.Video_Scale_IsEnabled = true;
+                            // Size
+                            VM.VideoView.Video_Scale_IsEnabled = true;
 
-                        // Scaling
-                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                        //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
+                            // Scaling
+                            //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                            //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true; // Enabled by Size ComboBox
 
-                        // Screen Format
-                        VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+                            // Screen Format
+                            VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
-                        // Aspect Ratio
-                        VM.VideoView.Video_AspectRatio_IsEnabled = true;
+                            // Aspect Ratio
+                            VM.VideoView.Video_AspectRatio_IsEnabled = true;
 
-                        // Crop
-                        VM.VideoView.Video_Crop_IsEnabled = true;
+                            // Crop
+                            VM.VideoView.Video_Crop_IsEnabled = true;
 
-                        // Video Color
-                        VM.VideoView.Video_Color_Range_IsEnabled = true;
-                        VM.VideoView.Video_Color_Space_IsEnabled = true;
-                        VM.VideoView.Video_Color_Primaries_IsEnabled = true;
-                        VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
-                        VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+                            // Video Color
+                            VM.VideoView.Video_Color_Range_IsEnabled = true;
+                            VM.VideoView.Video_Color_Space_IsEnabled = true;
+                            VM.VideoView.Video_Color_Primaries_IsEnabled = true;
+                            VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = true;
+                            VM.VideoView.Video_Color_Matrix_IsEnabled = true;
+                        }
 
                         // -------------------------
                         // Audio
                         // -------------------------
-                        // Codec
-                        VM.AudioView.Audio_Codec_IsEnabled = false;
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                            VM.AudioView.Audio_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.AudioView.Audio_Codec_IsEnabled = false;
 
-                        // Audio Stream
-                        VM.AudioView.Audio_Stream_IsEnabled = false;
+                            // Audio Stream
+                            VM.AudioView.Audio_Stream_IsEnabled = false;
 
-                        // Channel
-                        //VM.AudioView.Audio_Channel_SelectedItem = "Source";
-                        VM.AudioView.Audio_Channel_IsEnabled = false;
+                            // Channel
+                            //VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                            VM.AudioView.Audio_Channel_IsEnabled = false;
 
-                        // Quality
-                        //VM.AudioView.Audio_Quality_SelectedItem = "None";
-                        VM.AudioView.Audio_Quality_IsEnabled = false;
+                            // Quality
+                            //VM.AudioView.Audio_Quality_SelectedItem = "None";
+                            VM.AudioView.Audio_Quality_IsEnabled = false;
 
-                        // Compression Level
-                        //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                        VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+                            // Compression Level
+                            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
-                        // Sample Rate
-                        //VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
-                        VM.AudioView.Audio_SampleRate_IsEnabled = false;
+                            // Sample Rate
+                            //VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                            VM.AudioView.Audio_SampleRate_IsEnabled = false;
 
-                        // Bit Depth
-                        //VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
-                        VM.AudioView.Audio_BitDepth_IsEnabled = false;
+                            // Bit Depth
+                            //VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                            VM.AudioView.Audio_BitDepth_IsEnabled = false;
 
-                        // Volume
-                        VM.AudioView.Audio_Volume_IsEnabled = false;
+                            // Volume
+                            VM.AudioView.Audio_Volume_IsEnabled = false;
 
-                        // Hard Limiter
-                        VM.AudioView.Audio_HardLimiter_IsEnabled = false;
-                        VM.AudioView.Audio_HardLimiter_Value = 0.0;
+                            // Hard Limiter
+                            VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+                            VM.AudioView.Audio_HardLimiter_Value = 0.0;
+                        }
 
                         // -------------------------
                         // Subtitle
                         // -------------------------
-                        // Codec
-                        VM.SubtitleView.Subtitle_Codec_IsEnabled = true; // Enable for Subtitle Burn Screenshots
+                        // Bypass Empty/Copy/None
+                        if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Codec_SelectedItem) &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
+                            VM.SubtitleView.Subtitle_Codec_SelectedItem != "None")
+                        {
+                            // Codec
+                            VM.SubtitleView.Subtitle_Codec_IsEnabled = true; // Enable for Subtitle Burn Screenshots
 
-                        // Stream
-                        // Controlled through Codec Class
-                        //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                            // Stream
+                            // Controlled through Codec Class
+                            //VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+                        }
                         break;
                 }
 
