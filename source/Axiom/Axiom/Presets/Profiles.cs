@@ -570,6 +570,16 @@ namespace Profiles
                 // --------------------------------------------------
                 // Filter Video
                 // --------------------------------------------------
+                // Display
+                // Drop Frames
+                string filterVideoDropFrames = inif.Read("Filter Video", "DropFrames_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_DropFrames_Items.Contains(filterVideoDropFrames))
+                    VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem = filterVideoDropFrames;
+                else
+                    listFailedImports.Add("Filter Video: DropFrames");
+
+                // Fix
                 // Deband
                 string filterVideoDeband = inif.Read("Filter Video", "Deband_SelectedItem");
 
@@ -617,15 +627,6 @@ namespace Profiles
                     VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = filterVideoDeinterlace;
                 else
                     listFailedImports.Add("Filter Video: Deinterlace");
-
-                // Display
-                // Drop Frames
-                string filterVideoDropFrames = inif.Read("Filter Video", "DropFrames_SelectedItem");
-
-                if (VM.FilterVideoView.FilterVideo_DropFrames_Items.Contains(filterVideoDropFrames))
-                    VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem = filterVideoDropFrames;
-                else
-                    listFailedImports.Add("Filter Video: DropFrames");
 
                 // Transpose
                 // Flip
@@ -880,7 +881,6 @@ namespace Profiles
                 return;
             }
         }
-
 
 
         /// <summary>
@@ -1189,7 +1189,6 @@ namespace Profiles
         }
 
 
-
         /// <summary>
         /// Failed Import Window Open
         /// </summary>
@@ -1218,7 +1217,6 @@ namespace Profiles
             // Open Window
             failedimportwindow.Show();
         }
-
 
     }
 }
