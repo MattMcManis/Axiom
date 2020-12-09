@@ -87,7 +87,14 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            Controls.Audio.Controls.SetControls(audio_Codec_SelectedItem);
+            Controls.Audio.Controls.CodecControls(audio_Codec_SelectedItem);
+
+            // -------------------------
+            // Media Type Controls
+            // Overrides Codec Controls
+            // -------------------------
+            // Must be after Codec Controls
+            Controls.Format.Controls.MediaTypeControls();
 
             // -------------------------
             // Re-Select the Quality Preset
@@ -216,6 +223,14 @@ namespace Axiom
                                                         VM.AudioView.Audio_Quality_SelectedItem
                                                        );
 
+            //// -------------------------
+            //// Compression Level
+            //// -------------------------
+            //if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
+            //{
+            //    VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
+            //}
+
             // -------------------------
             // Output Path Update Display
             // -------------------------
@@ -235,6 +250,14 @@ namespace Axiom
             Controls.Audio.Controls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
                                                         VM.AudioView.Audio_Quality_SelectedItem
                                                        );
+
+            // -------------------------
+            // Compression Level
+            // -------------------------
+            if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
+            {
+                VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+            }
         }
 
 

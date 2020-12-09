@@ -151,7 +151,7 @@ namespace Controls.Video
         /// <summary>
         /// Set Controls
         /// </summary>
-        public static void SetControls(string codec_SelectedItem)
+        public static void CodecControls(string codec_SelectedItem)
         {
             // --------------------------------------------------
             // Codec
@@ -809,7 +809,7 @@ namespace Controls.Video
                     case "H264 NVENC":
                         PixelFormatQuality(quality_SelectedItem,
                                            "yuv444p16le", // Lossless
-                                           "p010le"       // Other
+                                           "yuv420p"      // Other
                                           );
                         //// Lossless
                         //if (quality_SelectedItem == "Lossless")

@@ -181,9 +181,16 @@ namespace Axiom
             //}
 
             // -------------------------
-            // Set Controls
+            // Codec Controls
             // -------------------------
-            Controls.Video.Controls.SetControls(video_Codec_SelectedItem);
+            Controls.Video.Controls.CodecControls(video_Codec_SelectedItem);
+
+            // -------------------------
+            // Media Type Controls
+            // Overrides Codec Controls
+            // -------------------------
+            // Must be after Codec Controls
+            Controls.Format.Controls.MediaTypeControls();
 
             // -------------------------
             // Re-Select the Quality Preset

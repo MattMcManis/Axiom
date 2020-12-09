@@ -74,8 +74,8 @@ namespace Controls.Subtitles.Codec
         // -------------------------
         public List<ViewModel.Subtitle.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Subtitle.Enabled>()
         {
-            new ViewModel.Subtitle.Enabled() {  Codec =  true },
-            new ViewModel.Subtitle.Enabled() {  Stream = true },
+            //new ViewModel.Subtitle.Enabled() {  Codec =  true },
+            new ViewModel.Subtitle.Enabled() {  Stream = false },
             // Subtitle List View controlled in cboSubtitle_Stream_SelectionChanged
         };
 

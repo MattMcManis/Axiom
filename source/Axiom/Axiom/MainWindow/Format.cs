@@ -43,9 +43,9 @@ namespace Axiom
         private void cboFormat_Container_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
-            // Set Controls
+            // Format Controls
             // -------------------------
-            Controls.Format.Controls.SetControls(VM.FormatView.Format_Container_SelectedItem);
+            Controls.Format.Controls.FormatControls(VM.FormatView.Format_Container_SelectedItem);
 
             // -------------------------
             // Set HW Accel Codec

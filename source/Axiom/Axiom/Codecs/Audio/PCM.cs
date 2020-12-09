@@ -36,11 +36,7 @@ namespace Controls.Audio.Codec
         // ---------------------------------------------------------------------------
         public ObservableCollection<ViewModel.Audio.AudioCodec> codec { get; set; } = new ObservableCollection<ViewModel.Audio.AudioCodec>()
         {
-            new ViewModel.Audio.AudioCodec()
-            {
-                Codec = "pcm_s24le", // Determined by SampleRate
-                Parameters = ""
-            }
+             new ViewModel.Audio.AudioCodec() { Codec = "pcm_s24le", Parameters = "" }
         };
 
         public static String Codec_Set()
@@ -114,7 +110,6 @@ namespace Controls.Audio.Codec
         }
 
 
-
         // ---------------------------------------------------------------------------
         // Items Source
         // ---------------------------------------------------------------------------
@@ -140,17 +135,17 @@ namespace Controls.Audio.Codec
         // -------------------------
         public ObservableCollection<ViewModel.Audio.AudioQuality> quality { get; set; } = new ObservableCollection<ViewModel.Audio.AudioQuality>()
         {
-                new ViewModel.Audio.AudioQuality() { Name = "Auto",     CBR_BitMode = "", CBR = "",    VBR_BitMode = "", VBR = "", NA = "" },
-                new ViewModel.Audio.AudioQuality() { Name = "Lossless", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "320",      CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "256",      CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "224",      CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "192",      CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "160",      CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "128",      CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "96",       CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "Custom",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = ""   },
-                new ViewModel.Audio.AudioQuality() { Name = "Mute",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   }
+            new ViewModel.Audio.AudioQuality() { Name = "Auto",     CBR_BitMode = "", CBR = "",    VBR_BitMode = "", VBR = "", NA = "" },
+            new ViewModel.Audio.AudioQuality() { Name = "Lossless", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "320",      CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "256",      CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "224",      CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "192",      CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "160",      CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "128",      CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "96",       CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "Custom",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "Mute",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   }
         };
 
         // -------------------------
@@ -166,19 +161,19 @@ namespace Controls.Audio.Codec
         // -------------------------
         public ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate { get; set; } = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
         {
-                new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "22.05k",   Frequency = "22050" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "32k",      Frequency = "32000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "64k",      Frequency = "64000" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "88.2k",    Frequency = "88200" },
-                new ViewModel.Audio.AudioSampleRate() { Name = "96k",      Frequency = "96000" }
+            new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "22.05k",   Frequency = "22050" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "32k",      Frequency = "32000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "64k",      Frequency = "64000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "88.2k",    Frequency = "88200" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "96k",      Frequency = "96000" }
         };
 
         // -------------------------
@@ -186,14 +181,13 @@ namespace Controls.Audio.Codec
         // -------------------------
         public ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth { get; set; } = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
         {
-                new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" },
-                new ViewModel.Audio.AudioBitDepth() { Name = "8",    Depth = "" },
-                new ViewModel.Audio.AudioBitDepth() { Name = "16",   Depth = "" },
-                new ViewModel.Audio.AudioBitDepth() { Name = "24",   Depth = "" },
-                new ViewModel.Audio.AudioBitDepth() { Name = "32",   Depth = "" },
-                new ViewModel.Audio.AudioBitDepth() { Name = "64",   Depth = "" }
+            new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "8",    Depth = "" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "16",   Depth = "" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "24",   Depth = "" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "32",   Depth = "" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "64",   Depth = "" }
         };
-
 
 
         // ---------------------------------------------------------------------------
@@ -221,16 +215,16 @@ namespace Controls.Audio.Codec
         // -------------------------
         public List<ViewModel.Audio.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Audio.Enabled>()
         {
-            new ViewModel.Audio.Enabled() {  Codec =            true },
-            new ViewModel.Audio.Enabled() {  Stream =           true },
-            new ViewModel.Audio.Enabled() {  Channel =          true },
+            //new ViewModel.Audio.Enabled() {  Codec =            true },
+            //new ViewModel.Audio.Enabled() {  Stream =           true },
+            //new ViewModel.Audio.Enabled() {  Channel =          true },
             new ViewModel.Audio.Enabled() {  Quality =          true },
             new ViewModel.Audio.Enabled() {  CompressionLevel = false },
             new ViewModel.Audio.Enabled() {  VBR =              false },
             new ViewModel.Audio.Enabled() {  SampleRate =       true },
             new ViewModel.Audio.Enabled() {  BitDepth =         true },
-            new ViewModel.Audio.Enabled() {  Volume =           true },
-            new ViewModel.Audio.Enabled() {  HardLimiter =      true },
+            //new ViewModel.Audio.Enabled() {  Volume =           true },
+            //new ViewModel.Audio.Enabled() {  HardLimiter =      true },
         };
 
     }

@@ -171,7 +171,7 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Video.Enabled>()
         {
-            new ViewModel.Video.Enabled() {  Codec =             true }, //overwritten by media type, need to use nullable bool
+            new ViewModel.Video.Enabled() {  Codec =             false },
             new ViewModel.Video.Enabled() {  EncodeSpeed =       false },
             new ViewModel.Video.Enabled() {  HWAccel =           false },
             new ViewModel.Video.Enabled() {  Quality =           false },
@@ -183,6 +183,8 @@ namespace Controls.Video.Codec
             new ViewModel.Video.Enabled() {  Optimize =          false },
             new ViewModel.Video.Enabled() {  Scale =             false },
             new ViewModel.Video.Enabled() {  Scaling =           false },
+            new ViewModel.Video.Enabled() {  ScreenFormat =      false },
+            new ViewModel.Video.Enabled() {  AspectRatio =       true }, // Works with Copy
             new ViewModel.Video.Enabled() {  Crop =              false },
             new ViewModel.Video.Enabled() {  ColorRange =        false },
             new ViewModel.Video.Enabled() {  ColorSpace =        false },

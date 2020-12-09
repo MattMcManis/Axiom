@@ -108,9 +108,9 @@ namespace Controls
 
 
             /// <summary>
-            /// Set Controls
+            /// Codec Controls
             /// </summary>
-            public static void SetControls(string codec_SelectedItem)
+            public static void CodecControls(string codec_SelectedItem)
             {
                 // --------------------------------------------------
                 // Codec
@@ -406,28 +406,28 @@ namespace Controls
                 //}
 
 
-                // -------------------------
-                // Compression Level
-                // -------------------------
-                if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
-                {
-                    switch (VM.AudioView.Audio_VBR_IsChecked)
-                    {
-                        // VBR
-                        // Enable
-                        case true:
-                            VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
-                            VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
-                            break;
+                //// -------------------------
+                //// Compression Level
+                //// -------------------------
+                //if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
+                //{
+                //    switch (VM.AudioView.Audio_VBR_IsChecked)
+                //    {
+                //        // VBR
+                //        // Enable
+                //        case true:
+                //            VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
+                //            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
+                //            break;
 
-                        // CBR
-                        // Disable
-                        case false:
-                            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
-                            VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                            break;
-                    }
-                }
+                //        // CBR
+                //        // Disable
+                //        case false:
+                //            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+                //            VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                //            break;
+                //    }
+                //}
             }
 
 

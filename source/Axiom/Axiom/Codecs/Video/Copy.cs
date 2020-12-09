@@ -175,8 +175,8 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Video.Enabled>()
         {
+            new ViewModel.Video.Enabled() {  Codec =             true }, // Override Format Controls Bypass
             new ViewModel.Video.Enabled() {  EncodeSpeed =       false },
-            new ViewModel.Video.Enabled() {  Codec =             true },
             new ViewModel.Video.Enabled() {  HWAccel =           false },
             new ViewModel.Video.Enabled() {  Quality =           false },
             new ViewModel.Video.Enabled() {  VBR =               false },
@@ -187,14 +187,14 @@ namespace Controls.Video.Codec
             new ViewModel.Video.Enabled() {  Optimize =          false },
             new ViewModel.Video.Enabled() {  Scale =             false },
             new ViewModel.Video.Enabled() {  Scaling =           false },
+            new ViewModel.Video.Enabled() {  ScreenFormat =      false },
+            //new ViewModel.Video.Enabled() {  AspectRatio =       true }, // Works with Copy
             new ViewModel.Video.Enabled() {  Crop =              false },
             new ViewModel.Video.Enabled() {  ColorRange =        false },
             new ViewModel.Video.Enabled() {  ColorSpace =        false },
             new ViewModel.Video.Enabled() {  ColorPrimaries =    false },
             new ViewModel.Video.Enabled() {  ColorTransferChar = false },
             new ViewModel.Video.Enabled() {  ColorMatrix =       false },
-            new ViewModel.Video.Enabled() {  SubtitleCodec =     false },
-            new ViewModel.Video.Enabled() {  SubtitleStream =    false },
         };
 
     }

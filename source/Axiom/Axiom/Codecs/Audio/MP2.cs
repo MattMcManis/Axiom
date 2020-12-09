@@ -36,11 +36,7 @@ namespace Controls.Audio.Codec
         // ---------------------------------------------------------------------------
         public ObservableCollection<ViewModel.Audio.AudioCodec> codec { get; set; } = new ObservableCollection<ViewModel.Audio.AudioCodec>()
         {
-            new ViewModel.Audio.AudioCodec()
-            {
-                Codec = "mp2",
-                Parameters = ""
-            }
+            new ViewModel.Audio.AudioCodec() { Codec = "mp2", Parameters = "" }
         };
 
 
@@ -64,17 +60,17 @@ namespace Controls.Audio.Codec
         // -------------------------
         public ObservableCollection<ViewModel.Audio.AudioQuality> quality { get; set; } = new ObservableCollection<ViewModel.Audio.AudioQuality>()
         {
-                new ViewModel.Audio.AudioQuality() { Name = "Auto",    CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "-q:a", VBR = "0", NA = "384" },
-                new ViewModel.Audio.AudioQuality() { Name = "384",     CBR_BitMode = "-b:a", CBR = "384", VBR_BitMode = "-q:a", VBR = "0"   },
-                new ViewModel.Audio.AudioQuality() { Name = "320",     CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "-q:a", VBR = "0"   },
-                new ViewModel.Audio.AudioQuality() { Name = "256",     CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "-q:a", VBR = "0"   },
-                new ViewModel.Audio.AudioQuality() { Name = "224",     CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode = "-q:a", VBR = "1"   },
-                new ViewModel.Audio.AudioQuality() { Name = "192",     CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode = "-q:a", VBR = "2"   },
-                new ViewModel.Audio.AudioQuality() { Name = "160",     CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "-q:a", VBR = "3"   },
-                new ViewModel.Audio.AudioQuality() { Name = "128",     CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "-q:a", VBR = "5"   },
-                new ViewModel.Audio.AudioQuality() { Name = "96",      CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "-q:a", VBR = "7"   },
-                new ViewModel.Audio.AudioQuality() { Name = "Custom",  CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "-q:a", VBR = ""    },
-                new ViewModel.Audio.AudioQuality() { Name = "Mute",    CBR_BitMode = "",     CBR = "",    VBR_BitMode = "",     VBR = ""    }
+            new ViewModel.Audio.AudioQuality() { Name = "Auto",    CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "-q:a", VBR = "0", NA = "384" },
+            new ViewModel.Audio.AudioQuality() { Name = "384",     CBR_BitMode = "-b:a", CBR = "384", VBR_BitMode = "-q:a", VBR = "0"   },
+            new ViewModel.Audio.AudioQuality() { Name = "320",     CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "-q:a", VBR = "0"   },
+            new ViewModel.Audio.AudioQuality() { Name = "256",     CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "-q:a", VBR = "0"   },
+            new ViewModel.Audio.AudioQuality() { Name = "224",     CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode = "-q:a", VBR = "1"   },
+            new ViewModel.Audio.AudioQuality() { Name = "192",     CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode = "-q:a", VBR = "2"   },
+            new ViewModel.Audio.AudioQuality() { Name = "160",     CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "-q:a", VBR = "3"   },
+            new ViewModel.Audio.AudioQuality() { Name = "128",     CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "-q:a", VBR = "5"   },
+            new ViewModel.Audio.AudioQuality() { Name = "96",      CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "-q:a", VBR = "7"   },
+            new ViewModel.Audio.AudioQuality() { Name = "Custom",  CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "-q:a", VBR = ""    },
+            new ViewModel.Audio.AudioQuality() { Name = "Mute",    CBR_BitMode = "",     CBR = "",    VBR_BitMode = "",     VBR = ""    }
         };
 
         // -------------------------
@@ -83,7 +79,6 @@ namespace Controls.Audio.Codec
         public ObservableCollection<string> compressionLevel { get; set; } = new ObservableCollection<string>()
         {
             "auto"
-
         };
 
         // -------------------------
@@ -134,16 +129,16 @@ namespace Controls.Audio.Codec
         // -------------------------
         public List<ViewModel.Audio.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Audio.Enabled>()
         {
-            new ViewModel.Audio.Enabled() {  Codec =            true },
-            new ViewModel.Audio.Enabled() {  Stream =           true },
-            new ViewModel.Audio.Enabled() {  Channel =          true },
+            //new ViewModel.Audio.Enabled() {  Codec =            true },
+            //new ViewModel.Audio.Enabled() {  Stream =           true },
+            //new ViewModel.Audio.Enabled() {  Channel =          true },
             new ViewModel.Audio.Enabled() {  Quality =          true },
             new ViewModel.Audio.Enabled() {  CompressionLevel = false },
             new ViewModel.Audio.Enabled() {  VBR =              true },
             new ViewModel.Audio.Enabled() {  SampleRate =       true },
             new ViewModel.Audio.Enabled() {  BitDepth =         false },
-            new ViewModel.Audio.Enabled() {  Volume =           true },
-            new ViewModel.Audio.Enabled() {  HardLimiter =      true },
+            //new ViewModel.Audio.Enabled() {  Volume =           true },
+            //new ViewModel.Audio.Enabled() {  HardLimiter =      true },
         };
         
     }

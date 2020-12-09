@@ -554,6 +554,11 @@ namespace Axiom
             //cboFormat_Container.SelectionChanged += cboFormat_Container_SelectionChanged;
 
             // -------------------------
+            // Format Controls
+            // -------------------------
+            //Controls.Format.Controls.FormatControls(VM.FormatView.Format_Container_SelectedItem);
+
+            // -------------------------
             // Control Defaults
             // -------------------------
             lstvSubtitles.SelectionMode = SelectionMode.Single;

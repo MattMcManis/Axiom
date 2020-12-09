@@ -52,7 +52,14 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            Controls.Subtitles.Controls.SetControls(subtitle_Codec_SelectedItem);
+            Controls.Subtitles.Controls.CodecControls(subtitle_Codec_SelectedItem);
+
+            // -------------------------
+            // Media Type Controls
+            // Overrides Codec Controls
+            // -------------------------
+            // Must be after Codec Controls
+            Controls.Format.Controls.MediaTypeControls();
 
             // -------------------------
             // Convert Button Text Change

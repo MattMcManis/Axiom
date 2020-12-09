@@ -111,6 +111,8 @@ namespace ViewModel
             public string Optimize { get; set; }
             public string Scale { get; set; }
             public string Scaling { get; set; }
+            public string ScreenFormat { get; set; }
+            public string AspectRatio { get; set; }
             public string Crop { get; set; }
             public string ColorRange { get; set; }
             public string ColorSpace { get; set; }
@@ -160,6 +162,8 @@ namespace ViewModel
             public bool Optimize { get; set; }
             public bool Scale { get; set; }
             public bool Scaling { get; set; }
+            public bool ScreenFormat { get; set; }
+            public bool AspectRatio { get; set; }
             public bool Crop { get; set; }
             public bool ColorRange { get; set; }
             public bool ColorSpace { get; set; }

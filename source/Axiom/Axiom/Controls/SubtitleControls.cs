@@ -79,9 +79,9 @@ namespace Controls
             }
 
             /// <summary>
-            /// Set Controls
+            /// Codec Controls
             /// </summary>
-            public static void SetControls(string codec_SelectedItem)
+            public static void CodecControls(string codec_SelectedItem)
             {
                 // --------------------------------------------------
                 // Codec
