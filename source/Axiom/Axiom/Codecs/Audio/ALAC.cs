@@ -27,213 +27,128 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModel;
 
-namespace Controls
+namespace Controls.Audio.Codec
 {
-    namespace Audio
+    public class ALAC : Controls.IAudioCodec
     {
-        namespace Codec
+        // ---------------------------------------------------------------------------
+        // Codec
+        // ---------------------------------------------------------------------------
+        public ObservableCollection<ViewModel.Audio.AudioCodec> codec { get; set; } = new ObservableCollection<ViewModel.Audio.AudioCodec>()
         {
-            public class ALAC : Controls.IAudioCodec
-            {
-                // ---------------------------------------------------------------------------
-                // Codec
-                // ---------------------------------------------------------------------------
-                public static ObservableCollection<ViewModel.Audio.AudioCodec> codec = new ObservableCollection<ViewModel.Audio.AudioCodec>()
-                {
-                    new ViewModel.Audio.AudioCodec()
-                    {
-                        Codec = "alac",
-                        Parameters = ""
-                    }
-                };
-
-                public /*static*/ void Codec_Set()
-                {
-                    // Combine Codec + Parameters
-                    List<string> codec = new List<string>()
-                    {
-                        "-c:a",
-                        ALAC.codec.FirstOrDefault()?.Codec,
-                        ALAC.codec.FirstOrDefault()?.Parameters
-                    };
-
-                    VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
-                }
+            new ViewModel.Audio.AudioCodec() { Codec = "alac", Parameters = "" }
+        };
 
 
+        // ---------------------------------------------------------------------------
+        // Items Source
+        // ---------------------------------------------------------------------------
 
-                // ---------------------------------------------------------------------------
-                // Items Source
-                // ---------------------------------------------------------------------------
+        // -------------------------
+        // Channel
+        // -------------------------
+        public ObservableCollection<string> channel { get; set; } = new ObservableCollection<string>()
+        {
+            "Source",
+            "Mono",
+            "Stereo",
+            "5.1"
+        };
 
-                // -------------------------
-                // Channel
-                // -------------------------
-                public /*static*/ ObservableCollection<string> channel = new ObservableCollection<string>()
-                {
-                    "Source",
-                    "Mono",
-                    "Stereo",
-                    "5.1"
-                };
+        // -------------------------
+        // Quality
+        // -------------------------
+        public ObservableCollection<ViewModel.Audio.AudioQuality> quality { get; set; } = new ObservableCollection<ViewModel.Audio.AudioQuality>()
+        {
+            new ViewModel.Audio.AudioQuality() { Name = "Auto",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = "", NA = "" },
+            new ViewModel.Audio.AudioQuality() { Name = "Lossless", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "320",      CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "256",      CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "224",      CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "192",      CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "160",      CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "128",      CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "96",       CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "Custom",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = ""   },
+            new ViewModel.Audio.AudioQuality() { Name = "Mute",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   }
+        };
 
-                // -------------------------
-                // Quality
-                // -------------------------
-                public /*static*/ ObservableCollection<ViewModel.Audio.AudioQuality> quality = new ObservableCollection<ViewModel.Audio.AudioQuality>()
-                {
-                     new ViewModel.Audio.AudioQuality() { Name = "Auto",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = "", NA = "" },
-                     new ViewModel.Audio.AudioQuality() { Name = "Lossless", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "320",      CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "256",      CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "224",      CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "192",      CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "160",      CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "128",      CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "96",       CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "Custom",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = ""   },
-                     new ViewModel.Audio.AudioQuality() { Name = "Mute",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   }
-                };
+        // -------------------------
+        // Compression Level
+        // -------------------------
+        public ObservableCollection<string> compressionLevel { get; set; } = new ObservableCollection<string>()
+        {
+            "auto"
+        };
 
-                // -------------------------
-                // Compression Level
-                // -------------------------
-                public /*static*/ ObservableCollection<string> compressionLevel = new ObservableCollection<string>()
-                {
-                    "auto"
-                };
+        // -------------------------
+        // Sample Rate
+        // -------------------------
+        public ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate { get; set; } = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
+        {
+            new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "22.05k",   Frequency = "22050" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "32k",      Frequency = "32000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "64k",      Frequency = "64000" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "88.2k",    Frequency = "88200" },
+            new ViewModel.Audio.AudioSampleRate() { Name = "96k",      Frequency = "96000" }
+        };
 
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                public /*static*/ ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate = new ObservableCollection<ViewModel.Audio.AudioSampleRate>()
-                {
-                     new ViewModel.Audio.AudioSampleRate() { Name = "auto",     Frequency = "" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "22.05k",   Frequency = "22050" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "32k",      Frequency = "32000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "64k",      Frequency = "64000" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "88.2k",    Frequency = "88200" },
-                     new ViewModel.Audio.AudioSampleRate() { Name = "96k",      Frequency = "96000" }
-                };
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                public /*static*/ ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
-                {
-                     new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" },
-                     new ViewModel.Audio.AudioBitDepth() { Name = "16",   Depth = "-sample_fmt s16p" },
-                     new ViewModel.Audio.AudioBitDepth() { Name = "32",   Depth = "-sample_fmt s32p" }
-                };
+        // -------------------------
+        // Bit Depth
+        // -------------------------
+        public ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth { get; set; } = new ObservableCollection<ViewModel.Audio.AudioBitDepth>()
+        {
+            new ViewModel.Audio.AudioBitDepth() { Name = "auto", Depth = "" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "16",   Depth = "-sample_fmt s16p" },
+            new ViewModel.Audio.AudioBitDepth() { Name = "32",   Depth = "-sample_fmt s32p" }
+        };
 
 
 
-                // ---------------------------------------------------------------------------
-                // Controls Behavior
-                // ---------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
 
-                // -------------------------
-                // Items Source
-                // -------------------------
-                public /*static*/ void Controls_ItemsSource()
-                {
-                    // Channel
-                    VM.AudioView.Audio_Channel_Items = channel;
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public List<ViewModel.Audio.Selected> controls_Selected { get; set; } = new List<ViewModel.Audio.Selected>()
+        {
+            new ViewModel.Audio.Selected() {  CompressionLevel = "auto" },
+        };
 
-                    // Quality
-                    VM.AudioView.Audio_Quality_Items = quality;
+        // -------------------------
+        // Checked
+        // -------------------------
+        public List<ViewModel.Audio.Checked> controls_Checked { get; set; } = new List<ViewModel.Audio.Checked>()
+        {
+            new ViewModel.Audio.Checked() {  VBR = false },
+        };
 
-                    // Compression Level
-                    VM.AudioView.Audio_CompressionLevel_Items = compressionLevel;
+        // -------------------------
+        // Enabled
+        // -------------------------
+        public List<ViewModel.Audio.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Audio.Enabled>()
+        {
+            new ViewModel.Audio.Enabled() {  Codec =            true },
+            new ViewModel.Audio.Enabled() {  Stream =           true },
+            new ViewModel.Audio.Enabled() {  Channel =          true },
+            new ViewModel.Audio.Enabled() {  Quality =          true },
+            new ViewModel.Audio.Enabled() {  CompressionLevel = false },
+            new ViewModel.Audio.Enabled() {  VBR =              true },
+            new ViewModel.Audio.Enabled() {  SampleRate =       true },
+            new ViewModel.Audio.Enabled() {  BitDepth =         false },
+            new ViewModel.Audio.Enabled() {  Volume =           true },
+            new ViewModel.Audio.Enabled() {  HardLimiter =      true },
+        };
 
-                    // Samplerate
-                    VM.AudioView.Audio_SampleRate_Items = sampleRate;
-
-                    // Bit Depth
-                    VM.AudioView.Audio_BitDepth_Items = bitDepth;
-                }
-
-                // -------------------------
-                // Selected Items
-                // -------------------------
-                public /*static*/ void Controls_Selected()
-                {
-                    //VM.AudioView.Audio_Stream_SelectedItem = "all";
-
-                    // Compression Level
-                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                }
-
-                // -------------------------
-                // Checked
-                // -------------------------
-                public /*static*/ void Controls_Checked()
-                {
-                    // None
-                }
-
-                // -------------------------
-                // Unchecked
-                // -------------------------
-                public /*static*/ void Controls_Unhecked()
-                {
-                    // BitRate Mode
-                    VM.AudioView.Audio_VBR_IsChecked = false;
-                }
-
-                // -------------------------
-                // Enabled
-                // -------------------------
-                public /*static*/ void Controls_Enable()
-                {
-                    // Audio Codec
-                    VM.AudioView.Audio_Codec_IsEnabled = true;
-
-                    // Stream
-                    VM.AudioView.Audio_Stream_IsEnabled = true;
-
-                    // Channel
-                    VM.AudioView.Audio_Channel_IsEnabled = true;
-
-                    // Audio Quality
-                    VM.AudioView.Audio_Quality_IsEnabled = true;
-
-                    // SampleRate
-                    VM.AudioView.Audio_SampleRate_IsEnabled = true;
-
-                    // Bit Depth
-                    VM.AudioView.Audio_BitDepth_IsEnabled = true;
-
-                    // Volume
-                    VM.AudioView.Audio_Volume_IsEnabled = true;
-
-                    // Hard Limiter
-                    VM.AudioView.Audio_HardLimiter_IsEnabled = true;
-
-
-                    // Filters
-                    Filters.Audio.AudioFilters_EnableAll();
-                }
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                public /*static*/ void Controls_Disable()
-                {
-                    // VBR Button
-                    VM.AudioView.Audio_VBR_IsEnabled = false;
-
-                    // Compression Level
-                    VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
-                }
-            }
-        }
     }
 }

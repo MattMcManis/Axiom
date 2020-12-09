@@ -450,7 +450,7 @@ namespace Controls
                         // Format
                         // -------------------------
                         // Hardware Acceleration
-                        VM.VideoView.Video_HWAccel_IsEnabled = true;
+                        //VM.VideoView.Video_HWAccel_IsEnabled = true;
 
                         // Cut
                         // Change if coming back from JPEG, PNG, WebP
@@ -466,18 +466,18 @@ namespace Controls
                         // -------------------------
                         // Video
                         // -------------------------
-                        // Codec
-                        VM.VideoView.Video_Codec_IsEnabled = true;
+                        //// Codec
+                        //VM.VideoView.Video_Codec_IsEnabled = true;
 
-                        // Size
-                        VM.VideoView.Video_Scale_IsEnabled = true;
+                        //// Size
+                        //VM.VideoView.Video_Scale_IsEnabled = true;
 
-                        // Scaling
-                        VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
-                        VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                        //// Scaling
+                        //VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+                        //VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
 
-                        // Speed
-                        VM.VideoView.Video_Speed_IsEnabled = true;
+                        //// Speed
+                        //VM.VideoView.Video_Speed_IsEnabled = true;
 
                         // Screen Format
                         VM.VideoView.Video_ScreenFormat_IsEnabled = true;
@@ -505,7 +505,6 @@ namespace Controls
 
                         // Audio Stream
                         VM.AudioView.Audio_Stream_IsEnabled = true;
-                        //AudioStreamControls(:; // Selected Item
                         //VM.AudioView.Audio_Stream_SelectedItem = "all";
 
 
@@ -548,6 +547,9 @@ namespace Controls
                         // Codec
                         VM.VideoView.Video_Codec_IsEnabled = false;
 
+                        // Encode Speed
+                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
                         // Size
                         VM.VideoView.Video_Scale_SelectedItem = "Source";
                         VM.VideoView.Video_Scale_IsEnabled = false;
@@ -558,6 +560,9 @@ namespace Controls
 
                         // Speed
                         VM.VideoView.Video_Speed_IsEnabled = false;
+
+                        // Vsync
+                        VM.VideoView.Video_Vsync_IsEnabled = false;
 
                         // Screen Format
                         VM.VideoView.Video_ScreenFormat_IsEnabled = false;
@@ -571,9 +576,6 @@ namespace Controls
                         // FPS
                         VM.VideoView.Video_FPS_SelectedItem = "auto";
                         VM.VideoView.Video_FPS_IsEnabled = false;
-
-                        // Encode Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
 
                         // -------------------------
@@ -654,6 +656,9 @@ namespace Controls
                         // Codec
                         VM.VideoView.Video_Codec_IsEnabled = true;
 
+                        // Encode Speed
+                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
                         //Size
                         VM.VideoView.Video_Scale_IsEnabled = true;
 
@@ -663,6 +668,9 @@ namespace Controls
 
                         // Speed
                         VM.VideoView.Video_Speed_IsEnabled = false;
+
+                        // Vsync
+                        VM.VideoView.Video_Vsync_IsEnabled = false;
 
                         // Screen Format
                         VM.VideoView.Video_ScreenFormat_IsEnabled = true;
@@ -676,9 +684,6 @@ namespace Controls
                         // Fps
                         VM.VideoView.Video_FPS_SelectedItem = "auto";
                         VM.VideoView.Video_FPS_IsEnabled = false;
-
-                        // Encode Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
                         // -------------------------
                         // Audio
@@ -754,6 +759,9 @@ namespace Controls
                         // Codec 
                         VM.VideoView.Video_Codec_IsEnabled = true;
 
+                        // Encode Speed
+                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
                         //Size
                         VM.VideoView.Video_Scale_IsEnabled = true;
 
@@ -764,6 +772,9 @@ namespace Controls
                         // Speed
                         VM.VideoView.Video_Speed_IsEnabled = true;
 
+                        // Vsync
+                        VM.VideoView.Video_Vsync_IsEnabled = true;
+
                         // Screen Format
                         VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
@@ -772,9 +783,6 @@ namespace Controls
 
                         // Crop
                         VM.VideoView.Video_Crop_IsEnabled = true;
-
-                        // Speed
-                        VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
                         // FPS
                         VM.VideoView.Video_FPS_IsEnabled = true;
@@ -788,7 +796,6 @@ namespace Controls
 
                         // Audio Stream
                         //VM.AudioView.Audio_Stream_SelectedItem = "none";
-                        //AudioStreamControls(:; // Selected Item
                         VM.AudioView.Audio_Stream_IsEnabled = false;
 
                         // Channel

@@ -78,6 +78,59 @@ namespace ViewModel
         // --------------------------------------------------------------------------------------------------------
 
         // --------------------------------------------------
+        // Controls Selected
+        // --------------------------------------------------
+        // Items Source
+        public class Selected
+        {
+            public string Channel { get; set; }
+            public string Quality { get; set; }
+            public string Stream { get; set; }
+            public string CompressionLevel { get; set; }
+            public string SampleRate { get; set; }
+            public string BitDepth { get; set; }
+        }
+
+
+        // --------------------------------------------------
+        // Controls Expanded / Collapsed
+        // --------------------------------------------------
+        // Items Source
+        //public class Expanded
+        //{
+        //}
+
+
+        // --------------------------------------------------
+        // Controls Checked / Unchecked
+        // --------------------------------------------------
+        // Items Source
+        public class Checked
+        {
+            public bool VBR { get; set; }
+        }
+
+
+        // --------------------------------------------------
+        // Controls Enabled / Disabled
+        // --------------------------------------------------
+        // Items Source
+        public class Enabled
+        {
+            public bool Codec { get; set; }
+            public bool Stream { get; set; }
+            public bool Channel { get; set; }
+            public bool Quality { get; set; }
+            public bool CompressionLevel { get; set; }
+            public bool VBR { get; set; }
+            public bool SampleRate { get; set; }
+            public bool BitDepth { get; set; }
+            public bool Volume { get; set; }
+            public bool HardLimiter { get; set; }
+
+        }
+
+        // --------------------------------------------------
         // Audio Codec
         // --------------------------------------------------
         // Items Source

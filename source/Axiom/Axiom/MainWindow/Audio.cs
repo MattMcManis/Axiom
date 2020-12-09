@@ -160,7 +160,7 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            Controls.Audio.Controls.SetControls(VM.AudioView.Audio_Codec_SelectedItem);
+            //Controls.Audio.Controls.SetControls(VM.AudioView.Audio_Codec_SelectedItem);
 
             // -------------------------
             // Quality Controls
@@ -305,13 +305,13 @@ namespace Axiom
         /// </summary>
         private void cboAudio_BitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (VM.AudioView.Audio_Codec_SelectedItem == "PCM")
-            {
-                Controls.Audio.Codec.PCM pcm = new Controls.Audio.Codec.PCM();
-                pcm.Codec_Set();
+            //if (VM.AudioView.Audio_Codec_SelectedItem == "PCM")
+            //{
+            //    //Controls.Audio.Codec.PCM pcm = new Controls.Audio.Codec.PCM();
+            //    //pcm.Codec_Set();
 
-                //Controls.Audio.Codec.PCM.Codec_Set();
-            }
+            //    Controls.Audio.Codec.PCM.Codec_Set();
+            //}
 
             // -------------------------
             // Output Path Update Display

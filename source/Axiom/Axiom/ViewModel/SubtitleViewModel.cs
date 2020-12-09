@@ -72,6 +72,45 @@ namespace ViewModel
         // --------------------------------------------------------------------------------------------------------
 
         // --------------------------------------------------
+        // Controls Selected
+        // --------------------------------------------------
+        // Items Source
+        public class Selected
+        {
+            public string Codec { get; set; }
+            public string Stream { get; set; }
+        }
+
+
+        // --------------------------------------------------
+        // Controls Expanded / Collapsed
+        // --------------------------------------------------
+        // Items Source
+        //public class Expanded
+        //{
+        //}
+
+
+        // --------------------------------------------------
+        // Controls Checked / Unchecked
+        // --------------------------------------------------
+        // Items Source
+        //public class Checked
+        //{
+        //}
+
+
+        // --------------------------------------------------
+        // Controls Enabled / Disabled
+        // --------------------------------------------------
+        // Items Source
+        public class Enabled
+        {
+            public bool Codec { get; set; }
+            public bool Stream { get; set; }
+        }
+
+        // --------------------------------------------------
         // Subtitle Codec
         // --------------------------------------------------
         // Items Source

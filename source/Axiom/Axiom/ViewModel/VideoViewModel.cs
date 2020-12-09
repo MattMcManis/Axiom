@@ -94,6 +94,83 @@ namespace ViewModel
         // --------------------------------------------------------------------------------------------------------
 
         // --------------------------------------------------
+        // Controls Selected
+        // --------------------------------------------------
+        // Items Source
+        public class Selected
+        {
+            public string EncodeSpeed { get; set; }
+            public string Codec { get; set; }
+            public string HWAccel { get; set; }
+            public string Quality { get; set; }
+            public string VBR { get; set; }
+            public string PixelFormat { get; set; }
+            public string FPS { get; set; }
+            public string Speed { get; set; }
+            public string Vsync { get; set; }
+            public string Optimize { get; set; }
+            public string Scale { get; set; }
+            public string Scaling { get; set; }
+            public string Crop { get; set; }
+            public string ColorRange { get; set; }
+            public string ColorSpace { get; set; }
+            public string ColorPrimaries { get; set; }
+            public string ColorTransferChar { get; set; }
+            public string ColorMatrix { get; set; }
+            public string SubtitleCodec { get; set; }
+            public string SubtitleStream { get; set; }
+        }
+
+
+        // --------------------------------------------------
+        // Controls Expanded / Collapsed
+        // --------------------------------------------------
+        // Items Source
+        public class Expanded
+        {
+            public bool Optimize { get; set; }
+        }
+
+
+        // --------------------------------------------------
+        // Controls Checked / Unchecked
+        // --------------------------------------------------
+        // Items Source
+        public class Checked
+        {
+            public bool VBR { get; set; }
+        }
+
+
+        // --------------------------------------------------
+        // Controls Enabled / Disabled
+        // --------------------------------------------------
+        // Items Source
+        public class Enabled
+        {
+            public bool EncodeSpeed { get; set; }
+            public bool Codec { get; set; }
+            public bool HWAccel { get; set; }
+            public bool Quality { get; set; }
+            public bool VBR { get; set; }
+            public bool PixelFormat { get; set; }
+            public bool FPS { get; set; }
+            public bool Speed { get; set; }
+            public bool Vsync { get; set; }
+            public bool Optimize { get; set; }
+            public bool Scale { get; set; }
+            public bool Scaling { get; set; }
+            public bool Crop { get; set; }
+            public bool ColorRange { get; set; }
+            public bool ColorSpace { get; set; }
+            public bool ColorPrimaries { get; set; }
+            public bool ColorTransferChar { get; set; }
+            public bool ColorMatrix { get; set; }
+            public bool SubtitleCodec { get; set; }
+            public bool SubtitleStream { get; set; }
+        }
+
+        // --------------------------------------------------
         // Video Codec
         // --------------------------------------------------
         // Items Source

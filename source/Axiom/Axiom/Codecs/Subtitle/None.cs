@@ -27,87 +27,48 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModel;
 
-namespace Controls
+namespace Controls.Subtitles.Codec
 {
-    namespace Subtitles
+    public class None : Controls.ISubtitleCodec
     {
-        namespace Codec
+        // ---------------------------------------------------------------------------
+        // Codec
+        // ---------------------------------------------------------------------------
+        public ObservableCollection<ViewModel.Subtitle.SubtitleCodec> codec { get; set; } = new ObservableCollection<ViewModel.Subtitle.SubtitleCodec>()
         {
-            public class None : Controls.ISubtitleCodec
-            {
-                // ---------------------------------------------------------------------------
-                // Codec
-                // ---------------------------------------------------------------------------
-                public /*static*/ void Codec_Set()
-                {
-                    VM.SubtitleView.Subtitle_Codec = string.Empty;
-                }
+            new ViewModel.Subtitle.SubtitleCodec() { Codec = string.Empty, Parameters = string.Empty }
+        };
 
-                // -------------------------
-                // Stream
-                // -------------------------
-                public /*static*/ ObservableCollection<string> stream = new ObservableCollection<string>()
-                {
-                    "none"
-                };
+        // -------------------------
+        // Stream
+        // -------------------------
+        public ObservableCollection<string> stream { get; set; } = new ObservableCollection<string>()
+        {
+            "none"
+        };
 
 
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
 
-                // ---------------------------------------------------------------------------
-                // Controls Behavior
-                // ---------------------------------------------------------------------------
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public List<ViewModel.Subtitle.Selected> controls_Selected { get; set; } = new List<ViewModel.Subtitle.Selected>()
+        {
+            new ViewModel.Subtitle.Selected() {  Stream = "none" },
+        };
 
-                // -------------------------
-                // Items Source
-                // -------------------------
-                public /*static*/ void Controls_ItemsSource()
-                {
-                    VM.SubtitleView.Subtitle_Stream_Items = stream;
-                }
+        // -------------------------
+        // Enabled
+        // -------------------------
+        public List<ViewModel.Subtitle.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Subtitle.Enabled>()
+        {
+            new ViewModel.Subtitle.Enabled() {  Codec =  true }, //overwritten by media type, need to use nullable bool
+            new ViewModel.Subtitle.Enabled() {  Stream = false },
+            // Subtitle List View controlled in cboSubtitle_Stream_SelectionChanged
+        };
 
-                // -------------------------
-                // Selected Items
-                // -------------------------
-                public /*static*/ void Controls_Selected()
-                {
-                    // Stream
-                    VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
-                }
-
-                // -------------------------
-                // Checked
-                // -------------------------
-                public /*static*/ void Controls_Checked()
-                {
-                    // None
-                }
-
-                // -------------------------
-                // Unchecked
-                // -------------------------
-                public /*static*/ void Controls_Unhecked()
-                {
-                    // None
-                }
-
-                // -------------------------
-                // Enabled
-                // -------------------------
-                public /*static*/ void Controls_Enable()
-                {
-                    // None
-                }
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                public /*static*/ void Controls_Disable()
-                {
-                    // None
-                }
-
-
-            }
-        }
     }
 }

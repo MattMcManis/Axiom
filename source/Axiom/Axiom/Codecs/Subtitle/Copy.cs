@@ -27,120 +27,57 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModel;
 
-namespace Controls
+namespace Controls.Subtitles.Codec
 {
-    namespace Subtitles
+    public class Copy : Controls.ISubtitleCodec
     {
-        namespace Codec
+        // ---------------------------------------------------------------------------
+        // Codec
+        // ---------------------------------------------------------------------------
+        public  ObservableCollection<ViewModel.Subtitle.SubtitleCodec> codec { get; set; } = new ObservableCollection<ViewModel.Subtitle.SubtitleCodec>()
         {
-            public class Copy : Controls.ISubtitleCodec
-            {
-                // ---------------------------------------------------------------------------
-                // Codec
-                // ---------------------------------------------------------------------------
-                public static ObservableCollection<ViewModel.Subtitle.SubtitleCodec> codec = new ObservableCollection<ViewModel.Subtitle.SubtitleCodec>()
-                {
-                     new ViewModel.Subtitle.SubtitleCodec()
-                     {
-                         Codec = "copy",
-                         Parameters = ""
-                     }
-                };
+            new ViewModel.Subtitle.SubtitleCodec() { Codec = "copy", Parameters = "" }
+        };
 
-                public /*static*/ void Codec_Set()
-                {
-                    // Combine Codec + Parameters
-                    List<string> codec = new List<string>()
-                    {
-                        "-c:s",
-                        Copy.codec.FirstOrDefault()?.Codec,
-                        Copy.codec.FirstOrDefault()?.Parameters
-                    };
-
-                    VM.SubtitleView.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
-                }
-
-                // -------------------------
-                // Stream
-                // -------------------------
-                public /*static*/ ObservableCollection<string> stream = new ObservableCollection<string>()
-                {
-                    "none",
-                    "all",
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                };
+        // -------------------------
+        // Stream
+        // -------------------------
+        public ObservableCollection<string> stream { get; set; } = new ObservableCollection<string>()
+        {
+            "none",
+            "all",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+        };
 
 
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
 
-                // ---------------------------------------------------------------------------
-                // Controls Behavior
-                // ---------------------------------------------------------------------------
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public List<ViewModel.Subtitle.Selected> controls_Selected { get; set; } = new List<ViewModel.Subtitle.Selected>()
+        {
+            new ViewModel.Subtitle.Selected() {  Stream = "all" },
+        };
 
-                // -------------------------
-                // Items Source
-                // -------------------------
-                public /*static*/ void Controls_ItemsSource()
-                {
-                    VM.SubtitleView.Subtitle_Stream_Items = stream;
-                }
+        // -------------------------
+        // Enabled
+        // -------------------------
+        public List<ViewModel.Subtitle.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Subtitle.Enabled>()
+        {
+            new ViewModel.Subtitle.Enabled() {  Codec =  true },
+            new ViewModel.Subtitle.Enabled() {  Stream = true },
+            // Subtitle List View controlled in cboSubtitle_Stream_SelectionChanged
+        };
 
-                // -------------------------
-                // Selected Items
-                // -------------------------
-                public /*static*/ void Controls_Selected()
-                {
-                    // Stream
-                    VM.SubtitleView.Subtitle_Stream_SelectedItem = "all";
-                }
-
-                // -------------------------
-                // Checked
-                // -------------------------
-                public /*static*/ void Controls_Checked()
-                {
-                    // None
-                }
-
-                // -------------------------
-                // Unchecked
-                // -------------------------
-                public /*static*/ void Controls_Unhecked()
-                {
-                    // None
-                }
-
-                // -------------------------
-                // Enabled
-                // -------------------------
-                public /*static*/ void Controls_Enable()
-                {
-                    // Subtitle Codec
-                    VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
-
-                    // Subtitle Stream
-                    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-
-                    // Subtitle List View
-                    // Controlled in cboSubtitle_Stream_SelectionChanged
-                }
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                public /*static*/ void Controls_Disable()
-                {
-                    // None
-                }
-
-
-            }
-        }
     }
 }

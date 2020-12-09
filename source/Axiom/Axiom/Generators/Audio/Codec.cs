@@ -33,6 +33,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using Axiom;
+using ViewModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -57,6 +58,12 @@ namespace Generate
                 if (codec_SelectedItem != "None")
                 {
                     aCodec = codec_Command;
+                }
+                
+                // PCM Special Rule
+                if (codec_SelectedItem == "PCM")
+                {
+                    aCodec = "-c:a " + Controls.Audio.Codec.PCM.Codec_Set();
                 }
 
                 // Log Console Message /////////
