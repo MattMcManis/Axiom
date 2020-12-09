@@ -1356,35 +1356,84 @@ namespace Axiom
                 };
                 string bitRate = "(" + string.Join("|", bitRateList) + ")";
 
+                Controls.Video.Codec.AV1 av1 = new Controls.Video.Codec.AV1();
+                Controls.Video.Codec.FFV1 ffv1 = new Controls.Video.Codec.FFV1();
+                Controls.Video.Codec.HuffYUV huffYUV = new Controls.Video.Codec.HuffYUV();
+                Controls.Video.Codec.MagicYUV magicYUV = new Controls.Video.Codec.MagicYUV();
+                Controls.Video.Codec.MPEG_2 mpeg2 = new Controls.Video.Codec.MPEG_2();
+                Controls.Video.Codec.MPEG_4 mpeg4 = new Controls.Video.Codec.MPEG_4();
+                Controls.Video.Codec.Theora theora = new Controls.Video.Codec.Theora();
+                Controls.Video.Codec.VP8 vp8 = new Controls.Video.Codec.VP8();
+                Controls.Video.Codec.VP9 vp9 = new Controls.Video.Codec.VP9();
+                Controls.Video.Codec.x264 x264 = new Controls.Video.Codec.x264();
+                Controls.Video.Codec.H264_AMF h264_amf = new Controls.Video.Codec.H264_AMF();
+                Controls.Video.Codec.H264_NVENC h264_nvenc = new Controls.Video.Codec.H264_NVENC();
+                Controls.Video.Codec.H264_QSV h264_qsv = new Controls.Video.Codec.H264_QSV();
+                Controls.Video.Codec.x265 x265 = new Controls.Video.Codec.x265();
+                Controls.Video.Codec.HEVC_AMF hevc_amf = new Controls.Video.Codec.HEVC_AMF();
+                Controls.Video.Codec.HEVC_NVENC hevc_nvenc = new Controls.Video.Codec.HEVC_NVENC();
+                Controls.Video.Codec.HEVC_QSV hevc_qsv = new Controls.Video.Codec.HEVC_QSV();
+                Controls.Video.Image.Codec.JPEG jpeg = new Controls.Video.Image.Codec.JPEG();
+                Controls.Video.Image.Codec.PNG png = new Controls.Video.Image.Codec.PNG();
+                Controls.Video.Image.Codec.WebP webp = new Controls.Video.Image.Codec.WebP();
+
                 // Pixel Format
-                string pixelFormat = "(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
-                                                            .Concat(Controls.Video.Codec.FFV1.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.Theora.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.VP8.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.VP9.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.x264.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.H264_AMF.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.H264_NVENC.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.H264_QSV.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.x265.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.HEVC_AMF.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.HEVC_NVENC.pixelFormat)
-                                                            .Concat(Controls.Video.Codec.HEVC_QSV.pixelFormat)
-                                                            .Concat(Controls.Video.Image.Codec.JPEG.pixelFormat)
-                                                            .Concat(Controls.Video.Image.Codec.PNG.pixelFormat)
-                                                            .Concat(Controls.Video.Image.Codec.WebP.pixelFormat)
-                                                            .Where(s => !string.IsNullOrWhiteSpace(s))
-                                                            .Where(s => !s.Equals("none"))
-                                                            .Where(s => !s.Equals("auto"))
-                                                            .Distinct()
-                                                            .OrderByDescending(x => x)
-                                                            .ToList()
-                                                    ) +
-                                    ")";
+                string pixelFormat = "(" + string.Join("|", av1.pixelFormat
+                                            .Concat(ffv1.pixelFormat)
+                                            .Concat(huffYUV.pixelFormat)
+                                            .Concat(magicYUV.pixelFormat)
+                                            .Concat(mpeg2.pixelFormat)
+                                            .Concat(mpeg4.pixelFormat)
+                                            .Concat(theora.pixelFormat)
+                                            .Concat(vp8.pixelFormat)
+                                            .Concat(vp9.pixelFormat)
+                                            .Concat(x264.pixelFormat)
+                                            .Concat(h264_amf.pixelFormat)
+                                            .Concat(h264_nvenc.pixelFormat)
+                                            .Concat(h264_qsv.pixelFormat)
+                                            .Concat(x265.pixelFormat)
+                                            .Concat(hevc_amf.pixelFormat)
+                                            .Concat(hevc_nvenc.pixelFormat)
+                                            .Concat(hevc_qsv.pixelFormat)
+                                            .Concat(jpeg.pixelFormat)
+                                            .Concat(png.pixelFormat)
+                                            .Concat(webp.pixelFormat)
+                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                            .Where(s => !s.Equals("none"))
+                                            .Where(s => !s.Equals("auto"))
+                                            .Distinct()
+                                            .OrderByDescending(x => x)
+                                            .ToList()
+                                    ) +
+                    ")";
+                //string pixelFormat = "(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
+                //                                            .Concat(Controls.Video.Codec.FFV1.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.Theora.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.VP8.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.VP9.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.x264.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.H264_AMF.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.H264_NVENC.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.H264_QSV.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.x265.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.HEVC_AMF.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.HEVC_NVENC.pixelFormat)
+                //                                            .Concat(Controls.Video.Codec.HEVC_QSV.pixelFormat)
+                //                                            .Concat(Controls.Video.Image.Codec.JPEG.pixelFormat)
+                //                                            .Concat(Controls.Video.Image.Codec.PNG.pixelFormat)
+                //                                            .Concat(Controls.Video.Image.Codec.WebP.pixelFormat)
+                //                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                //                                            .Where(s => !s.Equals("none"))
+                //                                            .Where(s => !s.Equals("auto"))
+                //                                            .Distinct()
+                //                                            .OrderByDescending(x => x)
+                //                                            .ToList()
+                //                                    ) +
+                //                    ")";
 
                 // Profile
                 // (e.g. Hi444PP, Hi10P)
