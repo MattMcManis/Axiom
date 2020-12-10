@@ -255,7 +255,12 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Selected> controls_Selected { get; set; } = new List<ViewModel.Video.Selected>()
         {
-            new ViewModel.Video.Selected() {  PixelFormat = "yuv444p10le" },
+            new ViewModel.Video.Selected()
+            {
+                // lossless only
+                PixelFormat_Lossless = "yuv444p10le",
+                //PixelFormat = ""
+            },
         };
 
         // -------------------------
