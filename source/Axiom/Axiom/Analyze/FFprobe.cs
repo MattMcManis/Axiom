@@ -95,7 +95,7 @@ namespace Analyze
             // Only Run FFprobe if Input File is Not Null
             // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
-            if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) && 
+            if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
                 !string.IsNullOrWhiteSpace(ffprobe))
             {
                 // -------------------------
@@ -429,8 +429,8 @@ namespace Analyze
         /// <summary>
         /// FFprobe Input File Info Parse (Method)
         /// </summary>
-        public static String InputFileInfo(string input_Text, 
-                                           bool batch_IsChecked, 
+        public static String InputFileInfo(string input_Text,
+                                           bool batch_IsChecked,
                                            string arguments
                                            )
         {
@@ -439,8 +439,8 @@ namespace Analyze
             // Ignore if Batch
             // Input Empty Check
             // FFprobe.exe Null Check
-            if (batch_IsChecked == false && 
-                !string.IsNullOrWhiteSpace(input_Text) && 
+            if (batch_IsChecked == false &&
+                !string.IsNullOrWhiteSpace(input_Text) &&
                 !string.IsNullOrWhiteSpace(ffprobe))
             {
                 // Start FFprobe Process
