@@ -150,7 +150,7 @@ namespace Controls.Video
         /// Controls
         /// </summary>
         // Used to determine if User manually selected CRF, 1 Pass or 2 Pass
-        public static bool passUserSelected = false; 
+        public static bool passUserSelected = false;
 
         /// <summary>
         /// Set Controls
@@ -698,9 +698,9 @@ namespace Controls.Video
                         string lossless = _codec_class[codec_SelectedItem].controls_Selected
                                                                           .Find(item => item.PixelFormat_Lossless == item.PixelFormat_Lossless)
                                                                           .PixelFormat_Lossless;
-                                                                          //.controls_Selected
-                                                                          //.Select(item => item.PixelFormat_Lossless)
-                                                                          //.First();
+                        //.controls_Selected
+                        //.Select(item => item.PixelFormat_Lossless)
+                        //.First();
                         if (!string.IsNullOrEmpty(lossless))
                         {
                             VM.VideoView.Video_PixelFormat_SelectedItem = lossless;
