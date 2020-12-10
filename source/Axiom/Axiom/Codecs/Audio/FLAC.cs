@@ -141,7 +141,11 @@ namespace Controls.Audio.Codec
         // -------------------------
         public List<ViewModel.Audio.Selected> controls_Selected { get; set; } = new List<ViewModel.Audio.Selected>()
         {
-            new ViewModel.Audio.Selected() {  CompressionLevel = "auto" },
+            new ViewModel.Audio.Selected()
+            {
+                Quality = "Lossless",
+                CompressionLevel = "auto"
+            },
         };
 
         // -------------------------
@@ -176,6 +180,6 @@ namespace Controls.Audio.Codec
             ////new ViewModel.Audio.Enabled() {  Volume =           true },
             ////new ViewModel.Audio.Enabled() {  HardLimiter =      true },
         };
-       
+
     }
 }
