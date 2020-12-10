@@ -4094,28 +4094,33 @@
                         <Grid Margin="0,20,0,30"
                               VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15" />
-                                <ColumnDefinition Width="96" />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="22" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="22" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
-                                <RowDefinition Height="33" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
-                            <!-- Audio Codec -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                            <!-- Encoding Group -->
+                            <Grid Margin="0,0,0,0"
+                                  VerticalAlignment="Top"
+                                  Grid.Row="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="22" />
+                                </Grid.RowDefinitions>
+
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Audio Codec"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -4124,7 +4129,7 @@
                                    Grid.Row="0"
                                    Height="26"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudio_Codec"
+                                <ComboBox x:Name="cboAudio_Codec"
                                       Style="{DynamicResource ComboBoxCategoryStyle}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}"
                                       ItemsSource="{Binding Audio_Codec_Items}"
@@ -4140,8 +4145,8 @@
                                       Grid.Column="2"
                                       Margin="0,2,0,0" />
 
-                            <!-- Stream Track -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                                <!-- Stream Track -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Stream"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -4153,7 +4158,7 @@
                                    Grid.Row="1"
                                    Grid.Column="1" />
 
-                            <ComboBox x:Name="cboAudio_Stream"
+                                <ComboBox x:Name="cboAudio_Stream"
                                       ItemsSource="{Binding Audio_Stream_Items}"
                                       SelectedIndex="{Binding Audio_Stream_SelectedIndex}"
                                       SelectedItem="{Binding Audio_Stream_SelectedItem}"
@@ -4171,15 +4176,15 @@
                                       Grid.Column="2"
                                       Margin="0,2,0,0" />
 
-                            <!-- Channel -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                                <!-- Channel -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Channel"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="75"
                                    Grid.Row="2"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudio_Channel"
+                                <ComboBox x:Name="cboAudio_Channel"
                                       ItemsSource="{Binding Audio_Channel_Items}"
                                       SelectedIndex="{Binding Audio_Channel_SelectedIndex}"
                                       SelectedItem="{Binding Audio_Channel_SelectedItem}"
@@ -4195,16 +4200,38 @@
                                       Margin="0,2,0,0"
                                       SelectionChanged="cboAudio_Channel_SelectionChanged" />
 
-                            <!-- Audio Quality -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                            </Grid>
+
+                            <!-- Quality Group -->
+                            <Grid Margin="0,0,0,0"
+                                  VerticalAlignment="Top"
+                                  Grid.Row="1">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="22" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Audio Quality -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Quality"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="76"
                                    FontFamily="Segoe UI Semilight"
-                                   Grid.Row="4"
+                                   Grid.Row="0"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudio_Quality"
+                                <ComboBox x:Name="cboAudio_Quality"
                                       Style="{DynamicResource ComboBoxCategoryStyle}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}"
                                       ItemsSource="{Binding Audio_Quality_Items}"
@@ -4219,32 +4246,32 @@
                                       Height="22"
                                       SelectionChanged="cboAudio_Quality_SelectionChanged"
                                       Grid.Column="2"
-                                      Grid.Row="4"
+                                      Grid.Row="0"
                                       Margin="0,2,0,0">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name" />
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock DataContext="{Binding}">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="Name" />
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
 
-                            <!-- Bit Rate -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                                <!-- Bit Rate -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Bit Rate"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="85"
                                    FontFamily="Segoe UI Semilight"
-                                   Grid.Row="5"
+                                   Grid.Row="1"
                                    Grid.Column="1" />
 
-                            <TextBox x:Name="tbxAudio_BitRate"
+                                <TextBox x:Name="tbxAudio_BitRate"
                                      Text="{Binding Audio_BitRate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxStyle}"
@@ -4263,12 +4290,12 @@
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="Custom Audio Bit Rate (e.g. 245)"
                                      Grid.Column="2"
-                                     Grid.Row="5"
+                                     Grid.Row="1"
                                      Margin="0,2,0,0"
                                      TextChanged="tbxAudio_BitRate_TextChanged" />
 
-                            <!-- VBR Toggle -->
-                            <ToggleButton x:Name="tglAudio_VBR"
+                                <!-- VBR Toggle -->
+                                <ToggleButton x:Name="tglAudio_VBR"
                                           IsChecked="{Binding Audio_VBR_IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           IsEnabled="{Binding Audio_VBR_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Style="{DynamicResource ToggleButtonSmall}"
@@ -4283,22 +4310,22 @@
                                           Width="30"
                                           Height="22"
                                           Grid.Column="2"
-                                          Grid.Row="5"
+                                          Grid.Row="1"
                                           Checked="tglAudio_VBR_Checked"
                                           Unchecked="tglAudio_VBR_Unchecked" />
 
-                            <!-- Compression Level -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                                <!-- Compression Level -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Compression"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="85"
-                                   Grid.Row="6"
+                                   Grid.Row="2"
                                    Grid.Column="1"
                                    ToolTipService.InitialShowDelay="500"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Compression Level. Higher value is more compression." />
-                            <ComboBox x:Name="cboAudio_CompressionLevel"
+                                <ComboBox x:Name="cboAudio_CompressionLevel"
                                       ItemsSource="{Binding Audio_CompressionLevel_Items}"
                                       SelectedIndex="{Binding Audio_CompressionLevel_SelectedIndex}"
                                       SelectedItem="{Binding Audio_CompressionLevel_SelectedItem}"
@@ -4309,23 +4336,23 @@
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top"
                                       Width="105"
-                                      Grid.Row="6"
+                                      Grid.Row="2"
                                       Grid.Column="2"
                                       Margin="0,2,0,0"
                                       ToolTipService.InitialShowDelay="500"
                                       ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Compression Level. Higher value is more compression." />
 
-                            <!-- Sample Rate -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                                <!-- Sample Rate -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Sample Rate"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="85"
                                    FontFamily="Segoe UI Semilight"
-                                   Grid.Row="7"
+                                   Grid.Row="3"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudio_SampleRate"
+                                <ComboBox x:Name="cboAudio_SampleRate"
                                       Style="{DynamicResource ComboBoxStyle}"
                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       ItemsSource="{Binding Audio_SampleRate_Items}"
@@ -4340,32 +4367,32 @@
                                       Height="22"
                                       SelectionChanged="cboAudio_SampleRate_SelectionChanged"
                                       Grid.Column="2"
-                                      Grid.Row="7"
+                                      Grid.Row="3"
                                       Margin="0,2,0,0">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name" />
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock DataContext="{Binding}">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="Name" />
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
 
-                            <!-- Bit Depth -->
-                            <Label x:Name="labelBitdepth"
+                                <!-- Bit Depth -->
+                                <Label x:Name="labelBitdepth"
                                    Style="{DynamicResource LabelStyle}"
                                    Content="Bit Depth"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="85"
                                    FontFamily="Segoe UI Semilight"
-                                   Grid.Row="8"
+                                   Grid.Row="4"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudio_BitDepth"
+                                <ComboBox x:Name="cboAudio_BitDepth"
                                       Style="{DynamicResource ComboBoxStyle}"
                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       ItemsSource="{Binding Audio_BitDepth_Items}"
@@ -4380,31 +4407,51 @@
                                       Height="22"
                                       SelectionChanged="cboAudio_BitDepth_SelectionChanged"
                                       Grid.Column="2"
-                                      Grid.Row="8"
+                                      Grid.Row="4"
                                       Margin="0,2,0,0">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name" />
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock DataContext="{Binding}">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="Name" />
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
 
-                            <!-- Volume -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                            </Grid>
+
+
+                            <!-- Volume Group -->
+                            <Grid Margin="0,0,0,0"
+                                  VerticalAlignment="Top"
+                                  Grid.Row="2">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15" />
+                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="22" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Volume -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Volume"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="75"
                                    FontFamily="Segoe UI Semilight"
-                                   Grid.Row="10"
+                                   Grid.Row="0"
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxAudio_Volume"
+                                <TextBox x:Name="tbxAudio_Volume"
                                      Text="{Binding Audio_Volume_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxStyle}"
@@ -4421,10 +4468,10 @@
                                      MaxLength="6"
                                      TextChanged="tbxAudio_Volume_TextChanged"
                                      Grid.Column="2"
-                                     Grid.Row="10" />
+                                     Grid.Row="0" />
 
-                            <!-- Volume Up -->
-                            <Button x:Name="btnAudio_VolumeUp"
+                                <!-- Volume Up -->
+                                <Button x:Name="btnAudio_VolumeUp"
                                     IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonVolume}"
                                     BorderBrush="{x:Null}"
@@ -4439,8 +4486,8 @@
                                     PreviewMouseLeftButtonDown="btnAudio_VolumeUp_PreviewMouseLeftButtonDown"
                                     PreviewMouseUp="btnAudio_VolumeUp_PreviewMouseUp"
                                     Grid.Column="2"
-                                    Grid.Row="10">
-                                <Image x:Name="glyphAudio_VolumeUp"
+                                    Grid.Row="0">
+                                    <Image x:Name="glyphAudio_VolumeUp"
                                        Style="{DynamicResource ButtonVolumeUp}"
                                        Width="6"
                                        Height="5"
@@ -4448,10 +4495,10 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Margin="1,1,0,0" />
-                            </Button>
+                                </Button>
 
-                            <!-- Volume Down -->
-                            <Button x:Name="btnAudio_VolumeDown"
+                                <!-- Volume Down -->
+                                <Button x:Name="btnAudio_VolumeDown"
                                     IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonVolume}"
                                     BorderBrush="{x:Null}"
@@ -4466,8 +4513,8 @@
                                     PreviewMouseLeftButtonDown="btnAudio_VolumeDown_PreviewMouseLeftButtonDown"
                                     PreviewMouseUp="btnAudio_VolumeDown_PreviewMouseUp"
                                     Grid.Column="2"
-                                    Grid.Row="10">
-                                <Image x:Name="glyphAudio_VolumeDown"
+                                    Grid.Row="0">
+                                    <Image x:Name="glyphAudio_VolumeDown"
                                        Style="{DynamicResource ButtonVolumeDown}"
                                        Width="6"
                                        Height="5"
@@ -4475,19 +4522,19 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Margin="1,0,0,0" />
-                            </Button>
+                                </Button>
 
-                            <!-- Audio Limiter Toggle -->
-                            <Label Style="{DynamicResource LabelStyle}"
+                                <!-- Audio Limiter Toggle -->
+                                <Label Style="{DynamicResource LabelStyle}"
                                    Content="Hard Limiter"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Width="85"
                                    ToolTip="Prevents audio from rising over a desired threshold."
                                    FontFamily="Segoe UI Semilight"
-                                   Grid.Row="11"
+                                   Grid.Row="1"
                                    Grid.Column="1" />
-                            <Slider x:Name="slAudio_HardLimiter"
+                                <Slider x:Name="slAudio_HardLimiter"
                                     Style="{DynamicResource SliderStyle}"
                                     Value="{Binding Audio_HardLimiter_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     IsEnabled="{Binding Audio_HardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4501,9 +4548,9 @@
                                     MouseDoubleClick="slAudio_HardLimiter_MouseDoubleClick"
                                     PreviewMouseUp="slAudio_HardLimiter_PreviewMouseUp"
                                     Grid.Column="2"
-                                    Grid.Row="11"
+                                    Grid.Row="1"
                                     Height="18" />
-                            <TextBox x:Name="tbxAudio_HardLimiter"
+                                <TextBox x:Name="tbxAudio_HardLimiter"
                                      Style="{DynamicResource TextBoxStyle}"
                                      Text="{Binding Value, ElementName=slAudio_HardLimiter, StringFormat=N1, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Audio_HardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4521,7 +4568,8 @@
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="dB"
                                      Grid.Column="2"
-                                     Grid.Row="11" />
+                                     Grid.Row="1" />
+                            </Grid>
 
                         </Grid>
 
