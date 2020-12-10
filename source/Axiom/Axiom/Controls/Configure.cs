@@ -417,8 +417,8 @@ namespace Controls
             if (!string.IsNullOrWhiteSpace(inputFileNameTokensCustom_Text))
             {
                 VM.ConfigureView.InputFileNameTokensCustom_Text = inputFileNameTokensCustom_Text;
-                                                                 //.Trim() // remove spaces
-                                                                 //.Replace(",", ", "); // add spaces after every comma
+                //.Trim() // remove spaces
+                //.Replace(",", ", "); // add spaces after every comma
             }
 
             // Spacing
@@ -590,12 +590,12 @@ namespace Controls
                     conf.Write("Settings", "InputFileNameTokens_SelectedItem", VM.ConfigureView.InputFileNameTokens_SelectedItem);
 
                     // Input Filename Tokens Custom
-                    conf.Write("Settings", "InputFileNameTokensCustom_Text", 
+                    conf.Write("Settings", "InputFileNameTokensCustom_Text",
                                             MainWindow.RemoveLineBreaks(
                                                 VM.ConfigureView.InputFileNameTokensCustom_Text
-                                                //.Replace(" ", "")
+                                            //.Replace(" ", "")
                                             )
-                                                
+
                             );
 
                     // -------------------------
@@ -704,7 +704,7 @@ namespace Controls
         /// <summary>
         /// FFmpeg Folder Browser Dialog
         /// </summary>
-        public static void FFmpegFolderBrowser() 
+        public static void FFmpegFolderBrowser()
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
