@@ -449,7 +449,7 @@ namespace Profiles
                 VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
                 VM.AudioView.Audio_Stream_SelectedItem = "all";
                 VM.AudioView.Audio_Channel_SelectedItem = "Source";
-                VM.AudioView.Audio_Quality_SelectedItem = "Auto";
+                VM.AudioView.Audio_Quality_SelectedItem = "Lossless";
                 VM.AudioView.Audio_VBR_IsChecked = false;
                 VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
