@@ -208,7 +208,7 @@ namespace Axiom
             // Tool Tips
             // -------------------------
             // Longer Display Time
-            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), 
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject),
                                                                  new FrameworkPropertyMetadata(Int32.MaxValue));
 
             // -------------------------
@@ -406,7 +406,7 @@ namespace Axiom
             // -------------------------
             // App Root Directory
             // -------------------------
-            else if(File.Exists(Path.Combine(appRootDir, "axiom.conf")))
+            else if (File.Exists(Path.Combine(appRootDir, "axiom.conf")))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
@@ -869,7 +869,7 @@ namespace Axiom
                     }
                     break;
             }
-            
+
             // Exit
             //e.Cancel = true;
             //System.Windows.Forms.Application.ExitThread();
@@ -1143,7 +1143,7 @@ namespace Axiom
             Filters.Video.vFilter = string.Empty;
             Filters.Video.geq = string.Empty;
 
-            if (Filters.Video.vFiltersList != null && 
+            if (Filters.Video.vFiltersList != null &&
                 Filters.Video.vFiltersList.Count > 0)
             {
                 Filters.Video.vFiltersList.Clear();
@@ -1794,8 +1794,8 @@ namespace Axiom
             if ((input_Text.StartsWith("http://") ||
                 input_Text.StartsWith("https://") ||
                 input_Text.StartsWith("www.")) //||
-                //input_Text.EndsWith(".com")) //&&
-                //IsValidURL(input_Text) == true
+                                               //input_Text.EndsWith(".com")) //&&
+                                               //IsValidURL(input_Text) == true
                )
             {
                 return true;
@@ -1844,7 +1844,7 @@ namespace Axiom
 
             // Local File
             else
-            { 
+            {
                 return false;
             }
         }
@@ -1862,27 +1862,27 @@ namespace Axiom
                                              )
         {
             if (//IsYouTubeURL(VM.MainView.Input_Text) == true &&
-                
+
                 // Video
                 (videoCodec_SelectedItem == "Copy" &&
                  subtitleCodec_SelectedItem == "Copy" &&
-                 audioCodec_SelectedItem == "Copy") 
-                 
+                 audioCodec_SelectedItem == "Copy")
+
                  ||
 
                 (videoCodec_SelectedItem == "Copy" &&
-                 subtitleCodec_SelectedItem == "Copy") 
-                 
+                 subtitleCodec_SelectedItem == "Copy")
+
                  ||
 
                 (videoCodec_SelectedItem == "Copy" &&
-                 subtitleCodec_SelectedItem == "None") 
-                 
+                 subtitleCodec_SelectedItem == "None")
+
                  ||
 
-                 //(videoCodec_SelectedItem == "Copy" &&
-                 //subtitleCodec_SelectedItem == "Copy" &&
-                 //audioCodec_SelectedItem == "None") ||
+                //(videoCodec_SelectedItem == "Copy" &&
+                //subtitleCodec_SelectedItem == "Copy" &&
+                //audioCodec_SelectedItem == "None") ||
 
                 //(videoCodec_SelectedItem == "Copy" &&
                 // subtitleCodec_SelectedItem == "None" &&
@@ -1890,8 +1890,8 @@ namespace Axiom
 
                 (videoCodec_SelectedItem == "Copy" &&
                  subtitleCodec_SelectedItem == "None" &&
-                 audioCodec_SelectedItem == "Copy") 
-                 
+                 audioCodec_SelectedItem == "Copy")
+
                  ||
 
                 // Music
@@ -2118,7 +2118,7 @@ namespace Axiom
             // -------------------------
             // Single File Input with no Extension
             // -------------------------
-            if (VM.MainView.Batch_IsChecked == false && 
+            if (VM.MainView.Batch_IsChecked == false &&
                 VM.MainView.Input_Text.EndsWith("\\"))
             {
                 // Log Console Message /////////
@@ -2343,7 +2343,7 @@ namespace Axiom
             {
 
             }
-            
+
             // End System Info
 
             //});
