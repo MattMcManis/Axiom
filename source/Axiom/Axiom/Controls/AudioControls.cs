@@ -41,7 +41,7 @@ using System.Collections.ObjectModel;
 #pragma warning disable 1570
 
 namespace Controls.Audio
-{ 
+{
     public class Controls
     {
         public static Dictionary<string, dynamic> codecClasses = new Dictionary<string, dynamic>
@@ -156,6 +156,16 @@ namespace Controls.Audio
                 if (!string.IsNullOrEmpty(stream))
                 {
                     VM.AudioView.Audio_Stream_SelectedItem = stream;
+                }
+
+                // Quality
+                string quality = _codec_class[codec_SelectedItem].controls_Selected
+                                                                .Find(item => item.Quality == item.Quality)
+                                                                .Quality;
+
+                if (!string.IsNullOrEmpty(quality))
+                {
+                    VM.AudioView.Audio_Quality_SelectedItem = quality;
                 }
 
                 // Compression Level
@@ -307,9 +317,7 @@ namespace Controls.Audio
                                                 string selectedQuality
                                                 )
         {
-            // Condition Check
-            if (//VM.AudioView.Audio_BitRate_IsEnabled == false &&
-                !string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
+            if (!string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
                 VM.AudioView.Audio_Quality_SelectedItem != "None" &&
                 VM.AudioView.Audio_Quality_SelectedItem != "Auto" &&
                 VM.AudioView.Audio_Quality_SelectedItem != "Lossless" &&
@@ -331,6 +339,17 @@ namespace Controls.Audio
                         VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.VBR;
                         break;
                 }
+            }
+
+            // Disable
+            else if (string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) ||
+                VM.AudioView.Audio_Quality_SelectedItem == "None" ||
+                VM.AudioView.Audio_Quality_SelectedItem == "Auto" ||
+                VM.AudioView.Audio_Quality_SelectedItem == "Lossless" ||
+                //VM.AudioView.Audio_Quality_SelectedItem == "Custom" ||
+                VM.AudioView.Audio_Quality_SelectedItem == "Mute")
+            {
+                VM.AudioView.Audio_BitRate_Text = string.Empty;
             }
         }
 
@@ -625,5 +644,4 @@ namespace Controls.Audio
         //}
 
     }
-
 }
