@@ -37,42 +37,7 @@ namespace Controls.Video.Codec
         public ObservableCollection<ViewModel.Video.VideoCodec> codec { get; set; } = new ObservableCollection<ViewModel.Video.VideoCodec>()
         {
             new ViewModel.Video.VideoCodec() { Codec = "huffyuv", Parameters = "-context 1 -vstrict -2 -pred 2" }
-            //new ViewModel.Video.VideoCodec()
-            //{
-            //    Codec = "huffyuv",
-            //    Parameters = "-context 1 -vstrict -2 -pred 2"
-            //    //Parameters_1Pass = /*-context 1*/ "-vstrict -2 -pred 2",
-            //    //Parameters_2Pass = /*-context 2*/ "-vstrict -2 -pred 2",
-            //}
         };
-
-        //public void Codec_Set()
-        //{
-        //    // Set Codec Parameters
-        //    string parameters = string.Empty;
-
-        //    switch (VM.VideoView.Video_Pass_SelectedItem)
-        //    {
-        //        case "1 Pass":
-        //            parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_1Pass;
-        //            break;
-
-        //        case "2 Pass":
-        //            parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_2Pass;
-        //            break;
-        //    }
-
-        //    // Combine Codec + Parameters
-        //    List<string> codec = new List<string>()
-        //    {
-        //        "-c:v",
-        //        HuffYUV.codec.FirstOrDefault()?.Codec,
-        //        parameters
-        //    };
-
-        //    VM.VideoView.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
-        //}
-
 
 
         // ---------------------------------------------------------------------------
@@ -167,11 +132,6 @@ namespace Controls.Video.Codec
                 VM.VideoView.Video_MaxRate_Text = string.Empty;
                 VM.VideoView.Video_BufSize_Text = string.Empty;
             }
-
-            // Set New Codec Parameters on Pass Change
-            // 1 Pass -context 1
-            // 2 Pass -context 2
-            //Codec_Set();
         }
 
         // -------------------------
@@ -217,7 +177,12 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Selected> controls_Selected { get; set; } = new List<ViewModel.Video.Selected>()
         {
-            new ViewModel.Video.Selected() {  PixelFormat = "yuv422p" },
+            new ViewModel.Video.Selected()
+            {
+                // lossless only
+                PixelFormat_Lossless = "auto",
+                //PixelFormat = ""
+            },
         };
 
         // -------------------------
