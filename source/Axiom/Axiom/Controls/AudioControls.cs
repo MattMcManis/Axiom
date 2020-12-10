@@ -218,24 +218,6 @@ namespace Controls.Audio
                 {
                     Filters.Audio.AudioFilters_EnableAll();
                 }
-
-                //// Codec
-                //_codec_a[codec_SelectedItem].Codec_Set();
-
-                //// Items Source
-                //_codec_a[codec_SelectedItem].Controls_ItemsSource();
-                //// Selected Items
-                //_codec_a[codec_SelectedItem].Controls_Selected();
-
-                //// Checked
-                //_codec_a[codec_SelectedItem].Controls_Checked();
-                //// Unhecked
-                //_codec_a[codec_SelectedItem].Controls_Unhecked();
-
-                //// Enabled
-                //_codec_a[codec_SelectedItem].Controls_Enable();
-                //// Disabled
-                //_codec_a[codec_SelectedItem].Controls_Disable();
             }
 
 
