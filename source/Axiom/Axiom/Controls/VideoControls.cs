@@ -39,6 +39,7 @@ using System.Windows;
 using ViewModel;
 using Axiom;
 using System.Collections.ObjectModel;
+using System.Collections;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -58,61 +59,63 @@ namespace Controls.Video
         //
         // ----------------------------------------------------------------------------------------------------
 
-        //public static Dictionary<string, dynamic> codecClasses = new Dictionary<string, dynamic>
-        //{
-        //    { "VP8",        new Codec.VP8() },
-        //    { "VP9",        new Codec.VP9() },
-        //    { "x264",       new Codec.x264() },
-        //    { "H264 AMF",   new Codec.H264_AMF() },
-        //    { "H264 NVENC", new Codec.H264_NVENC() },
-        //    { "H264 QSV",   new Codec.H264_QSV() },
-        //    { "x265",       new Codec.x265() },
-        //    { "HEVC AMF",   new Codec.HEVC_AMF() },
-        //    { "HEVC NVENC", new Codec.HEVC_NVENC() },
-        //    { "HEVC QSV",   new Codec.HEVC_QSV() },
-        //    { "AV1",        new Codec.AV1() },
-        //    { "FFV1",       new Codec.FFV1() },
-        //    { "MagicYUV",   new Codec.MagicYUV() },
-        //    { "HuffYUV",    new Codec.HuffYUV() },
-        //    { "Theora",     new Codec.Theora() },
-        //    { "MPEG-2",     new Codec.MPEG_2() },
-        //    { "MPEG-4",     new Codec.MPEG_4() },
-        //    { "JPEG",       new Image.Codec.JPEG() },
-        //    { "PNG",        new Image.Codec.PNG() },
-        //    { "WebP",       new Image.Codec.WebP() },
-        //    { "Copy",       new Codec.Copy() },
-        //    { "None",       new Codec.None() }
-        //};
+        public static Dictionary<string, dynamic> codecClasses = new Dictionary<string, dynamic>
+        {
+            { "VP8",        new Codec.VP8() },
+            { "VP9",        new Codec.VP9() },
+            { "x264",       new Codec.x264() },
+            { "H264 AMF",   new Codec.H264_AMF() },
+            { "H264 NVENC", new Codec.H264_NVENC() },
+            { "H264 QSV",   new Codec.H264_QSV() },
+            { "x265",       new Codec.x265() },
+            { "HEVC AMF",   new Codec.HEVC_AMF() },
+            { "HEVC NVENC", new Codec.HEVC_NVENC() },
+            { "HEVC QSV",   new Codec.HEVC_QSV() },
+            { "AV1",        new Codec.AV1() },
+            { "FFV1",       new Codec.FFV1() },
+            { "MagicYUV",   new Codec.MagicYUV() },
+            { "HuffYUV",    new Codec.HuffYUV() },
+            { "Theora",     new Codec.Theora() },
+            { "MPEG-2",     new Codec.MPEG_2() },
+            { "MPEG-4",     new Codec.MPEG_4() },
+            { "JPEG",       new Image.Codec.JPEG() },
+            { "PNG",        new Image.Codec.PNG() },
+            { "WebP",       new Image.Codec.WebP() },
+            { "Copy",       new Codec.Copy() },
+            { "None",       new Codec.None() }
+        };
 
-        private static Dictionary<string, IVideoCodec> _vCodecClass;
+        private static Dictionary<string, IVideoCodec> _codec_class;
 
         private static void InitializeCodecs()
         {
-            _vCodecClass = new Dictionary<string, IVideoCodec>
-            {
-                { "VP8",        new Codec.VP8() },
-                { "VP9",        new Codec.VP9() },
-                { "x264",       new Codec.x264() },
-                { "H264 AMF",   new Codec.H264_AMF() },
-                { "H264 NVENC", new Codec.H264_NVENC() },
-                { "H264 QSV",   new Codec.H264_QSV() },
-                { "x265",       new Codec.x265() },
-                { "HEVC AMF",   new Codec.HEVC_AMF() },
-                { "HEVC NVENC", new Codec.HEVC_NVENC() },
-                { "HEVC QSV",   new Codec.HEVC_QSV() },
-                { "AV1",        new Codec.AV1() },
-                { "FFV1",       new Codec.FFV1() },
-                { "MagicYUV",   new Codec.MagicYUV() },
-                { "HuffYUV",    new Codec.HuffYUV() },
-                { "Theora",     new Codec.Theora() },
-                { "MPEG-2",     new Codec.MPEG_2() },
-                { "MPEG-4",     new Codec.MPEG_4() },
-                { "JPEG",       new Image.Codec.JPEG() },
-                { "PNG",        new Image.Codec.PNG() },
-                { "WebP",       new Image.Codec.WebP() },
-                { "Copy",       new Codec.Copy() },
-                { "None",       new Codec.None() }
-            };
+            _codec_class = codecClasses.ToDictionary(k => k.Key, k => (IVideoCodec)k.Value);
+
+            //_codec_class = new Dictionary<string, IVideoCodec>
+            //{
+            //    { "VP8",        new Codec.VP8() },
+            //    { "VP9",        new Codec.VP9() },
+            //    { "x264",       new Codec.x264() },
+            //    { "H264 AMF",   new Codec.H264_AMF() },
+            //    { "H264 NVENC", new Codec.H264_NVENC() },
+            //    { "H264 QSV",   new Codec.H264_QSV() },
+            //    { "x265",       new Codec.x265() },
+            //    { "HEVC AMF",   new Codec.HEVC_AMF() },
+            //    { "HEVC NVENC", new Codec.HEVC_NVENC() },
+            //    { "HEVC QSV",   new Codec.HEVC_QSV() },
+            //    { "AV1",        new Codec.AV1() },
+            //    { "FFV1",       new Codec.FFV1() },
+            //    { "MagicYUV",   new Codec.MagicYUV() },
+            //    { "HuffYUV",    new Codec.HuffYUV() },
+            //    { "Theora",     new Codec.Theora() },
+            //    { "MPEG-2",     new Codec.MPEG_2() },
+            //    { "MPEG-4",     new Codec.MPEG_4() },
+            //    { "JPEG",       new Image.Codec.JPEG() },
+            //    { "PNG",        new Image.Codec.PNG() },
+            //    { "WebP",       new Image.Codec.WebP() },
+            //    { "Copy",       new Codec.Copy() },
+            //    { "None",       new Codec.None() }
+            //};
         }
 
         public interface IVideoCodec
@@ -168,8 +171,8 @@ namespace Controls.Video
                 {
                     // Combine Codec + Parameters
                     "-c:v",
-                     _vCodecClass[codec_SelectedItem].codec.FirstOrDefault()?.Codec,
-                     _vCodecClass[codec_SelectedItem].codec.FirstOrDefault()?.Parameters,
+                     _codec_class[codec_SelectedItem].codec.FirstOrDefault()?.Codec,
+                     _codec_class[codec_SelectedItem].codec.FirstOrDefault()?.Parameters,
                 };
 
                 VM.VideoView.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
@@ -178,36 +181,46 @@ namespace Controls.Video
                 // Items Source
                 // -------------------------
                 // Encode Speed
-                VM.VideoView.Video_EncodeSpeed_Items = _vCodecClass[codec_SelectedItem].encodeSpeed;
+                VM.VideoView.Video_EncodeSpeed_Items = _codec_class[codec_SelectedItem].encodeSpeed;
 
                 // Pixel Format
-                VM.VideoView.Video_PixelFormat_Items = _vCodecClass[codec_SelectedItem].pixelFormat;
+                VM.VideoView.Video_PixelFormat_Items = _codec_class[codec_SelectedItem].pixelFormat;
 
                 // Pass
-                _vCodecClass[codec_SelectedItem].EncodingPass();
+                _codec_class[codec_SelectedItem].EncodingPass();
 
                 // Video Quality
-                VM.VideoView.Video_Quality_Items = _vCodecClass[codec_SelectedItem].quality;
+                VM.VideoView.Video_Quality_Items = _codec_class[codec_SelectedItem].quality;
 
                 // Optimize
-                VM.VideoView.Video_Optimize_Items = _vCodecClass[codec_SelectedItem].optimize;
+                VM.VideoView.Video_Optimize_Items = _codec_class[codec_SelectedItem].optimize;
                 // Tune
-                VM.VideoView.Video_Optimize_Tune_Items = _vCodecClass[codec_SelectedItem].tune;
+                VM.VideoView.Video_Optimize_Tune_Items = _codec_class[codec_SelectedItem].tune;
                 // Profile
-                VM.VideoView.Video_Optimize_Profile_Items = _vCodecClass[codec_SelectedItem].profile;
+                VM.VideoView.Video_Optimize_Profile_Items = _codec_class[codec_SelectedItem].profile;
                 // Level
-                VM.VideoView.Video_Optimize_Level_Items = _vCodecClass[codec_SelectedItem].level;
+                VM.VideoView.Video_Optimize_Level_Items = _codec_class[codec_SelectedItem].level;
 
                 // -------------------------
                 // Selected Items
                 // -------------------------
-                string encodeSpeed = _vCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.EncodeSpeed == item.EncodeSpeed).EncodeSpeed;
+                // Encode Speed
+                string encodeSpeed = _codec_class[codec_SelectedItem].controls_Selected
+                                                                     .Find(item => item.EncodeSpeed == item.EncodeSpeed)
+                                                                     .EncodeSpeed;
+                                                                     //.Find(item => item.EncodeSpeed == item.EncodeSpeed)
+                                                                     //.EncodeSpeed;
                 if (!string.IsNullOrEmpty(encodeSpeed))
                 {
                     VM.VideoView.Video_EncodeSpeed_SelectedItem = encodeSpeed;
                 }
 
-                string pixelFormat = _vCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.PixelFormat == item.PixelFormat).PixelFormat;
+                // Pixel Format
+                string pixelFormat = _codec_class[codec_SelectedItem].controls_Selected
+                                                                     .Find(item => item.PixelFormat == item.PixelFormat)
+                                                                     .PixelFormat;
+                                                                     //.Select(item => item.PixelFormat)
+                                                                     //.First();
                 if (!string.IsNullOrEmpty(pixelFormat))
                 {
                     VM.VideoView.Video_PixelFormat_SelectedItem = pixelFormat;
@@ -223,86 +236,86 @@ namespace Controls.Video
 
                 //ViewModel.Video.Selected selected = new ViewModel.Video.Selected();
                 //VM.VideoView.Video_EncodeSpeed_SelectedItem = selected.EncodeSpeed;
-                //VM.VideoView.Video_EncodeSpeed_SelectedItem = _vCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.EncodeSpeed == item.EncodeSpeed).EncodeSpeed;
-                //VM.VideoView.Video_PixelFormat_SelectedItem = _vCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.PixelFormat == item.PixelFormat).PixelFormat;
-                //VM.VideoView.Video_FPS_SelectedItem = _vCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.FPS == item.FPS).FPS;
-                //_vCodecClass[codec_SelectedItem].Controls_Selected();
+                //VM.VideoView.Video_EncodeSpeed_SelectedItem = _codec_class[codec_SelectedItem].controls_Selected.Find(item => item.EncodeSpeed == item.EncodeSpeed).EncodeSpeed;
+                //VM.VideoView.Video_PixelFormat_SelectedItem = _codec_class[codec_SelectedItem].controls_Selected.Find(item => item.PixelFormat == item.PixelFormat).PixelFormat;
+                //VM.VideoView.Video_FPS_SelectedItem = _codec_class[codec_SelectedItem].controls_Selected.Find(item => item.FPS == item.FPS).FPS;
+                //_codec_class[codec_SelectedItem].Controls_Selected();
 
                 // -------------------------
                 // Expanded
                 // -------------------------
                 // Optimize
-                VM.VideoView.Video_Optimize_IsExpanded = _vCodecClass[codec_SelectedItem].controls_Expanded.Any(item => item.Optimize);
+                VM.VideoView.Video_Optimize_IsExpanded = _codec_class[codec_SelectedItem].controls_Expanded.Any(item => item.Optimize);
 
                 // -------------------------
                 // Checked
                 // -------------------------
                 // Video VBR
-                VM.VideoView.Video_VBR_IsChecked = _vCodecClass[codec_SelectedItem].controls_Checked.Any(item => item.VBR == item.VBR);
+                VM.VideoView.Video_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Any(item => item.VBR == item.VBR);
 
                 // -------------------------
                 // Enabled
                 // -------------------------
                 // Video Encode Speed
-                VM.VideoView.Video_EncodeSpeed_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.EncodeSpeed);
+                VM.VideoView.Video_EncodeSpeed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.EncodeSpeed);
 
                 // Video Codec
-                VM.VideoView.Video_Codec_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Codec);
+                VM.VideoView.Video_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Codec);
 
                 // HW Accel
-                VM.VideoView.Video_HWAccel_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.HWAccel);
+                VM.VideoView.Video_HWAccel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.HWAccel);
 
                 // Video Quality
-                VM.VideoView.Video_Quality_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Quality);
+                VM.VideoView.Video_Quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Quality);
 
                 // Video VBR
-                VM.VideoView.Video_VBR_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.VBR);
+                VM.VideoView.Video_VBR_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.VBR);
 
                 // Pixel Format
-                VM.VideoView.Video_PixelFormat_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.PixelFormat);
+                VM.VideoView.Video_PixelFormat_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.PixelFormat);
 
                 // FPS
-                VM.VideoView.Video_FPS_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.FPS);
+                VM.VideoView.Video_FPS_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.FPS);
 
                 // Speed
-                VM.VideoView.Video_Speed_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Speed);
+                VM.VideoView.Video_Speed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Speed);
 
                 // Vsync
-                VM.VideoView.Video_Vsync_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Vsync);
+                VM.VideoView.Video_Vsync_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Vsync);
 
                 // Optimize ComboBox
-                VM.VideoView.Video_Optimize_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Optimize);
+                VM.VideoView.Video_Optimize_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Optimize);
 
                 // Size
-                VM.VideoView.Video_Scale_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Scale);
+                VM.VideoView.Video_Scale_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Scale);
 
                 // Scaling ComboBox
-                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Scaling);
+                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Scaling);
 
                 // Crop
-                VM.VideoView.Video_Crop_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Crop);
+                VM.VideoView.Video_Crop_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Crop);
 
 
                 // Color Range
-                VM.VideoView.Video_Color_Range_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.ColorRange);
+                VM.VideoView.Video_Color_Range_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorRange);
 
                 // Color Space
-                VM.VideoView.Video_Color_Space_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.ColorSpace);
+                VM.VideoView.Video_Color_Space_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorSpace);
 
                 // Color Primaries
-                VM.VideoView.Video_Color_Primaries_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.ColorPrimaries);
+                VM.VideoView.Video_Color_Primaries_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorPrimaries);
 
                 // Color Transfer Characteristics
-                VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.ColorTransferChar);
+                VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorTransferChar);
 
                 // Color Matrix
-                VM.VideoView.Video_Color_Matrix_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.ColorMatrix);
+                VM.VideoView.Video_Color_Matrix_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorMatrix);
 
                 // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.SubtitleCodec);
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.SubtitleCodec);
 
                 // Subtitle Stream
-                VM.SubtitleView.Subtitle_Stream_IsEnabled = _vCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.SubtitleStream);
+                VM.SubtitleView.Subtitle_Stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.SubtitleStream);
 
                 // Filters
                 // Disable All
@@ -320,11 +333,11 @@ namespace Controls.Video
                 //Codec.VP8 vp8 = new Codec.VP8();
                 //vp8.EncodingPass();
                 //MessageBox.Show(vp8.controls_Enabled.Find(item => item.Quality).Quality.ToString()/*.SingleOrDefault().Quality.ToString()*/); // debug
-                //MessageBox.Show(_vCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.PixelFormat == item.PixelFormat).PixelFormat.ToString());
+                //MessageBox.Show(_codec_class[codec_SelectedItem].controls_Selected.Find(item => item.PixelFormat == item.PixelFormat).PixelFormat.ToString());
                 //MessageBox.Show(selected.EncodeSpeed);
-                //MessageBox.Show(_vCodecClass[codec_SelectedItem].controls_Enabled.Find(item => item.EncodeSpeed == item.EncodeSpeed).EncodeSpeed.ToString()); //deubg
+                //MessageBox.Show(_codec_class[codec_SelectedItem].controls_Enabled.Find(item => item.EncodeSpeed == item.EncodeSpeed).EncodeSpeed.ToString()); //deubg
                 //Codec.VP8 vp8 = new Codec.VP8();
-                //VM.VideoView.Video_Quality_IsEnabled = vp8.controls_Enabled.Any(item => item.Quality);//_vCodecClass[codec_SelectedItem].controls_Enabled.Quality;
+                //VM.VideoView.Video_Quality_IsEnabled = vp8.controls_Enabled.Any(item => item.Quality);//_codec_class[codec_SelectedItem].controls_Enabled.Quality;
             }
 
 
@@ -658,30 +671,43 @@ namespace Controls.Video
         }
 
 
-        /// <summary>
-        /// Pixel Format Selected Values
-        /// </summary>
-        public static void PixelFormatQuality(string quality_SelectedItem,
-                                              string lossless,
-                                              string other
-            )
-        {
-            // Lossless
-            if (quality_SelectedItem == "Lossless")
-            {
-                VM.VideoView.Video_PixelFormat_SelectedItem = lossless;
-            }
-            // All Other Quality
-            else
-            {
-                VM.VideoView.Video_PixelFormat_SelectedItem = other;
-            }
-        }
 
         /// <summary>
         /// Pixel Format Controls
         /// </summary>
-        /// 
+        //private static Dictionary<string, IVideoPixelFormat> _codec_class_PixelFormat;
+
+        //private static void InitializeCodecs_PixelFormat()
+        //{
+        //    _codec_class = codecClasses.ToDictionary(k => k.Key, k => (IVideoCodec)k.Value);
+        //}
+
+        //public interface IVideoPixelFormat
+        //{
+        //    // Selected Items
+        //    List<ViewModel.Video.Selected> controls_Selected { get; set; }
+        //}
+
+        /// <summary>
+        /// Pixel Format Selected Values
+        /// </summary>
+        //public static void PixelFormatQuality(string quality_SelectedItem,
+        //                                      string lossless,
+        //                                      string other
+        //    )
+        //{
+        //    // Lossless
+        //    if (quality_SelectedItem == "Lossless")
+        //    {
+        //        VM.VideoView.Video_PixelFormat_SelectedItem = lossless;
+        //    }
+        //    // All Other Quality
+        //    else
+        //    {
+        //        VM.VideoView.Video_PixelFormat_SelectedItem = other;
+        //    }
+        //}
+ 
         public static void PixelFormatControls(string mediaType_SelectedItem,
                                                string codec_SelectedItem,
                                                string quality_SelectedItem
@@ -694,291 +720,230 @@ namespace Controls.Video
                 mediaType_SelectedItem == "Image" ||
                 mediaType_SelectedItem == "Sequence")
             {
-                switch (codec_SelectedItem)
+                if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    //case "VP8":
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                    //    break;
+                    //InitializeCodecs_PixelFormat();
+                    InitializeCodecs();
 
                     // -------------------------
-                    // VP9
+                    // Lossless
                     // -------------------------
-                    case "VP9":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "yuv444p", // Lossless
-                                           "yuv420p"  // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                        //}
-                        break;
+                    if (quality_SelectedItem == "Lossless")
+                    {
+                        string lossless = _codec_class[codec_SelectedItem].controls_Selected
+                                                                          .Find(item => item.PixelFormat_Lossless == item.PixelFormat_Lossless)
+                                                                          .PixelFormat_Lossless;
+                                                                          //.controls_Selected
+                                                                          //.Select(item => item.PixelFormat_Lossless)
+                                                                          //.First();
+                        if (!string.IsNullOrEmpty(lossless))
+                        {
+                            VM.VideoView.Video_PixelFormat_SelectedItem = lossless;
+                        }
+                    }
+                    // -------------------------
+                    // All Other Quality
+                    // -------------------------
+                    else
+                    {
+                        string other = _codec_class[codec_SelectedItem].controls_Selected
+                                                                       .Find(item => item.PixelFormat == item.PixelFormat)
+                                                                       .PixelFormat;
+                                                                       //.First();
+                        if (!string.IsNullOrEmpty(other))
+                        {
+                            VM.VideoView.Video_PixelFormat_SelectedItem = other;
+                        }
 
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    case "x264":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "yuv444p", // Lossless
-                                           "yuv420p"  // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    case "x265":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "yuv444p", // Lossless
-                                           "yuv420p"  // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // H264 AMF
-                    // -------------------------
-                    case "H264 AMF":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "nv12",   // Lossless
-                                           "yuv420p" // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // HEVC AMF
-                    // -------------------------
-                    case "HEVC AMF":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "nv12",   // Lossless
-                                           "yuv420p" // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // H264_NVENC
-                    // -------------------------
-                    case "H264 NVENC":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "yuv444p16le", // Lossless
-                                           "yuv420p"      // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p16le";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // HEVC NVENC
-                    // -------------------------
-                    case "HEVC NVENC":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "yuv444p16le", // Lossless
-                                           "p010le"       // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p16le";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // H264 QSV
-                    // -------------------------
-                    case "H264 QSV":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "yuv444p16le", // Lossless
-                                           "p010le"       // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // HEVC QSV
-                    // -------------------------
-                    case "HEVC QSV":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "nv12",   // Lossless
-                                           "yuv420p" // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "nv12";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "p010le";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    //case "AV1":
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                    //    break;
-
-                    // -------------------------
-                    // FFV1
-                    // -------------------------
-                    //case "FFV1":
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p10le";
-                    //    break;
-
-                    // -------------------------
-                    // MagicYUV
-                    // -------------------------
-                    //case "MagicYUV":
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                    //    break;
-
-                    // -------------------------
-                    // HuffYUV
-                    // -------------------------
-                    //case "HuffYUV":
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
-                    //    break;
-
-                    // -------------------------
-                    // MPEG-2
-                    // -------------------------
-                    //case "MPEG-2":
-                    //    // Lossless can't be yuv444p
-                    //    // All Pixel Formats must be yuv420p
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                    //    break;
-
-                    // -------------------------
-                    // MPEG-4
-                    // -------------------------
-                    //case "MPEG-4":
-                    //    // Lossless can't be yuv444p
-                    //    // All Pixel Formats must be yuv420p
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                    //    break;
-
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    //case "JPEG":
-                    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuvj420p";
-                    //    break;
-
-                    // -------------------------
-                    // PNG
-                    // -------------------------
-                    //case "PNG":
-                    //    // Lossless
-                    //    if (quality_SelectedItem == "Lossless")
-                    //    {
-                    //        VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
-                    //    }
-                    //    // All Other Quality
-                    //    else
-                    //    {
-                    //        VM.VideoView.Video_PixelFormat_SelectedItem = "yuva420p";
-                    //    }
-                    //    break;
-
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    case "WebP":
-                        PixelFormatQuality(quality_SelectedItem,
-                                           "rgba",   // Lossless
-                                           "yuv420p" // Other
-                                          );
-                        //// Lossless
-                        //if (quality_SelectedItem == "Lossless")
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
-                        //}
-                        //// All Other Quality
-                        //else
-                        //{
-                        //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
-                        //}
-                        break;
-
-                    // -------------------------
-                    // Copy
-                    // -------------------------
-                    //case "Copy":
-                    //    // Excluded
-                    //    break;
+                        //MessageBox.Show(_codec_class[codec_SelectedItem].ToString()); //debug
+                    }
                 }
+
+                //switch (codec_SelectedItem)
+                //{
+                //    // -------------------------
+                //    // VP8
+                //    // -------------------------
+                //    //case "VP8":
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // VP9
+                //    // -------------------------
+                //    case "VP9":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "yuv444p", // Lossless
+                //                           "yuv420p"  // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // x264
+                //    // -------------------------
+                //    case "x264":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "yuv444p", // Lossless
+                //                           "yuv420p"  // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // x265
+                //    // -------------------------
+                //    case "x265":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "yuv444p", // Lossless
+                //                           "yuv420p"  // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // H264 AMF
+                //    // -------------------------
+                //    case "H264 AMF":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "nv12",   // Lossless
+                //                           "yuv420p" // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // HEVC AMF
+                //    // -------------------------
+                //    case "HEVC AMF":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "nv12",   // Lossless
+                //                           "yuv420p" // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // H264_NVENC
+                //    // -------------------------
+                //    case "H264 NVENC":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "yuv444p16le", // Lossless
+                //                           "yuv420p"      // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // HEVC NVENC
+                //    // -------------------------
+                //    case "HEVC NVENC":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "yuv444p16le", // Lossless
+                //                           "p010le"       // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // H264 QSV
+                //    // -------------------------
+                //    case "H264 QSV":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "yuv444p16le", // Lossless
+                //                           "p010le"       // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // HEVC QSV
+                //    // -------------------------
+                //    case "HEVC QSV":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "nv12",   // Lossless
+                //                           "yuv420p" // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // AV1
+                //    // -------------------------
+                //    //case "AV1":
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // FFV1
+                //    // -------------------------
+                //    //case "FFV1":
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p10le";
+                //    //    break;
+
+                //    // -------------------------
+                //    // MagicYUV
+                //    // -------------------------
+                //    //case "MagicYUV":
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // HuffYUV
+                //    // -------------------------
+                //    //case "HuffYUV":
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv444p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // MPEG-2
+                //    // -------------------------
+                //    //case "MPEG-2":
+                //    //    // Lossless can't be yuv444p
+                //    //    // All Pixel Formats must be yuv420p
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // MPEG-4
+                //    // -------------------------
+                //    //case "MPEG-4":
+                //    //    // Lossless can't be yuv444p
+                //    //    // All Pixel Formats must be yuv420p
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuv420p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // JPEG
+                //    // -------------------------
+                //    //case "JPEG":
+                //    //    VM.VideoView.Video_PixelFormat_SelectedItem = "yuvj420p";
+                //    //    break;
+
+                //    // -------------------------
+                //    // PNG
+                //    // -------------------------
+                //    //case "PNG":
+                //    //    // Lossless
+                //    //    if (quality_SelectedItem == "Lossless")
+                //    //    {
+                //    //        VM.VideoView.Video_PixelFormat_SelectedItem = "rgba";
+                //    //    }
+                //    //    // All Other Quality
+                //    //    else
+                //    //    {
+                //    //        VM.VideoView.Video_PixelFormat_SelectedItem = "yuva420p";
+                //    //    }
+                //    //    break;
+
+                //    // -------------------------
+                //    // WebP
+                //    // -------------------------
+                //    case "WebP":
+                //        PixelFormatQuality(quality_SelectedItem,
+                //                           "rgba",   // Lossless
+                //                           "yuv420p" // Other
+                //                          );
+                //        break;
+
+                //    // -------------------------
+                //    // Copy
+                //    // -------------------------
+                //    //case "Copy":
+                //    //    // Excluded
+                //    //    break;
+                //}
             }
 
             // -------------------------
@@ -1074,197 +1039,201 @@ namespace Controls.Video
         /// <summary>
         public static void EncodingPassControls()
         {
-            switch (VM.VideoView.Video_Codec_SelectedItem)
-            {
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
+            InitializeCodecs();
 
-                // -------------------------
-                // VP8
-                // -------------------------
-                case "VP8":
-                    Codec.VP8 vp8 = new Codec.VP8();
-                    vp8.EncodingPass();
-                    //Codec.VP8.EncodingPass();
-                    break;
-                // -------------------------
-                // VP9
-                // -------------------------
-                case "VP9":
-                    Codec.VP9 vp9 = new Codec.VP9();
-                    vp9.EncodingPass();
-                    //Codec.VP9.EncodingPass();
-                    break;
-                // -------------------------
-                // x264
-                // -------------------------
-                case "x264":
-                    Codec.x264 x264 = new Codec.x264();
-                    x264.EncodingPass();
-                    //Codec.x264.EncodingPass();
-                    break;
-                // -------------------------
-                // x265
-                // -------------------------
-                case "x265":
-                    Codec.x265 x265 = new Codec.x265();
-                    x265.EncodingPass();
-                    //Codec.x265.EncodingPass();
-                    break;
-                // -------------------------
-                // H264 AMF
-                // -------------------------
-                case "H264 AMF":
-                    Codec.H264_AMF h264_amf = new Codec.H264_AMF();
-                    h264_amf.EncodingPass();
-                    //Codec.H264_AMF.EncodingPass();
-                    break;
-                // -------------------------
-                // HEVC AMF
-                // -------------------------
-                case "HEVC AMF":
-                    Codec.HEVC_AMF hevc_amf = new Codec.HEVC_AMF();
-                    hevc_amf.EncodingPass();
-                    //Codec.HEVC_AMF.EncodingPass();
-                    break;
-                // -------------------------
-                // H264 NVENC
-                // -------------------------
-                case "H264 NVENC":
-                    Codec.H264_NVENC h264_nvenc = new Codec.H264_NVENC();
-                    h264_nvenc.EncodingPass();
-                    //Codec.H264_NVENC.EncodingPass();
-                    break;
-                // -------------------------
-                // HEVC NVENC
-                // -------------------------
-                case "HEVC NVENC":
-                    Codec.HEVC_NVENC hevc_nvenc = new Codec.HEVC_NVENC();
-                    hevc_nvenc.EncodingPass();
-                    //Codec.HEVC_NVENC.EncodingPass();
-                    break;
-                // -------------------------
-                // H264 QSV
-                // -------------------------
-                case "H264 QSV":
-                    Codec.H264_QSV h264_qsv = new Codec.H264_QSV();
-                    h264_qsv.EncodingPass();
-                    //Codec.H264_QSV.EncodingPass();
-                    break;
-                // -------------------------
-                // HEVC QSV
-                // -------------------------
-                case "HEVC QSV":
-                    Codec.HEVC_QSV hevc_qsv = new Codec.HEVC_QSV();
-                    hevc_qsv.EncodingPass();
-                    //Codec.HEVC_QSV.EncodingPass();
-                    break;
-                // -------------------------
-                // AV1
-                // -------------------------
-                case "AV1":
-                    Codec.AV1 av1 = new Codec.AV1();
-                    av1.EncodingPass();
-                    //Codec.AV1.EncodingPass();
-                    break;
-                // -------------------------
-                // FFV1
-                // -------------------------
-                case "FFV1":
-                    Codec.FFV1 ffv1 = new Codec.FFV1();
-                    ffv1.EncodingPass();
-                    //Codec.FFV1.EncodingPass();
-                    break;
-                // -------------------------
-                // MagicYUV
-                // -------------------------
-                case "MagicYUV":
-                    Codec.MagicYUV magicYUV = new Codec.MagicYUV();
-                    magicYUV.EncodingPass();
-                    //Codec.MagicYUV.EncodingPass();
-                    break;
-                // -------------------------
-                // HuffYUV
-                // -------------------------
-                case "HuffYUV":
-                    Codec.HuffYUV huffYUV = new Codec.HuffYUV();
-                    huffYUV.EncodingPass();
-                    //Codec.HuffYUV.EncodingPass();
-                    break;
-                // -------------------------
-                // Theora
-                // -------------------------
-                case "Theora":
-                    Codec.Theora theora = new Codec.Theora();
-                    theora.EncodingPass();
-                    //Codec.Theora.EncodingPass();
-                    break;
-                // -------------------------
-                // MPEG-2
-                // -------------------------
-                case "MPEG-2":
-                    Codec.MPEG_2 mpeg2 = new Codec.MPEG_2();
-                    mpeg2.EncodingPass();
-                    //Codec.MPEG_2.EncodingPass();
-                    break;
-                // -------------------------
-                // MPEG-4
-                // -------------------------
-                case "MPEG-4":
-                    Codec.MPEG_4 mpeg4 = new Codec.MPEG_4();
-                    mpeg4.EncodingPass();
-                    //Codec.MPEG_4.EncodingPass();
-                    break;
+            _codec_class[VM.VideoView.Video_Codec_SelectedItem].EncodingPass();
 
-                // --------------------------------------------------
-                // Image
-                // --------------------------------------------------
-                // -------------------------
-                // JPEG
-                // -------------------------
-                case "JPEG":
-                    Image.Codec.JPEG jpeg = new Image.Codec.JPEG();
-                    jpeg.EncodingPass();
-                    //Image.Codec.JPEG.EncodingPass();
-                    break;
-                // -------------------------
-                // PNG
-                // -------------------------
-                case "PNG":
-                    Image.Codec.PNG png = new Image.Codec.PNG();
-                    png.EncodingPass();
-                    //Image.Codec.PNG.EncodingPass();
-                    break;
-                // -------------------------
-                // WebP
-                // -------------------------
-                case "WebP":
-                    Image.Codec.WebP webp = new Image.Codec.WebP();
-                    webp.EncodingPass();
-                    //Image.Codec.WebP.EncodingPass();
-                    break;
+            //switch (VM.VideoView.Video_Codec_SelectedItem)
+            //{
+            //    // --------------------------------------------------
+            //    // Video
+            //    // --------------------------------------------------
 
-                // --------------------------------------------------
-                // Other
-                // --------------------------------------------------
-                // -------------------------
-                // Copy
-                // -------------------------
-                case "Copy":
-                    Codec.Copy copy = new Codec.Copy();
-                    copy.EncodingPass();
-                    //Codec.Copy.EncodingPass();
-                    break;
-                // -------------------------
-                // None
-                // -------------------------
-                case "None":
-                    Codec.None none = new Codec.None();
-                    none.EncodingPass();
-                    //Codec.None.EncodingPass();
-                    break;
-            }
+            //    // -------------------------
+            //    // VP8
+            //    // -------------------------
+            //    case "VP8":
+            //        Codec.VP8 vp8 = new Codec.VP8();
+            //        vp8.EncodingPass();
+            //        //Codec.VP8.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // VP9
+            //    // -------------------------
+            //    case "VP9":
+            //        Codec.VP9 vp9 = new Codec.VP9();
+            //        vp9.EncodingPass();
+            //        //Codec.VP9.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // x264
+            //    // -------------------------
+            //    case "x264":
+            //        Codec.x264 x264 = new Codec.x264();
+            //        x264.EncodingPass();
+            //        //Codec.x264.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // x265
+            //    // -------------------------
+            //    case "x265":
+            //        Codec.x265 x265 = new Codec.x265();
+            //        x265.EncodingPass();
+            //        //Codec.x265.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // H264 AMF
+            //    // -------------------------
+            //    case "H264 AMF":
+            //        Codec.H264_AMF h264_amf = new Codec.H264_AMF();
+            //        h264_amf.EncodingPass();
+            //        //Codec.H264_AMF.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // HEVC AMF
+            //    // -------------------------
+            //    case "HEVC AMF":
+            //        Codec.HEVC_AMF hevc_amf = new Codec.HEVC_AMF();
+            //        hevc_amf.EncodingPass();
+            //        //Codec.HEVC_AMF.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // H264 NVENC
+            //    // -------------------------
+            //    case "H264 NVENC":
+            //        Codec.H264_NVENC h264_nvenc = new Codec.H264_NVENC();
+            //        h264_nvenc.EncodingPass();
+            //        //Codec.H264_NVENC.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // HEVC NVENC
+            //    // -------------------------
+            //    case "HEVC NVENC":
+            //        Codec.HEVC_NVENC hevc_nvenc = new Codec.HEVC_NVENC();
+            //        hevc_nvenc.EncodingPass();
+            //        //Codec.HEVC_NVENC.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // H264 QSV
+            //    // -------------------------
+            //    case "H264 QSV":
+            //        Codec.H264_QSV h264_qsv = new Codec.H264_QSV();
+            //        h264_qsv.EncodingPass();
+            //        //Codec.H264_QSV.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // HEVC QSV
+            //    // -------------------------
+            //    case "HEVC QSV":
+            //        Codec.HEVC_QSV hevc_qsv = new Codec.HEVC_QSV();
+            //        hevc_qsv.EncodingPass();
+            //        //Codec.HEVC_QSV.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // AV1
+            //    // -------------------------
+            //    case "AV1":
+            //        Codec.AV1 av1 = new Codec.AV1();
+            //        av1.EncodingPass();
+            //        //Codec.AV1.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // FFV1
+            //    // -------------------------
+            //    case "FFV1":
+            //        Codec.FFV1 ffv1 = new Codec.FFV1();
+            //        ffv1.EncodingPass();
+            //        //Codec.FFV1.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // MagicYUV
+            //    // -------------------------
+            //    case "MagicYUV":
+            //        Codec.MagicYUV magicYUV = new Codec.MagicYUV();
+            //        magicYUV.EncodingPass();
+            //        //Codec.MagicYUV.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // HuffYUV
+            //    // -------------------------
+            //    case "HuffYUV":
+            //        Codec.HuffYUV huffYUV = new Codec.HuffYUV();
+            //        huffYUV.EncodingPass();
+            //        //Codec.HuffYUV.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // Theora
+            //    // -------------------------
+            //    case "Theora":
+            //        Codec.Theora theora = new Codec.Theora();
+            //        theora.EncodingPass();
+            //        //Codec.Theora.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // MPEG-2
+            //    // -------------------------
+            //    case "MPEG-2":
+            //        Codec.MPEG_2 mpeg2 = new Codec.MPEG_2();
+            //        mpeg2.EncodingPass();
+            //        //Codec.MPEG_2.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // MPEG-4
+            //    // -------------------------
+            //    case "MPEG-4":
+            //        Codec.MPEG_4 mpeg4 = new Codec.MPEG_4();
+            //        mpeg4.EncodingPass();
+            //        //Codec.MPEG_4.EncodingPass();
+            //        break;
+
+            //    // --------------------------------------------------
+            //    // Image
+            //    // --------------------------------------------------
+            //    // -------------------------
+            //    // JPEG
+            //    // -------------------------
+            //    case "JPEG":
+            //        Image.Codec.JPEG jpeg = new Image.Codec.JPEG();
+            //        jpeg.EncodingPass();
+            //        //Image.Codec.JPEG.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // PNG
+            //    // -------------------------
+            //    case "PNG":
+            //        Image.Codec.PNG png = new Image.Codec.PNG();
+            //        png.EncodingPass();
+            //        //Image.Codec.PNG.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // WebP
+            //    // -------------------------
+            //    case "WebP":
+            //        Image.Codec.WebP webp = new Image.Codec.WebP();
+            //        webp.EncodingPass();
+            //        //Image.Codec.WebP.EncodingPass();
+            //        break;
+
+            //    // --------------------------------------------------
+            //    // Other
+            //    // --------------------------------------------------
+            //    // -------------------------
+            //    // Copy
+            //    // -------------------------
+            //    case "Copy":
+            //        Codec.Copy copy = new Codec.Copy();
+            //        copy.EncodingPass();
+            //        //Codec.Copy.EncodingPass();
+            //        break;
+            //    // -------------------------
+            //    // None
+            //    // -------------------------
+            //    case "None":
+            //        Codec.None none = new Codec.None();
+            //        none.EncodingPass();
+            //        //Codec.None.EncodingPass();
+            //        break;
+            //}
 
 
             // -------------------------

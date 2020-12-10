@@ -63,8 +63,8 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
-                "Burn"
+                "Burn",
+                "None"
             };
         }
 
@@ -113,10 +113,10 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
                 "MOV Text",
                 "Burn",
-                "Copy"
+                "Copy",
+                "None"
             };
         }
 
@@ -184,12 +184,12 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
                 "MOV Text",
                 "SSA",
                 "SRT",
                 "Burn",
-                "Copy"
+                "Copy",
+                "None"
             };
         }
 
@@ -259,10 +259,10 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
                 "SRT",
                 "Burn",
-                "Copy"
+                "Copy",
+                "None"
             };
         }
 
@@ -301,10 +301,10 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
                 "SRT",
                 "Burn",
-                "Copy"
+                "Copy",
+                "None"
             };
         }
 
@@ -337,8 +337,8 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
-                "Copy"
+                "Copy",
+                "None"
             };
         }
 
@@ -526,8 +526,8 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
-                "Burn"
+                "Burn",
+                "None"
             };
         }
 
@@ -558,8 +558,8 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
-                "Burn"
+                "Burn",
+                "None"
             };
         }
 
@@ -590,8 +590,8 @@ namespace Controls
 
             public readonly static ObservableCollection<string> subtitle = new ObservableCollection<string>()
             {
-                "None",
-                "Burn"
+                "Burn",
+                "None"
             };
         }
 

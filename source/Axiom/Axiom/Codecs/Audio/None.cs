@@ -114,16 +114,30 @@ namespace Controls.Audio.Codec
         // -------------------------
         public List<ViewModel.Audio.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Audio.Enabled>()
         {
-            new ViewModel.Audio.Enabled() {  Codec =            true }, //overwritten by media type, need to use nullable bool
-            new ViewModel.Audio.Enabled() {  Stream =           false },
-            new ViewModel.Audio.Enabled() {  Channel =          false },
-            new ViewModel.Audio.Enabled() {  Quality =          false },
-            new ViewModel.Audio.Enabled() {  CompressionLevel = false },
-            new ViewModel.Audio.Enabled() {  VBR =              false },
-            new ViewModel.Audio.Enabled() {  SampleRate =       false },
-            new ViewModel.Audio.Enabled() {  BitDepth =         false },
-            new ViewModel.Audio.Enabled() {  Volume =           false },
-            new ViewModel.Audio.Enabled() {  HardLimiter =      false },
+            new ViewModel.Audio.Enabled()
+            {
+                Codec =            true,
+                Stream =           false,
+                Channel =          false,
+                Quality =          false,
+                CompressionLevel = false,
+                VBR =              false,
+                SampleRate =       false,
+                BitDepth =         false,
+                Volume =           false,
+                HardLimiter =      false
+            },
+
+            //new ViewModel.Audio.Enabled() {  Codec =            true }, //overwritten by media type, need to use nullable bool
+            //new ViewModel.Audio.Enabled() {  Stream =           false },
+            //new ViewModel.Audio.Enabled() {  Channel =          false },
+            //new ViewModel.Audio.Enabled() {  Quality =          false },
+            //new ViewModel.Audio.Enabled() {  CompressionLevel = false },
+            //new ViewModel.Audio.Enabled() {  VBR =              false },
+            //new ViewModel.Audio.Enabled() {  SampleRate =       false },
+            //new ViewModel.Audio.Enabled() {  BitDepth =         false },
+            //new ViewModel.Audio.Enabled() {  Volume =           false },
+            //new ViewModel.Audio.Enabled() {  HardLimiter =      false },
         };
 
     }

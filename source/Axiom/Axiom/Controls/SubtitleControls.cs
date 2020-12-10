@@ -58,24 +58,6 @@ namespace Controls
                 ObservableCollection<string> stream { get; set; }
 
                 List<ViewModel.Subtitle.Selected> controls_Selected { get; set; }
-
-                //// Codec
-                //void Codec_Set();
-
-                //// Items Source
-                //void Controls_ItemsSource();
-                //// Selected Items
-                //void Controls_Selected();
-
-                //// Checked
-                //void Controls_Checked();
-                //// Unhecked
-                //void Controls_Unhecked();
-
-                //// Enabled
-                //void Controls_Enable();
-                //// Disabled
-                //void Controls_Disable();
             }
 
             /// <summary>
@@ -111,7 +93,9 @@ namespace Controls
                     // -------------------------
                     // Selected Items
                     // -------------------------
-                    string stream = _sCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.Stream == item.Stream).Stream;
+                    string stream = _sCodecClass[codec_SelectedItem].controls_Selected
+                                                                    .Find(item => item.Stream == item.Stream)
+                                                                    .Stream;
                     if (!string.IsNullOrEmpty(stream))
                     {
                         VM.SubtitleView.Subtitle_Stream_SelectedItem = stream;
@@ -125,175 +109,7 @@ namespace Controls
 
                     // Subtitle Stream
                     VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-
-                    //// Codec
-                    //_codec_s[codec_SelectedItem].Codec_Set();
-
-                    //// Items Source
-                    //_codec_s[codec_SelectedItem].Controls_ItemsSource();
-                    //// Selected Items
-                    //_codec_s[codec_SelectedItem].Controls_Selected();
-
-                    //// Checked
-                    //_codec_s[codec_SelectedItem].Controls_Checked();
-                    //// Unhecked
-                    //_codec_s[codec_SelectedItem].Controls_Unhecked();
-
-                    //// Enabled
-                    //_codec_s[codec_SelectedItem].Controls_Enable();
-                    //// Disabled
-                    //_codec_s[codec_SelectedItem].Controls_Disable();
                 }
-
-                //switch (selectedCodec)
-                //{
-                //    // -------------------------
-                //    // MOV_Text
-                //    // -------------------------
-                //    case "MOV Text":
-                //        // Codec
-                //        Codec.MOV_Text.Codec_Set();
-
-                //        // Items Source
-                //        Codec.MOV_Text.Controls_ItemsSource();
-                //        // Selected Items
-                //        Codec.MOV_Text.Controls_Selected();
-
-                //        // Checked
-                //        Codec.MOV_Text.Controls_Checked();
-                //        // Unhecked
-                //        Codec.MOV_Text.Controls_Unhecked();
-
-                //        // Enabled
-                //        Codec.MOV_Text.Controls_Enable();
-                //        // Disabled
-                //        Codec.MOV_Text.Controls_Disable();
-                //        break;
-
-                //    // -------------------------
-                //    // SSA
-                //    // -------------------------
-                //    case "SSA":
-                //        // Codec
-                //        Codec.SSA.Codec_Set();
-
-                //        // Items Source
-                //        Codec.SSA.Controls_ItemsSource();
-                //        // Selected Items
-                //        Codec.SSA.Controls_Selected();
-
-                //        // Checked
-                //        Codec.SSA.Controls_Checked();
-                //        // Unhecked
-                //        Codec.SSA.Controls_Unhecked();
-
-                //        // Enabled
-                //        Codec.SSA.Controls_Enable();
-                //        // Disabled
-                //        Codec.SSA.Controls_Disable();
-                //        break;
-
-                //    // -------------------------
-                //    // SRT
-                //    // -------------------------
-                //    case "SRT":
-                //        // Codec
-                //        Codec.SRT.Codec_Set();
-
-                //        // Items Source
-                //        Codec.SRT.Controls_ItemsSource();
-                //        // Selected Items
-                //        Codec.SRT.Controls_Selected();
-
-                //        // Checked
-                //        Codec.SRT.Controls_Checked();
-                //        // Unhecked
-                //        Codec.SRT.Controls_Unhecked();
-
-                //        // Enabled
-                //        Codec.SRT.Controls_Enable();
-                //        // Disabled
-                //        Codec.SRT.Controls_Disable();
-                //        break;
-
-                //    // -------------------------
-                //    // Burn
-                //    // -------------------------
-                //    case "Burn":
-                //        // Codec
-                //        Codec.Burn.Codec_Set();
-
-                //        // Items Source
-                //        Codec.Burn.Controls_ItemsSource();
-                //        // Selected Items
-                //        Codec.Burn.Controls_Selected();
-
-                //        // Checked
-                //        Codec.Burn.Controls_Checked();
-                //        // Unhecked
-                //        Codec.Burn.Controls_Unhecked();
-
-                //        // Enabled
-                //        Codec.Burn.Controls_Enable();
-                //        // Disabled
-                //        Codec.Burn.Controls_Disable();
-                //        break;
-
-                //    // -------------------------
-                //    // Copy
-                //    // -------------------------
-                //    case "Copy":
-                //        // Codec
-                //        Codec.Copy.Codec_Set();
-
-                //        // Items Source
-                //        Codec.Copy.Controls_ItemsSource();
-                //        // Selected Items
-                //        Codec.Copy.Controls_Selected();
-
-                //        // Checked
-                //        Codec.Copy.Controls_Checked();
-                //        // Unhecked
-                //        Codec.Copy.Controls_Unhecked();
-
-                //        // Enabled
-                //        Codec.Copy.Controls_Enable();
-                //        // Disabled
-                //        Codec.Copy.Controls_Disable();
-                //        break;
-
-                //    // -------------------------
-                //    // None
-                //    // -------------------------
-                //    case "None":
-                //        // Codec
-                //        Codec.None.Codec_Set();
-
-                //        // Items Source
-                //        Codec.None.Controls_ItemsSource();
-                //        // Selected Items
-                //        Codec.None.Controls_Selected();
-
-                //        // Checked
-                //        Codec.None.Controls_Checked();
-                //        // Unhecked
-                //        Codec.None.Controls_Unhecked();
-
-                //        // Enabled
-                //        Codec.None.Controls_Enable();
-                //        // Disabled
-                //        Codec.None.Controls_Disable();
-                //        break;
-                //}
-
-                // --------------------------------------------------
-                // Default Selected Item
-                // --------------------------------------------------
-                // Video
-                //VM.VideoView.Video_Quality_SelectedItem = SelectedItem(VM.VideoView.Video_Quality_Items,
-                //                                            VM.VideoView.Video_Quality_SelectedItem
-                //                                            );
-
 
                 // --------------------------------------------------
                 // Selected Items
@@ -321,42 +137,6 @@ namespace Controls
                         VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
                         break;
                 }
-
-                //// -------------------------
-                //// None Codec
-                //// -------------------------
-                //if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "None")
-                //{
-                //    VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
-                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
-                //}
-
-                //// -------------------------
-                //// Burn Codec
-                //// -------------------------
-                //else if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Burn")
-                //{
-                //    // Force Select External
-                //    // Can't burn All subtitle streams
-                //    VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
-                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-                //}
-
-                //// -------------------------
-                //// Copy Codec
-                //// -------------------------
-                //else if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Copy")
-                //{
-                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-                //}
-
-                //// -------------------------
-                //// All Other Codecs
-                //// -------------------------
-                //else
-                //{
-                //    VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
-                //}
             }
 
 

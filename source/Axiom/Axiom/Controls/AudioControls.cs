@@ -40,601 +40,608 @@ using System.Collections.ObjectModel;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Controls
-{
-    namespace Audio
+namespace Controls.Audio
+{ 
+    public class Controls
     {
-        public class Controls
+        public static Dictionary<string, dynamic> codecClasses = new Dictionary<string, dynamic>
         {
-            private static Dictionary<string, IAudioCodec> _aCodecClass;
+            { "Vorbis", new Codec.Vorbis() },
+            { "Opus",   new Codec.Opus() },
+            { "AC3",    new Codec.AC3() },
+            { "AAC",    new Codec.AAC() },
+            { "DTS",    new Codec.DTS() },
+            { "MP2",    new Codec.MP2() },
+            { "LAME",   new Codec.LAME() },
+            { "ALAC",   new Codec.ALAC() },
+            { "FLAC",   new Codec.FLAC() },
+            { "PCM",    new Codec.PCM() },
+            { "Copy",   new Codec.Copy() },
+            { "None",   new Codec.None() }
+        };
 
-            private static void InitializeCodecs()
-            {
-                _aCodecClass = new Dictionary<string, IAudioCodec> {
-                    { "Vorbis", new Codec.Vorbis() },
-                    { "Opus",   new Codec.Opus() },
-                    { "AC3",    new Codec.AC3() },
-                    { "AAC",    new Codec.AAC() },
-                    { "DTS",    new Codec.DTS() },
-                    { "MP2",    new Codec.MP2() },
-                    { "LAME",   new Codec.LAME() },
-                    { "ALAC",   new Codec.ALAC() },
-                    { "FLAC",   new Codec.FLAC() },
-                    { "PCM",    new Codec.PCM() },
-                    { "Copy",   new Codec.Copy() },
-                    { "None",   new Codec.None() }
-                };
-            }
+        private static Dictionary<string, IAudioCodec> _codec_class;
 
-            public interface IAudioCodec
+        private static void InitializeCodecs()
+        {
+            _codec_class = codecClasses.ToDictionary(k => k.Key, k => (IAudioCodec)k.Value);
+
+            //_codec_class = new Dictionary<string, IAudioCodec> {
+            //    { "Vorbis", new Codec.Vorbis() },
+            //    { "Opus",   new Codec.Opus() },
+            //    { "AC3",    new Codec.AC3() },
+            //    { "AAC",    new Codec.AAC() },
+            //    { "DTS",    new Codec.DTS() },
+            //    { "MP2",    new Codec.MP2() },
+            //    { "LAME",   new Codec.LAME() },
+            //    { "ALAC",   new Codec.ALAC() },
+            //    { "FLAC",   new Codec.FLAC() },
+            //    { "PCM",    new Codec.PCM() },
+            //    { "Copy",   new Codec.Copy() },
+            //    { "None",   new Codec.None() }
+            //};
+        }
+
+        public interface IAudioCodec
+        {
+            // Codec
+            ObservableCollection<ViewModel.Audio.AudioCodec> codec { get; set; }
+
+            // Items Source
+            ObservableCollection<string> channel { get; set; }
+            ObservableCollection<ViewModel.Audio.AudioQuality> quality { get; set; }
+            ObservableCollection<string> compressionLevel { get; set; }
+            ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate { get; set; }
+            ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth { get; set; }
+
+            // Selected Items
+            List<ViewModel.Audio.Selected> controls_Selected { get; set; }
+
+            // Checked
+            List<ViewModel.Audio.Checked> controls_Checked { get; set; }
+
+            // Enabled
+            List<ViewModel.Audio.Enabled> controls_Enabled { get; set; }
+        }
+
+
+        /// <summary>
+        /// Codec Controls
+        /// </summary>
+        public static void CodecControls(string codec_SelectedItem)
+        {
+            // --------------------------------------------------
+            // Codec
+            // --------------------------------------------------
+
+            if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
             {
+                InitializeCodecs();
+
+                // -------------------------
                 // Codec
-                ObservableCollection<ViewModel.Audio.AudioCodec> codec { get; set; }
+                // -------------------------
+                List<string> codec = new List<string>()
+                {
+                    // Combine Codec + Parameters
+                    "-c:a",
+                    _codec_class[codec_SelectedItem].codec.FirstOrDefault()?.Codec,
+                    _codec_class[codec_SelectedItem].codec.FirstOrDefault()?.Parameters,
+                };
 
+                VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+
+
+                // -------------------------
                 // Items Source
-                ObservableCollection<string> channel { get; set; }
-                ObservableCollection<ViewModel.Audio.AudioQuality> quality { get; set; }
-                ObservableCollection<string> compressionLevel { get; set; }
-                ObservableCollection<ViewModel.Audio.AudioSampleRate> sampleRate { get; set; }
-                ObservableCollection<ViewModel.Audio.AudioBitDepth> bitDepth { get; set; }
+                // -------------------------
+                VM.AudioView.Audio_Channel_Items = _codec_class[codec_SelectedItem].channel;
 
+                VM.AudioView.Audio_Quality_Items = _codec_class[codec_SelectedItem].quality;
+
+                VM.AudioView.Audio_CompressionLevel_Items = _codec_class[codec_SelectedItem].compressionLevel;
+
+                VM.AudioView.Audio_SampleRate_Items = _codec_class[codec_SelectedItem].sampleRate;
+
+                VM.AudioView.Audio_BitDepth_Items = _codec_class[codec_SelectedItem].bitDepth;
+
+                // -------------------------
                 // Selected Items
-                List<ViewModel.Audio.Selected> controls_Selected { get; set; }
+                // -------------------------
+                // Stream
+                string stream = _codec_class[codec_SelectedItem].controls_Selected
+                                                                .Find(item => item.Stream == item.Stream)
+                                                                .Stream;
 
+                if (!string.IsNullOrEmpty(stream))
+                {
+                    VM.AudioView.Audio_Stream_SelectedItem = stream;
+                }
+
+                // Compression Level
+                string compressionLevel = _codec_class[codec_SelectedItem].controls_Selected
+                                                                          //.Select(item => item.CompressionLevel)
+                                                                          //.First();
+                                                                          .Find(item => item.CompressionLevel == item.CompressionLevel)
+                                                                          .CompressionLevel;
+                if (!string.IsNullOrEmpty(compressionLevel))
+                {
+                    VM.AudioView.Audio_CompressionLevel_SelectedItem = compressionLevel;
+                }
+
+                // Filters
+                // Select Defaults
+                if (codec_SelectedItem == "Copy" ||
+                    codec_SelectedItem == "None")
+                {
+                    Filters.Audio.AudioFilters_ControlsSelectDefaults();
+                }
+
+                // -------------------------
                 // Checked
-                List<ViewModel.Audio.Checked> controls_Checked { get; set; }
+                // -------------------------
+                VM.AudioView.Audio_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Any(item => item.VBR);
 
+                // -------------------------
                 // Enabled
-                List<ViewModel.Audio.Enabled> controls_Enabled { get; set; }
+                // -------------------------
+                // Codec
+                VM.AudioView.Audio_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Codec);
+                // Stream
+                VM.AudioView.Audio_Stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Stream);
+                // Channel
+                VM.AudioView.Audio_Channel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Channel);
+                // Quality
+                VM.AudioView.Audio_Quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Quality);
+                // Compression Level
+                VM.AudioView.Audio_CompressionLevel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.CompressionLevel);
+                // VBR
+                VM.AudioView.Audio_VBR_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.VBR);
+                // Sample Rate
+                VM.AudioView.Audio_SampleRate_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.SampleRate);
+                // Bit Depth
+                VM.AudioView.Audio_BitDepth_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.BitDepth);
+                // Volume
+                VM.AudioView.Audio_Volume_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Volume);
+                // Hard Limiter
+                VM.AudioView.Audio_HardLimiter_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.HardLimiter);
+
+                // Filters
+                // Disable All
+                if (codec_SelectedItem == "Copy" ||
+                    codec_SelectedItem == "None")
+                {
+                    Filters.Audio.AudioFilters_DisableAll();
+                }
+                // Enable All
+                else
+                {
+                    Filters.Audio.AudioFilters_EnableAll();
+                }
 
                 //// Codec
-                //void Codec_Set();
+                //_codec_a[codec_SelectedItem].Codec_Set();
 
                 //// Items Source
-                //void Controls_ItemsSource();
+                //_codec_a[codec_SelectedItem].Controls_ItemsSource();
                 //// Selected Items
-                //void Controls_Selected();
+                //_codec_a[codec_SelectedItem].Controls_Selected();
 
                 //// Checked
-                //void Controls_Checked();
+                //_codec_a[codec_SelectedItem].Controls_Checked();
                 //// Unhecked
-                //void Controls_Unhecked();
+                //_codec_a[codec_SelectedItem].Controls_Unhecked();
 
                 //// Enabled
-                //void Controls_Enable();
+                //_codec_a[codec_SelectedItem].Controls_Enable();
                 //// Disabled
-                //void Controls_Disable();
+                //_codec_a[codec_SelectedItem].Controls_Disable();
             }
 
 
-            /// <summary>
-            /// Codec Controls
-            /// </summary>
-            public static void CodecControls(string codec_SelectedItem)
-            {
-                // --------------------------------------------------
-                // Codec
-                // --------------------------------------------------
+            // --------------------------------------------------
+            // Default Selected Item
+            // --------------------------------------------------
 
-                if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
-                {
-                    InitializeCodecs();
-
-                    // -------------------------
-                    // Codec
-                    // -------------------------
-                    List<string> codec = new List<string>()
-                    {
-                        // Combine Codec + Parameters
-                        "-c:a",
-                        _aCodecClass[codec_SelectedItem].codec.FirstOrDefault()?.Codec,
-                        _aCodecClass[codec_SelectedItem].codec.FirstOrDefault()?.Parameters,
-                    };
-
-                    VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
-
-
-                    // -------------------------
-                    // Items Source
-                    // -------------------------
-                    VM.AudioView.Audio_Channel_Items = _aCodecClass[codec_SelectedItem].channel;
-
-                    VM.AudioView.Audio_Quality_Items = _aCodecClass[codec_SelectedItem].quality;
-
-                    VM.AudioView.Audio_CompressionLevel_Items = _aCodecClass[codec_SelectedItem].compressionLevel;
-
-                    VM.AudioView.Audio_SampleRate_Items = _aCodecClass[codec_SelectedItem].sampleRate;
-
-                    VM.AudioView.Audio_BitDepth_Items = _aCodecClass[codec_SelectedItem].bitDepth;
-
-                    // -------------------------
-                    // Selected Items
-                    // -------------------------
-                    string stream = _aCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.Stream == item.Stream).Stream;
-                    if (!string.IsNullOrEmpty(stream))
-                    {
-                        VM.AudioView.Audio_Stream_SelectedItem = stream;
-                    }
-
-                    string compressionLevel = _aCodecClass[codec_SelectedItem].controls_Selected.Find(item => item.CompressionLevel == item.CompressionLevel).CompressionLevel;
-                    if (!string.IsNullOrEmpty(compressionLevel))
-                    {
-                        VM.AudioView.Audio_CompressionLevel_SelectedItem = compressionLevel;
-                    }
-
-                    // Filters
-                    // Select Defaults
-                    if (codec_SelectedItem == "Copy" ||
-                        codec_SelectedItem == "None")
-                    {
-                        Filters.Audio.AudioFilters_ControlsSelectDefaults();
-                    }
-
-                    // -------------------------
-                    // Checked
-                    // -------------------------
-                    VM.AudioView.Audio_VBR_IsChecked = _aCodecClass[codec_SelectedItem].controls_Checked.Any(item => item.VBR);
-
-                    // -------------------------
-                    // Enabled
-                    // -------------------------
-                    // Codec
-                    VM.AudioView.Audio_Codec_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Codec);
-                    // Stream
-                    VM.AudioView.Audio_Stream_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Stream);
-                    // Channel
-                    VM.AudioView.Audio_Channel_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Channel);
-                    // Quality
-                    VM.AudioView.Audio_Quality_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Quality);
-                    // Compression Level
-                    VM.AudioView.Audio_CompressionLevel_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.CompressionLevel);
-                    // VBR
-                    VM.AudioView.Audio_VBR_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.VBR);
-                    // Sample Rate
-                    VM.AudioView.Audio_SampleRate_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.SampleRate);
-                    // Bit Depth
-                    VM.AudioView.Audio_BitDepth_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.BitDepth);
-                    // Volume
-                    VM.AudioView.Audio_Volume_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.Volume);
-                    // Hard Limiter
-                    VM.AudioView.Audio_HardLimiter_IsEnabled = _aCodecClass[codec_SelectedItem].controls_Enabled.Any(item => item.HardLimiter);
-
-                    // Filters
-                    // Disable All
-                    if (codec_SelectedItem == "Copy" ||
-                        codec_SelectedItem == "None")
-                    {
-                        Filters.Audio.AudioFilters_DisableAll();
-                    }
-                    // Enable All
-                    else
-                    {
-                        Filters.Audio.AudioFilters_EnableAll();
-                    }
-
-                    //// Codec
-                    //_codec_a[codec_SelectedItem].Codec_Set();
-
-                    //// Items Source
-                    //_codec_a[codec_SelectedItem].Controls_ItemsSource();
-                    //// Selected Items
-                    //_codec_a[codec_SelectedItem].Controls_Selected();
-
-                    //// Checked
-                    //_codec_a[codec_SelectedItem].Controls_Checked();
-                    //// Unhecked
-                    //_codec_a[codec_SelectedItem].Controls_Unhecked();
-
-                    //// Enabled
-                    //_codec_a[codec_SelectedItem].Controls_Enable();
-                    //// Disabled
-                    //_codec_a[codec_SelectedItem].Controls_Disable();
-                }
-
-
-                // --------------------------------------------------
-                // Default Selected Item
-                // --------------------------------------------------
-
-                //// -------------------------
-                //// Audio Quality Selected Item
-                //// -------------------------
-                //// Save the Previous Codec's Item
-                //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem) &&
-                //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
-                //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "none") // None / none
-                //{
-                //    MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
-                //}
-
-                //// Select the Prevoius Codec's Item if available
-                //// If missing Select Default to First Item
-                //// Ignore Codec Copy
-                //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-                //{
-                //    VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
-                //                                                                      MainWindow.Audio_Quality_PreviousItem
-                //                                                                     );
-                //}
-
-                //// -------------------------
-                //// Audio SampleRate Selected Item
-                //// -------------------------
-                //// Save the Previous Codec's Item
-                //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem) &&
-                //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "auto" && // Auto / auto
-                //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "none") // None / none
-                //{
-                //    MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
-                //}
-
-                //// Select the Prevoius Codec's Item if available
-                //// If missing Select Default to First Item
-                //// Ignore Codec Copy
-                ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-                ////{
-                //    VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
-                //                                                                     MainWindow.Audio_SampleRate_PreviousItem
-                //                                                                     );
-                ////}
-
-                //// -------------------------
-                //// Audio BitDepth Selected Item
-                //// -------------------------
-                //// Save the Previous Codec's Item
-                //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem) &&
-                //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "auto" && // Auto / auto
-                //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "none") // None / none
-                //{
-                //    MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
-                //}
-
-                //// Select the Prevoius Codec's Item if available
-                //// If missing Select Default to First Item
-                //// Ignore Codec Copy
-                ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-                ////{
-                //    VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
-                //                                                                   MainWindow.Audio_BitDepth_PreviousItem
-                //                                                                  );
-                ////}
-
-                // -------------------------
-                // Audio Quality Selected Item Null Check
-                // -------------------------
-                // For errors causing ComboBox not to select an item
-                if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
-                {
-                    // Default to First Item
-                    VM.AudioView.Audio_Quality_Items.FirstOrDefault();
-                }
-            }
-
-
-            /// <summary>
-            /// Audio BitRate Display
-            /// </summary>
-            public static void AudioBitRateDisplay(ObservableCollection<ViewModel.Audio.AudioQuality> items,
-                                                   string selectedQuality
-                                                   )
-            {
-                // Condition Check
-                if (//VM.AudioView.Audio_BitRate_IsEnabled == false &&
-                    !string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
-                    VM.AudioView.Audio_Quality_SelectedItem != "None" &&
-                    VM.AudioView.Audio_Quality_SelectedItem != "Auto" &&
-                    VM.AudioView.Audio_Quality_SelectedItem != "Lossless" &&
-                    VM.AudioView.Audio_Quality_SelectedItem != "Custom" &&
-                    VM.AudioView.Audio_Quality_SelectedItem != "Mute")
-                {
-                    // -------------------------
-                    // Display in TextBox
-                    // -------------------------
-                    switch (VM.AudioView.Audio_VBR_IsChecked)
-                    {
-                        // Bit Rate CBR
-                        case false:
-                            VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CBR;
-                            break;
-
-                        // Bit Rate VBR
-                        case true:
-                            VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.VBR;
-                            break;
-                    }
-                }
-            }
-
-
-            /// <summary>
-            /// Quality Controls
-            /// <summary>
-            public static void QualityControls()
-            {
-                switch (VM.AudioView.Audio_Quality_SelectedItem)
-                {
-                    // -------------------------
-                    // Enable
-                    // -------------------------
-                    // Only for Custom
-                    case "Custom":
-                        // BitRate
-                        VM.AudioView.Audio_BitRate_IsEnabled = true;
-                        VM.AudioView.Audio_BitRate_Text = "";
-                        break;
-
-                    // -------------------------
-                    // Disable
-                    // -------------------------
-                    // Only for Custom
-                    case "Auto":
-                        // BitRate
-                        VM.AudioView.Audio_BitRate_IsEnabled = false;
-                        VM.AudioView.Audio_BitRate_Text = "";
-                        break;
-
-                    // All Other Qualities
-                    default:
-                        // BitRate
-                        VM.AudioView.Audio_BitRate_IsEnabled = false;
-                        break;
-                }
-
-                //// Only for Custom
-                //if (VM.AudioView.Audio_Quality_SelectedItem == "Custom")
-                //{
-                //    // BitRate
-                //    VM.AudioView.Audio_BitRate_IsEnabled = true;
-                //    VM.AudioView.Audio_BitRate_Text = "";
-                //}
-
-                //// -------------------------
-                //// Disable
-                //// -------------------------
-                //// Only for Custom
-                //else if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
-                //{
-                //    // BitRate
-                //    VM.AudioView.Audio_BitRate_IsEnabled = false;
-                //    VM.AudioView.Audio_BitRate_Text = "";
-                //}
-                //// All Other Qualities
-                //else
-                //{
-                //    // BitRate
-                //    VM.AudioView.Audio_BitRate_IsEnabled = false;
-                //}
-
-
-                //// -------------------------
-                //// Compression Level
-                //// -------------------------
-                //if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
-                //{
-                //    switch (VM.AudioView.Audio_VBR_IsChecked)
-                //    {
-                //        // VBR
-                //        // Enable
-                //        case true:
-                //            VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
-                //            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
-                //            break;
-
-                //        // CBR
-                //        // Disable
-                //        case false:
-                //            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
-                //            VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                //            break;
-                //    }
-                //}
-            }
-
-
-            /// <summary>
-            /// Auto Copy Conditions Check
-            /// <summary>
-            //public static bool AutoCopyConditionsCheck()
+            //// -------------------------
+            //// Audio Quality Selected Item
+            //// -------------------------
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem) &&
+            //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "none") // None / none
             //{
-            //    // Failed
-            //    if (VM.AudioView.Audio_Quality_SelectedItem != "Auto" ||
-            //        VM.AudioView.Audio_Channel_SelectedItem != "Source" ||
-            //        //VM.AudioView.Audio_SampleRate_SelectedItem != "auto" //||
-            //        VM.AudioView.Audio_BitDepth_SelectedItem != "auto" ||
-            //        VM.AudioView.Audio_HardLimiter_Value != 0.0 ||
-            //        VM.AudioView.Audio_Volume_Text != "100" ||
-            //        // Filters
-            //        VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem != "disabled" ||
-            //        VM.FilterAudioView.FilterAudio_Highpass_SelectedItem != "disabled" ||
-            //        VM.FilterAudioView.FilterAudio_Headphones_SelectedItem != "disabled" ||
-            //        VM.FilterAudioView.FilterAudio_Contrast_Value != 0 ||
-            //        VM.FilterAudioView.FilterAudio_ExtraStereo_Value != 0 ||
-            //        VM.FilterAudioView.FilterAudio_Tempo_Value != 100
-            //        )
-            //    {
-            //        //MessageBox.Show("false");
-            //        return false;
-            //    }
-
-            //    // Passed
-            //    else
-            //    {
-            //        //MessageBox.Show("true");
-            //        return true;
-            //    }
+            //    MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
             //}
 
-
-            /// <summary>
-            /// Auto Copy Audio Codec
-            /// <summary>
-            /// <remarks>
-            /// Input Extension is same as Output Extension and Audio Quality is Auto
-            /// </remarks>
-            //public static void AutoCopyAudioCodec(string trigger)
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
+            //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
             //{
-            //    //string audio_Quality_SelectedItem = VM.AudioView.Audio_Quality_Items.FirstOrDefault(item => item.Name == VM.AudioView.Audio_Quality_SelectedItem)?.Name;
-
-            //    //MessageBox.Show(VM.AudioView.Audio_Quality_SelectedItem);
-
-            //    // -------------------------
-            //    // Halt if Selected Codec is Null
-            //    // -------------------------
-            //    if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
-            //    {
-            //        return;
-            //    }
-
-            //    // -------------------------
-            //    // Halt if trigger is control
-            //    // Pass if trigger is input
-            //    // -------------------------
-            //    if (trigger == "control" &&
-            //        VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
-            //        AutoCopyConditionsCheck() == true)
-            //    {
-            //        return;
-            //    }
-
-            //    // -------------------------
-            //    // Halt if Web URL
-            //    // -------------------------
-            //    if (MainWindow.IsWebURL(VM.MainView.Input_Text) == true)
-            //    {
-            //        return;
-            //    }
-
-            //    // -------------------------
-            //    // Get Input Extensions
-            //    // -------------------------
-            //    string inputExt = Path.GetExtension(VM.MainView.Input_Text);
-
-            //    // -------------------------
-            //    // Halt if Input Extension is Empty
-            //    // -------------------------
-            //    if (string.IsNullOrWhiteSpace(inputExt))
-            //    {
-            //        return;
-            //    }
-
-            //    // -------------------------
-            //    // Get Output Extensions
-            //    // -------------------------
-            //    string outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
-
-            //    // -------------------------
-            //    // Conditions Check
-            //    // Enable
-            //    // -------------------------
-            //    if (AutoCopyConditionsCheck() == true &&
-            //        string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        // Set Audio Codec Combobox Selected Item to Copy
-            //        if (VM.AudioView.Audio_Codec_Items.Count > 0)
-            //        {
-            //            if (VM.AudioView.Audio_Codec_Items?.Contains("Copy") == true)
-            //            {
-            //                VM.AudioView.Audio_Codec_SelectedItem = "Copy";
-            //            }
-            //        }
-            //    }
-
-            //    // -------------------------
-            //    // Reset to Default Codec
-            //    // -------------------------
-            //    // Disable Copy if:
-            //    // Input / Output Extensions don't match
-            //    // Audio is Not Auto 
-            //    // VBR is Checked
-            //    // Samplerate is Not auto
-            //    // BitDepth is Not auto
-            //    // Alimiter is Checked
-            //    // Volume is Not 100
-            //    // -------------------------
-            //    else
-            //    {
-            //        // -------------------------
-            //        // Copy Selected
-            //        // -------------------------
-            //        if (VM.AudioView.Audio_Codec_SelectedItem == "Copy")
-            //        {
-            //            switch (VM.FormatView.Format_Container_SelectedItem)
-            //            {
-            //                // -------------------------
-            //                // Video Container
-            //                // -------------------------
-            //                // WebM
-            //                case "webm":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
-            //                    break;
-            //                // MP4
-            //                case "mp4":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
-            //                    break;
-            //                // MKV
-            //                case "mkv":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "AC3";
-            //                    break;
-            //                // M2V
-            //                case "m2v":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "None";
-            //                    break;
-            //                // MPG
-            //                case "mpg":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "MP2";
-            //                    break;
-            //                // AVI
-            //                case "avi":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
-            //                    break;
-            //                // OGV
-            //                case "ogv":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
-            //                    break;
-
-            //                // -------------------------
-            //                // Audio Container
-            //                // -------------------------
-            //                // M4A
-            //                case "m4a":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
-            //                    break;
-            //                // MP3
-            //                case "mp3":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
-            //                    break;
-            //                // OGG
-            //                case "ogg":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "Opus";
-            //                    break;
-            //                // FLAC
-            //                case "flac":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
-            //                    break;
-            //                // WAV
-            //                case "wav":
-            //                    VM.AudioView.Audio_Codec_SelectedItem = "PCM";
-            //                    break;
-
-            //                // -------------------------
-            //                // Image Container
-            //                // -------------------------
-            //                //case "jpg":
-            //                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-            //                //    break;
-
-            //                //case "png":
-            //                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-            //                //    break;
-
-            //                //case "webp":
-            //                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
-            //                //    break;
-            //            }
-            //        }
-            //    }
+            //    VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
+            //                                                                      MainWindow.Audio_Quality_PreviousItem
+            //                                                                     );
             //}
 
+            //// -------------------------
+            //// Audio SampleRate Selected Item
+            //// -------------------------
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem) &&
+            //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "none") // None / none
+            //{
+            //    MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
+            //}
+
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
+            ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
+            ////{
+            //    VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
+            //                                                                     MainWindow.Audio_SampleRate_PreviousItem
+            //                                                                     );
+            ////}
+
+            //// -------------------------
+            //// Audio BitDepth Selected Item
+            //// -------------------------
+            //// Save the Previous Codec's Item
+            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem) &&
+            //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "auto" && // Auto / auto
+            //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "none") // None / none
+            //{
+            //    MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
+            //}
+
+            //// Select the Prevoius Codec's Item if available
+            //// If missing Select Default to First Item
+            //// Ignore Codec Copy
+            ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
+            ////{
+            //    VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
+            //                                                                   MainWindow.Audio_BitDepth_PreviousItem
+            //                                                                  );
+            ////}
+
+            // -------------------------
+            // Audio Quality Selected Item Null Check
+            // -------------------------
+            // For errors causing ComboBox not to select an item
+            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
+            {
+                // Default to First Item
+                VM.AudioView.Audio_Quality_Items.FirstOrDefault();
+            }
         }
+
+
+        /// <summary>
+        /// Audio BitRate Display
+        /// </summary>
+        public static void AudioBitRateDisplay(ObservableCollection<ViewModel.Audio.AudioQuality> items,
+                                                string selectedQuality
+                                                )
+        {
+            // Condition Check
+            if (//VM.AudioView.Audio_BitRate_IsEnabled == false &&
+                !string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
+                VM.AudioView.Audio_Quality_SelectedItem != "None" &&
+                VM.AudioView.Audio_Quality_SelectedItem != "Auto" &&
+                VM.AudioView.Audio_Quality_SelectedItem != "Lossless" &&
+                VM.AudioView.Audio_Quality_SelectedItem != "Custom" &&
+                VM.AudioView.Audio_Quality_SelectedItem != "Mute")
+            {
+                // -------------------------
+                // Display in TextBox
+                // -------------------------
+                switch (VM.AudioView.Audio_VBR_IsChecked)
+                {
+                    // Bit Rate CBR
+                    case false:
+                        VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CBR;
+                        break;
+
+                    // Bit Rate VBR
+                    case true:
+                        VM.AudioView.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.VBR;
+                        break;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Quality Controls
+        /// <summary>
+        public static void QualityControls()
+        {
+            switch (VM.AudioView.Audio_Quality_SelectedItem)
+            {
+                // -------------------------
+                // Enable
+                // -------------------------
+                // Only for Custom
+                case "Custom":
+                    // BitRate
+                    VM.AudioView.Audio_BitRate_IsEnabled = true;
+                    VM.AudioView.Audio_BitRate_Text = "";
+                    break;
+
+                // -------------------------
+                // Disable
+                // -------------------------
+                // Only for Custom
+                case "Auto":
+                    // BitRate
+                    VM.AudioView.Audio_BitRate_IsEnabled = false;
+                    VM.AudioView.Audio_BitRate_Text = "";
+                    break;
+
+                // All Other Qualities
+                default:
+                    // BitRate
+                    VM.AudioView.Audio_BitRate_IsEnabled = false;
+                    break;
+            }
+
+            //// Only for Custom
+            //if (VM.AudioView.Audio_Quality_SelectedItem == "Custom")
+            //{
+            //    // BitRate
+            //    VM.AudioView.Audio_BitRate_IsEnabled = true;
+            //    VM.AudioView.Audio_BitRate_Text = "";
+            //}
+
+            //// -------------------------
+            //// Disable
+            //// -------------------------
+            //// Only for Custom
+            //else if (VM.AudioView.Audio_Quality_SelectedItem == "Auto")
+            //{
+            //    // BitRate
+            //    VM.AudioView.Audio_BitRate_IsEnabled = false;
+            //    VM.AudioView.Audio_BitRate_Text = "";
+            //}
+            //// All Other Qualities
+            //else
+            //{
+            //    // BitRate
+            //    VM.AudioView.Audio_BitRate_IsEnabled = false;
+            //}
+
+
+            //// -------------------------
+            //// Compression Level
+            //// -------------------------
+            //if (VM.AudioView.Audio_Codec_SelectedItem == "Opus")
+            //{
+            //    switch (VM.AudioView.Audio_VBR_IsChecked)
+            //    {
+            //        // VBR
+            //        // Enable
+            //        case true:
+            //            VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
+            //            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "10";
+            //            break;
+
+            //        // CBR
+            //        // Disable
+            //        case false:
+            //            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+            //            VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+            //            break;
+            //    }
+            //}
+        }
+
+
+        /// <summary>
+        /// Auto Copy Conditions Check
+        /// <summary>
+        //public static bool AutoCopyConditionsCheck()
+        //{
+        //    // Failed
+        //    if (VM.AudioView.Audio_Quality_SelectedItem != "Auto" ||
+        //        VM.AudioView.Audio_Channel_SelectedItem != "Source" ||
+        //        //VM.AudioView.Audio_SampleRate_SelectedItem != "auto" //||
+        //        VM.AudioView.Audio_BitDepth_SelectedItem != "auto" ||
+        //        VM.AudioView.Audio_HardLimiter_Value != 0.0 ||
+        //        VM.AudioView.Audio_Volume_Text != "100" ||
+        //        // Filters
+        //        VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem != "disabled" ||
+        //        VM.FilterAudioView.FilterAudio_Highpass_SelectedItem != "disabled" ||
+        //        VM.FilterAudioView.FilterAudio_Headphones_SelectedItem != "disabled" ||
+        //        VM.FilterAudioView.FilterAudio_Contrast_Value != 0 ||
+        //        VM.FilterAudioView.FilterAudio_ExtraStereo_Value != 0 ||
+        //        VM.FilterAudioView.FilterAudio_Tempo_Value != 100
+        //        )
+        //    {
+        //        //MessageBox.Show("false");
+        //        return false;
+        //    }
+
+        //    // Passed
+        //    else
+        //    {
+        //        //MessageBox.Show("true");
+        //        return true;
+        //    }
+        //}
+
+
+        /// <summary>
+        /// Auto Copy Audio Codec
+        /// <summary>
+        /// <remarks>
+        /// Input Extension is same as Output Extension and Audio Quality is Auto
+        /// </remarks>
+        //public static void AutoCopyAudioCodec(string trigger)
+        //{
+        //    //string audio_Quality_SelectedItem = VM.AudioView.Audio_Quality_Items.FirstOrDefault(item => item.Name == VM.AudioView.Audio_Quality_SelectedItem)?.Name;
+
+        //    //MessageBox.Show(VM.AudioView.Audio_Quality_SelectedItem);
+
+        //    // -------------------------
+        //    // Halt if Selected Codec is Null
+        //    // -------------------------
+        //    if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Codec_SelectedItem))
+        //    {
+        //        return;
+        //    }
+
+        //    // -------------------------
+        //    // Halt if trigger is control
+        //    // Pass if trigger is input
+        //    // -------------------------
+        //    if (trigger == "control" &&
+        //        VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+        //        AutoCopyConditionsCheck() == true)
+        //    {
+        //        return;
+        //    }
+
+        //    // -------------------------
+        //    // Halt if Web URL
+        //    // -------------------------
+        //    if (MainWindow.IsWebURL(VM.MainView.Input_Text) == true)
+        //    {
+        //        return;
+        //    }
+
+        //    // -------------------------
+        //    // Get Input Extensions
+        //    // -------------------------
+        //    string inputExt = Path.GetExtension(VM.MainView.Input_Text);
+
+        //    // -------------------------
+        //    // Halt if Input Extension is Empty
+        //    // -------------------------
+        //    if (string.IsNullOrWhiteSpace(inputExt))
+        //    {
+        //        return;
+        //    }
+
+        //    // -------------------------
+        //    // Get Output Extensions
+        //    // -------------------------
+        //    string outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
+
+        //    // -------------------------
+        //    // Conditions Check
+        //    // Enable
+        //    // -------------------------
+        //    if (AutoCopyConditionsCheck() == true &&
+        //        string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        // Set Audio Codec Combobox Selected Item to Copy
+        //        if (VM.AudioView.Audio_Codec_Items.Count > 0)
+        //        {
+        //            if (VM.AudioView.Audio_Codec_Items?.Contains("Copy") == true)
+        //            {
+        //                VM.AudioView.Audio_Codec_SelectedItem = "Copy";
+        //            }
+        //        }
+        //    }
+
+        //    // -------------------------
+        //    // Reset to Default Codec
+        //    // -------------------------
+        //    // Disable Copy if:
+        //    // Input / Output Extensions don't match
+        //    // Audio is Not Auto 
+        //    // VBR is Checked
+        //    // Samplerate is Not auto
+        //    // BitDepth is Not auto
+        //    // Alimiter is Checked
+        //    // Volume is Not 100
+        //    // -------------------------
+        //    else
+        //    {
+        //        // -------------------------
+        //        // Copy Selected
+        //        // -------------------------
+        //        if (VM.AudioView.Audio_Codec_SelectedItem == "Copy")
+        //        {
+        //            switch (VM.FormatView.Format_Container_SelectedItem)
+        //            {
+        //                // -------------------------
+        //                // Video Container
+        //                // -------------------------
+        //                // WebM
+        //                case "webm":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
+        //                    break;
+        //                // MP4
+        //                case "mp4":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
+        //                    break;
+        //                // MKV
+        //                case "mkv":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "AC3";
+        //                    break;
+        //                // M2V
+        //                case "m2v":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "None";
+        //                    break;
+        //                // MPG
+        //                case "mpg":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "MP2";
+        //                    break;
+        //                // AVI
+        //                case "avi":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
+        //                    break;
+        //                // OGV
+        //                case "ogv":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
+        //                    break;
+
+        //                // -------------------------
+        //                // Audio Container
+        //                // -------------------------
+        //                // M4A
+        //                case "m4a":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
+        //                    break;
+        //                // MP3
+        //                case "mp3":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
+        //                    break;
+        //                // OGG
+        //                case "ogg":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "Opus";
+        //                    break;
+        //                // FLAC
+        //                case "flac":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
+        //                    break;
+        //                // WAV
+        //                case "wav":
+        //                    VM.AudioView.Audio_Codec_SelectedItem = "PCM";
+        //                    break;
+
+        //                // -------------------------
+        //                // Image Container
+        //                // -------------------------
+        //                //case "jpg":
+        //                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+        //                //    break;
+
+        //                //case "png":
+        //                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+        //                //    break;
+
+        //                //case "webp":
+        //                //    VM.AudioView.Audio_Codec_SelectedItem = "None";
+        //                //    break;
+        //            }
+        //        }
+        //    }
+        //}
+
     }
+
 }

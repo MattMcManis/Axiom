@@ -139,18 +139,34 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Selected> controls_Selected { get; set; } = new List<ViewModel.Video.Selected>()
         {
-            new ViewModel.Video.Selected() {  EncodeSpeed =         "none" },
-            new ViewModel.Video.Selected() {  HWAccel =             "Off" },
-            new ViewModel.Video.Selected() {  PixelFormat =         "auto" },
-            new ViewModel.Video.Selected() {  FPS =                 "auto" },
-            new ViewModel.Video.Selected() {  Speed =               "auto" },
-            new ViewModel.Video.Selected() {  Vsync =               "off" },
-            new ViewModel.Video.Selected() {  Scale =               "Source" },
-            new ViewModel.Video.Selected() {  ColorRange =          "auto" },
-            new ViewModel.Video.Selected() {  ColorSpace =          "auto" },
-            new ViewModel.Video.Selected() {  ColorPrimaries =      "auto" },
-            new ViewModel.Video.Selected() {  ColorTransferChar =   "auto" },
-            new ViewModel.Video.Selected() {  ColorMatrix =         "auto" },
+            new ViewModel.Video.Selected()
+            {
+                EncodeSpeed =       "none",
+                HWAccel =           "Off",
+                PixelFormat =       "auto",
+                FPS =               "auto",
+                Speed =             "auto",
+                Vsync =             "off",
+                Scale =             "Source",
+                ColorRange =        "auto",
+                ColorSpace =        "auto",
+                ColorPrimaries =    "auto",
+                ColorTransferChar = "auto",
+                ColorMatrix =       "auto"
+            },
+
+            //new ViewModel.Video.Selected() {  EncodeSpeed =         "none" },
+            //new ViewModel.Video.Selected() {  HWAccel =             "Off" },
+            //new ViewModel.Video.Selected() {  PixelFormat =         "auto" },
+            //new ViewModel.Video.Selected() {  FPS =                 "auto" },
+            //new ViewModel.Video.Selected() {  Speed =               "auto" },
+            //new ViewModel.Video.Selected() {  Vsync =               "off" },
+            //new ViewModel.Video.Selected() {  Scale =               "Source" },
+            //new ViewModel.Video.Selected() {  ColorRange =          "auto" },
+            //new ViewModel.Video.Selected() {  ColorSpace =          "auto" },
+            //new ViewModel.Video.Selected() {  ColorPrimaries =      "auto" },
+            //new ViewModel.Video.Selected() {  ColorTransferChar =   "auto" },
+            //new ViewModel.Video.Selected() {  ColorMatrix =         "auto" },
         };
 
         // -------------------------
@@ -175,26 +191,52 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Video.Enabled>()
         {
-            new ViewModel.Video.Enabled() {  Codec =             true }, // Override Format Controls Bypass
-            new ViewModel.Video.Enabled() {  EncodeSpeed =       false },
-            new ViewModel.Video.Enabled() {  HWAccel =           false },
-            new ViewModel.Video.Enabled() {  Quality =           false },
-            new ViewModel.Video.Enabled() {  VBR =               false },
-            new ViewModel.Video.Enabled() {  PixelFormat =       false },
-            new ViewModel.Video.Enabled() {  FPS =               false },
-            new ViewModel.Video.Enabled() {  Speed =             false },
-            new ViewModel.Video.Enabled() {  Vsync =             false },
-            new ViewModel.Video.Enabled() {  Optimize =          false },
-            new ViewModel.Video.Enabled() {  Scale =             false },
-            new ViewModel.Video.Enabled() {  Scaling =           false },
-            new ViewModel.Video.Enabled() {  ScreenFormat =      false },
-            //new ViewModel.Video.Enabled() {  AspectRatio =       true }, // Works with Copy
-            new ViewModel.Video.Enabled() {  Crop =              false },
-            new ViewModel.Video.Enabled() {  ColorRange =        false },
-            new ViewModel.Video.Enabled() {  ColorSpace =        false },
-            new ViewModel.Video.Enabled() {  ColorPrimaries =    false },
-            new ViewModel.Video.Enabled() {  ColorTransferChar = false },
-            new ViewModel.Video.Enabled() {  ColorMatrix =       false },
+            new ViewModel.Video.Enabled()
+            {
+                Codec =             true, // Override Format Controls Bypass
+                EncodeSpeed =       false,
+                HWAccel =           false,
+                Quality =           false,
+                VBR =               false,
+                PixelFormat =       false,
+                FPS =               false,
+                Speed =             false,
+                Vsync =             false,
+                Optimize =          false,
+                Scale =             false,
+                Scaling =           false,
+                ScreenFormat =      false,
+                AspectRatio =       true, // Works with Copy
+                Crop =              false,
+                ColorRange =        false,
+                ColorSpace =        false,
+                ColorPrimaries =    false,
+                ColorTransferChar = false,
+                ColorMatrix =       false,
+                SubtitleCodec =     false,
+                SubtitleStream =    false,
+            },
+
+            //new ViewModel.Video.Enabled() {  Codec =             true }, // Override Format Controls Bypass
+            //new ViewModel.Video.Enabled() {  EncodeSpeed =       false },
+            //new ViewModel.Video.Enabled() {  HWAccel =           false },
+            //new ViewModel.Video.Enabled() {  Quality =           false },
+            //new ViewModel.Video.Enabled() {  VBR =               false },
+            //new ViewModel.Video.Enabled() {  PixelFormat =       false },
+            //new ViewModel.Video.Enabled() {  FPS =               false },
+            //new ViewModel.Video.Enabled() {  Speed =             false },
+            //new ViewModel.Video.Enabled() {  Vsync =             false },
+            //new ViewModel.Video.Enabled() {  Optimize =          false },
+            //new ViewModel.Video.Enabled() {  Scale =             false },
+            //new ViewModel.Video.Enabled() {  Scaling =           false },
+            //new ViewModel.Video.Enabled() {  ScreenFormat =      false },
+            ////new ViewModel.Video.Enabled() {  AspectRatio =       true }, // Works with Copy
+            //new ViewModel.Video.Enabled() {  Crop =              false },
+            //new ViewModel.Video.Enabled() {  ColorRange =        false },
+            //new ViewModel.Video.Enabled() {  ColorSpace =        false },
+            //new ViewModel.Video.Enabled() {  ColorPrimaries =    false },
+            //new ViewModel.Video.Enabled() {  ColorTransferChar = false },
+            //new ViewModel.Video.Enabled() {  ColorMatrix =       false },
         };
 
     }

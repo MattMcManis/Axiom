@@ -105,6 +105,7 @@ namespace ViewModel
             public string Quality { get; set; }
             public string VBR { get; set; }
             public string PixelFormat { get; set; }
+            public string PixelFormat_Lossless { get; set; }
             public string FPS { get; set; }
             public string Speed { get; set; }
             public string Vsync { get; set; }

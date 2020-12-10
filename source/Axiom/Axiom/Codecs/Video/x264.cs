@@ -41,7 +41,6 @@ namespace Controls.Video.Codec
         };
 
 
-
         // ---------------------------------------------------------------------------
         // Items Source
         // ---------------------------------------------------------------------------
@@ -269,7 +268,6 @@ namespace Controls.Video.Codec
         };
 
 
-
         // ---------------------------------------------------------------------------
         // Controls Behavior
         // ---------------------------------------------------------------------------
@@ -279,9 +277,12 @@ namespace Controls.Video.Codec
         // -------------------------
         public List<ViewModel.Video.Selected> controls_Selected { get; set; } = new List<ViewModel.Video.Selected>()
         {
-            new ViewModel.Video.Selected() {  PixelFormat = "yuv420p" },
+            new ViewModel.Video.Selected()
+            {
+                PixelFormat_Lossless = "yuv444p",
+                PixelFormat = "yuv420p"
+            }
         };
-
 
         // -------------------------
         // Expanded
@@ -291,7 +292,6 @@ namespace Controls.Video.Codec
             new ViewModel.Video.Expanded() {  Optimize = true },
         };
 
-
         // -------------------------
         // Checked
         // -------------------------
@@ -300,32 +300,38 @@ namespace Controls.Video.Codec
             new ViewModel.Video.Checked() {  VBR = false },
         };
 
-
         // -------------------------
         // Enabled
         // -------------------------
         public List<ViewModel.Video.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Video.Enabled>()
         {
-            //new ViewModel.Video.Enabled() {  Codec =             true },
-            //new ViewModel.Video.Enabled() {  EncodeSpeed =       true },
-            //new ViewModel.Video.Enabled() {  HWAccel =           true },
-            new ViewModel.Video.Enabled() {  Quality =           true },
-            new ViewModel.Video.Enabled() {  VBR =               true },
-            //new ViewModel.Video.Enabled() {  PixelFormat =       true },
-            //new ViewModel.Video.Enabled() {  FPS =               true },
-            //new ViewModel.Video.Enabled() {  Speed =             true },
-            //new ViewModel.Video.Enabled() {  Vsync =             true },
-            new ViewModel.Video.Enabled() {  Optimize =          true },
-            //new ViewModel.Video.Enabled() {  Scale =             true },
-            //new ViewModel.Video.Enabled() {  Scaling =           true },
-            //new ViewModel.Video.Enabled() {  Crop =              true },
-            //new ViewModel.Video.Enabled() {  ColorRange =        true },
-            //new ViewModel.Video.Enabled() {  ColorSpace =        true },
-            //new ViewModel.Video.Enabled() {  ColorPrimaries =    true },
-            //new ViewModel.Video.Enabled() {  ColorTransferChar = true },
-            //new ViewModel.Video.Enabled() {  ColorMatrix =       true },
-            //new ViewModel.Video.Enabled() {  SubtitleCodec =     true },
-            //new ViewModel.Video.Enabled() {  SubtitleStream =    true },
+            new ViewModel.Video.Enabled()
+            {
+                Quality =   true,
+                VBR =       true,
+                Optimize =  true
+            },
+
+            ////new ViewModel.Video.Enabled() {  Codec =             true },
+            ////new ViewModel.Video.Enabled() {  EncodeSpeed =       true },
+            ////new ViewModel.Video.Enabled() {  HWAccel =           true },
+            //new ViewModel.Video.Enabled() {  Quality =           true },
+            //new ViewModel.Video.Enabled() {  VBR =               true },
+            ////new ViewModel.Video.Enabled() {  PixelFormat =       true },
+            ////new ViewModel.Video.Enabled() {  FPS =               true },
+            ////new ViewModel.Video.Enabled() {  Speed =             true },
+            ////new ViewModel.Video.Enabled() {  Vsync =             true },
+            //new ViewModel.Video.Enabled() {  Optimize =          true },
+            ////new ViewModel.Video.Enabled() {  Scale =             true },
+            ////new ViewModel.Video.Enabled() {  Scaling =           true },
+            ////new ViewModel.Video.Enabled() {  Crop =              true },
+            ////new ViewModel.Video.Enabled() {  ColorRange =        true },
+            ////new ViewModel.Video.Enabled() {  ColorSpace =        true },
+            ////new ViewModel.Video.Enabled() {  ColorPrimaries =    true },
+            ////new ViewModel.Video.Enabled() {  ColorTransferChar = true },
+            ////new ViewModel.Video.Enabled() {  ColorMatrix =       true },
+            ////new ViewModel.Video.Enabled() {  SubtitleCodec =     true },
+            ////new ViewModel.Video.Enabled() {  SubtitleStream =    true },
         };
 
     }
