@@ -2904,13 +2904,16 @@ namespace Axiom
             {
                 var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
 
-                string file = buffer.First();
-                string ext = Path.GetExtension(file);
-
-                // Only accept txt files
-                if (ext == ".txt")
+                if (buffer != null && buffer.Length == 0) // prevents crash and drag and dropping in-scriptview text
                 {
-                    VM.MainView.ScriptView_Text = File.ReadAllText(file/*buffer.First()*/);
+                    string file = buffer.First();
+                    string ext = Path.GetExtension(file);
+
+                    // Only accept txt files
+                    if (ext == ".txt")
+                    {
+                        VM.MainView.ScriptView_Text = File.ReadAllText(file);
+                    }
                 }
             }
             catch (IOException ex)
