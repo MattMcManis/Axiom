@@ -279,20 +279,6 @@ namespace Generate
                     }
 
                     // -------------------------
-                    // Subtitle
-                    // -------------------------
-                    // Log Console Message in Pass 2
-
-                    IEnumerable<string> subtitleList_Pass1 = new List<string>();
-
-                    subtitleList_Pass1 = new List<string>()
-                    {
-                        // Disable Subtitles for Pass 1 to speed up encoding
-                        "\r\n" +
-                        "-sn",
-                    };
-
-                    // -------------------------
                     // Audio
                     // -------------------------
                     // Log Console Message in Pass 2
@@ -304,6 +290,20 @@ namespace Generate
                         // Disable Audio for Pass 1 to speed up encoding
                         "\r\n" +
                         "-an",
+                    };
+
+                    // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Log Console Message in Pass 2
+
+                    IEnumerable<string> subtitleList_Pass1 = new List<string>();
+
+                    subtitleList_Pass1 = new List<string>()
+                    {
+                        // Disable Subtitles for Pass 1 to speed up encoding
+                        "\r\n" +
+                        "-sn",
                     };
 
                     // -------------------------
@@ -333,8 +333,8 @@ namespace Generate
                                                                 .Concat(hwAccelTranscodeList_Pass1)
                                                                 .Concat(formatList_Pass1)
                                                                 .Concat(videoList_Pass1)
-                                                                .Concat(subtitleList_Pass1)
                                                                 .Concat(audioList_Pass1)
+                                                                .Concat(subtitleList_Pass1)
                                                                 .Concat(outputList_Pass1)
                                                                 .ToList();
 
@@ -507,45 +507,6 @@ namespace Generate
                     }
 
                     // -------------------------
-                    // Subtitle
-                    // -------------------------
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle")) { Foreground = Log.ConsoleAction });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-
-                    IEnumerable<string> subtitleList_Pass2 = new List<string>();
-
-                    if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
-                        VM.VideoView.Video_Codec_SelectedItem != "None" &&
-                        VM.VideoView.Video_Quality_SelectedItem != "None"
-                        )
-                    {
-                        subtitleList_Pass2 = new List<string>()
-                        {
-                            "\r\n\r\n" +
-                            Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                   VM.SubtitleView.Subtitle_Codec
-                                                   ),
-                            "\r\n" +
-                            Streams.SubtitleMaps(),
-                        };
-                    }
-                    // Disable Subtitle
-                    else
-                    {
-                        subtitleList_Pass1 = new List<string>()
-                        {
-                            "\r\n\r\n" +
-                            "-sn",
-                        };
-                    }
-
-                    // -------------------------
                     // Audio
                     // -------------------------
                     // Log Console Message /////////
@@ -615,6 +576,45 @@ namespace Generate
                     }
 
                     // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
+                    IEnumerable<string> subtitleList_Pass2 = new List<string>();
+
+                    if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
+                        VM.VideoView.Video_Codec_SelectedItem != "None" &&
+                        VM.VideoView.Video_Quality_SelectedItem != "None"
+                        )
+                    {
+                        subtitleList_Pass2 = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                   VM.SubtitleView.Subtitle_Codec
+                                                   ),
+                            "\r\n" +
+                            Streams.SubtitleMaps(),
+                        };
+                    }
+                    // Disable Subtitle
+                    else
+                    {
+                        subtitleList_Pass1 = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            "-sn",
+                        };
+                    }
+
+                    // -------------------------
                     // Output
                     // -------------------------
                     IEnumerable<string> outputList_Pass2 = new List<string>()
@@ -642,8 +642,8 @@ namespace Generate
                                                                 .Concat(hwAccelTranscodeList_Pass2)
                                                                 .Concat(formatList_Pass2)
                                                                 .Concat(videoList_Pass2)
-                                                                .Concat(subtitleList_Pass2)
                                                                 .Concat(audioList_Pass2)
+                                                                .Concat(subtitleList_Pass2)
                                                                 .Concat(outputList_Pass2)
                                                                 .ToList();
 
