@@ -279,46 +279,6 @@ namespace Generate
                     }
 
                     // -------------------------
-                    // Subtitle
-                    // -------------------------
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle")) { Foreground = Log.ConsoleAction });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-
-                    IEnumerable<string> subtitleList = new List<string>();
-
-                    if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
-                        VM.VideoView.Video_Codec_SelectedItem != "None" &&
-                        VM.VideoView.Video_Quality_SelectedItem != "None"
-                        )
-                    {
-                        subtitleList = new List<string>()
-                        {
-                            "\r\n\r\n" +
-                            Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                   VM.SubtitleView.Subtitle_Codec
-                                                   ),
-                            "\r\n" +
-                            Streams.SubtitleMaps(),
-                        };
-                    }
-                    // Disable Subtitles
-                    else
-                    {
-                        subtitleList = new List<string>()
-                        {
-
-                            "\r\n" +
-                            "-sn",
-                        };
-                    }
-
-                    // -------------------------
                     // Audio
                     // -------------------------
                     // Log Console Message /////////
@@ -388,6 +348,45 @@ namespace Generate
                     }
 
                     // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
+                    IEnumerable<string> subtitleList = new List<string>();
+
+                    if (VM.FormatView.Format_MediaType_SelectedItem != "Audio" &&
+                        VM.VideoView.Video_Codec_SelectedItem != "None" &&
+                        VM.VideoView.Video_Quality_SelectedItem != "None"
+                        )
+                    {
+                        subtitleList = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                   VM.SubtitleView.Subtitle_Codec
+                                                   ),
+                            "\r\n" +
+                            Streams.SubtitleMaps(),
+                        };
+                    }
+                    // Disable Subtitles
+                    else
+                    {
+                        subtitleList = new List<string>()
+                        {
+                            "\r\n" +
+                            "-sn",
+                        };
+                    }
+
+                    // -------------------------
                     // Output
                     // -------------------------
                     IEnumerable<string> outputList = new List<string>()
@@ -418,8 +417,8 @@ namespace Generate
                                                                      .Concat(hwAccelTranscodeList)
                                                                      .Concat(formatList)
                                                                      .Concat(videoList)
-                                                                     .Concat(subtitleList)
                                                                      .Concat(audioList)
+                                                                     .Concat(subtitleList)
                                                                      .Concat(outputList)
                                                                      .ToList();
 
