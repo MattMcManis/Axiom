@@ -5,6 +5,16 @@ Axiom FFmpeg UI
 ## [alpha]
 
 
+## [1.9.4.2] - Dec 10, 2020
+### Changed
+- Optimized MainWindow Audio Tab XAML
+- Move Subtitles to after Audio
+
+### Fixed
+- Drag & Drop move Script Text
+- Presets Vsync
+
+
 ## [1.9.4.1] - Dec 9, 2020
 ### Changed
 - Improved Video/Subtitle/Audio Codec Controls
