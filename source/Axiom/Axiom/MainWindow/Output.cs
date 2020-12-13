@@ -796,7 +796,7 @@ namespace Axiom
             else
             {
                 return outputFileName;
-            }       
+            }
         }
 
 
@@ -851,6 +851,7 @@ namespace Axiom
             string video_Size_Source = string.Empty;
             string video_ScalingAlgorithm = string.Empty;
             string video_FPS = string.Empty;
+            string video_Vsync = string.Empty;
 
             if (VM.FormatView.Format_MediaType_SelectedItem == "Video" ||
                 VM.FormatView.Format_MediaType_SelectedItem == "Image" ||
@@ -995,6 +996,20 @@ namespace Axiom
                         video_FPS = video_FPS + "fps";
                     }
                 }
+
+                // Vsync
+                if (VM.ConfigureView.OutputNaming_ListView_SelectedItems.Contains("Vsync"))
+                {
+                    if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Vsync_SelectedItem))
+                    {
+                        video_Vsync = SettingsCheck(VM.VideoView.Video_Vsync_SelectedItem);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(video_Vsync))
+                    {
+                        video_Vsync = "vsync-" + video_Vsync;
+                    }
+                }
             }
 
             // -------------------------
@@ -1118,7 +1133,7 @@ namespace Axiom
                 {
                     audio_VBR = "VBR";
                 }
-            }       
+            }
 
             // Sample Rate
             string audio_SampleRate = string.Empty;
@@ -1184,6 +1199,9 @@ namespace Axiom
                         break;
                     case "Frame Rate":
                         newFileNameList.Add(video_FPS);
+                        break;
+                    case "Vsync":
+                        newFileNameList.Add(video_Vsync);
                         break;
                     case "Size":
                         newFileNameList.Add(video_Size);
@@ -1278,6 +1296,7 @@ namespace Axiom
             "Preset",
             "Pixel Format",
             "Frame Rate",
+            "Vsync",
             "Size",
             "Size Source",
             "Scaling",
@@ -1309,7 +1328,7 @@ namespace Axiom
                                                                   .Distinct()
                                                                   .OrderByDescending(x => x)
                                                                   .ToList()
-                                                            ) +   
+                                                            ) +
                                           ")";
 
                 // Presets
@@ -1379,61 +1398,33 @@ namespace Axiom
 
                 // Pixel Format
                 string pixelFormat = "(" + string.Join("|", av1.pixelFormat
-                                            .Concat(ffv1.pixelFormat)
-                                            .Concat(huffYUV.pixelFormat)
-                                            .Concat(magicYUV.pixelFormat)
-                                            .Concat(mpeg2.pixelFormat)
-                                            .Concat(mpeg4.pixelFormat)
-                                            .Concat(theora.pixelFormat)
-                                            .Concat(vp8.pixelFormat)
-                                            .Concat(vp9.pixelFormat)
-                                            .Concat(x264.pixelFormat)
-                                            .Concat(h264_amf.pixelFormat)
-                                            .Concat(h264_nvenc.pixelFormat)
-                                            .Concat(h264_qsv.pixelFormat)
-                                            .Concat(x265.pixelFormat)
-                                            .Concat(hevc_amf.pixelFormat)
-                                            .Concat(hevc_nvenc.pixelFormat)
-                                            .Concat(hevc_qsv.pixelFormat)
-                                            .Concat(jpeg.pixelFormat)
-                                            .Concat(png.pixelFormat)
-                                            .Concat(webp.pixelFormat)
-                                            .Where(s => !string.IsNullOrWhiteSpace(s))
-                                            .Where(s => !s.Equals("none"))
-                                            .Where(s => !s.Equals("auto"))
-                                            .Distinct()
-                                            .OrderByDescending(x => x)
-                                            .ToList()
+                                                 .Concat(ffv1.pixelFormat)
+                                                 .Concat(huffYUV.pixelFormat)
+                                                 .Concat(magicYUV.pixelFormat)
+                                                 .Concat(mpeg2.pixelFormat)
+                                                 .Concat(mpeg4.pixelFormat)
+                                                 .Concat(theora.pixelFormat)
+                                                 .Concat(vp8.pixelFormat)
+                                                 .Concat(vp9.pixelFormat)
+                                                 .Concat(x264.pixelFormat)
+                                                 .Concat(h264_amf.pixelFormat)
+                                                 .Concat(h264_nvenc.pixelFormat)
+                                                 .Concat(h264_qsv.pixelFormat)
+                                                 .Concat(x265.pixelFormat)
+                                                 .Concat(hevc_amf.pixelFormat)
+                                                 .Concat(hevc_nvenc.pixelFormat)
+                                                 .Concat(hevc_qsv.pixelFormat)
+                                                 .Concat(jpeg.pixelFormat)
+                                                 .Concat(png.pixelFormat)
+                                                 .Concat(webp.pixelFormat)
+                                                 .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                 .Where(s => !s.Equals("none"))
+                                                 .Where(s => !s.Equals("auto"))
+                                                 .Distinct()
+                                                 .OrderByDescending(x => x)
+                                                 .ToList()
                                     ) +
                     ")";
-                //string pixelFormat = "(" + string.Join("|", Controls.Video.Codec.AV1.pixelFormat
-                //                                            .Concat(Controls.Video.Codec.FFV1.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.HuffYUV.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.MagicYUV.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.MPEG_2.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.MPEG_4.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.Theora.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.VP8.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.VP9.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.x264.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.H264_AMF.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.H264_NVENC.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.H264_QSV.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.x265.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.HEVC_AMF.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.HEVC_NVENC.pixelFormat)
-                //                                            .Concat(Controls.Video.Codec.HEVC_QSV.pixelFormat)
-                //                                            .Concat(Controls.Video.Image.Codec.JPEG.pixelFormat)
-                //                                            .Concat(Controls.Video.Image.Codec.PNG.pixelFormat)
-                //                                            .Concat(Controls.Video.Image.Codec.WebP.pixelFormat)
-                //                                            .Where(s => !string.IsNullOrWhiteSpace(s))
-                //                                            .Where(s => !s.Equals("none"))
-                //                                            .Where(s => !s.Equals("auto"))
-                //                                            .Distinct()
-                //                                            .OrderByDescending(x => x)
-                //                                            .ToList()
-                //                                    ) +
-                //                    ")";
 
                 // Profile
                 // (e.g. Hi444PP, Hi10P)
@@ -1480,7 +1471,7 @@ namespace Axiom
                 // Channel
                 IEnumerable<string> channelList = new List<string>()
                 {
-                    @"(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?)", 
+                    @"(\d+(?:\.\d+)?[.\-_\s]?)?(CH)\s?(?(1)|([.\s]?\d+(?:\.\d+)?)?)",
                     @"(\d+(?:\.\d+)?[.-_\s]?)?((Dolby[.\-_\s]?(Digital)?)[.\-_\s]?(?:Pro[.\-_\s]?(Logic)?[.\-_\s]?(II)?|Surround|Atmos|TrueHD|Vision)?)[.\-_\s]?(?(1)|([.\s]?\d+(?:\.\d+)?)?)",
                     @"(\d+(?:\.\d+)?[.\-_\s]?)?(AC3|AAC|DTS|(DD(?:P|\+?)))(?(1)|([.\-_\s]?\d+(?:\.\d+)?)?)",
                     @"([235679][.][0-2]([.][2])?)" //standalone 2.0, 2.1, 3.1, 5.1, 5.2, 6.1, 6.2, 7.1, 7.1.2, 9.1, 9.1.2
@@ -1589,7 +1580,7 @@ namespace Axiom
 
                     custom = "(" + string.Join("|", listInputFileNameTokensCustom_Items) + ")";
                 }
-                
+
                 //MessageBox.Show(custom); //debug
 
                 // Symbols
@@ -1605,7 +1596,7 @@ namespace Axiom
                     @"((?<=_)|\b)(", // opening
                     hwAccelTranscode,
                     sampleRate,
-                    bitRate,    
+                    bitRate,
                     channel,
                     pixelFormat,
                     formats,
