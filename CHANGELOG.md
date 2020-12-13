@@ -5,6 +5,14 @@ Axiom FFmpeg UI
 ## [alpha]
 
 
+## [1.9.4.3] - Dec 12, 2020
+### Added
+- Output Token `vsync`
+
+### Fixed
+-`x265` Quality CRF
+
+
 ## [1.9.4.2] - Dec 10, 2020
 ### Changed
 - Optimized MainWindow Audio Tab XAML
