@@ -10,7 +10,7 @@ Axiom FFmpeg UI
 - Output Token `vsync`
 
 ### Fixed
--`x265` Quality CRF
+- `x265` Quality CRF
 
 
 ## [1.9.4.2] - Dec 10, 2020
