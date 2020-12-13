@@ -584,9 +584,15 @@ namespace Generate
                         // -------------------------
                         if (codec_SelectedItem == "x265")
                         {
+                            // https://trac.ffmpeg.org/wiki/Encode/H.265
+                            //vCRF = string.Empty;
+                            if (!string.IsNullOrWhiteSpace(crf_Text))
+                            {
+                                vCRF = "-crf " + crf_Text;
+                            }
+
                             // x265 Params
                             Params.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
-                            vCRF = string.Empty;
 
                             //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
                         }
