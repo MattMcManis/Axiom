@@ -703,7 +703,7 @@
         <Setter Property="FlowDirection"
                 Value="LeftToRight" />
         <Setter Property="Source"
-                Value="../Resources/Images/Buttons/Black/import.png" />
+                Value="../Resources/Images/Buttons/Black/delete.png" />
         <Setter Property="Stretch"
                 Value="Uniform" />
     </Style>
