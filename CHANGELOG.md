@@ -4,6 +4,12 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.5.0] - Dec 14, 2020
+### Fixed
+- MediaType Controls
+- Save Custom Presets
+- System Theme Delete Preset Icon
+
 
 ## [1.9.4.3] - Dec 12, 2020
 ### Added
