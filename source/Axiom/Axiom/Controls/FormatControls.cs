@@ -971,7 +971,7 @@ namespace Controls
                             VM.AudioView.Audio_Stream_IsEnabled = false;
 
                             // Channel
-                            //VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                            //VM.AudioView.Audio_Channel_SelectedItem = "none";
                             VM.AudioView.Audio_Channel_IsEnabled = false;
 
                             // Quality
@@ -979,7 +979,7 @@ namespace Controls
                             VM.AudioView.Audio_Quality_IsEnabled = false;
 
                             // Compression Level
-                            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                            //VM.AudioView.Audio_CompressionLevel_SelectedItem = "none";
                             VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
                             // Sample Rate
@@ -1143,13 +1143,13 @@ namespace Controls
                         // Audio
                         // -------------------------
                         // Channel
-                        VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                        VM.AudioView.Audio_Channel_SelectedItem = "none";
 
                         // Quality
                         VM.AudioView.Audio_Quality_SelectedItem = "None";
 
                         // Compression Level
-                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "none";
 
                         // Sample Rate
                         VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
@@ -1190,13 +1190,13 @@ namespace Controls
                         // Audio
                         // -------------------------
                         // Channel
-                        VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                        VM.AudioView.Audio_Channel_SelectedItem = "none";
 
                         // Quality
                         VM.AudioView.Audio_Quality_SelectedItem = "None";
 
                         // Compression Level
-                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                        VM.AudioView.Audio_CompressionLevel_SelectedItem = "none";
 
                         // Sample Rate
                         VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
