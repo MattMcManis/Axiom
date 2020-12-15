@@ -66,7 +66,7 @@ namespace Axiom
 
                     //    if (File.Exists(Controls.Configure.configFile))
                     //    {
-                    //        Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
+                    //        Controls.Configure.ConigFile conf = new Controls.Configure.ConigFile(Controls.Configure.configFile);
                     //        inputPreviousPath = conf.Read("User", "InputPreviousPath");
 
                     //        // Use Previous Path if Not Empty
@@ -106,7 +106,7 @@ namespace Axiom
                         //{
                         //    try
                         //    {
-                        //        Controls.Configure.INIFile conf = new Controls.Configure.INIFile(Controls.Configure.configFile);
+                        //        Controls.Configure.ConigFile conf = new Controls.Configure.ConigFile(Controls.Configure.configFile);
                         //        conf.Write("User", "InputPreviousPath", inputDir);
                         //    }
                         //    catch
