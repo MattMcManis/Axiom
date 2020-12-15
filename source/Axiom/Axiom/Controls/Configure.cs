@@ -48,39 +48,57 @@ namespace Controls
         public static string configDir = MainWindow.appDataLocalDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
         public static string configFile = configDir + "axiom.conf"; // Axiom Config File axiom.conf (Can't change location)
 
-
         /// <summary>
-        /// INI Reader
+        /// Config File Reader
         /// </summary>
-        /*
-        * Source: GitHub Sn0wCrack
-        * https://gist.github.com/Sn0wCrack/5891612
-        */
-        public partial class INIFile
+        /// License MIT
+        // https://code.msdn.microsoft.com/windowsdesktop/Reading-and-Writing-Values-85084b6a
+        public partial class ConigFile
         {
+            public static ConigFile cfg;
+            public static ConigFile conf;
+
             public string path { get; private set; }
 
-            [DllImport("kernel32", CharSet = CharSet.Unicode)]
-            private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
-            [DllImport("kernel32", CharSet = CharSet.Unicode)]
-            private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
 
-            public INIFile(string INIPath)
+            [DllImport("kernel32", CharSet = CharSet.Unicode)]
+            private static extern int GetPrivateProfileString(string section, string key,
+            string defaultValue, StringBuilder value, int size, string filePath);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+            static extern int GetPrivateProfileString(string section, string key, string defaultValue,
+                [In, Out] char[] value, int size, string filePath);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+            private static extern int GetPrivateProfileSection(string section, IntPtr keyValue,
+            int size, string filePath);
+
+            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            private static extern bool WritePrivateProfileString(string section, string key,
+                string value, string filePath);
+
+            public static int capacity = 512;
+
+            public ConigFile(string configPath)
             {
-                path = INIPath;
-            }
-            public void Write(string Section, string Key, string Value)
-            {
-                WritePrivateProfileString(Section, Key, Value, this.path);
+                path = configPath;
             }
 
-            public string Read(string Section, string Key)
+            public bool Write(string section, string key, string value)
             {
-                StringBuilder temp = new StringBuilder(255);
-                int i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
-                return temp.ToString();
+                bool result = WritePrivateProfileString(section, key, value, path);
+                return result;
+            }
+
+            public string Read(string section, string key)
+            {
+                var value = new StringBuilder(capacity);
+                GetPrivateProfileString(section, key, string.Empty, value, value.Capacity, path);
+                return value.ToString();
             }
         }
+
 
 
         /// <summary>
@@ -93,14 +111,14 @@ namespace Controls
                 List<string> listFailedImports = new List<string>();
 
                 // Start Cofig File Read
-                INIFile conf = null;
+                ConigFile conf = null;
 
                 // -------------------------
                 // Check if axiom.conf file exists in in AppData Local Dir
                 // -------------------------
                 if (File.Exists(location))
                 {
-                    conf = new INIFile(configFile);
+                    conf = new ConigFile(configFile);
 
                     // Read
                     ReadConfig(mainwindow, conf);
@@ -188,7 +206,7 @@ namespace Controls
         /// <summary>
         /// Import Read Config
         /// </summary>
-        public static void ReadConfig(MainWindow mainwindow, INIFile conf)
+        public static void ReadConfig(MainWindow mainwindow, ConigFile conf)
         {
             // -------------------------
             // Main Window
@@ -511,7 +529,7 @@ namespace Controls
                 try
                 {
                     // Start conf File Write
-                    Configure.INIFile conf = new Configure.INIFile(path + "axiom.conf");
+                    Configure.ConigFile conf = new Configure.ConigFile(path + "axiom.conf");
 
                     // -------------------------
                     // Main Window
@@ -663,7 +681,7 @@ namespace Controls
         /// <summary>
         /// Export Write Config
         /// </summary>
-        //public static void WriteConfig(MainWindow mainwindow, MainViewModel vm, INIFile conf)
+        //public static void WriteConfig(MainWindow mainwindow, MainViewModel vm, ConigFile conf)
         //{
 
         //}
