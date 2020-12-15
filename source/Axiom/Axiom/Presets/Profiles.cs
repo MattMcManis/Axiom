@@ -55,9 +55,9 @@ namespace Profiles
             {
                 // Get Custom .ini Preset Paths
                 customPresetPathsList = Directory.GetFiles(VM.ConfigureView.CustomPresetsPath_Text, "*.ini")
-                                                             .Select(Path.GetFullPath)
-                                                             .OrderByDescending(x => x)
-                                                             .ToList();
+                                                           .Select(Path.GetFullPath)
+                                                           .OrderByDescending(x => x)
+                                                           .ToList();
 
                 // Preset Names Only List
                 List<string> presetNamesList = VM.MainView.Preset_Items.Select(item => item.Name).ToList();
@@ -137,14 +137,14 @@ namespace Profiles
             List<string> listFailedImports = new List<string>();
 
             // Start INI File Read
-            Controls.Configure.INIFile inif = null;
+            Controls.Configure.ConigFile inif = null;
 
             // -------------------------
             // Check if Preset ini file exists
             // -------------------------
             if (File.Exists(profile))
             {
-                inif = new Controls.Configure.INIFile(profile);
+                inif = new Controls.Configure.ConigFile(profile);
 
                 // --------------------------------------------------
                 // Main Window
@@ -871,15 +871,15 @@ namespace Profiles
             // -------------------------
             // Preset ini file does not exist
             // -------------------------
-            else
-            {
-                MessageBox.Show("Preset does not exist.",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+            //else
+            //{
+            //    MessageBox.Show("Preset does not exist.1",
+            //                    "Error",
+            //                    MessageBoxButton.OK,
+            //                    MessageBoxImage.Error);
 
-                return;
-            }
+            //    return;
+            //}
         }
 
 
@@ -889,18 +889,19 @@ namespace Profiles
         public static void ExportPreset(string profile)
         {
             // Check if Custom Presets Path is valid
-            if (MainWindow.IsValidPath(VM.ConfigureView.CustomPresetsPath_Text) == false)
-            {
-                return;
-            }
+            //if (MainWindow.IsValidPath(VM.ConfigureView.CustomPresetsPath_Text) == false)
+            //{
+            //    return;
+            //}
 
             // -------------------------
             // Check if Preset Directory exists
             // -------------------------
             if (Directory.Exists(VM.ConfigureView.CustomPresetsPath_Text))
             {
+                //MessageBox.Show("1"); //debug
                 // Start INI File Write
-                Controls.Configure.INIFile inif = new Controls.Configure.INIFile(profile);
+                Controls.Configure.ConigFile inif = new Controls.Configure.ConigFile(profile);
 
                 // --------------------------------------------------
                 // Main Window
