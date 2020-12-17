@@ -441,7 +441,9 @@ namespace Axiom
                     // Combine Output
                     // -------------------------
                     // eg. C:\Users\Example\Downloads\%f.webm
-                    output = outputFileName_Original;
+                    //output = outputFileName_Original;
+                   
+                    output = Path.Combine(outputDir, outputFileName + outputExt);
                     break;
             }
         }
