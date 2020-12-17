@@ -87,10 +87,10 @@ namespace Generate.Video
         /// BitRate Mode
         /// <summary>
         public static String BitRateMode(ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
-                                            string quality_SelectedItem,
-                                            string bitrate_Text,
-                                            bool vbr_IsChecked
-                                            )
+                                         string quality_SelectedItem,
+                                         string bitrate_Text,
+                                         bool vbr_IsChecked
+                                        )
         {
             //MessageBox.Show(vbr_IsChecked.ToString()); //debug
 
@@ -142,7 +142,7 @@ namespace Generate.Video
                                        string maxrate_Text,
                                        string bufsize_Text,
                                        string input_Text
-                                       )
+                                      )
         {
             // BitRate
             // Video
@@ -164,7 +164,8 @@ namespace Generate.Video
 
 
 
-            // BitRate NA
+            // BitRate N/A
+            // Defaults to a sensable value, such as 3000K
             vBitRateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
 
             // MinRate
@@ -368,8 +369,8 @@ namespace Generate.Video
         /// Video Quality - Lossless
         /// <summary>
         public static void QualityLossless(string codec_SelectedItem,
-                                            ObservableCollection<ViewModel.Video.VideoQuality> qualityItems
-                                            )
+                                           ObservableCollection<ViewModel.Video.VideoQuality> qualityItems
+                                          )
         {
             // -------------------------
             // x265 Params
@@ -393,15 +394,15 @@ namespace Generate.Video
         /// Video Quality - Custom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
-                                            string codec_SelectedItem,
-                                            ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
-                                            string quality_SelectedItem,
-                                            string crf_Text,
-                                            string bitrate_Text,
-                                            string minrate_Text,
-                                            string maxrate_Text,
-                                            string bufsize_Text
-                                            )
+                                         string codec_SelectedItem,
+                                         ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
+                                         string quality_SelectedItem,
+                                         string crf_Text,
+                                         string bitrate_Text,
+                                         string minrate_Text,
+                                         string maxrate_Text,
+                                         string bufsize_Text
+                                        )
         {
             // --------------------------------------------------
             // CRF
@@ -418,9 +419,8 @@ namespace Generate.Video
                 codec_SelectedItem == "H264 NVENC" ||
                 codec_SelectedItem == "HEVC NVENC" ||
                 codec_SelectedItem == "H264 QSV" ||
-                codec_SelectedItem == "HEVC QSV"
-                )
-                )
+                codec_SelectedItem == "HEVC QSV")
+              )
             {
                 //string crf_hwaccel_val = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel;
                 //string cbr_val = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
@@ -496,16 +496,16 @@ namespace Generate.Video
         /// Video Quality - Preset
         /// <summary>
         public static void QualityPreset(bool vbr_IsChecked,
-                                            string codec_SelectedItem,
-                                            ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
-                                            string quality_SelectedItem,
-                                            string pass_SelectedItem,
-                                            string crf_Text,
-                                            string bitrate_Text,
-                                            string minrate_Text,
-                                            string maxrate_Text,
-                                            string bufsize_Text
-                                            )
+                                         string codec_SelectedItem,
+                                         ObservableCollection<ViewModel.Video.VideoQuality> quality_Items,
+                                         string quality_SelectedItem,
+                                         string pass_SelectedItem,
+                                         string crf_Text,
+                                         string bitrate_Text,
+                                         string minrate_Text,
+                                         string maxrate_Text,
+                                         string bufsize_Text
+                                        )
         {
             // BitRate Mode
             vBitMode = BitRateMode(quality_Items,
@@ -665,7 +665,7 @@ namespace Generate.Video
                                           string maxrate_Text,
                                           string bufsize_Text,
                                           string input_Text
-                                          )
+                                         )
         {
             //MessageBox.Show(vbr_IsChecked.ToString()); //debug
 
@@ -695,7 +695,7 @@ namespace Generate.Video
                                 maxrate_Text,
                                 bufsize_Text,
                                 input_Text
-                                );
+                               );
                 }
 
                 // -------------------------
@@ -705,7 +705,7 @@ namespace Generate.Video
                 {
                     QualityLossless(codec_SelectedItem,
                                     quality_Items
-                                    );
+                                   );
                 }
 
                 // -------------------------
@@ -714,15 +714,15 @@ namespace Generate.Video
                 else if (quality_SelectedItem == "Custom")
                 {
                     QualityCustom(vbr_IsChecked,
-                                    codec_SelectedItem,
-                                    quality_Items,
-                                    quality_SelectedItem,
-                                    crf_Text,
-                                    bitrate_Text,
-                                    minrate_Text,
-                                    maxrate_Text,
-                                    bufsize_Text
-                                    );
+                                  codec_SelectedItem,
+                                  quality_Items,
+                                  quality_SelectedItem,
+                                  crf_Text,
+                                  bitrate_Text,
+                                  minrate_Text,
+                                  maxrate_Text,
+                                  bufsize_Text
+                                 );
                 }
 
                 // -------------------------
@@ -731,16 +731,16 @@ namespace Generate.Video
                 else
                 {
                     QualityPreset(vbr_IsChecked,
-                                    codec_SelectedItem,
-                                    quality_Items,
-                                    quality_SelectedItem,
-                                    pass_SelectedItem,
-                                    crf_Text,
-                                    bitrate_Text,
-                                    minrate_Text,
-                                    maxrate_Text,
-                                    bufsize_Text
-                                    );
+                                  codec_SelectedItem,
+                                  quality_Items,
+                                  quality_SelectedItem,
+                                  pass_SelectedItem,
+                                  crf_Text,
+                                  bitrate_Text,
+                                  minrate_Text,
+                                  maxrate_Text,
+                                  bufsize_Text
+                                 );
                 }
 
                 //MessageBox.Show(vBufSize); //debug
@@ -831,9 +831,9 @@ namespace Generate.Video
         /// Batch Video Quality Auto (Method)
         /// <summary>
         public static String BatchVideoQualityAuto(bool batch_IsChecked,
-                                                    string codec_SelectedItem,
-                                                    string quality_SelectedItem
-                                                    )
+                                                   string codec_SelectedItem,
+                                                   string quality_SelectedItem
+                                                   )
         {
             // -------------------------
             // Batch Auto
@@ -956,10 +956,11 @@ namespace Generate.Video
             // -------------------------
             // Return Auto Bitrate if Web URL
             // -------------------------
-            // Without this, returning inputVideoBitRate for N/A causes unkown bug, returning 3K instead of 3000K
+            // Without this, returning inputVideoBitRate for N/A causes unknown bug, returning 3K instead of 3000K
             if (MainWindow.IsWebURL(VM.MainView.Input_Text) == true)
             {
-                return vBitRateNA;
+                // N/A = Defaults to a sensable value, such as 3000K
+                return vBitRateNA; 
             }
 
             // -------------------------
@@ -1175,8 +1176,8 @@ namespace Generate.Video
             // Disabled
             // -------------------------
             else if (pass_SelectedItem == "1 Pass" ||
-                        pass_SelectedItem == "CRF" ||
-                        pass_SelectedItem == "auto") // JPG, PNG, WebP
+                     pass_SelectedItem == "CRF" ||
+                     pass_SelectedItem == "auto") // JPG, PNG, WebP
             {
                 pass1 = string.Empty;
             }
@@ -1192,8 +1193,8 @@ namespace Generate.Video
         /// <summary>
         // x265 Pass 2
         public static String Pass2Modifier(string codec_SelectedItem,
-                                            string pass_SelectedItem
-                                            )
+                                           string pass_SelectedItem
+                                          )
         {
             // -------------------------
             // Enabled
@@ -1260,12 +1261,12 @@ namespace Generate.Video
         /// Optimize
         /// <summary>
         public static String Optimize(string codec_SelectedItem,
-                                        ObservableCollection<ViewModel.Video.VideoOptimize> optimize_Items,
-                                        string optimize_SelectedItem,
-                                        string tune_SelectedItem,
-                                        string profile_SelectedItem,
-                                        string level_SelectedItem
-                                        )
+                                      ObservableCollection<ViewModel.Video.VideoOptimize> optimize_Items,
+                                      string optimize_SelectedItem,
+                                      string tune_SelectedItem,
+                                      string profile_SelectedItem,
+                                      string level_SelectedItem
+                                     )
         {
             // Check:
             // Video Codec Not Copy
