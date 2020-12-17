@@ -633,6 +633,9 @@ namespace Controls.Video
                     // VBR
                     if (VM.VideoView.Video_Codec_SelectedItem == "VP8" || // special rules
                         VM.VideoView.Video_Codec_SelectedItem == "x264" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "H264_AMF" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "H264_NVENC" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "H264_QSV" ||
                         //VM.VideoView.Video_Codec_SelectedItem == "x265" || // n/a
                         VM.VideoView.Video_Codec_SelectedItem == "JPEG" ||
                         //VM.VideoView.Video_Codec_SelectedItem != "PNG" || // n/a
