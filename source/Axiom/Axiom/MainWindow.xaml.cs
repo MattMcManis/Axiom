@@ -2143,8 +2143,9 @@ namespace Axiom
             if (VM.MainView.Batch_IsChecked == true &&
                 !string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
             {
-                if (string.Equals(inputDir, outputDir, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(VM.MainView.Input_Text/*inputDir*/, VM.MainView.Output_Text/*outputDir*/, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
+                    )
                 {
                     //MessageBox.Show("inputDir = " + inputDir); //debug
                     //MessageBox.Show("outputDir = " + outputDir); //debug
