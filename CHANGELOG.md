@@ -4,6 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.5.1] - Dec 16, 2020
+### Added
+- - FFprobe Added IsWebUrl condition halt
+
+### Fixed
+- Batch Input/Output Ready Halt
+- Web Download Output file extension and Auto Quality bit rate
+
+
 ## [1.9.5.0] - Dec 14, 2020
 ### Fixed
 - MediaType Controls
