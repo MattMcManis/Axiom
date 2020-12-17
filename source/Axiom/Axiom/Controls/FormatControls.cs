@@ -51,13 +51,14 @@ namespace Controls
             /// <summary>
             /// Format Controls
             /// </summary>
+            /// <remarks>
+            /// Select default Codecs and items for each Container
+            /// </remarks>
             public static void FormatControls(string container_SelectedItem)
             {
                 // --------------------------------------------------
                 // Containers
                 // --------------------------------------------------
-                // Select default Codecs and items for each Container
-
                 switch (container_SelectedItem)
                 {
                     // --------------------------------------------------
