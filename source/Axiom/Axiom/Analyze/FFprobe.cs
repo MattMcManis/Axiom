@@ -92,11 +92,13 @@ namespace Analyze
             Log.LogActions.Add(Log.WriteAction);
 
 
-            // Only Run FFprobe if Input File is Not Null
+            // Only run FFprobe if Input File is Not Null
+            // Do not run FFprobe if Input is Web URL such as YouTube link
             // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
             if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                !string.IsNullOrWhiteSpace(ffprobe))
+                !string.IsNullOrWhiteSpace(ffprobe) &&
+                MainWindow.IsWebURL(VM.MainView.Input_Text) == false)
             {
                 // -------------------------
                 //    FFprobe Video Entry Type Containers
