@@ -44,7 +44,8 @@
                      FontFamily="Consolas"
                      Padding="10"
                      IsReadOnly="True"
-                     IsUndoEnabled="False" />
+                     IsUndoEnabled="False" 
+                     FontSize="13" />
 
         <Button x:Name="buttonExpand"
                 Margin="0,10,28,0"
