@@ -36,7 +36,7 @@ namespace Profiles
     public class Profiles
     {
         /// <summary>
-        /// Scan PC Custom Presets
+        /// Load Custom Presets
         /// </summary>
         public static List<string> customPresetPathsList = new List<string>();
         
@@ -889,17 +889,16 @@ namespace Profiles
         public static void ExportPreset(string profile)
         {
             // Check if Custom Presets Path is valid
-            //if (MainWindow.IsValidPath(VM.ConfigureView.CustomPresetsPath_Text) == false)
-            //{
-            //    return;
-            //}
+            if (MainWindow.IsValidPath(VM.ConfigureView.CustomPresetsPath_Text) == false)
+            {
+                return;
+            }
 
             // -------------------------
             // Check if Preset Directory exists
             // -------------------------
             if (Directory.Exists(VM.ConfigureView.CustomPresetsPath_Text))
             {
-                //MessageBox.Show("1"); //debug
                 // Start INI File Write
                 Controls.Configure.ConigFile inif = new Controls.Configure.ConigFile(profile);
 
@@ -1186,7 +1185,6 @@ namespace Profiles
                         break;
                 }
             }
-
         }
 
 
