@@ -60,9 +60,9 @@ namespace Analyze
         public static string inputVideoBitRate { get; set; }
         public static string inputAudioCodec { get; set; }
         public static string inputAudioBitRate { get; set; }
-        public static string inputSize { get; set; } //used to calculate video bitrate
-        public static string inputDuration { get; set; } //used to calculate video bitrate
-        public static string inputFrameRate { get; set; } //used for Frame Range
+        public static string inputSize { get; set; } // used to calculate video bitrate
+        public static string inputDuration { get; set; } // used to calculate video bitrate
+        public static string inputFrameRate { get; set; } // used for Frame Range
 
         // Single Auto
         public static string vEntryType { get; set; } // ffprobe format or stream
@@ -91,13 +91,13 @@ namespace Analyze
             };
             Log.LogActions.Add(Log.WriteAction);
 
-
-            // Only run FFprobe if Input File is Not Null
-            // Do not run FFprobe if Input is Web URL such as YouTube link
+            // Do not run FFprobe if: FFprobe.exe is null
+            //                        Input File is null
+            //                        Input is Web URL such as YouTube link
             // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
-            if (!string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                !string.IsNullOrWhiteSpace(ffprobe) &&
+            if (!string.IsNullOrWhiteSpace(ffprobe) &&
+                !string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
                 MainWindow.IsWebURL(VM.MainView.Input_Text) == false)
             {
                 // -------------------------
@@ -204,6 +204,8 @@ namespace Analyze
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
+
+            // Input File Not Found
             else
             {
                 // Log Console Message /////////
@@ -215,7 +217,6 @@ namespace Analyze
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
-
 
             // --------------------------------------------------------------------
             // Section: Output
@@ -282,12 +283,12 @@ namespace Analyze
                         // -------------------------
                         case "CMD":
                             // Stream
-                            if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream^=bit_rate";
                             }
                             // Format
-                            else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format^=bit_rate";
                             }
@@ -303,12 +304,12 @@ namespace Analyze
                         // -------------------------
                         case "PowerShell":
                             // Stream
-                            if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            if (Generate.Format.VideoExtensions_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "stream=bit_rate";
                             }
                             // Format
-                            else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt/*.ToLower()*/, StringComparison.OrdinalIgnoreCase)))
+                            else if (Generate.Format.VideoExtensions_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                             {
                                 vEntryTypeBatch = "format=bit_rate";
                             }
@@ -417,10 +418,10 @@ namespace Analyze
                 TimeSpan t = TimeSpan.FromSeconds(Convert.ToDouble(inputDuration));
 
                 inputDuration = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}",
-                                t.Hours,
-                                t.Minutes,
-                                t.Seconds,
-                                t.Milliseconds);
+                                              t.Hours,
+                                              t.Minutes,
+                                              t.Seconds,
+                                              t.Milliseconds);
             }
 
             return inputDuration;
