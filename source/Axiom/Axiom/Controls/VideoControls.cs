@@ -550,10 +550,10 @@ namespace Controls.Video
                 // -------------------------
                 case "Lossless":
                     // Encode Speed
-                    if (VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||
+                    if (//VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||// n/a
                         VM.VideoView.Video_Codec_SelectedItem == "H264 NVENC" ||
                         //VM.VideoView.Video_Codec_SelectedItem == "H264 QSV" || // n/a
-                        VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
+                        //VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
                         VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC"
                         //VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV"// n/a
                        )
