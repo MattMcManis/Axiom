@@ -412,8 +412,8 @@ namespace Controls.Video
         /// BitRate Display
         /// </summary>
         public static void VideoBitRateDisplay(ObservableCollection<ViewModel.Video.VideoQuality> items,
-                                                string selectedQuality,
-                                                string selectedPass)
+                                               string selectedQuality,
+                                               string selectedPass)
         {
             // Condition Check
             if (!string.IsNullOrEmpty(VM.VideoView.Video_Quality_SelectedItem) &&
@@ -509,49 +509,6 @@ namespace Controls.Video
             switch (VM.VideoView.Video_Quality_SelectedItem)
             {
                 // -------------------------
-                // Custom
-                // -------------------------
-                case "Custom":
-                    // Enable and Clear BitRate Text Display
-
-                    // Pass
-                    VM.VideoView.Video_Pass_IsEnabled = true;
-
-                    // CRF
-                    if (VM.VideoView.Video_Codec_SelectedItem != "JPEG" || // Special Rule
-                        VM.VideoView.Video_Codec_SelectedItem != "PNG" ||
-                        VM.VideoView.Video_Codec_SelectedItem != "WebP"
-                        )
-                    {
-                        VM.VideoView.Video_CRF_IsEnabled = true;
-                    }
-
-                    VM.VideoView.Video_CRF_Text = "";
-
-                    // BitRate
-                    VM.VideoView.Video_BitRate_IsEnabled = true;
-                    VM.VideoView.Video_BitRate_Text = "";
-
-                    // VBR
-                    VM.VideoView.Video_VBR_IsEnabled = true;
-
-                    // MinRate
-                    VM.VideoView.Video_MinRate_IsEnabled = true;
-                    VM.VideoView.Video_MinRate_Text = "";
-
-                    // MaxRate
-                    VM.VideoView.Video_MaxRate_IsEnabled = true;
-                    VM.VideoView.Video_MaxRate_Text = "";
-
-                    // BufSize
-                    VM.VideoView.Video_BufSize_IsEnabled = true;
-                    VM.VideoView.Video_BufSize_Text = "";
-
-                    // Size
-                    VM.VideoView.Video_Scale_IsEnabled = true;
-                    break;
-
-                // -------------------------
                 // Auto
                 // -------------------------
                 case "Auto":
@@ -582,6 +539,86 @@ namespace Controls.Video
 
                     // BufSize
                     VM.VideoView.Video_BufSize_IsEnabled = false;
+                    VM.VideoView.Video_BufSize_Text = "";
+
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+                    break;
+
+                // -------------------------
+                // Lossless
+                // -------------------------
+                case "Lossless":
+                    // Encode Speed
+                    if (VM.VideoView.Video_Codec_SelectedItem == "H264 AMF" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "H264 NVENC" ||
+                        //VM.VideoView.Video_Codec_SelectedItem == "H264 QSV" || // n/a
+                        VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" ||
+                        VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC"
+                        //VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV"// n/a
+                       )
+                    {
+                        VM.VideoView.Video_EncodeSpeed_SelectedItem = "Lossless";
+                    }
+
+                    // Pass
+                    VM.VideoView.Video_Pass_IsEnabled = false;
+
+                    // CRF
+                    VM.VideoView.Video_CRF_IsEnabled = false;
+
+                    // BitRate
+                    VM.VideoView.Video_BitRate_IsEnabled = false;
+                    // VBR
+                    VM.VideoView.Video_VBR_IsEnabled = false;
+                    // MinRate
+                    VM.VideoView.Video_MinRate_IsEnabled = false;
+                    // MaxRate
+                    VM.VideoView.Video_MaxRate_IsEnabled = false;
+                    // BufSize
+                    VM.VideoView.Video_BufSize_IsEnabled = false;
+
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+                    break;
+
+                // -------------------------
+                // Custom
+                // -------------------------
+                case "Custom":
+                    // Enable and Clear BitRate Text Display
+
+                    // Pass
+                    VM.VideoView.Video_Pass_IsEnabled = true;
+
+                    // CRF
+                    if (VM.VideoView.Video_Codec_SelectedItem != "JPEG" || // Special Rule
+                        VM.VideoView.Video_Codec_SelectedItem != "PNG" ||
+                        VM.VideoView.Video_Codec_SelectedItem != "WebP"
+                       )
+                    {
+                        VM.VideoView.Video_CRF_IsEnabled = true;
+                    }
+
+                    VM.VideoView.Video_CRF_Text = "";
+
+                    // BitRate
+                    VM.VideoView.Video_BitRate_IsEnabled = true;
+                    VM.VideoView.Video_BitRate_Text = "";
+
+                    // VBR
+                    VM.VideoView.Video_VBR_IsEnabled = true;
+
+                    // MinRate
+                    VM.VideoView.Video_MinRate_IsEnabled = true;
+                    VM.VideoView.Video_MinRate_Text = "";
+
+                    // MaxRate
+                    VM.VideoView.Video_MaxRate_IsEnabled = true;
+                    VM.VideoView.Video_MaxRate_Text = "";
+
+                    // BufSize
+                    VM.VideoView.Video_BufSize_IsEnabled = true;
                     VM.VideoView.Video_BufSize_Text = "";
 
                     // Size
@@ -637,6 +674,9 @@ namespace Controls.Video
                         VM.VideoView.Video_Codec_SelectedItem == "H264_NVENC" ||
                         VM.VideoView.Video_Codec_SelectedItem == "H264_QSV" ||
                         //VM.VideoView.Video_Codec_SelectedItem == "x265" || // n/a
+                        //VM.VideoView.Video_Codec_SelectedItem == "HEVC AMF" || // n/a
+                        //VM.VideoView.Video_Codec_SelectedItem == "HEVC NVENC" || // n/a
+                        //VM.VideoView.Video_Codec_SelectedItem == "HEVC QSV"
                         VM.VideoView.Video_Codec_SelectedItem == "JPEG" ||
                         //VM.VideoView.Video_Codec_SelectedItem != "PNG" || // n/a
                         //VM.VideoView.Video_Codec_SelectedItem != "WebP" || // n/a
