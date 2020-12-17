@@ -88,7 +88,7 @@ namespace Controls.Video.Codec
         public ObservableCollection<ViewModel.Video.VideoQuality> quality { get; set; } = new ObservableCollection<ViewModel.Video.VideoQuality>()
         {
             new ViewModel.Video.VideoQuality() { Name = "Auto",      CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
-            new ViewModel.Video.VideoQuality() { Name = "Lossless",  CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "" },
+            new ViewModel.Video.VideoQuality() { Name = "Lossless",  CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "" /* uses encoding speed lossless preset */ },
             new ViewModel.Video.VideoQuality() { Name = "Ultra",     CRF = "16", CRF_HWAccel_Intel_QSV = "18", CRF_HWAccel_NVIDIA_NVENC = "18", CBR_BitMode = "-b:v", CBR = "5000K", VBR_BitMode = "-q:v", VBR = "5000K", MinRate = "", MaxRate = "", BufSize ="" },
             new ViewModel.Video.VideoQuality() { Name = "High",      CRF = "20", CRF_HWAccel_Intel_QSV = "22", CRF_HWAccel_NVIDIA_NVENC = "22", CBR_BitMode = "-b:v", CBR = "2800K", VBR_BitMode = "-q:v", VBR = "2800K", MinRate = "", MaxRate = "", BufSize ="" },
             new ViewModel.Video.VideoQuality() { Name = "Medium",    CRF = "25", CRF_HWAccel_Intel_QSV = "27", CRF_HWAccel_NVIDIA_NVENC = "27", CBR_BitMode = "-b:v", CBR = "1500K", VBR_BitMode = "-q:v", VBR = "1500K", MinRate = "", MaxRate = "", BufSize ="" },
@@ -295,26 +295,8 @@ namespace Controls.Video.Codec
                 VBR =       true,
                 Optimize =  true
             },
-            ////new ViewModel.Video.Enabled() {  Codec =             true },
-            ////new ViewModel.Video.Enabled() {  EncodeSpeed =       true },
-            ////new ViewModel.Video.Enabled() {  HWAccel =           true },
-            //new ViewModel.Video.Enabled() {  Quality =           true },
-            //new ViewModel.Video.Enabled() {  VBR =               true },
-            ////new ViewModel.Video.Enabled() {  PixelFormat =       true },
-            ////new ViewModel.Video.Enabled() {  FPS =               true },
-            ////new ViewModel.Video.Enabled() {  Speed =             true },
-            ////new ViewModel.Video.Enabled() {  Vsync =             true },
-            //new ViewModel.Video.Enabled() {  Optimize =          true },
-            ////new ViewModel.Video.Enabled() {  Scale =             true },
-            ////new ViewModel.Video.Enabled() {  Scaling =           true },
-            ////new ViewModel.Video.Enabled() {  Crop =              true },
-            ////new ViewModel.Video.Enabled() {  ColorRange =        true },
-            ////new ViewModel.Video.Enabled() {  ColorSpace =        true },
-            ////new ViewModel.Video.Enabled() {  ColorPrimaries =    true },
-            ////new ViewModel.Video.Enabled() {  ColorTransferChar = true },
-            ////new ViewModel.Video.Enabled() {  ColorMatrix =       true },
-            ////new ViewModel.Video.Enabled() {  SubtitleCodec =     true },
-            ////new ViewModel.Video.Enabled() {  SubtitleStream =    true },
+
+            // All other controls are set through Format.Controls.MediaTypeControls()
         };
 
     }

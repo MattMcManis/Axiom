@@ -155,17 +155,8 @@ namespace Controls.Audio.Codec
                 Volume =           false,
                 HardLimiter =      false
             },
-
-            //new ViewModel.Audio.Enabled() {  Codec =            true },
-            //new ViewModel.Audio.Enabled() {  Stream =           true },
-            //new ViewModel.Audio.Enabled() {  Channel =          false },
-            //new ViewModel.Audio.Enabled() {  Quality =          false },
-            //new ViewModel.Audio.Enabled() {  CompressionLevel = false },
-            //new ViewModel.Audio.Enabled() {  VBR =              false },
-            //new ViewModel.Audio.Enabled() {  SampleRate =       false },
-            //new ViewModel.Audio.Enabled() {  BitDepth =         false },
-            //new ViewModel.Audio.Enabled() {  Volume =           false },
-            //new ViewModel.Audio.Enabled() {  HardLimiter =      false },
+            
+            // All other controls are set through Format.Controls.MediaTypeControls()
         };
 
     }

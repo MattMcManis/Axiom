@@ -77,6 +77,8 @@ namespace Controls.Subtitles.Codec
         {
             new ViewModel.Subtitle.Enabled() {  Stream = true },
             // Subtitle List View controlled in cboSubtitle_Stream_SelectionChanged
+            
+            // All other controls are set through Format.Controls.MediaTypeControls()
         };
 
     }

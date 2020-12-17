@@ -250,27 +250,8 @@ namespace Controls.Video.Codec
                 VBR =       true,
                 Optimize =  true
             },
-
-            ////new ViewModel.Video.Enabled() {  Codec =             true },
-            ////new ViewModel.Video.Enabled() {  EncodeSpeed =       true },
-            ////new ViewModel.Video.Enabled() {  HWAccel =           true },
-            //new ViewModel.Video.Enabled() {  Quality =           true },
-            //new ViewModel.Video.Enabled() {  VBR =               true },
-            ////new ViewModel.Video.Enabled() {  PixelFormat =       true },
-            ////new ViewModel.Video.Enabled() {  FPS =               true },
-            ////new ViewModel.Video.Enabled() {  Speed =             true },
-            ////new ViewModel.Video.Enabled() {  Vsync =             true },
-            //new ViewModel.Video.Enabled() {  Optimize =          true },
-            ////new ViewModel.Video.Enabled() {  Scale =             true },
-            ////new ViewModel.Video.Enabled() {  Scaling =           true },
-            ////new ViewModel.Video.Enabled() {  ScreenFormat =      true },
-            ////new ViewModel.Video.Enabled() {  AspectRatio =       true },
-            ////new ViewModel.Video.Enabled() {  Crop =              true },
-            ////new ViewModel.Video.Enabled() {  ColorRange =        true },
-            ////new ViewModel.Video.Enabled() {  ColorSpace =        true },
-            ////new ViewModel.Video.Enabled() {  ColorPrimaries =    true },
-            ////new ViewModel.Video.Enabled() {  ColorTransferChar = true },
-            ////new ViewModel.Video.Enabled() {  ColorMatrix =       true },
+            
+            // All other controls are set through Format.Controls.MediaTypeControls()
         };
         
     }

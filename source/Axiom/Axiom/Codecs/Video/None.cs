@@ -219,29 +219,8 @@ namespace Controls.Video.Codec
                 SubtitleCodec =     false,
                 SubtitleStream =    false,
             },
-
-            //new ViewModel.Video.Enabled() {  Codec =             false },
-            //new ViewModel.Video.Enabled() {  EncodeSpeed =       false },
-            //new ViewModel.Video.Enabled() {  HWAccel =           false },
-            //new ViewModel.Video.Enabled() {  Quality =           false },
-            //new ViewModel.Video.Enabled() {  VBR =               false },
-            //new ViewModel.Video.Enabled() {  PixelFormat =       false },
-            //new ViewModel.Video.Enabled() {  FPS =               false },
-            //new ViewModel.Video.Enabled() {  Speed =             false },
-            //new ViewModel.Video.Enabled() {  Vsync =             false },
-            //new ViewModel.Video.Enabled() {  Optimize =          false },
-            //new ViewModel.Video.Enabled() {  Scale =             false },
-            //new ViewModel.Video.Enabled() {  Scaling =           false },
-            //new ViewModel.Video.Enabled() {  ScreenFormat =      false },
-            //new ViewModel.Video.Enabled() {  AspectRatio =       false },
-            //new ViewModel.Video.Enabled() {  Crop =              false },
-            //new ViewModel.Video.Enabled() {  ColorRange =        false },
-            //new ViewModel.Video.Enabled() {  ColorSpace =        false },
-            //new ViewModel.Video.Enabled() {  ColorPrimaries =    false },
-            //new ViewModel.Video.Enabled() {  ColorTransferChar = false },
-            //new ViewModel.Video.Enabled() {  ColorMatrix =       false },
-            //new ViewModel.Video.Enabled() {  SubtitleCodec =     false },
-            //new ViewModel.Video.Enabled() {  SubtitleStream =    false },
+            
+            // All other controls are set through Format.Controls.MediaTypeControls()
         };
 
     }
