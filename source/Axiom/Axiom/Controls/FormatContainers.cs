@@ -504,6 +504,7 @@ namespace Controls
         // -------------------------
         // jpg
         // -------------------------
+        // Note: Container is .jpg, Codec Name is JPEG, Codec is -c:v mjpeg 
         public class JPG
         {
             // Media Type
