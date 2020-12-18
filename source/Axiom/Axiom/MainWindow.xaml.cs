@@ -2018,8 +2018,8 @@ namespace Axiom
             if ((input_Text.StartsWith("http://") ||
                 input_Text.StartsWith("https://") ||
                 input_Text.StartsWith("www.")) //||
-                                               //input_Text.EndsWith(".com")) //&&
-                                               //IsValidURL(input_Text) == true
+                //input_Text.EndsWith(".com")) //&&
+                //IsValidURL(input_Text) == true
                )
             {
                 return true;
