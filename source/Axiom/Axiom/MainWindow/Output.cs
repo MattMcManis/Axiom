@@ -95,6 +95,8 @@ namespace Axiom
             // Get Output File Extension
             Controls.Format.Controls.OutputFormatExt();
 
+
+
             switch (VM.MainView.Batch_IsChecked)
             {
                 // -------------------------
@@ -119,9 +121,9 @@ namespace Axiom
                             // Load InitialDirectory from axiom.conf
                             try
                             {
-                                if (File.Exists(Controls.Configure.configFile))
+                                if (File.Exists(Controls.Configure.axiomConfFile))
                                 {
-                                    Controls.Configure.ConigFile conf = new Controls.Configure.ConigFile(Controls.Configure.configFile);
+                                    Controls.Configure.ConfigFile conf = new Controls.Configure.ConfigFile(Controls.Configure.axiomConfFile);
                                     outputPreviousPath = conf.Read("User", "OutputPreviousPath");
 
                                     if (!string.IsNullOrWhiteSpace(outputPreviousPath))
@@ -192,11 +194,11 @@ namespace Axiom
                             }
 
                             // Save Previous Path
-                            if (File.Exists(Controls.Configure.configFile))
+                            if (File.Exists(Controls.Configure.axiomConfFile))
                             {
                                 try
                                 {
-                                    Controls.Configure.ConigFile conf = new Controls.Configure.ConigFile(Controls.Configure.configFile);
+                                    Controls.Configure.ConfigFile conf = new Controls.Configure.ConfigFile(Controls.Configure.axiomConfFile);
                                     conf.Write("User", "OutputPreviousPath", outputDir);
                                 }
                                 catch
