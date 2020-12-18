@@ -142,66 +142,269 @@ namespace Axiom
         /// <summary>
         /// Config Directory - ComboBox
         /// </summary>
-        private void cboConfigPath_SelectionChangedSelectionChangeCommitted(object sender, SelectionChangedEventArgs e)
+        private void cboConfigPath_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ////MessageBox.Show(e.RemovedItems.Count.ToString()); //debug
-            //// 0 first startup
-            //// 1 first bind
-            //if (e.RemovedItems.Count != 1 && e.RemovedItems.Count != 0)
-            //{
-            //    string path = string.Empty;
-            //    bool access = true;
+            switch (VM.ConfigureView.ConfigPath_SelectedItem)
+            {
+                // -------------------------
+                // AppData Local Directory
+                // -------------------------
+                case "AppData Local":
+                    // Change the conf output folder path
+                    Controls.Configure.axiomConfFile = Controls.Configure.confAppDataLocalPath;
 
-            //    // AppData Local
-            //    if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
-            //    {
-            //        // Check Folder Write Access
-            //        if (hasWriteAccessToFolder(appDataLocalDir) == false)
-            //        {
-            //            access = false;
-            //        }
-            //    }
-            //    // AppData Roaming
-            //    else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
-            //    {
-            //        // Check Folder Write Access
-            //        if (hasWriteAccessToFolder(appDataRoamingDir) == false)
-            //        {
-            //            access = false;
-            //        }
-            //    }
-            //    // Documents
-            //    else if (VM.ConfigureView.ConfigPath_SelectedItem == "Documents")
-            //    {
-            //        // Check Folder Write Access
-            //        if (hasWriteAccessToFolder(documentsDir) == false)
-            //        {
-            //            access = false;
-            //        }
-            //    }
-            //    // App Root
-            //    else if (VM.ConfigureView.ConfigPath_SelectedItem == "App Root")
-            //    {
-            //        // Check Folder Write Access
-            //        if (appDir.Contains(programFilesDir) ||
-            //            appDir.Contains(programFilesX86Dir) ||
-            //            appDir.Contains(programFilesX64Dir) ||
-            //            hasWriteAccessToFolder(appDir) == false
-            //            )
-            //        {
-            //            access = false;
-            //        }
-            //    }
+                    try
+                    {
+                        // -------------------------
+                        // Create Axiom UI folder if missing
+                        // -------------------------
+                        if (!Directory.Exists(Controls.Configure.confAppDataLocalDir))
+                        {
+                            Directory.CreateDirectory(Controls.Configure.confAppDataLocalDir);
+                        }
 
-            //    // Display Warning if Axiom can't write to location
-            //    if (access == false)
-            //    {
-            //        MessageBox.Show("Axiom does not have write access to this location.",
-            //                        "Notice",
-            //                        MessageBoxButton.OK,
-            //                        MessageBoxImage.Warning);
-            //    }
-            //}
+                        // -------------------------
+                        // Move the conf to AppData Local
+                        // -------------------------
+                        // Move from App Directory to AppData Local
+                        if (File.Exists(Controls.Configure.confAppRootPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(Controls.Configure.confAppDataLocalPath))
+                            {
+                                File.Delete(Controls.Configure.confAppDataLocalPath);
+                            }
+
+                            File.Move(Controls.Configure.confAppRootPath, Controls.Configure.confAppDataLocalPath);
+                        }
+                        // Move from AppData Roaming to AppData Local
+                        else if (File.Exists(Controls.Configure.confAppDataRoamingPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(Controls.Configure.confAppDataLocalPath))
+                            {
+                                File.Delete(Controls.Configure.confAppDataLocalPath);
+                            }
+
+                            File.Move(Controls.Configure.confAppDataRoamingPath, Controls.Configure.confAppDataLocalPath);
+                        }
+
+                        // -------------------------
+                        // Move the log to AppData Local
+                        // -------------------------
+                        // Move from App Directory to AppData Local
+                        if (File.Exists(logAppRootPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(logAppDataLocalPath))
+                            {
+                                File.Delete(logAppDataLocalPath);
+                            }
+
+                            File.Move(logAppRootPath, logAppDataLocalPath);
+                        }
+                        // Move from AppData Roaming to AppData Local
+                        else if (File.Exists(logAppDataRoamingPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(logAppDataLocalPath))
+                            {
+                                File.Delete(logAppDataLocalPath);
+                            }
+
+                            File.Move(logAppDataRoamingPath, logAppDataLocalPath);
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.ToString(),
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                    break;
+
+                // -------------------------
+                // AppData Roaming Directory
+                // -------------------------
+                case "AppData Roaming":
+                    // Change the conf output folder path
+                    Controls.Configure.axiomConfFile = Controls.Configure.confAppDataRoamingDir;
+
+                    try
+                    {
+                        // -------------------------
+                        // Create Axiom UI folder if missing
+                        // -------------------------
+                        if (!Directory.Exists(Controls.Configure.confAppDataRoamingDir))
+                        {
+                            Directory.CreateDirectory(Controls.Configure.confAppDataRoamingDir);
+                        }
+
+                        // -------------------------
+                        // Move the conf to AppData Roaming
+                        // -------------------------
+                        // Move from App Root Directory to AppData Roaming
+                        if (File.Exists(Controls.Configure.confAppRootPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(Controls.Configure.confAppDataRoamingPath))
+                            {
+                                File.Delete(Controls.Configure.confAppDataRoamingPath);
+                            }
+
+                            File.Move(Controls.Configure.confAppRootPath, Controls.Configure.confAppDataRoamingPath);
+                        }
+                        // Move from AppData Local to AppData Roaming
+                        else if (File.Exists(Controls.Configure.confAppDataLocalPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(Controls.Configure.confAppDataRoamingPath))
+                            {
+                                File.Delete(Controls.Configure.confAppDataRoamingPath);
+                            }
+
+                            File.Move(Controls.Configure.confAppDataLocalPath, Controls.Configure.confAppDataRoamingPath);
+                        }
+
+                        // -------------------------
+                        // Move the log to AppData Roaming
+                        // -------------------------
+                        // Move from App Root Directory to AppData Roaming
+                        if (File.Exists(logAppRootPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(logAppDataRoamingPath))
+                            {
+                                File.Delete(logAppDataRoamingPath);
+                            }
+
+                            File.Move(logAppRootPath, logAppDataRoamingPath);
+                        }
+                        // Move from AppData Local to AppData Roaming
+                        else if (File.Exists(logAppDataLocalPath))
+                        {
+                            // Delete before Move instead of Overwrite
+                            if (File.Exists(logAppDataRoamingPath))
+                            {
+                                File.Delete(logAppDataRoamingPath);
+                            }
+
+                            File.Move(logAppDataLocalPath, logAppDataRoamingPath);
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.ToString(),
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                    break;
+
+                // -------------------------
+                // App Directory
+                // -------------------------
+                case "App Root":
+                    // Change the conf output folder path
+                    Controls.Configure.axiomConfFile = Controls.Configure.confAppRootDir;
+
+                    // -------------------------
+                    // Ignore Program Files
+                    // -------------------------
+                    if (!Controls.Configure.confAppRootDir.Contains(programFilesDir) &&
+                        !Controls.Configure.confAppRootDir.Contains(programFilesX86Dir) &&
+                        !Controls.Configure.confAppRootDir.Contains(programFilesX64Dir)
+                        )
+                    {
+                        try
+                        {
+                            // -------------------------
+                            // Create Axiom UI folder if missing
+                            // -------------------------
+                            // Always exists
+                            //if (!Directory.Exists(Controls.Configure.confAppRootDir))
+                            //{
+                            //    Directory.CreateDirectory(Controls.Configure.confAppRootDir);
+                            //}
+
+                            // -------------------------
+                            // Move the conf to App Root
+                            // -------------------------
+                            // Move from AppData Local to App Root Directory
+                            if (File.Exists(Controls.Configure.confAppDataLocalPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(Controls.Configure.confAppRootPath))
+                                {
+                                    File.Delete(Controls.Configure.confAppRootPath);
+                                }
+
+                                File.Move(Controls.Configure.confAppDataLocalPath, Controls.Configure.confAppRootPath);
+                            }
+                            // Move from AppData Roaming to App Root Directory
+                            else if (File.Exists(Controls.Configure.confAppDataRoamingPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(Controls.Configure.confAppRootPath))
+                                {
+                                    File.Delete(Controls.Configure.confAppRootPath);
+                                }
+
+                                File.Move(Controls.Configure.confAppDataRoamingPath, Controls.Configure.confAppRootPath);
+                            }
+
+                            // -------------------------
+                            // Move the log to App Root
+                            // -------------------------
+                            // Move from AppData Local to App Root Directory
+                            if (File.Exists(logAppDataLocalPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppRootPath))
+                                {
+                                    File.Delete(logAppRootPath);
+                                }
+
+                                File.Move(logAppDataLocalPath, logAppRootPath);
+                            }
+                            // Move from AppData Roaming to App Root Directory
+                            else if (File.Exists(logAppDataRoamingPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppRootPath))
+                                {
+                                    File.Delete(logAppRootPath);
+                                }
+
+                                File.Move(logAppDataRoamingPath, logAppRootPath);
+                            }
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.ToString(),
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                    }
+
+                    // -------------------------
+                    // Program Files Write Warning
+                    // -------------------------
+                    else
+                    {
+                        if (File.Exists(Controls.Configure.confAppRootPath) ||
+                            File.Exists(logAppRootPath))
+                        {
+                            MessageBox.Show("Cannot save axiom.conf to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
+                                            "Notice",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
+                        }
+                    }
+                    break;
+            }
         }
 
 
@@ -1221,11 +1424,11 @@ namespace Axiom
         private void btnResetConfig_Click(object sender, RoutedEventArgs e)
         {
             // Check if Directory Exists
-            if (File.Exists(Controls.Configure.configFile))
+            if (File.Exists(Controls.Configure.axiomConfFile))
             {
                 // Show Yes No Window
                 System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
-                                                                "Delete " + Controls.Configure.configFile,
+                                                                "Delete " + Controls.Configure.axiomConfFile,
                                                                 "Delete Directory Confirm",
                                                                 System.Windows.Forms.MessageBoxButtons.YesNo);
 
@@ -1234,9 +1437,9 @@ namespace Axiom
                 {
                     try
                     {
-                        if (File.Exists(Controls.Configure.configFile))
+                        if (File.Exists(Controls.Configure.axiomConfFile))
                         {
-                            File.Delete(Controls.Configure.configFile);
+                            File.Delete(Controls.Configure.axiomConfFile);
                         }
                     }
                     catch
@@ -1266,7 +1469,7 @@ namespace Axiom
             // If Axiom Folder Not Found
             else
             {
-                MessageBox.Show("Config file " + Controls.Configure.configFile + " not Found.",
+                MessageBox.Show("Config file " + Controls.Configure.axiomConfFile + " not Found.",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Information);
