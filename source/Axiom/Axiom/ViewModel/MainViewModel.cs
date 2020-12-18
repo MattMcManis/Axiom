@@ -68,6 +68,9 @@ namespace ViewModel
             Window_Width = 824;
             Window_Height = 464;
 
+            Window_Position_Top = 0;
+            Window_Position_Left = 0;
+
             Preset_IsEnabled = true;
             Preset_SelectedItem = "Preset";
 
