@@ -461,14 +461,14 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run("Cannot Locate Config file axiom.conf. Loading defaults.") { Foreground = Log.ConsoleDefault });
             }
 
-            // -------------------------
-            // Window Position
-            // -------------------------
-            // Center on first run, before first axiom.conf has been created
-            if (this.Top == 0 && this.Left == 0)
+            // Window Position Center
+            if ((this.Top.ToString() == "NaN" && this.Left.ToString() == "NaN") ||
+                (this.Top == 0 && this.Top == 0)
+               )
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+            //VM.MainView.ScriptView_Text = this.Top.ToString() + this.Left.ToString(); //debug
 
             // --------------------------------------------------
             // Log Console Messages
@@ -692,12 +692,6 @@ namespace Axiom
                     double left = 0;
                     double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Position_Left"), out left);
                     this.Left = left;
-
-                    // Center
-                    if (top == 0 && left == 0)
-                    {
-                        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    }
 
                     // Window Maximized
                     bool mainwindow_WindowState_Maximized;
@@ -968,19 +962,19 @@ namespace Axiom
                 double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
 
                 // CMD Window Keep
-                bool settings_CMDWindowKeep_IsChecked;
+                bool settings_CMDWindowKeep_IsChecked = true;
                 bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
 
                 // Auto Sort Script
-                bool settings_AutoSortScript_IsChecked;
+                bool settings_AutoSortScript_IsChecked = true;
                 bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
 
                 // Log CheckBox
-                bool settings_LogCheckBox_IsChecked;
+                bool settings_LogCheckBox_IsChecked = false;
                 bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
 
                 // Update Auto Check
-                bool settings_UpdateAutoCheck_IsChecked;
+                bool settings_UpdateAutoCheck_IsChecked = true;
                 bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
 
                 // -------------------------
