@@ -137,14 +137,14 @@ namespace Profiles
             List<string> listFailedImports = new List<string>();
 
             // Start INI File Read
-            Controls.Configure.ConigFile inif = null;
+            Controls.Configure.ConfigFile inif = null;
 
             // -------------------------
             // Check if Preset ini file exists
             // -------------------------
             if (File.Exists(profile))
             {
-                inif = new Controls.Configure.ConigFile(profile);
+                inif = new Controls.Configure.ConfigFile(profile);
 
                 // --------------------------------------------------
                 // Main Window
@@ -900,7 +900,7 @@ namespace Profiles
             if (Directory.Exists(VM.ConfigureView.CustomPresetsPath_Text))
             {
                 // Start INI File Write
-                Controls.Configure.ConigFile inif = new Controls.Configure.ConigFile(profile);
+                Controls.Configure.ConfigFile inif = new Controls.Configure.ConfigFile(profile);
 
                 // --------------------------------------------------
                 // Main Window
