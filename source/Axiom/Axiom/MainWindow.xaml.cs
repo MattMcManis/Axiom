@@ -319,13 +319,6 @@ namespace Axiom
                 }
             }
 
-            // --------------------------------------------------
-            // Event Handlers
-            // --------------------------------------------------
-            // Attach SelectionChanged Handlers
-            // Prevent Bound ComboBox from firing SelectionChanged Event at application startup
-            cboConfigPath.SelectionChanged += cboConfigPath_SelectionChanged;
-
             // -------------------------
             // Volume Up/Down Button Timer Tick
             // Dispatcher Tick
@@ -570,6 +563,8 @@ namespace Axiom
             // Prevent Bound ComboBox from firing SelectionChanged Event at application startup
             // Format
             //cboFormat_Container.SelectionChanged += cboFormat_Container_SelectionChanged;
+            // axiom.conf Path
+            cboConfigPath.SelectionChanged += cboConfigPath_SelectionChanged;
 
             // -------------------------
             // Format Controls
