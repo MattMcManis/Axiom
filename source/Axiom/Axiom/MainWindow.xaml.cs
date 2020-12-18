@@ -22,6 +22,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using Axiom.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -86,10 +87,6 @@ namespace Axiom
         public readonly static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
         public readonly static string videosDir = userProfile + @"Videos\"; // C:\Users\Example\Videos\
         public readonly static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
-
-        public readonly static string confAppRootPath = appRootDir + "axiom.conf";
-        public readonly static string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
-        public readonly static string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
 
         public readonly static string logAppRootPath = appRootDir + "axiom.log";
         public readonly static string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
@@ -322,6 +319,13 @@ namespace Axiom
                 }
             }
 
+            // --------------------------------------------------
+            // Event Handlers
+            // --------------------------------------------------
+            // Attach SelectionChanged Handlers
+            // Prevent Bound ComboBox from firing SelectionChanged Event at application startup
+            cboConfigPath.SelectionChanged += cboConfigPath_SelectionChanged;
+
             // -------------------------
             // Volume Up/Down Button Timer Tick
             // Dispatcher Tick
@@ -345,20 +349,25 @@ namespace Axiom
             // --------------------------------------------------
             // Import Axiom Config axiom.conf
             // --------------------------------------------------
+
             // -------------------------
             // AppData Local Directory
             // -------------------------
-            if (File.Exists(appDataLocalDir + @"Axiom UI\axiom.conf"))
+            if (File.Exists(Controls.Configure.confAppDataLocalPath))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Controls.Configure.configDir = appDataLocalDir + @"Axiom UI\";
-                Controls.Configure.configFile = Path.Combine(appDataLocalDir + @"Axiom UI\", "axiom.conf");
+                Controls.Configure.axiomConfFile = Controls.Configure.confAppDataLocalPath;
 
                 // Import Config
-                Controls.Configure.ImportConfig(this, Controls.Configure.configFile);
+                //Controls.Configure.ImportConfig(this, Controls.Configure.axiomConfFile);
+                AxiomConfReadActions();
+                Controls.Configure.ReadAxiomConf(Controls.Configure.confAppDataLocalDir,  // Directory: AppData\Local\Axiom UI
+                                                 "axiom.conf",  // Filename
+                                                 actionsToRead  // Actions to read
+                                                );
                 VM.ConfigureView.ConfigPath_SelectedItem = "AppData Local";
 
                 // Change Log Directory to App Root Directory
@@ -371,23 +380,27 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.configFile) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppDataLocalPath) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
             // AppData Roaming Directory
             // -------------------------
-            else if (File.Exists(appDataRoamingDir + @"Axiom UI\axiom.conf"))
+            else if (File.Exists(Controls.Configure.confAppDataRoamingPath))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Controls.Configure.configDir = appDataRoamingDir + @"Axiom UI\";
-                Controls.Configure.configFile = Path.Combine(appDataRoamingDir + @"Axiom UI\", "axiom.conf");
+                Controls.Configure.axiomConfFile = Controls.Configure.confAppDataRoamingPath;
 
                 // Import Config
-                Controls.Configure.ImportConfig(this, Controls.Configure.configFile);
+                //Controls.Configure.ImportConfig(this, Controls.Configure.axiomConfFile);
+                AxiomConfReadActions();
+                Controls.Configure.ReadAxiomConf(Controls.Configure.confAppDataRoamingDir,  // Directory: AppData\Roaming\Axiom UI
+                                                 "axiom.conf",  // Filename
+                                                 actionsToRead  // Actions to read
+                                                );
                 VM.ConfigureView.ConfigPath_SelectedItem = "AppData Roaming";
 
                 // Change Log Directory to App Root Directory
@@ -400,23 +413,28 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.configFile) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppDataRoamingPath) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
             // App Root Directory
             // -------------------------
-            else if (File.Exists(Path.Combine(appRootDir, "axiom.conf")))
+            else if (File.Exists(Controls.Configure.confAppRootPath))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Controls.Configure.configDir = appRootDir;
-                Controls.Configure.configFile = Path.Combine(appRootDir, "axiom.conf");
+                Controls.Configure.axiomConfFile = Controls.Configure.confAppRootPath;
 
                 // Import Config
-                Controls.Configure.ImportConfig(this, Controls.Configure.configFile);
+                //Controls.Configure.ImportConfig(this, Controls.Configure.axiomConfFile);
+
+                AxiomConfReadActions();
+                Controls.Configure.ReadAxiomConf(Controls.Configure.confAppRootDir,  // Directory: Path\To\Axiom.exe
+                                                 "axiom.conf",  // Filename
+                                                 actionsToRead  // Actions to read
+                                                );
                 VM.ConfigureView.ConfigPath_SelectedItem = "App Root";
 
                 // Change Log Directory to App Root Directory
@@ -429,7 +447,7 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.configFile) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppRootPath) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
@@ -600,257 +618,36 @@ namespace Axiom
                 // AppData Local Directory
                 // -------------------------
                 case "AppData Local":
-                    // Change the conf output folder path
-                    Controls.Configure.configDir = appDataLocalDir + @"Axiom UI\";
-
-                    try
-                    {
-                        // -------------------------
-                        // Create Axiom UI folder if missing
-                        // -------------------------
-                        if (!Directory.Exists(Controls.Configure.configDir))
-                        {
-                            Directory.CreateDirectory(Controls.Configure.configDir);
-                        }
-
-                        // -------------------------
-                        // Move the conf to AppData Local
-                        // -------------------------
-                        // Move from App Directory to AppData Local
-                        if (File.Exists(confAppRootPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(confAppDataLocalPath))
-                            {
-                                File.Delete(confAppDataLocalPath);
-                            }
-
-                            File.Move(confAppRootPath, confAppDataLocalPath);
-                        }
-                        // Move from AppData Roaming to AppData Local
-                        else if (File.Exists(confAppDataRoamingPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(confAppDataLocalPath))
-                            {
-                                File.Delete(confAppDataLocalPath);
-                            }
-
-                            File.Move(confAppDataRoamingPath, confAppDataLocalPath);
-                        }
-
-                        // -------------------------
-                        // Move the log to AppData Local
-                        // -------------------------
-                        // Move from App Directory to AppData Local
-                        if (File.Exists(logAppRootPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(logAppDataLocalPath))
-                            {
-                                File.Delete(logAppDataLocalPath);
-                            }
-
-                            File.Move(logAppRootPath, logAppDataLocalPath);
-                        }
-                        // Move from AppData Roaming to AppData Local
-                        else if (File.Exists(logAppDataRoamingPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(logAppDataLocalPath))
-                            {
-                                File.Delete(logAppDataLocalPath);
-                            }
-
-                            File.Move(logAppDataRoamingPath, logAppDataLocalPath);
-                        }
-
-                        // -------------------------
-                        // Save Config
-                        // -------------------------
-                        ExportWriteConfig(Controls.Configure.configDir);
-                    }
-                    catch (IOException ex)
-                    {
-                        MessageBox.Show(ex.ToString(),
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
-                    }
+                    // Save Config
+                    SaveConfOnExit(Controls.Configure.confAppDataLocalDir, // directory
+                                    "axiom.conf" // filename
+                                    );
                     break;
 
                 // -------------------------
                 // AppData Roaming Directory
                 // -------------------------
                 case "AppData Roaming":
-                    // Change the conf output folder path
-                    Controls.Configure.configDir = appDataRoamingDir + @"Axiom UI\";
-
-                    try
-                    {
-                        // -------------------------
-                        // Create Axiom UI folder if missing
-                        // -------------------------
-                        if (!Directory.Exists(Controls.Configure.configDir))
-                        {
-                            Directory.CreateDirectory(Controls.Configure.configDir);
-                        }
-
-                        // -------------------------
-                        // Move the conf to AppData Roaming
-                        // -------------------------
-                        // Move from App Root Directory to AppData Roaming
-                        if (File.Exists(confAppRootPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(confAppDataRoamingPath))
-                            {
-                                File.Delete(confAppDataRoamingPath);
-                            }
-
-                            File.Move(confAppRootPath, confAppDataRoamingPath);
-                        }
-                        // Move from AppData Local to AppData Roaming
-                        else if (File.Exists(confAppDataLocalPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(confAppDataRoamingPath))
-                            {
-                                File.Delete(confAppDataRoamingPath);
-                            }
-
-                            File.Move(confAppDataLocalPath, confAppDataRoamingPath);
-                        }
-
-                        // -------------------------
-                        // Move the log to AppData Roaming
-                        // -------------------------
-                        // Move from App Root Directory to AppData Roaming
-                        if (File.Exists(logAppRootPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(logAppDataRoamingPath))
-                            {
-                                File.Delete(logAppDataRoamingPath);
-                            }
-
-                            File.Move(logAppRootPath, logAppDataRoamingPath);
-                        }
-                        // Move from AppData Local to AppData Roaming
-                        else if (File.Exists(logAppDataLocalPath))
-                        {
-                            // Delete before Move instead of Overwrite
-                            if (File.Exists(logAppDataRoamingPath))
-                            {
-                                File.Delete(logAppDataRoamingPath);
-                            }
-
-                            File.Move(logAppDataLocalPath, logAppDataRoamingPath);
-                        }
-
-                        // -------------------------
-                        // Save Config
-                        // -------------------------
-                        ExportWriteConfig(Controls.Configure.configDir);
-                    }
-                    catch (IOException ex)
-                    {
-                        MessageBox.Show(ex.ToString(),
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
-                    }
+                    // Save Config
+                    SaveConfOnExit(Controls.Configure.confAppDataRoamingDir, // directory
+                                    "axiom.conf" // filename
+                                    );
                     break;
 
                 // -------------------------
                 // App Directory
                 // -------------------------
                 case "App Root":
-                    // Change the conf output folder path
-                    Controls.Configure.configDir = appRootDir;
-
-                    // -------------------------
                     // Ignore Program Files
-                    // -------------------------
-                    if (!Controls.Configure.configDir.Contains(programFilesDir) &&
-                        !Controls.Configure.configDir.Contains(programFilesX86Dir) &&
-                        !Controls.Configure.configDir.Contains(programFilesX64Dir)
+                    if (!Controls.Configure.confAppRootDir.Contains(programFilesDir) &&
+                        !Controls.Configure.confAppRootDir.Contains(programFilesX86Dir) &&
+                        !Controls.Configure.confAppRootDir.Contains(programFilesX64Dir)
                         )
                     {
-                        try
-                        {
-                            // -------------------------
-                            // Create Axiom UI folder if missing
-                            // -------------------------
-                            if (!Directory.Exists(Controls.Configure.configDir))
-                            {
-                                Directory.CreateDirectory(Controls.Configure.configDir);
-                            }
-
-                            // -------------------------
-                            // Move the conf to App Root
-                            // -------------------------
-                            // Move from AppData Local to App Root Directory
-                            if (File.Exists(confAppDataLocalPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppRootPath))
-                                {
-                                    File.Delete(confAppRootPath);
-                                }
-
-                                File.Move(confAppDataLocalPath, confAppRootPath);
-                            }
-                            // Move from AppData Roaming to App Root Directory
-                            else if (File.Exists(confAppDataRoamingPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(confAppRootPath))
-                                {
-                                    File.Delete(confAppRootPath);
-                                }
-
-                                File.Move(confAppDataRoamingPath, confAppRootPath);
-                            }
-
-                            // -------------------------
-                            // Move the log to App Root
-                            // -------------------------
-                            // Move from AppData Local to App Root Directory
-                            if (File.Exists(logAppDataLocalPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppRootPath))
-                                {
-                                    File.Delete(logAppRootPath);
-                                }
-
-                                File.Move(logAppDataLocalPath, logAppRootPath);
-                            }
-                            // Move from AppData Roaming to App Root Directory
-                            else if (File.Exists(logAppDataRoamingPath))
-                            {
-                                // Delete before Move instead of Overwrite
-                                if (File.Exists(logAppRootPath))
-                                {
-                                    File.Delete(logAppRootPath);
-                                }
-
-                                File.Move(logAppDataRoamingPath, logAppRootPath);
-                            }
-
-                            // -------------------------
-                            // Save Config
-                            // -------------------------
-                            ExportWriteConfig(Controls.Configure.configDir);
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.ToString(),
-                                            "Error",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-                        }
+                        // Save Config
+                        SaveConfOnExit(Controls.Configure.confAppRootDir, // directory
+                                        "axiom.conf" // filename
+                                        );
                     }
 
                     // -------------------------
@@ -858,10 +655,10 @@ namespace Axiom
                     // -------------------------
                     else
                     {
-                        if (File.Exists(confAppRootPath) ||
+                        if (File.Exists(Controls.Configure.confAppRootPath) ||
                             File.Exists(logAppRootPath))
                         {
-                            MessageBox.Show("Cannot save config/log to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
+                            MessageBox.Show("Cannot save axiom.conf to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
                                             "Notice",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
@@ -871,119 +668,551 @@ namespace Axiom
             }
 
             // Exit
-            //e.Cancel = true;
-            //System.Windows.Forms.Application.ExitThread();
-            //Environment.Exit(0);
-
-            //base.OnClosed(e);
-            //System.Windows.Forms.Application.ExitThread();
             Application.Current.Shutdown();
         }
 
 
         /// <summary>
-        /// Export Write Config (Method)
+        /// axiom.conf Read Actions
         /// </summary>
-        public void ExportWriteConfig(string path)
+        List<Action> actionsToRead = new List<Action>();
+        public void AxiomConfReadActions()
         {
-            Controls.Configure.ConigFile conf = new Controls.Configure.ConigFile(path.TrimEnd('\\') + @"\" + "axiom.conf");
-
-            // Window
-            double top;
-            double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
-            double left;
-            double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
-            double width;
-            double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
-            double height;
-            double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
-            //bool windowState;
-            //bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out windowState);
-
-            // CMD Window Keep
-            bool settings_CMDWindowKeep_IsChecked;
-            bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
-
-            // Auto Sort Script
-            bool settings_AutoSortScript_IsChecked;
-            bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
-
-            // Log CheckBox
-            bool settings_LogCheckBox_IsChecked;
-            bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
-
-            // Update Auto Check
-            bool settings_UpdateAutoCheck_IsChecked;
-            bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
-
-            //string outputNaming_ItemOrder = string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items.Where(s => !string.IsNullOrWhiteSpace(s)))
-
             // -------------------------
-            // Save only if changes have been made
+            // Main Window
             // -------------------------
-            if (// Main Window
-                this.Top != top ||
-                this.Left != left ||
-                this.Width != width ||
-                this.Height != height ||
-                ////this.WindowState != windowState ||
-                VM.MainView.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
-                VM.MainView.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
-
-                // Config
-                VM.ConfigureView.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
-                VM.ConfigureView.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
-                VM.ConfigureView.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
-                VM.ConfigureView.youtubedlPath_Text != conf.Read("Settings", "youtubedlPath_Text") ||
-                VM.ConfigureView.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
-                VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
-                VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
-
-                // Process
-                VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
-                VM.ConfigureView.ShellTitle_SelectedItem != conf.Read("Settings", "ShellTitle_SelectedItem") ||
-                VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
-                VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
-
-                // Input
-                VM.ConfigureView.InputFileNameTokens_SelectedItem != conf.Read("Settings", "InputFileNameTokens_SelectedItem") ||
-                VM.ConfigureView.InputFileNameTokensCustom_Text != conf.Read("Settings", "InputFileNameTokensCustom_Text") ||
-
-                // Output
-                string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
-                      .Where(s => !string.IsNullOrWhiteSpace(s))) != conf.Read("Settings", "OutputNaming_ItemOrder") ||
-
-                string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
-                      .Where(s => !string.IsNullOrEmpty(s))) != conf.Read("Settings", "OutputNaming_SelectedItems") ||
-
-                VM.ConfigureView.OutputFileNameSpacing_SelectedItem != conf.Read("Settings", "OutputFileNameSpacing_SelectedItem") ||
-                VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
-
-                // App
-                VM.ConfigureView.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
-                VM.ConfigureView.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
-                )
+            actionsToRead = new List<Action>
             {
-                // Save Config
-                Controls.Configure.ExportConfig(this, path);
+                new Action(() =>
+                {
+                    // -------------------------
+                    // Main Window
+                    // -------------------------
+                    // Window Position Top
+                    double top = 0;
+                    double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Position_Top"), out top);
+                    this.Top = top;
 
-                //debug
-                //MessageBox.Show("changes made " +
-                //                path + " " +
-                //                VM.ConfigureView.ShellTitle_SelectedItem + " " +
-                //                top.ToString() + " " +
-                //                left.ToString() + " " +
-                //                width.ToString() + " " +
-                //                height.ToString() + " ");
-            }
+                    // Window Position Left
+                    double left = 0;
+                    double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Position_Left"), out left);
+                    this.Left = left;
+
+                    // Center
+                    if (top == 0 && left == 0)
+                    {
+                        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    }
+
+                    // Window Maximized
+                    bool mainwindow_WindowState_Maximized;
+                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "WindowState_Maximized").ToLower(), out mainwindow_WindowState_Maximized);
+
+                    if (mainwindow_WindowState_Maximized == true)
+                    {
+                        //VM.MainView.Window_State = WindowState.Maximized;
+                        this.WindowState = WindowState.Maximized;
+                    }
+                    else
+                    {
+                        //VM.MainView.Window_State = WindowState.Normal;
+                        this.WindowState = WindowState.Normal;
+                    }
+
+                    // Window Width
+                    //double width = MainWindow.minWidth;
+                    double width = VM.MainView.Window_Width;
+                    double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Width"), out width);
+                    this.Width = width;
+
+                    // Window Height
+                    //double height = MainWindow.minHeight;
+                    double height = VM.MainView.Window_Height;
+                    double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Height"), out height);
+                    this.Height = height;
+
+                    // CMD Window Keep
+                    bool mainwindow_CMDWindowKeep_IsChecked;
+                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out mainwindow_CMDWindowKeep_IsChecked);
+                    VM.MainView.CMDWindowKeep_IsChecked = mainwindow_CMDWindowKeep_IsChecked;
+
+                    // Auto Sort Script
+                    bool mainwindow_AutoSortScript_IsChecked;
+                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out mainwindow_AutoSortScript_IsChecked);
+                    VM.MainView.AutoSortScript_IsChecked = mainwindow_AutoSortScript_IsChecked;
+
+
+                    // --------------------------------------------------
+                    // Settings
+                    // --------------------------------------------------
+                    // Config Path
+                    string configPath_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "ConfigPath_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(configPath_SelectedItem))
+                    {
+                        VM.ConfigureView.ConfigPath_SelectedItem = configPath_SelectedItem;
+                    }
+
+                    // Presets
+                    string customPresetsPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "CustomPresetsPath_Text");
+                    if (!string.IsNullOrWhiteSpace(customPresetsPath_Text))
+                    {
+                        VM.ConfigureView.CustomPresetsPath_Text = customPresetsPath_Text;
+                    }
+
+                    // FFmpeg
+                    string ffmpegPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "FFmpegPath_Text");
+                    if (!string.IsNullOrWhiteSpace(ffmpegPath_Text))
+                    {
+                        VM.ConfigureView.FFmpegPath_Text = ffmpegPath_Text;
+                    }
+                    // FFprobe
+                    string ffprobePath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "FFprobePath_Text");
+                    if (!string.IsNullOrWhiteSpace(ffprobePath_Text))
+                    {
+                        VM.ConfigureView.FFprobePath_Text = ffprobePath_Text;
+                    }
+                    // FFplay
+                    string ffplayPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "FFplayPath_Text");
+                    if (!string.IsNullOrWhiteSpace(ffplayPath_Text))
+                    {
+                        VM.ConfigureView.FFplayPath_Text = ffplayPath_Text;
+                    }
+                    // youtube-dl
+                    string youtubedlPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "youtubedlPath_Text");
+                    if (!string.IsNullOrWhiteSpace(youtubedlPath_Text))
+                    {
+                        VM.ConfigureView.youtubedlPath_Text = youtubedlPath_Text;
+                    }
+
+                    // Log CheckBox
+                    bool logCheckBox_IsChecked;
+                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out logCheckBox_IsChecked);
+                    VM.ConfigureView.LogCheckBox_IsChecked = logCheckBox_IsChecked;
+                    // Log Path
+                    string logPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "LogPath_Text");
+                    if (!string.IsNullOrWhiteSpace(logPath_Text))
+                    {
+                        VM.ConfigureView.LogPath_Text = logPath_Text;
+                    }
+
+                    // Shell
+                    string shell_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Shell_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(shell_SelectedItem))
+                    {
+                        VM.ConfigureView.Shell_SelectedItem = shell_SelectedItem;
+                    }
+
+                    // Shell Title
+                    string shellTitle_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "ShellTitle_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(shellTitle_SelectedItem))
+                    {
+                        VM.ConfigureView.ShellTitle_SelectedItem = shellTitle_SelectedItem;
+                    }
+
+                    // Process Priority
+                    string processPriority_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "ProcessPriority_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(processPriority_SelectedItem))
+                    {
+                        VM.ConfigureView.ProcessPriority_SelectedItem = processPriority_SelectedItem;
+                    }
+
+                    // Threads
+                    string threads_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Threads_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(threads_SelectedItem))
+                    {
+                        // Legacy Support: Capitalize First Letter of imported value. Old values are lowercase.
+                        VM.ConfigureView.Threads_SelectedItem = char.ToUpper(threads_SelectedItem[0]) + threads_SelectedItem.Substring(1);
+                    }
+
+                    // Ouput Naming
+                    // import full list new order
+                    string outputNaming_ItemOrder = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputNaming_ItemOrder");
+                    // null check
+                    if (!string.IsNullOrWhiteSpace(outputNaming_ItemOrder))
+                    {
+                        // Split the list by commas
+                        string[] arrOutputNaming_ItemOrder = outputNaming_ItemOrder.Split(',');
+
+                        // Create the new list
+                        // Remove Duplicates
+                        VM.ConfigureView.OutputNaming_ListView_Items = new ObservableCollection<string>(arrOutputNaming_ItemOrder
+                                                                                                        .Distinct()
+                                                                                                        .ToList()
+                                                                                                        .AsEnumerable()
+                                                                                                       );
+                        //VM.ConfigureView.OutputNaming_ListView_Items = arrOutputNaming_ItemOrder.Distinct().ToList();
+
+                        // Check the Master Default List for Missing Items
+                        IEnumerable<string> missingItems = MainWindow.outputNaming_Defaults
+                                                                     .Except(VM.ConfigureView.OutputNaming_ListView_Items/*arrOutputNaming_ItemOrder*/)
+                                                                     .ToList()
+                                                                     .AsEnumerable();
+                        //List<string> missingItems = MainWindow.outputNaming_Defaults.Except(arrOutputNaming_ItemOrder).ToList();
+
+                        foreach (string item in missingItems)
+                        {
+                            VM.ConfigureView.OutputNaming_ListView_Items.Add(item/*missingItems[i]*/);
+                        }
+
+                        // Selected Items String (items separated by commas)
+                        string outputNaming_SelectedItems = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputNaming_SelectedItems");
+                        // Empty List Check
+                        if (!string.IsNullOrEmpty(outputNaming_SelectedItems))
+                        {
+                            // Split
+                            string[] arrOuputNaming_SelectedItems = outputNaming_SelectedItems.Split(',');
+
+                            // Remove Duplicates
+                            List<string> lstOuputNaming_SelectedItems = arrOuputNaming_SelectedItems.Distinct().ToList();
+
+                            // Import Selected Items
+                            for (var i = 0; i < lstOuputNaming_SelectedItems.Count; i++)
+                            {
+                                // If Items List Contains the Imported Item
+                                if (VM.ConfigureView.OutputNaming_ListView_Items.Contains(arrOuputNaming_SelectedItems[i]))
+                                {
+                                    // Added Item to Selected Items List
+                                    //VM.ConfigureView.OutputNaming_ListView_SelectedItems.Add(arrOuputNaming_SelectedItems[i]);
+
+                                    // Select the Item
+                                    try
+                                    {
+                                        this.lstvOutputNaming.SelectedItems.Add(arrOuputNaming_SelectedItems[i]);
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Input Filename Tokens
+                    string inputFileNameTokens_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "InputFileNameTokens_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(inputFileNameTokens_SelectedItem))
+                    {
+                        // Legacy Values Fix
+                        switch (inputFileNameTokens_SelectedItem)
+                        {
+                            case "Job":
+                                VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename";
+                                break;
+                            case "Job+Tokens":
+                                VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename+Tokens";
+                                break;
+                            default:
+                                VM.ConfigureView.InputFileNameTokens_SelectedItem = inputFileNameTokens_SelectedItem;
+                                break;
+                        }
+                    }
+
+                    // Input Filename Tokens Custom
+                    string inputFileNameTokensCustom_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "InputFileNameTokensCustom_Text");
+                    if (!string.IsNullOrWhiteSpace(inputFileNameTokensCustom_Text))
+                    {
+                        VM.ConfigureView.InputFileNameTokensCustom_Text = inputFileNameTokensCustom_Text;
+                        //.Trim() // remove spaces
+                        //.Replace(",", ", "); // add spaces after every comma
+                    }
+
+                    // Spacing
+                    string outputFileNameSpacing_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputFileNameSpacing_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(outputFileNameSpacing_SelectedItem))
+                    {
+                        VM.ConfigureView.OutputFileNameSpacing_SelectedItem = outputFileNameSpacing_SelectedItem;
+                    }
+
+                    // Output File Overwrite
+                    string outputOverwrite_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputOverwrite_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(outputOverwrite_SelectedItem))
+                    {
+                        VM.ConfigureView.OutputOverwrite_SelectedItem = outputOverwrite_SelectedItem;
+                    }
+
+                    // Theme
+                    string theme_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Theme_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(theme_SelectedItem))
+                    {
+                        VM.ConfigureView.Theme_SelectedItem = theme_SelectedItem;
+                    }
+
+                    // Updates
+                    bool updateAutoCheck_IsChecked;
+                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out updateAutoCheck_IsChecked);
+                    VM.ConfigureView.UpdateAutoCheck_IsChecked = updateAutoCheck_IsChecked;
+                 })
+            };
         }
 
+
+        /// <summary>
+        /// Save Conf on Exit (Method)
+        /// </summary>
+        /// <remarks>
+        /// Saves axiom.conf
+        /// </remarks>
+        public void SaveConfOnExit(string directory,
+                                   string filename
+            )
+        {
+            Controls.Configure.ConfigFile conf = null;
+
+            try
+            {
+                conf = new Controls.Configure.ConfigFile(Path.Combine(directory, filename));
+
+                // Window
+                double top;
+                double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
+                double left;
+                double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
+                double width;
+                double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
+                double height;
+                double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
+
+                // CMD Window Keep
+                bool settings_CMDWindowKeep_IsChecked;
+                bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
+
+                // Auto Sort Script
+                bool settings_AutoSortScript_IsChecked;
+                bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
+
+                // Log CheckBox
+                bool settings_LogCheckBox_IsChecked;
+                bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
+
+                // Update Auto Check
+                bool settings_UpdateAutoCheck_IsChecked;
+                bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
+
+                // -------------------------
+                // Save only if changes have been made
+                // -------------------------
+                if (// Main Window
+                    this.Top != top ||
+                    this.Left != left ||
+                    this.Width != width ||
+                    this.Height != height ||
+                    ////this.WindowState != windowState ||
+                    VM.MainView.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
+                    VM.MainView.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
+
+                    // Config
+                    VM.ConfigureView.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
+                    VM.ConfigureView.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
+                    VM.ConfigureView.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
+                    VM.ConfigureView.youtubedlPath_Text != conf.Read("Settings", "youtubedlPath_Text") ||
+                    VM.ConfigureView.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
+                    VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
+                    VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+
+                    // Process
+                    VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
+                    VM.ConfigureView.ShellTitle_SelectedItem != conf.Read("Settings", "ShellTitle_SelectedItem") ||
+                    VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
+                    VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+
+                    // Input
+                    VM.ConfigureView.InputFileNameTokens_SelectedItem != conf.Read("Settings", "InputFileNameTokens_SelectedItem") ||
+                    VM.ConfigureView.InputFileNameTokensCustom_Text != conf.Read("Settings", "InputFileNameTokensCustom_Text") ||
+
+                    // Output
+                    string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
+                            .Where(s => !string.IsNullOrWhiteSpace(s))) != conf.Read("Settings", "OutputNaming_ItemOrder") ||
+
+                    string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
+                            .Where(s => !string.IsNullOrEmpty(s))) != conf.Read("Settings", "OutputNaming_SelectedItems") ||
+
+                    VM.ConfigureView.OutputFileNameSpacing_SelectedItem != conf.Read("Settings", "OutputFileNameSpacing_SelectedItem") ||
+                    VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
+
+                    // App
+                    VM.ConfigureView.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
+                    VM.ConfigureView.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
+                    )
+                {
+                    // -------------------------
+                    // axiom.conf actions to write
+                    // -------------------------
+                    List<Action> actionsToWrite = new List<Action>
+                    {
+                        // -------------------------
+                        // Main Window
+                        // -------------------------
+                        new Action(() =>
+                        {
+                            // -------------------------
+                            // Main Window
+                            // -------------------------
+                            // Window Position Top
+                            conf.Write("Main Window", "Window_Position_Top", this.Top.ToString());
+
+                            // Window Position Left
+                            conf.Write("Main Window", "Window_Position_Left", this.Left.ToString());
+
+                            // Window Width
+                            conf.Write("Main Window", "Window_Width", this.Width.ToString());
+
+                            // Window Height
+                            conf.Write("Main Window", "Window_Height", this.Height.ToString());
+
+                            // Window Maximized
+                            if (this.WindowState == WindowState.Maximized)
+                            {
+                                conf.Write("Main Window", "WindowState_Maximized", "true");
+                            }
+                            else
+                            {
+                                conf.Write("Main Window", "WindowState_Maximized", "false");
+                            }
+
+                            // CMD Keep Window Open Toggle
+                            conf.Write("Main Window", "CMDWindowKeep_IsChecked", VM.MainView.CMDWindowKeep_IsChecked.ToString().ToLower());
+
+                            // Auto Sort Script Toggle
+                            conf.Write("Main Window", "AutoSortScript_IsChecked", VM.MainView.AutoSortScript_IsChecked.ToString().ToLower());
+
+
+                            // --------------------------------------------------
+                            // Settings
+                            // --------------------------------------------------
+                            // -------------------------
+                            // Config
+                            // -------------------------
+                            // Config Path
+                            conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
+
+                            // Presets
+                            conf.Write("Settings", "CustomPresetsPath_Text", VM.ConfigureView.CustomPresetsPath_Text);
+
+                            // FFmpeg
+                            conf.Write("Settings", "FFmpegPath_Text", VM.ConfigureView.FFmpegPath_Text);
+                            conf.Write("Settings", "FFprobePath_Text", VM.ConfigureView.FFprobePath_Text);
+                            conf.Write("Settings", "FFplayPath_Text", VM.ConfigureView.FFplayPath_Text);
+                            conf.Write("Settings", "youtubedlPath_Text", VM.ConfigureView.youtubedlPath_Text);
+
+                            // Log
+                            conf.Write("Settings", "LogCheckBox_IsChecked", VM.ConfigureView.LogCheckBox_IsChecked.ToString().ToLower());
+                            conf.Write("Settings", "LogPath_Text", VM.ConfigureView.LogPath_Text);
+
+                            // -------------------------
+                            // Process
+                            // -------------------------
+                            // Shell
+                            conf.Write("Settings", "Shell_SelectedItem", VM.ConfigureView.Shell_SelectedItem);
+
+                            // Shell Title
+                            conf.Write("Settings", "ShellTitle_SelectedItem", VM.ConfigureView.ShellTitle_SelectedItem);
+
+                            // Process Priority
+                            conf.Write("Settings", "ProcessPriority_SelectedItem", VM.ConfigureView.ProcessPriority_SelectedItem);
+
+                            // Threads
+                            conf.Write("Settings", "Threads_SelectedItem", VM.ConfigureView.Threads_SelectedItem);
+
+                            // -------------------------
+                            // Input
+                            // -------------------------
+
+                            // Input Filename Tokens
+                            conf.Write("Settings", "InputFileNameTokens_SelectedItem", VM.ConfigureView.InputFileNameTokens_SelectedItem);
+
+                            // Input Filename Tokens Custom
+                            conf.Write("Settings", "InputFileNameTokensCustom_Text",
+                                                    MainWindow.RemoveLineBreaks(
+                                                        VM.ConfigureView.InputFileNameTokensCustom_Text
+                                                    //.Replace(" ", "")
+                                                    )
+
+                                    );
+
+                            // -------------------------
+                            // Output
+                            // -------------------------
+                            // Order
+                            string outputNaming_ItemOrder = string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
+                                                                             .Where(s => !string.IsNullOrWhiteSpace(s)));
+                            conf.Write("Settings", "OutputNaming_ItemOrder", outputNaming_ItemOrder);
+
+                            // Selected
+                            string outputNaming_SelectedItems = string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
+                                                                                 .Where(s => !string.IsNullOrEmpty(s)));
+                            conf.Write("Settings", "OutputNaming_SelectedItems", outputNaming_SelectedItems);
+
+                            // Spacing
+                            conf.Write("Settings", "OutputFileNameSpacing_SelectedItem", VM.ConfigureView.OutputFileNameSpacing_SelectedItem);
+
+                            // Output File Overwrite
+                            conf.Write("Settings", "OutputOverwrite_SelectedItem", VM.ConfigureView.OutputOverwrite_SelectedItem);
+
+                            // -------------------------
+                            // App
+                            // -------------------------
+                            // Theme
+                            conf.Write("Settings", "Theme_SelectedItem", VM.ConfigureView.Theme_SelectedItem);
+
+                            // Updates
+                            conf.Write("Settings", "UpdateAutoCheck_IsChecked", VM.ConfigureView.UpdateAutoCheck_IsChecked.ToString().ToLower());
+
+
+                            // --------------------------------------------------
+                            // User
+                            // --------------------------------------------------
+                            // Input Previous Path
+                            if (!string.IsNullOrWhiteSpace(MainWindow.inputPreviousPath))
+                            {
+                                if (Directory.Exists(MainWindow.inputPreviousPath))
+                                {
+                                    conf.Write("User", "InputPreviousPath", MainWindow.inputPreviousPath);
+                                }
+                            }
+
+                            // Output Previous Path
+                            if (!string.IsNullOrWhiteSpace(MainWindow.outputPreviousPath))
+                            {
+                                if (Directory.Exists(MainWindow.outputPreviousPath))
+                                {
+                                    conf.Write("User", "OutputPreviousPath", MainWindow.outputPreviousPath);
+                                }
+                            }
+                        }),
+                    };
+
+                    // -------------------------
+                    // Save Config
+                    // -------------------------
+                    //MessageBox.Show(Path.Combine(directory, filename)); //debug
+                    Controls.Configure.WriteAxiomConf(directory, // Directory: %AppData%\Axiom UI\
+                                                      filename,  // Filename
+                                                      actionsToWrite // Actions to write
+                                                     );
+                    //debug
+                    //MessageBox.Show("changes made " +
+                    //                path + " " +
+                    //                VM.ConfigureView.ShellTitle_SelectedItem + " " +
+                    //                top.ToString() + " " +
+                    //                left.ToString() + " " +
+                    //                width.ToString() + " " +
+                    //                height.ToString() + " ");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Could not save config file. May require Administrator privileges.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+        }
 
 
         /// <summary>
         /// Folder Write Access Check (Method)
         /// </summary>
-        private bool hasWriteAccessToFolder(string path)
+        public static bool hasWriteAccessToFolder(string path)
         {
             try
             {
