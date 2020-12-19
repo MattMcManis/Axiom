@@ -5611,12 +5611,13 @@
                                        Height="26"
                                        ToolTipService.InitialShowDelay="250"
                                        ToolTipService.ShowOnDisabled="True"
-                                       ToolTip="Your config file will be saved/moved to this location after program closes."
+                                       ToolTip="Your config file will be moved to this location."
                                        Grid.Column="1"
                                        Grid.Row="1"
                                        Width="58"
                                        Cursor="Hand"
                                        PreviewMouseDown="lblConfigPath_PreviewMouseDown" />
+                                <!-- Event Handler must be in in WindowLoaded(), not in XAML to prevent re-moving file to AppData Local default at startup -->
                                 <ComboBox x:Name="cboConfigPath"
                                           ItemsSource="{Binding ConfigPath_Items}"
                                           SelectedIndex="{Binding ConfigPath_SelectedIndex}"
@@ -5632,7 +5633,7 @@
                                           Margin="10,2,0,0"
                                           ToolTipService.InitialShowDelay="500"
                                           ToolTipService.ShowOnDisabled="True"
-                                          ToolTip="Your config file will be saved/moved to this location after program closes." />
+                                          ToolTip="Your config file will be moved to this location." />
                                 <Button x:Name="btnConfigPath"
                                         HorizontalAlignment="Left"
                                         Margin="122,1,0,0"
