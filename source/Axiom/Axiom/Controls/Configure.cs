@@ -52,9 +52,9 @@ namespace Controls
         public readonly static string confAppDataRoamingDir = MainWindow.appDataRoamingDir + @"Axiom UI\";
 
         // axoim.conf Full File Paths
-        public readonly static string confAppRootPath = Path.Combine(confAppRootDir, "axiom.conf");
-        public readonly static string confAppDataLocalPath = Path.Combine(confAppDataLocalDir, "axiom.conf");
-        public readonly static string confAppDataRoamingPath = Path.Combine(confAppDataRoamingDir, "axiom.conf");
+        public readonly static string confAppRootFilePath = Path.Combine(confAppRootDir, "axiom.conf");
+        public readonly static string confAppDataLocalFilePath = Path.Combine(confAppDataLocalDir, "axiom.conf");
+        public readonly static string confAppDataRoamingFilePath = Path.Combine(confAppDataRoamingDir, "axiom.conf");
         public static string axiomConfFile { get; set; } // Global directory+filename
 
         /// <summary>
@@ -281,6 +281,9 @@ namespace Controls
         /// </summary>
         public static void CustomPresetsFolderBrowser()
         {
+            // Original Custom Presets Directory
+            string oldPresetsDir = VM.ConfigureView.CustomPresetsPath_Text;
+
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
 
@@ -294,6 +297,11 @@ namespace Controls
                 VM.ConfigureView.CustomPresetsPath_Text = VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\";
 
                 // -------------------------
+                // Move Custom Presets to new location
+                // -------------------------
+                MoveCustomPresets(oldPresetsDir);
+
+                // -------------------------
                 // Load Custom Presets
                 // Refresh Presets ComboBox
                 // -------------------------
@@ -301,6 +309,58 @@ namespace Controls
             }
         }
 
+        /// <summary>
+        /// Move Custom Presets
+        /// </summary>
+        public static void MoveCustomPresets(string oldPresetsDir)
+        {
+            // Yes/No Dialog Confirmation
+            //
+            MessageBoxResult msb = MessageBox.Show(
+                "Would you like to move you existing presets to the new location now?" + 
+                "\r\n\r\n" +
+                oldPresetsDir + 
+                "\r\n\r\nto\r\n\r\n" +
+                VM.ConfigureView.CustomPresetsPath_Text,
+                "Move Presets",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+            switch (msb)
+            {
+                // Move presets directory
+                case MessageBoxResult.Yes:
+                    try
+                    {
+                        //MessageBox.Show(oldPresetsDir); //debug
+                        if (Directory.Exists(oldPresetsDir))
+                        {
+                            //MessageBox.Show("pass"); //debug
+                            Directory.CreateDirectory(VM.ConfigureView.CustomPresetsPath_Text);
+
+                            //MainWindow.MoveDirectory(oldPresetsDir, VM.ConfigureView.CustomPresetsPath_Text);
+
+                            var presets = Directory.EnumerateFiles(oldPresetsDir, "*.ini");
+                            foreach (var file in presets)
+                            {
+                                // MessageBox.Show(file.ToString() + "\r\n" + VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\" + Path.GetFileName(file)); //debug
+                                File.Move(file, VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\" + Path.GetFileName(file));
+                            }
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.ToString(),
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                    break;
+
+                // Do not move
+                case MessageBoxResult.No:
+                    return;
+            }
+        }
 
         /// <summary>
         /// FFmpeg Folder Browser Dialog
