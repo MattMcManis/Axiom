@@ -346,13 +346,13 @@ namespace Axiom
             // -------------------------
             // AppData Local Directory
             // -------------------------
-            if (File.Exists(Controls.Configure.confAppDataLocalPath))
+            if (File.Exists(Controls.Configure.confAppDataLocalFilePath))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Controls.Configure.axiomConfFile = Controls.Configure.confAppDataLocalPath;
+                Controls.Configure.axiomConfFile = Controls.Configure.confAppDataLocalFilePath;
 
                 // Import Config
                 //Controls.Configure.ImportConfig(this, Controls.Configure.axiomConfFile);
@@ -364,8 +364,10 @@ namespace Axiom
                 VM.ConfigureView.ConfigPath_SelectedItem = "AppData Local";
 
                 // Change Log Directory to App Root Directory
-                Log.logDir = appDataLocalDir + @"Axiom UI\";
-                VM.ConfigureView.LogPath_Text = Log.logDir;
+                //Log.logDir = appDataLocalDir + @"Axiom UI\";
+                //VM.ConfigureView.LogPath_Text = Log.logDir;
+                Log.axiomLogDir = Log.logAppDataLocalDir;
+                VM.ConfigureView.LogPath_Text = Log.axiomLogDir;
 
                 // These changes will be seen in Axiom's Settings Tab
 
@@ -373,19 +375,19 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppDataLocalPath) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppDataLocalFilePath) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
             // AppData Roaming Directory
             // -------------------------
-            else if (File.Exists(Controls.Configure.confAppDataRoamingPath))
+            else if (File.Exists(Controls.Configure.confAppDataRoamingFilePath))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Controls.Configure.axiomConfFile = Controls.Configure.confAppDataRoamingPath;
+                Controls.Configure.axiomConfFile = Controls.Configure.confAppDataRoamingFilePath;
 
                 // Import Config
                 //Controls.Configure.ImportConfig(this, Controls.Configure.axiomConfFile);
@@ -397,8 +399,10 @@ namespace Axiom
                 VM.ConfigureView.ConfigPath_SelectedItem = "AppData Roaming";
 
                 // Change Log Directory to App Root Directory
-                Log.logDir = appDataRoamingDir + @"Axiom UI\";
-                VM.ConfigureView.LogPath_Text = Log.logDir;
+                //Log.logDir = appDataRoamingDir + @"Axiom UI\";
+                //VM.ConfigureView.LogPath_Text = Log.logDir;
+                Log.axiomLogDir = Log.logAppDataRoamingDir;
+                VM.ConfigureView.LogPath_Text = Log.axiomLogDir;
 
                 // These changes will be seen in Axiom's Settings Tab
 
@@ -406,19 +410,19 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppDataRoamingPath) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppDataRoamingFilePath) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
             // App Root Directory
             // -------------------------
-            else if (File.Exists(Controls.Configure.confAppRootPath))
+            else if (File.Exists(Controls.Configure.confAppRootFilePath))
             {
                 // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Controls.Configure.axiomConfFile = Controls.Configure.confAppRootPath;
+                Controls.Configure.axiomConfFile = Controls.Configure.confAppRootFilePath;
 
                 // Import Config
                 //Controls.Configure.ImportConfig(this, Controls.Configure.axiomConfFile);
@@ -431,8 +435,10 @@ namespace Axiom
                 VM.ConfigureView.ConfigPath_SelectedItem = "App Root";
 
                 // Change Log Directory to App Root Directory
-                Log.logDir = appRootDir;
-                VM.ConfigureView.LogPath_Text = Log.logDir;
+                //Log.logDir = appRootDir;
+                //VM.ConfigureView.LogPath_Text = Log.logDir;
+                Log.axiomLogDir = Log.logAppRootDir;
+                VM.ConfigureView.LogPath_Text = Log.axiomLogDir;
 
                 // These changes will be seen in Axiom's Settings Tab
 
@@ -440,7 +446,7 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Config Location: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppRootPath) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Controls.Configure.confAppRootFilePath) { Foreground = Log.ConsoleDefault });
             }
 
             // -------------------------
@@ -563,7 +569,9 @@ namespace Axiom
             // Prevent Bound ComboBox from firing SelectionChanged Event at application startup
             // Format
             //cboFormat_Container.SelectionChanged += cboFormat_Container_SelectionChanged;
+
             // axiom.conf Path
+            // Event Handler must be in in WindowLoaded(), not in XAML to prevent re-moving file to AppData Local default at startup
             cboConfigPath.SelectionChanged += cboConfigPath_SelectionChanged;
 
             // -------------------------
@@ -650,7 +658,7 @@ namespace Axiom
                     // -------------------------
                     else
                     {
-                        if (File.Exists(Controls.Configure.confAppRootPath) ||
+                        if (File.Exists(Controls.Configure.confAppRootFilePath) ||
                             File.Exists(logAppRootPath))
                         {
                             MessageBox.Show("Cannot save axiom.conf to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
@@ -936,11 +944,8 @@ namespace Axiom
 
 
         /// <summary>
-        /// Save Conf on Exit (Method)
+        /// Save axiom.conf on Exit (Method)
         /// </summary>
-        /// <remarks>
-        /// Saves axiom.conf
-        /// </remarks>
         public void SaveConfOnExit(string directory,
                                    string filename
             )
@@ -1111,9 +1116,8 @@ namespace Axiom
 
                             // Input Filename Tokens Custom
                             conf.Write("Settings", "InputFileNameTokensCustom_Text",
-                                                    MainWindow.RemoveLineBreaks(
+                                                    RemoveLineBreaks(
                                                         VM.ConfigureView.InputFileNameTokensCustom_Text
-                                                    //.Replace(" ", "")
                                                     )
 
                                     );
@@ -1214,14 +1218,31 @@ namespace Axiom
             }
         }
 
+
         /// <summary>
-        /// Path Wrap in Quotes
+        /// Move Directory (Method)
         /// </summary>
-        //public static String WrapWithQuotes(string s)
-        //{
-        //    // "my string"
-        //    return "\"" + s + "\"";
-        //}
+        public static void MoveDirectory(string source, string target)
+        {
+            var sourcePath = source.TrimEnd('\\', ' ');
+            var targetPath = target.TrimEnd('\\', ' ');
+            var files = Directory.EnumerateFiles(sourcePath, "*.ini", SearchOption.AllDirectories)
+                                 .GroupBy(s => Path.GetDirectoryName(s));
+            foreach (var folder in files)
+            {
+                var targetFolder = folder.Key.Replace(sourcePath, targetPath);
+                Directory.CreateDirectory(targetFolder);
+                foreach (var file in folder)
+                {
+                    var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
+                    if (File.Exists(targetFile)) File.Delete(targetFile);
+                    File.Move(file, targetFile);
+                }
+            }
+            Directory.Delete(source, true);
+        }
+
+
         /// <summary>
         /// Path Wrap in Quotes
         /// </summary>
@@ -1256,15 +1277,6 @@ namespace Axiom
                     return s;
             }
         }
-
-        /// <summary>
-        /// Path Wrap in Escaped Quotes
-        /// </summary>
-        //public static String WrapWithEscapedQuotes(string s)
-        //{
-        //    // \"my string\"
-        //    return "\\\"" + s + "\\\"";
-        //}
 
 
         /// <summary>
@@ -2747,13 +2759,19 @@ namespace Axiom
                 // -------------------------
                 if (File.Exists(preset))
                 {
-                    try
+                    if (hasWriteAccessToFolder(presetDir))
                     {
-                        File.Delete(preset);
-                    }
-                    catch
-                    {
-
+                        try
+                        {
+                            File.Delete(preset);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Could not replace old custom preset. May require Administrator privileges.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
                     }
                 }
 
@@ -3010,7 +3028,14 @@ namespace Axiom
         private void btnLog_Click(object sender, RoutedEventArgs e)
         {
             // Call Method to get Log Path
-            Log.DefineLogPath();
+            //Log.DefineLogPath();
+            if (VM.ConfigureView.LogCheckBox_IsChecked == true)
+            {
+                if (string.IsNullOrWhiteSpace(VM.ConfigureView.LogPath_Text))
+                {
+                    VM.ConfigureView.LogPath_Text = Log.axiomLogDir;
+                }
+            }
 
             //MessageBox.Show(Configure.logPath.ToString()); //debug
 
@@ -3026,9 +3051,9 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Output Log has not been created yet.")) { Foreground = Log.ConsoleWarning });
 
                 MessageBox.Show("Output Log has not been created yet.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Information);
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
             }
         }
 
