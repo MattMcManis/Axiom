@@ -4,9 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.5.2] - Dec 18, 2020
+### Changed
+- Optimized Read/Write/Move Config File `axiom.conf`
+- Optimized `axiom.conf`, `axiom.log`, `presets` Location Move
+
+
 ## [1.9.5.1] - Dec 16, 2020
 ### Added
-- - FFprobe Added IsWebUrl condition halt
+- FFprobe Added IsWebUrl condition halt
 
 ### Fixed
 - Batch Input/Output Ready Halt
