@@ -304,10 +304,10 @@ namespace Axiom
                 // App Directory
                 // -------------------------
                 case "App Root":
-                    // Change the conf output folder path
+                    // Change the axiom.conf output folder path
                     Controls.Configure.axiomConfFile = Controls.Configure.confAppRootDir;
 
-                    // Change the log output folder path
+                    // Change the axiom.log output folder path
                     VM.ConfigureView.LogPath_Text = Log.logAppRootDir;
 
                     // -------------------------
@@ -336,14 +336,14 @@ namespace Axiom
                             if (File.Exists(Controls.Configure.confAppDataLocalFilePath))
                             {
                                 confMove(Controls.Configure.confAppDataLocalFilePath, // from
-                                         Controls.Configure.confAppRootDir            // to
+                                         Controls.Configure.confAppRootFilePath       // to
                                         );
                             }
                             // AppData Roaming to App Root
                             else if (File.Exists(Controls.Configure.confAppDataRoamingFilePath))
                             {
                                 confMove(Controls.Configure.confAppDataRoamingFilePath, // from
-                                         Controls.Configure.confAppRootDir              // to
+                                         Controls.Configure.confAppRootFilePath         // to
                                         );
                             }
 
