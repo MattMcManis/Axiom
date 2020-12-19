@@ -314,51 +314,56 @@ namespace Controls
         /// </summary>
         public static void MoveCustomPresets(string oldPresetsDir)
         {
-            // Yes/No Dialog Confirmation
-            //
-            MessageBoxResult msb = MessageBox.Show(
-                "Would you like to move you existing presets to the new location now?" + 
-                "\r\n\r\n" +
-                oldPresetsDir + 
-                "\r\n\r\nto\r\n\r\n" +
-                VM.ConfigureView.CustomPresetsPath_Text,
-                "Move Presets",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Information);
-            switch (msb)
+            if (!string.Equals(oldPresetsDir, // If source and target directory are not the same
+                               VM.ConfigureView.CustomPresetsPath_Text, 
+                               StringComparison.OrdinalIgnoreCase)) 
             {
-                // Move presets directory
-                case MessageBoxResult.Yes:
-                    try
-                    {
-                        //MessageBox.Show(oldPresetsDir); //debug
-                        if (Directory.Exists(oldPresetsDir))
+                // Yes/No Dialog Confirmation
+                //
+                MessageBoxResult msb = MessageBox.Show(
+                    "Would you like to move you existing presets to the new location now?" +
+                    "\r\n\r\n" +
+                    oldPresetsDir +
+                    "\r\n\r\nto\r\n\r\n" +
+                    VM.ConfigureView.CustomPresetsPath_Text,
+                    "Move Presets",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Information);
+                switch (msb)
+                {
+                    // Move presets directory
+                    case MessageBoxResult.Yes:
+                        try
                         {
-                            //MessageBox.Show("pass"); //debug
-                            Directory.CreateDirectory(VM.ConfigureView.CustomPresetsPath_Text);
-
-                            //MainWindow.MoveDirectory(oldPresetsDir, VM.ConfigureView.CustomPresetsPath_Text);
-
-                            var presets = Directory.EnumerateFiles(oldPresetsDir, "*.ini");
-                            foreach (var file in presets)
+                            //MessageBox.Show(oldPresetsDir); //debug
+                            if (Directory.Exists(oldPresetsDir))
                             {
-                                // MessageBox.Show(file.ToString() + "\r\n" + VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\" + Path.GetFileName(file)); //debug
-                                File.Move(file, VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\" + Path.GetFileName(file));
+                                //MessageBox.Show("pass"); //debug
+                                Directory.CreateDirectory(VM.ConfigureView.CustomPresetsPath_Text);
+
+                                //MainWindow.MoveDirectory(oldPresetsDir, VM.ConfigureView.CustomPresetsPath_Text);
+
+                                var presets = Directory.EnumerateFiles(oldPresetsDir, "*.ini");
+                                foreach (var file in presets)
+                                {
+                                    // MessageBox.Show(file.ToString() + "\r\n" + VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\" + Path.GetFileName(file)); //debug
+                                    File.Move(file, VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\" + Path.GetFileName(file));
+                                }
                             }
                         }
-                    }
-                    catch (IOException ex)
-                    {
-                        MessageBox.Show(ex.ToString(),
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
-                    }
-                    break;
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.ToString(),
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                        break;
 
-                // Do not move
-                case MessageBoxResult.No:
-                    return;
+                    // Do not move
+                    case MessageBoxResult.No:
+                        return;
+                }
             }
         }
 
