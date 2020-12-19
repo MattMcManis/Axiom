@@ -78,7 +78,7 @@ namespace ViewModel
             FFprobePath_Text = "<auto>";
             FFplayPath_Text = "<auto>";
             youtubedlPath_Text = "<auto>";
-            LogPath_Text = Log.axiomLogDir;
+            LogPath_Text = Log.logAppDataLocalDir;
             LogCheckBox_IsChecked = false;
             LogPath_IsEnabled = false;
             Shell_SelectedItem = "CMD";
