@@ -46,7 +46,20 @@ namespace Axiom
         // Rich Textbox Paragraph
         public static Paragraph logParagraph = new Paragraph(); //RichTextBox
 
-        public static string logDir = MainWindow.appDataLocalDir + @"Axiom UI\";
+        //public static string logDir = MainWindow.appDataLocalDir + @"Axiom UI\";
+
+        // axiom.log Directories
+        public readonly static string logAppRootDir = MainWindow.appRootDir;
+        public readonly static string logAppDataLocalDir = MainWindow.appDataLocalDir + @"Axiom UI\";
+        public readonly static string logAppDataRoamingDir = MainWindow.appDataRoamingDir + @"Axiom UI\";
+
+        // axoim.log Full File Paths
+        public readonly static string logAppRootFilePath = Path.Combine(logAppRootDir, "axiom.log");
+        public readonly static string logAppDataLocalFilePath = Path.Combine(logAppDataLocalDir, "axiom.log");
+        public readonly static string logAppDataRoamingFilePath = Path.Combine(logAppDataRoamingDir, "axiom.log");
+
+        public static string axiomLogDir { get; set; } // Global directory
+        public static string axiomLogFile { get; set; } // Global directory+filename
 
         // --------------------------------------------------------------------------------------------------------
         // Theme
@@ -85,26 +98,6 @@ namespace Axiom
         //    };
         //    LogActions.Add(WriteAction);
         //}
-
-
-        /// <summary>
-        /// Define Log Path (Method)
-        /// </summary>
-        public static void DefineLogPath()
-        {
-            // --------------------------
-            // Checked
-            // --------------------------
-            if (VM.ConfigureView.LogCheckBox_IsChecked == true)
-            {
-                // Empty, Set Log Path to %ProgramData% Directory
-                if (string.IsNullOrWhiteSpace(VM.ConfigureView.LogPath_Text))
-                {
-                    //VM.ConfigureView.LogPath_Text = MainWindow.appDir;
-                    VM.ConfigureView.LogPath_Text = logDir;
-                }
-            }
-        }
 
 
         /// <summary>
