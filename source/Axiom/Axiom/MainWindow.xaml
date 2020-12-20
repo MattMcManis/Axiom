@@ -4951,6 +4951,7 @@
                                                     <RowDefinition Height="33" />
                                                     <RowDefinition Height="33" />
                                                     <RowDefinition Height="33" />
+                                                    <RowDefinition Height="33" />
                                                     <RowDefinition Height="22" />
                                                 </Grid.RowDefinitions>
 
@@ -4972,10 +4973,9 @@
                                                        VerticalAlignment="Top"
                                                        Width="85"
                                                        FontFamily="Segoe UI Semilight"
-                                                       Grid.Row="2"
+                                                       Grid.Row="6"
                                                        Height="26"
                                                        Grid.Column="1" />
-
                                                 <ComboBox x:Name="cboFilterVideo_Deband"
                                                           ItemsSource="{Binding FilterVideo_Deband_Items}"
                                                           SelectedItem="{Binding FilterVideo_Deband_SelectedItem, Mode=TwoWay}"
@@ -4986,7 +4986,7 @@
                                                           Margin="0,2,0,0"
                                                           VerticalAlignment="Top"
                                                           Width="105"
-                                                          Grid.Row="2"
+                                                          Grid.Row="6"
                                                           Grid.Column="2"
                                                           Height="22"
                                                           SelectionChanged="cboFilterVideo_Deband_SelectionChanged">
@@ -4999,10 +4999,9 @@
                                                        VerticalAlignment="Top"
                                                        Width="85"
                                                        FontFamily="Segoe UI Semilight"
-                                                       Grid.Row="3"
+                                                       Grid.Row="7"
                                                        Height="26"
                                                        Grid.Column="1" />
-
                                                 <ComboBox x:Name="cboFilterVideo_Deshake"
                                                           ItemsSource="{Binding FilterVideo_Deshake_Items}"
                                                           SelectedItem="{Binding FilterVideo_Deshake_SelectedItem, Mode=TwoWay}"
@@ -5013,7 +5012,7 @@
                                                           Margin="0,2,0,0"
                                                           VerticalAlignment="Top"
                                                           Width="105"
-                                                          Grid.Row="3"
+                                                          Grid.Row="7"
                                                           Grid.Column="2"
                                                           Height="22"
                                                           SelectionChanged="cboFilterVideo_Deshake_SelectionChanged">
@@ -5052,7 +5051,7 @@
                                                        VerticalAlignment="Top"
                                                        Width="85"
                                                        FontFamily="Segoe UI Semilight"
-                                                       Grid.Row="5"
+                                                       Grid.Row="8"
                                                        Height="26"
                                                        Grid.Column="1" />
                                                 <ComboBox x:Name="cboFilterVideo_Dejudder"
@@ -5065,7 +5064,7 @@
                                                           Margin="0,2,0,0"
                                                           VerticalAlignment="Top"
                                                           Width="105"
-                                                          Grid.Row="5"
+                                                          Grid.Row="8"
                                                           Grid.Column="2"
                                                           Height="22"
                                                           SelectionChanged="cboFilterVideo_Dejudder_SelectionChanged">
@@ -5078,7 +5077,7 @@
                                                        VerticalAlignment="Top"
                                                        Width="90"
                                                        FontFamily="Segoe UI Semilight"
-                                                       Grid.Row="6"
+                                                       Grid.Row="5"
                                                        Height="26"
                                                        Grid.Column="1" />
                                                 <ComboBox x:Name="cboFilterVideo_Denoise"
@@ -5091,7 +5090,7 @@
                                                           Margin="0,2,0,0"
                                                           VerticalAlignment="Top"
                                                           Width="105"
-                                                          Grid.Row="6"
+                                                          Grid.Row="5"
                                                           Grid.Column="2"
                                                           Height="22"
                                                           SelectionChanged="cboFilterVideo_Denoise_SelectionChanged">
@@ -5104,7 +5103,7 @@
                                                        VerticalAlignment="Top"
                                                        Width="85"
                                                        FontFamily="Segoe UI Semilight"
-                                                       Grid.Row="7"
+                                                       Grid.Row="2"
                                                        Height="26"
                                                        Grid.Column="1" />
                                                 <ComboBox x:Name="cboFilterVideo_Deinterlace"
@@ -5117,10 +5116,35 @@
                                                           Margin="0,2,0,0"
                                                           VerticalAlignment="Top"
                                                           Width="105"
-                                                          Grid.Row="7"
+                                                          Grid.Row="2"
                                                           Grid.Column="2"
                                                           Height="22"
                                                           SelectionChanged="cboFilterVideo_Deinterlace_SelectionChanged" />
+
+                                                <!-- Deblock -->
+                                                <Label Style="{DynamicResource LabelStyle}"
+                                                       Content="Deblock"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Width="85"
+                                                       FontFamily="Segoe UI Semilight"
+                                                       Grid.Row="3"
+                                                       Height="26"
+                                                       Grid.Column="1" />
+                                                <ComboBox x:Name="cboFilterVideo_Deblock"
+                                                          ItemsSource="{Binding FilterVideo_Deblock_Items}"
+                                                          SelectedItem="{Binding FilterVideo_Deblock_SelectedItem, Mode=TwoWay}"
+                                                          IsEnabled="{Binding FilterVideo_Deblock_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                          Style="{DynamicResource ComboBoxStyle}"
+                                                          ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="0,2,0,0"
+                                                          VerticalAlignment="Top"
+                                                          Width="105"
+                                                          Grid.Row="3"
+                                                          Grid.Column="2"
+                                                          Height="22"
+                                                          SelectionChanged="cboFilterVideo_Deblock_SelectionChanged" />
                                             </Grid>
 
 
