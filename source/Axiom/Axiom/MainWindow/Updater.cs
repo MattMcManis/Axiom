@@ -200,7 +200,7 @@ namespace Axiom
             int count = 0;
             if (VM.ConfigureView.UpdateAutoCheck_IsChecked == true)
             {
-                await Task.Factory.StartNew(() =>
+                await Task.Run(() =>
                 {
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
