@@ -28,12 +28,13 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * Drop Frames
  * PNG to JPG
  * Subtitles Burn
+ * Deinterlace
+ * Deblock
+ * Deflicker
+ * Denoise
  * Deband
  * Deshake
- * Deflicker
  * Dejudder
- * Denoise
- * Deinterlace
  * Selective Color Normalize
  * Selective Color
  * EQ
@@ -79,18 +80,20 @@ namespace Filters
             VM.FilterVideoView.FilterVideo_DropFrames_IsEnabled = true;
 
             // Fix
+            // Deinterlace
+            VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = true;
+            // Deblock
+            VM.FilterVideoView.FilterVideo_Deblock_IsEnabled = true;
+            // Deflicker
+            VM.FilterVideoView.FilterVideo_Deflicker_IsEnabled = true;
+            // Denoise
+            VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = true;
             // Deband
             VM.FilterVideoView.FilterVideo_Deband_IsEnabled = true;
             // Deshake
             VM.FilterVideoView.FilterVideo_Deshake_IsEnabled = true;
-            // Deflicker
-            VM.FilterVideoView.FilterVideo_Deflicker_IsEnabled = true;
             // Dejudder
             VM.FilterVideoView.FilterVideo_Dejudder_IsEnabled = true;
-            // Denoise
-            VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = true;
-            // Deinterlace
-            VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = true;
 
             // Transpose
             // Flip
@@ -188,19 +191,21 @@ namespace Filters
             VM.FilterVideoView.FilterVideo_DropFrames_IsEnabled = false;
 
             // Fix
+            // Deinterlace
+            VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = false;
+            // Deblock
+            VM.FilterVideoView.FilterVideo_Deblock_IsEnabled = false;
+            // Deflicker
+            VM.FilterVideoView.FilterVideo_Deflicker_IsEnabled = false;
+            // Denoise
+            VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = false;
             // Deband
             VM.FilterVideoView.FilterVideo_Deband_IsEnabled = false;
             // Deshake
             VM.FilterVideoView.FilterVideo_Deshake_IsEnabled = false;
-            // Deflicker
-            VM.FilterVideoView.FilterVideo_Deflicker_IsEnabled = false;
             // Dejudder
             VM.FilterVideoView.FilterVideo_Dejudder_IsEnabled = false;
-            // Denoise
-            VM.FilterVideoView.FilterVideo_Denoise_IsEnabled = false;
-            // Deinterlace
-            VM.FilterVideoView.FilterVideo_Deinterlace_IsEnabled = false;
-
+            
             // Transpose
             // Flip
             VM.FilterVideoView.FilterVideo_Flip_IsEnabled = false;
@@ -299,19 +304,21 @@ namespace Filters
             VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem = "disabled";
 
             // Fix
+            // Deinterlace
+            VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = "disabled";
+            // Deblock
+            VM.FilterVideoView.FilterVideo_Deblock_SelectedItem = "disabled";
+            // Deflicker
+            VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem = "disabled";
+            // Denoise
+            VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = "disabled";
             // Deband
             VM.FilterVideoView.FilterVideo_Deband_SelectedItem = "disabled";
             // Deshake
             VM.FilterVideoView.FilterVideo_Deshake_SelectedItem = "disabled";
-            // Deflicker
-            VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem = "disabled";
             // Dejudder
             VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem = "disabled";
-            // Denoise
-            VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = "disabled";
-            // Deinterlace
-            VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = "disabled";
-
+            
             // Transpose
             // Flip
             VM.FilterVideoView.FilterVideo_Flip_SelectedItem = "disabled";
@@ -616,26 +623,109 @@ namespace Filters
                         break;
 
                     // -------------------------
-                    // Light
+                    // nlmeans
                     // -------------------------
-                    case "light":
-                        denoise = "removegrain=22";
+                    // Light
+                    case "nlmeans light":
+                        denoise = "nlmeans=3.0:1:7:3:2:0";
+                        break;
+
+                    // Medium
+                    case "nlmeans medium":
+                        denoise = "nlmeans=6.0:1:7:3:2:0";
+                        break;
+
+                    // Strong
+                    case "nlmeans strong":
+                        denoise = "nlmeans=10:1:7:3:2:0";
                         break;
 
                     // -------------------------
-                    // Medium
+                    // hqdn3d
                     // -------------------------
-                    case "medium":
+                    // Light
+                    case "hqdn3d light":
+                        denoise = "hqdn3d=2:1:2:3";
+                        break;
+
+                    // Medium
+                    case "hqdn3d medium":
+                        denoise = "hqdn3d=3:2:2:3";
+                        break;
+
+                    // Strong
+                    case "hqdn3d strong":
+                        denoise = "hqdn3d=7:7:5:5";
+                        break;
+
+                    // -------------------------
+                    // vaguedenoiser
+                    // -------------------------
+                    // Light
+                    case "vaguedenoiser light":
+                        denoise = "vaguedenoiser=threshold=1:method=soft:nsteps=5";
+                        break;
+
+                    // Medium
+                    case "vaguedenoiser medium":
                         denoise = "vaguedenoiser=threshold=3:method=soft:nsteps=5";
                         break;
 
-                    // -------------------------
-                    // Heavy
-                    // -------------------------
-                    case "heavy":
+                    // Strong
+                    case "vaguedenoiser strong":
                         denoise = "vaguedenoiser=threshold=6:method=soft:nsteps=5";
                         break;
+
+                    // -------------------------
+                    // removegrain
+                    // -------------------------
+                    // Light
+                    case "removegrain light":
+                        denoise = "removegrain=10";
+                        break;
+
+                    // Medium
+                    case "removegrain medium":
+                        denoise = "removegrain=20";
+                        break;
+
+                    // Strong
+                    case "removegrain strong":
+                        denoise = "removegrain=30";
+                        break;
                 }
+
+                //switch (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem)
+                //{
+                //    // -------------------------
+                //    // Default
+                //    // -------------------------
+                //    case "default":
+                //        denoise = "removegrain=0";
+                //        break;
+
+                //    // -------------------------
+                //    // Light
+                //    // -------------------------
+                //    case "light":
+                //        denoise = "removegrain=22";
+                //        break;
+
+                //    // -------------------------
+                //    // Medium
+                //    // -------------------------
+                //    case "medium":
+                //        denoise = "vaguedenoiser=threshold=3:method=soft:nsteps=5";
+                //        break;
+
+                //    // -------------------------
+                //    // Heavy
+                //    // -------------------------
+                //    case "heavy":
+                //        denoise = "vaguedenoiser=threshold=6:method=soft:nsteps=5";
+                //        break;
+                //}
+
                 //// -------------------------
                 //// Default
                 //// -------------------------
@@ -688,12 +778,15 @@ namespace Filters
                 switch (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem)
                 {
                     // -------------------------
-                    // Send Frame
+                    // Default
                     // -------------------------
                     case "default":
                         deinterlace = "yadif";
                         break;
 
+                    // -------------------------
+                    // Yes
+                    // -------------------------
                     case "yes":
                         deinterlace = "yadif=1";
                         break;
@@ -773,6 +866,57 @@ namespace Filters
                 // Add Filter to List
                 // -------------------------
                 vFiltersList.Add(deinterlace);
+            }
+        }
+
+
+        /// <summary>
+        /// Deblock
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#deblock
+        /// </remarks>
+        public static void Deblock_Filter()
+        {
+            if (VM.FilterVideoView.FilterVideo_Deblock_SelectedItem != "disabled")
+            {
+                string deblock = string.Empty;
+
+                switch (VM.FilterVideoView.FilterVideo_Deblock_SelectedItem)
+                {
+                    // -------------------------
+                    // Default
+                    // -------------------------
+                    case "default":
+                        deblock = "deblock";
+                        break;
+
+                    // -------------------------
+                    // Light
+                    // -------------------------
+                    case "weak":
+                        deblock = "deblock=filter=weak:block=4";
+                        break;
+
+                    // -------------------------
+                    // Strong
+                    // -------------------------
+                    case "strong":
+                        deblock = "deblock=filter=strong:block=4";
+                        break;
+
+                    // -------------------------
+                    // Strong+
+                    // -------------------------
+                    case "strong+":
+                        deblock = "deblock=filter=strong:block=4:alpha=0.12:beta=0.07:gamma=0.06:delta=0.05";
+                        break;
+                }
+
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                vFiltersList.Add(deblock);
             }
         }
 
@@ -1449,35 +1593,26 @@ namespace Filters
                 // --------------------------------------------------
                 //  Fix
                 // --------------------------------------------------
-                // -------------------------
-                //  Deband
-                // -------------------------
-                Deband_Filter();
+                //  Denoise
+                Deinterlace_Filter();
 
-                // -------------------------
-                //  Deshake
-                // -------------------------
-                Deshake_Filter();
+                //  Deblock
+                Deblock_Filter();
 
-                // -------------------------
                 //  Deflicker
-                // -------------------------
                 Deflicker_Filter();
 
-                // -------------------------
-                //  Dejudder
-                // -------------------------
-                Dejudder_Filter();
-
-                // -------------------------
                 //  Denoise
-                // -------------------------
                 Denoise_Filter();
 
-                // -------------------------
-                //  Denoise
-                // -------------------------
-                Deinterlace_Filter();
+                //  Deband
+                Deband_Filter();
+
+                //  Deshake
+                Deshake_Filter();
+
+                //  Dejudder
+                Dejudder_Filter();
 
                 // --------------------------------------------------
                 //  Transpose
