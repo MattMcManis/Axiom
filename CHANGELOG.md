@@ -4,6 +4,18 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.5.3] - Dec 20, 2020
+### Added
+- Deblock Video Filter
+- Denoise Video Filters `nlmeans`, `hqdn3d`, `vaguedenoiser`, `removegrain` (light, medium, strong)
+
+### Changed
+- Optimized Read/Write Config File `axiom.conf`
+
+### Fixed
+- `H264 NVENC` Video Quality
+
+
 ## [1.9.5.2] - Dec 18, 2020
 ### Changed
 - Optimized Read/Write/Move Config File `axiom.conf`
