@@ -736,6 +736,14 @@ namespace Axiom
         }
 
         /// <summary>
+        /// Filter Video - Deblock
+        /// </summary>
+        private void cboFilterVideo_Deblock_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec("control");
+        }
+
+        /// <summary>
         /// Filter Video - Flip
         /// </summary>
         private void cboFilterVideo_Flip_SelectionChanged(object sender, SelectionChangedEventArgs e)
