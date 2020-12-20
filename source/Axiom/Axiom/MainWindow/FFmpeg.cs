@@ -42,7 +42,7 @@ namespace Axiom
         public static async Task<int> StartProcess()
         {
             int count = 0;
-            await Task.Factory.StartNew(() =>
+            await Task.Run(() =>
             {
                 switch (VM.MainView.Batch_IsChecked)
                 {
