@@ -123,7 +123,7 @@ namespace Axiom
 
         // Config Read/Write Checks
         // When MainWindow initializes, conf.Read populates these global variables with imported values.
-        // When MainWindow exits, conf.Write checks these variables to see if any changes have been made before writing to glow.conf.
+        // When MainWindow exits, conf.Write checks these variables to see if any changes have been made before writing to axiom.conf.
         // This prevents writing to glow.conf every time at exit unless necessary.
         public static double top_Read { get; set; }
         public static double left_Read { get; set; }
