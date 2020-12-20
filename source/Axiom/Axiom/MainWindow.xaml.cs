@@ -121,6 +121,37 @@ namespace Axiom
         public DispatcherTimer dispatcherTimerUp = new DispatcherTimer(DispatcherPriority.Render);
         public DispatcherTimer dispatcherTimerDown = new DispatcherTimer(DispatcherPriority.Render);
 
+        // Config Read/Write Checks
+        // When MainWindow initializes, conf.Read populates these global variables with imported values.
+        // When MainWindow exits, conf.Write checks these variables to see if any changes have been made before writing to glow.conf.
+        // This prevents writing to glow.conf every time at exit unless necessary.
+        public static double top_Read { get; set; }
+        public static double left_Read { get; set; }
+        public static double width_Read { get; set; }
+        public static double height_Read { get; set; }
+        public static bool maximized_Read { get; set; }
+        public static string theme_SelectedItem_Read { get; set; }
+        public static bool updateAutoCheck_IsChecked_Read { get; set; }
+        public static bool cmdWindowKeep_IsChecked_Read { get; set; }
+        public static bool autoSortScript_IsChecked_Read { get; set; }
+        public static string configPath_SelectedItem_Read { get; set; }
+        public static string customPresetsPath_Text_Read { get; set; }
+        public static string ffmpegPath_Text_Read { get; set; }
+        public static string ffprobePath_Text_Read { get; set; }
+        public static string ffplayPath_Text_Read { get; set; }
+        public static string youtubedlPath_Text_Read { get; set; }
+        public static bool logCheckBox_IsChecked_Read { get; set; }
+        public static string logPath_Text_Read { get; set; }
+        public static string shell_SelectedItem_Read { get; set; }
+        public static string shellTitle_SelectedItem_Read { get; set; }
+        public static string processPriority_SelectedItem_Read { get; set; }
+        public static string threads_SelectedItem_Read { get; set; }
+        public static string inputFileNameTokens_SelectedItem_Read { get; set; }
+        public static string inputFileNameTokensCustom_Text_Read { get; set; }
+        public static string outputNaming_ItemOrder_Read { get; set; }
+        public static string outputNaming_SelectedItems_Read { get; set; }
+        public static string outputFileNameSpacing_SelectedItem_Read { get; set; }
+        public static string outputOverwrite_SelectedItem_Read { get; set; }
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -695,14 +726,16 @@ namespace Axiom
                     double top = 0;
                     double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Position_Top"), out top);
                     this.Top = top;
+                    top_Read = top;
 
                     // Window Position Left
                     double left = 0;
                     double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Position_Left"), out left);
                     this.Left = left;
+                    left_Read =left;
 
                     // Window Maximized
-                    bool mainwindow_WindowState_Maximized;
+                    bool mainwindow_WindowState_Maximized = false;
                     bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "WindowState_Maximized").ToLower(), out mainwindow_WindowState_Maximized);
 
                     if (mainwindow_WindowState_Maximized == true)
@@ -721,23 +754,40 @@ namespace Axiom
                     double width = VM.MainView.Window_Width;
                     double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Width"), out width);
                     this.Width = width;
+                    width_Read = width;
 
                     // Window Height
                     //double height = MainWindow.minHeight;
                     double height = VM.MainView.Window_Height;
                     double.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "Window_Height"), out height);
                     this.Height = height;
+                    height_Read = height;
 
                     // CMD Window Keep
-                    bool mainwindow_CMDWindowKeep_IsChecked;
+                    bool mainwindow_CMDWindowKeep_IsChecked = true;
                     bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out mainwindow_CMDWindowKeep_IsChecked);
                     VM.MainView.CMDWindowKeep_IsChecked = mainwindow_CMDWindowKeep_IsChecked;
+                    cmdWindowKeep_IsChecked_Read = mainwindow_CMDWindowKeep_IsChecked;
 
                     // Auto Sort Script
-                    bool mainwindow_AutoSortScript_IsChecked;
+                    bool mainwindow_AutoSortScript_IsChecked = true;
                     bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out mainwindow_AutoSortScript_IsChecked);
                     VM.MainView.AutoSortScript_IsChecked = mainwindow_AutoSortScript_IsChecked;
+                    autoSortScript_IsChecked_Read = mainwindow_AutoSortScript_IsChecked;
 
+                    // Theme
+                    string theme_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Theme_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(theme_SelectedItem))
+                    {
+                        VM.ConfigureView.Theme_SelectedItem = theme_SelectedItem;
+                    }
+                    theme_SelectedItem_Read = theme_SelectedItem;
+
+                    // Update
+                    bool updateAutoCheck_IsChecked = true;
+                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out updateAutoCheck_IsChecked);
+                    VM.ConfigureView.UpdateAutoCheck_IsChecked = updateAutoCheck_IsChecked;
+                    updateAutoCheck_IsChecked_Read = updateAutoCheck_IsChecked;
 
                     // --------------------------------------------------
                     // Settings
@@ -748,6 +798,7 @@ namespace Axiom
                     {
                         VM.ConfigureView.ConfigPath_SelectedItem = configPath_SelectedItem;
                     }
+                    configPath_SelectedItem_Read = configPath_SelectedItem;
 
                     // Presets
                     string customPresetsPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "CustomPresetsPath_Text");
@@ -755,6 +806,7 @@ namespace Axiom
                     {
                         VM.ConfigureView.CustomPresetsPath_Text = customPresetsPath_Text;
                     }
+                    customPresetsPath_Text_Read = customPresetsPath_Text;
 
                     // FFmpeg
                     string ffmpegPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "FFmpegPath_Text");
@@ -762,35 +814,44 @@ namespace Axiom
                     {
                         VM.ConfigureView.FFmpegPath_Text = ffmpegPath_Text;
                     }
+                    ffmpegPath_Text_Read = ffmpegPath_Text;
+
                     // FFprobe
                     string ffprobePath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "FFprobePath_Text");
                     if (!string.IsNullOrWhiteSpace(ffprobePath_Text))
                     {
                         VM.ConfigureView.FFprobePath_Text = ffprobePath_Text;
                     }
+                    ffprobePath_Text_Read = ffprobePath_Text;
+
                     // FFplay
                     string ffplayPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "FFplayPath_Text");
                     if (!string.IsNullOrWhiteSpace(ffplayPath_Text))
                     {
                         VM.ConfigureView.FFplayPath_Text = ffplayPath_Text;
                     }
+                    ffplayPath_Text_Read = ffplayPath_Text;
+
                     // youtube-dl
                     string youtubedlPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "youtubedlPath_Text");
                     if (!string.IsNullOrWhiteSpace(youtubedlPath_Text))
                     {
                         VM.ConfigureView.youtubedlPath_Text = youtubedlPath_Text;
                     }
+                    youtubedlPath_Text_Read = youtubedlPath_Text;
 
                     // Log CheckBox
-                    bool logCheckBox_IsChecked;
+                    bool logCheckBox_IsChecked = false;
                     bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out logCheckBox_IsChecked);
                     VM.ConfigureView.LogCheckBox_IsChecked = logCheckBox_IsChecked;
+                    logCheckBox_IsChecked_Read = logCheckBox_IsChecked;
                     // Log Path
                     string logPath_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "LogPath_Text");
                     if (!string.IsNullOrWhiteSpace(logPath_Text))
                     {
                         VM.ConfigureView.LogPath_Text = logPath_Text;
                     }
+                    logPath_Text_Read = logPath_Text;
 
                     // Shell
                     string shell_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Shell_SelectedItem");
@@ -798,6 +859,7 @@ namespace Axiom
                     {
                         VM.ConfigureView.Shell_SelectedItem = shell_SelectedItem;
                     }
+                    shell_SelectedItem_Read = shell_SelectedItem;
 
                     // Shell Title
                     string shellTitle_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "ShellTitle_SelectedItem");
@@ -805,6 +867,7 @@ namespace Axiom
                     {
                         VM.ConfigureView.ShellTitle_SelectedItem = shellTitle_SelectedItem;
                     }
+                    shellTitle_SelectedItem_Read = shellTitle_SelectedItem;
 
                     // Process Priority
                     string processPriority_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "ProcessPriority_SelectedItem");
@@ -812,6 +875,7 @@ namespace Axiom
                     {
                         VM.ConfigureView.ProcessPriority_SelectedItem = processPriority_SelectedItem;
                     }
+                    processPriority_SelectedItem_Read = processPriority_SelectedItem;
 
                     // Threads
                     string threads_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Threads_SelectedItem");
@@ -820,6 +884,37 @@ namespace Axiom
                         // Legacy Support: Capitalize First Letter of imported value. Old values are lowercase.
                         VM.ConfigureView.Threads_SelectedItem = char.ToUpper(threads_SelectedItem[0]) + threads_SelectedItem.Substring(1);
                     }
+                    threads_SelectedItem_Read = threads_SelectedItem;
+
+                    // Input Filename Tokens
+                    string inputFileNameTokens_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "InputFileNameTokens_SelectedItem");
+                    if (!string.IsNullOrWhiteSpace(inputFileNameTokens_SelectedItem))
+                    {
+                        // Legacy Values Fix
+                        switch (inputFileNameTokens_SelectedItem)
+                        {
+                            case "Job":
+                                VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename";
+                                break;
+                            case "Job+Tokens":
+                                VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename+Tokens";
+                                break;
+                            default:
+                                VM.ConfigureView.InputFileNameTokens_SelectedItem = inputFileNameTokens_SelectedItem;
+                                break;
+                        }
+                    }
+                    inputFileNameTokens_SelectedItem_Read = inputFileNameTokens_SelectedItem;
+
+                    // Input Filename Tokens Custom
+                    string inputFileNameTokensCustom_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "InputFileNameTokensCustom_Text");
+                    if (!string.IsNullOrWhiteSpace(inputFileNameTokensCustom_Text))
+                    {
+                        VM.ConfigureView.InputFileNameTokensCustom_Text = inputFileNameTokensCustom_Text;
+                        //.Trim() // remove spaces
+                        //.Replace(",", ", "); // add spaces after every comma
+                    }
+                    inputFileNameTokensCustom_Text_Read = inputFileNameTokensCustom_Text;
 
                     // Ouput Naming
                     // import full list new order
@@ -853,6 +948,8 @@ namespace Axiom
 
                         // Selected Items String (items separated by commas)
                         string outputNaming_SelectedItems = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputNaming_SelectedItems");
+                        outputNaming_SelectedItems_Read = outputNaming_SelectedItems;
+
                         // Empty List Check
                         if (!string.IsNullOrEmpty(outputNaming_SelectedItems))
                         {
@@ -884,41 +981,15 @@ namespace Axiom
                             }
                         }
                     }
+                    outputNaming_ItemOrder_Read = outputNaming_ItemOrder;
 
-                    // Input Filename Tokens
-                    string inputFileNameTokens_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "InputFileNameTokens_SelectedItem");
-                    if (!string.IsNullOrWhiteSpace(inputFileNameTokens_SelectedItem))
-                    {
-                        // Legacy Values Fix
-                        switch (inputFileNameTokens_SelectedItem)
-                        {
-                            case "Job":
-                                VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename";
-                                break;
-                            case "Job+Tokens":
-                                VM.ConfigureView.InputFileNameTokens_SelectedItem = "Filename+Tokens";
-                                break;
-                            default:
-                                VM.ConfigureView.InputFileNameTokens_SelectedItem = inputFileNameTokens_SelectedItem;
-                                break;
-                        }
-                    }
-
-                    // Input Filename Tokens Custom
-                    string inputFileNameTokensCustom_Text = Controls.Configure.ConfigFile.conf.Read("Settings", "InputFileNameTokensCustom_Text");
-                    if (!string.IsNullOrWhiteSpace(inputFileNameTokensCustom_Text))
-                    {
-                        VM.ConfigureView.InputFileNameTokensCustom_Text = inputFileNameTokensCustom_Text;
-                        //.Trim() // remove spaces
-                        //.Replace(",", ", "); // add spaces after every comma
-                    }
-
-                    // Spacing
+                    // Output Filename Spacing
                     string outputFileNameSpacing_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputFileNameSpacing_SelectedItem");
                     if (!string.IsNullOrWhiteSpace(outputFileNameSpacing_SelectedItem))
                     {
                         VM.ConfigureView.OutputFileNameSpacing_SelectedItem = outputFileNameSpacing_SelectedItem;
                     }
+                    outputFileNameSpacing_SelectedItem_Read = outputFileNameSpacing_SelectedItem;
 
                     // Output File Overwrite
                     string outputOverwrite_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "OutputOverwrite_SelectedItem");
@@ -926,18 +997,7 @@ namespace Axiom
                     {
                         VM.ConfigureView.OutputOverwrite_SelectedItem = outputOverwrite_SelectedItem;
                     }
-
-                    // Theme
-                    string theme_SelectedItem = Controls.Configure.ConfigFile.conf.Read("Settings", "Theme_SelectedItem");
-                    if (!string.IsNullOrWhiteSpace(theme_SelectedItem))
-                    {
-                        VM.ConfigureView.Theme_SelectedItem = theme_SelectedItem;
-                    }
-
-                    // Updates
-                    bool updateAutoCheck_IsChecked;
-                    bool.TryParse(Controls.Configure.ConfigFile.conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out updateAutoCheck_IsChecked);
-                    VM.ConfigureView.UpdateAutoCheck_IsChecked = updateAutoCheck_IsChecked;
+                    outputOverwrite_SelectedItem_Read = outputOverwrite_SelectedItem;
                  })
             };
         }
@@ -950,82 +1010,49 @@ namespace Axiom
                                    string filename
             )
         {
-            Controls.Configure.ConfigFile conf = null;
-
-            try
-            {
-                conf = new Controls.Configure.ConfigFile(Path.Combine(directory, filename));
-
-                // Window
-                double top;
-                double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
-                double left;
-                double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
-                double width;
-                double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
-                double height;
-                double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
-
-                // CMD Window Keep
-                bool settings_CMDWindowKeep_IsChecked = true;
-                bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
-
-                // Auto Sort Script
-                bool settings_AutoSortScript_IsChecked = true;
-                bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
-
-                // Log CheckBox
-                bool settings_LogCheckBox_IsChecked = false;
-                bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
-
-                // Update Auto Check
-                bool settings_UpdateAutoCheck_IsChecked = true;
-                bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
+            Controls.Configure.ConfigFile conf = new Controls.Configure.ConfigFile(Path.Combine(directory, filename));
 
                 // -------------------------
                 // Save only if changes have been made
                 // -------------------------
                 if (// Main Window
-                    this.Top != top ||
-                    this.Left != left ||
-                    this.Width != width ||
-                    this.Height != height ||
-                    ////this.WindowState != windowState ||
-                    VM.MainView.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
-                    VM.MainView.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
+                    this.Top != top_Read ||
+                    this.Left != left_Read ||
+                    this.Width != width_Read ||
+                    this.Height != height_Read ||
+                    //this.WindowState != maximized_Read || //problem
+                    VM.MainView.CMDWindowKeep_IsChecked != cmdWindowKeep_IsChecked_Read ||
+                    VM.MainView.AutoSortScript_IsChecked != autoSortScript_IsChecked_Read ||
+                    VM.ConfigureView.Theme_SelectedItem != theme_SelectedItem_Read ||
+                    VM.ConfigureView.UpdateAutoCheck_IsChecked != updateAutoCheck_IsChecked_Read ||
 
                     // Config
-                    VM.ConfigureView.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
-                    VM.ConfigureView.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
-                    VM.ConfigureView.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
-                    VM.ConfigureView.youtubedlPath_Text != conf.Read("Settings", "youtubedlPath_Text") ||
-                    VM.ConfigureView.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
-                    VM.ConfigureView.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
-                    VM.ConfigureView.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+                    VM.ConfigureView.ConfigPath_SelectedItem != configPath_SelectedItem_Read ||
+                    VM.ConfigureView.CustomPresetsPath_Text != customPresetsPath_Text_Read ||
+                    VM.ConfigureView.FFmpegPath_Text != ffmpegPath_Text_Read ||
+                    VM.ConfigureView.FFprobePath_Text != ffprobePath_Text_Read ||
+                    VM.ConfigureView.FFplayPath_Text != ffplayPath_Text_Read ||
+                    VM.ConfigureView.youtubedlPath_Text != youtubedlPath_Text_Read ||
+                    VM.ConfigureView.LogCheckBox_IsChecked != logCheckBox_IsChecked_Read ||
+                    VM.ConfigureView.LogPath_Text != logPath_Text_Read ||
 
                     // Process
-                    VM.ConfigureView.Shell_SelectedItem != conf.Read("Settings", "Shell_SelectedItem") ||
-                    VM.ConfigureView.ShellTitle_SelectedItem != conf.Read("Settings", "ShellTitle_SelectedItem") ||
-                    VM.ConfigureView.ProcessPriority_SelectedItem != conf.Read("Settings", "ProcessPriority_SelectedItem") ||
-                    VM.ConfigureView.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+                    VM.ConfigureView.Shell_SelectedItem != shell_SelectedItem_Read ||
+                    VM.ConfigureView.ShellTitle_SelectedItem != shellTitle_SelectedItem_Read ||
+                    VM.ConfigureView.ProcessPriority_SelectedItem != processPriority_SelectedItem_Read ||
+                    VM.ConfigureView.Threads_SelectedItem != threads_SelectedItem_Read ||
 
                     // Input
-                    VM.ConfigureView.InputFileNameTokens_SelectedItem != conf.Read("Settings", "InputFileNameTokens_SelectedItem") ||
-                    VM.ConfigureView.InputFileNameTokensCustom_Text != conf.Read("Settings", "InputFileNameTokensCustom_Text") ||
+                    VM.ConfigureView.InputFileNameTokens_SelectedItem != inputFileNameTokens_SelectedItem_Read ||
+                    VM.ConfigureView.InputFileNameTokensCustom_Text != inputFileNameTokensCustom_Text_Read ||
 
                     // Output
                     string.Join(",", VM.ConfigureView.OutputNaming_ListView_Items
-                            .Where(s => !string.IsNullOrWhiteSpace(s))) != conf.Read("Settings", "OutputNaming_ItemOrder") ||
-
+                                .Where(s => !string.IsNullOrWhiteSpace(s))) != outputNaming_ItemOrder_Read ||
                     string.Join(",", VM.ConfigureView.OutputNaming_ListView_SelectedItems
-                            .Where(s => !string.IsNullOrEmpty(s))) != conf.Read("Settings", "OutputNaming_SelectedItems") ||
-
-                    VM.ConfigureView.OutputFileNameSpacing_SelectedItem != conf.Read("Settings", "OutputFileNameSpacing_SelectedItem") ||
-                    VM.ConfigureView.OutputOverwrite_SelectedItem != conf.Read("Settings", "OutputOverwrite_SelectedItem") ||
-
-                    // App
-                    VM.ConfigureView.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
-                    VM.ConfigureView.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
+                            .Where(s => !string.IsNullOrEmpty(s))) != outputNaming_SelectedItems_Read ||
+                    VM.ConfigureView.OutputFileNameSpacing_SelectedItem != outputFileNameSpacing_SelectedItem_Read ||
+                    VM.ConfigureView.OutputOverwrite_SelectedItem != outputOverwrite_SelectedItem_Read
                     )
                 {
                     // -------------------------
@@ -1068,6 +1095,12 @@ namespace Axiom
 
                             // Auto Sort Script Toggle
                             conf.Write("Main Window", "AutoSortScript_IsChecked", VM.MainView.AutoSortScript_IsChecked.ToString().ToLower());
+
+                            // Theme
+                            conf.Write("Settings", "Theme_SelectedItem", VM.ConfigureView.Theme_SelectedItem);
+
+                            // Updates
+                            conf.Write("Settings", "UpdateAutoCheck_IsChecked", VM.ConfigureView.UpdateAutoCheck_IsChecked.ToString().ToLower());
 
 
                             // --------------------------------------------------
@@ -1141,16 +1174,6 @@ namespace Axiom
                             // Output File Overwrite
                             conf.Write("Settings", "OutputOverwrite_SelectedItem", VM.ConfigureView.OutputOverwrite_SelectedItem);
 
-                            // -------------------------
-                            // App
-                            // -------------------------
-                            // Theme
-                            conf.Write("Settings", "Theme_SelectedItem", VM.ConfigureView.Theme_SelectedItem);
-
-                            // Updates
-                            conf.Write("Settings", "UpdateAutoCheck_IsChecked", VM.ConfigureView.UpdateAutoCheck_IsChecked.ToString().ToLower());
-
-
                             // --------------------------------------------------
                             // User
                             // --------------------------------------------------
@@ -1190,15 +1213,13 @@ namespace Axiom
                     //                left.ToString() + " " +
                     //                width.ToString() + " " +
                     //                height.ToString() + " ");
+                    //MessageBox.Show("Saved"); //debug
+                    //MessageBox.Show(
+                    //    "Current: " + 
+                    //    "\r\n" +
+                    //    "Imported: " +
+                    //    );
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Could not save config file. May require Administrator privileges.",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-            }
         }
 
 
@@ -2368,13 +2389,21 @@ namespace Axiom
 
 
             // -------------------------
-            // Do Not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
+            // Do Not allow Batch Output to same folder if:
+            //      Input/Output TextBoxes are the same and Input/Output File Extensions are the same.
+            //      Input/Output TextBoxes are the same and Batch TextBox is Empty.
+            // (to avoid file overwrite)
             // -------------------------
             if (VM.MainView.Batch_IsChecked == true &&
                 !string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
             {
-                if (string.Equals(VM.MainView.Input_Text/*inputDir*/, VM.MainView.Output_Text/*outputDir*/, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase)
+                if ((string.Equals(VM.MainView.Input_Text/*inputDir*/, VM.MainView.Output_Text/*outputDir*/, StringComparison.OrdinalIgnoreCase) &&
+                     string.Equals(inputExt, outputExt, StringComparison.OrdinalIgnoreCase))
+
+                    ||
+
+                    (string.Equals(VM.MainView.Input_Text, VM.MainView.Output_Text, StringComparison.OrdinalIgnoreCase) && 
+                     string.IsNullOrWhiteSpace(VM.MainView.BatchExtension_Text))
                     )
                 {
                     //MessageBox.Show("inputDir = " + inputDir); //debug
