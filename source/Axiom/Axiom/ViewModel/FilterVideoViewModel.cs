@@ -74,12 +74,13 @@ namespace ViewModel
             FilterVideo_DropFrames_SelectedItem = "disabled";
 
             // Fix
+            FilterVideo_Deinterlace_SelectedItem = "disabled";
+            FilterVideo_Deblock_SelectedItem = "disabled";
+            FilterVideo_Deflicker_SelectedItem = "disabled";
+            FilterVideo_Denoise_SelectedItem = "disabled";
             FilterVideo_Deband_SelectedItem = "disabled";
             FilterVideo_Deshake_SelectedItem = "disabled";
-            FilterVideo_Deflicker_SelectedItem = "disabled";
             FilterVideo_Dejudder_SelectedItem = "disabled";
-            FilterVideo_Denoise_SelectedItem = "disabled";
-            FilterVideo_Deinterlace_SelectedItem = "disabled";
 
             // Transpose
             FilterVideo_Flip_SelectedItem = "disabled";
@@ -391,9 +392,30 @@ namespace ViewModel
         {
             "disabled",
             "default",
-            "light",
-            "medium",
-            "heavy",
+
+            // nlmeans
+            "nlmeans light",
+            "nlmeans medium",
+            "nlmeans strong",
+
+            // hqdn3d
+            "hqdn3d light",
+            "hqdn3d medium",
+            "hqdn3d strong",
+
+            // vaguedenoiser
+            "vaguedenoiser light",
+            "vaguedenoiser medium",
+            "vaguedenoiser strong",
+
+            // removegrain
+            "removegrain light",
+            "removegrain medium",
+            "removegrain strong",
+
+            //"light",
+            //"medium",
+            //"heavy",
         };
         public ObservableCollection<string> FilterVideo_Denoise_Items
         {
@@ -484,6 +506,57 @@ namespace ViewModel
 
                 _FilterVideo_Deinterlace_IsEnabled = value;
                 OnPropertyChanged("FilterVideo_Deinterlace_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Deblock
+        // -------------------------
+        // Items
+        public ObservableCollection<string> _FilterVideo_Deblock_Items = new ObservableCollection<string>()
+        {
+            "disabled",
+            "default",
+            "weak",
+            "strong",
+            "strong+",
+        };
+        public ObservableCollection<string> FilterVideo_Deblock_Items
+        {
+            get { return _FilterVideo_Deblock_Items; }
+            set { _FilterVideo_Deblock_Items = value; }
+        }
+        // Selected Item
+        private string _FilterVideo_Deblock_SelectedItem { get; set; }
+        public string FilterVideo_Deblock_SelectedItem
+        {
+            get { return _FilterVideo_Deblock_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Deblock_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deblock_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Deblock_SelectedItem");
+            }
+        }
+        // Controls Enable
+        private bool _FilterVideo_Deblock_IsEnabled = true;
+        public bool FilterVideo_Deblock_IsEnabled
+        {
+            get { return _FilterVideo_Deblock_IsEnabled; }
+            set
+            {
+                if (_FilterVideo_Deblock_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deblock_IsEnabled = value;
+                OnPropertyChanged("FilterVideo_Deblock_IsEnabled");
             }
         }
 
