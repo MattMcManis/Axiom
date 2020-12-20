@@ -627,17 +627,17 @@ namespace Filters
                     // -------------------------
                     // Light
                     case "nlmeans light":
-                        denoise = "nlmeans=3.0:1:7:3:2:0";
+                        denoise = "nlmeans=3:1:7:3:2";
                         break;
 
                     // Medium
                     case "nlmeans medium":
-                        denoise = "nlmeans=6.0:1:7:3:2:0";
+                        denoise = "nlmeans=6:1:7:3:2";
                         break;
 
                     // Strong
                     case "nlmeans strong":
-                        denoise = "nlmeans=10:1:7:3:2:0";
+                        denoise = "nlmeans=10:1:7:3:2";
                         break;
 
                     // -------------------------
@@ -686,12 +686,12 @@ namespace Filters
 
                     // Medium
                     case "removegrain medium":
-                        denoise = "removegrain=20";
+                        denoise = "removegrain=17";
                         break;
 
                     // Strong
                     case "removegrain strong":
-                        denoise = "removegrain=30";
+                        denoise = "removegrain=24";
                         break;
                 }
 
