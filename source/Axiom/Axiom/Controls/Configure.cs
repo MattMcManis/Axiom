@@ -240,7 +240,7 @@ namespace Controls
                     {
                         // Start axiom.conf File Write
                         //MessageBox.Show(Path.Combine(directory, filename)); //debug
-                        Configure.ConfigFile.conf = new ConfigFile(Path.Combine(directory, filename));
+                        ConfigFile.conf = new ConfigFile(Path.Combine(directory, filename));
 
                         // Write each action in the list
                         foreach (Action Write in actionsToWrite)
