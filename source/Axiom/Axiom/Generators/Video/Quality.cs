@@ -435,8 +435,18 @@ namespace Generate.Video
                         //    break;
 
                         case "NVIDIA NVENC":
-                            vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
+                            switch (codec_SelectedItem)
+                            {
+                                case "H264 NVENC":
+                                    // use normal CRF instead of -cq:v
+                                    vCRF = "-rc:v vbr_hq -crf " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF;
+                                    break;
+
+                                case "HEVC NVENC":
+                                    vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
                                     "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                                    break;
+                            }
                             break;
 
                         case "Intel QSV":
@@ -580,8 +590,20 @@ namespace Generate.Video
                                 //    break;
 
                                 case "NVIDIA NVENC":
-                                    vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
+                                    //vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
+                                    //        "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                                    switch (codec_SelectedItem)
+                                    {
+                                        case "H264 NVENC":
+                                            // use normal CRF instead of -cq:v
+                                            vCRF = "-rc:v vbr_hq -crf " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF;
+                                            break;
+
+                                        case "HEVC NVENC":
+                                            vCRF = "-rc:v vbr_hq -qmin 0 -cq:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF_HWAccel_NVIDIA_NVENC + " " +
                                             "-b:v " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR;
+                                            break;
+                                    }
                                     break;
 
                                 case "Intel QSV":
