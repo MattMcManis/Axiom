@@ -580,6 +580,38 @@ namespace Profiles
                     listFailedImports.Add("Filter Video: DropFrames");
 
                 // Fix
+                // Deinterlace
+                string filterVideoDeinterlace = inif.Read("Filter Video", "Deinterlace_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_Deinterlace_Items.Contains(filterVideoDeinterlace))
+                    VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = filterVideoDeinterlace;
+                else
+                    listFailedImports.Add("Filter Video: Deinterlace");
+
+                // Deblock
+                string filterVideoDeblock = inif.Read("Filter Video", "Deblock_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_Deblock_Items.Contains(filterVideoDeblock))
+                    VM.FilterVideoView.FilterVideo_Deblock_SelectedItem = filterVideoDeblock;
+                else
+                    listFailedImports.Add("Filter Video: Deblock");
+
+                // Deflicker
+                string filterVideoDeflicker = inif.Read("Filter Video", "Deflicker_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_Deflicker_Items.Contains(filterVideoDeflicker))
+                    VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem = filterVideoDeflicker;
+                else
+                    listFailedImports.Add("Filter Video: Deflicker");
+
+                // Denoise
+                string filterVideoDenoise = inif.Read("Filter Video", "Denoise_SelectedItem");
+
+                if (VM.FilterVideoView.FilterVideo_Denoise_Items.Contains(filterVideoDenoise))
+                    VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = filterVideoDenoise;
+                else
+                    listFailedImports.Add("Filter Video: Denoise");
+
                 // Deband
                 string filterVideoDeband = inif.Read("Filter Video", "Deband_SelectedItem");
 
@@ -596,14 +628,6 @@ namespace Profiles
                 else
                     listFailedImports.Add("Filter Video: Deshake");
 
-                // Deflicker
-                string filterVideoDeflicker = inif.Read("Filter Video", "Deflicker_SelectedItem");
-
-                if (VM.FilterVideoView.FilterVideo_Deflicker_Items.Contains(filterVideoDeflicker))
-                    VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem = filterVideoDeflicker;
-                else
-                    listFailedImports.Add("Filter Video: Deflicker");
-
                 // Dejudder
                 string filterVideoDejudder = inif.Read("Filter Video", "Dejudder_SelectedItem");
 
@@ -611,22 +635,6 @@ namespace Profiles
                     VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem = filterVideoDejudder;
                 else
                     listFailedImports.Add("Filter Video: Dejudder");
-
-                // Denoise
-                string filterVideoDenoise = inif.Read("Filter Video", "Denoise_SelectedItem");
-
-                if (VM.FilterVideoView.FilterVideo_Denoise_Items.Contains(filterVideoDenoise))
-                    VM.FilterVideoView.FilterVideo_Denoise_SelectedItem = filterVideoDenoise;
-                else
-                    listFailedImports.Add("Filter Video: Denoise");
-
-                // Deinterlace
-                string filterVideoDeinterlace = inif.Read("Filter Video", "Deinterlace_SelectedItem");
-
-                if (VM.FilterVideoView.FilterVideo_Deinterlace_Items.Contains(filterVideoDeinterlace))
-                    VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem = filterVideoDeinterlace;
-                else
-                    listFailedImports.Add("Filter Video: Deinterlace");
 
                 // Transpose
                 // Flip
@@ -1063,12 +1071,13 @@ namespace Profiles
                 inif.Write("Filter Video", "DropFrames_SelectedItem", VM.FilterVideoView.FilterVideo_DropFrames_SelectedItem);
 
                 // Fix
+                inif.Write("Filter Video", "Deinterlace_SelectedItem", VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem);
+                inif.Write("Filter Video", "Deblock_SelectedItem", VM.FilterVideoView.FilterVideo_Deblock_SelectedItem);
+                inif.Write("Filter Video", "Deflicker_SelectedItem", VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem);
+                inif.Write("Filter Video", "Denoise_SelectedItem", VM.FilterVideoView.FilterVideo_Denoise_SelectedItem);
                 inif.Write("Filter Video", "Deband_SelectedItem", VM.FilterVideoView.FilterVideo_Deband_SelectedItem);
                 inif.Write("Filter Video", "Deshake_SelectedItem", VM.FilterVideoView.FilterVideo_Deshake_SelectedItem);
-                inif.Write("Filter Video", "Deflicker_SelectedItem", VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem);
                 inif.Write("Filter Video", "Dejudder_SelectedItem", VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem);
-                inif.Write("Filter Video", "Denoise_SelectedItem", VM.FilterVideoView.FilterVideo_Denoise_SelectedItem);
-                inif.Write("Filter Video", "Deinterlace_SelectedItem", VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem);
 
                 // Transpose
                 inif.Write("Filter Video", "Flip_SelectedItem", VM.FilterVideoView.FilterVideo_Flip_SelectedItem);
