@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Matt McManis")]
 [assembly: AssemblyProduct("Axiom UI")]
-[assembly: AssemblyCopyright("(c) Matt McManis 2020")]
+[assembly: AssemblyCopyright("© MattMcManis 2017-2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,7 +51,7 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.9.5.2")]
-[assembly: AssemblyFileVersion("1.9.5.2")]
+[assembly: AssemblyVersion("1.9.5.3")]
+[assembly: AssemblyFileVersion("1.9.5.3")]
 [assembly: Guid("A955B72D-37BB-4668-8970-82EE6997E38E")]
 
