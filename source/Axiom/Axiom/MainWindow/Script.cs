@@ -253,6 +253,9 @@ namespace Axiom
                 // -------------------------
                 ClearGlobalVariables();
                 GC.Collect();
+
+                // Halt, do not update Output TextBox
+                //return;
             }
 
             // -------------------------
