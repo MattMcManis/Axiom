@@ -36,10 +36,10 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 &nbsp;
 
 ## Downloads
-#### Releases
-https://github.com/MattMcManis/Axiom/releases
+#### Axiom
+[Latest Release](https://github.com/MattMcManis/Axiom/releases)
 
-#### Included Files
+**Included Files**
 - Axiom UI
 - [FFmpeg](http://www.ffmpeg.org/download.html#build-windows)
 - [youtube-dl](https://github.com/ytdl-org/youtube-dl/releases)
@@ -47,7 +47,7 @@ https://github.com/MattMcManis/Axiom/releases
 - [User Guide pdf](https://github.com/MattMcManis/Axiom/blob/master/docs/User%20Guide.pdf)
 - Troubleshooter
 
-#### Requirements
+**Requirements**
 - Extract 7z file with [7-Zip](https://www.7-zip.org)
 - Axiom [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
 - youtube-dl [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
@@ -92,6 +92,22 @@ Axiom will auto-detect it in its included folder. You can also add it to Windows
     - Select any Presets or Settings you need and Press `Convert`
 4. Generate a Script without Downloading:
     - Select any Settings you need and Press `Script`
+
+&nbsp;
+
+## Resources
+* [Axiom Wiki](https://github.com/MattMcManis/Axiom/wiki)
+* [FFmpeg Wiki](https://trac.ffmpeg.org/wiki)
+* [FFmpeg Documentation](https://ffmpeg.org/ffmpeg.html)
+* [FFmpeg Filters](https://ffmpeg.org/ffmpeg-filters.html)
+* Video Codec [VP8](https://trac.ffmpeg.org/wiki/Encode/VP8), [VP9](https://trac.ffmpeg.org/wiki/Encode/VP9), [x264](https://trac.ffmpeg.org/wiki/Encode/H.264), [x265](https://trac.ffmpeg.org/wiki/Encode/H.265), [AV1](https://trac.ffmpeg.org/wiki/Encode/AV1)
+* Audio Codec [AC3](https://en.wikipedia.org/wiki/Dolby_Digital), [AAC](https://trac.ffmpeg.org/wiki/Encode/AAC), [Opus](https://en.wikipedia.org/wiki/Opus_(audio_format)), [Vorbis](https://en.wikipedia.org/wiki/Vorbis), [MP3](https://trac.ffmpeg.org/wiki/Encode/MP3), [FLAC](https://en.wikipedia.org/wiki/FLAC)
+* [CRF Quality Guide](https://slhck.info/video/2017/02/24/crf-guide.html)
+* [VBR Quality Guide](https://slhck.info/video/2017/02/24/vbr-settings.html)
+* [Scaling Algorithms](https://i.imgur.com/5jO3ay1.png)
+* x265/x265 [Profiles](https://en.wikipedia.org/wiki/Advanced_Video_Coding#Profiles), [Levels](https://en.wikipedia.org/wiki/Advanced_Video_Coding#Levels), [Tune](https://superuser.com/a/564404)
+* [Color Space](https://www.richardlackey.com/choosing-video-color-space/)
+* [Hardware Acceleration](https://trac.ffmpeg.org/wiki/HWAccelIntro)
 
 &nbsp;
 
