@@ -36,7 +36,7 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 &nbsp;
 
 ## Downloads
-#### Axiom
+### Axiom
 [Latest Release](https://github.com/MattMcManis/Axiom/releases)
 
 **Included Files**
@@ -52,7 +52,7 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 - Axiom [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
 - youtube-dl [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
 
-#### FFmpeg Builds
+### FFmpeg Builds
 https://www.gyan.dev/ffmpeg/builds  
 https://github.com/BtbN/FFmpeg-Builds/releases
 
