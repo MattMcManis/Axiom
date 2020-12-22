@@ -61,13 +61,34 @@ namespace ViewModel
         /// </summary>
         public void LoadControlsDefaults()
         {
+            Audio_Codec_IsEnabled = true;
             Audio_Codec_SelectedItem = "Vorbis";
+
+            Audio_Stream_IsEnabled = true;
             Audio_Stream_SelectedItem = "1";
+
+            Audio_Channel_IsEnabled = true;
             Audio_Channel_SelectedItem = "Source";
+
+            Audio_Quality_IsEnabled = true;
             Audio_Quality_SelectedItem = "Auto";
+
+            Audio_BitRate_IsEnabled = true;
+
+            Audio_VBR_IsEnabled = true;
+
+            Audio_CompressionLevel_IsEnabled = true;
             Audio_CompressionLevel_SelectedItem = "auto";
+
+            Audio_SampleRate_IsEnabled = true;
             Audio_SampleRate_SelectedItem = "auto";
+
+            Audio_BitDepth_IsEnabled = true;
             Audio_BitDepth_SelectedItem = "auto";
+
+            Audio_Volume_Text = "100";
+            Audio_HardLimiter_IsEnabled = true;
+            Audio_HardLimiter_Value = 0.0;
         }
 
 
@@ -156,7 +177,7 @@ namespace ViewModel
         public string Audio_Codec;
 
         // Selected Index
-        private int _Audio_Codec_SelectedIndex { get; set; }
+        private int _Audio_Codec_SelectedIndex;
         public int Audio_Codec_SelectedIndex
         {
             get { return _Audio_Codec_SelectedIndex; }
@@ -190,7 +211,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Codec_IsEnabled = true;
+        private bool _Audio_Codec_IsEnabled;
         public bool Audio_Codec_IsEnabled
         {
             get { return _Audio_Codec_IsEnabled; }
@@ -239,7 +260,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Audio_Stream_SelectedIndex { get; set; }
+        private int _Audio_Stream_SelectedIndex;
         public int Audio_Stream_SelectedIndex
         {
             get { return _Audio_Stream_SelectedIndex; }
@@ -256,7 +277,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Audio_Stream_SelectedItem { get; set; }
+        private string _Audio_Stream_SelectedItem;
         public string Audio_Stream_SelectedItem
         {
             get { return _Audio_Stream_SelectedItem; }
@@ -273,7 +294,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Stream_IsEnabled = true;
+        private bool _Audio_Stream_IsEnabled;
         public bool Audio_Stream_IsEnabled
         {
             get { return _Audio_Stream_IsEnabled; }
@@ -306,7 +327,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Audio_Channel_SelectedIndex { get; set; }
+        private int _Audio_Channel_SelectedIndex;
         public int Audio_Channel_SelectedIndex
         {
             get { return _Audio_Channel_SelectedIndex; }
@@ -323,7 +344,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Audio_Channel_SelectedItem { get; set; }
+        private string _Audio_Channel_SelectedItem;
         public string Audio_Channel_SelectedItem
         {
             get { return _Audio_Channel_SelectedItem; }
@@ -340,7 +361,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Channel_IsEnabled = true;
+        private bool _Audio_Channel_IsEnabled;
         public bool Audio_Channel_IsEnabled
         {
             get { return _Audio_Channel_IsEnabled; }
@@ -385,7 +406,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Audio_Quality_SelectedIndex { get; set; }
+        private int _Audio_Quality_SelectedIndex;
         public int Audio_Quality_SelectedIndex
         {
             get { return _Audio_Quality_SelectedIndex; }
@@ -402,7 +423,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Audio_Quality_SelectedItem { get; set; }
+        public string _Audio_Quality_SelectedItem;
         public string Audio_Quality_SelectedItem
         {
             get { return _Audio_Quality_SelectedItem; }
@@ -419,7 +440,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Quality_IsEnabled = true;
+        private bool _Audio_Quality_IsEnabled;
         public bool Audio_Quality_IsEnabled
         {
             get { return _Audio_Quality_IsEnabled; }
@@ -456,7 +477,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Audio_BitRate_IsEnabled = true;
+        private bool _Audio_BitRate_IsEnabled;
         public bool Audio_BitRate_IsEnabled
         {
             get { return _Audio_BitRate_IsEnabled; }
@@ -492,7 +513,7 @@ namespace ViewModel
         }
 
         // Enabled
-        private bool _Audio_VBR_IsEnabled = true;
+        private bool _Audio_VBR_IsEnabled;
         public bool Audio_VBR_IsEnabled
         {
             get { return _Audio_VBR_IsEnabled; }
@@ -525,7 +546,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Audio_CompressionLevel_SelectedIndex { get; set; }
+        private int _Audio_CompressionLevel_SelectedIndex;
         public int Audio_CompressionLevel_SelectedIndex
         {
             get { return _Audio_CompressionLevel_SelectedIndex; }
@@ -542,7 +563,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Audio_CompressionLevel_SelectedItem { get; set; }
+        private string _Audio_CompressionLevel_SelectedItem;
         public string Audio_CompressionLevel_SelectedItem
         {
             get { return _Audio_CompressionLevel_SelectedItem; }
@@ -576,7 +597,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_CompressionLevel_IsEnabled = true;
+        private bool _Audio_CompressionLevel_IsEnabled;
         public bool Audio_CompressionLevel_IsEnabled
         {
             get { return _Audio_CompressionLevel_IsEnabled; }
@@ -614,7 +635,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Audio_SampleRate_SelectedIndex { get; set; }
+        private int _Audio_SampleRate_SelectedIndex;
         public int Audio_SampleRate_SelectedIndex
         {
             get { return _Audio_SampleRate_SelectedIndex; }
@@ -631,7 +652,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Audio_SampleRate_SelectedItem { get; set; }
+        private string _Audio_SampleRate_SelectedItem;
         public string Audio_SampleRate_SelectedItem
         {
             get { return _Audio_SampleRate_SelectedItem; }
@@ -648,7 +669,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_SampleRate_IsEnabled = true;
+        private bool _Audio_SampleRate_IsEnabled;
         public bool Audio_SampleRate_IsEnabled
         {
             get { return _Audio_SampleRate_IsEnabled; }
@@ -686,7 +707,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Audio_BitDepth_SelectedIndex { get; set; }
+        private int _Audio_BitDepth_SelectedIndex;
         public int Audio_BitDepth_SelectedIndex
         {
             get { return _Audio_BitDepth_SelectedIndex; }
@@ -703,7 +724,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Audio_BitDepth_SelectedItem { get; set; }
+        private string _Audio_BitDepth_SelectedItem;
         public string Audio_BitDepth_SelectedItem
         {
             get { return _Audio_BitDepth_SelectedItem; }
@@ -720,7 +741,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_BitDepth_IsEnabled = true;
+        private bool _Audio_BitDepth_IsEnabled;
         public bool Audio_BitDepth_IsEnabled
         {
             get { return _Audio_BitDepth_IsEnabled; }
@@ -741,7 +762,7 @@ namespace ViewModel
         // Volume
         // -------------------------
         // Text
-        private string _Audio_Volume_Text = "100";
+        private string _Audio_Volume_Text;
         public string Audio_Volume_Text
         {
             get { return _Audio_Volume_Text; }
@@ -757,7 +778,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Audio_Volume_IsEnabled = true;
+        private bool _Audio_Volume_IsEnabled;
         public bool Audio_Volume_IsEnabled
         {
             get { return _Audio_Volume_IsEnabled; }
@@ -778,7 +799,7 @@ namespace ViewModel
         // Hard Limiter
         // -------------------------
         // Value
-        private double _Audio_HardLimiter_Value = 0.0;
+        private double _Audio_HardLimiter_Value;
         public double Audio_HardLimiter_Value
         {
             get { return _Audio_HardLimiter_Value; }
@@ -795,7 +816,7 @@ namespace ViewModel
         }
 
         // Enabled
-        private bool _Audio_HardLimiter_IsEnabled = true;
+        private bool _Audio_HardLimiter_IsEnabled;
         public bool Audio_HardLimiter_IsEnabled
         {
             get { return _Audio_HardLimiter_IsEnabled; }

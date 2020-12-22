@@ -161,7 +161,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_DropFrames_SelectedItem { get; set; }
+        private string _FilterVideo_DropFrames_SelectedItem;
         public string FilterVideo_DropFrames_SelectedItem
         {
             get { return _FilterVideo_DropFrames_SelectedItem; }
@@ -210,7 +210,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_Deband_SelectedItem { get; set; }
+        private string _FilterVideo_Deband_SelectedItem;
         public string FilterVideo_Deband_SelectedItem
         {
             get { return _FilterVideo_Deband_SelectedItem; }
@@ -258,7 +258,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_Deshake_SelectedItem { get; set; }
+        private string _FilterVideo_Deshake_SelectedItem;
         public string FilterVideo_Deshake_SelectedItem
         {
             get { return _FilterVideo_Deshake_SelectedItem; }
@@ -305,7 +305,7 @@ namespace ViewModel
             set { _FilterVideo_Deflicker_Items = value; }
         }
         // Selected Item
-        private string _FilterVideo_Deflicker_SelectedItem { get; set; }
+        private string _FilterVideo_Deflicker_SelectedItem;
         public string FilterVideo_Deflicker_SelectedItem
         {
             get { return _FilterVideo_Deflicker_SelectedItem; }
@@ -352,7 +352,7 @@ namespace ViewModel
             set { _FilterVideo_Dejudder_Items = value; }
         }
         // Selected Item
-        private string _FilterVideo_Dejudder_SelectedItem { get; set; }
+        private string _FilterVideo_Dejudder_SelectedItem;
         public string FilterVideo_Dejudder_SelectedItem
         {
             get { return _FilterVideo_Dejudder_SelectedItem; }
@@ -423,7 +423,7 @@ namespace ViewModel
             set { _FilterVideo_Denoise_Items = value; }
         }
         // Selected Item
-        private string _FilterVideo_Denoise_SelectedItem { get; set; }
+        private string _FilterVideo_Denoise_SelectedItem;
         public string FilterVideo_Denoise_SelectedItem
         {
             get { return _FilterVideo_Denoise_SelectedItem; }
@@ -477,7 +477,7 @@ namespace ViewModel
             set { _FilterVideo_Deinterlace_Items = value; }
         }
         // Selected Item
-        private string _FilterVideo_Deinterlace_SelectedItem { get; set; }
+        private string _FilterVideo_Deinterlace_SelectedItem;
         public string FilterVideo_Deinterlace_SelectedItem
         {
             get { return _FilterVideo_Deinterlace_SelectedItem; }
@@ -528,7 +528,7 @@ namespace ViewModel
             set { _FilterVideo_Deblock_Items = value; }
         }
         // Selected Item
-        private string _FilterVideo_Deblock_SelectedItem { get; set; }
+        private string _FilterVideo_Deblock_SelectedItem;
         public string FilterVideo_Deblock_SelectedItem
         {
             get { return _FilterVideo_Deblock_SelectedItem; }
@@ -579,7 +579,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_Flip_SelectedItem { get; set; }
+        private string _FilterVideo_Flip_SelectedItem;
         public string FilterVideo_Flip_SelectedItem
         {
             get { return _FilterVideo_Flip_SelectedItem; }
@@ -634,7 +634,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_Rotate_SelectedItem { get; set; }
+        private string _FilterVideo_Rotate_SelectedItem;
         public string FilterVideo_Rotate_SelectedItem
         {
             get { return _FilterVideo_Rotate_SelectedItem; }
@@ -845,7 +845,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _FilterVideo_SelectiveColor_SelectedIndex { get; set; }
+        private int _FilterVideo_SelectiveColor_SelectedIndex;
         public int FilterVideo_SelectiveColor_SelectedIndex
         {
             get { return _FilterVideo_SelectiveColor_SelectedIndex; }
@@ -862,7 +862,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_SelectiveColor_SelectedItem { get; set; }
+        private string _FilterVideo_SelectiveColor_SelectedItem;
         public string FilterVideo_SelectiveColor_SelectedItem
         {
             get { return _FilterVideo_SelectiveColor_SelectedItem; }
@@ -911,7 +911,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterVideo_SelectiveColor_Correction_Method_SelectedItem { get; set; }
+        private string _FilterVideo_SelectiveColor_Correction_Method_SelectedItem;
         public string FilterVideo_SelectiveColor_Correction_Method_SelectedItem
         {
             get { return _FilterVideo_SelectiveColor_Correction_Method_SelectedItem; }

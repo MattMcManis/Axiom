@@ -105,7 +105,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterAudio_Lowpass_SelectedItem { get; set; }
+        private string _FilterAudio_Lowpass_SelectedItem;
         public string FilterAudio_Lowpass_SelectedItem
         {
             get { return _FilterAudio_Lowpass_SelectedItem; }
@@ -154,7 +154,7 @@ namespace ViewModel
             set { _FilterAudio_Highpass_Items = value; }
         }
         // Selected Item
-        private string _FilterAudio_Highpass_SelectedItem { get; set; }
+        private string _FilterAudio_Highpass_SelectedItem;
         public string FilterAudio_Highpass_SelectedItem
         {
             get { return _FilterAudio_Highpass_SelectedItem; }
@@ -203,7 +203,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _FilterAudio_Headphones_SelectedItem { get; set; }
+        private string _FilterAudio_Headphones_SelectedItem;
         public string FilterAudio_Headphones_SelectedItem
         {
             get { return _FilterAudio_Headphones_SelectedItem; }

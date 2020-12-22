@@ -71,6 +71,10 @@ namespace ViewModel
             Window_Position_Top = 0;
             Window_Position_Left = 0;
 
+            Input_Text = string.Empty;
+            Output_Text = string.Empty;
+            Info_Text = string.Empty;
+
             Preset_IsEnabled = true;
             Preset_SelectedItem = "Preset";
 
@@ -83,6 +87,9 @@ namespace ViewModel
             BatchExtension_IsEnabled = false;
             CMDWindowKeep_IsChecked = true;
             AutoSortScript_IsChecked = true;
+
+            BatchExtension_Text = "extension";
+            Convert_Text = "Convert";
         }
 
 
@@ -96,7 +103,7 @@ namespace ViewModel
         // Info
         // --------------------------------------------------
         // Text
-        private string _Info_Text = string.Empty;
+        private string _Info_Text;
         public string Info_Text
         {
             get { return _Info_Text; }
@@ -206,7 +213,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Preset_SelectedIndex { get; set; }
+        private int _Preset_SelectedIndex;
         public int Preset_SelectedIndex
         {
             get { return _Preset_SelectedIndex; }
@@ -223,7 +230,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Preset_SelectedItem { get; set; }
+        private string _Preset_SelectedItem;
         public string Preset_SelectedItem
         {
             get { return _Preset_SelectedItem; }
@@ -240,7 +247,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Preset_IsEnabled { get; set; }
+        private bool _Preset_IsEnabled;
         public bool Preset_IsEnabled
         {
             get { return _Preset_IsEnabled; }
@@ -280,7 +287,7 @@ namespace ViewModel
         // -------------------------
         // Window Left
         // -------------------------
-        private double _Window_Position_Left = 0;
+        private double _Window_Position_Left;
         public double Window_Position_Left
         {
             get { return _Window_Position_Left; }
@@ -340,7 +347,7 @@ namespace ViewModel
         // Window Maximized
         // -------------------------
         // Value
-        private bool _Window_IsMaximized = true;
+        private bool _Window_IsMaximized;
         public bool Window_IsMaximized
         {
             get { return _Window_IsMaximized; }
@@ -448,7 +455,7 @@ namespace ViewModel
         // Input - TextBox
         // --------------------------------------------------
         // Text
-        private string _Input_Text = string.Empty;
+        private string _Input_Text;
         public string Input_Text
         {
             get { return _Input_Text; }
@@ -468,7 +475,7 @@ namespace ViewModel
         // Input Location - Button
         // --------------------------------------------------
         // Controls Enable
-        private bool _Input_Location_IsEnabled { get; set; }
+        private bool _Input_Location_IsEnabled;
         public bool Input_Location_IsEnabled
         {
             get { return _Input_Location_IsEnabled; }
@@ -489,7 +496,7 @@ namespace ViewModel
         // Input Clear - Button
         // --------------------------------------------------
         // Controls Enable
-        private bool _Input_Clear_IsEnabled { get; set; }
+        private bool _Input_Clear_IsEnabled;
         public bool Input_Clear_IsEnabled
         {
             get { return _Input_Clear_IsEnabled; }
@@ -528,7 +535,7 @@ namespace ViewModel
         // Batch Extension - TextBox
         // --------------------------------------------------
         // Text
-        private string _BatchExtension_Text = "extension";
+        private string _BatchExtension_Text;
         public string BatchExtension_Text
         {
             get { return _BatchExtension_Text; }
@@ -544,7 +551,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _BatchExtension_IsEnabled { get; set; }
+        private bool _BatchExtension_IsEnabled;
         public bool BatchExtension_IsEnabled
         {
             get { return _BatchExtension_IsEnabled; }
@@ -572,7 +579,7 @@ namespace ViewModel
         // Output - TextBox
         // --------------------------------------------------
         // Text
-        private string _Output_Text = string.Empty;
+        private string _Output_Text;
         public string Output_Text
         {
             get { return _Output_Text; }
@@ -592,7 +599,7 @@ namespace ViewModel
         // Output Location - Button
         // --------------------------------------------------
         // Controls Enable
-        private bool _Output_Location_IsEnabled { get; set; }
+        private bool _Output_Location_IsEnabled;
         public bool Output_Location_IsEnabled
         {
             get { return _Output_Location_IsEnabled; }
@@ -612,7 +619,7 @@ namespace ViewModel
         // Output Clear - Button
         // --------------------------------------------------
         // Controls Enable
-        private bool _Output_Clear_IsEnabled { get; set; }
+        private bool _Output_Clear_IsEnabled;
         public bool Output_Clear_IsEnabled
         {
             get { return _Output_Clear_IsEnabled; }
@@ -651,7 +658,7 @@ namespace ViewModel
         // Convert Button - TextBlock
         // --------------------------------------------------
         // Text
-        private string _Convert_Text = "Convert";
+        private string _Convert_Text;
         public string Convert_Text
         {
             get { return _Convert_Text; }

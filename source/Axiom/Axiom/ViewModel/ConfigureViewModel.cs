@@ -122,7 +122,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _ConfigPath_SelectedIndex { get; set; }
+        private int _ConfigPath_SelectedIndex;
         public int ConfigPath_SelectedIndex
         {
             get { return _ConfigPath_SelectedIndex; }
@@ -139,7 +139,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _ConfigPath_SelectedItem { get; set; }
+        private string _ConfigPath_SelectedItem;
         public string ConfigPath_SelectedItem
         {
             get { return _ConfigPath_SelectedItem; }
@@ -498,7 +498,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Shell_SelectedIndex { get; set; }
+        private int _Shell_SelectedIndex;
         public int Shell_SelectedIndex
         {
             get { return _Shell_SelectedIndex; }
@@ -515,7 +515,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Shell_SelectedItem { get; set; }
+        private string _Shell_SelectedItem;
         public string Shell_SelectedItem
         {
             get { return _Shell_SelectedItem; }
@@ -571,7 +571,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _ShellTitle_SelectedIndex { get; set; }
+        private int _ShellTitle_SelectedIndex;
         public int ShellTitle_SelectedIndex
         {
             get { return _ShellTitle_SelectedIndex; }
@@ -588,7 +588,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _ShellTitle_SelectedItem { get; set; }
+        private string _ShellTitle_SelectedItem;
         public string ShellTitle_SelectedItem
         {
             get { return _ShellTitle_SelectedItem; }
@@ -645,7 +645,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _ProcessPriority_SelectedIndex { get; set; }
+        private int _ProcessPriority_SelectedIndex;
         public int ProcessPriority_SelectedIndex
         {
             get { return _ProcessPriority_SelectedIndex; }
@@ -662,7 +662,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _ProcessPriority_SelectedItem { get; set; }
+        private string _ProcessPriority_SelectedItem;
         public string ProcessPriority_SelectedItem
         {
             get { return _ProcessPriority_SelectedItem; }
@@ -733,7 +733,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Threads_SelectedIndex { get; set; }
+        private int _Threads_SelectedIndex;
         public int Threads_SelectedIndex
         {
             get { return _Threads_SelectedIndex; }
@@ -750,7 +750,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Threads_SelectedItem { get; set; }
+        private string _Threads_SelectedItem;
         public string Threads_SelectedItem
         {
             get { return _Threads_SelectedItem; }
@@ -817,7 +817,7 @@ namespace ViewModel
             }
         }
         // Selected Index
-        private int _OutputNaming_ListView_SelectedIndex { get; set; }
+        private int _OutputNaming_ListView_SelectedIndex;
         public int OutputNaming_ListView_SelectedIndex
         {
             get { return _OutputNaming_ListView_SelectedIndex; }
@@ -884,7 +884,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _InputFileNameTokens_SelectedIndex { get; set; }
+        private int _InputFileNameTokens_SelectedIndex;
         public int InputFileNameTokens_SelectedIndex
         {
             get { return _InputFileNameTokens_SelectedIndex; }
@@ -901,7 +901,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _InputFileNameTokens_SelectedItem { get; set; }
+        private string _InputFileNameTokens_SelectedItem;
         public string InputFileNameTokens_SelectedItem
         {
             get { return _InputFileNameTokens_SelectedItem; }
@@ -993,7 +993,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _OutputFileNameSpacing_SelectedIndex { get; set; }
+        private int _OutputFileNameSpacing_SelectedIndex;
         public int OutputFileNameSpacing_SelectedIndex
         {
             get { return _OutputFileNameSpacing_SelectedIndex; }
@@ -1010,7 +1010,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _OutputFileNameSpacing_SelectedItem { get; set; }
+        private string _OutputFileNameSpacing_SelectedItem;
         public string OutputFileNameSpacing_SelectedItem
         {
             get { return _OutputFileNameSpacing_SelectedItem; }
@@ -1065,7 +1065,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _OutputOverwrite_SelectedIndex { get; set; }
+        private int _OutputOverwrite_SelectedIndex;
         public int OutputOverwrite_SelectedIndex
         {
             get { return _OutputOverwrite_SelectedIndex; }
@@ -1082,7 +1082,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _OutputOverwrite_SelectedItem { get; set; }
+        private string _OutputOverwrite_SelectedItem;
         public string OutputOverwrite_SelectedItem
         {
             get { return _OutputOverwrite_SelectedItem; }
@@ -1140,7 +1140,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Theme_SelectedIndex { get; set; }
+        private int _Theme_SelectedIndex;
         public int Theme_SelectedIndex
         {
             get { return _Theme_SelectedIndex; }
@@ -1157,7 +1157,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Theme_SelectedItem { get; set; }
+        private string _Theme_SelectedItem;
         public string Theme_SelectedItem
         {
             get { return _Theme_SelectedItem; }

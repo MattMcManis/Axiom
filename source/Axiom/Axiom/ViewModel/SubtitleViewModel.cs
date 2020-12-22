@@ -60,8 +60,13 @@ namespace ViewModel
         /// </summary>
         public void LoadControlsDefaults()
         {
+            Subtitle_Codec_IsEnabled = true;
             Subtitle_Codec_SelectedItem = "None";
+
+            Subtitle_Stream_IsEnabled = true;
             Subtitle_Stream_SelectedItem = "none";
+
+            Subtitle_ListView_IsEnabled = true;
         }
 
 
@@ -136,7 +141,7 @@ namespace ViewModel
         public string Subtitle_Codec;
 
         // Selected Index
-        public int _Subtitle_Codec_SelectedIndex { get; set; }
+        public int _Subtitle_Codec_SelectedIndex;
         public int Subtitle_Codec_SelectedIndex
         {
             get { return _Subtitle_Codec_SelectedIndex; }
@@ -153,7 +158,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Subtitle_Codec_SelectedItem { get; set; }
+        public string _Subtitle_Codec_SelectedItem;
         public string Subtitle_Codec_SelectedItem
         {
             get { return _Subtitle_Codec_SelectedItem; }
@@ -170,7 +175,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        public bool _Subtitle_Codec_IsEnabled = true;
+        public bool _Subtitle_Codec_IsEnabled;
         public bool Subtitle_Codec_IsEnabled
         {
             get { return _Subtitle_Codec_IsEnabled; }
@@ -203,7 +208,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        public int _Subtitle_Stream_SelectedIndex { get; set; }
+        public int _Subtitle_Stream_SelectedIndex;
         public int Subtitle_Stream_SelectedIndex
         {
             get { return _Subtitle_Stream_SelectedIndex; }
@@ -220,7 +225,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Subtitle_Stream_SelectedItem { get; set; }
+        public string _Subtitle_Stream_SelectedItem;
         public string Subtitle_Stream_SelectedItem
         {
             get { return _Subtitle_Stream_SelectedItem; }
@@ -237,7 +242,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        public bool _Subtitle_Stream_IsEnabled = true;
+        public bool _Subtitle_Stream_IsEnabled;
         public bool Subtitle_Stream_IsEnabled
         {
             get { return _Subtitle_Stream_IsEnabled; }
@@ -281,7 +286,7 @@ namespace ViewModel
             }
         }
         // Selected Index
-        private int _Subtitle_ListView_SelectedIndex { get; set; }
+        private int _Subtitle_ListView_SelectedIndex;
         public int Subtitle_ListView_SelectedIndex
         {
             get { return _Subtitle_ListView_SelectedIndex; }
@@ -296,7 +301,7 @@ namespace ViewModel
                 OnPropertyChanged("Subtitle_ListView_SelectedIndex");
             }
         }
-        private double _Subtitle_ListView_Opacity { get; set; }
+        private double _Subtitle_ListView_Opacity;
         public double Subtitle_ListView_Opacity
         {
             get { return _Subtitle_ListView_Opacity; }
@@ -312,7 +317,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        public bool _Subtitle_ListView_IsEnabled = true;
+        public bool _Subtitle_ListView_IsEnabled;
         public bool Subtitle_ListView_IsEnabled
         {
             get { return _Subtitle_ListView_IsEnabled; }

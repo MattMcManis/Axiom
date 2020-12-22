@@ -60,10 +60,21 @@ namespace ViewModel
         public void LoadControlsDefaults()
         {
             Format_Container_SelectedItem = "webm";
+
+            Format_MediaType_IsEnabled = true;
             Format_MediaType_SelectedItem = "Video";
+
+            Format_Cut_IsEnabled = true;
+            Format_CutStart_IsEnabled = true;
+            Format_CutEnd_IsEnabled = true;
             Format_Cut_SelectedItem = "No";
+            Format_FrameStart_IsEnabled = true;
+            Format_FrameEnd_IsEnabled = true;
+
+            Format_YouTube_IsEnabled = true;
             Format_YouTube_SelectedItem = "Video + Audio";
-            Format_YouTube_Quality_SelectedItem = "best";
+            Format_YouTube_Quality_IsEnabled = true;
+            Format_YouTube_Quality_SelectedItem = "best";  
         }
 
 
@@ -116,7 +127,7 @@ namespace ViewModel
             }
         }
 
-        private int _Format_Container_SelectedIndex { get; set; }
+        private int _Format_Container_SelectedIndex;
         public int Format_Container_SelectedIndex
         {
             get { return _Format_Container_SelectedIndex; }
@@ -138,8 +149,8 @@ namespace ViewModel
         }
 
         // Selected Item
-        //public string Format_Container_SelectedItem { get; set; }
-        private string _Format_Container_SelectedItem { get; set; }
+        //public string Format_Container_SelectedItem;
+        private string _Format_Container_SelectedItem;
         public string Format_Container_SelectedItem
         {
             get { return _Format_Container_SelectedItem; }
@@ -191,7 +202,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Format_MediaType_SelectedIndex { get; set; }
+        private int _Format_MediaType_SelectedIndex;
         public int Format_MediaType_SelectedIndex
         {
             get { return _Format_MediaType_SelectedIndex; }
@@ -208,7 +219,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Format_MediaType_SelectedItem { get; set; }
+        private string _Format_MediaType_SelectedItem;
         public string Format_MediaType_SelectedItem
         {
             get { return _Format_MediaType_SelectedItem; }
@@ -225,7 +236,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Format_MediaType_IsEnabled = true;
+        private bool _Format_MediaType_IsEnabled;
         public bool Format_MediaType_IsEnabled
         {
             get { return _Format_MediaType_IsEnabled; }
@@ -262,7 +273,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Format_Cut_SelectedIndex { get; set; }
+        private int _Format_Cut_SelectedIndex;
         public int Format_Cut_SelectedIndex
         {
             get { return _Format_Cut_SelectedIndex; }
@@ -279,7 +290,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Format_Cut_SelectedItem { get; set; }
+        private string _Format_Cut_SelectedItem;
         public string Format_Cut_SelectedItem
         {
             get { return _Format_Cut_SelectedItem; }
@@ -296,7 +307,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Format_Cut_IsEnabled = true;
+        private bool _Format_Cut_IsEnabled;
         public bool Format_Cut_IsEnabled
         {
             get { return _Format_Cut_IsEnabled; }
@@ -332,7 +343,7 @@ namespace ViewModel
         //    }
         //}
         // Controls Enable
-        private bool _Format_CutStart_IsEnabled = true;
+        private bool _Format_CutStart_IsEnabled;
         public bool Format_CutStart_IsEnabled
         {
             get { return _Format_CutStart_IsEnabled; }
@@ -368,7 +379,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutStart_Hours_IsEnabled = true;
+        //private bool _Format_CutStart_Hours_IsEnabled;
         //public bool Format_CutStart_Hours_IsEnabled
         //{
         //    get { return _Format_CutStart_Hours_IsEnabled; }
@@ -404,7 +415,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutStart_Minutes_IsEnabled = true;
+        //private bool _Format_CutStart_Minutes_IsEnabled;
         //public bool Format_CutStart_Minutes_IsEnabled
         //{
         //    get { return _Format_CutStart_Minutes_IsEnabled; }
@@ -440,7 +451,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutStart_Seconds_IsEnabled = true;
+        //private bool _Format_CutStart_Seconds_IsEnabled;
         //public bool Format_CutStart_Seconds_IsEnabled
         //{
         //    get { return _Format_CutStart_Seconds_IsEnabled; }
@@ -476,7 +487,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutStart_Milliseconds_IsEnabled = true;
+        //private bool _Format_CutStart_Milliseconds_IsEnabled;
         //public bool Format_CutStart_Milliseconds_IsEnabled
         //{
         //    get { return _Format_CutStart_Milliseconds_IsEnabled; }
@@ -514,7 +525,7 @@ namespace ViewModel
         //    }
         //}
         // Controls Enable
-        private bool _Format_CutEnd_IsEnabled = true;
+        private bool _Format_CutEnd_IsEnabled;
         public bool Format_CutEnd_IsEnabled
         {
             get { return _Format_CutEnd_IsEnabled; }
@@ -550,7 +561,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutEnd_Hours_IsEnabled = true;
+        //private bool _Format_CutEnd_Hours_IsEnabled;
         //public bool Format_CutEnd_Hours_IsEnabled
         //{
         //    get { return _Format_CutEnd_Hours_IsEnabled; }
@@ -586,7 +597,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutEnd_Minutes_IsEnabled = true;
+        //private bool _Format_CutEnd_Minutes_IsEnabled;
         //public bool Format_CutEnd_Minutes_IsEnabled
         //{
         //    get { return _Format_CutEnd_Minutes_IsEnabled; }
@@ -622,7 +633,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutEnd_Seconds_IsEnabled = true;
+        //private bool _Format_CutEnd_Seconds_IsEnabled;
         //public bool Format_CutEnd_Seconds_IsEnabled
         //{
         //    get { return _Format_CutEnd_Seconds_IsEnabled; }
@@ -658,7 +669,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        //private bool _Format_CutEnd_Milliseconds_IsEnabled = true;
+        //private bool _Format_CutEnd_Milliseconds_IsEnabled;
         //public bool Format_CutEnd_Milliseconds_IsEnabled
         //{
         //    get { return _Format_CutEnd_Milliseconds_IsEnabled; }
@@ -696,7 +707,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _Format_FrameStart_IsEnabled = true;
+        private bool _Format_FrameStart_IsEnabled;
         public bool Format_FrameStart_IsEnabled
         {
             get { return _Format_FrameStart_IsEnabled; }
@@ -732,7 +743,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _Format_FrameEnd_IsEnabled = true;
+        private bool _Format_FrameEnd_IsEnabled;
         public bool Format_FrameEnd_IsEnabled
         {
             get { return _Format_FrameEnd_IsEnabled; }
@@ -770,7 +781,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Format_YouTube_SelectedIndex { get; set; }
+        private int _Format_YouTube_SelectedIndex;
         public int Format_YouTube_SelectedIndex
         {
             get { return _Format_YouTube_SelectedIndex; }
@@ -787,7 +798,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Format_YouTube_SelectedItem { get; set; }
+        private string _Format_YouTube_SelectedItem;
         public string Format_YouTube_SelectedItem
         {
             get { return _Format_YouTube_SelectedItem; }
@@ -804,7 +815,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Format_YouTube_IsEnabled = true;
+        private bool _Format_YouTube_IsEnabled;
         public bool Format_YouTube_IsEnabled
         {
             get { return _Format_YouTube_IsEnabled; }
@@ -845,7 +856,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Format_YouTube_Quality_SelectedIndex { get; set; }
+        private int _Format_YouTube_Quality_SelectedIndex;
         public int Format_YouTube_Quality_SelectedIndex
         {
             get { return _Format_YouTube_Quality_SelectedIndex; }
@@ -862,7 +873,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Format_YouTube_Quality_SelectedItem { get; set; }
+        private string _Format_YouTube_Quality_SelectedItem;
         public string Format_YouTube_Quality_SelectedItem
         {
             get { return _Format_YouTube_Quality_SelectedItem; }
@@ -879,7 +890,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Format_YouTube_Quality_IsEnabled = true;
+        private bool _Format_YouTube_Quality_IsEnabled;
         public bool Format_YouTube_Quality_IsEnabled
         {
             get { return _Format_YouTube_Quality_IsEnabled; }
@@ -894,8 +905,6 @@ namespace ViewModel
                 OnPropertyChanged("Format_YouTube_Quality_IsEnabled");
             }
         }
-
-
 
     }
 }

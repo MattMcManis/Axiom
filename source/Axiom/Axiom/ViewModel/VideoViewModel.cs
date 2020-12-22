@@ -61,29 +61,96 @@ namespace ViewModel
         public void LoadControlsDefaults()
         {
             Video_Codec_SelectedItem = "VP8";
+            
+            Video_EncodeSpeed_IsEnabled = true;
             Video_EncodeSpeed_SelectedItem = "Medium";
+
+            Video_HWAccel_IsEnabled = true;
             Video_HWAccel_SelectedItem = "Off";
+            Video_HWAccel_Decode_IsEnabled = true;
+            Video_HWAccel_Transcode_IsEnabled = true;
+
+            Video_Quality_IsEnabled = true;
             Video_Quality_SelectedItem = "Auto";
+
+            Video_CRF_Value = 0;
+            Video_CRF_Text = string.Empty;
+
+            Video_VBR_IsEnabled = true;
             Video_VBR_IsChecked = false;
+
+            Video_BitRate_IsEnabled = true;
+            Video_BitRate_Text = string.Empty;
+
+            Video_MaxRate_IsEnabled = true;
+            Video_MaxRate_Text = string.Empty;
+
+            Video_BufSize_IsEnabled = true;
+            Video_BufSize_Text = string.Empty;
+
+            Video_Pass_IsEnabled = true;
             Video_Pass_SelectedItem = "2 Pass";
+
+            Video_PixelFormat_IsEnabled = true;
             Video_PixelFormat_SelectedItem = "yuv420p";
+
+            Video_FPS_IsEnabled = true;
+            Video_FPS_IsEditable = false;
             Video_FPS_SelectedItem = "auto";
+
+            Video_Speed_IsEnabled = true;
+            Video_Speed_IsEditable = false;
             Video_Speed_SelectedItem = "auto";
+
+            Video_Vsync_IsEnabled = true;
             Video_Vsync_SelectedItem = "off";
+
+            Video_Optimize_IsEnabled = true;
+            Video_Optimize_IsExpanded = true;
             Video_Optimize_SelectedItem = "Web";
+
+            Video_Optimize_Tune_IsEnabled = true;
             Video_Video_Optimize_Tune_SelectedItem = "none";
+
+            Video_Optimize_Profile_IsEnabled = true;
             Video_Video_Optimize_Profile_SelectedItem = "none";
+
+            Video_Optimize_Level_IsEnabled = true;
             Video_Optimize_Level_SelectedItem = "none";
+
+            Video_Color_TransferCharacteristics_IsEnabled = true;
             Video_Color_TransferCharacteristics_SelectedItem = "auto";
+
+            Video_Color_Primaries_IsEnabled = true;
             Video_Color_Primaries_SelectedItem = "auto";
+
+            Video_Color_Space_IsEnabled = true;
             Video_Color_Space_SelectedItem = "auto";
+
+            Video_Color_Range_IsEnabled = true;
             Video_Color_Range_SelectedItem = "auto";
+
+            Video_Color_Matrix_IsEnabled = true;
             Video_Color_Matrix_SelectedItem = "auto";
+
+            Video_Scale_IsEnabled = true;
             Video_Scale_SelectedItem = "Source";
+            Video_Width_IsEnabled = true;
+            Video_Width_Text = string.Empty;
+            Video_Height_IsEnabled = true;
+            Video_Height_Text = string.Empty;
+
+            Video_ScreenFormat_IsEnabled = true;
             Video_ScreenFormat_SelectedItem = "auto";
+
+            Video_AspectRatio_IsEnabled = true;
             Video_AspectRatio_SelectedItem = "auto";
+
+            Video_ScalingAlgorithm_IsEnabled = true;
             Video_ScalingAlgorithm_SelectedItem = "auto";
-            Video_CropClear_Text = "Clear";
+
+            Video_Crop_IsEnabled = true;
+            Video_CropClear_Text = "Clear"; 
         }
 
 
@@ -206,7 +273,7 @@ namespace ViewModel
         public string Video_Codec;
 
         // Selected Index
-        private int _Video_Codec_SelectedIndex { get; set; }
+        private int _Video_Codec_SelectedIndex;
         public int Video_Codec_SelectedIndex
         {
             get { return _Video_Codec_SelectedIndex; }
@@ -223,7 +290,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Codec_SelectedItem { get; set; }
+        private string _Video_Codec_SelectedItem;
         public string Video_Codec_SelectedItem
         {
             get { return _Video_Codec_SelectedItem; }
@@ -240,7 +307,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Codec_IsEnabled = true;
+        private bool _Video_Codec_IsEnabled;
         public bool Video_Codec_IsEnabled
         {
             get { return _Video_Codec_IsEnabled; }
@@ -279,7 +346,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_EncodeSpeed_SelectedIndex { get; set; }
+        private int _Video_EncodeSpeed_SelectedIndex;
         public int Video_EncodeSpeed_SelectedIndex
         {
             get { return _Video_EncodeSpeed_SelectedIndex; }
@@ -296,7 +363,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_EncodeSpeed_SelectedItem { get; set; }
+        private string _Video_EncodeSpeed_SelectedItem;
         public string Video_EncodeSpeed_SelectedItem
         {
             get { return _Video_EncodeSpeed_SelectedItem; }
@@ -334,7 +401,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_EncodeSpeed_IsEnabled = true;
+        private bool _Video_EncodeSpeed_IsEnabled;
         public bool Video_EncodeSpeed_IsEnabled
         {
             get { return _Video_EncodeSpeed_IsEnabled; }
@@ -372,7 +439,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_HWAccel_SelectedIndex { get; set; }
+        private int _Video_HWAccel_SelectedIndex;
         public int Video_HWAccel_SelectedIndex
         {
             get { return _Video_HWAccel_SelectedIndex; }
@@ -389,7 +456,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_HWAccel_SelectedItem { get; set; }
+        private string _Video_HWAccel_SelectedItem;
         public string Video_HWAccel_SelectedItem
         {
             get { return _Video_HWAccel_SelectedItem; }
@@ -406,7 +473,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_HWAccel_IsEnabled = true;
+        private bool _Video_HWAccel_IsEnabled;
         public bool Video_HWAccel_IsEnabled
         {
             get { return _Video_HWAccel_IsEnabled; }
@@ -447,7 +514,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_HWAccel_Decode_SelectedIndex { get; set; }
+        private int _Video_HWAccel_Decode_SelectedIndex;
         public int Video_HWAccel_Decode_SelectedIndex
         {
             get { return _Video_HWAccel_Decode_SelectedIndex; }
@@ -464,7 +531,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_HWAccel_Decode_SelectedItem { get; set; }
+        private string _Video_HWAccel_Decode_SelectedItem;
         public string Video_HWAccel_Decode_SelectedItem
         {
             get { return _Video_HWAccel_Decode_SelectedItem; }
@@ -481,7 +548,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_HWAccel_Decode_IsEnabled = true;
+        private bool _Video_HWAccel_Decode_IsEnabled;
         public bool Video_HWAccel_Decode_IsEnabled
         {
             get { return _Video_HWAccel_Decode_IsEnabled; }
@@ -520,7 +587,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_HWAccel_Transcode_SelectedIndex { get; set; }
+        private int _Video_HWAccel_Transcode_SelectedIndex;
         public int Video_HWAccel_Transcode_SelectedIndex
         {
             get { return _Video_HWAccel_Transcode_SelectedIndex; }
@@ -537,7 +604,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_HWAccel_Transcode_SelectedItem { get; set; }
+        private string _Video_HWAccel_Transcode_SelectedItem;
         public string Video_HWAccel_Transcode_SelectedItem
         {
             get { return _Video_HWAccel_Transcode_SelectedItem; }
@@ -554,7 +621,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_HWAccel_Transcode_IsEnabled = true;
+        private bool _Video_HWAccel_Transcode_IsEnabled;
         public bool Video_HWAccel_Transcode_IsEnabled
         {
             get { return _Video_HWAccel_Transcode_IsEnabled; }
@@ -592,7 +659,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Pass_SelectedIndex { get; set; }
+        private int _Video_Pass_SelectedIndex;
         public int Video_Pass_SelectedIndex
         {
             get { return _Video_Pass_SelectedIndex; }
@@ -609,7 +676,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Pass_SelectedItem { get; set; }
+        private string _Video_Pass_SelectedItem;
         public string Video_Pass_SelectedItem
         {
             get { return _Video_Pass_SelectedItem; }
@@ -626,7 +693,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Pass_IsEnabled = true;
+        private bool _Video_Pass_IsEnabled;
         public bool Video_Pass_IsEnabled
         {
             get { return _Video_Pass_IsEnabled; }
@@ -679,7 +746,7 @@ namespace ViewModel
         //public string VideoBitRateMode_Command;
 
         // Selected Index
-        private int _Video_Quality_SelectedIndex { get; set; }
+        private int _Video_Quality_SelectedIndex;
         public int Video_Quality_SelectedIndex
         {
             get { return _Video_Quality_SelectedIndex; }
@@ -696,7 +763,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Quality_SelectedItem { get; set; }
+        private string _Video_Quality_SelectedItem;
         public string Video_Quality_SelectedItem
         {
             get { return _Video_Quality_SelectedItem; }
@@ -713,7 +780,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Quality_IsEnabled = true;
+        private bool _Video_Quality_IsEnabled;
         public bool Video_Quality_IsEnabled
         {
             get { return _Video_Quality_IsEnabled; }
@@ -748,7 +815,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_VBR_IsEnabled = true;
+        private bool _Video_VBR_IsEnabled;
         public bool Video_VBR_IsEnabled
         {
             get { return _Video_VBR_IsEnabled; }
@@ -769,7 +836,7 @@ namespace ViewModel
         // CRF
         // -------------------------
         // Value
-        private double? _Video_CRF_Value = 0;
+        private double? _Video_CRF_Value;
         public double? Video_CRF_Value
         {
             get { return _Video_CRF_Value; }
@@ -801,7 +868,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_CRF_IsEnabled = true;
+        private bool _Video_CRF_IsEnabled;
         public bool Video_CRF_IsEnabled
         {
             get { return _Video_CRF_IsEnabled; }
@@ -838,7 +905,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_BitRate_IsEnabled = true;
+        private bool _Video_BitRate_IsEnabled;
         public bool Video_BitRate_IsEnabled
         {
             get { return _Video_BitRate_IsEnabled; }
@@ -875,7 +942,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_MinRate_IsEnabled = true;
+        private bool _Video_MinRate_IsEnabled;
         public bool Video_MinRate_IsEnabled
         {
             get { return _Video_MinRate_IsEnabled; }
@@ -911,7 +978,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_MaxRate_IsEnabled = true;
+        private bool _Video_MaxRate_IsEnabled;
         public bool Video_MaxRate_IsEnabled
         {
             get { return _Video_MaxRate_IsEnabled; }
@@ -948,7 +1015,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_BufSize_IsEnabled = true;
+        private bool _Video_BufSize_IsEnabled;
         public bool Video_BufSize_IsEnabled
         {
             get { return _Video_BufSize_IsEnabled; }
@@ -980,7 +1047,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_PixelFormat_SelectedIndex { get; set; }
+        private int _Video_PixelFormat_SelectedIndex;
         public int Video_PixelFormat_SelectedIndex
         {
             get { return _Video_PixelFormat_SelectedIndex; }
@@ -997,7 +1064,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_PixelFormat_SelectedItem { get; set; }
+        private string _Video_PixelFormat_SelectedItem;
         public string Video_PixelFormat_SelectedItem
         {
             get { return _Video_PixelFormat_SelectedItem; }
@@ -1014,7 +1081,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_PixelFormat_IsEnabled = true;
+        private bool _Video_PixelFormat_IsEnabled;
         public bool Video_PixelFormat_IsEnabled
         {
             get { return _Video_PixelFormat_IsEnabled; }
@@ -1063,7 +1130,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_FPS_SelectedIndex { get; set; }
+        private int _Video_FPS_SelectedIndex;
         public int Video_FPS_SelectedIndex
         {
             get { return _Video_FPS_SelectedIndex; }
@@ -1080,7 +1147,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_FPS_SelectedItem { get; set; }
+        private string _Video_FPS_SelectedItem;
         public string Video_FPS_SelectedItem
         {
             get { return _Video_FPS_SelectedItem; }
@@ -1114,7 +1181,7 @@ namespace ViewModel
         }
 
         // Controls Is Editable
-        private bool _Video_FPS_IsEditable = false;
+        private bool _Video_FPS_IsEditable;
         public bool Video_FPS_IsEditable
         {
             get { return _Video_FPS_IsEditable; }
@@ -1131,7 +1198,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_FPS_IsEnabled = true;
+        private bool _Video_FPS_IsEnabled;
         public bool Video_FPS_IsEnabled
         {
             get { return _Video_FPS_IsEnabled; }
@@ -1178,7 +1245,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Speed_SelectedIndex { get; set; }
+        private int _Video_Speed_SelectedIndex;
         public int Video_Speed_SelectedIndex
         {
             get { return _Video_Speed_SelectedIndex; }
@@ -1195,7 +1262,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Speed_SelectedItem { get; set; }
+        private string _Video_Speed_SelectedItem;
         public string Video_Speed_SelectedItem
         {
             get { return _Video_Speed_SelectedItem; }
@@ -1229,7 +1296,7 @@ namespace ViewModel
         }
 
         // Controls Is Editable
-        private bool _Video_Speed_IsEditable = false;
+        private bool _Video_Speed_IsEditable;
         public bool Video_Speed_IsEditable
         {
             get { return _Video_Speed_IsEditable; }
@@ -1246,7 +1313,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Speed_IsEnabled = true;
+        private bool _Video_Speed_IsEnabled;
         public bool Video_Speed_IsEnabled
         {
             get { return _Video_Speed_IsEnabled; }
@@ -1283,7 +1350,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Vsync_SelectedItem { get; set; }
+        private string _Video_Vsync_SelectedItem;
         public string Video_Vsync_SelectedItem
         {
             get { return _Video_Vsync_SelectedItem; }
@@ -1299,7 +1366,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _Video_Vsync_IsEnabled = true;
+        private bool _Video_Vsync_IsEnabled;
         public bool Video_Vsync_IsEnabled
         {
             get { return _Video_Vsync_IsEnabled; }
@@ -1341,7 +1408,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Optimize_SelectedIndex { get; set; }
+        private int _Video_Optimize_SelectedIndex;
         public int Video_Optimize_SelectedIndex
         {
             get { return _Video_Optimize_SelectedIndex; }
@@ -1358,7 +1425,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Optimize_SelectedItem { get; set; }
+        private string _Video_Optimize_SelectedItem;
         public string Video_Optimize_SelectedItem
         {
             get { return _Video_Optimize_SelectedItem; }
@@ -1375,7 +1442,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_IsEnabled = true;
+        private bool _Video_Optimize_IsEnabled;
         public bool Video_Optimize_IsEnabled
         {
             get { return _Video_Optimize_IsEnabled; }
@@ -1392,7 +1459,7 @@ namespace ViewModel
         }
 
         // Controls Expanded
-        private bool _Video_Optimize_IsExpanded = true;
+        private bool _Video_Optimize_IsExpanded;
         public bool Video_Optimize_IsExpanded
         {
             get { return _Video_Optimize_IsExpanded; }
@@ -1425,7 +1492,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Optimize_Tune_SelectedIndex { get; set; }
+        private int _Video_Optimize_Tune_SelectedIndex;
         public int Video_Optimize_Tune_SelectedIndex
         {
             get { return _Video_Optimize_Tune_SelectedIndex; }
@@ -1442,7 +1509,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_Video_Optimize_Tune_SelectedItem { get; set; }
+        public string _Video_Video_Optimize_Tune_SelectedItem;
         public string Video_Video_Optimize_Tune_SelectedItem
         {
             get { return _Video_Video_Optimize_Tune_SelectedItem; }
@@ -1459,7 +1526,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_Tune_IsEnabled = true;
+        private bool _Video_Optimize_Tune_IsEnabled;
         public bool Video_Optimize_Tune_IsEnabled
         {
             get { return _Video_Optimize_Tune_IsEnabled; }
@@ -1492,7 +1559,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Optimize_Profile_SelectedIndex { get; set; }
+        private int _Video_Optimize_Profile_SelectedIndex;
         public int Video_Optimize_Profile_SelectedIndex
         {
             get { return _Video_Optimize_Profile_SelectedIndex; }
@@ -1509,7 +1576,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_Video_Optimize_Profile_SelectedItem { get; set; }
+        public string _Video_Video_Optimize_Profile_SelectedItem;
         public string Video_Video_Optimize_Profile_SelectedItem
         {
             get { return _Video_Video_Optimize_Profile_SelectedItem; }
@@ -1526,7 +1593,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_Profile_IsEnabled = true;
+        private bool _Video_Optimize_Profile_IsEnabled;
         public bool Video_Optimize_Profile_IsEnabled
         {
             get { return _Video_Optimize_Profile_IsEnabled; }
@@ -1559,7 +1626,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Optimize_Level_SelectedIndex { get; set; }
+        private int _Video_Optimize_Level_SelectedIndex;
         public int Video_Optimize_Level_SelectedIndex
         {
             get { return _Video_Optimize_Level_SelectedIndex; }
@@ -1576,7 +1643,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_Optimize_Level_SelectedItem { get; set; }
+        public string _Video_Optimize_Level_SelectedItem;
         public string Video_Optimize_Level_SelectedItem
         {
             get { return _Video_Optimize_Level_SelectedItem; }
@@ -1593,7 +1660,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_Level_IsEnabled = true;
+        private bool _Video_Optimize_Level_IsEnabled;
         public bool Video_Optimize_Level_IsEnabled
         {
             get { return _Video_Optimize_Level_IsEnabled; }
@@ -1638,7 +1705,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Color_Matrix_SelectedIndex { get; set; }
+        private int _Video_Color_Matrix_SelectedIndex;
         public int Video_Color_Matrix_SelectedIndex
         {
             get { return _Video_Color_Matrix_SelectedIndex; }
@@ -1655,7 +1722,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Color_Matrix_SelectedItem { get; set; }
+        private string _Video_Color_Matrix_SelectedItem;
         public string Video_Color_Matrix_SelectedItem
         {
             get { return _Video_Color_Matrix_SelectedItem; }
@@ -1672,7 +1739,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Matrix_IsEnabled = true;
+        private bool _Video_Color_Matrix_IsEnabled;
         public bool Video_Color_Matrix_IsEnabled
         {
             get { return _Video_Color_Matrix_IsEnabled; }
@@ -1717,7 +1784,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Color_Space_SelectedIndex { get; set; }
+        private int _Video_Color_Space_SelectedIndex;
         public int Video_Color_Space_SelectedIndex
         {
             get { return _Video_Color_Space_SelectedIndex; }
@@ -1734,7 +1801,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Color_Space_SelectedItem { get; set; }
+        private string _Video_Color_Space_SelectedItem;
         public string Video_Color_Space_SelectedItem
         {
             get { return _Video_Color_Space_SelectedItem; }
@@ -1751,7 +1818,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Space_IsEnabled = true;
+        private bool _Video_Color_Space_IsEnabled;
         public bool Video_Color_Space_IsEnabled
         {
             get { return _Video_Color_Space_IsEnabled; }
@@ -1803,7 +1870,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Color_TransferCharacteristics_SelectedIndex { get; set; }
+        private int _Video_Color_TransferCharacteristics_SelectedIndex;
         public int Video_Color_TransferCharacteristics_SelectedIndex
         {
             get { return _Video_Color_TransferCharacteristics_SelectedIndex; }
@@ -1820,7 +1887,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Color_TransferCharacteristics_SelectedItem { get; set; }
+        private string _Video_Color_TransferCharacteristics_SelectedItem;
         public string Video_Color_TransferCharacteristics_SelectedItem
         {
             get { return _Video_Color_TransferCharacteristics_SelectedItem; }
@@ -1837,7 +1904,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_TransferCharacteristics_IsEnabled = true;
+        private bool _Video_Color_TransferCharacteristics_IsEnabled;
         public bool Video_Color_TransferCharacteristics_IsEnabled
         {
             get { return _Video_Color_TransferCharacteristics_IsEnabled; }
@@ -1886,7 +1953,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Color_Primaries_SelectedIndex { get; set; }
+        private int _Video_Color_Primaries_SelectedIndex;
         public int Video_Color_Primaries_SelectedIndex
         {
             get { return _Video_Color_Primaries_SelectedIndex; }
@@ -1903,7 +1970,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Color_Primaries_SelectedItem { get; set; }
+        private string _Video_Color_Primaries_SelectedItem;
         public string Video_Color_Primaries_SelectedItem
         {
             get { return _Video_Color_Primaries_SelectedItem; }
@@ -1920,7 +1987,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Primaries_IsEnabled = true;
+        private bool _Video_Color_Primaries_IsEnabled;
         public bool Video_Color_Primaries_IsEnabled
         {
             get { return _Video_Color_Primaries_IsEnabled; }
@@ -1960,7 +2027,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Color_Range_SelectedIndex { get; set; }
+        private int _Video_Color_Range_SelectedIndex;
         public int Video_Color_Range_SelectedIndex
         {
             get { return _Video_Color_Range_SelectedIndex; }
@@ -1977,7 +2044,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Color_Range_SelectedItem { get; set; }
+        private string _Video_Color_Range_SelectedItem;
         public string Video_Color_Range_SelectedItem
         {
             get { return _Video_Color_Range_SelectedItem; }
@@ -1994,7 +2061,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Range_IsEnabled = true;
+        private bool _Video_Color_Range_IsEnabled;
         public bool Video_Color_Range_IsEnabled
         {
             get { return _Video_Color_Range_IsEnabled; }
@@ -2047,7 +2114,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_Scale_SelectedIndex { get; set; }
+        private int _Video_Scale_SelectedIndex;
         public int Video_Scale_SelectedIndex
         {
             get { return _Video_Scale_SelectedIndex; }
@@ -2064,7 +2131,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_Scale_SelectedItem { get; set; }
+        private string _Video_Scale_SelectedItem;
         public string Video_Scale_SelectedItem
         {
             get { return _Video_Scale_SelectedItem; }
@@ -2081,7 +2148,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Scale_IsEnabled = true;
+        private bool _Video_Scale_IsEnabled;
         public bool Video_Scale_IsEnabled
         {
             get { return _Video_Scale_IsEnabled; }
@@ -2117,7 +2184,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_Width_IsEnabled = true;
+        private bool _Video_Width_IsEnabled;
         public bool Video_Width_IsEnabled
         {
             get { return _Video_Width_IsEnabled; }
@@ -2152,7 +2219,7 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_Height_IsEnabled = true;
+        private bool _Video_Height_IsEnabled;
         public bool Video_Height_IsEnabled
         {
             get { return _Video_Height_IsEnabled; }
@@ -2192,7 +2259,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_ScreenFormat_SelectedIndex { get; set; }
+        private int _Video_ScreenFormat_SelectedIndex;
         public int Video_ScreenFormat_SelectedIndex
         {
             get { return _Video_ScreenFormat_SelectedIndex; }
@@ -2209,7 +2276,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_ScreenFormat_SelectedItem { get; set; }
+        public string _Video_ScreenFormat_SelectedItem;
         public string Video_ScreenFormat_SelectedItem
         {
             get { return _Video_ScreenFormat_SelectedItem; }
@@ -2226,7 +2293,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_ScreenFormat_IsEnabled = true;
+        private bool _Video_ScreenFormat_IsEnabled;
         public bool Video_ScreenFormat_IsEnabled
         {
             get { return _Video_ScreenFormat_IsEnabled; }
@@ -2274,7 +2341,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_AspectRatio_SelectedIndex { get; set; }
+        private int _Video_AspectRatio_SelectedIndex;
         public int Video_AspectRatio_SelectedIndex
         {
             get { return _Video_AspectRatio_SelectedIndex; }
@@ -2291,7 +2358,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_AspectRatio_SelectedItem { get; set; }
+        public string _Video_AspectRatio_SelectedItem;
         public string Video_AspectRatio_SelectedItem
         {
             get { return _Video_AspectRatio_SelectedItem; }
@@ -2308,7 +2375,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_AspectRatio_IsEnabled = true;
+        private bool _Video_AspectRatio_IsEnabled;
         public bool Video_AspectRatio_IsEnabled
         {
             get { return _Video_AspectRatio_IsEnabled; }
@@ -2355,7 +2422,7 @@ namespace ViewModel
         }
 
         // Selected Index
-        private int _Video_ScalingAlgorithm_SelectedIndex { get; set; }
+        private int _Video_ScalingAlgorithm_SelectedIndex;
         public int Video_ScalingAlgorithm_SelectedIndex
         {
             get { return _Video_ScalingAlgorithm_SelectedIndex; }
@@ -2372,7 +2439,7 @@ namespace ViewModel
         }
 
         // Selected Item
-        private string _Video_ScalingAlgorithm_SelectedItem { get; set; }
+        private string _Video_ScalingAlgorithm_SelectedItem;
         public string Video_ScalingAlgorithm_SelectedItem
         {
             get { return _Video_ScalingAlgorithm_SelectedItem; }
@@ -2389,7 +2456,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_ScalingAlgorithm_IsEnabled = true;
+        private bool _Video_ScalingAlgorithm_IsEnabled;
         public bool Video_ScalingAlgorithm_IsEnabled
         {
             get { return _Video_ScalingAlgorithm_IsEnabled; }
@@ -2410,7 +2477,7 @@ namespace ViewModel
         // Crop
         // --------------------------------------------------
         // Controls Enable
-        private bool _Video_Crop_IsEnabled = true;
+        private bool _Video_Crop_IsEnabled;
         public bool Video_Crop_IsEnabled
         {
             get { return _Video_Crop_IsEnabled; }
