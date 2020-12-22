@@ -2033,13 +2033,13 @@ namespace Axiom
         /// </summary>
         public static bool IsWebURL(string input_Text)
         {
-            input_Text = input_Text.Trim();
-
             // Empty
             if (string.IsNullOrWhiteSpace(input_Text))
             {
                 return false;
             }
+
+            input_Text = input_Text.Trim();
 
             // URL
             if ((input_Text.StartsWith("http://") ||
