@@ -175,16 +175,6 @@ namespace Generate
         /// <summary>
         /// FFmpeg Generate Script
         /// </summary>
-        public static void FFmpegGenerateScript()
-        {
-            // -------------------------
-            // Write FFmpeg Args
-            // -------------------------
-            // Sorted (Default)
-            // Inline (User Selected)
-            VM.MainView.ScriptView_Text = ffmpegArgs;
-        }
-
         public static async Task<int> FFmpegGenerateScriptAsync()
         {
             int count = 0;
@@ -194,6 +184,21 @@ namespace Generate
             });
 
             return count;
+        }
+        public static void FFmpegGenerateScript()
+        {
+            // -------------------------
+            // Write FFmpeg Args
+            // -------------------------
+            VM.MainView.ScriptView_Text = ffmpegArgs;
+
+            // Sort Script
+            // Only if Auto Sort is enabled
+            if (VM.MainView.AutoSortScript_IsChecked == true)
+            {
+                Controls.ScriptView.sort = false;
+                MainWindow.Sort();
+            }
         }
 
     }

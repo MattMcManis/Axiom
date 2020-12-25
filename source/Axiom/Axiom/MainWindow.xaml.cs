@@ -1504,18 +1504,21 @@ namespace Axiom
         {
             // Replace Linebreaks with Spaces to avoid arguments touching
 
-            lines = lines
-                .Replace(Environment.NewLine, " ")
-                .Replace("\r\n", " ")
-                .Replace("\n", " ")
-                .Replace("\u2028", " ")
-                .Replace("\u000A", " ")
-                .Replace("\u000B", " ")
-                .Replace("\u000C", " ")
-                .Replace("\u000D", " ")
-                .Replace("\u0085", " ")
-                .Replace("\u2028", " ")
-                .Replace("\u2029", " ");
+            if (!string.IsNullOrWhiteSpace(lines))
+            {
+                lines = lines
+                        .Replace(Environment.NewLine, " ")
+                        .Replace("\r\n", " ")
+                        .Replace("\n", " ")
+                        .Replace("\u2028", " ")
+                        .Replace("\u000A", " ")
+                        .Replace("\u000B", " ")
+                        .Replace("\u000C", " ")
+                        .Replace("\u000D", " ")
+                        .Replace("\u0085", " ")
+                        .Replace("\u2028", " ")
+                        .Replace("\u2029", " ");
+            }
 
             return lines;
         }

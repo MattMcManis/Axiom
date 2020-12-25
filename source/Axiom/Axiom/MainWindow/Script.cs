@@ -39,7 +39,7 @@ namespace Axiom
         /// <summary>
         /// Sort (Method)
         /// </summary>
-        public void Sort()
+        public static void Sort()
         {
             // Only if Script not empty
             if (!string.IsNullOrWhiteSpace(VM.MainView.ScriptView_Text))
@@ -55,7 +55,8 @@ namespace Axiom
                     // Sort is Off
                     Controls.ScriptView.sort = true;
                     // Change Button Back to Inline
-                    txblScriptSort.Text = "Inline";
+                    //txblScriptSort.Text = "Inline";
+                    VM.MainView.Sort_Text = "Inline";
                 }
 
                 // -------------------------
@@ -86,7 +87,8 @@ namespace Axiom
                     // Sort is On
                     Controls.ScriptView.sort = false;
                     // Change Button Back to Sort
-                    txblScriptSort.Text = "Sort";
+                    //txblScriptSort.Text = "Sort";
+                    VM.MainView.Sort_Text = "Sort";
                 }
             }
         }
@@ -242,10 +244,10 @@ namespace Axiom
                 // -------------------------
                 // Auto Sort Toggle
                 // -------------------------
-                if (VM.MainView.AutoSortScript_IsChecked == true)
-                {
-                    Sort();
-                }
+                //if (VM.MainView.AutoSortScript_IsChecked == true)
+                //{
+                //    Sort();
+                //}
 
                 // -------------------------
                 // Write All Log Actions to Console

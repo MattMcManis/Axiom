@@ -89,6 +89,7 @@ namespace ViewModel
             AutoSortScript_IsChecked = true;
 
             BatchExtension_Text = "extension";
+            Sort_Text = "Sort";
             Convert_Text = "Convert";
         }
 
@@ -653,6 +654,25 @@ namespace ViewModel
             }
         }
 
+        // --------------------------------------------------
+        // Sort Button - TextBlock
+        // --------------------------------------------------
+        // Text
+        private string _Sort_Text;
+        public string Sort_Text
+        {
+            get { return _Sort_Text; }
+            set
+            {
+                if (_Sort_Text == value)
+                {
+                    return;
+                }
+
+                _Sort_Text = value;
+                OnPropertyChanged("Sort_Text");
+            }
+        }
 
         // --------------------------------------------------
         // Convert Button - TextBlock

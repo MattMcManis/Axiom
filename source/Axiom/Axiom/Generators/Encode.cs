@@ -53,16 +53,6 @@ namespace Encode
         /// <summary>
         /// FFmpeg Start
         /// </summary>
-        public static async Task<int> FFmpegStartAsync(string args)
-        {
-            int count = 0;
-            await Task.Run(() =>
-            {
-                FFmpegStart(args);
-            });
-
-            return count;
-        }
         public static void FFmpegStart(string args)
         {
             // -------------------------
@@ -74,28 +64,30 @@ namespace Encode
                 // CMD
                 // -------------------------
                 case "CMD":
-                    System.Diagnostics.Process.Start("cmd.exe",
-                                                     Sys.Shell.KeepWindow() +
-                                                     // Do not use WrapWithQuotes() Method on outputDir
-                                                     "cd " + "\"" + MainWindow.outputDir + "\"" +
-                                                     " & " +
-                                                     args
-                                                    );
+                    System.Diagnostics.Process.Start(
+                        "cmd.exe",
+                        Sys.Shell.KeepWindow() +
+                        // Do not use WrapWithQuotes() Method on outputDir
+                        "cd " + "\"" + MainWindow.outputDir + "\"" +
+                        " & " +
+                        args
+                    );
                     break;
 
                 // -------------------------
                 // PowerShell
                 // -------------------------
                 case "PowerShell":
-                    System.Diagnostics.Process.Start("powershell.exe",
-                                                     Sys.Shell.KeepWindow() +
-                                                     // Do not use WrapWithQuotes() Method on outputDir
-                                                     "-command \"Set-Location " + "\"" + MainWindow.outputDir.Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
-                                                                                                             .Replace("\"", "\\\"") + // Format Quotes " → \"
-                                                                                  "\"" +
-                                                     "; " +
-                                                     args.Replace("\"", "\\\"") // Format Quotes " → \"
-                                                    );
+                    System.Diagnostics.Process.Start(
+                        "powershell.exe",
+                        Sys.Shell.KeepWindow() +
+                        // Do not use WrapWithQuotes() Method on outputDir
+                        "-command \"Set-Location " + "\"" + MainWindow.outputDir.Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
+                                                                                .Replace("\"", "\\\"") + // Format Quotes " → \"
+                                                    "\"" +
+                        "; " +
+                        args.Replace("\"", "\\\"") // Format Quotes " → \"
+                    );
                     break;
             }
         }
@@ -104,6 +96,16 @@ namespace Encode
         /// <summary>
         /// FFmpeg Convert
         /// </summary>
+        public static async Task<int> FFmpegConvertAsync()
+        {
+            int count = 0;
+            await Task.Run(() =>
+            {
+                FFmpegConvert();
+            });
+
+            return count;
+        }
         public async static void FFmpegConvert()
         {
             Log.WriteAction = () =>
@@ -127,10 +129,10 @@ namespace Encode
             // Start FFmpeg
             // -------------------------
             // ScriptView → CMD/PowerShell
+            FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
             //Task.Run(() => FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text)));
-            //FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
-            Task<int> start = FFmpegStartAsync(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
-            int count2 = await start;
+            //Task<int> start = FFmpegStartAsync(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
+            //int count2 = await start;
         }
 
     }

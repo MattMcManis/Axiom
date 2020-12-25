@@ -190,23 +190,25 @@ namespace Axiom
                 // Start All Processes
                 // -------------------------
                 //StartProcess();
-                Task<int> task = StartProcess();
-                int count = await task;
+                Task<int> startProcess = StartProcess();
+                int count1 = await startProcess;
 
                 // -------------------------
                 // FFmpeg Convert
                 // -------------------------
-                Encode.FFmpeg.FFmpegConvert();
+                //Encode.FFmpeg.FFmpegConvert();
+                Task<int> convert = Encode.FFmpeg.FFmpegConvertAsync();
+                int count2 = await convert;
 
-                // -------------------------
-                // Sort Script
-                // -------------------------
-                // Only if Auto Sort is enabled
-                if (VM.MainView.AutoSortScript_IsChecked == true)
-                {
-                    Controls.ScriptView.sort = false;
-                    Sort();
-                }
+                //// -------------------------
+                //// Sort Script
+                //// -------------------------
+                //// Only if Auto Sort is enabled
+                //if (VM.MainView.AutoSortScript_IsChecked == true)
+                //{
+                //    Controls.ScriptView.sort = false;
+                //    Sort();
+                //}
 
                 // -------------------------
                 // Write All Log Actions to Log Console
