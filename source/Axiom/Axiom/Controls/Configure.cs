@@ -140,7 +140,7 @@ namespace Controls
 
             // Error Loading axiom.conf
             //
-            catch
+            catch (Exception ex)
             {
                 // Check if axiom.conf has a valid path
                 if (MainWindow.IsValidPath(axiomConfFile) == false)
@@ -155,7 +155,7 @@ namespace Controls
                     // Yes/No Dialog Confirmation
                     //
                     MessageBoxResult result = MessageBox.Show(
-                        "Could not load axiom.conf. \n\nDelete config and reload defaults?",
+                        "Could not load axiom.conf. \n\nDelete config and reload defaults?\r\n\r\n" + ex.ToString(),
                         "Error",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Error);
