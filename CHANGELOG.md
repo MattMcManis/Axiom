@@ -4,6 +4,18 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.5.4] - Dec 25, 2020
+### Added
+- Generate Script Async
+
+### Changed
+- Optimized ViewModel
+- Improved Threaded Tasks
+
+### Fixed
+- Subtitle Codec `Burn`
+
+
 ## [1.9.5.3] - Dec 20, 2020
 ### Added
 - Deblock Video Filter
