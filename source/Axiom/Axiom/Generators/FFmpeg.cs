@@ -40,6 +40,7 @@ using System.Windows.Documents;
 using ViewModel;
 using Axiom;
 using System.Collections;
+using System.Threading.Tasks;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -66,9 +67,6 @@ namespace Generate
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
-
-        
-
 
         /// <summary>
         /// Output Overwrite
@@ -185,6 +183,17 @@ namespace Generate
             // Sorted (Default)
             // Inline (User Selected)
             VM.MainView.ScriptView_Text = ffmpegArgs;
+        }
+
+        public static async Task<int> FFmpegGenerateScriptAsync()
+        {
+            int count = 0;
+            await Task.Run(() =>
+            {
+                FFmpegGenerateScript();
+            });
+
+            return count;
         }
 
     }
