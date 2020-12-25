@@ -191,7 +191,6 @@ namespace Axiom
         public static UpdateWindow updatewindow;
 
 
-
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         /// Main Window Initialize
@@ -368,7 +367,6 @@ namespace Axiom
             // --------------------------
             //DataObject.AddCopyingHandler(tbxScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
             //DataObject.AddPastingHandler(tbxScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
-
 
             // --------------------------------------------------
             // Import Axiom Config axiom.conf
@@ -589,7 +587,7 @@ namespace Axiom
         /// <summary>
         /// Window Loaded
         /// </summary>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private /*async*/ void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow = this;
 
@@ -616,14 +614,16 @@ namespace Axiom
             lstvSubtitles.SelectionMode = SelectionMode.Single;
 
             // -------------------------
-            // Check for Available Updates
-            // -------------------------
-            Task<int> task = UpdateAvailableCheck();
-
-            // -------------------------
             // Load Custom Presets
             // -------------------------
             Profiles.Profiles.LoadCustomPresets();
+
+            // -------------------------
+            // Check for Available Updates
+            // -------------------------
+            //Task<int> update = UpdateAvailableCheck();
+            //int count = await update;
+            Task.Run(() => UpdateAvailableCheck());
         }
 
 
