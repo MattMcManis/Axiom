@@ -71,67 +71,111 @@ namespace ViewModel
         public void LoadFilterVideoDefaults()
         {
             // Display
+            FilterVideo_DropFrames_IsEnabled = true;
             FilterVideo_DropFrames_SelectedItem = "disabled";
 
             // Fix
+            FilterVideo_Deinterlace_IsEnabled = true;
             FilterVideo_Deinterlace_SelectedItem = "disabled";
+            FilterVideo_Deblock_IsEnabled = true;
             FilterVideo_Deblock_SelectedItem = "disabled";
+            FilterVideo_Deflicker_IsEnabled = true;
             FilterVideo_Deflicker_SelectedItem = "disabled";
+            FilterVideo_Denoise_IsEnabled = true;
             FilterVideo_Denoise_SelectedItem = "disabled";
+            FilterVideo_Deband_IsEnabled = true;
             FilterVideo_Deband_SelectedItem = "disabled";
+            FilterVideo_Deshake_IsEnabled = true;
             FilterVideo_Deshake_SelectedItem = "disabled";
+            FilterVideo_Dejudder_IsEnabled = true;
             FilterVideo_Dejudder_SelectedItem = "disabled";
 
             // Transpose
+            FilterVideo_Flip_IsEnabled = true;
             FilterVideo_Flip_SelectedItem = "disabled";
+            FilterVideo_Rotate_IsEnabled = true;
             FilterVideo_Rotate_SelectedItem = "disabled";
 
             // EQ
+            FilterVideo_EQ_Brightness_IsEnabled = true;
             FilterVideo_EQ_Brightness_Value = 0;
+            FilterVideo_EQ_Contrast_IsEnabled = true;
             FilterVideo_EQ_Contrast_Value = 0;
+            FilterVideo_EQ_Saturation_IsEnabled = true;
             FilterVideo_EQ_Saturation_Value = 0;
+            FilterVideo_EQ_Gamma_IsEnabled = true;
             FilterVideo_EQ_Gamma_Value = 0;
 
             // Selective Color
+            FilterVideo_SelectiveColor_IsEnabled = true;
             FilterVideo_SelectiveColor_SelectedIndex = 0;
+            FilterVideo_SelectiveColor_Correction_Method_IsEnabled = true;
             FilterVideo_SelectiveColor_Correction_Method_SelectedItem = "relative";
 
             // Reds
             FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Reds_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Reds_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Reds_Yellow_IsEnabled = true;
             // Yellows
             FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Yellows_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Yellows_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Yellows_Yellow_IsEnabled = true;
             // Greens
             FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Greens_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Greens_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Greens_Yellow_IsEnabled = true;
             // Cyans
             FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Cyans_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Cyans_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Cyans_Yellow_IsEnabled = true;
             // Blues
             FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Blues_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Blues_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Blues_Yellow_IsEnabled = true;
             // Magentas
             FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Magentas_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Magentas_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Magentas_Yellow_IsEnabled = true;
             // Whites
             FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Whites_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Whites_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Whites_Yellow_IsEnabled = true;
             // Neutrals
             FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Neutrals_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Neutrals_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
-            // Blacks
+            FilterVideo_SelectiveColor_Neutrals_Yellow_IsEnabled = true;
+            // Blacks 
             FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Blacks_Cyan_IsEnabled = true;
             FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Blacks_Magenta_IsEnabled = true;
             FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+            FilterVideo_SelectiveColor_Blacks_Yellow_IsEnabled = true;
+
         }
 
 
