@@ -70,16 +70,22 @@ namespace ViewModel
         public void LoadFilterAudioDefaults()
         {
             // EQ
+            FilterAudio_Lowpass_IsEnabled = true;
             FilterAudio_Lowpass_SelectedItem = "disabled";
+            FilterAudio_Highpass_IsEnabled = true;
             FilterAudio_Highpass_SelectedItem = "disabled";
 
             // Dynamics
+            FilterAudio_Contrast_IsEnabled = true;
             FilterAudio_Contrast_Value = 0;
+            FilterAudio_ExtraStereo_IsEnabled = true;
             FilterAudio_ExtraStereo_Value = 0;
+            FilterAudio_Headphones_IsEnabled = true;
             FilterAudio_Headphones_SelectedItem = "disabled";
 
             // Timing
-            FilterAudio_Tempo_Value = 100;
+            FilterAudio_Tempo_IsEnabled = true;
+            FilterAudio_Tempo_Value = 100; 
         }
 
 
@@ -122,7 +128,7 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _FilterAudio_Lowpass_IsEnabled = true;
+        private bool _FilterAudio_Lowpass_IsEnabled;
         public bool FilterAudio_Lowpass_IsEnabled
         {
             get { return _FilterAudio_Lowpass_IsEnabled; }
@@ -170,7 +176,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _FilterAudio_Highpass_IsEnabled = true;
+        private bool _FilterAudio_Highpass_IsEnabled;
         public bool FilterAudio_Highpass_IsEnabled
         {
             get { return _FilterAudio_Highpass_IsEnabled; }
@@ -219,7 +225,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _FilterAudio_Headphones_IsEnabled = true;
+        private bool _FilterAudio_Headphones_IsEnabled;
         public bool FilterAudio_Headphones_IsEnabled
         {
             get { return _FilterAudio_Headphones_IsEnabled; }
@@ -240,7 +246,7 @@ namespace ViewModel
         // Contrast
         // -------------------------
         // Value
-        private double _FilterAudio_Contrast_Value = 0;
+        private double _FilterAudio_Contrast_Value;
         public double FilterAudio_Contrast_Value
         {
             get { return _FilterAudio_Contrast_Value; }
@@ -256,7 +262,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _FilterAudio_Contrast_IsEnabled = true;
+        private bool _FilterAudio_Contrast_IsEnabled;
         public bool FilterAudio_Contrast_IsEnabled
         {
             get { return _FilterAudio_Contrast_IsEnabled; }
@@ -277,7 +283,7 @@ namespace ViewModel
         // Extra Stereo
         // -------------------------
         // Value
-        private double _FilterAudio_ExtraStereo_Value = 0;
+        private double _FilterAudio_ExtraStereo_Value;
         public double FilterAudio_ExtraStereo_Value
         {
             get { return _FilterAudio_ExtraStereo_Value; }
@@ -293,7 +299,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _FilterAudio_ExtraStereo_IsEnabled = true;
+        private bool _FilterAudio_ExtraStereo_IsEnabled;
         public bool FilterAudio_ExtraStereo_IsEnabled
         {
             get { return _FilterAudio_ExtraStereo_IsEnabled; }
@@ -314,7 +320,7 @@ namespace ViewModel
         // Tempo
         // -------------------------
         // Value
-        private double _FilterAudio_Tempo_Value = 100;
+        private double _FilterAudio_Tempo_Value;
         public double FilterAudio_Tempo_Value
         {
             get { return _FilterAudio_Tempo_Value; }
@@ -330,7 +336,7 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _FilterAudio_Tempo_IsEnabled = true;
+        private bool _FilterAudio_Tempo_IsEnabled;
         public bool FilterAudio_Tempo_IsEnabled
         {
             get { return _FilterAudio_Tempo_IsEnabled; }
