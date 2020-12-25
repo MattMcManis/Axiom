@@ -161,6 +161,8 @@ namespace Axiom
 
         public async void ScriptButtonAsync()
         {
+            //VM.MainView.ScriptView_Text = "Generating...";
+
             // -------------------------
             // Clear Variables before Run
             // -------------------------
@@ -224,8 +226,8 @@ namespace Axiom
                 // -------------------------
                 //Stopwatch sw = new Stopwatch(); // Performance Test
                 //sw.Start();
-                Task<int> task = StartProcess();
-                int count = await task;
+                Task<int> process = StartProcess();
+                int count1 = await process;
                 //sw.Stop();
                 //MessageBox.Show(sw.Elapsed.ToString());
 
@@ -233,7 +235,9 @@ namespace Axiom
                 // -------------------------
                 // Generate Script
                 // -------------------------
-                Generate.FFmpeg.FFmpegGenerateScript();
+                //Generate.FFmpeg.FFmpegGenerateScript();
+                Task<int> script = Generate.FFmpeg.FFmpegGenerateScriptAsync();
+                int count2 = await script; 
 
                 // -------------------------
                 // Auto Sort Toggle
