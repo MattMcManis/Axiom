@@ -91,11 +91,14 @@ namespace Controls.Subtitles
                 // -------------------------
                 List<string> codec = new List<string>()
                 {
+                    //"-c:s",
                     _codec_class[codec_SelectedItem].codec.FirstOrDefault()?.Codec,
                     _codec_class[codec_SelectedItem].codec.FirstOrDefault()?.Parameters
                 };
 
-                if (VM.SubtitleView.Subtitle_Codec_SelectedItem != "Burn") // initiate all codecs with -c:s, except Burn
+                // Initiate all codecs with -c:s, except Burn
+                // Burn uses Filter -vf
+                if (codec_SelectedItem != "Burn") 
                 {
                     codec.Insert(0, "-c:s");
                 }
