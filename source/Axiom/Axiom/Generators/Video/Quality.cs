@@ -1173,8 +1173,8 @@ namespace Generate.Video
         /// <summary>
         // x265 Pass 1
         public static String Pass1Modifier(string codec_SelectedItem,
-                                            string pass_SelectedItem
-                                            )
+                                           string pass_SelectedItem
+                                          )
         {
             // -------------------------
             // Enabled
@@ -1342,7 +1342,7 @@ namespace Generate.Video
 
                 optimize = string.Join(" ", v2passList
                                             .Where(s => !string.IsNullOrWhiteSpace(s))
-                                            );
+                                      );
             }
 
             // Log Console Message /////////
