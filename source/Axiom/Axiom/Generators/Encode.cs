@@ -53,6 +53,16 @@ namespace Encode
         /// <summary>
         /// FFmpeg Start
         /// </summary>
+        public static async Task<int> FFmpegStartAsync(string args)
+        {
+            int count = 0;
+            await Task.Run(() =>
+            {
+                FFmpegStart(args);
+            });
+
+            return count;
+        }
         public static void FFmpegStart(string args)
         {
             // -------------------------
@@ -96,44 +106,44 @@ namespace Encode
         /// <summary>
         /// FFmpeg Convert
         /// </summary>
-        public static async Task<int> FFmpegConvertAsync()
-        {
-            int count = 0;
-            await Task.Run(() =>
-            {
-                FFmpegConvert();
-            });
+        //public static async Task<int> FFmpegConvertAsync()
+        //{
+        //    int count = 0;
+        //    await Task.Run(() =>
+        //    {
+        //        FFmpegConvert();
+        //    });
 
-            return count;
-        }
-        public async static void FFmpegConvert()
-        {
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Converting...")) { Foreground = Log.ConsoleAction });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+        //    return count;
+        //}
+        //public async static void FFmpegConvert()
+        //{
+        //    Log.WriteAction = () =>
+        //    {
+        //        Log.logParagraph.Inlines.Add(new LineBreak());
+        //        Log.logParagraph.Inlines.Add(new LineBreak());
+        //        Log.logParagraph.Inlines.Add(new Bold(new Run("Converting...")) { Foreground = Log.ConsoleAction });
+        //    };
+        //    Log.LogActions.Add(Log.WriteAction);
 
-            // -------------------------
-            // Generate Controls Script
-            // -------------------------
-            // Inline
-            // FFmpegArgs → ScriptView
-            //Generate.FFmpeg.FFmpegGenerateScript();
-            Task<int> script = Generate.FFmpeg.FFmpegGenerateScriptAsync();
-            int count1 = await script;
+        //    // -------------------------
+        //    // Generate Controls Script
+        //    // -------------------------
+        //    // Inline
+        //    // FFmpegArgs → ScriptView
+        //    //Generate.FFmpeg.FFmpegGenerateScript();
+        //    Task<int> script = Generate.FFmpeg.FFmpegGenerateScriptAsync();
+        //    int count1 = await script;
 
-            // -------------------------
-            // Start FFmpeg
-            // -------------------------
-            // ScriptView → CMD/PowerShell
-            FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
-            //Task.Run(() => FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text)));
-            //Task<int> start = FFmpegStartAsync(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
-            //int count2 = await start;
-        }
+        //    // -------------------------
+        //    // Start FFmpeg
+        //    // -------------------------
+        //    // ScriptView → CMD/PowerShell
+        //    //FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
+        //    //Task.Run(() => FFmpegStart(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text)));
+        //    Task<int> start = FFmpegStartAsync(MainWindow.ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text));
+        //    int count2 = await start;
+        //}
 
     }
 }
