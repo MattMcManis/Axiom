@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.5.5] - Dec 27, 2020
+### Added
+- Audio Quality Preset 64k
+
+### Fixed
+- `x264`/`x265` HW Accel Color Matrix
+- `Video Controls Selected Items
+- `Audio Controls Selected Items
+
+
 ## [1.9.5.4] - Dec 25, 2020
 ### Added
 - Generate Script Async
