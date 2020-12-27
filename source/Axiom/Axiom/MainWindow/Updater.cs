@@ -199,60 +199,63 @@ namespace Axiom
         {
             if (VM.ConfigureView.UpdateAutoCheck_IsChecked == true)
             {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-                WebClient wc = new WebClient();
-                wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
-                wc.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-                wc.Headers.Add("Accept-Language", "en-US,en;q=0.9");
-                wc.Headers.Add("dnt", "1");
-                wc.Headers.Add("Upgrade-Insecure-Requests", "1");
-                //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
-
-                // -------------------------
-                // Parse GitHub .version file
-                // -------------------------
-                string parseLatestVersion = string.Empty;
-
-                try
+                if (UpdateWindow.CheckForInternetConnection() == true)
                 {
-                    parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
-                }
-                catch
-                {
-                    return;
-                }
+                    ServicePointManager.Expect100Continue = true;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                // -------------------------
-                // Split Version & Build Phase by dash
-                // -------------------------
-                if (!string.IsNullOrWhiteSpace(parseLatestVersion)) //null check
-                {
+                    WebClient wc = new WebClient();
+                    wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
+                    wc.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+                    wc.Headers.Add("Accept-Language", "en-US,en;q=0.9");
+                    wc.Headers.Add("dnt", "1");
+                    wc.Headers.Add("Upgrade-Insecure-Requests", "1");
+                    //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
+
+                    // -------------------------
+                    // Parse GitHub .version file
+                    // -------------------------
+                    string parseLatestVersion = string.Empty;
+
                     try
                     {
-                        // Split Version and Build Phase
-                        splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
-
-                        // Set Version Number
-                        latestVersion = new Version(splitVersionBuildPhase[0]); //number
-                        latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+                        parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
                     }
                     catch
                     {
                         return;
                     }
 
-                    // Check if Axiom is the Latest Version
-                    // Update Available
-                    if (latestVersion > currentVersion)
+                    // -------------------------
+                    // Split Version & Build Phase by dash
+                    // -------------------------
+                    if (!string.IsNullOrWhiteSpace(parseLatestVersion)) //null check
                     {
-                        VM.MainView.TitleVersion = VM.MainView.TitleVersion + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-                    }
-                    // Update Not Available
-                    else if (latestVersion <= currentVersion)
-                    {
-                        return;
+                        try
+                        {
+                            // Split Version and Build Phase
+                            splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
+
+                            // Set Version Number
+                            latestVersion = new Version(splitVersionBuildPhase[0]); //number
+                            latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+                        }
+                        catch
+                        {
+                            return;
+                        }
+
+                        // Check if Axiom is the Latest Version
+                        // Update Available
+                        if (latestVersion > currentVersion)
+                        {
+                            VM.MainView.TitleVersion = VM.MainView.TitleVersion + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+                        }
+                        // Update Not Available
+                        else if (latestVersion <= currentVersion)
+                        {
+                            return;
+                        }
                     }
                 }
             }
