@@ -197,8 +197,33 @@ namespace Axiom
                 // FFmpeg Convert
                 // -------------------------
                 //Encode.FFmpeg.FFmpegConvert();
-                Task<int> convert = Encode.FFmpeg.FFmpegConvertAsync();
-                int count2 = await convert;
+                //Task<int> convert = Encode.FFmpeg.FFmpegConvertAsync();
+                //int count2 = await convert;
+                //Encode.FFmpeg.FFmpegConvert();
+
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Converting...")) { Foreground = Log.ConsoleAction });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+                // -------------------------
+                // Generate Controls Script
+                // -------------------------
+                // Inline
+                // FFmpegArgs → ScriptView
+                Task<int> script = Generate.FFmpeg.FFmpegGenerateScriptAsync();
+                int count2 = await script;
+
+                // -------------------------
+                // Start FFmpeg
+                // -------------------------
+                Task<int> start = Encode.FFmpeg.FFmpegStartAsync(
+                                        ReplaceLineBreaksWithSpaces(VM.MainView.ScriptView_Text)
+                                    );
+                int count3 = await start;
 
                 //// -------------------------
                 //// Sort Script
