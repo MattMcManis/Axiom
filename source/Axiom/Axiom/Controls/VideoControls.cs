@@ -214,6 +214,15 @@ namespace Controls.Video
                     VM.VideoView.Video_EncodeSpeed_SelectedItem = encodeSpeed;
                 }
 
+                // HW Accel
+                string hwAccel = _codec_class[codec_SelectedItem].controls_Selected
+                                                                 .Find(item => item.HWAccel == item.HWAccel)
+                                                                 .HWAccel;
+                if (!string.IsNullOrEmpty(hwAccel))
+                {
+                    VM.VideoView.Video_HWAccel_SelectedItem = hwAccel;
+                }
+
                 // Pixel Format
                 switch (VM.VideoView.Video_Quality_SelectedItem)
                 {
@@ -243,6 +252,87 @@ namespace Controls.Video
                         break;
                 }
 
+                // FPS
+                string fps = _codec_class[codec_SelectedItem].controls_Selected
+                                                             .Find(item => item.FPS == item.FPS)
+                                                             .FPS;
+                if (!string.IsNullOrEmpty(fps))
+                {
+                    VM.VideoView.Video_FPS_SelectedItem = fps;
+                }
+
+                // Speed
+                string speed = _codec_class[codec_SelectedItem].controls_Selected
+                                                               .Find(item => item.Speed == item.Speed)
+                                                               .Speed;
+                if (!string.IsNullOrEmpty(speed))
+                {
+                    VM.VideoView.Video_Speed_SelectedItem = speed;
+                }
+
+                // Vsync
+                string vsync = _codec_class[codec_SelectedItem].controls_Selected
+                                                               .Find(item => item.Vsync == item.Vsync)
+                                                               .Vsync;
+                if (!string.IsNullOrEmpty(vsync))
+                {
+                    VM.VideoView.Video_Vsync_SelectedItem = vsync;
+                }
+
+                // Scale
+                string scale = _codec_class[codec_SelectedItem].controls_Selected
+                                                               .Find(item => item.Scale == item.Scale)
+                                                               .Scale;
+                if (!string.IsNullOrEmpty(scale))
+                {
+                    VM.VideoView.Video_Scale_SelectedItem = scale;
+                }
+
+                // Color Range
+                string colorRange = _codec_class[codec_SelectedItem].controls_Selected
+                                                                    .Find(item => item.ColorRange == item.ColorRange)
+                                                                    .ColorRange;
+                if (!string.IsNullOrEmpty(colorRange))
+                {
+                    VM.VideoView.Video_Color_Range_SelectedItem = colorRange;
+                }
+
+                // Color Space
+                string colorSpace = _codec_class[codec_SelectedItem].controls_Selected
+                                                                    .Find(item => item.ColorSpace == item.ColorSpace)
+                                                                    .ColorSpace;
+                if (!string.IsNullOrEmpty(colorSpace))
+                {
+                    VM.VideoView.Video_Color_Space_SelectedItem = colorSpace;
+                }
+
+                // Color Primaries
+                string colorPrimaries = _codec_class[codec_SelectedItem].controls_Selected
+                                                                        .Find(item => item.ColorPrimaries == item.ColorPrimaries)
+                                                                        .ColorPrimaries;
+                if (!string.IsNullOrEmpty(colorPrimaries))
+                {
+                    VM.VideoView.Video_Color_Primaries_SelectedItem = colorPrimaries;
+                }
+
+                // Color Transfer Characteristics
+                string colorTransferChar = _codec_class[codec_SelectedItem].controls_Selected
+                                                                           .Find(item => item.ColorTransferChar == item.ColorTransferChar)
+                                                                           .ColorTransferChar;
+                if (!string.IsNullOrEmpty(colorTransferChar))
+                {
+                    VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = colorTransferChar;
+                }
+
+                // Color Matrix
+                string colorMatrix = _codec_class[codec_SelectedItem].controls_Selected
+                                                                     .Find(item => item.ColorMatrix == item.ColorMatrix)
+                                                                     .ColorMatrix;
+                if (!string.IsNullOrEmpty(colorMatrix))
+                {
+                    VM.VideoView.Video_Color_Matrix_SelectedItem = colorMatrix;
+                }
+
                 // Filters
                 // Select Defaults
                 if (codec_SelectedItem == "Copy" ||
@@ -261,7 +351,7 @@ namespace Controls.Video
                 // Checked
                 // -------------------------
                 // Video VBR
-                VM.VideoView.Video_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Any(item => item.VBR == item.VBR);
+                VM.VideoView.Video_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Find(item => item.VBR == item.VBR).VBR;
 
                 // -------------------------
                 // Enabled
