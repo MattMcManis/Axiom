@@ -158,6 +158,15 @@ namespace Controls.Audio
                     VM.AudioView.Audio_Stream_SelectedItem = stream;
                 }
 
+                // Channel
+                string channel = _codec_class[codec_SelectedItem].controls_Selected
+                                                                  .Find(item => item.Channel == item.Channel)
+                                                                  .Channel;
+                if (!string.IsNullOrEmpty(channel))
+                {
+                    VM.AudioView.Audio_Channel_SelectedItem = channel;
+                }
+
                 // Quality
                 string quality = _codec_class[codec_SelectedItem].controls_Selected
                                                                 .Find(item => item.Quality == item.Quality)
@@ -177,6 +186,24 @@ namespace Controls.Audio
                 if (!string.IsNullOrEmpty(compressionLevel))
                 {
                     VM.AudioView.Audio_CompressionLevel_SelectedItem = compressionLevel;
+                }
+
+                // Sample Rate
+                string sampleRate = _codec_class[codec_SelectedItem].controls_Selected
+                                                                    .Find(item => item.SampleRate == item.SampleRate)
+                                                                    .SampleRate;
+                if (!string.IsNullOrEmpty(sampleRate))
+                {
+                    VM.AudioView.Audio_SampleRate_SelectedItem = sampleRate;
+                }
+
+                // Bit Depth
+                string bitDepth = _codec_class[codec_SelectedItem].controls_Selected
+                                                                  .Find(item => item.BitDepth == item.BitDepth)
+                                                                  .BitDepth;
+                if (!string.IsNullOrEmpty(bitDepth))
+                {
+                    VM.AudioView.Audio_BitDepth_SelectedItem = bitDepth;
                 }
 
                 // Filters
