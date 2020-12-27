@@ -105,7 +105,7 @@ Axiom will auto-detect it in its included folder. You can also add it to Windows
 * [CRF Quality Guide](https://slhck.info/video/2017/02/24/crf-guide.html)
 * [VBR Quality Guide](https://slhck.info/video/2017/02/24/vbr-settings.html)
 * [Scaling Algorithms](https://i.imgur.com/5jO3ay1.png)
-* x265/x265 [Profiles](https://en.wikipedia.org/wiki/Advanced_Video_Coding#Profiles), [Levels](https://en.wikipedia.org/wiki/Advanced_Video_Coding#Levels), [Tune](https://superuser.com/a/564404)
+* x264/x265 [Profiles](https://en.wikipedia.org/wiki/Advanced_Video_Coding#Profiles), [Levels](https://en.wikipedia.org/wiki/Advanced_Video_Coding#Levels), [Tune](https://superuser.com/a/564404)
 * [Color Space](https://www.richardlackey.com/choosing-video-color-space/)
 * [Hardware Acceleration](https://trac.ffmpeg.org/wiki/HWAccelIntro)
 
