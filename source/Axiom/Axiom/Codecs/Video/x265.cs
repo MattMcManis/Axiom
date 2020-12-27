@@ -32,22 +32,21 @@ namespace Controls.Video.Codec
 {
     public class x265 : Controls.IVideoCodec
     {
-        // ---------------------------------------------------------------------------
-        // Codec
-        // ---------------------------------------------------------------------------
+        /// <summary>
+        /// Codec
+        /// </summary>
         public ObservableCollection<ViewModel.Video.VideoCodec> codec { get; set; } = new ObservableCollection<ViewModel.Video.VideoCodec>()
         {
             new ViewModel.Video.VideoCodec() { Codec = "libx265", Parameters = "" }
         };
 
-
-        // ---------------------------------------------------------------------------
+        // --------------------------------------------------
         // Items Source
-        // ---------------------------------------------------------------------------
+        // --------------------------------------------------
 
-        // -------------------------
-        // Encode Speed
-        // -------------------------
+        /// <summary>
+        /// Encode Speed
+        /// </summary>
         public ObservableCollection<ViewModel.Video.VideoEncodeSpeed> encodeSpeed { get; set; } = new ObservableCollection<ViewModel.Video.VideoEncodeSpeed>()
         {
             new ViewModel.Video.VideoEncodeSpeed() { Name = "none",            Command = ""},
@@ -65,9 +64,9 @@ namespace Controls.Video.Codec
             new ViewModel.Video.VideoEncodeSpeed() { Name = "Low Latency HQ",  Command = "-preset llhq" },
         };
 
-        // -------------------------
-        // Pixel Format
-        // -------------------------
+        /// <summary>
+        /// Pixel Format
+        /// </summary>
         public ObservableCollection<string> pixelFormat { get; set; } = new ObservableCollection<string>()
         {
             "auto",
@@ -86,9 +85,9 @@ namespace Controls.Video.Codec
             "yuv444p10le"
         };
 
-        // -------------------------
-        // Quality
-        // -------------------------
+        /// <summary>
+        /// Quality
+        /// </summary>
         public ObservableCollection<ViewModel.Video.VideoQuality> quality { get; set; } = new ObservableCollection<ViewModel.Video.VideoQuality>()
         {
             new ViewModel.Video.VideoQuality() { Name = "Auto",      CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
@@ -101,9 +100,9 @@ namespace Controls.Video.Codec
             new ViewModel.Video.VideoQuality() { Name = "Custom",    CRF = "",   CRF_HWAccel_Intel_QSV = "",   CRF_HWAccel_NVIDIA_NVENC = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="" }
         };
 
-        // -------------------------
-        // Pass
-        // -------------------------
+        /// <summary>
+        /// Pass
+        /// </summary>
         public void EncodingPass()
         {
             // -------------------------
@@ -196,9 +195,9 @@ namespace Controls.Video.Codec
             }
         }
 
-        // -------------------------
-        // Optimize
-        // -------------------------
+        /// <summary>
+        /// Optimize
+        /// </summary>
         public ObservableCollection<ViewModel.Video.VideoOptimize> optimize { get; set; } = new ObservableCollection<ViewModel.Video.VideoOptimize>()
         {
             new ViewModel.Video.VideoOptimize() { Name = "None",   Tune = "none", Profile = "none",   Level = "none", Command = "" },
@@ -208,9 +207,9 @@ namespace Controls.Video.Codec
             new ViewModel.Video.VideoOptimize() { Name = "UHD",    Tune = "none", Profile = "main10", Level = "5.1",  Command = "-x265-params " + MainWindow.WrapWithQuotes("colorprim=bt2020:transfer=bt2020:colormatrix=bt2020:colorspace=bt2020") },
         };
 
-        // -------------------------
-        // Tune
-        // -------------------------
+        /// <summary>
+        /// Tune
+        /// </summary>
         public ObservableCollection<string> tune { get; set; } = new ObservableCollection<string>()
         {
             "none",
@@ -222,9 +221,9 @@ namespace Controls.Video.Codec
             "zerolatency"
         };
 
-        // -------------------------
-        // Profile
-        // -------------------------
+        /// <summary>
+        /// Profile
+        /// </summary>
         public ObservableCollection<string> profile { get; set; } = new ObservableCollection<string>()
         {
             "none",
@@ -240,9 +239,9 @@ namespace Controls.Video.Codec
             "main444-12",
         };
 
-        // -------------------------
-        // Level
-        // -------------------------
+        /// <summary>
+        /// Level
+        /// </summary>
         public ObservableCollection<string> level { get; set; } = new ObservableCollection<string>()
         {
             "none",
@@ -263,13 +262,13 @@ namespace Controls.Video.Codec
         };
 
 
-        // ---------------------------------------------------------------------------
+        // --------------------------------------------------
         // Controls Behavior
-        // ---------------------------------------------------------------------------
+        // --------------------------------------------------
 
-        // -------------------------
-        // Selected Items
-        // -------------------------
+        /// <summary>
+        /// Selected Items
+        /// </summary>
         public List<ViewModel.Video.Selected> controls_Selected { get; set; } = new List<ViewModel.Video.Selected>()
         {
             new ViewModel.Video.Selected()
@@ -279,25 +278,25 @@ namespace Controls.Video.Codec
             }
         };
 
-        // -------------------------
-        // Expanded
-        // -------------------------
+        /// <summary>
+        /// Expanded
+        /// </summary>
         public List<ViewModel.Video.Expanded> controls_Expanded { get; set; } = new List<ViewModel.Video.Expanded>()
         {
             new ViewModel.Video.Expanded() {  Optimize = true },
         };
 
-        // -------------------------
-        // Checked
-        // -------------------------
+        /// <summary>
+        /// Checked
+        /// </summary>
         public List<ViewModel.Video.Checked> controls_Checked { get; set; } = new List<ViewModel.Video.Checked>()
         {
             new ViewModel.Video.Checked() {  VBR = false },
         };
 
-        // -------------------------
-        // Enabled
-        // -------------------------
+        /// <summary>
+        /// Enabled
+        /// </summary>
         public List<ViewModel.Video.Enabled> controls_Enabled { get; set; } = new List<ViewModel.Video.Enabled>()
         {
             new ViewModel.Video.Enabled()
