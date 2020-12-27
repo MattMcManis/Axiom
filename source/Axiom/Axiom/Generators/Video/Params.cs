@@ -399,107 +399,137 @@ namespace Generate.Video
 
 
         /// <summary>
-        /// Video Params Combine (Method)
+        /// Quality Parameters Combine (Method)
         /// <summary>
-        public static String Video_Params(string video_Quality_SelectedItem,
-                                          string video_Codec_SelectedItem,
-                                          string format_MediaType_SelectedItem
+        /// <remarks>
+        /// For x264 and x265 only (e.g. -x265-params "crf=25").
+        /// These are different than codec parameters (e.g. -c:v libx265 -strict -2).
+        /// </remarks>
+        public static String QualityParams(string quality_SelectedItem,
+                                           string codec_SelectedItem,
+                                           string format_MediaType_SelectedItem
             )
         {
             // Video BitRate None Check
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if (video_Quality_SelectedItem != "None" &&
-                video_Codec_SelectedItem != "None" &&
-                video_Codec_SelectedItem != "Copy" &&
+            if (quality_SelectedItem != "None" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
                 format_MediaType_SelectedItem != "Audio")
             {
-                //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
-                // --------------------------------------------------
-                // Add Each Filter to Master Filters List
-                // --------------------------------------------------
-
-                // -------------------------
-                // Color
-                // -------------------------
-                Video_Color();
-
-                // -------------------------
-                // Empty Halt
-                // -------------------------
-                if (vParamsList == null || // Null Check
-                    vParamsList.Count == 0) // None Check
+                // Only for x264/x265/HW Accel Codecs
+                if (codec_SelectedItem == "x264" ||
+                    codec_SelectedItem == "H264 AMF" ||
+                    codec_SelectedItem == "H264 NVENC" ||
+                    codec_SelectedItem == "H264 QSV" ||
+                    codec_SelectedItem == "x265" ||
+                    codec_SelectedItem == "HEVC AMF" ||
+                    codec_SelectedItem == "HEVC NVENC" ||
+                    codec_SelectedItem == "HEVC QSV")
                 {
-                    return string.Empty;
-                }
+                    // --------------------------------------------------
+                    // Add Each Filter to Master Filters List
+                    // --------------------------------------------------
+                    //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
+                    // -------------------------
+                    // Color
+                    // -------------------------
+                    Video_Color();
 
-                // -------------------------
-                // Remove Empty Strings
-                // -------------------------
-                vParamsList.RemoveAll(s => string.IsNullOrEmpty(s));
+                    // -------------------------
+                    // Empty Halt
+                    // -------------------------
+                    if (vParamsList == null ||  // Null Check
+                        vParamsList.Count == 0) // None Check
+                    {
+                        return string.Empty;
+                    }
 
-                // -------------------------
-                // Codec
-                // -------------------------
-                string codec = string.Empty;
-                switch (VM.VideoView.Video_Codec_SelectedItem)
-                {
+                    // -------------------------
+                    // Remove Empty Strings
+                    // -------------------------
+                    vParamsList.RemoveAll(s => string.IsNullOrEmpty(s));
+
+                    // -------------------------
+                    // Codec
+                    // -------------------------
+                    string codec = string.Empty;
                     // x264
-                    case "x264":
+                    if (codec_SelectedItem == "x264" ||
+                        codec_SelectedItem == "H264 AMF" ||
+                        codec_SelectedItem == "H264 NVENC" ||
+                        codec_SelectedItem == "H264 QSV")
+                    {
                         codec = "-x264-params ";
-                        break;
+                    }
                     // x265
-                    case "x265":
+                    else if (codec_SelectedItem == "x265" ||
+                             codec_SelectedItem == "HEVC AMF" ||
+                             codec_SelectedItem == "HEVC NVENC" ||
+                             codec_SelectedItem == "HEVC QSV")
+                    {
                         codec = "-x265-params ";
-                        break;
-                    // All Other Codecs
-                    //default:
-                        //return string.Empty;
-                }
+                    }
 
-                // -------------------------
-                // 1 Param
-                // -------------------------
-                if (vParamsList.Count == 1)
-                {
-                    // Always wrap in quotes
-                    //vParams = codec + "\"" + string.Join("", vParamsList
-                    //                               .Where(s => !string.IsNullOrEmpty(s)))
-                    //                + "\"";
-                    vParams = codec + MainWindow.WrapWithQuotes(string.Join("", vParamsList
-                                                                                .Where(s => !string.IsNullOrEmpty(s))
-                                                                            )
-                                                                );
-                }
+                    //switch (VM.VideoView.Video_Codec_SelectedItem)
+                    //{
+                    //    // x264
+                    //    case "x264":
+                    //        codec = "-x264-params ";
+                    //        break;
+                    //    // x265
+                    //    case "x265":
+                    //        codec = "-x265-params ";
+                    //        break;
+                    //        // All Other Codecs
+                    //        //default:
+                    //        //return string.Empty;
+                    //}
 
-                // -------------------------
-                // Multiple Params
-                // -------------------------
-                else if (vParamsList.Count > 1)
-                {
-                    // Always wrap in quotes
-                    // Linebreak beginning and end
-                    //vParams = codec + "\"\r\n" + string.Join("\r\n:", vParamsList
-                    //                                   .Where(s => !string.IsNullOrEmpty(s)))
-                    //                + "\r\n\"";
-                    vParams = codec + MainWindow.WrapWithQuotes("\r\n" +
-                                                                string.Join("\r\n:", vParamsList
-                                                                                        .Where(s => !string.IsNullOrEmpty(s))
-                                                                            ) +
-                                                                "\r\n"
-                                                                );
-                }
+                    // -------------------------
+                    // 1 Param
+                    // -------------------------
+                    if (vParamsList.Count == 1)
+                    {
+                        // Always wrap in quotes
+                        //vParams = codec + "\"" + string.Join("", vParamsList
+                        //                               .Where(s => !string.IsNullOrEmpty(s)))
+                        //                + "\"";
+                        vParams = codec + MainWindow.WrapWithQuotes(string.Join("", vParamsList
+                                                                                    .Where(s => !string.IsNullOrEmpty(s))
+                                                                                )
+                                                                    );
+                    }
 
-                // -------------------------
-                // Unknown
-                // -------------------------
-                else
-                {
-                    vParams = string.Empty;
+                    // -------------------------
+                    // Multiple Params
+                    // -------------------------
+                    else if (vParamsList.Count > 1)
+                    {
+                        // Always wrap in quotes
+                        // Linebreak beginning and end
+                        //vParams = codec + "\"\r\n" + string.Join("\r\n:", vParamsList
+                        //                                   .Where(s => !string.IsNullOrEmpty(s)))
+                        //                + "\r\n\"";
+                        vParams = codec + MainWindow.WrapWithQuotes("\r\n" +
+                                                                    string.Join("\r\n:", vParamsList
+                                                                                            .Where(s => !string.IsNullOrEmpty(s))
+                                                                                ) +
+                                                                    "\r\n"
+                                                                    );
+                    }
+
+                    // -------------------------
+                    // Unknown
+                    // -------------------------
+                    else
+                    {
+                        vParams = string.Empty;
+                    }
                 }
             }
-
             //MessageBox.Show(vParams); //debug
 
             // Return Value
