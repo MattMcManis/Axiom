@@ -76,6 +76,7 @@ namespace Controls.Audio.Codec
             new ViewModel.Audio.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode = "", VBR = "" },
             new ViewModel.Audio.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode = "", VBR = "" },
             new ViewModel.Audio.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode = "", VBR = "" },
+            new ViewModel.Audio.AudioQuality() { Name = "64",     CBR_BitMode = "-b:a", CBR = "64",  VBR_BitMode = "", VBR = "" },
             new ViewModel.Audio.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = "" },
             new ViewModel.Audio.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = "" }
         };
