@@ -126,7 +126,10 @@ namespace Controls.Audio.Codec
         // -------------------------
         public List<ViewModel.Audio.Selected> controls_Selected { get; set; } = new List<ViewModel.Audio.Selected>()
         {
+            new ViewModel.Audio.Selected() {  Channel = "Source" },
             new ViewModel.Audio.Selected() {  CompressionLevel = "none" },
+            new ViewModel.Audio.Selected() {  SampleRate = "auto" },
+            new ViewModel.Audio.Selected() {  BitDepth = "auto" },
         };
 
         // -------------------------
