@@ -38,54 +38,51 @@ using Axiom;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Generate
+namespace Generate.Video
 {
-    namespace Video
+    public class Codec
     {
-        public class Codec
+        public static string vCodec { get; set; } // Video Codec
+
+        /// <summary>
+        /// Video Codec
+        /// <summary>
+        public static String VideoCodec(string hwAccel_transcode_SelectedItem,
+                                        string codec_SelectedItem,
+                                        string codec_Command
+                                        )
         {
-            public static string vCodec { get; set; } // Video Codec
-
-            /// <summary>
-            /// Video Codec
-            /// <summary>
-            public static String VideoCodec(string hwAccel_transcode_SelectedItem,
-                                            string codec_SelectedItem,
-                                            string codec_Command
-                                            )
+            // Passed Command
+            if (codec_SelectedItem != "None")
             {
-                // Passed Command
-                if (codec_SelectedItem != "None")
-                {
-                    vCodec = codec_Command;
+                vCodec = codec_Command;
 
-                    //// HW Acceleration vCodec Override
-                    //if (hwAccel_transcode_SelectedItem == "AMD AMF" || // h264_amf / hevc_amf
-                    //    hwAccel_transcode_SelectedItem == "NVIDIA NVENC" || // h264_nvenc / hevc_nvenc
-                    //    hwAccel_transcode_SelectedItem == "Intel QSV" // h264_qsv / hevc_qsv
-                    //    )
-                    //{
-                    //    vCodec = Encoding.HWAccelerationCodecOverride(hwAccel_transcode_SelectedItem,
-                    //                                                  codec_SelectedItem
-                    //                                                 );
+                //// HW Acceleration vCodec Override
+                //if (hwAccel_transcode_SelectedItem == "AMD AMF" || // h264_amf / hevc_amf
+                //    hwAccel_transcode_SelectedItem == "NVIDIA NVENC" || // h264_nvenc / hevc_nvenc
+                //    hwAccel_transcode_SelectedItem == "Intel QSV" // h264_qsv / hevc_qsv
+                //    )
+                //{
+                //    vCodec = Encoding.HWAccelerationCodecOverride(hwAccel_transcode_SelectedItem,
+                //                                                  codec_SelectedItem
+                //                                                 );
 
-                    //    //MessageBox.Show(vCodec); //debug
-                    //}
-                }
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(codec_Command) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
-
-                //MessageBox.Show(vCodec); //debug
-
-                return vCodec;
+                //    //MessageBox.Show(vCodec); //debug
+                //}
             }
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(codec_Command) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+            //MessageBox.Show(vCodec); //debug
+
+            return vCodec;
         }
     }
 }
