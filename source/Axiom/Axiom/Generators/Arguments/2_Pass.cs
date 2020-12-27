@@ -188,10 +188,10 @@ namespace Generate
                                                      "1"
                                                     ),
                             "\r\n" +
-                            Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
-                                                      VM.VideoView.Video_Codec_SelectedItem,
-                                                      VM.FormatView.Format_MediaType_SelectedItem
-                                                     ),
+                            Video.Params.QualityParams(VM.VideoView.Video_Quality_SelectedItem,
+                                                       VM.VideoView.Video_Codec_SelectedItem,
+                                                       VM.FormatView.Format_MediaType_SelectedItem
+                                                      ),
 
                             "\r\n" +
                             Video.Encoding.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
@@ -461,10 +461,10 @@ namespace Generate
                                                      "2"
                                                     ),
                             "\r\n" +
-                            Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,    // Note: Use Method, not String, to re-generate all Pass 2 Params
-                                                      VM.VideoView.Video_Codec_SelectedItem,      //       for 2 Pass -x265-params pass=2
-                                                      VM.FormatView.Format_MediaType_SelectedItem
-                                                     ),
+                            Video.Params.QualityParams(VM.VideoView.Video_Quality_SelectedItem,    // Note: Use Method, not String, to re-generate all Pass 2 Params
+                                                       VM.VideoView.Video_Codec_SelectedItem,      //       for 2 Pass -x265-params pass=2
+                                                       VM.FormatView.Format_MediaType_SelectedItem
+                                                      ),
                             "\r\n" +
                             Video.Encoding.vEncodeSpeed,
                             Video.Quality.vQuality,
