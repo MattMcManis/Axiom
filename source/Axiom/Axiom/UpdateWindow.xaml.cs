@@ -120,7 +120,6 @@ namespace Axiom
         }
 
 
-
         // -------------------------
         // Axiom Self-Update Download
         // -------------------------
@@ -207,7 +206,8 @@ namespace Axiom
                 Process.Start("powershell.exe", arguments);
 
                 // Close Axiom before updating exe
-                Environment.Exit(0);
+                Application.Current.Shutdown();
+                //Environment.Exit(0);
             });
 
 
