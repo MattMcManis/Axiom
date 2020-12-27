@@ -215,10 +215,10 @@ namespace Generate
                                                        ),
 
                             "\r\n" +
-                            Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
-                                                      VM.VideoView.Video_Codec_SelectedItem,
-                                                      VM.FormatView.Format_MediaType_SelectedItem
-                                                     ),
+                            Video.Params.QualityParams(VM.VideoView.Video_Quality_SelectedItem,
+                                                       VM.VideoView.Video_Codec_SelectedItem,
+                                                       VM.FormatView.Format_MediaType_SelectedItem
+                                                      ),
 
                             "\r\n" +
                             Video.Quality.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
