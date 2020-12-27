@@ -248,10 +248,10 @@ namespace Controls
             public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "MP2",
+                "LAME",
                 "AC3",
                 "AAC",
                 "DTS",
-                "LAME",
                 "PCM",
                 "Copy",
                 "None"
@@ -290,10 +290,10 @@ namespace Controls
             public readonly static ObservableCollection<string> audio = new ObservableCollection<string>()
             {
                 "MP2",
+                "LAME",
                 "AC3",
                 "AAC",
                 "DTS",
-                "LAME",
                 "PCM",
                 "Copy",
                 "None"
