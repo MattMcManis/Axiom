@@ -305,10 +305,10 @@ namespace Axiom
 
             try
             {
-                Generate.Video.Params.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
-                                                 VM.VideoView.Video_Codec_SelectedItem,
-                                                 VM.FormatView.Format_MediaType_SelectedItem
-                                                 );
+                Generate.Video.Params.QualityParams(VM.VideoView.Video_Quality_SelectedItem,
+                                                    VM.VideoView.Video_Codec_SelectedItem,
+                                                    VM.FormatView.Format_MediaType_SelectedItem
+                                                   );
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
