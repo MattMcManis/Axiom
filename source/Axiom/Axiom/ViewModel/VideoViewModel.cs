@@ -73,6 +73,7 @@ namespace ViewModel
             Video_Quality_IsEnabled = true;
             Video_Quality_SelectedItem = "Auto";
 
+            Video_CRF_IsEnabled = true;
             Video_CRF_Value = 0;
             Video_CRF_Text = string.Empty;
 
@@ -81,6 +82,9 @@ namespace ViewModel
 
             Video_BitRate_IsEnabled = true;
             Video_BitRate_Text = string.Empty;
+
+            Video_MinRate_IsEnabled = true;
+            Video_MinRate_Text = string.Empty;
 
             Video_MaxRate_IsEnabled = true;
             Video_MaxRate_Text = string.Empty;
@@ -110,10 +114,10 @@ namespace ViewModel
             Video_Optimize_SelectedItem = "Web";
 
             Video_Optimize_Tune_IsEnabled = true;
-            Video_Video_Optimize_Tune_SelectedItem = "none";
+            Video_Optimize_Tune_SelectedItem = "none";
 
             Video_Optimize_Profile_IsEnabled = true;
-            Video_Video_Optimize_Profile_SelectedItem = "none";
+            Video_Optimize_Profile_SelectedItem = "none";
 
             Video_Optimize_Level_IsEnabled = true;
             Video_Optimize_Level_SelectedItem = "none";
@@ -177,6 +181,9 @@ namespace ViewModel
             public string Speed { get; set; }
             public string Vsync { get; set; }
             public string Optimize { get; set; }
+            public string Optimize_Tune { get; set; }
+            public string Optimize_Profile { get; set; }
+            public string Optimize_Level { get; set; }
             public string Scale { get; set; }
             public string Scaling { get; set; }
             public string ScreenFormat { get; set; }
@@ -1509,19 +1516,19 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_Video_Optimize_Tune_SelectedItem;
-        public string Video_Video_Optimize_Tune_SelectedItem
+        public string _Video_Optimize_Tune_SelectedItem;
+        public string Video_Optimize_Tune_SelectedItem
         {
-            get { return _Video_Video_Optimize_Tune_SelectedItem; }
+            get { return _Video_Optimize_Tune_SelectedItem; }
             set
             {
-                if (_Video_Video_Optimize_Tune_SelectedItem == value)
+                if (_Video_Optimize_Tune_SelectedItem == value)
                 {
                     return;
                 }
 
-                _Video_Video_Optimize_Tune_SelectedItem = value;
-                OnPropertyChanged("Video_Video_Optimize_Tune_SelectedItem");
+                _Video_Optimize_Tune_SelectedItem = value;
+                OnPropertyChanged("Video_Optimize_Tune_SelectedItem");
             }
         }
 
@@ -1576,19 +1583,19 @@ namespace ViewModel
         }
 
         // Selected Item
-        public string _Video_Video_Optimize_Profile_SelectedItem;
-        public string Video_Video_Optimize_Profile_SelectedItem
+        public string _Video_Optimize_Profile_SelectedItem;
+        public string Video_Optimize_Profile_SelectedItem
         {
-            get { return _Video_Video_Optimize_Profile_SelectedItem; }
+            get { return _Video_Optimize_Profile_SelectedItem; }
             set
             {
-                if (_Video_Video_Optimize_Profile_SelectedItem == value)
+                if (_Video_Optimize_Profile_SelectedItem == value)
                 {
                     return;
                 }
 
-                _Video_Video_Optimize_Profile_SelectedItem = value;
-                OnPropertyChanged("Video_Video_Optimize_Profile_SelectedItem");
+                _Video_Optimize_Profile_SelectedItem = value;
+                OnPropertyChanged("Video_Optimize_Profile_SelectedItem");
             }
         }
 
