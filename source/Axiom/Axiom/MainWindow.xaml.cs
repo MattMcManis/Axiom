@@ -163,6 +163,7 @@ namespace Axiom
         /// <summary>
         /// Log Console
         /// </summary>
+        // initiate at startup, run in background
         public LogConsole logconsole = new LogConsole();
 
         /// <summary>
@@ -587,7 +588,7 @@ namespace Axiom
         /// <summary>
         /// Window Loaded
         /// </summary>
-        private /*async*/ void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow = this;
 
@@ -598,6 +599,9 @@ namespace Axiom
             // Prevent Bound ComboBox from firing SelectionChanged Event at application startup
             // Format
             //cboFormat_Container.SelectionChanged += cboFormat_Container_SelectionChanged;
+
+            // Quality
+            //cboVideo_Quality.SelectionChanged += cboVideo_Quality_SelectionChanged;
 
             // axiom.conf Path
             // Event Handler must be in in WindowLoaded(), not in XAML to prevent re-moving file to AppData Local default at startup
@@ -1410,8 +1414,8 @@ namespace Axiom
             Generate.Video.Quality.optimize = string.Empty;
 
             // Subtitle
-            Generate.Subtitle.sCodec = string.Empty;
-            Generate.Subtitle.subtitles = string.Empty;
+            Generate.Subtitle.Subtitle.sCodec = string.Empty;
+            Generate.Subtitle.Subtitle.subtitles = string.Empty;
 
             // Audio
             Generate.Audio.Codec.aCodec = string.Empty;
@@ -1434,6 +1438,8 @@ namespace Axiom
                 Filters.Audio.aFiltersList.TrimExcess();
             }
 
+            Generate.Audio.Audio.audioMux = string.Empty;
+
             // Batch
             Analyze.FFprobe.batchFFprobeAuto = string.Empty;
             Generate.Video.Quality.batchVideoAuto = string.Empty;
@@ -1445,6 +1451,10 @@ namespace Axiom
             Generate.Streams.sMap = string.Empty;
             Generate.Streams.aMap = string.Empty;
             Generate.Streams.mMap = string.Empty;
+            Generate.Streams.mvMap = string.Empty;
+            Generate.Streams.maMap = string.Empty;
+            Generate.Streams.msMap = string.Empty;
+            Generate.Streams.mcMap = string.Empty;
 
             // Do not Empty:
             //
@@ -1604,9 +1614,15 @@ namespace Axiom
         public static string Video_EncodeSpeed_PreviousItem { get; set; }
         public static string Video_Quality_PreviousItem { get; set; }
         public static string Video_Pass_PreviousItem { get; set; }
-        public static string VideoOptimize_PreviousItem { get; set; }
+        public static string Video_Optimize_PreviousItem { get; set; }
+        public static string Video_Optimize_Tune_PreviousItem { get; set; }
+        public static string Video_Optimize_Profile_PreviousItem { get; set; }
+        public static string Video_Optimize_Level_PreviousItem { get; set; }
         // Audio
+        public static string Audio_Stream_PreviousItem { get; set; }
+        public static string Audio_Channel_PreviousItem { get; set; }
         public static string Audio_Quality_PreviousItem { get; set; }
+        public static string Audio_CompressionLevel_PreviousItem { get; set; }
         public static string Audio_SampleRate_PreviousItem { get; set; }
         public static string Audio_BitDepth_PreviousItem { get; set; }
         // Selected Item
@@ -1620,7 +1636,7 @@ namespace Axiom
             if (!string.IsNullOrWhiteSpace(previousItem) &&
                 controlItems?.Contains(previousItem) == true)
             {
-                //MessageBox.Show(previousItem); //debug
+                //MessageBox.Show("4 " + previousItem); //debug
                 return previousItem;
             }
             // -------------------------
@@ -1633,6 +1649,30 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        /// Save Previous Item - Conditions Check
+        /// </summary>
+        public static bool SavePreviousItemCond(string selectedItem)
+        {
+            // Halt
+            if (string.IsNullOrWhiteSpace(selectedItem))
+            {
+                return false;
+            }
+
+            // Halt
+            if (selectedItem.ToLower() == "default" &&
+                selectedItem.ToLower() == "auto" &&
+                selectedItem.ToLower() == "none")
+            {
+                return false;
+            }
+            // Pass
+            else
+            {
+                return true;
+            }
+        }
 
         /// <summary>
         /// Is Valid Windows Path
@@ -2569,7 +2609,8 @@ namespace Axiom
                 {
                     capacity += Convert.ToDouble(obj["Capacity"]);
                     //memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
-                    speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
+                    //speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
+                    int.TryParse(obj.GetPropertyValue("Speed").ToString(), out speed);
                 }
 
                 capacity *= 0.000000001; // Convert Byte to GB
@@ -3199,7 +3240,7 @@ namespace Axiom
         /// Extension Match Load Auto
         /// </summary>
         /// <remarks>
-        /// Change the Controls to Auto if Input Extension matches Output Extsion
+        /// Change the Controls to Auto if Input Extension matches Output Extension
         /// This will trigger Auto Codec Copy
         /// </remarks>
         public void ExtensionMatchLoadAutoValues()
@@ -3228,6 +3269,8 @@ namespace Axiom
                     // Main
                     // Pixel Format Auto uses PixelFormatControls()
                     VM.VideoView.Video_FPS_SelectedItem = "auto";
+                    VM.VideoView.Video_Speed_SelectedItem = "auto";
+                    VM.VideoView.Video_Vsync_SelectedItem = "off";
                     VM.VideoView.Video_Optimize_SelectedItem = "None";
                     VM.VideoView.Video_Scale_SelectedItem = "Source";
                     VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -3254,6 +3297,7 @@ namespace Axiom
                     // Main
                     //VM.AudioView.Audio_Quality_SelectedItem = "Auto";
                     VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                     VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                     VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
 
@@ -3311,6 +3355,7 @@ namespace Axiom
                                 MessageBoxImage.Error);
             }
         }
+
 
     }
 }
