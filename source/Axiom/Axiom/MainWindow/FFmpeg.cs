@@ -186,6 +186,10 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
+                VM.MainView.ScriptView_Text = "Generating...";
+                // Delay to make Generating... text visible
+                await Task.Delay(100);
+
                 // -------------------------
                 // Start All Processes
                 // -------------------------
