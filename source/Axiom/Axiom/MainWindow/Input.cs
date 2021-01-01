@@ -120,7 +120,7 @@ namespace Axiom
                     // Default Auto if Input Extension matches Output Extsion
                     // This will trigger Auto Codec Copy
                     // --------------------------------------------------
-                    ExtensionMatchLoadAutoValues();
+                    //ExtensionMatchLoadAutoValues();
 
                     // -------------------------
                     // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
@@ -660,7 +660,7 @@ namespace Axiom
             // Default Auto if Input Extension matches Output Extsion
             // This will trigger Auto Codec Copy
             // --------------------------------------------------
-            ExtensionMatchLoadAutoValues();
+            //ExtensionMatchLoadAutoValues();
 
             // -------------------------
             // Set Video and AudioCodec Combobox to "Copy" if 
