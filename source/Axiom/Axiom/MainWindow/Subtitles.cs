@@ -87,7 +87,7 @@ namespace Axiom
             else
             {
                 // Hide
-                VM.SubtitleView.Subtitle_ListView_Opacity = 0.1;
+                VM.SubtitleView.Subtitle_ListView_Opacity = 0.15;
             }
 
             // Enable Metadata
