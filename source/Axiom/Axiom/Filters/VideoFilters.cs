@@ -512,7 +512,7 @@ namespace Filters
             string burn = string.Empty;
 
             if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Burn" &&
-                Generate.Subtitle.subtitleFileNamesList.Count > 0)
+                Generate.Subtitle.Subtitle.subtitleFileNamesList.Count > 0)
             {
                 // Join File Names List
                 //string files = string.Join(",", subtitleFileNamesList.Where(s => !string.IsNullOrEmpty(s)));
@@ -523,11 +523,11 @@ namespace Filters
                 // -------------------------
                 // Get First Subtitle File
                 // -------------------------
-                string file = Generate.Subtitle.subtitleFilePathsList.First()                //"C:\Users\Axiom\Videos\subtitles.srt"
-                                                                     .Replace("`\"", @"'")    //`"C:\Users\Axiom\Videos\subtitles.srt`" (escaped)
-                                                                     .Replace("\"", @"'")    //'C:\Users\Axiom\Videos\subtitles.srt'
-                                                                     .Replace(@"\", @"\\")   //'C:\\Users\\Axiom\\Videos\\subtitles.srt'
-                                                                     .Replace(@":", @"\:");  //'C\:\Users\Axiom\Videos\subtitles.srt'
+                string file = Generate.Subtitle.Subtitle.subtitleFilePathsList.First() //"C:\Users\Axiom\Videos\subtitles.srt"
+                                               .Replace("`\"", @"'")    //`"C:\Users\Axiom\Videos\subtitles.srt`" (escaped)
+                                               .Replace("\"", @"'")    //'C:\Users\Axiom\Videos\subtitles.srt'
+                                               .Replace(@"\", @"\\")   //'C:\\Users\\Axiom\\Videos\\subtitles.srt'
+                                               .Replace(@":", @"\:");  //'C\:\Users\Axiom\Videos\subtitles.srt'
 
                 // -------------------------
                 // Create Subtitles Filter
