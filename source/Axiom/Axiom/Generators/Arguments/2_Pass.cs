@@ -234,8 +234,8 @@ namespace Generate
                             Video.Quality.Optimize(VM.VideoView.Video_Codec_SelectedItem,
                                                    VM.VideoView.Video_Optimize_Items,
                                                    VM.VideoView.Video_Optimize_SelectedItem,
-                                                   VM.VideoView.Video_Video_Optimize_Tune_SelectedItem,
-                                                   VM.VideoView.Video_Video_Optimize_Profile_SelectedItem,
+                                                   VM.VideoView.Video_Optimize_Tune_SelectedItem,
+                                                   VM.VideoView.Video_Optimize_Profile_SelectedItem,
                                                    VM.VideoView.Video_Optimize_Level_SelectedItem
                                                   ),
 
@@ -288,7 +288,7 @@ namespace Generate
                     audioList_Pass1 = new List<string>()
                     {
                         // Disable Audio for Pass 1 to speed up encoding
-                        "\r\n" +
+                        "\r\n\r\n" +
                         "-an",
                     };
 
@@ -302,7 +302,7 @@ namespace Generate
                     subtitleList_Pass1 = new List<string>()
                     {
                         // Disable Subtitles for Pass 1 to speed up encoding
-                        "\r\n" +
+                        "\r\n\r\n" +
                         "-sn",
                     };
 
@@ -418,9 +418,14 @@ namespace Generate
                         "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 2")),
 
                         "\r\n\r\n" +
-                        Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                   VM.SubtitleView.Subtitle_Stream_SelectedItem
-                                                  ),
+                        Audio.Audio.AudioMux(VM.AudioView.Audio_Codec_SelectedItem,
+                                             VM.AudioView.Audio_Stream_SelectedItem
+                                             ),
+
+                        "\r\n\r\n" +
+                        Subtitle.Subtitle.SubtitlesMux(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                       VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                                      ),
                     };
 
                     // -------------------------
@@ -499,7 +504,7 @@ namespace Generate
                     // Disable Video
                     else
                     {
-                        videoList_Pass1 = new List<string>()
+                        videoList_Pass2 = new List<string>()
                         {
                             "\r\n\r\n" +
                             "-vn",
@@ -563,12 +568,15 @@ namespace Generate
                             Filters.Audio.AudioFilter(),
                             "\r\n" +
                             Streams.AudioStreamMaps(),
+
+                            "\r\n\r\n" +
+                            Audio.Metadata.Audio(),
                         };
                     }
                     // Disable Audio
                     else
                     {
-                        audioList_Pass1 = new List<string>()
+                        audioList_Pass2 = new List<string>()
                         {
                             "\r\n\r\n" +
                             "-an",
@@ -597,20 +605,57 @@ namespace Generate
                         subtitleList_Pass2 = new List<string>()
                         {
                             "\r\n\r\n" +
-                            Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                            Subtitle.Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                    VM.SubtitleView.Subtitle_Codec
                                                    ),
                             "\r\n" +
                             Streams.SubtitleMaps(),
+
+                            "\r\n\r\n" +
+                            Subtitle.Metadata.Subtitles(),
                         };
                     }
                     // Disable Subtitle
                     else
                     {
-                        subtitleList_Pass1 = new List<string>()
+                        subtitleList_Pass2 = new List<string>()
                         {
                             "\r\n\r\n" +
                             "-sn",
+                        };
+                    }
+
+                    // -------------------------
+                    // Chapters
+                    // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Chapters")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
+                    IEnumerable<string> chaptersList_Pass2 = new List<string>();
+
+                    if (VM.FormatView.Format_MediaType_SelectedItem != "Image" &&
+                        VM.FormatView.Format_MediaType_SelectedItem != "Sequence"
+                        )
+                    {
+                        chaptersList_Pass2 = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            Streams.ChaptersMaps(),
+                        };
+                    }
+                    // Disable Chapters
+                    else
+                    {
+                        chaptersList_Pass2 = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            "-cn",
                         };
                     }
 
@@ -644,6 +689,7 @@ namespace Generate
                                                                 .Concat(videoList_Pass2)
                                                                 .Concat(audioList_Pass2)
                                                                 .Concat(subtitleList_Pass2)
+                                                                .Concat(chaptersList_Pass2)
                                                                 .Concat(outputList_Pass2)
                                                                 .ToList();
 
