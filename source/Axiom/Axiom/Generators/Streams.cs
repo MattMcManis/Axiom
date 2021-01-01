@@ -44,19 +44,13 @@ namespace Generate
         public static string mvMap { get; set; } // video metadata
         public static string maMap { get; set; } // audio metadata
         public static string msMap { get; set; } // subtitle metadata
-        public static string mcMap { get; set; } // chapter metadata
-        //public static string map; // combines all maps
+        //public static string mcMap { get; set; } // chapter metadata // uses ChaptersMaps() instead
 
         /// <summary>
         /// Format Maps
         /// </summary>
         public static String FormatMaps()
         {
-            //if (VM.FormatView.Format_Container_SelectedItem == )
-            //{
-
-            //}
-
             // --------------------------------------------------------------------
             // Metadata Map
             // --------------------------------------------------------------------
@@ -68,7 +62,7 @@ namespace Generate
                     mvMap = string.Empty;
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "m2v":
@@ -76,7 +70,7 @@ namespace Generate
                     mvMap = string.Empty;
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "mp3":
@@ -84,7 +78,7 @@ namespace Generate
                     mvMap = string.Empty; // do not copy metadata
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "m4a":
@@ -92,7 +86,7 @@ namespace Generate
                     mvMap = string.Empty; // do not copy metadata
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "ogg":
@@ -100,7 +94,7 @@ namespace Generate
                     mvMap = string.Empty; // do not copy metadata
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "flac":
@@ -108,7 +102,7 @@ namespace Generate
                     mvMap = string.Empty; // do not copy metadata
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "wav":
@@ -116,7 +110,7 @@ namespace Generate
                     mvMap = string.Empty; // do not copy metadata
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "jpg":
@@ -124,7 +118,7 @@ namespace Generate
                     mvMap = string.Empty;
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "png":
@@ -132,7 +126,7 @@ namespace Generate
                     mvMap = string.Empty;
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 case "webp":
@@ -140,7 +134,7 @@ namespace Generate
                     mvMap = string.Empty;
                     maMap = string.Empty;
                     msMap = string.Empty;
-                    mcMap = string.Empty;
+                    //mcMap = string.Empty;
                     break;
 
                 // All Other Formats
@@ -156,7 +150,7 @@ namespace Generate
                         mvMap = string.Empty;
                         maMap = string.Empty;
                         msMap = string.Empty;
-                        mcMap = string.Empty;
+                        //mcMap = string.Empty;
 
                         break;
                     }
@@ -170,7 +164,7 @@ namespace Generate
                         mvMap = "-map_metadata:s:v 0";
                         maMap = string.Empty;
                         msMap = "-map_metadata:s:s 0";
-                        mcMap = "-map_metadata:c 0";
+                        //mcMap = "-map_metadata:c 0";
                     }
 
                     // Subtitle Mux
@@ -182,7 +176,7 @@ namespace Generate
                         mvMap = "-map_metadata:s:v 0";
                         maMap = "-map_metadata:s:a 0";
                         msMap = string.Empty;
-                        mcMap = "-map_metadata:c 0";
+                        //mcMap = "-map_metadata:c 0";
                     }
 
                     // Audio & Subtitle Mux
@@ -194,7 +188,7 @@ namespace Generate
                         mvMap = "-map_metadata:s:v 0";
                         maMap = string.Empty;
                         msMap = string.Empty;
-                        mcMap = "-map_metadata:c 0";
+                        //mcMap = "-map_metadata:c 0";
                     }
 
                     break;
@@ -210,7 +204,7 @@ namespace Generate
                 mvMap,
                 maMap,
                 msMap,
-                mcMap
+                //mcMap
             };
 
             // Join List with Spaces, Remove Empty Strings
@@ -297,94 +291,6 @@ namespace Generate
                 Log.logParagraph.Inlines.Add(new Run("all") { Foreground = Log.ConsoleDefault }); // always all
             };
             Log.LogActions.Add(Log.WriteAction);
-
-
-
-            //// --------------------------------------------------------------------
-            //// Chapters Map
-            //// --------------------------------------------------------------------
-            //// -------------------------
-            //// Formats
-            //// -------------------------
-            //switch (VM.FormatView.Format_Container_SelectedItem)
-            //{
-            //    // Video
-            //    case "webm":
-            //        cMap = "-map_chapters -1"; // remove chapters
-            //        break;
-
-            //    case "mp4":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "mkv":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "m2v":
-            //        cMap = "-map_chapters -1"; // remove chapters
-            //        break;
-
-            //    case "mpg":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "avi":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "ogv":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    // Audio
-            //    case "mp3":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "m4a":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "ogg":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "flac":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    case "wav":
-            //        cMap = "-map_chapters 0"; // all chapters
-            //        break;
-
-            //    // All Other Formats
-            //    //
-            //    default:
-            //        cMap = string.Empty; // do not copy chapters
-            //        break;
-            //}
-
-            //// -------------------------
-            //// Remove Chapters Map if Input File is Audio Format
-            //// -------------------------
-            //if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-            //    //|| Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase))
-            //    )
-            //{
-            //    cMap = string.Empty;
-            //}
-
-
-            //// Log Console Message /////////
-            //Log.WriteAction = () =>
-            //{
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Chapters: ")) { Foreground = Log.ConsoleDefault });
-            //    Log.logParagraph.Inlines.Add(new Run(cMap) { Foreground = Log.ConsoleDefault });
-            //};
-            //Log.LogActions.Add(Log.WriteAction);
-
 
             // --------------------------------------------------------------------
             // Combine Maps
