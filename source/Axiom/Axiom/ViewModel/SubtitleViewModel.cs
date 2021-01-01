@@ -66,7 +66,17 @@ namespace ViewModel
             Subtitle_Stream_IsEnabled = true;
             Subtitle_Stream_SelectedItem = "none";
 
-            Subtitle_ListView_IsEnabled = true;
+            Subtitle_ListView_IsEnabled = false;
+            Subtitle_ListView_Opacity = 0.1;
+
+            //Subtitle_Metadata_Title_IsEnabled = false;
+            Subtitle_Metadata_Title_Text = string.Empty;
+
+            //Subtitle_Metadata_Language_IsEnabled = false;
+            Subtitle_Metadata_Language_SelectedItem = "none";
+
+            //Subtitle_Delay_IsEnabled = false;
+            Subtitle_Delay_Text = string.Empty;
         }
 
 
@@ -333,7 +343,169 @@ namespace ViewModel
             }
         }
 
+        // -------------------------
+        // Title Metadata
+        // -------------------------
+        // Text
+        private string _Subtitle_Metadata_Title_Text;
+        public string Subtitle_Metadata_Title_Text
+        {
+            get { return _Subtitle_Metadata_Title_Text; }
+            set
+            {
+                if (_Subtitle_Metadata_Title_Text == value)
+                {
+                    return;
+                }
 
+                _Subtitle_Metadata_Title_Text = value;
+                OnPropertyChanged("Subtitle_Metadata_Title_Text");
+            }
+        }
+        // Enabled
+        private bool _Subtitle_Metadata_Title_IsEnabled;
+        public bool Subtitle_Metadata_Title_IsEnabled
+        {
+            get { return _Subtitle_Metadata_Title_IsEnabled; }
+            set
+            {
+                if (_Subtitle_Metadata_Title_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Subtitle_Metadata_Title_IsEnabled = value;
+                OnPropertyChanged("Subtitle_Metadata_Title_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Language Metadata
+        // --------------------------------------------------
+        public class Subtitle_Metadata_Language
+        {
+            public string Name { get; set; }
+            public string Param { get; set; }
+        }
+        private ObservableCollection<Subtitle_Metadata_Language> _Subtitle_Metadata_Language_Items = new ObservableCollection<Subtitle_Metadata_Language>()
+        {
+            new Subtitle_Metadata_Language() { Name = "none",       Param = string.Empty  },
+            new Subtitle_Metadata_Language() { Name = "Arabic",     Param = "ar" },
+            new Subtitle_Metadata_Language() { Name = "Bengali",    Param = "bn" },
+            new Subtitle_Metadata_Language() { Name = "Chinese",    Param = "chi" },
+            new Subtitle_Metadata_Language() { Name = "Dutch",      Param = "nl" },
+            new Subtitle_Metadata_Language() { Name = "English",    Param = "en" },
+            new Subtitle_Metadata_Language() { Name = "Finnish",    Param = "fi" },
+            new Subtitle_Metadata_Language() { Name = "French",     Param = "fr" },
+            new Subtitle_Metadata_Language() { Name = "German",     Param = "de" },
+            new Subtitle_Metadata_Language() { Name = "Hindi",      Param = "hi" },
+            new Subtitle_Metadata_Language() { Name = "Italian",    Param = "it" },
+            new Subtitle_Metadata_Language() { Name = "Japanese",   Param = "jp" },
+            new Subtitle_Metadata_Language() { Name = "Korean",     Param = "kor" },
+            new Subtitle_Metadata_Language() { Name = "Portuguese", Param = "pt" },
+            new Subtitle_Metadata_Language() { Name = "Russian",    Param = "ru" },
+            new Subtitle_Metadata_Language() { Name = "Spanish",    Param = "es" },
+            new Subtitle_Metadata_Language() { Name = "Swedish",    Param = "sv" },
+            new Subtitle_Metadata_Language() { Name = "Vietnamese", Param = "vi" },
+        };
+        public ObservableCollection<Subtitle_Metadata_Language> Subtitle_Metadata_Language_Items
+        {
+            get { return _Subtitle_Metadata_Language_Items; }
+            set
+            {
+                _Subtitle_Metadata_Language_Items = value;
+                OnPropertyChanged("Subtitle_Metadata_Language_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Subtitle_Metadata_Language_SelectedIndex;
+        public int Subtitle_Metadata_Language_SelectedIndex
+        {
+            get { return _Subtitle_Metadata_Language_SelectedIndex; }
+            set
+            {
+                if (_Subtitle_Metadata_Language_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Subtitle_Metadata_Language_SelectedIndex = value;
+                OnPropertyChanged("Subtitle_Metadata_Language_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Subtitle_Metadata_Language_SelectedItem;
+        public string Subtitle_Metadata_Language_SelectedItem
+        {
+            get { return _Subtitle_Metadata_Language_SelectedItem; }
+            set
+            {
+                if (_Subtitle_Metadata_Language_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Subtitle_Metadata_Language_SelectedItem = value;
+                OnPropertyChanged("Subtitle_Metadata_Language_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Subtitle_Metadata_Language_IsEnabled;
+        public bool Subtitle_Metadata_Language_IsEnabled
+        {
+            get { return _Subtitle_Metadata_Language_IsEnabled; }
+            set
+            {
+                if (_Subtitle_Metadata_Language_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Subtitle_Metadata_Language_IsEnabled = value;
+                OnPropertyChanged("Subtitle_Metadata_Language_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Delay
+        // -------------------------
+        // Text
+        private string _Subtitle_Delay_Text;
+        public string Subtitle_Delay_Text
+        {
+            get { return _Subtitle_Delay_Text; }
+            set
+            {
+                if (_Subtitle_Delay_Text == value)
+                {
+                    return;
+                }
+
+                _Subtitle_Delay_Text = value;
+                OnPropertyChanged("Subtitle_Delay_Text");
+            }
+        }
+        // Enabled
+        private bool _Subtitle_Delay_IsEnabled;
+        public bool Subtitle_Delay_IsEnabled
+        {
+            get { return _Subtitle_Delay_IsEnabled; }
+            set
+            {
+                if (_Subtitle_Delay_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Subtitle_Delay_IsEnabled = value;
+                OnPropertyChanged("Subtitle_Delay_IsEnabled");
+            }
+        }
 
     }
 }
