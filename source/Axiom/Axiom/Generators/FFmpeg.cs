@@ -190,14 +190,23 @@ namespace Generate
             // -------------------------
             // Write FFmpeg Args
             // -------------------------
-            VM.MainView.ScriptView_Text = ffmpegArgs;
+            //VM.MainView.ScriptView_Text = ffmpegArgs;
+            MainWindow.scriptText = ffmpegArgs;  // Prevents ScriptView Flicker
 
+            // -------------------------
             // Sort Script
+            // -------------------------
             // Only if Auto Sort is enabled
             if (VM.MainView.AutoSortScript_IsChecked == true)
             {
                 Controls.ScriptView.sort = false;
                 MainWindow.Sort();
+            }
+            // Auto Sort Script Off
+            else if (VM.MainView.AutoSortScript_IsChecked == false)
+            {
+                // Inline
+                VM.MainView.ScriptView_Text = ffmpegArgs;
             }
         }
 
