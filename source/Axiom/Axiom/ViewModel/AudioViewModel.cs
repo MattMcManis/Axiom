@@ -93,7 +93,7 @@ namespace ViewModel
             Audio_HardLimiter_Value = 0.0;
 
             Audio_ListView_IsEnabled = false;
-            Audio_ListView_Opacity = 0.1;
+            Audio_ListView_Opacity = 0.15;
 
             //Audio_Metadata_Title_IsEnabled = false;
             Audio_Metadata_Title_Text = string.Empty;
