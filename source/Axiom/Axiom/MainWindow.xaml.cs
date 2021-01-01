@@ -1454,7 +1454,7 @@ namespace Axiom
             Generate.Streams.mvMap = string.Empty;
             Generate.Streams.maMap = string.Empty;
             Generate.Streams.msMap = string.Empty;
-            Generate.Streams.mcMap = string.Empty;
+            //Generate.Streams.mcMap = string.Empty;
 
             // Do not Empty:
             //
