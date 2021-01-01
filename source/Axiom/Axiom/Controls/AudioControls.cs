@@ -131,82 +131,261 @@ namespace Controls.Audio
 
                 VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
 
+                // --------------------------------------------------
+                // Save Previous Item
+                // --------------------------------------------------
+                // Save before changing Items Source
+                // -------------------------
+                // Stream
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.AudioView.Audio_Stream_SelectedItem) == true)
+                {
+                    MainWindow.Audio_Stream_PreviousItem = VM.AudioView.Audio_Stream_SelectedItem;
+                }
 
                 // -------------------------
+                // Channel
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.AudioView.Audio_Channel_SelectedItem) == true)
+                {
+                    MainWindow.Audio_Channel_PreviousItem = VM.AudioView.Audio_Channel_SelectedItem;
+                }
+
+                // -------------------------
+                // Quality
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.AudioView.Audio_Quality_SelectedItem) == true)
+                {
+                    MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
+                }
+
+                // -------------------------
+                // Compression Level
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.AudioView.Audio_CompressionLevel_SelectedItem) == true)
+                {
+                    MainWindow.Audio_CompressionLevel_PreviousItem = VM.AudioView.Audio_CompressionLevel_SelectedItem;
+                }
+
+                // -------------------------
+                // Sample Rate
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.AudioView.Audio_SampleRate_SelectedItem) == true)
+                {
+                    MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
+                }
+
+                // -------------------------
+                // Bit Depth
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.AudioView.Audio_BitDepth_SelectedItem) == true)
+                {
+                    MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
+                }
+
+
+                // --------------------------------------------------
                 // Items Source
+                // --------------------------------------------------
+                // -------------------------
+                // Channel
                 // -------------------------
                 VM.AudioView.Audio_Channel_Items = _codec_class[codec_SelectedItem].channel;
 
+                // -------------------------
+                // Quality
+                // -------------------------
                 VM.AudioView.Audio_Quality_Items = _codec_class[codec_SelectedItem].quality;
 
+                // -------------------------
+                // Compression Level
+                // -------------------------
                 VM.AudioView.Audio_CompressionLevel_Items = _codec_class[codec_SelectedItem].compressionLevel;
 
+                // -------------------------
+                // Sample Rate
+                // -------------------------
                 VM.AudioView.Audio_SampleRate_Items = _codec_class[codec_SelectedItem].sampleRate;
 
+                // -------------------------
+                // Bit Depth
+                // -------------------------
                 VM.AudioView.Audio_BitDepth_Items = _codec_class[codec_SelectedItem].bitDepth;
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Selected Items
+                // --------------------------------------------------
                 // -------------------------
                 // Stream
+                // -------------------------
                 string stream = _codec_class[codec_SelectedItem].controls_Selected
                                                                 .Find(item => item.Stream == item.Stream)
                                                                 .Stream;
-
+                // Has Value
                 if (!string.IsNullOrEmpty(stream))
                 {
                     VM.AudioView.Audio_Stream_SelectedItem = stream;
                 }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.AudioView.Audio_Stream_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.AudioView.Audio_Stream_Items.ToList(),
+                                                                      MainWindow.Audio_Stream_PreviousItem
+                                                                  );
 
+                    // Clear Previous Item
+                    MainWindow.Audio_Stream_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
                 // Channel
+                // -------------------------
                 string channel = _codec_class[codec_SelectedItem].controls_Selected
                                                                   .Find(item => item.Channel == item.Channel)
                                                                   .Channel;
+                // Has Value
                 if (!string.IsNullOrEmpty(channel))
                 {
                     VM.AudioView.Audio_Channel_SelectedItem = channel;
                 }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.AudioView.Audio_Channel_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.AudioView.Audio_Channel_Items.ToList(),
+                                                                      MainWindow.Audio_Channel_PreviousItem
+                                                                  );
 
+                    // Clear Previous Item
+                    MainWindow.Audio_Channel_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
                 // Quality
+                // -------------------------
                 string quality = _codec_class[codec_SelectedItem].controls_Selected
                                                                 .Find(item => item.Quality == item.Quality)
                                                                 .Quality;
-
+                // Has Value
                 if (!string.IsNullOrEmpty(quality))
                 {
                     VM.AudioView.Audio_Quality_SelectedItem = quality;
                 }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.AudioView.Audio_Quality_Items.Select(x => x.Name).ToList(),
+                                                                      MainWindow.Audio_Quality_PreviousItem
+                                                                  );
 
+                    // Clear Previous Item
+                    MainWindow.Audio_Quality_PreviousItem = string.Empty;
+                }
+
+                // For errors causing ComboBox not to select an item
+                if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
+                {
+                    // Default to First Item
+                    VM.AudioView.Audio_Quality_Items.FirstOrDefault();
+                }
+
+                // -------------------------
                 // Compression Level
+                // -------------------------
                 string compressionLevel = _codec_class[codec_SelectedItem].controls_Selected
                                                                           //.Select(item => item.CompressionLevel)
                                                                           //.First();
                                                                           .Find(item => item.CompressionLevel == item.CompressionLevel)
                                                                           .CompressionLevel;
+                // Has Value
                 if (!string.IsNullOrEmpty(compressionLevel))
                 {
                     VM.AudioView.Audio_CompressionLevel_SelectedItem = compressionLevel;
                 }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.AudioView.Audio_CompressionLevel_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.AudioView.Audio_CompressionLevel_Items.ToList(),
+                                                                      MainWindow.Audio_CompressionLevel_PreviousItem
+                                                                  );
 
+                    // Clear Previous Item
+                    MainWindow.Audio_CompressionLevel_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
                 // Sample Rate
+                // -------------------------
                 string sampleRate = _codec_class[codec_SelectedItem].controls_Selected
                                                                     .Find(item => item.SampleRate == item.SampleRate)
                                                                     .SampleRate;
+                // Has Value
                 if (!string.IsNullOrEmpty(sampleRate))
                 {
                     VM.AudioView.Audio_SampleRate_SelectedItem = sampleRate;
                 }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.AudioView.Audio_SampleRate_Items.Select(x => x.Name).ToList(),
+                                                                      MainWindow.Audio_SampleRate_PreviousItem
+                                                                  );
 
+                    // Clear Previous Item
+                    MainWindow.Audio_SampleRate_PreviousItem = string.Empty;
+                }
+
+                // For errors causing ComboBox not to select an item
+                if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem))
+                {
+                    // Default to First Item
+                    VM.AudioView.Audio_SampleRate_Items.FirstOrDefault();
+                }
+
+                // -------------------------
                 // Bit Depth
+                // -------------------------
                 string bitDepth = _codec_class[codec_SelectedItem].controls_Selected
                                                                   .Find(item => item.BitDepth == item.BitDepth)
                                                                   .BitDepth;
+                // Has Value
                 if (!string.IsNullOrEmpty(bitDepth))
                 {
                     VM.AudioView.Audio_BitDepth_SelectedItem = bitDepth;
                 }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.AudioView.Audio_BitDepth_Items.Select(x => x.Name).ToList(),
+                                                                      MainWindow.Audio_BitDepth_PreviousItem
+                                                                  );
 
+                    // Clear Previous Item
+                    MainWindow.Audio_BitDepth_PreviousItem = string.Empty;
+                }
+
+                // For errors causing ComboBox not to select an item
+                if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem))
+                {
+                    // Default to First Item
+                    VM.AudioView.Audio_BitDepth_Items.FirstOrDefault();
+                }
+
+                // -------------------------
                 // Filters
+                // -------------------------
                 // Select Defaults
                 if (codec_SelectedItem == "Copy" ||
                     codec_SelectedItem == "None")
@@ -214,14 +393,16 @@ namespace Controls.Audio
                     Filters.Audio.AudioFilters_ControlsSelectDefaults();
                 }
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Checked
-                // -------------------------
+                // --------------------------------------------------
                 VM.AudioView.Audio_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Any(item => item.VBR);
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Enabled
-                // -------------------------
+                // --------------------------------------------------
                 // Codec
                 VM.AudioView.Audio_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Codec);
                 // Stream
@@ -255,84 +436,6 @@ namespace Controls.Audio
                 {
                     Filters.Audio.AudioFilters_EnableAll();
                 }
-            }
-
-
-            // --------------------------------------------------
-            // Default Selected Item
-            // --------------------------------------------------
-
-            //// -------------------------
-            //// Audio Quality Selected Item
-            //// -------------------------
-            //// Save the Previous Codec's Item
-            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem) &&
-            //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
-            //    VM.AudioView.Audio_Quality_SelectedItem.ToLower() != "none") // None / none
-            //{
-            //    MainWindow.Audio_Quality_PreviousItem = VM.AudioView.Audio_Quality_SelectedItem;
-            //}
-
-            //// Select the Prevoius Codec's Item if available
-            //// If missing Select Default to First Item
-            //// Ignore Codec Copy
-            //if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-            //{
-            //    VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
-            //                                                                      MainWindow.Audio_Quality_PreviousItem
-            //                                                                     );
-            //}
-
-            //// -------------------------
-            //// Audio SampleRate Selected Item
-            //// -------------------------
-            //// Save the Previous Codec's Item
-            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem) &&
-            //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "auto" && // Auto / auto
-            //    VM.AudioView.Audio_SampleRate_SelectedItem.ToLower() != "none") // None / none
-            //{
-            //    MainWindow.Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
-            //}
-
-            //// Select the Prevoius Codec's Item if available
-            //// If missing Select Default to First Item
-            //// Ignore Codec Copy
-            ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-            ////{
-            //    VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
-            //                                                                     MainWindow.Audio_SampleRate_PreviousItem
-            //                                                                     );
-            ////}
-
-            //// -------------------------
-            //// Audio BitDepth Selected Item
-            //// -------------------------
-            //// Save the Previous Codec's Item
-            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_BitDepth_SelectedItem) &&
-            //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "auto" && // Auto / auto
-            //    VM.AudioView.Audio_BitDepth_SelectedItem.ToLower() != "none") // None / none
-            //{
-            //    MainWindow.Audio_BitDepth_PreviousItem = VM.AudioView.Audio_BitDepth_SelectedItem;
-            //}
-
-            //// Select the Prevoius Codec's Item if available
-            //// If missing Select Default to First Item
-            //// Ignore Codec Copy
-            ////if (VM.AudioView.Audio_Codec_SelectedItem != "Copy")
-            ////{
-            //    VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
-            //                                                                   MainWindow.Audio_BitDepth_PreviousItem
-            //                                                                  );
-            ////}
-
-            // -------------------------
-            // Audio Quality Selected Item Null Check
-            // -------------------------
-            // For errors causing ComboBox not to select an item
-            if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Quality_SelectedItem))
-            {
-                // Default to First Item
-                VM.AudioView.Audio_Quality_Items.FirstOrDefault();
             }
         }
 

@@ -157,17 +157,13 @@ namespace Controls.Video
         /// </summary>
         public static void CodecControls(string codec_SelectedItem)
         {
-            // --------------------------------------------------
-            // Codec
-            // --------------------------------------------------
-
             if (!string.IsNullOrWhiteSpace(codec_SelectedItem))
             {
                 InitializeCodecs();
 
-                // -------------------------
+                // --------------------------------------------------
                 // Codec
-                // -------------------------
+                // --------------------------------------------------
                 List<string> codec = new List<string>()
                 {
                     // Combine Codec + Parameters
@@ -178,22 +174,87 @@ namespace Controls.Video
 
                 VM.VideoView.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
 
-                // -------------------------
-                // Items Source
+
+                // --------------------------------------------------
+                // Save Previous Item
+                // --------------------------------------------------
+                // Save before changing Items Source
                 // -------------------------
                 // Encode Speed
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.VideoView.Video_EncodeSpeed_SelectedItem) == true)
+                {
+                    //MessageBox.Show("1 Save Previous Item " + VM.VideoView.Video_EncodeSpeed_SelectedItem); //debug
+                    MainWindow.Video_EncodeSpeed_PreviousItem = VM.VideoView.Video_EncodeSpeed_SelectedItem;
+                }
+
+                // -------------------------
+                // Quality
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.VideoView.Video_Quality_SelectedItem) == true)
+                {
+                    MainWindow.Video_Quality_PreviousItem = VM.VideoView.Video_Quality_SelectedItem;
+                }
+
+                // -------------------------
+                // Optimize
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.VideoView.Video_Optimize_SelectedItem) == true)
+                {
+                    MainWindow.Video_Optimize_PreviousItem = VM.VideoView.Video_Optimize_SelectedItem;
+                }
+
+                // -------------------------
+                // Optimize Tune
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.VideoView.Video_Optimize_Tune_SelectedItem) == true)
+                {
+                    MainWindow.Video_Optimize_Tune_PreviousItem = VM.VideoView.Video_Optimize_Tune_SelectedItem;
+                }
+
+                // -------------------------
+                // Optimize Profile
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.VideoView.Video_Optimize_Profile_SelectedItem) == true)
+                {
+                    MainWindow.Video_Optimize_Profile_PreviousItem = VM.VideoView.Video_Optimize_Profile_SelectedItem;
+                }
+
+                // -------------------------
+                // Optimize Level
+                // -------------------------
+                if (MainWindow.SavePreviousItemCond(VM.VideoView.Video_Optimize_Level_SelectedItem) == true)
+                {
+                    MainWindow.Video_Optimize_Level_PreviousItem = VM.VideoView.Video_Optimize_Level_SelectedItem;
+                }
+
+
+                // --------------------------------------------------
+                // Items Source
+                // --------------------------------------------------
+                // -------------------------
+                // Encode Speed
+                // -------------------------
                 VM.VideoView.Video_EncodeSpeed_Items = _codec_class[codec_SelectedItem].encodeSpeed;
 
+                // -------------------------
                 // Pixel Format
+                // -------------------------
                 VM.VideoView.Video_PixelFormat_Items = _codec_class[codec_SelectedItem].pixelFormat;
 
+                // -------------------------
                 // Pass
+                // -------------------------
                 _codec_class[codec_SelectedItem].EncodingPass();
 
+                // -------------------------
                 // Video Quality
+                // -------------------------
                 VM.VideoView.Video_Quality_Items = _codec_class[codec_SelectedItem].quality;
 
+                // -------------------------
                 // Optimize
+                // -------------------------
                 VM.VideoView.Video_Optimize_Items = _codec_class[codec_SelectedItem].optimize;
                 // Tune
                 VM.VideoView.Video_Optimize_Tune_Items = _codec_class[codec_SelectedItem].tune;
@@ -202,19 +263,41 @@ namespace Controls.Video
                 // Level
                 VM.VideoView.Video_Optimize_Level_Items = _codec_class[codec_SelectedItem].level;
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Selected Items
+                // --------------------------------------------------
                 // -------------------------
                 // Encode Speed
+                // -------------------------
                 string encodeSpeed = _codec_class[codec_SelectedItem].controls_Selected
                                                                      .Find(item => item.EncodeSpeed == item.EncodeSpeed)
                                                                      .EncodeSpeed;
+                // Has Value
                 if (!string.IsNullOrEmpty(encodeSpeed))
                 {
                     VM.VideoView.Video_EncodeSpeed_SelectedItem = encodeSpeed;
                 }
+                // Previous Item
+                else
+                {
+                    //MessageBox.Show("2 Previous Item: " + MainWindow.Video_EncodeSpeed_PreviousItem); //debug // empty on change
 
+                    // Select the Prevoius Codec's Item
+                    VM.VideoView.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.VideoView.Video_EncodeSpeed_Items.Select(x => x.Name).ToList(),
+                                                                      MainWindow.Video_EncodeSpeed_PreviousItem
+                                                                  );
+
+                    //MessageBox.Show("3 Selected Item: " + VM.VideoView.Video_EncodeSpeed_SelectedItem); //debug
+
+                    // Clear Previous Item
+                    MainWindow.Video_EncodeSpeed_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
                 // HW Accel
+                // -------------------------
                 string hwAccel = _codec_class[codec_SelectedItem].controls_Selected
                                                                  .Find(item => item.HWAccel == item.HWAccel)
                                                                  .HWAccel;
@@ -223,7 +306,40 @@ namespace Controls.Video
                     VM.VideoView.Video_HWAccel_SelectedItem = hwAccel;
                 }
 
+                // -------------------------
+                // Quality
+                // -------------------------
+                string quality = _codec_class[codec_SelectedItem].controls_Selected
+                                                                 .Find(item => item.Quality == item.Quality)
+                                                                 .Quality;
+                // Has Value
+                if (!string.IsNullOrEmpty(quality))
+                {
+                    VM.VideoView.Video_Quality_SelectedItem = quality;
+                }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.VideoView.Video_Quality_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.VideoView.Video_Quality_Items.Select(x => x.Name).ToList(),
+                                                                      MainWindow.Video_Quality_PreviousItem
+                                                                  );
+
+                    // Clear Previous Item
+                    MainWindow.Video_Quality_PreviousItem = string.Empty;
+                }
+
+                // For errors causing ComboBox not to select an item
+                if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem))
+                {
+                    // Default to First Item
+                    VM.VideoView.Video_Quality_Items.FirstOrDefault();
+                }
+
+                // -------------------------
                 // Pixel Format
+                // -------------------------
                 switch (VM.VideoView.Video_Quality_SelectedItem)
                 {
                     // Lossless
@@ -252,7 +368,107 @@ namespace Controls.Video
                         break;
                 }
 
+                // -------------------------
+                // Optimize
+                // -------------------------
+                string optimize = _codec_class[codec_SelectedItem].controls_Selected
+                                                                  .Find(item => item.Optimize == item.Optimize)
+                                                                  .Optimize;
+                // Has Value
+                if (!string.IsNullOrEmpty(optimize))
+                {
+                    VM.VideoView.Video_Optimize_SelectedItem = optimize;
+                }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.VideoView.Video_Optimize_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.VideoView.Video_Optimize_Items.Select(x => x.Name).ToList(),
+                                                                      MainWindow.Video_Optimize_PreviousItem
+                                                                  );
+
+                    // Clear Previous Item
+                    MainWindow.Video_Optimize_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
+                // Optimize Tune
+                // -------------------------
+                string tune = _codec_class[codec_SelectedItem].controls_Selected
+                                                              .Find(item => item.Optimize_Tune == item.Optimize_Tune)
+                                                              .Optimize_Tune;
+                // Has Value
+                if (!string.IsNullOrEmpty(tune))
+                {
+                    VM.VideoView.Video_Optimize_Tune_SelectedItem = tune;
+                }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.VideoView.Video_Optimize_Tune_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.VideoView.Video_Optimize_Tune_Items.ToList(),
+                                                                      MainWindow.Video_Optimize_Tune_PreviousItem
+                                                                  );
+
+                    //MessageBox.Show("1 Selected Item: " + VM.VideoView.Video_Optimize_Tune_SelectedItem); //debug // empty on change
+
+                    // Clear Previous Item
+                    MainWindow.Video_Optimize_Tune_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
+                // Optimize Profile
+                // -------------------------
+                string profile = _codec_class[codec_SelectedItem].controls_Selected
+                                                                 .Find(item => item.Optimize_Profile == item.Optimize_Profile)
+                                                                 .Optimize_Profile;
+                // Has Value
+                if (!string.IsNullOrEmpty(profile))
+                {
+                    VM.VideoView.Video_Optimize_Profile_SelectedItem = profile;
+                }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.VideoView.Video_Optimize_Profile_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.VideoView.Video_Optimize_Profile_Items.ToList(),
+                                                                      MainWindow.Video_Optimize_Profile_PreviousItem
+                                                                  );
+
+                    // Clear Previous Item
+                    MainWindow.Video_Optimize_Profile_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
+                // Optimize Level
+                // -------------------------
+                string level = _codec_class[codec_SelectedItem].controls_Selected
+                                                              .Find(item => item.Optimize_Level == item.Optimize_Level)
+                                                              .Optimize_Level;
+                // Has Value
+                if (!string.IsNullOrEmpty(level))
+                {
+                    VM.VideoView.Video_Optimize_Level_SelectedItem = level;
+                }
+                // Previous Item
+                else
+                {
+                    // Select the Prevoius Codec's Item
+                    VM.VideoView.Video_Optimize_Level_SelectedItem = MainWindow.SelectedItem(
+                                                                      VM.VideoView.Video_Optimize_Level_Items.ToList(),
+                                                                      MainWindow.Video_Optimize_Level_PreviousItem
+                                                                  );
+
+                    // Clear Previous Item
+                    MainWindow.Video_Optimize_Level_PreviousItem = string.Empty;
+                }
+
+                // -------------------------
                 // FPS
+                // -------------------------
                 string fps = _codec_class[codec_SelectedItem].controls_Selected
                                                              .Find(item => item.FPS == item.FPS)
                                                              .FPS;
@@ -261,7 +477,9 @@ namespace Controls.Video
                     VM.VideoView.Video_FPS_SelectedItem = fps;
                 }
 
+                // -------------------------
                 // Speed
+                // -------------------------
                 string speed = _codec_class[codec_SelectedItem].controls_Selected
                                                                .Find(item => item.Speed == item.Speed)
                                                                .Speed;
@@ -270,7 +488,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Speed_SelectedItem = speed;
                 }
 
+                // -------------------------
                 // Vsync
+                // -------------------------
                 string vsync = _codec_class[codec_SelectedItem].controls_Selected
                                                                .Find(item => item.Vsync == item.Vsync)
                                                                .Vsync;
@@ -279,7 +499,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Vsync_SelectedItem = vsync;
                 }
 
+                // -------------------------
                 // Scale
+                // -------------------------
                 string scale = _codec_class[codec_SelectedItem].controls_Selected
                                                                .Find(item => item.Scale == item.Scale)
                                                                .Scale;
@@ -288,7 +510,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Scale_SelectedItem = scale;
                 }
 
+                // -------------------------
                 // Color Range
+                // -------------------------
                 string colorRange = _codec_class[codec_SelectedItem].controls_Selected
                                                                     .Find(item => item.ColorRange == item.ColorRange)
                                                                     .ColorRange;
@@ -297,7 +521,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Color_Range_SelectedItem = colorRange;
                 }
 
+                // -------------------------
                 // Color Space
+                // -------------------------
                 string colorSpace = _codec_class[codec_SelectedItem].controls_Selected
                                                                     .Find(item => item.ColorSpace == item.ColorSpace)
                                                                     .ColorSpace;
@@ -306,7 +532,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Color_Space_SelectedItem = colorSpace;
                 }
 
+                // -------------------------
                 // Color Primaries
+                // -------------------------
                 string colorPrimaries = _codec_class[codec_SelectedItem].controls_Selected
                                                                         .Find(item => item.ColorPrimaries == item.ColorPrimaries)
                                                                         .ColorPrimaries;
@@ -315,7 +543,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Color_Primaries_SelectedItem = colorPrimaries;
                 }
 
+                // -------------------------
                 // Color Transfer Characteristics
+                // -------------------------
                 string colorTransferChar = _codec_class[codec_SelectedItem].controls_Selected
                                                                            .Find(item => item.ColorTransferChar == item.ColorTransferChar)
                                                                            .ColorTransferChar;
@@ -324,7 +554,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = colorTransferChar;
                 }
 
+                // -------------------------
                 // Color Matrix
+                // -------------------------
                 string colorMatrix = _codec_class[codec_SelectedItem].controls_Selected
                                                                      .Find(item => item.ColorMatrix == item.ColorMatrix)
                                                                      .ColorMatrix;
@@ -333,7 +565,9 @@ namespace Controls.Video
                     VM.VideoView.Video_Color_Matrix_SelectedItem = colorMatrix;
                 }
 
+                // -------------------------
                 // Filters
+                // -------------------------
                 // Select Defaults
                 if (codec_SelectedItem == "Copy" ||
                     codec_SelectedItem == "None")
@@ -341,21 +575,24 @@ namespace Controls.Video
                     Filters.Video.VideoFilters_ControlsSelectDefaults();
                 }
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Expanded
-                // -------------------------
+                // --------------------------------------------------
                 // Optimize
                 VM.VideoView.Video_Optimize_IsExpanded = _codec_class[codec_SelectedItem].controls_Expanded.Any(item => item.Optimize);
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Checked
-                // -------------------------
+                // --------------------------------------------------
                 // Video VBR
                 VM.VideoView.Video_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Find(item => item.VBR == item.VBR).VBR;
 
-                // -------------------------
+
+                // --------------------------------------------------
                 // Enabled
-                // -------------------------
+                // --------------------------------------------------
                 // Video Encode Speed
                 VM.VideoView.Video_EncodeSpeed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.EncodeSpeed);
 
@@ -428,72 +665,6 @@ namespace Controls.Video
                 {
                     Filters.Video.VideoFilters_EnableAll();
                 }
-            }
-
-
-            // --------------------------------------------------
-            // Default Selected Item
-            // --------------------------------------------------
-
-            // -------------------------
-            // Video Encode Speed Selected Item
-            // -------------------------
-            // Save the Previous Codec's Item
-            if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_EncodeSpeed_SelectedItem) &&
-                !string.Equals(VM.VideoView.Video_EncodeSpeed_SelectedItem, "auto", StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(VM.VideoView.Video_EncodeSpeed_SelectedItem, "none", StringComparison.OrdinalIgnoreCase))
-            {
-                MainWindow.Video_EncodeSpeed_PreviousItem = VM.VideoView.Video_EncodeSpeed_SelectedItem;
-            }
-
-            // Select the Prevoius Codec's Item if available
-            // If missing Select Default to First Item
-            // Ignore Codec Copy
-            //if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
-            //{
-            VM.VideoView.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
-                                                                                  MainWindow.Video_EncodeSpeed_PreviousItem
-                                                                                 );
-            //}
-
-            // -------------------------
-            // Video Quality Selected Item
-            // -------------------------
-            //// Save the Previous Codec's Item
-            //if (!string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem) &&
-            //    VM.VideoView.Video_Quality_SelectedItem.ToLower() != "auto" && // Auto / auto
-            //    VM.VideoView.Video_Quality_SelectedItem.ToLower() != "none") // None / none
-            //{
-            //    MainWindow.Video_Quality_PreviousItem = VM.VideoView.Video_Quality_SelectedItem;
-            //}
-
-            //// Select the Prevoius Codec's Item if available
-            //// If missing Select Default to First Item
-            //// Ignore Codec Copy
-            //if (VM.VideoView.Video_Codec_SelectedItem != "Copy")
-            //{
-            //    VM.VideoView.Video_Quality_SelectedItem = MainWindow.SelectedItem(VM.VideoView.Video_Quality_Items.Select(c => c.Name).ToList(),
-            //                                                                  MainWindow.Video_Quality_PreviousItem
-            //                                                                  );
-            //}
-
-            // -------------------------
-            // Video Pass Selected Item
-            // -------------------------
-
-            // -------------------------
-            // Video Optimize Selected Item
-            // -------------------------
-            // Problem, do not use, selects Web in mp4 when coming from webm
-
-            // -------------------------
-            // Video Quality Selected Item Null Check
-            // -------------------------
-            // For errors causing ComboBox not to select an item
-            if (string.IsNullOrWhiteSpace(VM.VideoView.Video_Quality_SelectedItem))
-            {
-                // Default to First Item
-                VM.VideoView.Video_Quality_Items.FirstOrDefault();
             }
         }
 
@@ -932,16 +1103,19 @@ namespace Controls.Video
             // -------------------------
             // Select Controls
             // -------------------------
-            // Tune
-            VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = VM.VideoView.Video_Optimize_Items
-                                                                  .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Tune;
-            // Profile
-            VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = VM.VideoView.Video_Optimize_Items
-                                                                     .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Profile;
-            // Level
-            VM.VideoView.Video_Optimize_Level_SelectedItem = VM.VideoView.Video_Optimize_Items
-                                                             .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Level;
+            if (VM.VideoView.Video_Optimize_SelectedItem != "Custom") // Ignore Custom
+            {
+                // Tune
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = VM.VideoView.Video_Optimize_Items
+                                                                .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Tune;
 
+                // Profile
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = VM.VideoView.Video_Optimize_Items
+                                                                   .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Profile;
+                // Level
+                VM.VideoView.Video_Optimize_Level_SelectedItem = VM.VideoView.Video_Optimize_Items
+                                                                 .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Level;
+            }
         }
 
 
