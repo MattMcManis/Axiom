@@ -25,6 +25,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Linq;
 using ViewModel;
+using System.IO;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -131,6 +132,30 @@ namespace Axiom
             // Output Path Update Display
             // -------------------------
             //OutputPath_UpdateDisplay();
+        }
+
+        /// <summary>
+        /// Audio Stream - ComboBox
+        /// </summary>
+        private void cboAudio_Stream_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Mux
+            // -------------------------
+            if (VM.AudioView.Audio_Stream_SelectedItem == "mux")
+            {
+                // Enable Audio Mux ListView and Buttons
+                VM.AudioView.Audio_ListView_IsEnabled = true;
+
+                VM.AudioView.Audio_ListView_Opacity = 1;
+            }
+            else
+            {
+                // Disable Audio Mux ListView and Buttons
+                VM.AudioView.Audio_ListView_IsEnabled = false;
+
+                VM.AudioView.Audio_ListView_Opacity = 0.1;
+            }
         }
 
 
@@ -452,5 +477,504 @@ namespace Axiom
         {
             //Controls.Audio.Controls.AutoCopyAudioCodec("control");
         }
+
+
+        /// <summary>
+        /// Audio Mux - ListView
+        /// </summary>
+        private void lstvAudio_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // ListView
+            // -------------------------
+            // Clear before adding new selected items
+            if (VM.AudioView.Audio_ListView_SelectedItems != null &&
+                VM.AudioView.Audio_ListView_SelectedItems.Count > 0)
+            {
+                VM.AudioView.Audio_ListView_SelectedItems.Clear();
+                VM.AudioView.Audio_ListView_SelectedItems.TrimExcess();
+            }
+
+            // Create Selected Items List for ViewModel
+            VM.AudioView.Audio_ListView_SelectedItems = lstvAudio.SelectedItems
+                                                                 .Cast<string>()
+                                                                 .ToList();
+
+            // -------------------------
+            // Set Metadata
+            // -------------------------
+            int selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+            // Title
+            if (Generate.Audio.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+            {
+                tbxAudio_Metadata_Title.Text = Generate.Audio.Metadata.titleList[selectedIndex];
+            }
+            else
+            {
+                tbxAudio_Metadata_Title.Text = string.Empty;
+            }
+
+            // Language
+            if (Generate.Audio.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+            {
+                VM.AudioView.Audio_Metadata_Language_SelectedItem = Generate.Audio.Metadata.languageList[selectedIndex];
+
+                // default
+                if (string.IsNullOrWhiteSpace(VM.AudioView.Audio_Metadata_Language_SelectedItem))
+                {
+                    VM.AudioView.Audio_Metadata_Language_SelectedItem = "none";
+                }
+            }
+            else
+            {
+                VM.AudioView.Audio_Metadata_Language_SelectedItem = "none";
+            }
+
+            // Delay
+            if (Generate.Audio.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+            {
+                VM.AudioView.Audio_Delay_Text = Generate.Audio.Metadata.delayList[selectedIndex];
+            }
+            else
+            {
+                VM.AudioView.Audio_Delay_Text = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Audio Add - Button
+        /// </summary>
+        private void btnAudio_Add_Click(object sender, RoutedEventArgs e)
+        {
+            // Open Select File Window
+            //Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                //RestoreDirectory = true,
+                //ReadOnlyChecked = true,
+                //ShowReadOnly = true
+            };
+
+            // Defaults
+            selectFiles.Multiselect = true;
+            selectFiles.Filter = "All files (*.*)|*.*";
+
+            // Process Dialog Box
+            //Nullable<bool> result = selectFiles.ShowDialog();
+            //if (result == true)
+            if (selectFiles.ShowDialog() == true)
+            {
+                // Reset
+                //AudiosClear();
+
+                // Add Selected Files to List
+                for (var i = 0; i < selectFiles.FileNames.Length; i++)
+                {
+                    // Wrap in quotes for ffmpeg -i
+                    Generate.Audio.Audio.audioFilePathsList.Add(WrapWithQuotes(selectFiles.FileNames[i]));
+                    //MessageBox.Show(Video.audioFiles[i]); //debug
+
+                    Generate.Audio.Audio.audioFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
+
+                    // ListView Display File Names + Ext
+                    VM.AudioView.Audio_ListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
+
+                    // Metadata Placeholders
+                    // Title
+                    Generate.Audio.Metadata.titleList.Add(string.Empty);
+
+                    // Language
+                    Generate.Audio.Metadata.languageList.Add(string.Empty);
+
+                    // Delay
+                    Generate.Audio.Metadata.delayList.Add(string.Empty);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Audio Remove
+        /// </summary>
+        private void btnAudio_Remove_Click(object sender, RoutedEventArgs e)
+        {
+            if (VM.AudioView.Audio_ListView_SelectedItems.Count > 0)
+            {
+                var selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+                // -------------------------
+                // List View
+                // -------------------------
+                // ListView Items
+                var itemlsvFileNames = VM.AudioView.Audio_ListView_Items[selectedIndex];
+                VM.AudioView.Audio_ListView_Items.RemoveAt(selectedIndex);
+
+                // List File Paths
+                string itemFilePaths = Generate.Audio.Audio.audioFilePathsList[selectedIndex];
+                Generate.Audio.Audio.audioFilePathsList.RemoveAt(selectedIndex);
+
+                // List File Names
+                string itemFileNames = Generate.Audio.Audio.audioFileNamesList[selectedIndex];
+                Generate.Audio.Audio.audioFileNamesList.RemoveAt(selectedIndex);
+
+                // -------------------------
+                // Metadata
+                // -------------------------
+                // Title
+                if (Generate.Audio.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    Generate.Audio.Metadata.titleList.RemoveAt(selectedIndex);
+                }
+
+                // Language
+                if (Generate.Audio.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    Generate.Audio.Metadata.languageList.RemoveAt(selectedIndex);
+                }
+
+                // Delay
+                if (Generate.Audio.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    Generate.Audio.Metadata.delayList.RemoveAt(selectedIndex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Audio Sort Up
+        /// </summary>
+        private void btnAudio_SortUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (VM.AudioView.Audio_ListView_SelectedItems.Count > 0)
+            {
+                var selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+                if (selectedIndex > 0)
+                {
+                    // -------------------------
+                    // List View
+                    // -------------------------
+                    // ListView Items
+                    var itemlsvFileNames = VM.AudioView.Audio_ListView_Items[selectedIndex];
+                    VM.AudioView.Audio_ListView_Items.RemoveAt(selectedIndex);
+                    VM.AudioView.Audio_ListView_Items.Insert(selectedIndex - 1, itemlsvFileNames);
+
+                    // List File Paths
+                    string itemFilePaths = Generate.Audio.Audio.audioFilePathsList[selectedIndex];
+                    Generate.Audio.Audio.audioFilePathsList.RemoveAt(selectedIndex);
+                    Generate.Audio.Audio.audioFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
+
+                    // List File Names
+                    string itemFileNames = Generate.Audio.Audio.audioFileNamesList[selectedIndex];
+                    Generate.Audio.Audio.audioFileNamesList.RemoveAt(selectedIndex);
+                    Generate.Audio.Audio.audioFileNamesList.Insert(selectedIndex - 1, itemFileNames);
+
+                    // -------------------------
+                    // Metadata
+                    // -------------------------
+                    // Title
+                    if (Generate.Audio.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Audio.Metadata.titleList[selectedIndex];
+                        Generate.Audio.Metadata.titleList.RemoveAt(selectedIndex);
+                        Generate.Audio.Metadata.titleList.Insert(selectedIndex - 1, titleItem);
+                    }
+
+                    // Language
+                    if (Generate.Audio.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Audio.Metadata.languageList[selectedIndex];
+                        Generate.Audio.Metadata.languageList.RemoveAt(selectedIndex);
+                        Generate.Audio.Metadata.languageList.Insert(selectedIndex - 1, titleItem);
+                    }
+
+                    // Delay
+                    if (Generate.Audio.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Audio.Metadata.delayList[selectedIndex];
+                        Generate.Audio.Metadata.delayList.RemoveAt(selectedIndex);
+                        Generate.Audio.Metadata.delayList.Insert(selectedIndex - 1, titleItem);
+                    }
+
+                    // -------------------------
+                    // Highlight Selected Index
+                    // -------------------------
+                    VM.AudioView.Audio_ListView_SelectedIndex = selectedIndex - 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Audio Sort Down
+        /// </summary>
+        private void btnAudio_SortDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (VM.AudioView.Audio_ListView_SelectedItems.Count > 0)
+            {
+                var selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+                if (selectedIndex + 1 < VM.AudioView.Audio_ListView_Items.Count)
+                {
+                    // -------------------------
+                    // ListView
+                    // -------------------------
+                    // ListView Items
+                    var itemlsvFileNames = VM.AudioView.Audio_ListView_Items[selectedIndex];
+                    VM.AudioView.Audio_ListView_Items.RemoveAt(selectedIndex);
+                    VM.AudioView.Audio_ListView_Items.Insert(selectedIndex + 1, itemlsvFileNames);
+
+                    // List FilePaths
+                    string itemFilePaths = Generate.Audio.Audio.audioFilePathsList[selectedIndex];
+                    Generate.Audio.Audio.audioFilePathsList.RemoveAt(selectedIndex);
+                    Generate.Audio.Audio.audioFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
+
+                    // List File Names
+                    string itemFileNames = Generate.Audio.Audio.audioFileNamesList[selectedIndex];
+                    Generate.Audio.Audio.audioFileNamesList.RemoveAt(selectedIndex);
+                    Generate.Audio.Audio.audioFileNamesList.Insert(selectedIndex + 1, itemFileNames);
+
+                    // -------------------------
+                    // Metadata
+                    // -------------------------
+                    // Title
+                    if (Generate.Audio.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Audio.Metadata.titleList[selectedIndex];
+                        Generate.Audio.Metadata.titleList.RemoveAt(selectedIndex);
+                        Generate.Audio.Metadata.titleList.Insert(selectedIndex + 1, titleItem);
+                    }
+
+                    // Language
+                    if (Generate.Audio.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Audio.Metadata.languageList[selectedIndex];
+                        Generate.Audio.Metadata.languageList.RemoveAt(selectedIndex);
+                        Generate.Audio.Metadata.languageList.Insert(selectedIndex + 1, titleItem);
+                    }
+
+                    // Delay
+                    if (Generate.Audio.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Audio.Metadata.delayList[selectedIndex];
+                        Generate.Audio.Metadata.delayList.RemoveAt(selectedIndex);
+                        Generate.Audio.Metadata.delayList.Insert(selectedIndex + 1, titleItem);
+                    }
+
+                    // -------------------------
+                    // Highlight Selected Index
+                    // -------------------------
+                    VM.AudioView.Audio_ListView_SelectedIndex = selectedIndex + 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Audio Clear All
+        /// </summary>
+        private void btnAudio_Clear_Click(object sender, RoutedEventArgs e)
+        {
+            AudioClear();
+        }
+        /// <summary>
+        /// Audio Clear - Method
+        /// </summary>
+        public void AudioClear()
+        {
+            // -------------------------
+            // List View
+            // -------------------------
+            // Clear List View
+            if (VM.AudioView.Audio_ListView_Items != null &&
+                VM.AudioView.Audio_ListView_Items.Count > 0)
+            {
+                VM.AudioView.Audio_ListView_Items.Clear();
+            }
+
+            // Clear Paths List
+            if (Generate.Audio.Audio.audioFilePathsList != null &&
+                Generate.Audio.Audio.audioFilePathsList.Count > 0)
+            {
+                Generate.Audio.Audio.audioFilePathsList.Clear();
+                Generate.Audio.Audio.audioFilePathsList.TrimExcess();
+            }
+
+            // Clear Names List
+            if (Generate.Audio.Audio.audioFileNamesList != null &&
+                Generate.Audio.Audio.audioFileNamesList.Count > 0)
+            {
+                Generate.Audio.Audio.audioFileNamesList.Clear();
+                Generate.Audio.Audio.audioFileNamesList.TrimExcess();
+            }
+
+            // -------------------------
+            // Clear Metadata
+            // -------------------------
+            // Title
+            if (Generate.Audio.Metadata.titleList != null &&
+                Generate.Audio.Metadata.titleList.Count > 0)
+            {
+                Generate.Audio.Metadata.titleList.Clear();
+                Generate.Audio.Metadata.titleList.TrimExcess();
+            }
+
+            // Language
+            if (Generate.Audio.Metadata.languageList != null &&
+                Generate.Audio.Metadata.languageList.Count > 0)
+            {
+                Generate.Audio.Metadata.languageList.Clear();
+                Generate.Audio.Metadata.languageList.TrimExcess();
+            }
+
+            // Delay
+            if (Generate.Audio.Metadata.delayList != null &&
+                Generate.Audio.Metadata.delayList.Count > 0)
+            {
+                Generate.Audio.Metadata.delayList.Clear();
+                Generate.Audio.Metadata.delayList.TrimExcess();
+            }
+        }
+
+        /// <summary>
+        /// Title Metadata - TextBox
+        /// </summary>
+        private void tbxAudio_Metadata_Title_KeyUp(object sender, KeyEventArgs e)
+        {
+            // -------------------------
+            // Halts
+            // -------------------------
+            if (VM.AudioView.Audio_Stream_SelectedItem != "mux")
+            {
+                return;
+            }
+
+            // -------------------------
+            // Title
+            // -------------------------
+            if (Generate.Audio.Metadata.titleList != null &&
+                Generate.Audio.Metadata.titleList.Count > 0)
+            {
+                // Set selected index
+                int selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+                // Remove previous from the list at selected track index
+                if (Generate.Audio.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    try
+                    {
+                        Generate.Audio.Metadata.titleList.RemoveAt(selectedIndex);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // Add to list
+                //MessageBox.Show(string.Join("\r\n", Generate.Audio.Metadata.titleList));
+                try
+                {
+                    Generate.Audio.Metadata.titleList.Insert(selectedIndex, tbxAudio_Metadata_Title.Text);
+                }
+                catch
+                {
+
+                }
+
+                //Generate.Audio.Metadata.titleList.Add(tbxAudio_Metadata_Title.Text/*VM.AudioView.Audio_Metadata_Title_Text*/);
+                //MessageBox.Show(tbxAudio_Metadata_Title.Text); // binding not working
+                //MessageBox.Show(string.Join("\r\n", Generate.Audio.Metadata.titleList));
+                //MessageBox.Show(VM.AudioView.Audio_ListView_SelectedIndex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Audio Language Metadata - ComboBox
+        /// </summary>
+        private void cboAudio_Metadata_Language_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Language
+            // -------------------------
+            if (Generate.Audio.Metadata.languageList != null &&
+                Generate.Audio.Metadata.languageList.Count > 0)
+            {
+                // Set selected index
+                int selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+                // Remove previous from the list at selected track index
+                if (Generate.Audio.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    try
+                    {
+                        Generate.Audio.Metadata.languageList.RemoveAt(selectedIndex);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // Add to list
+                try
+                {
+                    Generate.Audio.Metadata.languageList.Insert(selectedIndex, VM.AudioView.Audio_Metadata_Language_SelectedItem);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Audio Delay - TextBox
+        /// </summary>
+        private void tbxAudio_Delay_KeyUp(object sender, KeyEventArgs e)
+        {
+            // -------------------------
+            // Halts
+            // -------------------------
+            if (VM.AudioView.Audio_Stream_SelectedItem != "mux")
+            {
+                return;
+            }
+
+            // -------------------------
+            // Delay
+            // -------------------------
+            if (Generate.Audio.Metadata.delayList != null &&
+                Generate.Audio.Metadata.titleList.Count > 0)
+            {
+                // Set selected index
+                int selectedIndex = VM.AudioView.Audio_ListView_SelectedIndex;
+
+                // Remove previous from the list at selected track index
+                if (Generate.Audio.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    try
+                    {
+                        Generate.Audio.Metadata.delayList.RemoveAt(selectedIndex);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // Add to list
+                //MessageBox.Show(string.Join("\r\n", Generate.Audio.Metadata.titleList));
+                try
+                {
+                    Generate.Audio.Metadata.delayList.Insert(selectedIndex, VM.AudioView.Audio_Delay_Text);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
     }
 }
