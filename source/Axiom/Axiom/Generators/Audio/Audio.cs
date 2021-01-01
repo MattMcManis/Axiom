@@ -25,6 +25,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * 
 ---------------------------------- */
 
+using Axiom;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,13 +38,44 @@ using System.Windows.Documents;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
-namespace Generate
+namespace Generate.Audio
 {
-    namespace Audio
+    public class Audio
     {
-        public partial class Audio
-        {
+        public static string audioMux { get; set; }
+        //public static List<string> audioMuxList;
 
+        public static string audioDir { get; set; } // Subtitles Directory
+        public static List<string> audioFilePathsList = new List<string>(); // Files Added   
+        public static List<string> audioFileNamesList = new List<string>(); // File Names without Path
+
+        /// <summary>
+        /// Audio External
+        /// <summary>
+        public static/* List<string> */String AudioMux(string codec_SelectedItem,
+                                            string stream_SelectedItem
+                                           )
+        {
+            // -------------------------
+            // External
+            // -------------------------
+            if (codec_SelectedItem != "None" &&
+                stream_SelectedItem == "mux" &&
+                audioFilePathsList != null &&
+                audioFilePathsList.Count > 0)
+            {
+                audioMux = "-i " + string.Join(" \r\n\r\n-i ", audioFilePathsList
+                                         .Where(s => !string.IsNullOrWhiteSpace(s))
+                                        );
+
+                //for (var i = 0; i < audioFilePathsList.Count; i++)
+                //{
+                //    audioMuxList.Add("-i " + MainWindow.WrapWithQuotes(audioFilePathsList[i]));
+                //}
+            }
+
+            return audioMux;
+            //return audioMuxList;
         }
     }
 }
