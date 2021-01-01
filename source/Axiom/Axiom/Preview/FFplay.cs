@@ -65,9 +65,13 @@ namespace Preview
 
                     "-i " + "\"" + MainWindow.InputPath("pass 1") + "\"",
 
-                    Generate.Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                        VM.SubtitleView.Subtitle_Stream_SelectedItem
-                                                        ),
+                    Generate.Audio.Audio.AudioMux(VM.AudioView.Audio_Codec_SelectedItem,
+                                                  VM.AudioView.Audio_Stream_SelectedItem
+                                                 ),
+
+                    Generate.Subtitle.Subtitle.SubtitlesMux(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                            VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                                           ),
 
                     //Video.VideoCodec(),
                     //Video.Speed(),
@@ -75,13 +79,13 @@ namespace Preview
                     Generate.Video.Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
                                              VM.VideoView.Video_FPS_SelectedItem,
                                              VM.VideoView.Video_FPS_Text
-                                             ),
+                                            ),
 
                     Filters.Video.VideoFilter(),
 
                     Generate.Video.Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
                                                 VM.VideoView.Video_Codec_SelectedItem
-                                                ),
+                                               ),
                     //Video.Optimize(),
                     //Streams.VideoStreamMaps(),
 
