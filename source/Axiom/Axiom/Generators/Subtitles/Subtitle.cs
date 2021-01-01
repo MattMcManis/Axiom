@@ -76,9 +76,6 @@ namespace Generate.Subtitle
                                           string stream_SelectedItem
                                          )
         {
-            // -------------------------
-            // External
-            // -------------------------
             if (codec_SelectedItem != "Burn" &&  // Ignore if Burn
                 (stream_SelectedItem == "mux" || stream_SelectedItem == "external") &&
                 subtitleFilePathsList != null &&
@@ -91,29 +88,6 @@ namespace Generate.Subtitle
 
             return subtitles;
         }
-
-        ///// <summary>
-        ///// Subtitles External
-        ///// <summary>
-        //public static String SubtitlesExternal(string codec_SelectedItem,
-        //                                       string stream_SelectedItem
-        //                                       )
-        //{
-        //    // -------------------------
-        //    // External
-        //    // -------------------------
-        //    if (codec_SelectedItem != "Burn" &&  // Ignore if Burn
-        //        stream_SelectedItem == "external" &&
-        //        subtitleFilePathsList != null &&
-        //        subtitleFilePathsList.Count > 0)
-        //    {
-        //        subtitles = "-i " + string.Join(" \r\n\r\n-i ", subtitleFilePathsList
-        //                                  .Where(s => !string.IsNullOrWhiteSpace(s))
-        //                                  );
-        //    }
-
-        //    return subtitles;
-        //}
 
     }
 }
