@@ -45,7 +45,7 @@ namespace Controls.Subtitles.Codec
         public ObservableCollection<string> stream { get; set; } = new ObservableCollection<string>()
         {
             "none",
-            "external",
+            "mux",
             "all",
             "1",
             "2",
