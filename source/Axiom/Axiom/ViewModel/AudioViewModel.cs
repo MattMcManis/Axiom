@@ -86,9 +86,25 @@ namespace ViewModel
             Audio_BitDepth_IsEnabled = true;
             Audio_BitDepth_SelectedItem = "auto";
 
+            Audio_Volume_IsEnabled = true;
             Audio_Volume_Text = "100";
+
             Audio_HardLimiter_IsEnabled = true;
             Audio_HardLimiter_Value = 0.0;
+
+            Audio_ListView_IsEnabled = false;
+            Audio_ListView_Opacity = 0.1;
+
+            //Audio_Metadata_Title_IsEnabled = false;
+            Audio_Metadata_Title_Text = string.Empty;
+
+            //Audio_Metadata_Language_IsEnabled = false;
+            Audio_Metadata_Language_SelectedItem = "none";
+            //Generate.Audio.Metadata.languageList = new List<string>();
+            //Generate.Audio.Metadata.languageList.Add(Audio_Metadata_Language_SelectedItem); // set the default at startup
+
+            //Audio_Delay_IsEnabled = false;
+            Audio_Delay_Text = string.Empty;
         }
 
 
@@ -235,6 +251,7 @@ namespace ViewModel
         private ObservableCollection<string> _Audio_Stream_Items = new ObservableCollection<string>()
         {
             "none",
+            "mux",
             "all",
             "1",
             "2",
@@ -833,6 +850,243 @@ namespace ViewModel
         }
 
 
+        // --------------------------------------------------
+        // Audio ListView
+        // --------------------------------------------------
+        // Items Source
+        private ObservableCollection<string> _Audio_ListView_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> Audio_ListView_Items
+        {
+            get { return _Audio_ListView_Items; }
+            set
+            {
+                _Audio_ListView_Items = value;
+                OnPropertyChanged("Audio_ListView_Items");
+            }
+        }
+        // Selected Items
+        private List<string> _Audio_ListView_SelectedItems = new List<string>();
+        public List<string> Audio_ListView_SelectedItems
+        {
+            get { return _Audio_ListView_SelectedItems; }
+            set
+            {
+                _Audio_ListView_SelectedItems = value;
+                OnPropertyChanged("Audio_ListView_SelectedItems");
+            }
+        }
+        // Selected Index
+        private int _Audio_ListView_SelectedIndex;
+        public int Audio_ListView_SelectedIndex
+        {
+            get { return _Audio_ListView_SelectedIndex; }
+            set
+            {
+                if (_Audio_ListView_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Audio_ListView_SelectedIndex = value;
+                OnPropertyChanged("Audio_ListView_SelectedIndex");
+            }
+        }
+        private double _Audio_ListView_Opacity;
+        public double Audio_ListView_Opacity
+        {
+            get { return _Audio_ListView_Opacity; }
+            set
+            {
+                if (_Audio_ListView_Opacity == value)
+                {
+                    return;
+                }
+
+                _Audio_ListView_Opacity = value;
+                OnPropertyChanged("Audio_ListView_Opacity");
+            }
+        }
+        // Controls Enable
+        public bool _Audio_ListView_IsEnabled;
+        public bool Audio_ListView_IsEnabled
+        {
+            get { return _Audio_ListView_IsEnabled; }
+            set
+            {
+                if (_Audio_ListView_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Audio_ListView_IsEnabled = value;
+                OnPropertyChanged("Audio_ListView_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Title Metadata
+        // -------------------------
+        // Text
+        private string _Audio_Metadata_Title_Text;
+        public string Audio_Metadata_Title_Text
+        {
+            get { return _Audio_Metadata_Title_Text; }
+            set
+            {
+                if (_Audio_Metadata_Title_Text == value)
+                {
+                    return;
+                }
+
+                _Audio_Metadata_Title_Text = value;
+                OnPropertyChanged("Audio_Metadata_Title_Text");
+            }
+        }
+        // Enabled
+        private bool _Audio_Metadata_Title_IsEnabled;
+        public bool Audio_Metadata_Title_IsEnabled
+        {
+            get { return _Audio_Metadata_Title_IsEnabled; }
+            set
+            {
+                if (_Audio_Metadata_Title_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Audio_Metadata_Title_IsEnabled = value;
+                OnPropertyChanged("Audio_Metadata_Title_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Language Metadata
+        // --------------------------------------------------
+        public class Audio_Metadata_Language
+        {
+            public string Name { get; set; }
+            public string Param { get; set; }
+        }
+        private ObservableCollection<Audio_Metadata_Language> _Audio_Metadata_Language_Items = new ObservableCollection<Audio_Metadata_Language>()
+        {
+            new Audio_Metadata_Language() { Name = "none",       Param = string.Empty  },
+            new Audio_Metadata_Language() { Name = "Arabic",     Param = "ar" },
+            new Audio_Metadata_Language() { Name = "Bengali",    Param = "bn" },
+            new Audio_Metadata_Language() { Name = "Chinese",    Param = "chi" },
+            new Audio_Metadata_Language() { Name = "Dutch",      Param = "nl" },
+            new Audio_Metadata_Language() { Name = "English",    Param = "en" },
+            new Audio_Metadata_Language() { Name = "Finnish",    Param = "fi" },
+            new Audio_Metadata_Language() { Name = "French",     Param = "fr" },
+            new Audio_Metadata_Language() { Name = "German",     Param = "de" },
+            new Audio_Metadata_Language() { Name = "Hindi",      Param = "hi" },
+            new Audio_Metadata_Language() { Name = "Italian",    Param = "it" },
+            new Audio_Metadata_Language() { Name = "Japanese",   Param = "jp" },
+            new Audio_Metadata_Language() { Name = "Korean",     Param = "kor" },
+            new Audio_Metadata_Language() { Name = "Portuguese", Param = "pt" },
+            new Audio_Metadata_Language() { Name = "Russian",    Param = "ru" },
+            new Audio_Metadata_Language() { Name = "Spanish",    Param = "es" },
+            new Audio_Metadata_Language() { Name = "Swedish",    Param = "sv" },
+            new Audio_Metadata_Language() { Name = "Vietnamese", Param = "vi" },
+        };
+        public ObservableCollection<Audio_Metadata_Language> Audio_Metadata_Language_Items
+        {
+            get { return _Audio_Metadata_Language_Items; }
+            set
+            {
+                _Audio_Metadata_Language_Items = value;
+                OnPropertyChanged("Audio_Metadata_Language_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Audio_Metadata_Language_SelectedIndex;
+        public int Audio_Metadata_Language_SelectedIndex
+        {
+            get { return _Audio_Metadata_Language_SelectedIndex; }
+            set
+            {
+                if (_Audio_Metadata_Language_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Audio_Metadata_Language_SelectedIndex = value;
+                OnPropertyChanged("Audio_Metadata_Language_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Audio_Metadata_Language_SelectedItem;
+        public string Audio_Metadata_Language_SelectedItem
+        {
+            get { return _Audio_Metadata_Language_SelectedItem; }
+            set
+            {
+                if (_Audio_Metadata_Language_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Audio_Metadata_Language_SelectedItem = value;
+                OnPropertyChanged("Audio_Metadata_Language_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Audio_Metadata_Language_IsEnabled;
+        public bool Audio_Metadata_Language_IsEnabled
+        {
+            get { return _Audio_Metadata_Language_IsEnabled; }
+            set
+            {
+                if (_Audio_Metadata_Language_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Audio_Metadata_Language_IsEnabled = value;
+                OnPropertyChanged("Audio_Metadata_Language_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Delay
+        // -------------------------
+        // Text
+        private string _Audio_Delay_Text;
+        public string Audio_Delay_Text
+        {
+            get { return _Audio_Delay_Text; }
+            set
+            {
+                if (_Audio_Delay_Text == value)
+                {
+                    return;
+                }
+
+                _Audio_Delay_Text = value;
+                OnPropertyChanged("Audio_Delay_Text");
+            }
+        }
+        // Enabled
+        private bool _Audio_Delay_IsEnabled;
+        public bool Audio_Delay_IsEnabled
+        {
+            get { return _Audio_Delay_IsEnabled; }
+            set
+            {
+                if (_Audio_Delay_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Audio_Delay_IsEnabled = value;
+                OnPropertyChanged("Audio_Delay_IsEnabled");
+            }
+        }
 
     }
 }
