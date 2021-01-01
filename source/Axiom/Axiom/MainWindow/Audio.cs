@@ -841,6 +841,14 @@ namespace Axiom
         /// </summary>
         private void tbxAudio_Metadata_Title_KeyUp(object sender, KeyEventArgs e)
         {
+            SaveMetadata_Audio_Title();
+        }
+        private void tbxAudio_Metadata_Title_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SaveMetadata_Audio_Title();
+        }
+        public void SaveMetadata_Audio_Title()
+        {
             // -------------------------
             // Halts
             // -------------------------
@@ -895,6 +903,14 @@ namespace Axiom
         private void cboAudio_Metadata_Language_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
+            // Halts
+            // -------------------------
+            if (VM.AudioView.Audio_Stream_SelectedItem != "mux")
+            {
+                return;
+            }
+
+            // -------------------------
             // Language
             // -------------------------
             if (Generate.Audio.Metadata.languageList != null &&
@@ -932,6 +948,14 @@ namespace Axiom
         /// Audio Delay - TextBox
         /// </summary>
         private void tbxAudio_Delay_KeyUp(object sender, KeyEventArgs e)
+        {
+            SaveMetadata_Audio_Delay();
+        }
+        private void tbxAudio_Delay_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SaveMetadata_Audio_Delay();
+        }
+        public void SaveMetadata_Audio_Delay()
         {
             // -------------------------
             // Halts
