@@ -123,8 +123,8 @@ namespace Profiles
                     else
                     {
                         VM.VideoView.Video_Optimize_SelectedItem = "None";
-                        VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                        VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "main";
+                        VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                        VM.VideoView.Video_Optimize_Profile_SelectedItem = "main";
                         VM.VideoView.Video_Optimize_Level_SelectedItem = "5.2";
                     }
 
@@ -518,8 +518,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "Custom";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "main10";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "main10";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "5.2";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
@@ -790,8 +790,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "Custom";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "high";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "4.0";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
@@ -869,8 +869,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "Custom";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "high";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "4.2";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
@@ -948,8 +948,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "Custom";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "high";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "4.2";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
@@ -1027,8 +1027,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "Custom";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "high";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "4.2";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
@@ -1106,8 +1106,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "Custom";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "main";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "main";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "4.2";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
@@ -2201,8 +2201,8 @@ namespace Profiles
                 VM.VideoView.Video_Speed_SelectedItem = "auto";
                 VM.VideoView.Video_Vsync_SelectedItem = "off";
                 VM.VideoView.Video_Optimize_SelectedItem = "None";
-                VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = "none";
-                VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Tune_SelectedItem = "none";
+                VM.VideoView.Video_Optimize_Profile_SelectedItem = "none";
                 VM.VideoView.Video_Optimize_Level_SelectedItem = "none";
                 VM.VideoView.Video_Scale_SelectedItem = "Source";
                 VM.VideoView.Video_ScreenFormat_SelectedItem = "Widescreen";
