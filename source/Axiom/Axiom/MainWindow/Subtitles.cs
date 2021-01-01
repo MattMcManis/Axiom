@@ -77,7 +77,8 @@ namespace Axiom
             // -------------------------
             // Mux
             // -------------------------
-            if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "mux")
+            if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "mux" ||
+                VM.SubtitleView.Subtitle_Stream_SelectedItem == "external")
             {
                 // Enable Subtitle Mux ListView and Buttons
                 VM.SubtitleView.Subtitle_ListView_IsEnabled = true;
