@@ -34,6 +34,18 @@ namespace Axiom
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// Color Reset - Button
+        /// </summary>
+        private void btnColor_Reset_Click(object sender, RoutedEventArgs e)
+        {
+            VM.VideoView.Video_Color_Range_SelectedItem = "auto";
+            VM.VideoView.Video_Color_Space_SelectedItem = "auto";
+            VM.VideoView.Video_Color_Primaries_SelectedItem = "auto";
+            VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = "auto";
+            VM.VideoView.Video_Color_Matrix_SelectedItem = "auto";
+        }
+
+        /// <summary>
         /// Filter Video - Drop Frames
         /// </summary>
         private void cboFilterVideo_DropFrames_SelectionChanged(object sender, SelectionChangedEventArgs e)
