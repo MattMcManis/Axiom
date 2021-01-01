@@ -163,7 +163,9 @@ namespace Axiom
 
         public async void ScriptButtonAsync()
         {
-            //VM.MainView.ScriptView_Text = "Generating...";
+            VM.MainView.ScriptView_Text = "Generating...";
+            // Delay to make Generating... text visible
+            await Task.Delay(100);
 
             // -------------------------
             // Clear Variables before Run
