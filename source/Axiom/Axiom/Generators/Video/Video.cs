@@ -44,7 +44,7 @@ using System.Globalization;
 
 namespace Generate.Video
 {
-    public partial class Video
+    public class Video
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
