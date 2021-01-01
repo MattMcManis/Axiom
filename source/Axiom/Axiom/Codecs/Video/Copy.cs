@@ -143,6 +143,7 @@ namespace Controls.Video.Codec
             {
                 EncodeSpeed =       "none",
                 HWAccel =           "Off",
+                Quality =           "Auto",
                 PixelFormat =       "auto",
                 FPS =               "auto",
                 Speed =             "auto",
