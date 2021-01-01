@@ -223,34 +223,6 @@ namespace Controls.Video.Codec
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Items Source
-        // -------------------------
-        public void Controls_ItemsSource()
-        {
-            // Encode Speed
-            VM.VideoView.Video_EncodeSpeed_Items = encodeSpeed;
-
-            // Pixel Format
-            VM.VideoView.Video_PixelFormat_Items = pixelFormat;
-
-            // Pass
-            EncodingPass();
-
-            // Video Quality
-            VM.VideoView.Video_Quality_Items = quality;
-
-            // Optimize
-            VM.VideoView.Video_Optimize_Items = optimize;
-            // Tune
-            VM.VideoView.Video_Optimize_Tune_Items = tune;
-            // Profile
-            VM.VideoView.Video_Optimize_Profile_Items = profile;
-            // Level
-            VM.VideoView.Video_Optimize_Level_Items = level;
-        }
-
-
-        // -------------------------
         // Selected Item
         // -------------------------
         public List<ViewModel.Video.Selected> controls_Selected { get; set; } = new List<ViewModel.Video.Selected>()
