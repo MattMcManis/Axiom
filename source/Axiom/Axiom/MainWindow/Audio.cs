@@ -154,7 +154,7 @@ namespace Axiom
                 // Disable Audio Mux ListView and Buttons
                 VM.AudioView.Audio_ListView_IsEnabled = false;
 
-                VM.AudioView.Audio_ListView_Opacity = 0.1;
+                VM.AudioView.Audio_ListView_Opacity = 0.15;
             }
         }
 
