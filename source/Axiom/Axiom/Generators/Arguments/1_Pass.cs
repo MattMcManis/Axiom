@@ -105,10 +105,16 @@ namespace Generate
                         "-i " + MainWindow.WrapWithQuotes(MainWindow.InputPath("pass 1")),
 
                         "\r\n\r\n" +
-                        Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                   VM.SubtitleView.Subtitle_Stream_SelectedItem
-                                                   ),
+                        Audio.Audio.AudioMux(VM.AudioView.Audio_Codec_SelectedItem,
+                                             VM.AudioView.Audio_Stream_SelectedItem
+                                             ),
+
+                        "\r\n\r\n" +
+                        Subtitle.Subtitle.SubtitlesMux(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                       VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                                      ),
                     };
+
 
                     // -------------------------
                     // HW Accel Transcode
@@ -238,8 +244,8 @@ namespace Generate
                             Video.Quality.Optimize(VM.VideoView.Video_Codec_SelectedItem,
                                                    VM.VideoView.Video_Optimize_Items,
                                                    VM.VideoView.Video_Optimize_SelectedItem,
-                                                   VM.VideoView.Video_Video_Optimize_Tune_SelectedItem,
-                                                   VM.VideoView.Video_Video_Optimize_Profile_SelectedItem,
+                                                   VM.VideoView.Video_Optimize_Tune_SelectedItem,
+                                                   VM.VideoView.Video_Optimize_Profile_SelectedItem,
                                                    VM.VideoView.Video_Optimize_Level_SelectedItem
                                                    ),
 
@@ -303,9 +309,9 @@ namespace Generate
                         audioList = new List<string>()
                         {
                             "\r\n\r\n" +
-                            Generate.Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
-                                                            VM.AudioView.Audio_Codec
-                                                           ),
+                            Audio.Codec.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
+                                                   VM.AudioView.Audio_Codec
+                                                  ),
                             "\r\n" +
                             Audio.Quality.AudioQuality(VM.MainView.Input_Text,
                                                        VM.MainView.Batch_IsChecked,
@@ -335,6 +341,9 @@ namespace Generate
                             Filters.Audio.AudioFilter(),
                             "\r\n" +
                             Streams.AudioStreamMaps(),
+
+                            "\r\n\r\n" +
+                            Audio.Metadata.Audio(),
                         };
                     }
                     // Disable Audio
@@ -342,7 +351,7 @@ namespace Generate
                     {
                         audioList = new List<string>()
                         {
-                            "\r\n" +
+                            "\r\n\r\n" +
                             "-an",
                         };
                     }
@@ -369,11 +378,14 @@ namespace Generate
                         subtitleList = new List<string>()
                         {
                             "\r\n\r\n" +
-                            Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                            Subtitle.Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                    VM.SubtitleView.Subtitle_Codec
                                                    ),
                             "\r\n" +
                             Streams.SubtitleMaps(),
+
+                            "\r\n\r\n" +
+                            Subtitle.Metadata.Subtitles(),
                         };
                     }
                     // Disable Subtitles
@@ -381,8 +393,42 @@ namespace Generate
                     {
                         subtitleList = new List<string>()
                         {
-                            "\r\n" +
+                            "\r\n\r\n" +
                             "-sn",
+                        };
+                    }
+
+                    // -------------------------
+                    // Chapters
+                    // -------------------------
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Chapters")) { Foreground = Log.ConsoleAction });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
+                    IEnumerable<string> chaptersList = new List<string>();
+
+                    if (VM.FormatView.Format_MediaType_SelectedItem != "Image" &&
+                        VM.FormatView.Format_MediaType_SelectedItem != "Sequence"
+                        )
+                    {
+                        chaptersList = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            Streams.ChaptersMaps(),
+                        };
+                    }
+                    // Disable Chapters
+                    else
+                    {
+                        chaptersList = new List<string>()
+                        {
+                            "\r\n\r\n" +
+                            "-cn",
                         };
                     }
 
@@ -419,6 +465,7 @@ namespace Generate
                                                                      .Concat(videoList)
                                                                      .Concat(audioList)
                                                                      .Concat(subtitleList)
+                                                                     .Concat(chaptersList)
                                                                      .Concat(outputList)
                                                                      .ToList();
 
