@@ -95,7 +95,7 @@ namespace Axiom
             // Default Auto if Input Extension matches Output Extsion
             // This will trigger Auto Codec Copy
             // --------------------------------------------------
-            ExtensionMatchLoadAutoValues();
+            //ExtensionMatchLoadAutoValues();
             //MessageBox.Show(inputExt + " " + outputExt); //debug
 
             // -------------------------
