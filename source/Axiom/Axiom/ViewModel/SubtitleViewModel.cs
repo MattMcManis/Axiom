@@ -69,13 +69,13 @@ namespace ViewModel
             Subtitle_ListView_IsEnabled = false;
             Subtitle_ListView_Opacity = 0.1;
 
-            //Subtitle_Metadata_Title_IsEnabled = false;
+            Subtitle_Metadata_Title_IsEnabled = false;
             Subtitle_Metadata_Title_Text = string.Empty;
 
-            //Subtitle_Metadata_Language_IsEnabled = false;
+            Subtitle_Metadata_Language_IsEnabled = false;
             Subtitle_Metadata_Language_SelectedItem = "none";
 
-            //Subtitle_Delay_IsEnabled = false;
+            Subtitle_Delay_IsEnabled = false;
             Subtitle_Delay_Text = string.Empty;
         }
 
