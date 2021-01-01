@@ -20,11 +20,12 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Linq;
 using ViewModel;
+using System.IO;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -74,11 +75,11 @@ namespace Axiom
         private void cboSubtitle_Stream_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
-            // External
+            // Mux
             // -------------------------
-            if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "external")
+            if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "mux")
             {
-                // Enable External ListView and Buttons
+                // Enable Subtitle Mux ListView and Buttons
                 VM.SubtitleView.Subtitle_ListView_IsEnabled = true;
 
                 //lstvSubtitles.Opacity = 1;
@@ -86,7 +87,7 @@ namespace Axiom
             }
             else
             {
-                // Disable External ListView and Buttons
+                // Disable Subtitle Mux ListView and Buttons
                 VM.SubtitleView.Subtitle_ListView_IsEnabled = false;
 
                 //lstvSubtitles.Opacity = 0.1;
@@ -99,6 +100,9 @@ namespace Axiom
         /// </summary>
         private void lstvSubtitles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // -------------------------
+            // ListView
+            // -------------------------
             // Clear before adding new selected items
             if (VM.SubtitleView.Subtitle_ListView_SelectedItems != null &&
                 VM.SubtitleView.Subtitle_ListView_SelectedItems.Count > 0)
@@ -111,6 +115,47 @@ namespace Axiom
             VM.SubtitleView.Subtitle_ListView_SelectedItems = lstvSubtitles.SelectedItems
                                                                            .Cast<string>()
                                                                            .ToList();
+
+            // -------------------------
+            // Set Metadata
+            // -------------------------
+            int selectedIndex = VM.SubtitleView.Subtitle_ListView_SelectedIndex;
+
+            // Title
+            if (Generate.Subtitle.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+            {
+                tbxSubtitle_Metadata_Title.Text = Generate.Subtitle.Metadata.titleList[selectedIndex];
+            }
+            else
+            {
+                tbxSubtitle_Metadata_Title.Text = string.Empty;
+            }
+
+            // Language
+            if (Generate.Subtitle.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+            {
+                VM.SubtitleView.Subtitle_Metadata_Language_SelectedItem = Generate.Subtitle.Metadata.languageList[selectedIndex];
+
+                // default
+                if (string.IsNullOrWhiteSpace(VM.SubtitleView.Subtitle_Metadata_Language_SelectedItem))
+                {
+                    VM.SubtitleView.Subtitle_Metadata_Language_SelectedItem = "none";
+                }
+            }
+            else
+            {
+                VM.SubtitleView.Subtitle_Metadata_Language_SelectedItem = "none";
+            }
+
+            // Delay
+            if (Generate.Subtitle.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+            {
+                VM.SubtitleView.Subtitle_Delay_Text = Generate.Subtitle.Metadata.delayList[selectedIndex];
+            }
+            else
+            {
+                VM.SubtitleView.Subtitle_Delay_Text = string.Empty;
+            }
         }
 
 
@@ -147,13 +192,23 @@ namespace Axiom
                 {
                     // Wrap in quotes for ffmpeg -i
                     //Generate.Subtitle.subtitleFilePathsList.Add("\"" + selectFiles.FileNames[i] + "\"");
-                    Generate.Subtitle.subtitleFilePathsList.Add(WrapWithQuotes(selectFiles.FileNames[i]));
+                    Generate.Subtitle.Subtitle.subtitleFilePathsList.Add(WrapWithQuotes(selectFiles.FileNames[i]));
                     //MessageBox.Show(Video.subtitleFiles[i]); //debug
 
-                    Generate.Subtitle.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
+                    Generate.Subtitle.Subtitle.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
 
                     // ListView Display File Names + Ext
                     VM.SubtitleView.Subtitle_ListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
+
+                    // Metadata Placeholders
+                    // Title
+                    Generate.Subtitle.Metadata.titleList.Add(string.Empty);
+
+                    // Language
+                    Generate.Subtitle.Metadata.languageList.Add(string.Empty);
+
+                    // Delay
+                    Generate.Subtitle.Metadata.delayList.Add(string.Empty);
                 }
             }
         }
@@ -167,17 +222,41 @@ namespace Axiom
             {
                 var selectedIndex = VM.SubtitleView.Subtitle_ListView_SelectedIndex;
 
+                // -------------------------
+                // List View
+                // -------------------------
                 // ListView Items
                 var itemlsvFileNames = VM.SubtitleView.Subtitle_ListView_Items[selectedIndex];
                 VM.SubtitleView.Subtitle_ListView_Items.RemoveAt(selectedIndex);
 
                 // List File Paths
-                string itemFilePaths = Generate.Subtitle.subtitleFilePathsList[selectedIndex];
-                Generate.Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
+                string itemFilePaths = Generate.Subtitle.Subtitle.subtitleFilePathsList[selectedIndex];
+                Generate.Subtitle.Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
 
                 // List File Names
-                string itemFileNames = Generate.Subtitle.subtitleFileNamesList[selectedIndex];
-                Generate.Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+                string itemFileNames = Generate.Subtitle.Subtitle.subtitleFileNamesList[selectedIndex];
+                Generate.Subtitle.Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+
+                // -------------------------
+                // Metadata
+                // -------------------------
+                // Title
+                if (Generate.Subtitle.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    Generate.Subtitle.Metadata.titleList.RemoveAt(selectedIndex);
+                }
+
+                // Language
+                if (Generate.Subtitle.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    Generate.Subtitle.Metadata.languageList.RemoveAt(selectedIndex);
+                }
+
+                // Delay
+                if (Generate.Subtitle.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    Generate.Subtitle.Metadata.delayList.RemoveAt(selectedIndex);
+                }
             }
         }
 
@@ -194,8 +273,10 @@ namespace Axiom
         /// </summary>
         public void SubtitlesClear()
         {
+            // -------------------------
+            // List View
+            // -------------------------
             // Clear List View
-            //lstvSubtitles.Items.Clear();
             if (VM.SubtitleView.Subtitle_ListView_Items != null &&
                 VM.SubtitleView.Subtitle_ListView_Items.Count > 0)
             {
@@ -203,19 +284,46 @@ namespace Axiom
             }
 
             // Clear Paths List
-            if (Generate.Subtitle.subtitleFilePathsList != null &&
-                Generate.Subtitle.subtitleFilePathsList.Count > 0)
+            if (Generate.Subtitle.Subtitle.subtitleFilePathsList != null &&
+                Generate.Subtitle.Subtitle.subtitleFilePathsList.Count > 0)
             {
-                Generate.Subtitle.subtitleFilePathsList.Clear();
-                Generate.Subtitle.subtitleFilePathsList.TrimExcess();
+                Generate.Subtitle.Subtitle.subtitleFilePathsList.Clear();
+                Generate.Subtitle.Subtitle.subtitleFilePathsList.TrimExcess();
             }
 
             // Clear Names List
-            if (Generate.Subtitle.subtitleFileNamesList != null &&
-                Generate.Subtitle.subtitleFileNamesList.Count > 0)
+            if (Generate.Subtitle.Subtitle.subtitleFileNamesList != null &&
+                Generate.Subtitle.Subtitle.subtitleFileNamesList.Count > 0)
             {
-                Generate.Subtitle.subtitleFileNamesList.Clear();
-                Generate.Subtitle.subtitleFileNamesList.TrimExcess();
+                Generate.Subtitle.Subtitle.subtitleFileNamesList.Clear();
+                Generate.Subtitle.Subtitle.subtitleFileNamesList.TrimExcess();
+            }
+
+            // -------------------------
+            // Metadata
+            // -------------------------
+            // Title
+            if (Generate.Subtitle.Metadata.titleList != null &&
+                Generate.Subtitle.Metadata.titleList.Count > 0)
+            {
+                Generate.Subtitle.Metadata.titleList.Clear();
+                Generate.Subtitle.Metadata.titleList.TrimExcess();
+            }
+
+            // Language
+            if (Generate.Subtitle.Metadata.languageList != null &&
+                Generate.Subtitle.Metadata.languageList.Count > 0)
+            {
+                Generate.Subtitle.Metadata.languageList.Clear();
+                Generate.Subtitle.Metadata.languageList.TrimExcess();
+            }
+
+            // Delay
+            if (Generate.Subtitle.Metadata.delayList != null &&
+                Generate.Subtitle.Metadata.delayList.Count > 0)
+            {
+                Generate.Subtitle.Metadata.delayList.Clear();
+                Generate.Subtitle.Metadata.delayList.TrimExcess();
             }
         }
 
@@ -230,22 +338,54 @@ namespace Axiom
 
                 if (selectedIndex > 0)
                 {
+                    // -------------------------
+                    // List View
+                    // -------------------------
                     // ListView Items
                     var itemlsvFileNames = VM.SubtitleView.Subtitle_ListView_Items[selectedIndex];
                     VM.SubtitleView.Subtitle_ListView_Items.RemoveAt(selectedIndex);
                     VM.SubtitleView.Subtitle_ListView_Items.Insert(selectedIndex - 1, itemlsvFileNames);
 
                     // List File Paths
-                    string itemFilePaths = Generate.Subtitle.subtitleFilePathsList[selectedIndex];
-                    Generate.Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
-                    Generate.Subtitle.subtitleFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
+                    string itemFilePaths = Generate.Subtitle.Subtitle.subtitleFilePathsList[selectedIndex];
+                    Generate.Subtitle.Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
+                    Generate.Subtitle.Subtitle.subtitleFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
 
                     // List File Names
-                    string itemFileNames = Generate.Subtitle.subtitleFileNamesList[selectedIndex];
-                    Generate.Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
-                    Generate.Subtitle.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
+                    string itemFileNames = Generate.Subtitle.Subtitle.subtitleFileNamesList[selectedIndex];
+                    Generate.Subtitle.Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+                    Generate.Subtitle.Subtitle.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
 
+                    // -------------------------
+                    // Metadata
+                    // -------------------------
+                    // Title
+                    if (Generate.Subtitle.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Subtitle.Metadata.titleList[selectedIndex];
+                        Generate.Subtitle.Metadata.titleList.RemoveAt(selectedIndex);
+                        Generate.Subtitle.Metadata.titleList.Insert(selectedIndex - 1, titleItem);
+                    }
+
+                    // Language
+                    if (Generate.Subtitle.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Subtitle.Metadata.languageList[selectedIndex];
+                        Generate.Subtitle.Metadata.languageList.RemoveAt(selectedIndex);
+                        Generate.Subtitle.Metadata.languageList.Insert(selectedIndex - 1, titleItem);
+                    }
+
+                    // Delay
+                    if (Generate.Subtitle.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Subtitle.Metadata.delayList[selectedIndex];
+                        Generate.Subtitle.Metadata.delayList.RemoveAt(selectedIndex);
+                        Generate.Subtitle.Metadata.delayList.Insert(selectedIndex - 1, titleItem);
+                    }
+
+                    // -------------------------
                     // Highlight Selected Index
+                    // -------------------------
                     VM.SubtitleView.Subtitle_ListView_SelectedIndex = selectedIndex - 1;
                 }
             }
@@ -262,25 +402,193 @@ namespace Axiom
 
                 if (selectedIndex + 1 < VM.SubtitleView.Subtitle_ListView_Items.Count)
                 {
+                    // -------------------------
+                    // List View
+                    // -------------------------
                     // ListView Items
                     var itemlsvFileNames = VM.SubtitleView.Subtitle_ListView_Items[selectedIndex];
                     VM.SubtitleView.Subtitle_ListView_Items.RemoveAt(selectedIndex);
                     VM.SubtitleView.Subtitle_ListView_Items.Insert(selectedIndex + 1, itemlsvFileNames);
 
                     // List FilePaths
-                    string itemFilePaths = Generate.Subtitle.subtitleFilePathsList[selectedIndex];
-                    Generate.Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
-                    Generate.Subtitle.subtitleFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
+                    string itemFilePaths = Generate.Subtitle.Subtitle.subtitleFilePathsList[selectedIndex];
+                    Generate.Subtitle.Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
+                    Generate.Subtitle.Subtitle.subtitleFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
 
                     // List File Names
-                    string itemFileNames = Generate.Subtitle.subtitleFileNamesList[selectedIndex];
-                    Generate.Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
-                    Generate.Subtitle.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
+                    string itemFileNames = Generate.Subtitle.Subtitle.subtitleFileNamesList[selectedIndex];
+                    Generate.Subtitle.Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+                    Generate.Subtitle.Subtitle.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
 
+                    // -------------------------
+                    // Metadata
+                    // -------------------------
+                    // Title
+                    if (Generate.Subtitle.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Subtitle.Metadata.titleList[selectedIndex];
+                        Generate.Subtitle.Metadata.titleList.RemoveAt(selectedIndex);
+                        Generate.Subtitle.Metadata.titleList.Insert(selectedIndex + 1, titleItem);
+                    }
+
+                    // Language
+                    if (Generate.Subtitle.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Subtitle.Metadata.languageList[selectedIndex];
+                        Generate.Subtitle.Metadata.languageList.RemoveAt(selectedIndex);
+                        Generate.Subtitle.Metadata.languageList.Insert(selectedIndex + 1, titleItem);
+                    }
+
+                    // Delay
+                    if (Generate.Subtitle.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                    {
+                        var titleItem = Generate.Subtitle.Metadata.delayList[selectedIndex];
+                        Generate.Subtitle.Metadata.delayList.RemoveAt(selectedIndex);
+                        Generate.Subtitle.Metadata.delayList.Insert(selectedIndex + 1, titleItem);
+                    }
+
+                    // -------------------------
                     // Highlight Selected Index
+                    // -------------------------
                     VM.SubtitleView.Subtitle_ListView_SelectedIndex = selectedIndex + 1;
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Title Metadata - TextBox
+        /// </summary>
+        private void tbxSubtitle_Metadata_Title_KeyUp(object sender, KeyEventArgs e)
+        {
+            // -------------------------
+            // Halts
+            // -------------------------
+            if (VM.SubtitleView.Subtitle_Stream_SelectedItem != "mux")
+            {
+                return;
+            }
+
+            // -------------------------
+            // Title
+            // -------------------------
+            if (Generate.Subtitle.Metadata.titleList != null &&
+                Generate.Subtitle.Metadata.titleList.Count > 0)
+            {
+                // Set selected index
+                int selectedIndex = VM.SubtitleView.Subtitle_ListView_SelectedIndex;
+
+                // Remove previous from the list at selected track index
+                if (Generate.Subtitle.Metadata.titleList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    try
+                    {
+                        Generate.Subtitle.Metadata.titleList.RemoveAt(selectedIndex);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // Add to list
+                try
+                {
+                    Generate.Subtitle.Metadata.titleList.Insert(selectedIndex, tbxSubtitle_Metadata_Title.Text);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Language Metadata - ComboBox
+        /// </summary>
+        private void cboSubtitle_Metadata_Language_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Language
+            // -------------------------
+            if (Generate.Subtitle.Metadata.languageList != null &&
+                Generate.Subtitle.Metadata.languageList.Count > 0)
+            {
+                // Set selected index
+                int selectedIndex = VM.SubtitleView.Subtitle_ListView_SelectedIndex;
+
+                // Remove previous from the list at selected track index
+                if (Generate.Subtitle.Metadata.languageList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    try
+                    {
+                        Generate.Subtitle.Metadata.languageList.RemoveAt(selectedIndex);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // Add to list
+                try
+                {
+                    Generate.Subtitle.Metadata.languageList.Insert(selectedIndex, VM.SubtitleView.Subtitle_Metadata_Language_SelectedItem);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Delay - TextBox
+        /// </summary>
+        private void tbxSubtitle_Delay_KeyUp(object sender, KeyEventArgs e)
+        {
+            // -------------------------
+            // Halts
+            // -------------------------
+            if (VM.SubtitleView.Subtitle_Stream_SelectedItem != "mux")
+            {
+                return;
+            }
+
+            // -------------------------
+            // Delay
+            // -------------------------
+            if (Generate.Subtitle.Metadata.delayList != null &&
+                Generate.Subtitle.Metadata.titleList.Count > 0)
+            {
+                // Set selected index
+                int selectedIndex = VM.SubtitleView.Subtitle_ListView_SelectedIndex;
+
+                // Remove previous from the list at selected track index
+                if (Generate.Subtitle.Metadata.delayList.ElementAtOrDefault(selectedIndex) != null)
+                {
+                    try
+                    {
+                        Generate.Subtitle.Metadata.delayList.RemoveAt(selectedIndex);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // Add to list
+                //MessageBox.Show(string.Join("\r\n", Generate.Subtitle.Metadata.titleList));
+                try
+                {
+                    Generate.Subtitle.Metadata.delayList.Insert(selectedIndex, VM.SubtitleView.Subtitle_Delay_Text);
+                }
+                catch
+                {
+
+                }
+            }
+
         }
     }
 }
