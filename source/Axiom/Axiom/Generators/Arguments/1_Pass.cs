@@ -423,14 +423,14 @@ namespace Generate
                         };
                     }
                     // Disable Chapters
-                    else
-                    {
-                        chaptersList = new List<string>()
-                        {
-                            "\r\n\r\n" +
-                            "-cn",
-                        };
-                    }
+                    //else
+                    //{
+                    //    chaptersList = new List<string>()
+                    //    {
+                    //        "\r\n\r\n" +
+                    //        "-cn",
+                    //    };
+                    //}
 
                     // -------------------------
                     // Output
