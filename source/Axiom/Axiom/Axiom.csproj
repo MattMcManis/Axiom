@@ -154,9 +154,11 @@
     <Compile Include="DebugConsole.xaml.cs">
       <DependentUpon>DebugConsole.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Generators\Audio\Metadata.cs" />
     <Compile Include="Generators\Encode.cs" />
     <Compile Include="Generators\FFmpeg.cs" />
     <Compile Include="Generators\Shell.cs" />
+    <Compile Include="Generators\Subtitles\Metadata.cs" />
     <Compile Include="Preview\FFplay.cs" />
     <Compile Include="Analyze\FFprobe.cs" />
     <Compile Include="FilePropertiesWindow.xaml.cs">
@@ -194,7 +196,7 @@
     <Compile Include="Presets\Presets.cs" />
     <Compile Include="Controls\ScriptView.cs" />
     <Compile Include="Generators\Streams.cs" />
-    <Compile Include="Generators\Subtitle.cs" />
+    <Compile Include="Generators\Subtitles\Subtitle.cs" />
     <Compile Include="Controls\SubtitleControls.cs" />
     <Compile Include="MainWindow\Script.cs" />
     <Compile Include="Types\Codecs.cs" />
