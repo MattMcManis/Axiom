@@ -1256,7 +1256,7 @@ namespace Controls.Format
                 // -------------------------
                 else if (VM.VideoView.Video_Codec_SelectedItem == "VP9")
                 {
-                    VM.AudioView.Audio_Stream_SelectedItem = "all";
+                    //VM.AudioView.Audio_Stream_SelectedItem = "all";
                 }
 
                 // -------------------------
@@ -1295,7 +1295,7 @@ namespace Controls.Format
                 // -------------------------
                 else
                 {
-                    VM.AudioView.Audio_Stream_SelectedItem = "all";
+                    //VM.AudioView.Audio_Stream_SelectedItem = "all";
                 }
             }
 
@@ -1308,13 +1308,10 @@ namespace Controls.Format
             // None
             // -------------------------
             else if (VM.FormatView.Format_Container_SelectedItem == "jpg" ||
-                        VM.FormatView.Format_Container_SelectedItem == "png" ||
-                        VM.FormatView.Format_Container_SelectedItem == "webp"
+                     VM.FormatView.Format_Container_SelectedItem == "png" ||
+                     VM.FormatView.Format_Container_SelectedItem == "webp"
                 )
             {
-                // -------------------------
-                // All Codecs
-                // -------------------------
                 VM.AudioView.Audio_Stream_SelectedItem = "none";
             }
 
@@ -1346,7 +1343,7 @@ namespace Controls.Format
                 // -------------------------
                 else
                 {
-                    VM.AudioView.Audio_Stream_SelectedItem = "1";
+                    //VM.AudioView.Audio_Stream_SelectedItem = "1";
                 }
             }
 
