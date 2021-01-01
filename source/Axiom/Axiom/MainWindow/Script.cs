@@ -163,10 +163,6 @@ namespace Axiom
 
         public async void ScriptButtonAsync()
         {
-            VM.MainView.ScriptView_Text = "Generating...";
-            // Delay to make Generating... text visible
-            await Task.Delay(100);
-
             // -------------------------
             // Clear Variables before Run
             // -------------------------
@@ -210,6 +206,10 @@ namespace Axiom
 
                 // Log Console Message /////////
                 DateTime localDate = DateTime.Now;
+
+                VM.MainView.ScriptView_Text = "Generating...";
+                // Delay to make Generating... text visible
+                await Task.Delay(100);
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
