@@ -389,7 +389,7 @@ namespace Profiles
                 string videoOptimize_Tune = inif.Read("Video", "Video_Optimize_Tune_SelectedItem");
 
                 if (VM.VideoView.Video_Optimize_Tune_Items.Contains(videoOptimize_Tune))
-                    VM.VideoView.Video_Video_Optimize_Tune_SelectedItem = videoOptimize_Tune;
+                    VM.VideoView.Video_Optimize_Tune_SelectedItem = videoOptimize_Tune;
                 else
                     listFailedImports.Add("Video: Optimize Tune");
 
@@ -397,7 +397,7 @@ namespace Profiles
                 string videoOptimize_Profile = inif.Read("Video", "Video_Optimize_Profile_SelectedItem");
 
                 if (VM.VideoView.Video_Optimize_Profile_Items.Contains(videoOptimize_Profile))
-                    VM.VideoView.Video_Video_Optimize_Profile_SelectedItem = videoOptimize_Profile;
+                    VM.VideoView.Video_Optimize_Profile_SelectedItem = videoOptimize_Profile;
                 else
                     listFailedImports.Add("Video: Optimize Profile");
 
@@ -1009,8 +1009,8 @@ namespace Profiles
 
                 // Optimize
                 inif.Write("Video", "Optimize_SelectedItem", VM.VideoView.Video_Optimize_SelectedItem);
-                inif.Write("Video", "Video_Optimize_Tune_SelectedItem", VM.VideoView.Video_Video_Optimize_Tune_SelectedItem);
-                inif.Write("Video", "Video_Optimize_Profile_SelectedItem", VM.VideoView.Video_Video_Optimize_Profile_SelectedItem);
+                inif.Write("Video", "Video_Optimize_Tune_SelectedItem", VM.VideoView.Video_Optimize_Tune_SelectedItem);
+                inif.Write("Video", "Video_Optimize_Profile_SelectedItem", VM.VideoView.Video_Optimize_Profile_SelectedItem);
                 inif.Write("Video", "Optimize_Level_SelectedItem", VM.VideoView.Video_Optimize_Level_SelectedItem);
 
                 // Size
