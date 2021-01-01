@@ -4,6 +4,22 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.6.0] - Dec 31, 2020
+### Added
+- Remember Previous Selected Items
+- Audio Mux
+- Subtitles Mux
+- Chapters Maps
+- Metadata Maps
+
+### Changed
+- Optimized Script View
+
+### Fixed
+- 2-Pass Audio None
+- 2-Pass Subtitles None
+
+
 ## [1.9.5.5] - Dec 27, 2020
 ### Added
 - Audio Quality Preset 64k
