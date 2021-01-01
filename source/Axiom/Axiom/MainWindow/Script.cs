@@ -36,26 +36,27 @@ namespace Axiom
 {
     public partial class MainWindow : Window
     {
+        public static string scriptText { get; set; }
+
         /// <summary>
         /// Sort (Method)
         /// </summary>
         public static void Sort()
         {
             // Only if Script not empty
-            if (!string.IsNullOrWhiteSpace(VM.MainView.ScriptView_Text))
+            if (!string.IsNullOrWhiteSpace(scriptText/*VM.MainView.ScriptView_Text*/))
             {
                 // -------------------------
                 // Has Not Been Edited
                 // -------------------------
                 if (Controls.ScriptView.sort == false &&
-                    RemoveLineBreaks(VM.MainView.ScriptView_Text) == Generate.FFmpeg.ffmpegArgs)
+                    RemoveLineBreaks(scriptText/*VM.MainView.ScriptView_Text*/) == Generate.FFmpeg.ffmpegArgs)
                 {
                     VM.MainView.ScriptView_Text = Generate.FFmpeg.ffmpegArgsSort;
 
                     // Sort is Off
                     Controls.ScriptView.sort = true;
                     // Change Button Back to Inline
-                    //txblScriptSort.Text = "Inline";
                     VM.MainView.Sort_Text = "Inline";
                 }
 
@@ -63,7 +64,7 @@ namespace Axiom
                 // Has Been Edited
                 // -------------------------
                 else if (Controls.ScriptView.sort == false &&
-                         RemoveLineBreaks(VM.MainView.ScriptView_Text) != Generate.FFmpeg.ffmpegArgs)
+                         RemoveLineBreaks(scriptText/*VM.MainView.ScriptView_Text*/) != Generate.FFmpeg.ffmpegArgs)
                 {
                     MessageBox.Show("Cannot sort custom or edited text.",
                                     "Notice",
@@ -80,14 +81,13 @@ namespace Axiom
                 else if (Controls.ScriptView.sort == true)
                 {
                     // CMD Arguments are from Script TextBox
-                    Generate.FFmpeg.ffmpegArgs = RemoveLineBreaks(VM.MainView.ScriptView_Text);
+                    Generate.FFmpeg.ffmpegArgs = RemoveLineBreaks(scriptText/*VM.MainView.ScriptView_Text*/);
 
                     VM.MainView.ScriptView_Text = Generate.FFmpeg.ffmpegArgs;
 
                     // Sort is On
                     Controls.ScriptView.sort = false;
                     // Change Button Back to Sort
-                    //txblScriptSort.Text = "Sort";
                     VM.MainView.Sort_Text = "Sort";
                 }
             }
@@ -400,6 +400,7 @@ namespace Axiom
         /// </summary>
         private void btnScriptSort_Click(object sender, RoutedEventArgs e)
         {
+            scriptText = VM.MainView.ScriptView_Text; // Prevents ScriptView Flicker
             Sort();
         }
 
