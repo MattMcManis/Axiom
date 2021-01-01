@@ -250,9 +250,9 @@ namespace Axiom
 
             try
             {
-                Generate.Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                   VM.SubtitleView.Subtitle_Stream_SelectedItem
-                                                   );
+                Generate.Subtitle.Subtitle.SubtitlesMux(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                                        VM.SubtitleView.Subtitle_Stream_SelectedItem
+                                                       );
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
 
@@ -408,8 +408,8 @@ namespace Axiom
                 Generate.Video.Quality.Optimize(VM.VideoView.Video_Codec_SelectedItem,
                                        VM.VideoView.Video_Optimize_Items,
                                        VM.VideoView.Video_Optimize_SelectedItem,
-                                       VM.VideoView.Video_Video_Optimize_Tune_SelectedItem,
-                                       VM.VideoView.Video_Video_Optimize_Profile_SelectedItem,
+                                       VM.VideoView.Video_Optimize_Tune_SelectedItem,
+                                       VM.VideoView.Video_Optimize_Profile_SelectedItem,
                                        VM.VideoView.Video_Optimize_Level_SelectedItem
                                        );
             }
@@ -423,7 +423,7 @@ namespace Axiom
 
             try
             {
-                Generate.Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                Generate.Subtitle.Subtitle.SubtitleCodec(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                VM.SubtitleView.Subtitle_Codec
                                                );
             }
