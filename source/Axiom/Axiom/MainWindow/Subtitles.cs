@@ -77,22 +77,45 @@ namespace Axiom
             // -------------------------
             // Mux
             // -------------------------
+            // ListView Opacity
             if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "mux" ||
                 VM.SubtitleView.Subtitle_Stream_SelectedItem == "external")
             {
-                // Enable Subtitle Mux ListView and Buttons
-                VM.SubtitleView.Subtitle_ListView_IsEnabled = true;
-
-                //lstvSubtitles.Opacity = 1;
+                // Show
                 VM.SubtitleView.Subtitle_ListView_Opacity = 1;
             }
             else
             {
+                // Hide
+                VM.SubtitleView.Subtitle_ListView_Opacity = 0.1;
+            }
+
+            // Enable Metadata
+            // Mux
+            if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "mux")
+            {
+                // Enable ListView
+                VM.SubtitleView.Subtitle_ListView_IsEnabled = true;
+                // Enable Metadata
+                VM.SubtitleView.Subtitle_Metadata_Title_IsEnabled = true;
+                VM.SubtitleView.Subtitle_Metadata_Language_IsEnabled = true;
+            }
+            // External (Burn)
+            else if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "external")
+            {
+                // Enable ListView
+                VM.SubtitleView.Subtitle_ListView_IsEnabled = true;
+                // Disable Metadata
+                VM.SubtitleView.Subtitle_Metadata_Title_IsEnabled = false;
+                VM.SubtitleView.Subtitle_Metadata_Language_IsEnabled = false;
+            }
+            // Other Streams
+            else
+            {
                 // Disable Subtitle Mux ListView and Buttons
                 VM.SubtitleView.Subtitle_ListView_IsEnabled = false;
-
-                //lstvSubtitles.Opacity = 0.1;
-                VM.SubtitleView.Subtitle_ListView_Opacity = 0.1;
+                VM.SubtitleView.Subtitle_Metadata_Title_IsEnabled = false;
+                VM.SubtitleView.Subtitle_Metadata_Language_IsEnabled = false;
             }
         }
 
@@ -462,6 +485,14 @@ namespace Axiom
         /// </summary>
         private void tbxSubtitle_Metadata_Title_KeyUp(object sender, KeyEventArgs e)
         {
+            SaveMetadata_Subtitle_Title();
+        }
+        private void tbxSubtitle_Metadata_Title_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SaveMetadata_Subtitle_Title();
+        }
+        public void SaveMetadata_Subtitle_Title()
+        {
             // -------------------------
             // Halts
             // -------------------------
@@ -510,6 +541,14 @@ namespace Axiom
         private void cboSubtitle_Metadata_Language_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
+            // Halts
+            // -------------------------
+            if (VM.SubtitleView.Subtitle_Stream_SelectedItem != "mux")
+            {
+                return;
+            }
+
+            // -------------------------
             // Language
             // -------------------------
             if (Generate.Subtitle.Metadata.languageList != null &&
@@ -547,6 +586,14 @@ namespace Axiom
         /// Subtitle Delay - TextBox
         /// </summary>
         private void tbxSubtitle_Delay_KeyUp(object sender, KeyEventArgs e)
+        {
+            SaveMetadata_Subtitle_Delay();
+        }
+        private void tbxSubtitle_Delay_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SaveMetadata_Subtitle_Delay();
+        }
+        public void SaveMetadata_Subtitle_Delay()
         {
             // -------------------------
             // Halts
@@ -589,7 +636,7 @@ namespace Axiom
 
                 }
             }
-
         }
+
     }
 }
