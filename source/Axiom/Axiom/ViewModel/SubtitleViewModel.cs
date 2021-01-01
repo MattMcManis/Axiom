@@ -67,7 +67,7 @@ namespace ViewModel
             Subtitle_Stream_SelectedItem = "none";
 
             Subtitle_ListView_IsEnabled = false;
-            Subtitle_ListView_Opacity = 0.1;
+            Subtitle_ListView_Opacity = 0.15;
 
             Subtitle_Metadata_Title_IsEnabled = false;
             Subtitle_Metadata_Title_Text = string.Empty;
