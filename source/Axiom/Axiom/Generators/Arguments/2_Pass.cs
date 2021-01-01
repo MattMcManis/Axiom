@@ -650,14 +650,14 @@ namespace Generate
                         };
                     }
                     // Disable Chapters
-                    else
-                    {
-                        chaptersList_Pass2 = new List<string>()
-                        {
-                            "\r\n\r\n" +
-                            "-cn",
-                        };
-                    }
+                    //else
+                    //{
+                    //    chaptersList_Pass2 = new List<string>()
+                    //    {
+                    //        "\r\n\r\n" +
+                    //        "-cn",
+                    //    };
+                    //}
 
                     // -------------------------
                     // Output
