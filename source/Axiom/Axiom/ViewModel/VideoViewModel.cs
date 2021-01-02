@@ -42,10 +42,6 @@ namespace ViewModel
             }
         }
 
-        // Video View Model
-        //public static VideoView vm = new VideoView();
-
-
         /// <summary>
         /// Video View Model
         /// </summary>
@@ -53,7 +49,6 @@ namespace ViewModel
         {
             LoadControlsDefaults();
         }
-
 
         /// <summary>
         /// Load Controls Defaults
@@ -205,7 +200,7 @@ namespace ViewModel
         // Items Source
         public class Expanded
         {
-            public bool Optimize { get; set; }
+            public bool? Optimize { get; set; }
         }
 
 
@@ -215,7 +210,7 @@ namespace ViewModel
         // Items Source
         public class Checked
         {
-            public bool VBR { get; set; }
+            public bool? VBR { get; set; }
         }
 
 
@@ -225,28 +220,28 @@ namespace ViewModel
         // Items Source
         public class Enabled
         {
-            public bool EncodeSpeed { get; set; }
-            public bool Codec { get; set; }
-            public bool HWAccel { get; set; }
-            public bool Quality { get; set; }
-            public bool VBR { get; set; }
-            public bool PixelFormat { get; set; }
-            public bool FPS { get; set; }
-            public bool Speed { get; set; }
-            public bool Vsync { get; set; }
-            public bool Optimize { get; set; }
-            public bool Scale { get; set; }
-            public bool Scaling { get; set; }
-            public bool ScreenFormat { get; set; }
-            public bool AspectRatio { get; set; }
-            public bool Crop { get; set; }
-            public bool ColorRange { get; set; }
-            public bool ColorSpace { get; set; }
-            public bool ColorPrimaries { get; set; }
-            public bool ColorTransferChar { get; set; }
-            public bool ColorMatrix { get; set; }
-            public bool SubtitleCodec { get; set; }
-            public bool SubtitleStream { get; set; }
+            public bool? EncodeSpeed { get; set; }
+            public bool? Codec { get; set; }
+            public bool? HWAccel { get; set; }
+            public bool? Quality { get; set; }
+            public bool? VBR { get; set; }
+            public bool? PixelFormat { get; set; }
+            public bool? FPS { get; set; }
+            public bool? Speed { get; set; }
+            public bool? Vsync { get; set; }
+            public bool? Optimize { get; set; }
+            public bool? Scale { get; set; }
+            public bool? Scaling { get; set; }
+            public bool? ScreenFormat { get; set; }
+            public bool? AspectRatio { get; set; }
+            public bool? Crop { get; set; }
+            public bool? ColorRange { get; set; }
+            public bool? ColorSpace { get; set; }
+            public bool? ColorPrimaries { get; set; }
+            public bool? ColorTransferChar { get; set; }
+            public bool? ColorMatrix { get; set; }
+            public bool? SubtitleCodec { get; set; }
+            public bool? SubtitleStream { get; set; }
         }
 
         // --------------------------------------------------
@@ -314,8 +309,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Codec_IsEnabled;
-        public bool Video_Codec_IsEnabled
+        private bool? _Video_Codec_IsEnabled;
+        public bool? Video_Codec_IsEnabled
         {
             get { return _Video_Codec_IsEnabled; }
             set
@@ -408,8 +403,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_EncodeSpeed_IsEnabled;
-        public bool Video_EncodeSpeed_IsEnabled
+        private bool? _Video_EncodeSpeed_IsEnabled;
+        public bool? Video_EncodeSpeed_IsEnabled
         {
             get { return _Video_EncodeSpeed_IsEnabled; }
             set
@@ -480,8 +475,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_HWAccel_IsEnabled;
-        public bool Video_HWAccel_IsEnabled
+        private bool? _Video_HWAccel_IsEnabled;
+        public bool? Video_HWAccel_IsEnabled
         {
             get { return _Video_HWAccel_IsEnabled; }
             set
@@ -555,8 +550,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_HWAccel_Decode_IsEnabled;
-        public bool Video_HWAccel_Decode_IsEnabled
+        private bool? _Video_HWAccel_Decode_IsEnabled;
+        public bool? Video_HWAccel_Decode_IsEnabled
         {
             get { return _Video_HWAccel_Decode_IsEnabled; }
             set
@@ -628,8 +623,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_HWAccel_Transcode_IsEnabled;
-        public bool Video_HWAccel_Transcode_IsEnabled
+        private bool? _Video_HWAccel_Transcode_IsEnabled;
+        public bool? Video_HWAccel_Transcode_IsEnabled
         {
             get { return _Video_HWAccel_Transcode_IsEnabled; }
             set
@@ -700,8 +695,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Pass_IsEnabled;
-        public bool Video_Pass_IsEnabled
+        private bool? _Video_Pass_IsEnabled;
+        public bool? Video_Pass_IsEnabled
         {
             get { return _Video_Pass_IsEnabled; }
             set
@@ -787,8 +782,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Quality_IsEnabled;
-        public bool Video_Quality_IsEnabled
+        private bool? _Video_Quality_IsEnabled;
+        public bool? Video_Quality_IsEnabled
         {
             get { return _Video_Quality_IsEnabled; }
             set
@@ -808,8 +803,8 @@ namespace ViewModel
         // Video VBR - Toggle
         // -------------------------
         // Checked
-        private bool _Video_VBR_IsChecked;
-        public bool Video_VBR_IsChecked
+        private bool? _Video_VBR_IsChecked;
+        public bool? Video_VBR_IsChecked
         {
             get { return _Video_VBR_IsChecked; }
             set
@@ -822,8 +817,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_VBR_IsEnabled;
-        public bool Video_VBR_IsEnabled
+        private bool? _Video_VBR_IsEnabled;
+        public bool? Video_VBR_IsEnabled
         {
             get { return _Video_VBR_IsEnabled; }
             set
@@ -875,8 +870,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_CRF_IsEnabled;
-        public bool Video_CRF_IsEnabled
+        private bool? _Video_CRF_IsEnabled;
+        public bool? Video_CRF_IsEnabled
         {
             get { return _Video_CRF_IsEnabled; }
             set
@@ -912,8 +907,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_BitRate_IsEnabled;
-        public bool Video_BitRate_IsEnabled
+        private bool? _Video_BitRate_IsEnabled;
+        public bool? Video_BitRate_IsEnabled
         {
             get { return _Video_BitRate_IsEnabled; }
             set
@@ -949,8 +944,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_MinRate_IsEnabled;
-        public bool Video_MinRate_IsEnabled
+        private bool? _Video_MinRate_IsEnabled;
+        public bool? Video_MinRate_IsEnabled
         {
             get { return _Video_MinRate_IsEnabled; }
             set
@@ -985,8 +980,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_MaxRate_IsEnabled;
-        public bool Video_MaxRate_IsEnabled
+        private bool? _Video_MaxRate_IsEnabled;
+        public bool? Video_MaxRate_IsEnabled
         {
             get { return _Video_MaxRate_IsEnabled; }
             set
@@ -1022,8 +1017,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_BufSize_IsEnabled;
-        public bool Video_BufSize_IsEnabled
+        private bool? _Video_BufSize_IsEnabled;
+        public bool? Video_BufSize_IsEnabled
         {
             get { return _Video_BufSize_IsEnabled; }
             set
@@ -1088,8 +1083,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_PixelFormat_IsEnabled;
-        public bool Video_PixelFormat_IsEnabled
+        private bool? _Video_PixelFormat_IsEnabled;
+        public bool? Video_PixelFormat_IsEnabled
         {
             get { return _Video_PixelFormat_IsEnabled; }
             set
@@ -1188,8 +1183,8 @@ namespace ViewModel
         }
 
         // Controls Is Editable
-        private bool _Video_FPS_IsEditable;
-        public bool Video_FPS_IsEditable
+        private bool? _Video_FPS_IsEditable;
+        public bool? Video_FPS_IsEditable
         {
             get { return _Video_FPS_IsEditable; }
             set
@@ -1205,8 +1200,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_FPS_IsEnabled;
-        public bool Video_FPS_IsEnabled
+        private bool? _Video_FPS_IsEnabled;
+        public bool? Video_FPS_IsEnabled
         {
             get { return _Video_FPS_IsEnabled; }
             set
@@ -1303,8 +1298,8 @@ namespace ViewModel
         }
 
         // Controls Is Editable
-        private bool _Video_Speed_IsEditable;
-        public bool Video_Speed_IsEditable
+        private bool? _Video_Speed_IsEditable;
+        public bool? Video_Speed_IsEditable
         {
             get { return _Video_Speed_IsEditable; }
             set
@@ -1320,8 +1315,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Speed_IsEnabled;
-        public bool Video_Speed_IsEnabled
+        private bool? _Video_Speed_IsEnabled;
+        public bool? Video_Speed_IsEnabled
         {
             get { return _Video_Speed_IsEnabled; }
             set
@@ -1373,8 +1368,8 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        private bool _Video_Vsync_IsEnabled;
-        public bool Video_Vsync_IsEnabled
+        private bool? _Video_Vsync_IsEnabled;
+        public bool? Video_Vsync_IsEnabled
         {
             get { return _Video_Vsync_IsEnabled; }
             set
@@ -1449,8 +1444,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_IsEnabled;
-        public bool Video_Optimize_IsEnabled
+        private bool? _Video_Optimize_IsEnabled;
+        public bool? Video_Optimize_IsEnabled
         {
             get { return _Video_Optimize_IsEnabled; }
             set
@@ -1466,8 +1461,8 @@ namespace ViewModel
         }
 
         // Controls Expanded
-        private bool _Video_Optimize_IsExpanded;
-        public bool Video_Optimize_IsExpanded
+        private bool? _Video_Optimize_IsExpanded;
+        public bool? Video_Optimize_IsExpanded
         {
             get { return _Video_Optimize_IsExpanded; }
             set
@@ -1533,8 +1528,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_Tune_IsEnabled;
-        public bool Video_Optimize_Tune_IsEnabled
+        private bool? _Video_Optimize_Tune_IsEnabled;
+        public bool? Video_Optimize_Tune_IsEnabled
         {
             get { return _Video_Optimize_Tune_IsEnabled; }
             set
@@ -1600,8 +1595,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_Profile_IsEnabled;
-        public bool Video_Optimize_Profile_IsEnabled
+        private bool? _Video_Optimize_Profile_IsEnabled;
+        public bool? Video_Optimize_Profile_IsEnabled
         {
             get { return _Video_Optimize_Profile_IsEnabled; }
             set
@@ -1667,8 +1662,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Optimize_Level_IsEnabled;
-        public bool Video_Optimize_Level_IsEnabled
+        private bool? _Video_Optimize_Level_IsEnabled;
+        public bool? Video_Optimize_Level_IsEnabled
         {
             get { return _Video_Optimize_Level_IsEnabled; }
             set
@@ -1746,8 +1741,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Matrix_IsEnabled;
-        public bool Video_Color_Matrix_IsEnabled
+        private bool? _Video_Color_Matrix_IsEnabled;
+        public bool? Video_Color_Matrix_IsEnabled
         {
             get { return _Video_Color_Matrix_IsEnabled; }
             set
@@ -1825,8 +1820,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Space_IsEnabled;
-        public bool Video_Color_Space_IsEnabled
+        private bool? _Video_Color_Space_IsEnabled;
+        public bool? Video_Color_Space_IsEnabled
         {
             get { return _Video_Color_Space_IsEnabled; }
             set
@@ -1911,8 +1906,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_TransferCharacteristics_IsEnabled;
-        public bool Video_Color_TransferCharacteristics_IsEnabled
+        private bool? _Video_Color_TransferCharacteristics_IsEnabled;
+        public bool? Video_Color_TransferCharacteristics_IsEnabled
         {
             get { return _Video_Color_TransferCharacteristics_IsEnabled; }
             set
@@ -1994,8 +1989,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Primaries_IsEnabled;
-        public bool Video_Color_Primaries_IsEnabled
+        private bool? _Video_Color_Primaries_IsEnabled;
+        public bool? Video_Color_Primaries_IsEnabled
         {
             get { return _Video_Color_Primaries_IsEnabled; }
             set
@@ -2068,8 +2063,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Color_Range_IsEnabled;
-        public bool Video_Color_Range_IsEnabled
+        private bool? _Video_Color_Range_IsEnabled;
+        public bool? Video_Color_Range_IsEnabled
         {
             get { return _Video_Color_Range_IsEnabled; }
             set
@@ -2155,8 +2150,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_Scale_IsEnabled;
-        public bool Video_Scale_IsEnabled
+        private bool? _Video_Scale_IsEnabled;
+        public bool? Video_Scale_IsEnabled
         {
             get { return _Video_Scale_IsEnabled; }
             set
@@ -2191,8 +2186,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_Width_IsEnabled;
-        public bool Video_Width_IsEnabled
+        private bool? _Video_Width_IsEnabled;
+        public bool? Video_Width_IsEnabled
         {
             get { return _Video_Width_IsEnabled; }
             set
@@ -2226,8 +2221,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Video_Height_IsEnabled;
-        public bool Video_Height_IsEnabled
+        private bool? _Video_Height_IsEnabled;
+        public bool? Video_Height_IsEnabled
         {
             get { return _Video_Height_IsEnabled; }
             set
@@ -2300,8 +2295,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_ScreenFormat_IsEnabled;
-        public bool Video_ScreenFormat_IsEnabled
+        private bool? _Video_ScreenFormat_IsEnabled;
+        public bool? Video_ScreenFormat_IsEnabled
         {
             get { return _Video_ScreenFormat_IsEnabled; }
             set
@@ -2382,8 +2377,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_AspectRatio_IsEnabled;
-        public bool Video_AspectRatio_IsEnabled
+        private bool? _Video_AspectRatio_IsEnabled;
+        public bool? Video_AspectRatio_IsEnabled
         {
             get { return _Video_AspectRatio_IsEnabled; }
             set
@@ -2463,8 +2458,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Video_ScalingAlgorithm_IsEnabled;
-        public bool Video_ScalingAlgorithm_IsEnabled
+        private bool? _Video_ScalingAlgorithm_IsEnabled;
+        public bool? Video_ScalingAlgorithm_IsEnabled
         {
             get { return _Video_ScalingAlgorithm_IsEnabled; }
             set
@@ -2484,8 +2479,8 @@ namespace ViewModel
         // Crop
         // --------------------------------------------------
         // Controls Enable
-        private bool _Video_Crop_IsEnabled;
-        public bool Video_Crop_IsEnabled
+        private bool? _Video_Crop_IsEnabled;
+        public bool? Video_Crop_IsEnabled
         {
             get { return _Video_Crop_IsEnabled; }
             set
