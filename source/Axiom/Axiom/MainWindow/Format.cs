@@ -40,6 +40,12 @@ namespace Axiom
         /// <summary>
         /// Container - ComboBox
         /// </summary>
+        private void cboFormat_Container_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // Save Previouis Item
+            MainWindow.Format_Container_PreviousItem = VM.FormatView.Format_Container_SelectedItem;
+            //MessageBox.Show(MainWindow.Format_Container_PreviousItem);
+        }
         private void cboFormat_Container_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
