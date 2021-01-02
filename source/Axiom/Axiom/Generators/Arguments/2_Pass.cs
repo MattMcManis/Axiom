@@ -201,7 +201,7 @@ namespace Generate
                                                            ),
 
                             Video.Quality.VideoQuality(VM.MainView.Batch_IsChecked,
-                                                       VM.VideoView.Video_VBR_IsChecked,
+                                                       (bool)VM.VideoView.Video_VBR_IsChecked,
                                                        VM.FormatView.Format_Container_SelectedItem,
                                                        VM.FormatView.Format_MediaType_SelectedItem,
                                                        VM.VideoView.Video_Codec_SelectedItem,
@@ -548,7 +548,7 @@ namespace Generate
                                                VM.AudioView.Audio_Quality_Items,
                                                VM.AudioView.Audio_Quality_SelectedItem,
                                                VM.AudioView.Audio_BitRate_Text,
-                                               VM.AudioView.Audio_VBR_IsChecked
+                                               (bool)VM.AudioView.Audio_VBR_IsChecked
                                                ),
                             Audio.Quality.CompressionLevel(VM.AudioView.Audio_Codec_SelectedItem,
                                                    VM.AudioView.Audio_CompressionLevel_SelectedItem
