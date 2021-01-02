@@ -1605,7 +1605,10 @@ namespace Axiom
         /// <summary>
         /// Selected Item
         /// </summary>
+        // Format
+        public static string Format_Container_PreviousItem { get; set; }
         // Video
+        public static string Video_Codec_PreviousItem { get; set; }
         public static string Video_EncodeSpeed_PreviousItem { get; set; }
         public static string Video_Quality_PreviousItem { get; set; }
         public static string Video_Pass_PreviousItem { get; set; }
@@ -1614,6 +1617,7 @@ namespace Axiom
         public static string Video_Optimize_Profile_PreviousItem { get; set; }
         public static string Video_Optimize_Level_PreviousItem { get; set; }
         // Audio
+        public static string Audio_Codec_PreviousItem { get; set; }
         public static string Audio_Stream_PreviousItem { get; set; }
         public static string Audio_Channel_PreviousItem { get; set; }
         public static string Audio_Quality_PreviousItem { get; set; }
@@ -1623,7 +1627,7 @@ namespace Axiom
         // Selected Item
         public static String SelectedItem(List<string> controlItems,
                                           string previousItem
-                                          )
+                                         )
         {
             // -------------------------
             // Select the Prevoius Codec's Item if available
