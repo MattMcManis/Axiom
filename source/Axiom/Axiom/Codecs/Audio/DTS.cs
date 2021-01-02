@@ -144,7 +144,7 @@ namespace Controls.Audio.Codec
             {
                 Quality =           true,
                 CompressionLevel =  false,
-                VBR =               true,
+                VBR =               false,
                 SampleRate =        true,
                 BitDepth =          false,
             },
