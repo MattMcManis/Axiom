@@ -1120,6 +1120,17 @@ namespace Controls.Video
                 VM.VideoView.Video_Optimize_Level_SelectedItem = VM.VideoView.Video_Optimize_Items
                                                                  .FirstOrDefault(item => item.Name == VM.VideoView.Video_Optimize_SelectedItem)?.Level;
             }
+
+            // -------------------------
+            // Special Rule WebM
+            // -------------------------
+            // If coming from Format webm, default to None.
+            // Do not clear Format_Container_PreviousItem here, 
+            // it is cleared at the end of the chain in Controls.Format.AudioStreamControls().
+            if (MainWindow.Format_Container_PreviousItem == "webm")
+            {
+                VM.VideoView.Video_Optimize_SelectedItem = "None";
+            }
         }
 
 
