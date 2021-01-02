@@ -144,7 +144,7 @@ namespace ViewModel
         // Items Source
         public class Checked
         {
-            public bool VBR { get; set; }
+            public bool? VBR { get; set; }
         }
 
 
@@ -154,16 +154,16 @@ namespace ViewModel
         // Items Source
         public class Enabled
         {
-            public bool Codec { get; set; }
-            public bool Stream { get; set; }
-            public bool Channel { get; set; }
-            public bool Quality { get; set; }
-            public bool CompressionLevel { get; set; }
-            public bool VBR { get; set; }
-            public bool SampleRate { get; set; }
-            public bool BitDepth { get; set; }
-            public bool Volume { get; set; }
-            public bool HardLimiter { get; set; }
+            public bool? Codec { get; set; }
+            public bool? Stream { get; set; }
+            public bool? Channel { get; set; }
+            public bool? Quality { get; set; }
+            public bool? CompressionLevel { get; set; }
+            public bool? VBR { get; set; }
+            public bool? SampleRate { get; set; }
+            public bool? BitDepth { get; set; }
+            public bool? Volume { get; set; }
+            public bool? HardLimiter { get; set; }
 
         }
 
@@ -227,8 +227,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Codec_IsEnabled;
-        public bool Audio_Codec_IsEnabled
+        private bool? _Audio_Codec_IsEnabled;
+        public bool? Audio_Codec_IsEnabled
         {
             get { return _Audio_Codec_IsEnabled; }
             set
@@ -311,8 +311,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Stream_IsEnabled;
-        public bool Audio_Stream_IsEnabled
+        private bool? _Audio_Stream_IsEnabled;
+        public bool? Audio_Stream_IsEnabled
         {
             get { return _Audio_Stream_IsEnabled; }
             set
@@ -378,8 +378,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Channel_IsEnabled;
-        public bool Audio_Channel_IsEnabled
+        private bool? _Audio_Channel_IsEnabled;
+        public bool? Audio_Channel_IsEnabled
         {
             get { return _Audio_Channel_IsEnabled; }
             set
@@ -457,8 +457,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Quality_IsEnabled;
-        public bool Audio_Quality_IsEnabled
+        private bool? _Audio_Quality_IsEnabled;
+        public bool? Audio_Quality_IsEnabled
         {
             get { return _Audio_Quality_IsEnabled; }
             set
@@ -494,8 +494,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Audio_BitRate_IsEnabled;
-        public bool Audio_BitRate_IsEnabled
+        private bool? _Audio_BitRate_IsEnabled;
+        public bool? Audio_BitRate_IsEnabled
         {
             get { return _Audio_BitRate_IsEnabled; }
             set
@@ -515,8 +515,8 @@ namespace ViewModel
         // Audio VBR - Toggle
         // -------------------------
         // Checked
-        private bool _Audio_VBR_IsChecked;
-        public bool Audio_VBR_IsChecked
+        private bool? _Audio_VBR_IsChecked;
+        public bool? Audio_VBR_IsChecked
         {
             get { return _Audio_VBR_IsChecked; }
             set
@@ -530,8 +530,8 @@ namespace ViewModel
         }
 
         // Enabled
-        private bool _Audio_VBR_IsEnabled;
-        public bool Audio_VBR_IsEnabled
+        private bool? _Audio_VBR_IsEnabled;
+        public bool? Audio_VBR_IsEnabled
         {
             get { return _Audio_VBR_IsEnabled; }
             set
@@ -614,8 +614,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_CompressionLevel_IsEnabled;
-        public bool Audio_CompressionLevel_IsEnabled
+        private bool? _Audio_CompressionLevel_IsEnabled;
+        public bool? Audio_CompressionLevel_IsEnabled
         {
             get { return _Audio_CompressionLevel_IsEnabled; }
             set
@@ -686,8 +686,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_SampleRate_IsEnabled;
-        public bool Audio_SampleRate_IsEnabled
+        private bool? _Audio_SampleRate_IsEnabled;
+        public bool? Audio_SampleRate_IsEnabled
         {
             get { return _Audio_SampleRate_IsEnabled; }
             set
@@ -758,8 +758,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_BitDepth_IsEnabled;
-        public bool Audio_BitDepth_IsEnabled
+        private bool? _Audio_BitDepth_IsEnabled;
+        public bool? Audio_BitDepth_IsEnabled
         {
             get { return _Audio_BitDepth_IsEnabled; }
             set
@@ -795,8 +795,8 @@ namespace ViewModel
             }
         }
         // Enabled
-        private bool _Audio_Volume_IsEnabled;
-        public bool Audio_Volume_IsEnabled
+        private bool? _Audio_Volume_IsEnabled;
+        public bool? Audio_Volume_IsEnabled
         {
             get { return _Audio_Volume_IsEnabled; }
             set
@@ -833,8 +833,8 @@ namespace ViewModel
         }
 
         // Enabled
-        private bool _Audio_HardLimiter_IsEnabled;
-        public bool Audio_HardLimiter_IsEnabled
+        private bool? _Audio_HardLimiter_IsEnabled;
+        public bool? Audio_HardLimiter_IsEnabled
         {
             get { return _Audio_HardLimiter_IsEnabled; }
             set
@@ -907,8 +907,8 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        public bool _Audio_ListView_IsEnabled;
-        public bool Audio_ListView_IsEnabled
+        public bool? _Audio_ListView_IsEnabled;
+        public bool? Audio_ListView_IsEnabled
         {
             get { return _Audio_ListView_IsEnabled; }
             set
@@ -1035,8 +1035,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        private bool _Audio_Metadata_Language_IsEnabled;
-        public bool Audio_Metadata_Language_IsEnabled
+        private bool? _Audio_Metadata_Language_IsEnabled;
+        public bool? Audio_Metadata_Language_IsEnabled
         {
             get { return _Audio_Metadata_Language_IsEnabled; }
             set
