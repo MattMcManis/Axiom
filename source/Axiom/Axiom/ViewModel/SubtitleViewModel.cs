@@ -121,8 +121,8 @@ namespace ViewModel
         // Items Source
         public class Enabled
         {
-            public bool Codec { get; set; }
-            public bool Stream { get; set; }
+            public bool? Codec { get; set; }
+            public bool? Stream { get; set; }
         }
 
         // --------------------------------------------------
@@ -185,8 +185,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        public bool _Subtitle_Codec_IsEnabled;
-        public bool Subtitle_Codec_IsEnabled
+        public bool? _Subtitle_Codec_IsEnabled;
+        public bool? Subtitle_Codec_IsEnabled
         {
             get { return _Subtitle_Codec_IsEnabled; }
             set
@@ -252,8 +252,8 @@ namespace ViewModel
         }
 
         // Controls Enable
-        public bool _Subtitle_Stream_IsEnabled;
-        public bool Subtitle_Stream_IsEnabled
+        public bool? _Subtitle_Stream_IsEnabled;
+        public bool? Subtitle_Stream_IsEnabled
         {
             get { return _Subtitle_Stream_IsEnabled; }
             set
@@ -327,8 +327,8 @@ namespace ViewModel
             }
         }
         // Controls Enable
-        public bool _Subtitle_ListView_IsEnabled;
-        public bool Subtitle_ListView_IsEnabled
+        public bool? _Subtitle_ListView_IsEnabled;
+        public bool? Subtitle_ListView_IsEnabled
         {
             get { return _Subtitle_ListView_IsEnabled; }
             set
