@@ -284,14 +284,6 @@ namespace Axiom
                     Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
                     break;
 
-                case "Prelude":
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-                    break;
-
                 case "System":
                     Log.ConsoleDefault = Brushes.White; // Default
                     Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
@@ -615,7 +607,9 @@ namespace Axiom
             // -------------------------
             // Control Defaults
             // -------------------------
-            lstvSubtitles.SelectionMode = SelectionMode.Single;
+            //VM.VideoView.Video_Quality_SelectedItem = "High";
+            //VM.AudioView.Audio_Quality_SelectedItem = "256";
+            //VM.AudioView.Audio_VBR_IsChecked = true;
 
             // -------------------------
             // Load Custom Presets
@@ -658,8 +652,8 @@ namespace Axiom
                 case "AppData Local":
                     // Save Config
                     SaveConfOnExit(Controls.Configure.confAppDataLocalDir, // directory
-                                    "axiom.conf" // filename
-                                    );
+                                   "axiom.conf" // filename
+                                  );
                     break;
 
                 // -------------------------
@@ -668,8 +662,8 @@ namespace Axiom
                 case "AppData Roaming":
                     // Save Config
                     SaveConfOnExit(Controls.Configure.confAppDataRoamingDir, // directory
-                                    "axiom.conf" // filename
-                                    );
+                                   "axiom.conf" // filename
+                                  );
                     break;
 
                 // -------------------------
@@ -684,8 +678,8 @@ namespace Axiom
                     {
                         // Save Config
                         SaveConfOnExit(Controls.Configure.confAppRootDir, // directory
-                                        "axiom.conf" // filename
-                                        );
+                                       "axiom.conf" // filename
+                                      );
                     }
 
                     // -------------------------
@@ -696,7 +690,8 @@ namespace Axiom
                         if (File.Exists(Controls.Configure.confAppRootFilePath) ||
                             File.Exists(logAppRootPath))
                         {
-                            MessageBox.Show("Cannot save axiom.conf to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
+                            MessageBox.Show("Cannot save axiom.conf to Program Files, Axiom does not have Administrator Privileges at this time. " + 
+                                            "\n\nPlease select AppData Local or Roaming instead.",
                                             "Notice",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
@@ -1673,6 +1668,18 @@ namespace Axiom
                 return true;
             }
         }
+
+
+        /// <summary>
+        /// Checked
+        /// </summary>
+        // Audio
+        public static bool? Audio_VBR_PreviousChecked { get; set; }
+        public static void Checked(bool previousChecked)
+        {
+
+        }
+
 
         /// <summary>
         /// Is Valid Windows Path
