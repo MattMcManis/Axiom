@@ -571,6 +571,7 @@
                                       VerticalAlignment="Top"
                                       Width="105"
                                       Height="22"
+                                      PreviewMouseUp="cboFormat_Container_PreviewMouseUp"
                                       SelectionChanged="cboFormat_Container_SelectionChanged"
                                       Grid.Column="2"
                                       Margin="0,2,0,0">
