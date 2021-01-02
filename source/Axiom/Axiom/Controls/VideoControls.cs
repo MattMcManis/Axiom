@@ -580,78 +580,82 @@ namespace Controls.Video
                 // Expanded
                 // --------------------------------------------------
                 // Optimize
-                VM.VideoView.Video_Optimize_IsExpanded = _codec_class[codec_SelectedItem].controls_Expanded.Any(item => item.Optimize);
-
+                VM.VideoView.Video_Optimize_IsExpanded = _codec_class[codec_SelectedItem].controls_Expanded.FirstOrDefault().Optimize;
+                //bool optimize_Expanded = false;
+                //bool.TryParse(_codec_class[codec_SelectedItem].controls_Expanded.Find(item => item.Optimize == item.Optimize).Optimize.ToString().ToLower(), out optimize_Expanded);
+                //VM.VideoView.Video_Optimize_IsExpanded = optimize_Expanded;
 
                 // --------------------------------------------------
                 // Checked
                 // --------------------------------------------------
                 // Video VBR
-                VM.VideoView.Video_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.Find(item => item.VBR == item.VBR).VBR;
-
+                VM.VideoView.Video_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.FirstOrDefault().VBR;
+                //bool vbr = false;
+                //bool.TryParse(_codec_class[codec_SelectedItem].controls_Checked.Find(item => item.VBR == item.VBR).VBR.ToString().ToLower(), out vbr);
+                //VM.VideoView.Video_VBR_IsChecked = vbr;
 
                 // --------------------------------------------------
                 // Enabled
                 // --------------------------------------------------
                 // Video Encode Speed
-                VM.VideoView.Video_EncodeSpeed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.EncodeSpeed);
+                VM.VideoView.Video_EncodeSpeed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().EncodeSpeed;
 
                 // Video Codec
-                VM.VideoView.Video_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Codec);
+                VM.VideoView.Video_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Codec;
 
                 // HW Accel
-                VM.VideoView.Video_HWAccel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.HWAccel);
+                VM.VideoView.Video_HWAccel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().HWAccel;
 
                 // Video Quality
-                VM.VideoView.Video_Quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Quality);
+                VM.VideoView.Video_Quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Quality;
 
                 // Video VBR
-                VM.VideoView.Video_VBR_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.VBR);
+                VM.VideoView.Video_VBR_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().VBR;
 
                 // Pixel Format
-                VM.VideoView.Video_PixelFormat_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.PixelFormat);
+                VM.VideoView.Video_PixelFormat_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().PixelFormat;
 
                 // FPS
-                VM.VideoView.Video_FPS_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.FPS);
+                VM.VideoView.Video_FPS_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().FPS;
 
                 // Speed
-                VM.VideoView.Video_Speed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Speed);
+                VM.VideoView.Video_Speed_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Speed;
 
                 // Vsync
-                VM.VideoView.Video_Vsync_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Vsync);
+                VM.VideoView.Video_Vsync_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Vsync;
 
                 // Optimize ComboBox
-                VM.VideoView.Video_Optimize_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Optimize);
+                VM.VideoView.Video_Optimize_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Optimize;
 
                 // Size
-                VM.VideoView.Video_Scale_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Scale);
+                VM.VideoView.Video_Scale_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Scale;
 
                 // Scaling ComboBox
-                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Scaling);
+                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Scaling;
 
                 // Crop
-                VM.VideoView.Video_Crop_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.Crop);
+                VM.VideoView.Video_Crop_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().Crop;
 
                 // Color Range
-                VM.VideoView.Video_Color_Range_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorRange);
+                VM.VideoView.Video_Color_Range_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().ColorRange;
 
                 // Color Space
-                VM.VideoView.Video_Color_Space_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorSpace);
+                VM.VideoView.Video_Color_Space_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().ColorSpace;
 
                 // Color Primaries
-                VM.VideoView.Video_Color_Primaries_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorPrimaries);
+                VM.VideoView.Video_Color_Primaries_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().ColorPrimaries;
 
                 // Color Transfer Characteristics
-                VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorTransferChar);
+                VM.VideoView.Video_Color_TransferCharacteristics_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().ColorTransferChar;
 
                 // Color Matrix
-                VM.VideoView.Video_Color_Matrix_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.ColorMatrix);
+                VM.VideoView.Video_Color_Matrix_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().ColorMatrix;
 
                 // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.SubtitleCodec);
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().SubtitleCodec;
 
                 // Subtitle Stream
-                VM.SubtitleView.Subtitle_Stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.Any(item => item.SubtitleStream);
+                VM.SubtitleView.Subtitle_Stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault().SubtitleStream;
 
                 // Filters
                 // Disable All
