@@ -250,9 +250,9 @@ namespace ViewModel
         // Items Source
         private ObservableCollection<string> _Audio_Stream_Items = new ObservableCollection<string>()
         {
-            "none",
-            "mux",
             "all",
+            "mux",
+            "none",
             "1",
             "2",
             "3",
