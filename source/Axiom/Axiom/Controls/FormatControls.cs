@@ -57,6 +57,8 @@ namespace Controls.Format
             // --------------------------------------------------
             // Containers
             // --------------------------------------------------
+
+            // Defaults
             switch (container_SelectedItem)
             {
                 // --------------------------------------------------
@@ -1276,11 +1278,11 @@ namespace Controls.Format
             // ogv
             // -------------------------
             else if (VM.FormatView.Format_Container_SelectedItem == "mp4" ||
-                        VM.FormatView.Format_Container_SelectedItem == "mkv" ||
-                        VM.FormatView.Format_Container_SelectedItem == "mpg" ||
-                        VM.FormatView.Format_Container_SelectedItem == "avi" ||
-                        VM.FormatView.Format_Container_SelectedItem == "ogv"
-                        )
+                     VM.FormatView.Format_Container_SelectedItem == "mkv" ||
+                     VM.FormatView.Format_Container_SelectedItem == "mpg" ||
+                     VM.FormatView.Format_Container_SelectedItem == "avi" ||
+                     VM.FormatView.Format_Container_SelectedItem == "ogv"
+                    )
             {
                 // -------------------------
                 // None
@@ -1295,10 +1297,30 @@ namespace Controls.Format
                 // -------------------------
                 else
                 {
+                    //MessageBox.Show(MainWindow.Format_Container_PreviousItem); //debug
+                    if (MainWindow.Format_Container_PreviousItem == "webm" ||
+                        MainWindow.Format_Container_PreviousItem == "mp3" ||
+                        MainWindow.Format_Container_PreviousItem == "m4a" ||
+                        MainWindow.Format_Container_PreviousItem == "ogg" ||
+                        MainWindow.Format_Container_PreviousItem == "flac" ||
+                        MainWindow.Format_Container_PreviousItem == "wav" ||
+                        MainWindow.Format_Container_PreviousItem == "jpg" ||
+                        MainWindow.Format_Container_PreviousItem == "png" ||
+                        MainWindow.Format_Container_PreviousItem == "webp")
+                    {
+                        VM.AudioView.Audio_Stream_SelectedItem = "all";
+                    }
+
+                    if (MainWindow.Audio_Stream_PreviousItem == "none")
+                    {
+                        VM.AudioView.Audio_Stream_SelectedItem = "all";
+                    }
                     //VM.AudioView.Audio_Stream_SelectedItem = "all";
+
+                    // Clear Container Previous Item
+                    MainWindow.Format_Container_PreviousItem = string.Empty;
                 }
             }
-
 
             // --------------------------------------------------
             // Image / Sequence 
@@ -1315,7 +1337,6 @@ namespace Controls.Format
                 VM.AudioView.Audio_Stream_SelectedItem = "none";
             }
 
-
             // --------------------------------------------------
             // Audio 
             // Selected Audio Stream
@@ -1324,10 +1345,10 @@ namespace Controls.Format
             // None
             // -------------------------
             else if (VM.FormatView.Format_Container_SelectedItem == "mp3" ||
-                        VM.FormatView.Format_Container_SelectedItem == "m4a" ||
-                        VM.FormatView.Format_Container_SelectedItem == "ogg" ||
-                        VM.FormatView.Format_Container_SelectedItem == "flac" ||
-                        VM.FormatView.Format_Container_SelectedItem == "wav"
+                     VM.FormatView.Format_Container_SelectedItem == "m4a" ||
+                     VM.FormatView.Format_Container_SelectedItem == "ogg" ||
+                     VM.FormatView.Format_Container_SelectedItem == "flac" ||
+                     VM.FormatView.Format_Container_SelectedItem == "wav"
                 )
             {
                 // -------------------------
@@ -1343,7 +1364,28 @@ namespace Controls.Format
                 // -------------------------
                 else
                 {
+                    if (MainWindow.Format_Container_PreviousItem == "webm" ||
+                        MainWindow.Format_Container_PreviousItem == "mp4" ||
+                        MainWindow.Format_Container_PreviousItem == "mkv" ||
+                        MainWindow.Format_Container_PreviousItem == "mpg" ||
+                        MainWindow.Format_Container_PreviousItem == "avi" ||
+                        MainWindow.Format_Container_PreviousItem == "ogv" ||
+                        MainWindow.Format_Container_PreviousItem == "jpg" ||
+                        MainWindow.Format_Container_PreviousItem == "png" ||
+                        MainWindow.Format_Container_PreviousItem == "webp")
+                    {
+                        VM.AudioView.Audio_Stream_SelectedItem = "1";
+                    }
+
+                    if (MainWindow.Audio_Stream_PreviousItem == "none" ||
+                        MainWindow.Audio_Stream_PreviousItem == "all")
+                    {
+                        VM.AudioView.Audio_Stream_SelectedItem = "1";
+                    }
                     //VM.AudioView.Audio_Stream_SelectedItem = "1";
+
+                    // Clear Container Previous Item
+                    MainWindow.Format_Container_PreviousItem = string.Empty;
                 }
             }
 
