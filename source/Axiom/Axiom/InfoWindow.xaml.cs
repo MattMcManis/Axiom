@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2020 Matt McManis
+Copyright (C) 2017-2021 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -51,7 +51,7 @@ namespace Axiom
 @"Axiom generates command scripts to be interpreted and processed by multimedia encoder FFmpeg and stream analyzer FFprobe. 
 
 Axiom UI
-Copyright © 2017-2020 Matt McManis
+Copyright © 2017-2021 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com

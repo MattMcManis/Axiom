@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Matt McManis")]
 [assembly: AssemblyProduct("Axiom UI")]
-[assembly: AssemblyCopyright("© MattMcManis 2017-2020")]
+[assembly: AssemblyCopyright("© MattMcManis 2017-2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
