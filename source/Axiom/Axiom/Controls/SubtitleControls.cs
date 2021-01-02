@@ -110,6 +110,17 @@ namespace Controls.Subtitles
                 // -------------------------
                 VM.SubtitleView.Subtitle_Stream_Items = _codec_class[codec_SelectedItem].stream;
 
+
+                // -------------------------
+                // Enabled
+                // -------------------------
+                // Subtitle Codec
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+
+                // Subtitle Stream
+                VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
+
+
                 // -------------------------
                 // Selected Items
                 // -------------------------
@@ -120,15 +131,6 @@ namespace Controls.Subtitles
                 {
                     VM.SubtitleView.Subtitle_Stream_SelectedItem = stream;
                 }
-
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
-
-                // Subtitle Stream
-                VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
             }
 
             // --------------------------------------------------
