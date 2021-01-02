@@ -218,6 +218,103 @@ namespace Controls.Audio
 
 
                 // --------------------------------------------------
+                // Enabled (Nullable)
+                // --------------------------------------------------
+                // Codec
+                //VM.AudioView.Audio_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Codec;
+                bool? codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Codec;
+                if (!codec_IsEnabled.HasValue)
+                    VM.AudioView.Audio_Codec_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_Codec_IsEnabled = codec_IsEnabled;
+
+                // Stream
+                //VM.AudioView.Audio_Stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Stream;
+                bool? stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Stream;
+                if (!stream_IsEnabled.HasValue)
+                    VM.AudioView.Audio_Stream_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_Stream_IsEnabled = stream_IsEnabled;
+
+                // Channel
+                //VM.AudioView.Audio_Channel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Channel;
+                bool? channel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Channel;
+                if (!channel_IsEnabled.HasValue)
+                    VM.AudioView.Audio_Channel_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_Channel_IsEnabled = channel_IsEnabled;
+
+                // Quality
+                //VM.AudioView.Audio_Quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Quality;
+                bool? quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Quality;
+                if (!quality_IsEnabled.HasValue)
+                    VM.AudioView.Audio_Quality_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_Quality_IsEnabled = quality_IsEnabled;
+
+                // Compression Level
+                //VM.AudioView.Audio_CompressionLevel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.CompressionLevel;
+                bool? compressionLevel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.CompressionLevel;
+                if (!compressionLevel_IsEnabled.HasValue)
+                    VM.AudioView.Audio_CompressionLevel_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_CompressionLevel_IsEnabled = compressionLevel_IsEnabled;
+
+                // VBR
+                //VM.AudioView.Audio_VBR_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.VBR;
+                bool? vbr_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.VBR;
+                if (!vbr_IsEnabled.HasValue)
+                    VM.AudioView.Audio_VBR_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_VBR_IsEnabled = vbr_IsEnabled;
+
+                // Sample Rate
+                //VM.AudioView.Audio_SampleRate_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.SampleRate;
+                bool? sampleRate_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.SampleRate;
+                if (!sampleRate_IsEnabled.HasValue)
+                    VM.AudioView.Audio_SampleRate_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_SampleRate_IsEnabled = sampleRate_IsEnabled;
+
+                // Bit Depth
+                //VM.AudioView.Audio_BitDepth_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.BitDepth;
+                bool? bitDepth_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.BitDepth;
+                if (!bitDepth_IsEnabled.HasValue)
+                    VM.AudioView.Audio_BitDepth_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_BitDepth_IsEnabled = bitDepth_IsEnabled;
+
+                // Volume
+                //VM.AudioView.Audio_Volume_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Volume;
+                bool? volume_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Volume;
+                if (!volume_IsEnabled.HasValue)
+                    VM.AudioView.Audio_Volume_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_Volume_IsEnabled = volume_IsEnabled;
+
+                // Hard Limiter
+                //VM.AudioView.Audio_HardLimiter_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.HardLimiter;
+                bool? hardLimiter_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.HardLimiter;
+                if (!hardLimiter_IsEnabled.HasValue)
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                else
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = hardLimiter_IsEnabled;
+
+                // Filters
+                // Disable All
+                if (codec_SelectedItem == "Copy" ||
+                    codec_SelectedItem == "None")
+                {
+                    Filters.Audio.AudioFilters_DisableAll();
+                }
+                // Enable All
+                else
+                {
+                    Filters.Audio.AudioFilters_EnableAll();
+                }
+
+
+                // --------------------------------------------------
                 // Selected Items
                 // --------------------------------------------------
                 // -------------------------
@@ -402,60 +499,18 @@ namespace Controls.Audio
                 // Checked (Nullable)
                 // --------------------------------------------------
                 // VBR
-                VM.AudioView.Audio_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.FirstOrDefault().VBR;
-                //bool? vbr = _codec_class[codec_SelectedItem].controls_Checked.FirstOrDefault().VBR;
-                //if (vbr == null)
-                //    VM.AudioView.Audio_VBR_IsChecked = false;
-                //else
-                //    VM.AudioView.Audio_VBR_IsChecked = vbr;
-
-                // --------------------------------------------------
-                // Enabled (Nullable)
-                // --------------------------------------------------
-                // Codec
-                VM.AudioView.Audio_Codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Codec;
-                //bool? codec_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Codec;
-                //if (codec_IsEnabled == null)
-                //    VM.AudioView.Audio_Codec_IsEnabled = false;
-                //else
-                //    VM.AudioView.Audio_Codec_IsEnabled = codec_IsEnabled;
-
-                // Stream
-                VM.AudioView.Audio_Stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Stream;
-                //bool? stream_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Stream;
-                //if (stream_IsEnabled == null)
-                //    VM.AudioView.Audio_Stream_IsEnabled = false;
-                //else
-                //    VM.AudioView.Audio_Stream_IsEnabled = stream_IsEnabled;
-
-                // Channel
-                VM.AudioView.Audio_Channel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Channel;
-                // Quality
-                VM.AudioView.Audio_Quality_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Quality;
-                // Compression Level
-                VM.AudioView.Audio_CompressionLevel_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.CompressionLevel;
-                // VBR
-                VM.AudioView.Audio_VBR_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.VBR;
-                // Sample Rate
-                VM.AudioView.Audio_SampleRate_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.SampleRate;
-                // Bit Depth
-                VM.AudioView.Audio_BitDepth_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.BitDepth;
-                // Volume
-                VM.AudioView.Audio_Volume_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Volume;
-                // Hard Limiter
-                VM.AudioView.Audio_HardLimiter_IsEnabled = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.HardLimiter;
-
-                // Filters
-                // Disable All
-                if (codec_SelectedItem == "Copy" ||
-                    codec_SelectedItem == "None")
+                //VM.AudioView.Audio_VBR_IsChecked = _codec_class[codec_SelectedItem].controls_Checked.FirstOrDefault().VBR;
+                if (VM.AudioView.Audio_VBR_IsEnabled == true)
                 {
-                    Filters.Audio.AudioFilters_DisableAll();
+                    bool? vbr_IsChecked = _codec_class[codec_SelectedItem].controls_Enabled.FirstOrDefault()?.Stream;
+                    if (!vbr_IsChecked.HasValue)
+                        VM.AudioView.Audio_VBR_IsChecked = true;
+                    else
+                        VM.AudioView.Audio_VBR_IsChecked = vbr_IsChecked;
                 }
-                // Enable All
                 else
                 {
-                    Filters.Audio.AudioFilters_EnableAll();
+                    VM.AudioView.Audio_VBR_IsChecked = false;
                 }
             }
         }
