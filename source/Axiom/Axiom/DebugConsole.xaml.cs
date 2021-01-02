@@ -325,7 +325,7 @@ namespace Axiom
             try
             {
                 Generate.Video.Quality.VideoQuality(VM.MainView.Batch_IsChecked,
-                                           VM.VideoView.Video_VBR_IsChecked,
+                                           (bool)VM.VideoView.Video_VBR_IsChecked,
                                            VM.FormatView.Format_Container_SelectedItem,
                                            VM.FormatView.Format_MediaType_SelectedItem,
                                            VM.VideoView.Video_Codec_SelectedItem,
@@ -453,7 +453,7 @@ namespace Axiom
                                            VM.AudioView.Audio_Quality_Items,
                                            VM.AudioView.Audio_Quality_SelectedItem,
                                            VM.AudioView.Audio_BitRate_Text,
-                                           VM.AudioView.Audio_VBR_IsChecked
+                                           (bool)VM.AudioView.Audio_VBR_IsChecked
                                            );
             }
             catch (Exception exception) { MessageBox.Show(exception.ToString()); }
