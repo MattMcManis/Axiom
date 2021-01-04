@@ -320,9 +320,8 @@ namespace Controls.Audio
                 // -------------------------
                 // Stream
                 // -------------------------
-                string stream = _codec_class[codec_SelectedItem].controls_Selected
-                                                                .Find(item => item.Stream == item.Stream)
-                                                                .Stream;
+                string stream = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Stream;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(stream))
                 {
@@ -336,7 +335,6 @@ namespace Controls.Audio
                                                                       VM.AudioView.Audio_Stream_Items.ToList(),
                                                                       MainWindow.Audio_Stream_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Audio_Stream_PreviousItem = string.Empty;
                 }
@@ -344,9 +342,8 @@ namespace Controls.Audio
                 // -------------------------
                 // Channel
                 // -------------------------
-                string channel = _codec_class[codec_SelectedItem].controls_Selected
-                                                                  .Find(item => item.Channel == item.Channel)
-                                                                  .Channel;
+                string channel = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Channel;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(channel))
                 {
@@ -360,7 +357,6 @@ namespace Controls.Audio
                                                                       VM.AudioView.Audio_Channel_Items.ToList(),
                                                                       MainWindow.Audio_Channel_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Audio_Channel_PreviousItem = string.Empty;
                 }
@@ -368,9 +364,8 @@ namespace Controls.Audio
                 // -------------------------
                 // Quality
                 // -------------------------
-                string quality = _codec_class[codec_SelectedItem].controls_Selected
-                                                                .Find(item => item.Quality == item.Quality)
-                                                                .Quality;
+                string quality = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Quality;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(quality))
                 {
@@ -384,7 +379,6 @@ namespace Controls.Audio
                                                                       VM.AudioView.Audio_Quality_Items.Select(x => x.Name).ToList(),
                                                                       MainWindow.Audio_Quality_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Audio_Quality_PreviousItem = string.Empty;
                 }
@@ -399,11 +393,8 @@ namespace Controls.Audio
                 // -------------------------
                 // Compression Level
                 // -------------------------
-                string compressionLevel = _codec_class[codec_SelectedItem].controls_Selected
-                                                                          //.Select(item => item.CompressionLevel)
-                                                                          //.First();
-                                                                          .Find(item => item.CompressionLevel == item.CompressionLevel)
-                                                                          .CompressionLevel;
+                string compressionLevel = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().CompressionLevel;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(compressionLevel))
                 {
@@ -417,7 +408,6 @@ namespace Controls.Audio
                                                                       VM.AudioView.Audio_CompressionLevel_Items.ToList(),
                                                                       MainWindow.Audio_CompressionLevel_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Audio_CompressionLevel_PreviousItem = string.Empty;
                 }
@@ -425,9 +415,8 @@ namespace Controls.Audio
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                string sampleRate = _codec_class[codec_SelectedItem].controls_Selected
-                                                                    .Find(item => item.SampleRate == item.SampleRate)
-                                                                    .SampleRate;
+                string sampleRate = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().SampleRate;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(sampleRate))
                 {
@@ -441,7 +430,6 @@ namespace Controls.Audio
                                                                       VM.AudioView.Audio_SampleRate_Items.Select(x => x.Name).ToList(),
                                                                       MainWindow.Audio_SampleRate_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Audio_SampleRate_PreviousItem = string.Empty;
                 }
@@ -456,9 +444,8 @@ namespace Controls.Audio
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                string bitDepth = _codec_class[codec_SelectedItem].controls_Selected
-                                                                  .Find(item => item.BitDepth == item.BitDepth)
-                                                                  .BitDepth;
+                string bitDepth = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().BitDepth;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(bitDepth))
                 {
@@ -472,7 +459,6 @@ namespace Controls.Audio
                                                                       VM.AudioView.Audio_BitDepth_Items.Select(x => x.Name).ToList(),
                                                                       MainWindow.Audio_BitDepth_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Audio_BitDepth_PreviousItem = string.Empty;
                 }
@@ -520,8 +506,8 @@ namespace Controls.Audio
         /// Audio BitRate Display
         /// </summary>
         public static void AudioBitRateDisplay(ObservableCollection<ViewModel.Audio.AudioQuality> items,
-                                                string selectedQuality
-                                                )
+                                               string selectedQuality
+                                              )
         {
             if (!string.IsNullOrEmpty(VM.AudioView.Audio_Quality_SelectedItem) &&
                 VM.AudioView.Audio_Quality_SelectedItem != "None" &&

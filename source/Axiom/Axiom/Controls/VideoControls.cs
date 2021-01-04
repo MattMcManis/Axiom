@@ -437,9 +437,8 @@ namespace Controls.Video
                 // -------------------------
                 // Encode Speed
                 // -------------------------
-                string encodeSpeed = _codec_class[codec_SelectedItem].controls_Selected
-                                                                     .Find(item => item.EncodeSpeed == item.EncodeSpeed)
-                                                                     .EncodeSpeed;
+                string encodeSpeed = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().EncodeSpeed;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(encodeSpeed))
                 {
@@ -455,9 +454,7 @@ namespace Controls.Video
                                                                       VM.VideoView.Video_EncodeSpeed_Items.Select(x => x.Name).ToList(),
                                                                       MainWindow.Video_EncodeSpeed_PreviousItem
                                                                   );
-
                     //MessageBox.Show("3 Selected Item: " + VM.VideoView.Video_EncodeSpeed_SelectedItem); //debug
-
                     // Clear Previous Item
                     MainWindow.Video_EncodeSpeed_PreviousItem = string.Empty;
                 }
@@ -465,9 +462,8 @@ namespace Controls.Video
                 // -------------------------
                 // HW Accel
                 // -------------------------
-                string hwAccel = _codec_class[codec_SelectedItem].controls_Selected
-                                                                 .Find(item => item.HWAccel == item.HWAccel)
-                                                                 .HWAccel;
+                string hwAccel = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().HWAccel;
+
                 if (!string.IsNullOrEmpty(hwAccel))
                 {
                     VM.VideoView.Video_HWAccel_SelectedItem = hwAccel;
@@ -476,9 +472,8 @@ namespace Controls.Video
                 // -------------------------
                 // Quality
                 // -------------------------
-                string quality = _codec_class[codec_SelectedItem].controls_Selected
-                                                                 .Find(item => item.Quality == item.Quality)
-                                                                 .Quality;
+                string quality = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Quality;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(quality))
                 {
@@ -492,7 +487,6 @@ namespace Controls.Video
                                                                       VM.VideoView.Video_Quality_Items.Select(x => x.Name).ToList(),
                                                                       MainWindow.Video_Quality_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Video_Quality_PreviousItem = string.Empty;
                 }
@@ -511,23 +505,18 @@ namespace Controls.Video
                 {
                     // Lossless
                     case "Lossless":
-                        string pixelFormatLossless = _codec_class[codec_SelectedItem].controls_Selected
-                                                     .Find(item => item.PixelFormat_Lossless == item.PixelFormat_Lossless)
-                                                     .PixelFormat_Lossless;
+                        string pixelFormatLossless = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().PixelFormat_Lossless;
+
                         if (!string.IsNullOrEmpty(pixelFormatLossless))
                         {
                             VM.VideoView.Video_PixelFormat_SelectedItem = pixelFormatLossless;
                         }
-                        //.Select(item => item.PixelFormat)
-                        //.First();
-
                         break;
 
                     // Lossy
                     default:
-                        string pixelFormat = _codec_class[codec_SelectedItem].controls_Selected
-                             .Find(item => item.PixelFormat == item.PixelFormat)
-                             .PixelFormat;
+                        string pixelFormat = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().PixelFormat;
+
                         if (!string.IsNullOrEmpty(pixelFormat))
                         {
                             VM.VideoView.Video_PixelFormat_SelectedItem = pixelFormat;
@@ -538,9 +527,8 @@ namespace Controls.Video
                 // -------------------------
                 // Optimize
                 // -------------------------
-                string optimize = _codec_class[codec_SelectedItem].controls_Selected
-                                                                  .Find(item => item.Optimize == item.Optimize)
-                                                                  .Optimize;
+                string optimize = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Optimize;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(optimize))
                 {
@@ -554,7 +542,6 @@ namespace Controls.Video
                                                                       VM.VideoView.Video_Optimize_Items.Select(x => x.Name).ToList(),
                                                                       MainWindow.Video_Optimize_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Video_Optimize_PreviousItem = string.Empty;
                 }
@@ -562,9 +549,8 @@ namespace Controls.Video
                 // -------------------------
                 // Optimize Tune
                 // -------------------------
-                string tune = _codec_class[codec_SelectedItem].controls_Selected
-                                                              .Find(item => item.Optimize_Tune == item.Optimize_Tune)
-                                                              .Optimize_Tune;
+                string tune = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Optimize_Tune;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(tune))
                 {
@@ -578,9 +564,7 @@ namespace Controls.Video
                                                                       VM.VideoView.Video_Optimize_Tune_Items.ToList(),
                                                                       MainWindow.Video_Optimize_Tune_PreviousItem
                                                                   );
-
                     //MessageBox.Show("1 Selected Item: " + VM.VideoView.Video_Optimize_Tune_SelectedItem); //debug // empty on change
-
                     // Clear Previous Item
                     MainWindow.Video_Optimize_Tune_PreviousItem = string.Empty;
                 }
@@ -588,9 +572,8 @@ namespace Controls.Video
                 // -------------------------
                 // Optimize Profile
                 // -------------------------
-                string profile = _codec_class[codec_SelectedItem].controls_Selected
-                                                                 .Find(item => item.Optimize_Profile == item.Optimize_Profile)
-                                                                 .Optimize_Profile;
+                string profile = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Optimize_Profile;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(profile))
                 {
@@ -604,7 +587,6 @@ namespace Controls.Video
                                                                       VM.VideoView.Video_Optimize_Profile_Items.ToList(),
                                                                       MainWindow.Video_Optimize_Profile_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Video_Optimize_Profile_PreviousItem = string.Empty;
                 }
@@ -612,9 +594,8 @@ namespace Controls.Video
                 // -------------------------
                 // Optimize Level
                 // -------------------------
-                string level = _codec_class[codec_SelectedItem].controls_Selected
-                                                              .Find(item => item.Optimize_Level == item.Optimize_Level)
-                                                              .Optimize_Level;
+                string level = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Optimize_Level;
+
                 // Has Value
                 if (!string.IsNullOrEmpty(level))
                 {
@@ -628,7 +609,6 @@ namespace Controls.Video
                                                                       VM.VideoView.Video_Optimize_Level_Items.ToList(),
                                                                       MainWindow.Video_Optimize_Level_PreviousItem
                                                                   );
-
                     // Clear Previous Item
                     MainWindow.Video_Optimize_Level_PreviousItem = string.Empty;
                 }
@@ -636,9 +616,8 @@ namespace Controls.Video
                 // -------------------------
                 // FPS
                 // -------------------------
-                string fps = _codec_class[codec_SelectedItem].controls_Selected
-                                                             .Find(item => item.FPS == item.FPS)
-                                                             .FPS;
+                string fps = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().FPS;
+
                 if (!string.IsNullOrEmpty(fps))
                 {
                     VM.VideoView.Video_FPS_SelectedItem = fps;
@@ -647,9 +626,8 @@ namespace Controls.Video
                 // -------------------------
                 // Speed
                 // -------------------------
-                string speed = _codec_class[codec_SelectedItem].controls_Selected
-                                                               .Find(item => item.Speed == item.Speed)
-                                                               .Speed;
+                string speed = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Speed;
+
                 if (!string.IsNullOrEmpty(speed))
                 {
                     VM.VideoView.Video_Speed_SelectedItem = speed;
@@ -658,9 +636,8 @@ namespace Controls.Video
                 // -------------------------
                 // Vsync
                 // -------------------------
-                string vsync = _codec_class[codec_SelectedItem].controls_Selected
-                                                               .Find(item => item.Vsync == item.Vsync)
-                                                               .Vsync;
+                string vsync = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Vsync;
+
                 if (!string.IsNullOrEmpty(vsync))
                 {
                     VM.VideoView.Video_Vsync_SelectedItem = vsync;
@@ -669,9 +646,8 @@ namespace Controls.Video
                 // -------------------------
                 // Scale
                 // -------------------------
-                string scale = _codec_class[codec_SelectedItem].controls_Selected
-                                                               .Find(item => item.Scale == item.Scale)
-                                                               .Scale;
+                string scale = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().Scale;
+
                 if (!string.IsNullOrEmpty(scale))
                 {
                     VM.VideoView.Video_Scale_SelectedItem = scale;
@@ -680,9 +656,8 @@ namespace Controls.Video
                 // -------------------------
                 // Color Range
                 // -------------------------
-                string colorRange = _codec_class[codec_SelectedItem].controls_Selected
-                                                                    .Find(item => item.ColorRange == item.ColorRange)
-                                                                    .ColorRange;
+                string colorRange = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().ColorRange;
+
                 if (!string.IsNullOrEmpty(colorRange))
                 {
                     VM.VideoView.Video_Color_Range_SelectedItem = colorRange;
@@ -691,9 +666,8 @@ namespace Controls.Video
                 // -------------------------
                 // Color Space
                 // -------------------------
-                string colorSpace = _codec_class[codec_SelectedItem].controls_Selected
-                                                                    .Find(item => item.ColorSpace == item.ColorSpace)
-                                                                    .ColorSpace;
+                string colorSpace = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().ColorSpace;
+
                 if (!string.IsNullOrEmpty(colorSpace))
                 {
                     VM.VideoView.Video_Color_Space_SelectedItem = colorSpace;
@@ -702,9 +676,8 @@ namespace Controls.Video
                 // -------------------------
                 // Color Primaries
                 // -------------------------
-                string colorPrimaries = _codec_class[codec_SelectedItem].controls_Selected
-                                                                        .Find(item => item.ColorPrimaries == item.ColorPrimaries)
-                                                                        .ColorPrimaries;
+                string colorPrimaries = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().ColorPrimaries;
+
                 if (!string.IsNullOrEmpty(colorPrimaries))
                 {
                     VM.VideoView.Video_Color_Primaries_SelectedItem = colorPrimaries;
@@ -713,9 +686,8 @@ namespace Controls.Video
                 // -------------------------
                 // Color Transfer Characteristics
                 // -------------------------
-                string colorTransferChar = _codec_class[codec_SelectedItem].controls_Selected
-                                                                           .Find(item => item.ColorTransferChar == item.ColorTransferChar)
-                                                                           .ColorTransferChar;
+                string colorTransferChar = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().ColorTransferChar;
+
                 if (!string.IsNullOrEmpty(colorTransferChar))
                 {
                     VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = colorTransferChar;
@@ -724,9 +696,8 @@ namespace Controls.Video
                 // -------------------------
                 // Color Matrix
                 // -------------------------
-                string colorMatrix = _codec_class[codec_SelectedItem].controls_Selected
-                                                                     .Find(item => item.ColorMatrix == item.ColorMatrix)
-                                                                     .ColorMatrix;
+                string colorMatrix = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().ColorMatrix;
+
                 if (!string.IsNullOrEmpty(colorMatrix))
                 {
                     VM.VideoView.Video_Color_Matrix_SelectedItem = colorMatrix;
@@ -760,6 +731,7 @@ namespace Controls.Video
                 {
                     VM.VideoView.Video_VBR_IsChecked = false;
                 }
+
 
                 // --------------------------------------------------
                 // Expanded
@@ -879,7 +851,6 @@ namespace Controls.Video
             // -------------------------
             // Enable / Disable
             // -------------------------
-
             switch (VM.VideoView.Video_Quality_SelectedItem)
             {
                 // -------------------------
@@ -1112,12 +1083,8 @@ namespace Controls.Video
                     // -------------------------
                     if (quality_SelectedItem == "Lossless")
                     {
-                        string lossless = _codec_class[codec_SelectedItem].controls_Selected
-                                                                          .Find(item => item.PixelFormat_Lossless == item.PixelFormat_Lossless)
-                                                                          .PixelFormat_Lossless;
-                        //.controls_Selected
-                        //.Select(item => item.PixelFormat_Lossless)
-                        //.First();
+                        string lossless = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().PixelFormat_Lossless;
+
                         if (!string.IsNullOrEmpty(lossless))
                         {
                             VM.VideoView.Video_PixelFormat_SelectedItem = lossless;
@@ -1128,9 +1095,8 @@ namespace Controls.Video
                     // -------------------------
                     else
                     {
-                        string lossy = _codec_class[codec_SelectedItem].controls_Selected
-                                                                       .Find(item => item.PixelFormat == item.PixelFormat)
-                                                                       .PixelFormat;
+                        string lossy = _codec_class[codec_SelectedItem].controls_Selected.FirstOrDefault().PixelFormat;
+
                         if (!string.IsNullOrEmpty(lossy))
                         {
                             VM.VideoView.Video_PixelFormat_SelectedItem = lossy;
