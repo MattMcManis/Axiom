@@ -321,7 +321,7 @@ namespace Generate
 
                         // Output Path Null
                         "\r\n\r\n" +
-                        "NUL" + " ",
+                        "NUL"
                     };
 
                     // -------------------------
@@ -728,9 +728,9 @@ namespace Generate
                                                          );
 
                     // Combine Pass 1 & Pass 2 Args
-                    Video.Quality.v2PassArgs = Video.Quality.pass1Args +
-                                               //" " +
-                                               "\r\n\r\n" +
+                    Video.Quality.v2PassArgs = Video.Quality.pass1Args + " " +
+                                              //" " +
+                                              "\r\n\r\n" +
                                                Sys.Shell.Shell_LogicalOperator_And() + " " +
                                                "\r\n\r\n" +
                                                Video.Quality.pass2Args;
