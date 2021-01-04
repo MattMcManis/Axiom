@@ -78,6 +78,8 @@ namespace ViewModel
             Video_BitRate_IsEnabled = true;
             Video_BitRate_Text = string.Empty;
 
+            Video_BitRateAdvanced_IsExpanded = false;
+
             Video_MinRate_IsEnabled = true;
             Video_MinRate_Text = string.Empty;
 
@@ -904,6 +906,22 @@ namespace ViewModel
 
                 _Video_BitRate_Text = value;
                 OnPropertyChanged("Video_BitRate_Text");
+            }
+        }
+        // Controls Expanded
+        private bool? _Video_BitRateAdvanced_IsExpanded;
+        public bool? Video_BitRateAdvanced_IsExpanded
+        {
+            get { return _Video_BitRateAdvanced_IsExpanded; }
+            set
+            {
+                if (_Video_BitRateAdvanced_IsExpanded == value)
+                {
+                    return;
+                }
+
+                _Video_BitRateAdvanced_IsExpanded = value;
+                OnPropertyChanged("Video_BitRateAdvanced_IsExpanded");
             }
         }
         // Enabled

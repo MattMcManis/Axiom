@@ -574,6 +574,34 @@ namespace Axiom
         }
 
         /// <summary>
+        /// Video Bit Rate Advanced Expand
+        /// </summary>
+        //private bool videoBitRateAdvanced_IsExpanded = false;
+        private void btnVideoBitRateAdvanced_Expand_Click(object sender, RoutedEventArgs e)
+        {
+            // Expand
+            if (VM.VideoView.Video_BitRateAdvanced_IsExpanded == false)
+            {
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = true;
+            }
+            // Collapse
+            else if (VM.VideoView.Video_BitRateAdvanced_IsExpanded == true)
+            {
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
+            }
+        }
+        // Expanded
+        private void expVideo_BitRateAdvanced_Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            textBlockExpand.Text = "-";
+        }
+        // Collapsed
+        private void expVideo_BitRateAdvanced_Expander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            textBlockExpand.Text = "+";
+        }
+
+        /// <summary>
         /// Video VBR Toggle - Unchecked
         /// </summary>
         private void tglVideo_VBR_Unchecked(object sender, RoutedEventArgs e)

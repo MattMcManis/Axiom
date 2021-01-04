@@ -150,7 +150,7 @@ namespace Profiles
                 // Main Window
                 // --------------------------------------------------
                 // Batch
-                bool mainwindow_Batch_IsChecked;
+                bool mainwindow_Batch_IsChecked = false;
                 bool.TryParse(inif.Read("Main Window", "Batch_IsChecked").ToLower(), out mainwindow_Batch_IsChecked);
                 VM.MainView.Batch_IsChecked = mainwindow_Batch_IsChecked;
 
@@ -268,6 +268,11 @@ namespace Profiles
                 // Bit Rate
                 VM.VideoView.Video_BitRate_Text = inif.Read("Video", "BitRate_Text");
 
+                // Bit Rate Advance Expander
+                bool video_BitRateAdvanced_IsExpanded = false;
+                bool.TryParse(inif.Read("Video", "BitRateAdvanced_IsExpanded").ToLower(), out video_BitRateAdvanced_IsExpanded);
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = video_BitRateAdvanced_IsExpanded;
+
                 // Min Rate
                 VM.VideoView.Video_MinRate_Text = inif.Read("Video", "MinRate_Text");
 
@@ -278,7 +283,7 @@ namespace Profiles
                 VM.VideoView.Video_BufSize_Text = inif.Read("Video", "BufSize_Text");
 
                 // Video VBR
-                bool video_VBR_IsChecked;
+                bool video_VBR_IsChecked = false;
                 bool.TryParse(inif.Read("Video", "VBR_IsChecked").ToLower(), out video_VBR_IsChecked);
                 VM.VideoView.Video_VBR_IsChecked = video_VBR_IsChecked;
 
@@ -331,7 +336,7 @@ namespace Profiles
                     listFailedImports.Add("Video: Pixel Format");
 
                 // FPS
-                bool videoFPS_IsEditable;
+                bool videoFPS_IsEditable = false;
                 bool.TryParse(inif.Read("Video", "FPS_IsEditable").ToLower(), out videoFPS_IsEditable);
 
                 if (videoFPS_IsEditable == false) // Selected
@@ -350,7 +355,7 @@ namespace Profiles
                 }
 
                 // Speed
-                bool videoSpeed_IsEditable;
+                bool videoSpeed_IsEditable = false;
                 bool.TryParse(inif.Read("Video", "Speed_IsEditable").ToLower(), out videoSpeed_IsEditable);
 
                 if (videoSpeed_IsEditable == false) // Selected
@@ -494,7 +499,7 @@ namespace Profiles
                     listFailedImports.Add("Audio: Quality");
 
                 // Audio VBR
-                bool audio_VBR_IsChecked;
+                bool audio_VBR_IsChecked = false;
                 bool.TryParse(inif.Read("Audio", "VBR_IsChecked").ToLower(), out audio_VBR_IsChecked);
                 VM.AudioView.Audio_VBR_IsChecked = audio_VBR_IsChecked;
 
@@ -963,6 +968,8 @@ namespace Profiles
                 inif.Write("Video", "Pass_SelectedItem", VM.VideoView.Video_Pass_SelectedItem);
                 inif.Write("Video", "CRF_Text", VM.VideoView.Video_CRF_Text);
                 inif.Write("Video", "BitRate_Text", VM.VideoView.Video_BitRate_Text);
+                inif.Write("Video", "BitRate_Text", VM.VideoView.Video_BitRate_Text);
+                inif.Write("Video", "BitRateAdvanced_IsExpanded", VM.VideoView.Video_BitRateAdvanced_IsExpanded.ToString().ToLower());
                 inif.Write("Video", "MinRate_Text", VM.VideoView.Video_MinRate_Text);
                 inif.Write("Video", "MaxRate_Text", VM.VideoView.Video_MaxRate_Text);
                 inif.Write("Video", "BufSize_Text", VM.VideoView.Video_BufSize_Text);
