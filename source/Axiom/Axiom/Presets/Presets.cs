@@ -73,6 +73,7 @@ namespace Profiles
                     VM.VideoView.Video_Quality_SelectedItem = "Auto";
                     VM.VideoView.Video_Pass_SelectedItem = "CRF";
                     VM.VideoView.Video_BitRate_Text = "";
+                    VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                     VM.VideoView.Video_MinRate_Text = "";
                     VM.VideoView.Video_MaxRate_Text = "";
                     VM.VideoView.Video_BufSize_Text = "";
@@ -168,6 +169,7 @@ namespace Profiles
                     VM.VideoView.Video_Quality_SelectedItem = "None";
                     VM.VideoView.Video_Pass_SelectedItem = "auto";
                     VM.VideoView.Video_BitRate_Text = "";
+                    VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                     VM.VideoView.Video_MinRate_Text = "";
                     VM.VideoView.Video_MaxRate_Text = "";
                     VM.VideoView.Video_BufSize_Text = "";
@@ -258,6 +260,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Medium";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 //VM.VideoView.Video_BitRate_Text = ""; // use quality preset bitrate
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -334,6 +337,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -414,6 +418,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Lossless";
                 VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -501,6 +506,7 @@ namespace Profiles
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 //VM.VideoView.Video_CRF_Text = ""; // Use Quality Preset Value
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -530,7 +536,6 @@ namespace Profiles
                 VM.VideoView.Video_Crop_Width_Text = "";
                 VM.VideoView.Video_Crop_Height_Text = "";
                 VM.VideoView.Video_CropClear_Text = "Clear";
-
 
                 // Subtitle
                 VM.SubtitleView.Subtitle_Codec_SelectedItem = "Copy";
@@ -602,6 +607,7 @@ namespace Profiles
 
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -693,6 +699,7 @@ namespace Profiles
 
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -773,6 +780,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -852,6 +860,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -931,6 +940,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1010,6 +1020,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1089,6 +1100,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "High";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1172,6 +1184,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "High";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1248,6 +1261,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "High";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1328,6 +1342,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1404,6 +1419,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1480,6 +1496,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "High";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1556,6 +1573,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1636,6 +1654,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Custom";
                 VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
                 VM.VideoView.Video_BitRate_Text = "50M";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = true;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "75M";
                 VM.VideoView.Video_BufSize_Text = "75M";
@@ -1712,6 +1731,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Ultra";
                 VM.VideoView.Video_Pass_SelectedItem = "CRF";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1788,6 +1808,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Custom";
                 VM.VideoView.Video_Pass_SelectedItem = "2 Pass";
                 VM.VideoView.Video_BitRate_Text = "3M";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = true;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "9.8M";
                 VM.VideoView.Video_BufSize_Text = "9.8M";
@@ -1865,6 +1886,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "None";
                 VM.VideoView.Video_Pass_SelectedItem = "auto";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -1942,6 +1964,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "None";
                 VM.VideoView.Video_Pass_SelectedItem = "auto";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -2029,6 +2052,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "None";
                 VM.VideoView.Video_Pass_SelectedItem = "auto";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -2105,6 +2129,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "None";
                 VM.VideoView.Video_Pass_SelectedItem = "auto";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -2184,6 +2209,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "Auto";
                 VM.VideoView.Video_Pass_SelectedItem = "auto";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
@@ -2263,6 +2289,7 @@ namespace Profiles
                 VM.VideoView.Video_Quality_SelectedItem = "None";
                 VM.VideoView.Video_Pass_SelectedItem = "auto";
                 VM.VideoView.Video_BitRate_Text = "";
+                VM.VideoView.Video_BitRateAdvanced_IsExpanded = false;
                 VM.VideoView.Video_MinRate_Text = "";
                 VM.VideoView.Video_MaxRate_Text = "";
                 VM.VideoView.Video_BufSize_Text = "";
