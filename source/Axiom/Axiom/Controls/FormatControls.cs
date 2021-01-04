@@ -608,8 +608,9 @@ namespace Controls.Format
                     // -------------------------
                     // Bypass Empty/Copy/None
                     if (!string.IsNullOrEmpty(VM.VideoView.Video_Codec_SelectedItem) &&
-                        VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
-                        VM.VideoView.Video_Codec_SelectedItem != "None")
+                        VM.VideoView.Video_Codec_SelectedItem != "Copy" //&&
+                        //VM.VideoView.Video_Codec_SelectedItem != "None"
+                        )
                     {
                         // Codec
                         VM.VideoView.Video_Codec_IsEnabled = false;
@@ -709,8 +710,9 @@ namespace Controls.Format
                     // -------------------------
                     // Bypass Empty/Copy/None
                     if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Codec_SelectedItem) &&
-                        VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
-                        VM.SubtitleView.Subtitle_Codec_SelectedItem != "None")
+                        VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" //&&
+                        //VM.SubtitleView.Subtitle_Codec_SelectedItem != "None"
+                        )
                     {
                         // Codec
                         VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
@@ -823,8 +825,9 @@ namespace Controls.Format
                     // -------------------------
                     // Bypass Empty/Copy/None
                     if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
-                        VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
-                        VM.AudioView.Audio_Codec_SelectedItem != "None")
+                        VM.AudioView.Audio_Codec_SelectedItem != "Copy" //&&
+                        //VM.AudioView.Audio_Codec_SelectedItem != "None"
+                        )
                     {
                         // Codec
                         VM.AudioView.Audio_Codec_IsEnabled = false;
@@ -962,8 +965,9 @@ namespace Controls.Format
                     // -------------------------
                     // Bypass Empty/Copy/None
                     if (!string.IsNullOrEmpty(VM.AudioView.Audio_Codec_SelectedItem) &&
-                        VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
-                        VM.AudioView.Audio_Codec_SelectedItem != "None")
+                        VM.AudioView.Audio_Codec_SelectedItem != "Copy" //&&
+                        //VM.AudioView.Audio_Codec_SelectedItem != "None"
+                        )
                     {
                         // Codec
                         VM.AudioView.Audio_Codec_IsEnabled = false;
@@ -1004,8 +1008,9 @@ namespace Controls.Format
                     // -------------------------
                     // Bypass Empty/Copy/None
                     if (!string.IsNullOrEmpty(VM.SubtitleView.Subtitle_Codec_SelectedItem) &&
-                        VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" &&
-                        VM.SubtitleView.Subtitle_Codec_SelectedItem != "None")
+                        VM.SubtitleView.Subtitle_Codec_SelectedItem != "Copy" //&&
+                        //VM.SubtitleView.Subtitle_Codec_SelectedItem != "None"
+                        )
                     {
                         // Codec
                         VM.SubtitleView.Subtitle_Codec_IsEnabled = true; // Enable for Subtitle Burn Screenshots
