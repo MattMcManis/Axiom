@@ -4,6 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.9.6.1] - Jan 4, 2021
+### Added
+- Bit Rate Advanced Options Expander
+- Settings Tab Subtabs
+
+### Fixed
+- Custom Preset MinRate Save
+
+
 ## [1.9.6.0] - Dec 31, 2020
 ### Added
 - Remember Previous Selected Items
