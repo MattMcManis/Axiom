@@ -534,7 +534,7 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="15" />
-                                <ColumnDefinition Width="96" />
+                                <ColumnDefinition Width="95" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
@@ -1118,7 +1118,6 @@
                                 <!-- Encoding Tab -->
                                 <TabItem Header="Encoding"
                                          Width="72"
-                                         Height="22"
                                          Style="{DynamicResource TabItemStyle}">
 
                                     <Grid Background="Transparent">
@@ -1136,8 +1135,8 @@
                                               Grid.Row="0">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
@@ -1230,8 +1229,8 @@
                                               Grid.Row="1">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -1346,8 +1345,8 @@
                                               Grid.Row="2">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -1451,7 +1450,7 @@
                                                     DataContext="{Binding VideoView}"
                                                     Style="{DynamicResource SliderStyle}"
                                                     IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Margin="0,4,41,0"
+                                                    Margin="0,4,42,0"
                                                     VerticalAlignment="Top"
                                                     IsDirectionReversed="True"
                                                     IsSnapToTickEnabled="True"
@@ -1542,7 +1541,7 @@
                                                           Unchecked="tglVideo_VBR_Unchecked"
                                                           Grid.Row="3"
                                                           Grid.Column="2" />
-                                            
+
                                             <!-- Bit Rate Advanced Expander -->
                                             <Button x:Name="btnVideoBitRateAdvanced_Expand"
                                                     Style="{DynamicResource ButtonNavigationStyle}"
@@ -1590,7 +1589,7 @@
                                                 <Grid Margin="0,-17,-5,0">
 
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="96" />
+                                                        <ColumnDefinition Width="95" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
 
@@ -1852,8 +1851,8 @@
                                               Grid.Row="3">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -1940,7 +1939,7 @@
                                                     <Grid Margin="0,-17,-5,0">
 
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="96" />
+                                                            <ColumnDefinition Width="95" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
 
@@ -2034,7 +2033,6 @@
                                 <!-- Color Tab -->
                                 <TabItem Header="Color"
                                          Width="72"
-                                         Height="22"
                                          Style="{DynamicResource TabItemStyle}">
 
                                     <Grid Background="Transparent">
@@ -2052,8 +2050,8 @@
                                               Grid.Row="0">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -2256,8 +2254,8 @@
                                               DataContext="{Binding FilterVideoView}">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -2314,7 +2312,7 @@
                                                      Height="22"
                                                      MaxLines="1"
                                                      MaxLength="4"
-                                                     Margin="0,2,7,0"
+                                                     Margin="0,2,9,0"
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
@@ -2355,7 +2353,7 @@
                                                      Height="22"
                                                      MaxLines="1"
                                                      MaxLength="4"
-                                                     Margin="0,2,7,0"
+                                                     Margin="0,2,9,0"
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
@@ -2396,7 +2394,7 @@
                                                      Height="22"
                                                      MaxLines="1"
                                                      MaxLength="4"
-                                                     Margin="0,2,7,0"
+                                                     Margin="0,2,9,0"
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
@@ -2437,7 +2435,7 @@
                                                      Height="22"
                                                      MaxLines="1"
                                                      MaxLength="4"
-                                                     Margin="0,2,7,0"
+                                                     Margin="0,2,9,0"
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
@@ -2478,8 +2476,8 @@
                                               DataContext="{Binding FilterVideoView}">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -2603,7 +2601,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -2644,7 +2642,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2683,7 +2681,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2722,7 +2720,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2744,7 +2742,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -2783,7 +2781,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2820,7 +2818,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2858,7 +2856,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2881,7 +2879,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -2920,7 +2918,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2957,7 +2955,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -2995,7 +2993,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3018,7 +3016,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -3057,7 +3055,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3094,7 +3092,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3132,7 +3130,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3155,7 +3153,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -3194,7 +3192,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3231,7 +3229,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3269,7 +3267,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3292,7 +3290,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -3331,7 +3329,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3368,7 +3366,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3406,7 +3404,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3429,7 +3427,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -3468,7 +3466,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3505,7 +3503,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3543,7 +3541,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3566,7 +3564,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -3605,7 +3603,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3642,7 +3640,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3680,7 +3678,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3703,7 +3701,7 @@
                                                               VerticalAlignment="Top">
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="8" />
+                                                                <ColumnDefinition Width="7" />
                                                                 <ColumnDefinition Width="110" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
@@ -3742,7 +3740,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3779,7 +3777,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3817,7 +3815,7 @@
                                                                      Height="22"
                                                                      MaxLines="1"
                                                                      MaxLength="4"
-                                                                     Margin="0,2,6,0"
+                                                                     Margin="0,2,8,0"
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
@@ -3865,7 +3863,6 @@
                                 <!-- Size Tab -->
                                 <TabItem Header="Size"
                                          Width="72"
-                                         Height="22"
                                          Style="{DynamicResource TabItemStyle}">
                                     <Grid Background="Transparent">
 
@@ -3874,8 +3871,8 @@
                                               VerticalAlignment="Top">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -4160,7 +4157,7 @@
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="15" />
-                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition Width="95" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
@@ -4260,7 +4257,7 @@
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="15" />
-                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition Width="95" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
@@ -4482,7 +4479,7 @@
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="15" />
-                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition Width="95" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
@@ -4628,7 +4625,7 @@
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="15" />
-                                    <ColumnDefinition Width="96" />
+                                    <ColumnDefinition Width="95" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
@@ -4926,7 +4923,7 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="15" />
-                                <ColumnDefinition Width="96" />
+                                <ColumnDefinition Width="95" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
@@ -5302,7 +5299,6 @@
                                 <!-- Filter Video Tab -->
                                 <TabItem Header="Video"
                                          Width="72"
-                                         Height="22"
                                          DataContext="{Binding FilterVideoView}"
                                          Style="{DynamicResource TabItemStyle}">
                                     <Grid Background="Transparent">
@@ -5325,8 +5321,8 @@
                                                   Grid.Row="0">
 
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="8" />
-                                                    <ColumnDefinition Width="96" />
+                                                    <ColumnDefinition Width="7" />
+                                                    <ColumnDefinition Width="95" />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
 
@@ -5393,8 +5389,8 @@
                                                   Grid.Row="1">
 
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="8" />
-                                                    <ColumnDefinition Width="96" />
+                                                    <ColumnDefinition Width="7" />
+                                                    <ColumnDefinition Width="95" />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
 
@@ -5610,8 +5606,8 @@
                                                   Grid.Row="2">
 
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="8" />
-                                                    <ColumnDefinition Width="96" />
+                                                    <ColumnDefinition Width="7" />
+                                                    <ColumnDefinition Width="95" />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
 
@@ -5696,7 +5692,6 @@
                                 <!-- Filter Audio Tab -->
                                 <TabItem Header="Audio"
                                          Width="72"
-                                         Height="22"
                                          DataContext="{Binding FilterAudioView}"
                                          Style="{DynamicResource TabItemStyle}">
                                     <Grid Background="Transparent">
@@ -5706,8 +5701,8 @@
                                               VerticalAlignment="Top">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
-                                                <ColumnDefinition Width="96" />
+                                                <ColumnDefinition Width="7" />
+                                                <ColumnDefinition Width="95" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -6058,7 +6053,6 @@
                                 <!-- Config Tab -->
                                 <TabItem Header="Config"
                                          Width="72"
-                                         Height="22"
                                          Style="{DynamicResource TabItemStyle}">
 
                                     <Grid Background="Transparent">
@@ -6074,13 +6068,12 @@
                                               Grid.Row="0">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="7" />
                                                 <ColumnDefinition Width="64" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
@@ -6452,84 +6445,6 @@
                                            Style="{DynamicResource ButtonRevertArrow}" />
                                             </Button>
 
-                                            <!-- Log Path -->
-                                            <Label x:Name="labelLogConfig"
-                                       Style="{DynamicResource LabelStyle}"
-                                       Content="Log"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Height="26"
-                                       ToolTipService.InitialShowDelay="250"
-                                       ToolTipService.ShowOnDisabled="True"
-                                       ToolTip="Path to save axiom.log"
-                                       Grid.Row="6"
-                                       Grid.Column="1"
-                                       Width="36"
-                                       Cursor="Hand"
-                                       PreviewMouseDown="lblLogPath_PreviewMouseDown" />
-
-                                            <!-- Log Enable/Disable Checkbox -->
-                                            <CheckBox x:Name="cbxLog"
-                                          IsChecked="{Binding LogCheckBox_IsChecked}"
-                                          IsEnabled="{Binding LogCheckBox_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          HorizontalAlignment="Left"
-                                          Margin="39,6,0,0"
-                                          VerticalAlignment="Top"
-                                          ToolTipService.InitialShowDelay="500"
-                                          ToolTipService.ShowOnDisabled="True"
-                                          ToolTip="Enable/Disable Log"
-                                          Checked="cbxLog_Checked"
-                                          Unchecked="cbxLog_Unchecked"
-                                          Style="{DynamicResource CheckBoxStyle}"
-                                          Grid.Row="6"
-                                          Grid.Column="1" />
-                                            <!-- Log Path TextBox -->
-                                            <TextBox x:Name="tbxLogConfig"
-                                         Text="{Binding LogPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{DynamicResource TextBoxBrowseStyle}"
-                                         HorizontalAlignment="Left"
-                                         Height="20"
-                                         Margin="10,2,0,0"
-                                         MaxLines="1"
-                                         TextWrapping="NoWrap"
-                                         VerticalAlignment="Top"
-                                         Width="105"
-                                         IsReadOnly="True"
-                                         AllowDrop="True"
-                                         Cursor="Arrow"
-                                         PreviewDragOver="tbxLogPath_PreviewDragOver"
-                                         PreviewDragEnter="tbxLogPath_PreviewDragOver"
-                                         PreviewDrop="tbxLogPath_PreviewDrop"
-                                         ToolTipService.InitialShowDelay="200"
-                                         ToolTipService.ShowOnDisabled="True"
-                                         ToolTip="{Binding LogPath_Text, Mode=OneWay}"
-                                         Grid.Column="2"
-                                         Grid.Row="6" />
-
-                                            <!-- Log Revert Button -->
-                                            <Button x:Name="btnLogAuto"
-                                        HorizontalAlignment="Left"
-                                        Margin="122,1,0,0"
-                                        VerticalAlignment="Top"
-                                        Width="23"
-                                        Height="23"
-                                        Cursor="Hand"
-                                        ToolTipService.InitialShowDelay="200"
-                                        ToolTipService.ShowOnDisabled="True"
-                                        ToolTip="Revert to Default"
-                                        Click="btnLogPathAuto_Click"
-                                        Style="{DynamicResource ButtonFolderStyle}"
-                                        Grid.Column="2"
-                                        Grid.Row="6">
-                                                <Image Width="9"
-                                           Height="11"
-                                           Stretch="Uniform"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Margin="1,0,0,0"
-                                           Style="{DynamicResource ButtonRevertArrow}" />
-                                            </Button>
                                         </Grid>
 
                                         <!-- App Group -->
@@ -6538,13 +6453,13 @@
                                   Grid.Row="4">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="7" />
                                                 <ColumnDefinition Width="64" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="44" />
+                                                <RowDefinition Height="55" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="22" />
@@ -6691,7 +6606,6 @@
                                 <!-- File Tab -->
                                 <TabItem Header="File"
                                          Width="72"
-                                         Height="22"
                                          Style="{DynamicResource TabItemStyle}">
 
                                     <Grid Background="Transparent">
@@ -6707,7 +6621,7 @@
                                               Grid.Row="0">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="7" />
                                                 <ColumnDefinition Width="64" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
@@ -6810,7 +6724,7 @@
                                               Grid.Row="1">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="7" />
                                                 <ColumnDefinition Width="64" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
@@ -6819,7 +6733,7 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="44" />
-                                                <RowDefinition Height="250" />
+                                                <RowDefinition Height="auto" />
                                                 <RowDefinition Height="22" />
                                             </Grid.RowDefinitions>
 
@@ -6853,7 +6767,7 @@
                                           IsEnabled="{Binding OutputNaming_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           IsSynchronizedWithCurrentItem="False"
                                           SelectionMode="Multiple"
-                                          Height="209"
+                                          Height="238"
                                                       Padding="2,4,0,0"
                                           Margin="0,31,30,0"
                                           VerticalAlignment="Top"
@@ -7095,7 +7009,6 @@
                                 <!-- System Tab -->
                                 <TabItem Header="System"
                                          Width="72"
-                                         Height="22"
                                          Style="{DynamicResource TabItemStyle}">
 
                                     <Grid Background="Transparent">
@@ -7110,7 +7023,7 @@
                                               Grid.Row="0">
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="7" />
                                                 <ColumnDefinition Width="64" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
@@ -7121,6 +7034,7 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="22" />
+                                                <RowDefinition Height="33" />
                                             </Grid.RowDefinitions>
 
                                             <!-- Process -->
@@ -7329,6 +7243,85 @@
                                         Style="{DynamicResource ButtonFolderStyle}"
                                         Grid.Column="2"
                                         Grid.Row="3">
+                                                <Image Width="9"
+                                           Height="11"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="1,0,0,0"
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                            </Button>
+
+                                            <!-- Log Path -->
+                                            <Label x:Name="labelLogConfig"
+                                       Style="{DynamicResource LabelStyle}"
+                                       Content="Log"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Height="26"
+                                       ToolTipService.InitialShowDelay="250"
+                                       ToolTipService.ShowOnDisabled="True"
+                                       ToolTip="Path to save axiom.log"
+                                       Grid.Row="5"
+                                       Grid.Column="1"
+                                       Width="36"
+                                       Cursor="Hand"
+                                       PreviewMouseDown="lblLogPath_PreviewMouseDown" />
+
+                                            <!-- Log Enable/Disable Checkbox -->
+                                            <CheckBox x:Name="cbxLog"
+                                          IsChecked="{Binding LogCheckBox_IsChecked}"
+                                          IsEnabled="{Binding LogCheckBox_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          HorizontalAlignment="Left"
+                                          Margin="39,6,0,0"
+                                          VerticalAlignment="Top"
+                                          ToolTipService.InitialShowDelay="500"
+                                          ToolTipService.ShowOnDisabled="True"
+                                          ToolTip="Enable/Disable Log"
+                                          Checked="cbxLog_Checked"
+                                          Unchecked="cbxLog_Unchecked"
+                                          Style="{DynamicResource CheckBoxStyle}"
+                                          Grid.Row="5"
+                                          Grid.Column="1" />
+                                            <!-- Log Path TextBox -->
+                                            <TextBox x:Name="tbxLogConfig"
+                                         Text="{Binding LogPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{DynamicResource TextBoxBrowseStyle}"
+                                         HorizontalAlignment="Left"
+                                         Height="20"
+                                         Margin="10,2,0,0"
+                                         MaxLines="1"
+                                         TextWrapping="NoWrap"
+                                         VerticalAlignment="Top"
+                                         Width="105"
+                                         IsReadOnly="True"
+                                         AllowDrop="True"
+                                         Cursor="Arrow"
+                                         PreviewDragOver="tbxLogPath_PreviewDragOver"
+                                         PreviewDragEnter="tbxLogPath_PreviewDragOver"
+                                         PreviewDrop="tbxLogPath_PreviewDrop"
+                                         ToolTipService.InitialShowDelay="200"
+                                         ToolTipService.ShowOnDisabled="True"
+                                         ToolTip="{Binding LogPath_Text, Mode=OneWay}"
+                                         Grid.Column="2"
+                                         Grid.Row="5" />
+
+                                            <!-- Log Revert Button -->
+                                            <Button x:Name="btnLogAuto"
+                                        HorizontalAlignment="Left"
+                                        Margin="122,1,0,0"
+                                        VerticalAlignment="Top"
+                                        Width="23"
+                                        Height="23"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="200"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Revert to Default"
+                                        Click="btnLogPathAuto_Click"
+                                        Style="{DynamicResource ButtonFolderStyle}"
+                                        Grid.Column="2"
+                                        Grid.Row="5">
                                                 <Image Width="9"
                                            Height="11"
                                            Stretch="Uniform"
