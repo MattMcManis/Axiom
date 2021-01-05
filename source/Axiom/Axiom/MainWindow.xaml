@@ -1557,7 +1557,7 @@
                                                     VerticalAlignment="Top"
                                                     ToolTipService.InitialShowDelay="500"
                                                     ToolTipService.ShowOnDisabled="True"
-                                                    ToolTip="Display Advanced Bit Rate Options"
+                                                    ToolTip="Show Advanced Bit Rate Controls"
                                                     >
                                                 <TextBlock x:Name="textBlockExpand"
                                                            Text="+"
