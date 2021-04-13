@@ -49,7 +49,7 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 
 **Requirements**
 - Extract 7z file with [7-Zip](https://www.7-zip.org)
-- Axiom [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
+- Axiom [.NET Runtime 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
 - youtube-dl [Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) & [Python](https://www.python.org) (2.6, 2.7, or 3.2+)
 
 ### FFmpeg Builds
@@ -112,10 +112,8 @@ Axiom will auto-detect it in its included folder. You can also add it to Windows
 &nbsp;
 
 ## Build
-Visual Studio 2015
-<br />
+Visual Studio 2019
 WPF, C#, XAML
-<br />
 Visual C++ 19.0 Compiler
 
 &nbsp;

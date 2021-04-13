@@ -1229,7 +1229,7 @@ namespace Axiom
         {
             try
             {
-                System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(path);
+                System.Security.AccessControl.DirectorySecurity ds = new DirectoryInfo(path).GetAccessControl();
                 return true;
             }
             catch (UnauthorizedAccessException)
@@ -2958,8 +2958,13 @@ namespace Axiom
         private void btbWebsite_Click(object sender, RoutedEventArgs e)
         {
             // Open Axiom Website URL in Default Browser
-            Process.Start("https://axiomui.github.io");
+            var p = new ProcessStartInfo
+            {
+                FileName = "https://axiomui.github.io",
+                UseShellExecute = true
+            };
 
+            Process.Start(p);
         }
 
         /// <summary>
@@ -3126,7 +3131,14 @@ namespace Axiom
             // Open Log
             if (File.Exists(VM.ConfigureView.LogPath_Text + "output.log"))
             {
-                Process.Start("notepad.exe", "\"" + VM.ConfigureView.LogPath_Text + "output.log" + "\"");
+                var p = new ProcessStartInfo
+                {
+                    FileName = "notepad.exe",
+                    Arguments = "\"" + VM.ConfigureView.LogPath_Text + "output.log" + "\"",
+                    UseShellExecute = true
+                };
+
+                Process.Start(p);
             }
             else
             {
@@ -3150,16 +3162,30 @@ namespace Axiom
             // Launch Shell
             // -------------------------
             // Default to User Profile Diretory
+            ProcessStartInfo p;
+
             switch (VM.ConfigureView.Shell_SelectedItem)
             {
                 // CMD
                 case "CMD":
-                    Process.Start("CMD.exe", "/k cd %userprofile%");
+                    p = new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments =  "/k cd %userprofile%",
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     break;
 
                 // PowerShell
                 case "PowerShell":
-                    Process.Start("PowerShell.exe", "-NoExit cd $home");
+                    p = new ProcessStartInfo
+                    {
+                        FileName = "powershell.exe",
+                        Arguments =  "-NoExit cd $home",
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     break;
             }
         }
@@ -3230,9 +3256,14 @@ namespace Axiom
         /// </summary>
         private void btnPlayFile_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(@output))
+            if (File.Exists(output))
             {
-                Process.Start("\"" + output + "\"");
+                var p = new ProcessStartInfo
+                {
+                    FileName = "\"" + output + "\"",
+                    UseShellExecute = true
+                };
+                Process.Start(p);
             }
             else
             {

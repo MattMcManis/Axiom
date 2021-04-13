@@ -392,9 +392,15 @@ namespace Axiom
         {
             if (IsValidPath(inputDir))
             {
-                if (Directory.Exists(@inputDir))
+                if (Directory.Exists(inputDir))
                 {
-                    Process.Start("explorer.exe", @inputDir);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = inputDir,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(p);
                 }
             }
         }
