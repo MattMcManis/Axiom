@@ -1,3 +1,0 @@
-﻿Must use Visual Studio 2010 (v100) Platform Toolset
-
-Project > Axiom Troubleshooter Properties > Configuration Properties > General > Platform Toolset
