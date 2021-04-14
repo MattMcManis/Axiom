@@ -112,9 +112,9 @@ Axiom will auto-detect it in its included folder. You can also add it to Windows
 &nbsp;
 
 ## Build
-Visual Studio 2019
+.NET SDK 5.0
+<br/>
 WPF, C#, XAML
-Visual C++ 19.0 Compiler
 
 &nbsp;
 
