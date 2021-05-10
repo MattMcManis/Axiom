@@ -22,7 +22,9 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ViewModel;
 // Disable XML Comment warnings
@@ -45,7 +47,6 @@ namespace Axiom
         public static string cropX { get; set; }
         public static string cropY { get; set; }
         public static string crop { get; set; } // Combined Width, Height, X, Y
-
 
         public CropWindow(MainWindow mainwindow)
         {
@@ -70,54 +71,24 @@ namespace Axiom
             this.Close();
         }
 
-        /// <summary>
-        /// Crop Width
-        /// </summary>
-        private void tbxVideo_Crop_Width_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
-        }
+        private static readonly Regex numsOnlyRegex = new Regex(@"\d+");
 
         /// <summary>
-        /// Crop Height
+        /// Allow Only Numbers 
         /// </summary>
-        private void tbxVideo_Crop_Height_KeyDown(object sender, KeyEventArgs e)
+        public void Allow_Only_Numbers(object sender, TextCompositionEventArgs e)
         {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
+            var textBox = e.Source as TextBox;
+            if (textBox != null)
             {
-                e.Handled = true;
+                var finalText = (textBox.SelectedText.Length > 0
+                    ? textBox.Text.Replace(textBox.SelectedText, "")
+                    : textBox.Text)
+                    + e.Text;
+
+                e.Handled = !numsOnlyRegex.IsMatch(finalText);
             }
         }
-
-        /// <summary>
-        /// Crop X
-        /// </summary>
-        private void tbxVideo_Crop_X_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
-        }
-
-        /// <summary>
-        /// Crop Y
-        /// </summary>
-        private void tbxVideo_Crop_Y_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
-        }
-
 
         /// <summary>
         /// SET Button

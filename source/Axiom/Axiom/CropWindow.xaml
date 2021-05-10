@@ -61,7 +61,7 @@
                  VerticalAlignment="Top"
                  Width="60"
                  Style="{DynamicResource TextBoxStyle}"
-                 KeyDown="tbxVideo_Crop_X_KeyDown"
+                 TextInput="Allow_Only_Numbers"
                  ToolTipService.ShowOnDisabled="True"
                  ToolTip="Position of Crop from Left" />
 
@@ -82,7 +82,7 @@
                  VerticalAlignment="Top"
                  Width="60"
                  Style="{DynamicResource TextBoxStyle}"
-                 KeyDown="tbxVideo_Crop_Y_KeyDown"
+                 TextInput="Allow_Only_Numbers"
                  ToolTipService.ShowOnDisabled="True"
                  ToolTip="Position of Crop from Top" />
 
@@ -103,7 +103,7 @@
                  VerticalAlignment="Top"
                  Width="60"
                  Style="{DynamicResource TextBoxStyle}"
-                 KeyDown="tbxVideo_Crop_Width_KeyDown"
+                 TextInput="Allow_Only_Numbers"
                  ToolTipService.ShowOnDisabled="True"
                  ToolTip="Width of Cropped Area" />
 
@@ -124,7 +124,7 @@
                  VerticalAlignment="Top"
                  Width="60"
                  Style="{DynamicResource TextBoxStyle}"
-                 KeyDown="tbxVideo_Crop_Height_KeyDown"
+                 TextInput="Allow_Only_Numbers"
                  ToolTipService.ShowOnDisabled="True"
                  ToolTip="Height of Cropped Area" />
 

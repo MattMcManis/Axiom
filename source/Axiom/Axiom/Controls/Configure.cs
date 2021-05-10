@@ -30,6 +30,7 @@ using System.Windows;
 using ViewModel;
 using Axiom;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -243,10 +244,8 @@ namespace Controls
                         ConfigFile.conf = new ConfigFile(Path.Combine(directory, filename));
 
                         // Write each action in the list
-                        foreach (Action Write in actionsToWrite)
-                        {
-                            Write();
-                        }
+                        foreach (var t in actionsToWrite)
+                            t();
                     }
                     // Error
                     catch

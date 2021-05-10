@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -516,12 +517,6 @@ namespace Axiom
             //OutputPath_UpdateDisplay();
 
         }
-        // TextBox Key Down
-        private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers and Backspace
-            Allow_Only_Number_Keys(e);
-        }
         // Slider Value Change
         private void slVideo_CRF_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -639,19 +634,6 @@ namespace Axiom
                                                         VM.VideoView.Video_Pass_SelectedItem);
         }
 
-
-        /// <summary>
-        /// Pixel Format
-        /// </summary>
-        private void cboVideo_PixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Output Path Update Display
-            // -------------------------
-            //OutputPath_UpdateDisplay();
-        }
-
-
         /// <summary>
         /// FPS ComboBox
         /// </summary>
@@ -693,7 +675,7 @@ namespace Axiom
         }
 
         // Speed Custom KeyDown
-        private void cboVideo_FrameRate_KeyDown(object sender, KeyEventArgs e)
+        /*private void cboVideo_FrameRate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
             // Deny Symbols (Shift + Number)
@@ -710,6 +692,25 @@ namespace Axiom
             //{
             //    e.Handled = true;
             //}
+        }*/
+
+        private static readonly Regex numsOrForwardSlashesOnlyRegex = new Regex(@"[\d\/]+");
+
+        /// <summary>
+        /// Speed Custom KeyDown
+        /// </summary>
+        public void cboVideo_FrameRate_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = e.Source as TextBox;
+            if (textBox != null)
+            {
+                var finalText = (textBox.SelectedText.Length > 0
+                    ? textBox.Text.Replace(textBox.SelectedText, "")
+                    : textBox.Text)
+                    + e.Text;
+
+                e.Handled = !numsOrForwardSlashesOnlyRegex.IsMatch(finalText);
+            }
         }
 
 
@@ -747,14 +748,6 @@ namespace Axiom
                 VM.VideoView.Video_Speed_SelectedIndex = -1;
             }
         }
-
-        // Speed Custom KeyDown
-        private void cboVideo_Speed_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers and Backspace
-            Allow_Only_Number_Keys(e);
-        }
-
 
         /// <summary>
         /// Presets
@@ -863,14 +856,6 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Vsync ComboBox
-        /// </summary>
-        private void cboVideo_Vsync_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
         /// Video Optimize ComboBox
         /// </summary>
         private void cboVideo_Optimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -880,41 +865,6 @@ namespace Axiom
             // -------------------------
             Controls.Video.Controls.OptimizeControls();
         }
-
-        /// <summary>
-        /// Video Optimize Expander
-        /// </summary>
-        //// Expanded
-        //private void expVideo_Optimize_Expander_Expanded(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-        //// Collapsed
-        //private void expVideo_Optimize_Expander_Collapsed(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-        //// Mouse Down
-        //private void expVideo_Optimize_Expander_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        //{
-
-        //}
-        //// Mouse Up
-        //private void expVideo_Optimize_Expander_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        //{
-
-        //}
-
-
-        /// <summary>
-        /// Video Color Range Combobox
-        /// </summary>
-        private void cboColorRange_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //VideoControls.AutoCopyVideoCodec("control");
-        }
-
-
 
         private void cboVideo_Scale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -965,8 +915,6 @@ namespace Axiom
             // -------------------------
             //OutputPath_UpdateDisplay();
         }
-
-
 
         /// <summary>
         /// Video Scale Display
@@ -1146,33 +1094,6 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Is Aspect Ratio Widescreen
-        /// </summary>
-        //public static bool IsAspectRatioWidescreen(string aspectRatio_SelectedItem)
-        //{
-        //    // Widescreen (16:9, 16:10, etc) or auto, scale by Width 
-        //    if (aspectRatio_SelectedItem == "auto" ||
-        //        aspectRatio_SelectedItem == "14:10" ||
-        //        aspectRatio_SelectedItem == "16:9" ||
-        //        aspectRatio_SelectedItem == "16:10" ||
-        //        aspectRatio_SelectedItem == "19:10" ||
-        //        aspectRatio_SelectedItem == "21:9" ||
-        //        aspectRatio_SelectedItem == "32:9" ||
-        //        aspectRatio_SelectedItem == "240:100"
-        //        )
-        //    {
-        //        return true;
-        //    }
-
-        //    // Full Screen (4:3, 5:4, etc), scale by Height
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-
-        /// <summary>
         /// Width Textbox Change
         /// </summary>
         // Got Focus
@@ -1234,28 +1155,6 @@ namespace Axiom
             }
         }
 
-
-        /// <summary>
-        /// Video Aspect Ratio
-        /// </summary>
-        private void cboVideo_AspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-
-        /// <summary>
-        /// Video Scaling Algorithm
-        /// </summary>
-        private void cboVideo_ScalingAlgorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Output Path Update Display
-            // -------------------------
-            //OutputPath_UpdateDisplay();
-        }
-
-
         /// <summary>
         /// Crop Window - Button
         /// </summary>
@@ -1266,7 +1165,7 @@ namespace Axiom
 
             // Detect which screen we're on
             var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => Left >= s.WorkingArea.Left && Left < s.WorkingArea.Right);
+            var thisScreen = allScreens.FirstOrDefault(s => Left >= s.WorkingArea.Left && Left < s.WorkingArea.Right);
 
             // Position Relative to MainWindow
             // Keep from going off screen
