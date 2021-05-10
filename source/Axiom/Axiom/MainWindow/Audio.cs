@@ -160,18 +160,6 @@ namespace Axiom
 
 
         /// <summary>
-        /// Audio Channel - ComboBox
-        /// </summary>
-        private void cboAudio_Channel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Output Path Update Display
-            // -------------------------
-            //OutputPath_UpdateDisplay();
-        }
-
-
-        /// <summary>
         /// Audio Quality - ComboBox
         /// </summary>
         private void cboAudio_Quality_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -217,17 +205,6 @@ namespace Axiom
             // and Quality is Auto
             // -------------------------
             //Controls.Audio.Controls.AutoCopyAudioCodec("control");
-        }
-
-        /// <summary>
-        /// Audio VBR - TextBox
-        /// </summary>
-        private void tbxAudio_BitRate_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // -------------------------
-            // Output Path Update Display
-            // -------------------------
-            //OutputPath_UpdateDisplay();
         }
 
         /// <summary>
@@ -285,15 +262,6 @@ namespace Axiom
             }
         }
 
-
-        /// <summary>
-        /// Audio Custom BitRate kbps - Textbox
-        /// </summary>
-        private void tbxAudio_BitRate_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers and Backspace
-            Allow_Only_Number_Keys(e);
-        }
         // Got Focus
         private void tbxAudio_BitRate_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -317,72 +285,6 @@ namespace Axiom
             }
         }
 
-
-        /// <summary>
-        /// Samplerate ComboBox
-        /// </summary>
-        private void cboAudio_SampleRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //if (!string.IsNullOrWhiteSpace(VM.AudioView.Audio_SampleRate_SelectedItem))
-            //{
-            //    Audio_SampleRate_PreviousItem = VM.AudioView.Audio_SampleRate_SelectedItem;
-            //}
-
-            //MessageBox.Show("Previous: " + Audio_SampleRate_PreviousItem); //debug
-            //MessageBox.Show("Current: " + VM.AudioView.Audio_SampleRate_SelectedItem); //debug
-
-            //if (Audio_SampleRate_PreviousItem != VM.AudioView.Audio_SampleRate_SelectedItem)
-            //{
-            //    // Switch to Copy if inputExt & outputExt match
-            //    //Controls.Audio.Controls.AutoCopyAudioCodec("control");
-            //}
-
-            //MessageBox.Show("Current Changed: " + VM.AudioView.Audio_SampleRate_SelectedItem); //debug
-
-            //Controls.Audio.Controls.AutoCopyAudioCodec("control");
-
-            // -------------------------
-            // Output Path Update Display
-            // -------------------------
-            //OutputPath_UpdateDisplay();
-        }
-
-
-        /// <summary>
-        /// Bit Depth ComboBox
-        /// </summary>
-        private void cboAudio_BitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //if (VM.AudioView.Audio_Codec_SelectedItem == "PCM")
-            //{
-            //    //Controls.Audio.Codec.PCM pcm = new Controls.Audio.Codec.PCM();
-            //    //pcm.Codec_Set();
-
-            //    Controls.Audio.Codec.PCM.Codec_Set();
-            //}
-
-            // -------------------------
-            // Output Path Update Display
-            // -------------------------
-            //OutputPath_UpdateDisplay();
-        }
-
-
-        /// <summary>
-        /// Volume TextBox Changed
-        /// </summary>
-        private void tbxAudio_Volume_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        /// <summary>
-        /// Volume TextBox KeyDown
-        /// </summary>
-        private void tbxAudio_Volume_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers and Backspace
-            Allow_Only_Number_Keys(e);
-        }
 
         /// <summary>
         /// Volume Buttons
@@ -467,17 +369,6 @@ namespace Axiom
 
             //Controls.Audio.Controls.AutoCopyAudioCodec("control");
         }
-
-        private void slAudio_HardLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //Controls.Audio.Controls.AutoCopyAudioCodec("control");
-        }
-
-        private void tbxAudio_HardLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            //Controls.Audio.Controls.AutoCopyAudioCodec("control");
-        }
-
 
         /// <summary>
         /// Audio Mux - ListView

@@ -674,7 +674,7 @@
                                      Margin="1,3,0,0"
                                      Grid.Column="2"
                                      Grid.Row="4"
-                                     KeyDown="tbxCutStartHours_KeyDown"
+                                     PreviewTextInput="Allow_Only_Two_Numbers"
                                      GotFocus="tbxCutStartHours_GotFocus"
                                      LostFocus="tbxCutStartHours_LostFocus"
                                      Panel.ZIndex="2" />
@@ -712,7 +712,7 @@
                                      Grid.Row="4"
                                      Padding="1,1,0,0"
                                      Margin="22,3,0,0"
-                                     KeyDown="tbxCutStartMinutes_KeyDown"
+                                     PreviewTextInput="Allow_Only_Two_Numbers"
                                      GotFocus="tbxCutStartMinutes_GotFocus"
                                      LostFocus="tbxCutStartMinutes_LostFocus"
                                      Panel.ZIndex="2" />
@@ -750,7 +750,7 @@
                                      Grid.Row="4"
                                      Padding="1,1,0,0"
                                      Margin="43,3,0,0"
-                                     KeyDown="tbxCutStartSeconds_KeyDown"
+                                     PreviewTextInput="Allow_Only_Two_Numbers"
                                      GotFocus="tbxCutStartSeconds_GotFocus"
                                      LostFocus="tbxCutStartSeconds_LostFocus"
                                      Panel.ZIndex="2" />
@@ -787,7 +787,7 @@
                                      Grid.Row="4"
                                      Padding="1,1,0,0"
                                      Margin="64,3,0,0"
-                                     KeyDown="tbxCutStartMilliseconds_KeyDown"
+                                     PreviewTextInput="Allow_Only_Three_Numbers"
                                      GotFocus="tbxCutStartMilliseconds_GotFocus"
                                      LostFocus="tbxCutStartMilliseconds_LostFocus"
                                      Panel.ZIndex="2" />
@@ -839,7 +839,7 @@
                                      Margin="1,3,0,0"
                                      Grid.Column="2"
                                      Grid.Row="5"
-                                     KeyDown="tbxCutEndHours_KeyDown"
+                                     PreviewTextInput="Allow_Only_Two_Numbers"
                                      GotFocus="tbxCutEndHours_GotFocus"
                                      LostFocus="tbxCutEndHours_LostFocus"
                                      Panel.ZIndex="2" />
@@ -876,7 +876,7 @@
                                      Grid.Row="5"
                                      Padding="1,1,0,0"
                                      Margin="22,3,0,0"
-                                     KeyDown="tbxCutEndMinutes_KeyDown"
+                                     PreviewTextInput="Allow_Only_Two_Numbers"
                                      GotFocus="tbxCutEndMinutes_GotFocus"
                                      LostFocus="tbxCutEndMinutes_LostFocus"
                                      Panel.ZIndex="2" />
@@ -913,7 +913,7 @@
                                      Grid.Row="5"
                                      Padding="1,1,0,0"
                                      Margin="43,3,0,0"
-                                     KeyDown="tbxCutEndSeconds_KeyDown"
+                                     PreviewTextInput="Allow_Only_Two_Numbers"
                                      GotFocus="tbxCutEndSeconds_GotFocus"
                                      LostFocus="tbxCutEndSeconds_LostFocus"
                                      Panel.ZIndex="2" />
@@ -949,7 +949,7 @@
                                      Grid.Row="5"
                                      Padding="1,1,0,0"
                                      Margin="64,3,0,0"
-                                     KeyDown="tbxCutEndMilliseconds_KeyDown"
+                                     PreviewTextInput="Allow_Only_Three_Numbers"
                                      GotFocus="tbxCutEndMilliseconds_GotFocus"
                                      LostFocus="tbxCutEndMilliseconds_LostFocus"
                                      Panel.ZIndex="2" />
@@ -993,7 +993,7 @@
                                      MaxLines="1"
                                      VerticalAlignment="Top"
                                      Width="50"
-                                     KeyDown="tbxFrameStart_KeyDown"
+                                     PreviewTextInput="Allow_Only_Numbers"
                                      GotFocus="tbxFrameStart_GotFocus"
                                      LostFocus="tbxFrameStart_LostFocus"
                                      ToolTipService.InitialShowDelay="500"
@@ -1015,7 +1015,7 @@
                                      MaxLines="1"
                                      VerticalAlignment="Top"
                                      Width="50"
-                                     KeyDown="tbxFrameEnd_KeyDown"
+                                     PreviewTextInput="Allow_Only_Numbers"
                                      GotFocus="tbxFrameEnd_GotFocus"
                                      LostFocus="tbxFrameEnd_LostFocus"
                                      ToolTipService.InitialShowDelay="500"
@@ -1477,7 +1477,7 @@
                                                      TextWrapping="NoWrap"
                                                      VerticalAlignment="Top"
                                                      Width="30"
-                                                     KeyDown="tbxVideo_CRF_KeyDown"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      MaxLines="1"
                                                      MaxLength="2"
                                                      ToolTipService.InitialShowDelay="500"
@@ -1724,7 +1724,7 @@
                                                       Grid.Row="5"
                                                       Grid.Column="2"
                                                       Margin="0,2,0,0"
-                                                      SelectionChanged="cboVideo_PixelFormat_SelectionChanged" Height="22" />
+                                                      Height="22" />
 
                                             <!-- Framerate -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -1756,7 +1756,7 @@
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Frames Per Second"
                                                       SelectionChanged="cboVideo_FPS_SelectionChanged"
-                                                      TextBoxBase.KeyDown="cboVideo_FrameRate_KeyDown"
+                                                      TextBoxBase.TextInput="cboVideo_FrameRate_TextInput"
                                                       IsTextSearchEnabled="False"
                                                       Grid.Row="6"
                                                       Grid.Column="2"
@@ -1790,7 +1790,7 @@
                                                       VerticalAlignment="Top"
                                                       Width="105"
                                                       SelectionChanged="cboVideo_Speed_SelectionChanged"
-                                                      TextBoxBase.KeyDown="cboVideo_Speed_KeyDown"
+                                                      TextBoxBase.PreviewTextInput="Allow_Only_Numbers"
                                                       ToolTipService.InitialShowDelay="500"
                                                       ToolTipService.ShowOnDisabled="True"
                                                       ToolTip="Speed Up / Slow Down Video"
@@ -1837,8 +1837,7 @@
                                                       Width="105"
                                                       Grid.Row="8"
                                                       Grid.Column="2"
-                                                      Height="22"
-                                                      SelectionChanged="cboVideo_Vsync_SelectionChanged">
+                                                      Height="22">
                                             </ComboBox>
 
 
@@ -2104,8 +2103,7 @@
                                                       Width="105"
                                                       Grid.Row="1"
                                                       Grid.Column="2"
-                                                      Height="22"
-                                                      SelectionChanged="cboColorRange_SelectionChanged" />
+                                                      Height="22" />
 
                                             <!-- Color Space -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -2301,7 +2299,6 @@
                                                     Value="{Binding FilterVideo_EQ_Brightness_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsEnabled="{Binding FilterVideo_EQ_Brightness_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     MouseDoubleClick="slFilterVideo_EQ_Brightness_MouseDoubleClick"
-                                                    PreviewMouseUp="slFilterVideo_EQ_Brightness_PreviewMouseUp"
                                                     Grid.Column="2"
                                                     Grid.Row="1"
                                                     Height="18" />
@@ -2316,7 +2313,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterVideo_EQ_Brightness_KeyDown"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      PreviewKeyUp="tbxFilterVideo_EQ_Brightness_PreviewKeyUp"
                                                      Grid.Column="2"
                                                      Grid.Row="1" />
@@ -2341,7 +2338,6 @@
                                                     Maximum="100"
                                                     Value="{Binding FilterVideo_EQ_Contrast_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsEnabled="{Binding FilterVideo_EQ_Contrast_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    PreviewMouseUp="slFilterVideo_EQ_Contrast_PreviewMouseUp"
                                                     MouseDoubleClick="slFilterVideo_EQ_Contrast_MouseDoubleClick"
                                                     Grid.Column="2"
                                                     Grid.Row="2"
@@ -2357,8 +2353,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterVideo_EQ_Contrast_KeyDown"
-                                                     PreviewKeyUp="tbxFilterVideo_EQ_Contrast_PreviewKeyUp"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      Grid.Column="2"
                                                      Grid.Row="2" />
 
@@ -2382,7 +2377,6 @@
                                                     IsEnabled="{Binding FilterVideo_EQ_Saturation_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
-                                                    PreviewMouseUp="slFilterVideo_EQ_Saturation_PreviewMouseUp"
                                                     MouseDoubleClick="slFilterVideo_EQ_Saturation_MouseDoubleClick"
                                                     Grid.Column="2"
                                                     Grid.Row="3"
@@ -2398,8 +2392,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterVideo_EQ_Saturation_KeyDown"
-                                                     PreviewKeyUp="tbxFilterVideo_EQ_Saturation_PreviewKeyUp"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      Grid.Column="2"
                                                      Grid.Row="3" />
 
@@ -2423,7 +2416,6 @@
                                                     IsEnabled="{Binding FilterVideo_EQ_Gamma_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
-                                                    PreviewMouseUp="slFilterVideo_EQ_Gamma_PreviewMouseUp"
                                                     MouseDoubleClick="slFilterVideo_EQ_Gamma_MouseDoubleClick"
                                                     Grid.Column="2"
                                                     Grid.Row="4"
@@ -2439,8 +2431,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterVideo_EQ_Gamma_KeyDown"
-                                                     PreviewKeyUp="tbxFilterVideo_EQ_Gamma_PreviewKeyUp"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      Grid.Column="2"
                                                      Grid.Row="4" />
 
@@ -2632,7 +2623,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Reds_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Cyan"
@@ -2646,7 +2636,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Reds_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Reds Magenta -->
@@ -2671,7 +2660,6 @@
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
                                                                     Grid.Row="1"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Reds_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Magenta"
@@ -2711,7 +2699,6 @@
                                                                     IsMoveToPointEnabled="True"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Yellow"
                                                                      Style="{DynamicResource TextBoxStyle}"
@@ -2772,7 +2759,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Yellows_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Cyan"
@@ -2785,8 +2771,7 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     Grid.Column="2"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Yellows_Cyan_PreviewKeyUp" />
+                                                                     Grid.Column="2" />
 
                                                             <!-- Yellows Magenta -->
                                                             <Label Style="{DynamicResource LabelStyle}"
@@ -2808,7 +2793,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Yellows_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -2822,7 +2806,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Yellows_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -2846,7 +2829,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Yellows_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Yellows_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -2860,7 +2842,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Yellows_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -2909,7 +2890,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Greens_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Cyan"
@@ -2922,7 +2902,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Greens_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Greens Magenta -->
@@ -2945,7 +2924,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Greens_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -2959,7 +2937,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Greens_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -2983,7 +2960,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Greens_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -2997,7 +2973,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Greens_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -3046,7 +3021,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Cyans_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Cyan"
@@ -3059,7 +3033,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Cyans_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Cyans Magenta -->
@@ -3082,7 +3055,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Cyans_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Cyans_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -3096,7 +3068,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Cyans_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -3120,7 +3091,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Cyans_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -3134,7 +3104,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -3183,7 +3152,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Blues_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Cyan"
@@ -3196,7 +3164,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Blues_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Blues Magenta -->
@@ -3219,7 +3186,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Blues_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -3233,7 +3199,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Blues_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -3257,7 +3222,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Blues_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -3271,7 +3235,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Blues_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -3320,7 +3283,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Magentas_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Cyan"
@@ -3333,7 +3295,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Magentas_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Magentas Magenta -->
@@ -3356,7 +3317,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Magentas_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -3370,7 +3330,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Magentas_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -3394,7 +3353,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Magentas_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -3408,7 +3366,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Magentas_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -3457,7 +3414,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Whites_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Cyan"
@@ -3470,7 +3426,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Whites_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Whites Magenta -->
@@ -3493,7 +3448,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Whites_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -3507,7 +3461,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Whites_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -3531,7 +3484,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Whites_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -3545,7 +3497,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Whites_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -3594,7 +3545,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Neutrals_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Cyan"
@@ -3607,7 +3557,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Neutrals_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Neutrals Magenta -->
@@ -3630,7 +3579,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Neutrals_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -3644,7 +3592,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Neutrals_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -3668,7 +3615,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Neutrals_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -3682,7 +3628,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Neutrals_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -3731,7 +3676,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Blacks_Cyan_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick"
                                                                     Grid.Column="2"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Cyan"
@@ -3744,7 +3688,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Blacks_Cyan_PreviewKeyUp"
                                                                      Grid.Column="2" />
 
                                                             <!-- Blacks Magenta -->
@@ -3767,7 +3710,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Blacks_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick"
                                                                     Grid.Row="1"
                                                                     Grid.Column="2" />
@@ -3781,7 +3723,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Blacks_Magenta_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="1" />
 
@@ -3805,7 +3746,6 @@
                                                                     Maximum="100"
                                                                     IsSnapToTickEnabled="True"
                                                                     IsMoveToPointEnabled="True"
-                                                                    PreviewMouseUp="slFilterVideo_SelectiveColor_Blacks_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick"
                                                                     Grid.Row="2"
                                                                     Grid.Column="2" />
@@ -3819,7 +3759,6 @@
                                                                      HorizontalAlignment="Right"
                                                                      Width="39"
                                                                      VerticalAlignment="Top"
-                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Blacks_Yellow_PreviewKeyUp"
                                                                      Grid.Column="2"
                                                                      Grid.Row="2" />
 
@@ -4023,8 +3962,7 @@
                                                       Grid.Row="4"
                                                       Grid.Column="2"
                                                       Height="22"
-                                                      Margin="0,2,0,0"
-                                                      SelectionChanged="cboVideo_AspectRatio_SelectionChanged" />
+                                                      Margin="0,2,0,0" />
 
                                             <!-- Scaling -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -4057,8 +3995,7 @@
                                                       Grid.Row="5"
                                                       Grid.Column="2"
                                                       Height="22"
-                                                      Margin="0,2,0,0"
-                                                      SelectionChanged="cboVideo_ScalingAlgorithm_SelectionChanged" />
+                                                      Margin="0,2,0,0" />
 
                                             <!-- Crop -->
                                             <Label Style="{DynamicResource LabelStyle}"
@@ -4245,8 +4182,7 @@
                                       Width="105"
                                       Grid.Row="2"
                                       Grid.Column="2"
-                                      Margin="0,2,0,0"
-                                      SelectionChanged="cboAudio_Channel_SelectionChanged" />
+                                      Margin="0,2,0,0" />
 
                             </Grid>
 
@@ -4332,14 +4268,13 @@
                                          MaxLength="5"
                                          GotFocus="tbxAudio_BitRate_GotFocus"
                                          LostFocus="tbxAudio_BitRate_LostFocus"
-                                         KeyDown="tbxAudio_BitRate_KeyDown"
+                                         PreviewTextInput="Allow_Only_Numbers"
                                          ToolTipService.InitialShowDelay="500"
                                          ToolTipService.ShowOnDisabled="True"
                                          ToolTip="Custom Audio Bit Rate (e.g. 245)"
                                          Grid.Column="2"
                                          Grid.Row="1"
-                                         Margin="0,2,0,0"
-                                         TextChanged="tbxAudio_BitRate_TextChanged" />
+                                         Margin="0,2,0,0" />
 
                                 <!-- VBR Toggle -->
                                 <ToggleButton x:Name="tglAudio_VBR"
@@ -4412,7 +4347,6 @@
                                           VerticalAlignment="Top"
                                           Width="105"
                                           Height="22"
-                                          SelectionChanged="cboAudio_SampleRate_SelectionChanged"
                                           Grid.Column="2"
                                           Grid.Row="3"
                                           Margin="0,2,0,0">
@@ -4452,7 +4386,6 @@
                                           VerticalAlignment="Top"
                                           Width="105"
                                           Height="22"
-                                          SelectionChanged="cboAudio_BitDepth_SelectionChanged"
                                           Grid.Column="2"
                                           Grid.Row="4"
                                           Margin="0,2,0,0">
@@ -4510,10 +4443,9 @@
                                          TextWrapping="NoWrap"
                                          VerticalAlignment="Top"
                                          Width="105"
-                                         KeyDown="tbxAudio_Volume_KeyDown"
+                                         PreviewTextInput="Allow_Only_Numbers"
                                          MaxLines="1"
                                          MaxLength="6"
-                                         TextChanged="tbxAudio_Volume_TextChanged"
                                          Grid.Column="2"
                                          Grid.Row="0" />
 
@@ -4593,7 +4525,6 @@
                                         Minimum="-24"
                                         Maximum="0"
                                         MouseDoubleClick="slAudio_HardLimiter_MouseDoubleClick"
-                                        PreviewMouseUp="slAudio_HardLimiter_PreviewMouseUp"
                                         Grid.Column="2"
                                         Grid.Row="1"
                                         Height="18" />
@@ -4610,7 +4541,6 @@
                                          Width="39"
                                          Height="22"
                                          MaxLength="5"
-                                         PreviewKeyUp="tbxAudio_HardLimiter_PreviewKeyUp"
                                          ToolTipService.InitialShowDelay="500"
                                          ToolTipService.ShowOnDisabled="True"
                                          ToolTip="dB"
@@ -5440,8 +5370,7 @@
                                                           Width="105"
                                                           Grid.Row="6"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Deband_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
 
                                                 <!-- Deshake -->
@@ -5466,8 +5395,7 @@
                                                           Width="105"
                                                           Grid.Row="7"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Deshake_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
 
                                                 <!-- Deflicker -->
@@ -5492,8 +5420,7 @@
                                                           Width="105"
                                                           Grid.Row="4"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Deflicker_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
 
                                                 <!-- Dejudder -->
@@ -5518,8 +5445,7 @@
                                                           Width="105"
                                                           Grid.Row="8"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Dejudder_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
 
                                                 <!-- Denoise -->
@@ -5544,8 +5470,7 @@
                                                           Width="105"
                                                           Grid.Row="5"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Denoise_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
 
                                                 <!-- Deinterlace -->
@@ -5570,8 +5495,7 @@
                                                           Width="105"
                                                           Grid.Row="2"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Deinterlace_SelectionChanged" />
+                                                          Height="22" />
 
                                                 <!-- Deblock -->
                                                 <Label Style="{DynamicResource LabelStyle}"
@@ -5595,8 +5519,7 @@
                                                           Width="105"
                                                           Grid.Row="3"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Deblock_SelectionChanged" />
+                                                          Height="22" />
                                             </Grid>
 
 
@@ -5651,8 +5574,7 @@
                                                           Width="105"
                                                           Grid.Row="1"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Flip_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
 
                                                 <!-- Rotate -->
@@ -5677,8 +5599,7 @@
                                                           Width="105"
                                                           Grid.Row="2"
                                                           Grid.Column="2"
-                                                          Height="22"
-                                                          SelectionChanged="cboFilterVideo_Rotate_SelectionChanged">
+                                                          Height="22">
                                                 </ComboBox>
                                             </Grid>
 
@@ -5864,7 +5785,6 @@
                                                     Value="{Binding FilterAudio_Contrast_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsEnabled="{Binding FilterAudio_Contrast_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     MouseDoubleClick="slFilterAudio_Contrast_MouseDoubleClick"
-                                                    PreviewMouseUp="slFilterAudio_Contrast_PreviewMouseUp"
                                                     Grid.Column="2"
                                                     Grid.Row="8"
                                                     Height="18" />
@@ -5879,8 +5799,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterAudio_Contrast_KeyDown"
-                                                     PreviewKeyUp="tbxFilterAudio_Contrast_PreviewKeyUp"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      Grid.Column="2"
                                                      Grid.Row="8" />
 
@@ -5905,7 +5824,6 @@
                                                     Value="{Binding FilterAudio_ExtraStereo_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsEnabled="{Binding FilterAudio_ExtraStereo_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     MouseDoubleClick="slFilterAudio_ExtraStereo_MouseDoubleClick"
-                                                    PreviewMouseUp="slFilterAudio_ExtraStereo_PreviewMouseUp"
                                                     Grid.Column="2"
                                                     Grid.Row="9"
                                                     Height="18" />
@@ -5920,8 +5838,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterAudio_ExtraStereo_KeyDown"
-                                                     PreviewKeyUp="tbxFilterAudio_ExtraStereo_PreviewKeyUp"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      Grid.Column="2"
                                                      Grid.Row="9" />
 
@@ -5982,7 +5899,6 @@
                                                     Value="{Binding FilterAudio_Tempo_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsEnabled="{Binding FilterAudio_Tempo_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     MouseDoubleClick="slFilterAudio_Tempo_MouseDoubleClick"
-                                                    PreviewMouseUp="slFilterAudio_Tempo_PreviewMouseUp"
                                                     Grid.Column="2"
                                                     Grid.Row="13"
                                                     Height="18" />
@@ -5997,8 +5913,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="39"
                                                      VerticalAlignment="Top"
-                                                     KeyDown="tbxFilterAudio_Tempo_KeyDown"
-                                                     PreviewKeyUp="tbxFilterAudio_Tempo_PreviewKeyUp"
+                                                     PreviewTextInput="Allow_Only_Numbers"
                                                      Grid.Column="2"
                                                      Grid.Row="13" />
 
@@ -7224,7 +7139,7 @@
                                           Width="105"
                                           IsTextSearchEnabled="False"
                                           SelectionChanged="threadSelect_SelectionChanged"
-                                          KeyDown="threadSelect_KeyDown"
+                                          PreviewTextInput="Allow_Only_Numbers"
                                           Grid.Column="2"
                                           Grid.Row="3"
                                           Margin="10,2,0,0" />

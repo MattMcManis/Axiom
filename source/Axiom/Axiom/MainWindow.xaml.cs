@@ -1529,62 +1529,91 @@ namespace Axiom
         }
 
 
+        private static readonly Regex numsOnlyRegex = new Regex(@"\d+");
+
         /// <summary>
-        /// Deny Special Keys
+        /// Allow Only Numbers 
         /// </summary>
-        public void Deny_Special_Keys(KeyEventArgs e)
+        public void Allow_Only_Numbers(object sender, TextCompositionEventArgs e)
         {
-            if ((Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8) || // *
-                (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8) ||  // *
-
-                (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemPeriod) ||  // >
-                (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemPeriod) ||  // >
-
-                (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemComma) ||  // <
-                (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemComma) ||  // <
-
-                e.Key == Key.Tab ||  // tab
-                e.Key == Key.Oem2 ||  // forward slash
-                e.Key == Key.OemBackslash ||  // backslash
-                e.Key == Key.OemQuestion ||  // ?
-                e.Key == Key.OemQuotes ||  // "
-                e.Key == Key.OemSemicolon ||  // ;
-                e.Key == Key.OemPipe // |
-                )
+            var textBox = e.Source as TextBox;
+            if (textBox != null)
             {
-                e.Handled = true;
+                var finalText = (textBox.SelectedText.Length > 0
+                    ? textBox.Text.Replace(textBox.SelectedText, "")
+                    : textBox.Text)
+                    + e.Text;
+
+                e.Handled = !numsOnlyRegex.IsMatch(finalText);
             }
         }
 
         /// <summary>
-        /// Deny Backspace Key
+        /// Allow Only Two Numbers, then tabs to next control automatically.
         /// </summary>
-        public void Deny_Backspace_Key(KeyEventArgs e)
+        public void Allow_Only_Two_Numbers(object sender, TextCompositionEventArgs e)
         {
-            if (e.Key != Key.Back)
+            var textBox = e.Source as TextBox;
+            if (textBox != null)
             {
-                e.Handled = true;
+                var finalText = (textBox.SelectedText.Length > 0 
+                    ? textBox.Text.Replace(textBox.SelectedText, "") 
+                    : textBox.Text) 
+                    + e.Text;
+                
+                e.Handled = !numsOnlyRegex.IsMatch(finalText);            
+                if (finalText.Length > 2)
+                {
+                    textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    if (Keyboard.FocusedElement is TextBox t)
+                        t.SelectAll();
+                    else
+                        e.Handled = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Allow Only Three Numbers, then tabs to next control automatically.
+        /// </summary>
+        public void Allow_Only_Three_Numbers(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = e.Source as TextBox;
+            if (textBox != null)
+            {
+                var finalText = (textBox.SelectedText.Length > 0
+                    ? textBox.Text.Replace(textBox.SelectedText, "")
+                    : textBox.Text)
+                    + e.Text;
+
+                e.Handled = !numsOnlyRegex.IsMatch(finalText);
+                if (finalText.Length > 3)
+                {
+                    textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    if (Keyboard.FocusedElement is TextBox t)
+                        t.SelectAll();
+                    else
+                        e.Handled = true;
+                }
             }
         }
 
         /// <summary>
         /// Allow Only Numbers & Backspace
         /// </summary>
-        public void Allow_Only_Number_Keys(KeyEventArgs e)
+        /*public void Allow_Only_Number_Keys(KeyEventArgs e)
         {
             // Only allow Numbers
             // Deny Symbols (Shift + Number)
-            if (!(e.Key >= System.Windows.Input.Key.D0 && e.Key <= System.Windows.Input.Key.D9) ||
+            e.Handled = !(((e.Key >= System.Windows.Input.Key.D0 && e.Key <= System.Windows.Input.Key.D9) ||
                 (e.Key >= System.Windows.Input.Key.NumPad0 && e.Key <= System.Windows.Input.Key.NumPad9) ||
                 e.Key == System.Windows.Input.Key.Back ||
                 e.Key == System.Windows.Input.Key.Delete ||
-                (Keyboard.IsKeyDown(System.Windows.Input.Key.LeftShift) && (e.Key >= System.Windows.Input.Key.D9)) ||
-                (Keyboard.IsKeyDown(System.Windows.Input.Key.RightShift) && (e.Key >= System.Windows.Input.Key.D9))
-                )
-            {
-                e.Handled = true;
-            }
-        }
+                e.Key == System.Windows.Input.Key.Tab ||
+                e.Key == System.Windows.Input.Key.Enter) &&
+                !(Keyboard.IsKeyDown(System.Windows.Input.Key.LeftShift) ||
+                Keyboard.IsKeyDown(System.Windows.Input.Key.RightShift)));                
+        }*/
 
 
         /// <summary>

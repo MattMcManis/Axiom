@@ -59,7 +59,7 @@ namespace ViewModel
         /// </summary>
         public void LoadControlsDefaults()
         {
-            Format_Container_SelectedItem = "webm";
+            Format_Container_SelectedItem = "mp4";
 
             Format_MediaType_IsEnabled = true;
             Format_MediaType_SelectedItem = "Video";
@@ -96,19 +96,19 @@ namespace ViewModel
         public ObservableCollection<FormatContainer> _Format_Container_Items = new ObservableCollection<FormatContainer>()
         {
             new FormatContainer() { Name = "Video", Category = true  },
-            new FormatContainer() { Name = "webm",  Category = false },
-            new FormatContainer() { Name = "mp4",   Category = false },
-            new FormatContainer() { Name = "mkv",   Category = false },
-            new FormatContainer() { Name = "mpg",   Category = false },
             new FormatContainer() { Name = "avi",   Category = false },
+            new FormatContainer() { Name = "mkv",   Category = false },
+            new FormatContainer() { Name = "mp4",   Category = false },
+            new FormatContainer() { Name = "mpg",   Category = false },
             new FormatContainer() { Name = "ogv",   Category = false },
+            new FormatContainer() { Name = "webm",  Category = false },
             //new FormatContainer() { Name = "m2v",   Category = false },
 
             new FormatContainer() { Name = "Audio", Category = true  },
-            new FormatContainer() { Name = "mp3",   Category = false },
-            new FormatContainer() { Name = "m4a",   Category = false },
-            new FormatContainer() { Name = "ogg",   Category = false },
             new FormatContainer() { Name = "flac",  Category = false },
+            new FormatContainer() { Name = "ogg",   Category = false },
+            new FormatContainer() { Name = "m4a",   Category = false },
+            new FormatContainer() { Name = "mp3",   Category = false },
             new FormatContainer() { Name = "wav",   Category = false },
 
             new FormatContainer() { Name = "Image", Category = true  },

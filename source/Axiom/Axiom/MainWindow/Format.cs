@@ -181,11 +181,6 @@ namespace Axiom
                 VM.FormatView.Format_CutStart_Hours_Text = "00";
             }
         }
-        // Key Down
-        private void tbxCutStartHours_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
-        }
 
         // -------------------------
         // Cut Start - Minutes - Textbox Change
@@ -210,11 +205,6 @@ namespace Axiom
             {
                 VM.FormatView.Format_CutStart_Minutes_Text = "00";
             }
-        }
-        // Key Down
-        private void tbxCutStartMinutes_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -241,11 +231,6 @@ namespace Axiom
                 VM.FormatView.Format_CutStart_Seconds_Text = "00";
             }
         }
-        // Key Down
-        private void tbxCutStartSeconds_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
-        }
 
         // -------------------------
         // Cut Start - Milliseconds - Textbox Change
@@ -270,11 +255,6 @@ namespace Axiom
             {
                 VM.FormatView.Format_CutStart_Milliseconds_Text = "000";
             }
-        }
-        // Key Down
-        private void tbxCutStartMilliseconds_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
         }
 
         /// <summary>
@@ -304,11 +284,6 @@ namespace Axiom
                 VM.FormatView.Format_CutEnd_Hours_Text = "00";
             }
         }
-        // Key Down
-        private void tbxCutEndHours_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
-        }
 
         // -------------------------
         // Cut End - Minutes - Textbox Change
@@ -333,11 +308,6 @@ namespace Axiom
             {
                 VM.FormatView.Format_CutEnd_Minutes_Text = "00";
             }
-        }
-        // Key Down
-        private void tbxCutEndMinutes_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
         }
 
         // -------------------------
@@ -364,11 +334,6 @@ namespace Axiom
                 VM.FormatView.Format_CutEnd_Seconds_Text = "00";
             }
         }
-        // Key Down
-        private void tbxCutEndSeconds_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
-        }
 
         // -------------------------
         // Cut End - Milliseconds - Textbox Change
@@ -394,11 +359,6 @@ namespace Axiom
                 VM.FormatView.Format_CutEnd_Milliseconds_Text = "000";
             }
         }
-        // Key Down
-        private void tbxCutEndMilliseconds_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
-        }
 
 
         // -------------------------
@@ -412,11 +372,6 @@ namespace Axiom
         private void tbxFrameStart_LostFocus(object sender, RoutedEventArgs e)
         {
         }
-        // Key Down
-        private void tbxFrameStart_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
-        }
 
         // -------------------------
         // Frame End Textbox Change
@@ -428,11 +383,6 @@ namespace Axiom
         // Lost Focus
         private void tbxFrameEnd_LostFocus(object sender, RoutedEventArgs e)
         {
-        }
-        // Key Down
-        private void tbxFrameEnd_KeyDown(object sender, KeyEventArgs e)
-        {
-            Allow_Only_Number_Keys(e);
         }
 
 

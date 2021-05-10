@@ -53,7 +53,7 @@ namespace Profiles
                     VM.FormatView.Format_Container_SelectedItem == "webp")
                 {
                     // Format
-                    VM.FormatView.Format_Container_SelectedItem = "webm";
+                    VM.FormatView.Format_Container_SelectedItem = "mp4";
                     VM.FormatView.Format_Cut_SelectedItem = "No";
                     VM.FormatView.Format_CutStart_Hours_Text = "00";
                     VM.FormatView.Format_CutStart_Minutes_Text = "00";

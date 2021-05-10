@@ -1111,12 +1111,6 @@ namespace Axiom
             Controls.Configure.threads = VM.ConfigureView.Threads_SelectedItem;
         }
 
-        // Key Down
-        private void threadSelect_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers and Backspace
-            Allow_Only_Number_Keys(e);
-        }
 
         /// <summary>
         /// Threads Default
