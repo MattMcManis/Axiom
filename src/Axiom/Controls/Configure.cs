@@ -174,7 +174,12 @@ namespace Controls
                             VM.AudioView.LoadControlsDefaults();
 
                             // Restart Program
-                            Process.Start(Application.ResourceAssembly.Location);
+                            var p = new ProcessStartInfo
+                            {
+                                FileName = Application.ResourceAssembly.Location,
+                                UseShellExecute = true
+                            };
+                            Process.Start(p);
                             Application.Current.Shutdown();
                             break;
 

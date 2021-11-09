@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using ViewModel;
@@ -146,12 +147,13 @@ namespace Preview
 
 
                 // Start FFplay
-                System.Diagnostics.Process.Start(
-                    ffplay,
-                    //"/c " //always close cmd
-                    //FFmpeg.KeepWindow(mainwindow)
-                    ffplayArgs
-                );
+                var p = new ProcessStartInfo
+                {
+                    FileName = ffplay,
+                    Arguments = ffplayArgs,
+                    UseShellExecute = true
+                };
+                Process.Start(p);
             }
 
             // Batch Warning

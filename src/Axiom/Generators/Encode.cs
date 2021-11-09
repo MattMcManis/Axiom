@@ -40,6 +40,7 @@ using System.Windows.Documents;
 using ViewModel;
 using Axiom;
 using System.Collections;
+using System.Diagnostics;
 using System.Threading.Tasks;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -68,36 +69,45 @@ namespace Encode
             // -------------------------
             // Start FFmpeg Process
             // -------------------------
+            ProcessStartInfo p;
             switch (VM.ConfigureView.Shell_SelectedItem)
             {
                 // -------------------------
                 // CMD
                 // -------------------------
                 case "CMD":
-                    System.Diagnostics.Process.Start(
-                        "cmd.exe",
-                        Sys.Shell.KeepWindow() +
+                    p = new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = Sys.Shell.KeepWindow() +
                         // Do not use WrapWithQuotes() Method on outputDir
                         "cd " + "\"" + MainWindow.outputDir + "\"" +
                         " & " +
-                        args
-                    );
+                        args,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     break;
 
                 // -------------------------
                 // PowerShell
                 // -------------------------
                 case "PowerShell":
-                    System.Diagnostics.Process.Start(
-                        "powershell.exe",
-                        Sys.Shell.KeepWindow() +
-                        // Do not use WrapWithQuotes() Method on outputDir
-                        "-command \"Set-Location " + "\"" + MainWindow.outputDir.Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
-                                                                                .Replace("\"", "\\\"") + // Format Quotes " → \"
-                                                    "\"" +
-                        "; " +
-                        args.Replace("\"", "\\\"") // Format Quotes " → \"
-                    );
+                    p = new ProcessStartInfo
+                    {
+                        FileName = "powershell.exe",
+                        Arguments = Sys.Shell.KeepWindow() +
+                                    // Do not use WrapWithQuotes() Method on outputDir
+                                    "-command \"Set-Location " + "\"" + MainWindow.outputDir
+                                        .Replace("\\", "\\\\") // Format Backslashes for PowerShell \ → \\
+                                        .Replace("\"", "\\\"") + // Format Quotes " → \"
+                                    "\"" +
+                                    "; " +
+                                    args.Replace("\"", "\\\"") // Format Quotes " → \"
+                        ,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     break;
             }
         }

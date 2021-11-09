@@ -43,7 +43,12 @@ namespace Axiom
         {
             if (Directory.Exists(path))
             {
-                Process.Start("explorer.exe", path);
+                var p = new ProcessStartInfo
+                {
+                    FileName = path,
+                    UseShellExecute = true
+                };
+                Process.Start(p);
             }
             else
             {
@@ -60,7 +65,12 @@ namespace Axiom
                         try
                         {
                             Directory.CreateDirectory(path);
-                            Process.Start("explorer.exe", path);
+                            var p = new ProcessStartInfo
+                            {
+                                FileName = path,
+                                UseShellExecute = true
+                            };
+                            Process.Start(p);
                         }
                         catch
                         {
@@ -103,7 +113,12 @@ namespace Axiom
 
                 // App Root
                 case "App Root":
-                    Process.Start("explorer.exe", appRootDir);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = appRootDir,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     break;
             }
         }
@@ -133,7 +148,12 @@ namespace Axiom
 
                 // App Root
                 case "App Root":
-                    Process.Start("explorer.exe", appRootDir);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = appRootDir,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     break;
             }
         }
@@ -434,7 +454,12 @@ namespace Axiom
             {
                 if (Directory.Exists(VM.ConfigureView.CustomPresetsPath_Text))
                 {
-                    Process.Start("explorer.exe", VM.ConfigureView.CustomPresetsPath_Text);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = VM.ConfigureView.CustomPresetsPath_Text,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                 }
             }
         }
@@ -607,7 +632,12 @@ namespace Axiom
             {
                 if (Directory.Exists(ffmpegPath))
                 {
-                    Process.Start("explorer.exe", ffmpegPath);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = ffmpegPath,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                 }
             }
         }
@@ -710,7 +740,13 @@ namespace Axiom
             {
                 if (Directory.Exists(ffprobePath))
                 {
-                    Process.Start("explorer.exe", ffprobePath);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = ffprobePath,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(p);
                 }
             }
         }
@@ -813,7 +849,13 @@ namespace Axiom
             {
                 if (Directory.Exists(ffplayPath))
                 {
-                    Process.Start("explorer.exe", ffplayPath);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = ffplayPath,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(p);
                 }
             }
         }
@@ -916,7 +958,13 @@ namespace Axiom
             {
                 if (Directory.Exists(youtubedlPath))
                 {
-                    Process.Start("explorer.exe", youtubedlPath);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = youtubedlPath,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(p);
                 }
             }
         }
@@ -960,7 +1008,13 @@ namespace Axiom
             {
                 if (Directory.Exists(VM.ConfigureView.LogPath_Text))
                 {
-                    Process.Start("explorer.exe", VM.ConfigureView.LogPath_Text);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = VM.ConfigureView.LogPath_Text,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(p);
                 }
             }
         }
@@ -1449,7 +1503,12 @@ namespace Axiom
                     VM.AudioView.LoadControlsDefaults();
 
                     // Restart Program
-                    Process.Start(Application.ResourceAssembly.Location);
+                    var p = new ProcessStartInfo
+                    {
+                        FileName = Application.ResourceAssembly.Location,
+                        UseShellExecute = true
+                    };
+                    Process.Start(p);
                     Application.Current.Shutdown();
                 }
                 // No

@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>axiom.ico</ApplicationIcon>
+    <Description>FFmpeg GUI</Description>
+    <Company>Matt McManis</Company>
+    <Copyright>© MattMcManis 2017-2021</Copyright>
+    <Product>Axiom UI</Product>
+    <Version>1.9.6.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Black\2pass.png" />
+    <Resource Include="Resources\Images\Buttons\Black\ArrowDown.png" />
+    <Resource Include="Resources\Images\Buttons\Black\ArrowUp.png" />
+    <Resource Include="Resources\Images\Buttons\Black\autoplay.png" />
+    <Resource Include="Resources\Images\Buttons\Black\autosortscript.png" />
+    <Resource Include="Resources\Images\Buttons\Black\cmd.png" />
+    <Resource Include="Resources\Images\Buttons\Black\configuregear.png" />
+    <Resource Include="Resources\Images\Buttons\Black\debugconsole.png" />
+    <Resource Include="Resources\Images\Buttons\Black\folder.png" />
+    <Resource Include="Resources\Images\Buttons\Black\info.png" />
+    <Resource Include="Resources\Images\Buttons\Black\log.png" />
+    <Resource Include="Resources\Images\Buttons\Black\logconsole.png" />
+    <Resource Include="Resources\Images\Buttons\Black\properties.png" />
+    <Resource Include="Resources\Images\Buttons\Black\revertarrow.png" />
+    <Resource Include="Resources\Images\Buttons\Black\save.png" />
+    <Resource Include="Resources\Images\Buttons\Black\update.png" />
+    <Resource Include="Resources\Images\Buttons\Black\web.png" />
+    <Resource Include="Resources\Images\Buttons\Black\window.png" />
+    <Resource Include="Resources\Images\Buttons\White\2pass.png" />
+    <Resource Include="Resources\Images\Buttons\White\ArrowDown.png" />
+    <Resource Include="Resources\Images\Buttons\White\ArrowUp.png" />
+    <Resource Include="Resources\Images\Buttons\White\autoplay.png" />
+    <Resource Include="Resources\Images\Buttons\White\autosortscript.png" />
+    <Resource Include="Resources\Images\Buttons\White\cmd.png" />
+    <Resource Include="Resources\Images\Buttons\White\configuregear.png" />
+    <Resource Include="Resources\Images\Buttons\White\debugconsole.png" />
+    <Resource Include="Resources\Images\Buttons\White\folder.png" />
+    <Resource Include="Resources\Images\Buttons\White\info.png" />
+    <Resource Include="Resources\Images\Buttons\White\log.png" />
+    <Resource Include="Resources\Images\Buttons\White\logconsole.png" />
+    <Resource Include="Resources\Images\Buttons\White\properties.png" />
+    <Resource Include="Resources\Images\Buttons\White\revertarrow.png" />
+    <Resource Include="Resources\Images\Buttons\White\save.png" />
+    <Resource Include="Resources\Images\Buttons\White\update.png" />
+    <Resource Include="Resources\Images\Buttons\White\web.png" />
+    <Resource Include="Resources\Images\Buttons\White\window.png" />
+    <Resource Include="Resources\Images\Icons\configure.ico" />
+    <Resource Include="Resources\Images\Icons\DebugConsole.ico" />
+    <Resource Include="Resources\Images\Icons\info.ico" />
+    <Resource Include="Resources\Images\Icons\LogConsole.ico" />
+    <Resource Include="Resources\Images\Themes\Axiom\background.jpg" />
+    <Resource Include="Resources\Images\Themes\Axiom\BrowseTextBox.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\buttonCropClearDisabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\buttonCropClearEnabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\buttonCropDisabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\buttonCropEnabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ComboBoxDisabled-75x22.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ComboBoxEnabled-75x22.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ComboBoxMouseOverBorder-75x22.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\config-background.jpg" />
+    <Resource Include="Resources\Images\Themes\Axiom\TextBoxDisabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\TextBoxEnabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallChecked.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallDisabled.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallMouseOver-Unchecked.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallMouseOver.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallUnchecked.png" />
+    <Resource Include="axiom.ico" />
+    <Resource Include="Resources\Images\Buttons\White\export.png" />
+    <Resource Include="Resources\Images\Buttons\White\import.png" />
+    <Resource Include="Resources\Images\Buttons\Black\export.png" />
+    <Resource Include="Resources\Images\Buttons\Black\import.png" />
+    <Resource Include="Resources\Images\Buttons\White\delete.png" />
+    <Resource Include="Resources\Images\Buttons\Black\delete.png" />
+    <Resource Include="Resources\Images\Buttons\Black\clear.png" />
+    <Resource Include="Resources\Images\Buttons\White\clear.png" />
+    <Resource Include="Resources\Images\Themes\Axiom\TextBoxSettingsEnabled.png" />
+  </ItemGroup>
+</Project>

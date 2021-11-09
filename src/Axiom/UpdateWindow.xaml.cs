@@ -203,7 +203,13 @@ namespace Axiom
                 string arguments = string.Join(" ", extractArgs.Where(s => !string.IsNullOrEmpty(s)));
 
                 // Start
-                Process.Start("powershell.exe", arguments);
+                var p = new ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = arguments,
+                    UseShellExecute = true
+                };
+                Process.Start(p);
 
                 // Close Axiom before updating exe
                 Application.Current.Shutdown();
